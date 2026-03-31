@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Urlaubfinder365",
+    "slug": "urlaubfinder365",
+    "version": "1.0.0",
+    "scheme": "urlaubfinder365",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f49d1a"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "de.urlaubfinder365.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Wird für die Reisekarte und nahegelegene Reiseziele verwendet."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#f49d1a"
+      },
+      "package": "de.urlaubfinder365.app",
+      "permissions": ["ACCESS_FINE_LOCATION"]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#f49d1a"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

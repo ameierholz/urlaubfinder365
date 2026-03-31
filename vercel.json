@@ -1,0 +1,41 @@
+{
+  "framework": "nextjs",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm turbo build --filter=web",
+  "outputDirectory": "apps/web/.next",
+  "regions": ["fra1"],
+  "crons": [
+    {
+      "path": "/api/cron/collect-prices?profile=pauschal",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/collect-prices?profile=hotel",
+      "schedule": "0 4 * * *"
+    },
+    {
+      "path": "/api/cron/collect-prices?profile=ai",
+      "schedule": "0 5 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

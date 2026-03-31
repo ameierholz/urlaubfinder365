@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  /* Urlaubfinder365 Farbpalette — warm, reisefreudig */
+  --color-primary-50: #fef3e2;
+  --color-primary-100: #fde4b8;
+  --color-primary-200: #fbd38d;
+  --color-primary-300: #f9c060;
+  --color-primary-400: #f6ad3c;
+  --color-primary-500: #f49d1a;
+  --color-primary-600: #e08816;
+  --color-primary-700: #c06f12;
+  --color-primary-800: #9a580e;
+  --color-primary-900: #7a450b;
+
+  --color-accent-50: #e6f7f7;
+  --color-accent-100: #b3e8e8;
+  --color-accent-200: #80d9d9;
+  --color-accent-300: #4dcaca;
+  --color-accent-400: #26bfbf;
+  --color-accent-500: #0ea5a5;
+  --color-accent-600: #0c8f8f;
+  --color-accent-700: #0a7373;
+  --color-accent-800: #085858;
+  --color-accent-900: #063d3d;
+
+  --color-sand-50: #faf8f5;
+  --color-sand-100: #f3efe8;
+  --color-sand-200: #e8e0d4;
+  --color-sand-300: #d4c8b5;
+  --color-sand-400: #bfad96;
+  --color-sand-500: #a89277;
+  --color-sand-600: #8a7560;
+  --color-sand-700: #6b5a4a;
+  --color-sand-800: #4d4035;
+  --color-sand-900: #302821;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus-Styles für Barrierefreiheit */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}

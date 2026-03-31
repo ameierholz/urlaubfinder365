@@ -1,0 +1,42 @@
+{
+  "name": "mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "build:dev": "eas build --profile development",
+    "build:preview": "eas build --profile preview",
+    "build:prod": "eas build --profile production",
+    "lint": "eslint app/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^14",
+    "@react-navigation/bottom-tabs": "^7",
+    "@supabase/supabase-js": "^2",
+    "@urlaubfinder/shared": "workspace:*",
+    "expo": "~52",
+    "expo-constants": "~17",
+    "expo-linking": "~7",
+    "expo-notifications": "~0.29",
+    "expo-router": "~4",
+    "expo-secure-store": "~14",
+    "expo-splash-screen": "~0.29",
+    "expo-status-bar": "~2",
+    "expo-web-browser": "~14",
+    "react": "19.0.0",
+    "react-native": "0.77.3",
+    "react-native-maps": "1.21.0",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "~4.10",
+    "react-native-web": "~0.19"
+  },
+  "devDependencies": {
+    "@babel/core": "^7",
+    "@types/react": "~19",
+    "typescript": "^5"
+  }
+}

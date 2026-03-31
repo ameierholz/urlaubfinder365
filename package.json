@@ -1,0 +1,20 @@
+{
+  "name": "urlaubfinder365",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:web": "turbo dev --filter=web",
+    "dev:mobile": "turbo dev --filter=mobile",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "db:migrate": "cd packages/supabase && supabase db push",
+    "db:reset": "cd packages/supabase && supabase db reset",
+    "vercel-build": "turbo build --filter=web"
+  },
+  "devDependencies": {
+    "turbo": "^2",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
