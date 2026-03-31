@@ -475,19 +475,16 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="22" cy="22" r="22" fill="#1db682"/>
-              <text x="22" y="18" fontFamily="Arial,sans-serif" fontSize="11" fontWeight="900" fill="white" textAnchor="middle">UF</text>
-              <text x="22" y="29" fontFamily="Arial,sans-serif" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.9)" textAnchor="middle">365</text>
-              <path d="M12 34 Q22 30 32 34" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none"/>
-            </svg>
-            <span
-              className="font-bold text-2xl text-white drop-shadow-sm"
-              style={{ fontFamily: "var(--font-annie), cursive" }}
-            >
-              Urlaubfinder<span className="text-sand-300">365</span>
-            </span>
+          <Link href="/" className="flex items-center shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/Urlaubfinder_Logo.webp"
+              alt="Urlaubfinder365"
+              width={52}
+              height={52}
+              className="h-13 w-auto"
+              style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.3))" }}
+            />
           </Link>
 
           {/* Desktop Navigation */}

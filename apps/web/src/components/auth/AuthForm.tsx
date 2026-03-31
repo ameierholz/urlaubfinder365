@@ -8,12 +8,14 @@ import { Eye, EyeOff, Chrome, Bell, Heart, BarChart2, CheckSquare, Map, Star } f
 
 function LogoSVG({ size = 44 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Urlaubfinder365">
-      <circle cx="22" cy="22" r="22" fill="#1db682"/>
-      <text x="22" y="18" fontFamily="Arial,sans-serif" fontSize="11" fontWeight="900" fill="white" textAnchor="middle">UF</text>
-      <text x="22" y="29" fontFamily="Arial,sans-serif" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.9)" textAnchor="middle">365</text>
-      <path d="M12 34 Q22 30 32 34" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none"/>
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/Urlaubfinder_Logo.webp"
+      alt="Urlaubfinder365"
+      width={size}
+      height={size}
+      style={{ width: size, height: size, objectFit: "contain" }}
+    />
   );
 }
 
