@@ -105,19 +105,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (su) {
         const appUser = mapToAppUser(su);
         setUser(appUser);
-        setUserProfile(await fetchProfile(su.id));
+        fetchProfile(su.id).then(setUserProfile).catch(() => {}).finally(() => setLoading(false));
       } else {
         setUser(null);
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    }).catch(() => setLoading(false));
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       const su = session?.user ?? null;
       if (su) {
         const appUser = mapToAppUser(su);
         setUser(appUser);
-        setUserProfile(await fetchProfile(su.id));
+        fetchProfile(su.id).then(setUserProfile).catch(() => {});
       } else {
         setUser(null);
         setUserProfile(null);
