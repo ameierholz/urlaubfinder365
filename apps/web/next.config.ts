@@ -32,6 +32,23 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://d.adup-tech.com https://s.adup-tech.com https://vercel.live https://*.vercel.app",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com",
+              "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com data:",
+              "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://img.tiqets.com https://*.supabase.co",
+              "connect-src 'self' https://*.supabase.co https://*.firebaseio.com https://*.googleapis.com https://api.specials.de https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://d.adup-tech.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+              "frame-src 'self' https://ibe.specials.de https://d.adup-tech.com",
+              "media-src 'self'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+            ].join("; "),
+          },
         ],
       },
       {

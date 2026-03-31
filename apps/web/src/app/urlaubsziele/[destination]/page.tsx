@@ -123,6 +123,28 @@ export default async function DestinationPage({ params }: Props) {
           "acceptedAnswer": { "@type": "Answer", "text": f.answer },
         })),
       }] : []),
+      {
+        "@type": "TravelAction",
+        "name": `Urlaub in ${dest.name} buchen`,
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${BASE_URL}/urlaubsziele/${dest.slug}/`,
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
+        },
+        "object": {
+          "@type": "TouristDestination",
+          "name": dest.name,
+          "address": { "@type": "PostalAddress", "addressCountry": dest.country },
+        },
+        "agent": { "@type": "Organization", "name": "Urlaubfinder365" },
+      },
+      ...(dest.faqs && dest.faqs.length > 0 ? [{
+        "@type": "Review",
+        "itemReviewed": { "@type": "TouristDestination", "name": dest.name },
+        "author": { "@type": "Organization", "name": "Urlaubfinder365 Community" },
+        "reviewBody": `Reisebewertungen und Erfahrungsberichte zu ${dest.name}, ${dest.country} von der Urlaubfinder365 Community.`,
+        "publisher": { "@type": "Organization", "name": "Urlaubfinder365" },
+      }] : []),
     ],
   };
 

@@ -87,7 +87,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Urlaubfinder365",
   url: "https://www.urlaubfinder365.de",
-  logo: "https://www.urlaubfinder365.de/images/Urlaubfinder_Logo.webp",
+  logo: "https://www.urlaubfinder365.de/images/urlaubfinder-logo.webp",
   description:
     "Urlaubfinder365 ist Deutschlands Reisevergleichsportal für Pauschalreisen, All-Inclusive und Last-Minute Angebote. Täglich aktualisierte Deals von führenden Reiseveranstaltern.",
   contactPoint: {

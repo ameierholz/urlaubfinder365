@@ -478,7 +478,7 @@ export default function Header() {
           <Link href="/" className="flex items-center shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/Urlaubfinder_Logo.webp"
+              src="/images/urlaubfinder-logo.webp"
               alt="Urlaubfinder365"
               width={72}
               height={72}
