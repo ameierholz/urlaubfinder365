@@ -2,10 +2,20 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { Eye, EyeOff, Chrome, Bell, Heart, BarChart2, CheckSquare, Map, Star } from "lucide-react";
+
+function LogoSVG({ size = 44 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Urlaubfinder365">
+      <circle cx="22" cy="22" r="22" fill="#1db682"/>
+      <text x="22" y="18" fontFamily="Arial,sans-serif" fontSize="11" fontWeight="900" fill="white" textAnchor="middle">UF</text>
+      <text x="22" y="29" fontFamily="Arial,sans-serif" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.9)" textAnchor="middle">365</text>
+      <path d="M12 34 Q22 30 32 34" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none"/>
+    </svg>
+  );
+}
 
 interface Props {
   mode: "login" | "register";
@@ -103,7 +113,7 @@ export default function AuthForm({ mode }: Props) {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 w-full max-w-md p-8">
           <Link href="/" className="flex justify-center mb-8">
-            <Image src="/images/header_logo.webp" alt="Urlaubfinder365" width={140} height={56} className="object-contain" priority />
+            <LogoSVG size={56} />
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 text-center mb-1">Willkommen zurück</h1>
           <p className="text-gray-500 text-sm text-center mb-6">Melde dich an, um deine Reisen zu verwalten.</p>
@@ -162,8 +172,7 @@ export default function AuthForm({ mode }: Props) {
         <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-8 lg:p-10 lg:w-[52%] flex flex-col justify-between">
           <div>
             <Link href="/" className="flex justify-start mb-8">
-              <Image src="/images/header_logo.webp" alt="Urlaubfinder365" width={130} height={40}
-                className="object-contain h-10 w-auto" priority />
+              <LogoSVG size={40} />
             </Link>
 
             <h2 className="text-2xl font-bold mb-1">Dein kostenloses Reisekonto</h2>
