@@ -24,6 +24,9 @@ const arten = [
 
 export default function UrlaubsartenPage() {
   return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/urlaubsarten_header.webp" alt="Urlaubsarten" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Urlaubsarten – Pauschalreisen, All-Inclusive & mehr</h1>
@@ -52,5 +55,6 @@ export default function UrlaubsartenPage() {
         <LifestyleSection />
       </div>
     </div>
+    </>
   );
 }

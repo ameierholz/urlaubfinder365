@@ -21,6 +21,8 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/community_header.webp" alt="Community" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
       {/* Hero */}
       <section className="relative bg-gradient-to-br from-teal-700 via-teal-600 to-cyan-500 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">

@@ -17,6 +17,9 @@ export const metadata: Metadata = {
 
 export default function UrlaubsguidesPage() {
   return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/images/urlaubsguides_header.webp" alt="Urlaubsguides" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-sand-50 text-sand-600 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
@@ -56,5 +59,6 @@ export default function UrlaubsguidesPage() {
         ))}
       </div>
     </div>
+    </>
   );
 }
