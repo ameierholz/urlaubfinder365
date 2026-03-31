@@ -82,6 +82,26 @@ export default function IbeProvider() {
             </button>
           </div>
 
+          {/* Trust bar – always visible, independent of title text */}
+          <div className="ibe-trust-bar">
+            <span className="ibe-trust-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              SSL-verschlüsselt
+            </span>
+            <span className="ibe-trust-sep">·</span>
+            <span className="ibe-trust-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              Sichere Buchung
+            </span>
+            <span className="ibe-trust-sep">·</span>
+            <span className="ibe-trust-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              24/7 Kundenservice
+            </span>
+            <span className="ibe-trust-sep">·</span>
+            <span className="ibe-trust-item ibe-trust-brand">Urlaubfinder<strong>365</strong></span>
+          </div>
+
           <div style={{ position: "relative", flexGrow: 1, background: "#f8fafc" }}>
             <div id="ibe-modal-loader" className="ibe-modal-loader">
               <span style={{ marginLeft: 8 }}>Angebote werden geladen...</span>
