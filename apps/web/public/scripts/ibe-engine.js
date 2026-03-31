@@ -403,7 +403,7 @@
     grid.innerHTML = "";
     HOLIDAY_CATEGORIES.forEach((cat, idx) => {
       // Build IBE search URL for this category + region
-      const ibeParams = new URLSearchParams({ agentId: AGENT, adults: "2", duration: "7-7" });
+      const ibeParams = new URLSearchParams({ agent: AGENT, adults: "2", duration: "7-7" });
       if (regionId) ibeParams.set("regionId", regionId);
       if (cat.params.boardCode) ibeParams.set("boardCode", cat.params.boardCode);
       if (cat.params.children)  ibeParams.set("children", cat.params.children);
