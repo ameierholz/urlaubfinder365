@@ -67,7 +67,7 @@ export default function DestinationCarousel({
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="text-xl font-extrabold text-gray-900">{title}</h2>
+          <h2 className="text-4xl font-bold text-gray-900">{title}</h2>
           <p className="text-xs text-gray-400 mt-0.5">Direkt zum Reiseziel – Angebote & Reisetipps</p>
         </div>
         <div className="flex items-center gap-2">

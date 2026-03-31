@@ -261,7 +261,7 @@ export default async function DestinationPage({ params }: Props) {
         }));
         return (
           <DestinationCarousel
-            title={`Alle Reiseziele (Urlaubsziele) in ${dest.name}`}
+            title={`Alle Urlaubsziele in ${dest.name}`}
             items={subItems}
             allHref={`/urlaubsziele/${dest.slug}/`}
           />
