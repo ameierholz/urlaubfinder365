@@ -53,3 +53,5 @@ next-env.d.ts
 *.mobileprovision
 *.orig.*
 web-build/
+
+.vercel
