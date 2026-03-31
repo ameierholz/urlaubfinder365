@@ -472,7 +472,7 @@ export default function Header() {
 
       {/* ── Haupt-Navigation ──────────────────────────────────────────── */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
 
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
@@ -480,10 +480,10 @@ export default function Header() {
             <img
               src="/images/Urlaubfinder_Logo.webp"
               alt="Urlaubfinder365"
-              width={52}
-              height={52}
-              className="h-13 w-auto"
-              style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.3))" }}
+              width={72}
+              height={72}
+              className="h-16 w-auto"
+              style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.35))" }}
             />
           </Link>
 

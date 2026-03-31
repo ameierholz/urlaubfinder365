@@ -261,7 +261,7 @@ export default async function DestinationPage({ params }: Props) {
         }));
         return (
           <DestinationCarousel
-            title={`Alle Reiseziele in ${dest.name}`}
+            title={`Alle Reiseziele (Urlaubsziele) in ${dest.name}`}
             items={subItems}
             allHref={`/urlaubsziele/${dest.slug}/`}
           />
@@ -448,7 +448,7 @@ export default async function DestinationPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="mt-8 bg-gradient-to-r from-blue-600 to-blue-500 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="text-xl font-bold mb-1">Dein digitaler Reisebegleiter für {dest.name}</h3>
+              <h2 className="text-xl font-bold mb-1">Dein digitaler Reisebegleiter für {dest.name}</h2>
               <p className="text-blue-100 text-sm">
                 Einreiseinfos, Klima, Sehenswürdigkeiten, Gesundheitstipps und mehr.
               </p>

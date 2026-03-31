@@ -137,7 +137,7 @@ export default function DestinationCarousel({
 
               {/* Name + Land unten */}
               <div className="absolute bottom-2.5 left-3 right-3">
-                <p className="text-white font-bold text-sm leading-tight drop-shadow">{d.name}</p>
+                <h3 className="text-white font-bold text-sm leading-tight drop-shadow m-0">{d.name}</h3>
                 <p className="text-white/70 text-[10px] leading-tight">{d.country}</p>
               </div>
             </div>

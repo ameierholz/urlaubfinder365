@@ -409,7 +409,7 @@
           </div>
           <div class="hw-card-accent"></div>
           <div class="hw-card-content">
-            <div class="hw-title">${cat.icon} ${cat.label}</div>
+            <h3 class="hw-title">${cat.icon} ${cat.label}</h3>
             <div class="hw-subtitle">${cat.desc}</div>
             <div class="hw-price-container" id="hw-price-${idx}">
               <span class="hw-price-skeleton"></span>
