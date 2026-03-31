@@ -399,11 +399,22 @@
     container.appendChild(grid);
 
     // Render real cards (fire-and-forget price fetch per category)
+    const destName = el.dataset.name || "";
     grid.innerHTML = "";
     HOLIDAY_CATEGORIES.forEach((cat, idx) => {
+      // Build IBE search URL for this category + region
+      const ibeParams = new URLSearchParams({ agentId: AGENT, adults: "2", duration: "7-7" });
+      if (regionId) ibeParams.set("regionId", regionId);
+      if (cat.params.boardCode) ibeParams.set("boardCode", cat.params.boardCode);
+      if (cat.params.children)  ibeParams.set("children", cat.params.children);
+      if (cat.params.keywords)  ibeParams.set("keywords", cat.params.keywords);
+      if (cat.params.to === "14") { ibeParams.set("departureFrom", "0"); ibeParams.set("departureTo", "14"); }
+      const ibeUrl = `https://ibe.specials.de/?${ibeParams}`;
+      const modalTitle = destName ? `${cat.label} – ${destName}` : cat.label;
+
       const li = document.createElement("li");
       li.innerHTML = `
-        <a class="hw-card" href="#${cat.key === "lastminute" ? "last-minute" : cat.key === "ai" ? "all-inclusive" : cat.key === "familie" ? "pauschalreisen" : "pauschalreisen"}" onclick="event.preventDefault(); document.getElementById('${cat.key === "lastminute" ? "last-minute" : cat.key === "ai" ? "all-inclusive" : "pauschalreisen"}')?.scrollIntoView({behavior:'smooth'})">
+        <a class="hw-card" href="${ibeUrl}" onclick="event.preventDefault(); window.ibeOpenBooking('${ibeUrl}', '${modalTitle.replace(/'/g, "\\'")}')">
           <div class="hw-card-image-wrapper">
             <img class="hw-card-image" src="${cat.image}" alt="${cat.label}" loading="lazy" />
           </div>
