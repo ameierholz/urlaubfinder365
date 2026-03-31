@@ -172,7 +172,7 @@
 .hw-widget-scope .hw-card:hover .hw-card-image{transform:scale(1.1)}
 .hw-widget-scope .hw-card-accent{display:block;height:4px;width:100%;background:var(--hw-brand);margin-top:-4px;position:relative;z-index:10}
 .hw-widget-scope .hw-card-content{padding:15px;display:flex;flex-direction:column;flex-grow:1;position:relative;z-index:2;background:#fff}
-.hw-widget-scope .hw-title{font-size:1.65rem;font-weight:700;color:var(--hw-dark);margin:0 0 6px;line-height:1.25}
+.hw-widget-scope .hw-title{font-size:1.05rem;font-weight:700;color:var(--hw-dark);margin:0 0 6px;line-height:1.25}
 .hw-widget-scope .hw-subtitle{font-size:.8125rem;color:var(--hw-light);margin-bottom:12px;flex-grow:1;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-height:3em;font-weight:400}
 .hw-widget-scope .hw-price-container{font-size:.85rem;color:var(--hw-light);margin-bottom:8px;min-height:34px;display:flex;align-items:center}
 .hw-widget-scope .hw-price-value{font-weight:800;color:var(--hw-price-color);font-size:1.1rem;margin-left:4px}
