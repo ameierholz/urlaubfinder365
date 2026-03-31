@@ -20,7 +20,7 @@ export default function Footer() {
 
           {/* Urlaubsziele */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Urlaubsziele</h3>
+            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Urlaubsziele</p>
             <ul className="space-y-2 text-sm">
               {destinations.map((d) => (
                 <li key={d.slug}>
@@ -39,7 +39,7 @@ export default function Footer() {
 
           {/* Ratgeber */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Ratgeber</h3>
+            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Ratgeber</p>
             <ul className="space-y-2 text-sm">
               <li><Link href="/urlaubsguides/" className="hover:text-white transition-colors">Alle Reiseführer</Link></li>
               <li><Link href="/urlaubsarten/pauschalreisen/" className="hover:text-white transition-colors">Pauschalreisen</Link></li>
@@ -51,7 +51,7 @@ export default function Footer() {
 
           {/* Kontakt */}
           <div>
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Kontakt</h3>
+            <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Kontakt</p>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-sand-400" />
