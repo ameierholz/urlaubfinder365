@@ -1,7 +1,7 @@
 {
   "framework": "nextjs",
-  "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd ../.. && pnpm turbo build --filter=web",
+  "installCommand": "pnpm install --shamefully-hoist",
+  "buildCommand": "pnpm build",
   "outputDirectory": ".next",
   "regions": ["fra1"],
   "crons": [
