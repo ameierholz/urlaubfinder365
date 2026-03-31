@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: niche.metaDescription,
       url: canonical,
       type: "website",
-      images: dest.heroImageFallback ? [{ url: dest.heroImageFallback }] : [],
+      images: dest.heroImageFallback ? [{ url: dest.heroImageFallback, alt: niche.h1 }] : [],
     },
   };
 }

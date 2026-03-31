@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: canonical,
       type: "website",
-      images: cfg.heroImage ? [{ url: cfg.heroImage }] : [],
+      images: cfg.heroImage ? [{ url: cfg.heroImage, alt: `Aktivitäten in ${cfg.name}` }] : [],
     },
   };
 }

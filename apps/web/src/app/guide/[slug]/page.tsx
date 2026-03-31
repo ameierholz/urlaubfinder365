@@ -63,13 +63,32 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const BASE_URL = "https://www.urlaubfinder365.de";
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const guide = guideContent[slug];
   if (!guide) return {};
+  const description = guide.intro.slice(0, 160);
+  const canonical = `${BASE_URL}/guide/${slug}/`;
   return {
     title: guide.title,
-    description: guide.intro.slice(0, 160),
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: guide.title,
+      description,
+      url: canonical,
+      type: "article",
+      images: guide.coverImage ? [{ url: guide.coverImage, width: 1600, height: 900, alt: guide.title }] : [],
+      siteName: "Urlaubfinder365",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: guide.title,
+      description,
+      images: guide.coverImage ? [guide.coverImage] : [],
+    },
   };
 }
 

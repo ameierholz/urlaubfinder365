@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 
+// Guide-Slugs mit echtem Seiteninhalt
+const GUIDE_SLUGS = ["reisefuehrer-antalya"];
+
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -29,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/mietwagen-reservieren/`, lastModified: content, changeFrequency: "weekly", priority: 0.72 },
     // ── Content / Ratgeber ───────────────────────────────────────────────────
     { url: `${BASE_URL}/urlaubsguides/`, lastModified: content, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE_URL}/guide/`, lastModified: content, changeFrequency: "weekly", priority: 0.75 },
     { url: `${BASE_URL}/aktivitaeten/`, lastModified: today, changeFrequency: "daily", priority: 0.8 },
     { url: `${BASE_URL}/tipps/reise-packliste/`, lastModified: content, changeFrequency: "monthly", priority: 0.75 },
     { url: `${BASE_URL}/extras/reisenden-karte/`, lastModified: content, changeFrequency: "weekly", priority: 0.72 },
@@ -67,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Guide-Seiten
+  // Guide-Seiten (urlaubsguides/ = SEO-Guides aus Firestore/CMS)
   const guidePages: MetadataRoute.Sitemap = destinations
     .filter((d) => d.guideSlug)
     .map((d) => ({
@@ -77,5 +81,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  return [...staticPages, ...richDestinationPages, ...catalogPages, ...guidePages];
+  // /guide/[slug]/ Seiten (statische Reiseführer)
+  const staticGuidePages: MetadataRoute.Sitemap = GUIDE_SLUGS.map((slug) => ({
+    url: `${BASE_URL}/guide/${slug}/`,
+    lastModified: content,
+    changeFrequency: "monthly" as const,
+    priority: 0.72,
+  }));
+
+  // Aktivitäten-Stadtseiten (alle Destinations mit tiqetsCityId)
+  const aktivitaetenPages: MetadataRoute.Sitemap = destinations
+    .filter((d) => d.tiqetsCityId)
+    .flatMap((d) => [
+      {
+        url: `${BASE_URL}/aktivitaeten/${d.slug}/`,
+        lastModified: content,
+        changeFrequency: "weekly" as const,
+        priority: 0.78,
+      },
+      ...(d.tiqetsNiches ?? []).map((n) => ({
+        url: `${BASE_URL}/aktivitaeten/${d.slug}/${n.slug}/`,
+        lastModified: content,
+        changeFrequency: "weekly" as const,
+        priority: 0.72,
+      })),
+    ]);
+
+  return [...staticPages, ...richDestinationPages, ...catalogPages, ...guidePages, ...staticGuidePages, ...aktivitaetenPages];
 }

@@ -3,9 +3,24 @@ import { BookOpen, Clock, Tag } from "lucide-react";
 import type { Metadata } from "next";
 import { destinations } from "@/lib/destinations";
 
+const BASE_URL = "https://www.urlaubfinder365.de";
+
 export const metadata: Metadata = {
   title: "Reiseführer & Reisetipps",
-  description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise.",
+  description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise. Einreise, Klima, Sehenswürdigkeiten & mehr.",
+  alternates: { canonical: `${BASE_URL}/guide/` },
+  openGraph: {
+    title: "Reiseführer & Reisetipps | Urlaubfinder365",
+    description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise.",
+    url: `${BASE_URL}/guide/`,
+    type: "website",
+    siteName: "Urlaubfinder365",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reiseführer & Reisetipps | Urlaubfinder365",
+    description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise.",
+  },
 };
 
 // Guides mit aktiven Seiten – neue Einträge erst hinzufügen wenn /guide/[slug]/ Inhalt hat
