@@ -181,7 +181,6 @@
     <div class="detail-list">
       ${boardText ? `<div class="detail-item detail-board"><i class="fa fa-utensils" aria-hidden="true"></i>${boardText}</div>` : ""}
       ${offer.lodging_name ? `<div class="detail-item detail-room"><i class="fa fa-bed" aria-hidden="true"></i>${offer.lodging_name}</div>` : ""}
-      ${depDate ? `<div class="detail-item"><i class="fa fa-calendar" aria-hidden="true"></i>Abflug: ${depDate}</div>` : ""}
     </div>
 
     <div class="card-bottom">
@@ -196,7 +195,7 @@
         </div>
         <button class="btn-booking"
                 onclick="window.ibeOpenBooking('${bookUrl}', '${(offer.hotel_name || "").replace(/'/g, "\\'")}')">
-          Buchen
+          Prüfen
         </button>
       </div>
     </div>
@@ -468,6 +467,79 @@
     });
   }
 
+  // ── Boarding Pass: Flugverbindungen ────────────────────────────────────────
+
+  const GERMAN_AIRPORTS = [
+    { code: "FRA", city: "Frankfurt",   name: "Frankfurt am Main" },
+    { code: "MUC", city: "München",     name: "Franz Josef Strauß" },
+    { code: "DUS", city: "Düsseldorf",  name: "Düsseldorf Intl." },
+    { code: "BER", city: "Berlin",      name: "Berlin Brandenburg" },
+    { code: "HAM", city: "Hamburg",     name: "Hamburg Airport" },
+  ];
+
+  function loadBoardingPass(el) {
+    if (el.dataset.bpLoaded === "1") return;
+    el.dataset.bpLoaded = "1";
+
+    const city   = el.dataset.city   || "";
+    const code   = el.dataset.code   || "";
+
+    const grid = document.createElement("div");
+    grid.className = "ibe-bp-grid-flights";
+
+    GERMAN_AIRPORTS.forEach(ap => {
+      const ibeParams = new URLSearchParams({
+        agent: AGENT,
+        departureAirport: ap.code,
+        destinationAirport: code,
+        adults: "2",
+        duration: "7-7",
+      });
+      const ibeUrl    = `https://ibe.specials.de/?${ibeParams}`;
+      const cardTitle = `Flüge ab ${ap.city} nach ${city}`.replace(/'/g, "\\'");
+
+      const card = document.createElement("div");
+      card.className = "ibe-ticket-card";
+      card.innerHTML = `
+        <div class="ibe-header-ticket">
+          <div class="ibe-bp-ticket-top">
+            <span>Direktflug</span>
+            <span>Urlaubfinder365</span>
+          </div>
+          <div class="ibe-bp-ticket-row">
+            <div class="ibe-bp-ticket-col left">
+              <div class="ibe-bp-ticket-code">${ap.code}</div>
+              <div class="ibe-bp-ticket-city">${ap.city}</div>
+            </div>
+            <div class="ibe-bp-ticket-center">
+              <div class="ibe-bp-ticket-nonstop">Nonstop</div>
+              <div style="font-size:1.4rem;color:rgba(255,255,255,.6);line-height:1">&#x2708;</div>
+            </div>
+            <div class="ibe-bp-ticket-col right">
+              <div class="ibe-bp-ticket-code">${code}</div>
+              <div class="ibe-bp-ticket-city">${city}</div>
+            </div>
+          </div>
+        </div>
+        <div class="ibe-perforation"></div>
+        <div class="ibe-bp-ticket-body">
+          <div class="ibe-bp-flight-info">
+            <span class="ibe-bp-flight-airport">${ap.name}</span>
+          </div>
+          <div class="ibe-bp-flight-dest" style="margin-bottom:.75rem">
+            <span>&#x2192; ${city}</span>
+          </div>
+          <button class="ibe-btn-booking"
+                  onclick="window.ibeOpenBooking('${ibeUrl}', '${cardTitle}')">
+            Flüge ansehen
+          </button>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    el.appendChild(grid);
+  }
+
   // ── IntersectionObserver: lazy load ────────────────────────────────────────
 
   const observer = new IntersectionObserver((entries) => {
@@ -476,6 +548,8 @@
         const el = entry.target;
         if (el.classList.contains("holiday-widget-placeholder")) {
           loadHolidayWidget(el);
+        } else if (el.id === "ibe-main-engine-root") {
+          loadBoardingPass(el);
         } else {
           loadTeaser(el);
         }
@@ -493,6 +567,11 @@
       el.dataset.hwObserved = "1";
       observer.observe(el);
     });
+    const bp = document.getElementById("ibe-main-engine-root");
+    if (bp && !bp.dataset.bpObserved) {
+      bp.dataset.bpObserved = "1";
+      observer.observe(bp);
+    }
   }
 
   // ── Init ─────────────────────────────────────────────────────────────────────
