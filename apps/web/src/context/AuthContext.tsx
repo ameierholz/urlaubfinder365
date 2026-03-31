@@ -19,7 +19,7 @@ interface AuthContextType {
   userProfile: UserProfile | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<{ needsConfirmation: boolean }>;
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -58,43 +58,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchProfile = async (uid: string): Promise<UserProfile | null> => {
     const supabase = getSupabase();
-    const { data } = await supabase
-      .from("user_profiles")
-      .select("*")
+    const { data, error } = await supabase
+      .from("users")
+      .select("id, display_name, avatar_url, created_at, bio, xp, level, notification_prefs")
       .eq("id", uid)
       .maybeSingle();
-    if (!data) return null;
-    // Supabase snake_case → UserProfile camelCase
+    if (error || !data) return null;
+    // Supabase users table → UserProfile camelCase
     return {
       uid: data.id,
-      email: data.email,
-      displayName: data.display_name,
+      email: "",          // not stored in users table; use auth.user.email instead
+      displayName: data.display_name ?? null,
       createdAt: data.created_at,
-      savedTrips: data.saved_trips ?? [],
-      favoriteDestinations: data.favorite_destinations ?? [],
-      preferences: data.preferences,
-      checklist: data.checklist,
-      notes: data.notes,
+      savedTrips: [],     // stored in saved_trips table (Firestore legacy)
+      favoriteDestinations: [],
+      preferences: data.notification_prefs ?? undefined,
+      checklist: undefined,
+      notes: data.bio ?? undefined,
     } as UserProfile;
   };
 
   const ensureProfile = async (
     uid: string,
-    email: string,
+    _email: string,
     displayName: string | null
   ): Promise<UserProfile | null> => {
-    const supabase = getSupabase();
+    // The Supabase trigger handle_new_user() auto-creates the users row.
+    // We just check and return the profile.
     const existing = await fetchProfile(uid);
     if (existing) return existing;
 
-    await supabase.from("user_profiles").insert({
+    // Fallback: manual insert if trigger didn't fire (e.g. Google OAuth)
+    const supabase = getSupabase();
+    await supabase.from("users").upsert({
       id: uid,
-      email,
       display_name: displayName,
-      created_at: new Date().toISOString(),
-      saved_trips: [],
-      favorite_destinations: [],
-    });
+    }, { onConflict: "id", ignoreDuplicates: true });
     return fetchProfile(uid);
   };
 
@@ -136,7 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   };
 
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (email: string, password: string, name: string): Promise<{ needsConfirmation: boolean }> => {
     const supabase = getSupabase();
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -144,10 +143,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       options: { data: { full_name: name } },
     });
     if (error) throw error;
-    if (data.user) {
+    // session is null when email confirmation is required
+    const needsConfirmation = !data.session;
+    if (data.user && data.session) {
+      // Immediately logged in (email confirmation disabled)
       const profile = await ensureProfile(data.user.id, email, name);
       setUserProfile(profile);
     }
+    return { needsConfirmation };
   };
 
   const loginWithGoogle = async () => {

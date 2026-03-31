@@ -100,7 +100,15 @@ export default function IbeProvider() {
       </div>
 
       {/* IBE Engine – vanilla JS from /public/scripts/ */}
-      <Script src="/scripts/ibe-engine.js" strategy="afterInteractive" />
+      <Script
+        src="/scripts/ibe-engine.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          // After script loads, scan for any teaser elements already in DOM
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (window as any)._ibeScan?.();
+        }}
+      />
     </>
   );
 }

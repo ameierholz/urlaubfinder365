@@ -65,6 +65,7 @@ export default function AuthForm({ mode }: Props) {
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [confirmationSent, setConfirmationSent] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -73,19 +74,29 @@ export default function AuthForm({ mode }: Props) {
     try {
       if (mode === "login") {
         await login(email, password);
+        router.push("/dashboard");
       } else {
         if (!name.trim()) { setError("Bitte gib deinen Namen ein."); setLoading(false); return; }
-        await register(email, password, name);
+        const { needsConfirmation } = await register(email, password, name);
+        if (needsConfirmation) {
+          setConfirmationSent(true);
+          setLoading(false);
+          return;
+        }
+        router.push("/dashboard");
       }
-      router.push("/dashboard");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "";
-      if (msg.includes("user-not-found") || msg.includes("wrong-password") || msg.includes("invalid-credential")) {
+      const msg = (err instanceof Error ? err.message : "").toLowerCase();
+      if (msg.includes("invalid login credentials") || msg.includes("invalid credentials") || msg.includes("wrong-password") || msg.includes("user-not-found")) {
         setError("E-Mail oder Passwort ist falsch.");
-      } else if (msg.includes("email-already-in-use")) {
+      } else if (msg.includes("email already") || msg.includes("already registered") || msg.includes("email-already-in-use") || msg.includes("user already registered")) {
         setError("Diese E-Mail-Adresse ist bereits registriert.");
-      } else if (msg.includes("weak-password")) {
+      } else if (msg.includes("password") && msg.includes("6")) {
         setError("Das Passwort muss mindestens 6 Zeichen lang sein.");
+      } else if (msg.includes("email not confirmed")) {
+        setError("Bitte bestätige zuerst deine E-Mail-Adresse. Schau in dein Postfach.");
+      } else if (msg.includes("signup disabled") || msg.includes("signups not allowed")) {
+        setError("Registrierungen sind derzeit deaktiviert.");
       } else {
         setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
       }
@@ -158,6 +169,25 @@ export default function AuthForm({ mode }: Props) {
             Noch kein Konto?{" "}
             <Link href="/register" className="text-blue-600 font-medium hover:underline">Registrieren</Link>
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── E-Mail-Bestätigung ausstehend ── */
+  if (confirmationSent) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 w-full max-w-md p-10 text-center">
+          <div className="text-5xl mb-4">✉️</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Fast geschafft!</h1>
+          <p className="text-gray-500 text-sm mb-6">
+            Wir haben eine Bestätigungs-E-Mail an <strong>{email}</strong> geschickt.
+            Bitte klicke auf den Link in der E-Mail, um dein Konto zu aktivieren.
+          </p>
+          <Link href="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors text-sm">
+            Zur Anmeldung
+          </Link>
         </div>
       </div>
     );

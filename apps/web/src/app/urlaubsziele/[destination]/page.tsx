@@ -140,7 +140,7 @@ export default async function DestinationPage({ params }: Props) {
         alt="Urlaubsziele – Jetzt günstig buchen"
         className="w-full object-cover"
         style={{ maxHeight: "180px" }}
-        loading="lazy"
+        loading="eager"
       />
 
       {/* HERO: H1 + Intro links, Destination-Bild rechts */}
