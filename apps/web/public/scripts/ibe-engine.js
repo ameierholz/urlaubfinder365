@@ -92,11 +92,17 @@
   // ── Booking-URL ─────────────────────────────────────────────────────────────
 
   function buildBookingUrl(offer) {
+    // Nutze offer.href falls vorhanden (enthält alle nötigen Parameter)
+    if (offer.href) {
+      return `https://ibe.specials.de/?${offer.href}`;
+    }
+    // Fallback: productCode
     const params = new URLSearchParams({
       agent: AGENT,
-      productCode: offer.product_code || "",
+      product: "package",
+      hotelCode: offer.product_code || "",
     });
-    return `https://b2b.specials.de/deeplink/package?${params}`;
+    return `https://ibe.specials.de/?${params}`;
   }
 
   // ── Karten-Renderer ─────────────────────────────────────────────────────────
