@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com data:",
               "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://img.tiqets.com https://*.supabase.co",
               "connect-src 'self' https://*.supabase.co https://*.firebaseio.com https://*.googleapis.com https://api.specials.de https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://d.adup-tech.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
-              "frame-src 'self' https://ibe.specials.de https://d.adup-tech.com",
+              "frame-src 'self' https://ibe.specials.de https://api.specials.de https://d.adup-tech.com https://www.openstreetmap.org https://openstreetmap.org",
               "media-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",
