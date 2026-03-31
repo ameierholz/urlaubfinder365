@@ -5,7 +5,7 @@ export default function MapScreen() {
   // react-native-maps wird in Phase 3 integriert
   return (
     <View style={styles.container}>
-      <Ionicons name="map-outline" size={64} color="#d4c8b5" />
+      <Ionicons name="map-outline" size={64} color="#a7e3cf" />
       <Text style={styles.title}>Weltkarte</Text>
       <Text style={styles.subtitle}>
         Die interaktive Weltkarte mit allen Reisezielen wird bald
@@ -18,7 +18,7 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#faf8f5",
+    backgroundColor: "#f0fdf9",
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    color: "#8a7560",
+    color: "#5a9e88",
     textAlign: "center",
     marginTop: 8,
     lineHeight: 22,

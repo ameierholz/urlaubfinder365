@@ -42,7 +42,7 @@ export default function ExploreScreen() {
           onPress={() => router.push(`/destination/${item.slug}`)}
         >
           <View style={styles.iconCircle}>
-            <Ionicons name="location-outline" size={20} color="#f49d1a" />
+            <Ionicons name="location-outline" size={20} color="#1db682" />
           </View>
           <View style={styles.cardText}>
             <Text style={styles.cardTitle}>{item.name}</Text>
@@ -50,7 +50,7 @@ export default function ExploreScreen() {
               {item.country} · {item.continent}
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color="#bfad96" />
+          <Ionicons name="chevron-forward" size={20} color="#5a9e88" />
         </TouchableOpacity>
       )}
       contentContainerStyle={{ padding: 16 }}
@@ -59,7 +59,7 @@ export default function ExploreScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#faf8f5" },
+  container: { flex: 1, backgroundColor: "#f0fdf9" },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -68,18 +68,18 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "#e8e0d4",
+    borderColor: "#a7e3cf",
   },
   iconCircle: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#fef3e2",
+    backgroundColor: "#e8faf4",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
   },
   cardText: { flex: 1 },
-  cardTitle: { fontSize: 16, fontWeight: "600", color: "#302821" },
-  cardSubtitle: { fontSize: 13, color: "#8a7560", marginTop: 2 },
+  cardTitle: { fontSize: 16, fontWeight: "600", color: "#0f2d25" },
+  cardSubtitle: { fontSize: 13, color: "#5a9e88", marginTop: 2 },
 });

@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#f49d1a"
+      "backgroundColor": "#1db682"
     },
     "ios": {
       "supportsTablet": true,
@@ -23,7 +23,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#f49d1a"
+        "backgroundColor": "#1db682"
       },
       "package": "de.urlaubfinder365.app",
       "permissions": ["ACCESS_FINE_LOCATION"]
@@ -40,7 +40,7 @@
         "expo-notifications",
         {
           "icon": "./assets/notification-icon.png",
-          "color": "#f49d1a"
+          "color": "#1db682"
         }
       ]
     ],

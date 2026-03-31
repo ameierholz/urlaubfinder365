@@ -66,12 +66,12 @@ export default function DestinationScreen() {
         {/* Facts */}
         <View style={styles.factsRow}>
           <View style={styles.factCard}>
-            <Ionicons name="sunny-outline" size={22} color="#f49d1a" />
+            <Ionicons name="sunny-outline" size={22} color="#1db682" />
             <Text style={styles.factLabel}>Klima</Text>
             <Text style={styles.factValue}>{dest.climate}</Text>
           </View>
           <View style={styles.factCard}>
-            <Ionicons name="pricetag-outline" size={22} color="#f49d1a" />
+            <Ionicons name="pricetag-outline" size={22} color="#1db682" />
             <Text style={styles.factLabel}>Highlights</Text>
             <Text style={styles.factValue}>{dest.tags.slice(0, 2).join(", ")}</Text>
           </View>
@@ -79,7 +79,7 @@ export default function DestinationScreen() {
 
         {/* Placeholder */}
         <View style={styles.placeholder}>
-          <Ionicons name="airplane-outline" size={32} color="#d4c8b5" />
+          <Ionicons name="airplane-outline" size={32} color="#a7e3cf" />
           <Text style={styles.placeholderText}>
             Angebote werden geladen, sobald die API verbunden ist.
           </Text>
@@ -90,11 +90,11 @@ export default function DestinationScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#faf8f5" },
+  container: { flex: 1, backgroundColor: "#f0fdf9" },
   centered: { flex: 1, alignItems: "center", justifyContent: "center" },
-  notFound: { fontSize: 16, color: "#8a7560" },
+  notFound: { fontSize: 16, color: "#5a9e88" },
   hero: {
-    backgroundColor: "#f49d1a",
+    backgroundColor: "#1db682",
     padding: 24,
     paddingTop: 16,
     paddingBottom: 28,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   countryRow: { flexDirection: "row", alignItems: "center", marginTop: 4, gap: 4 },
   heroCountry: { fontSize: 16, color: "rgba(255,255,255,0.85)" },
   content: { padding: 16, paddingTop: 20 },
-  description: { fontSize: 16, lineHeight: 24, color: "#4d4035", marginBottom: 20 },
+  description: { fontSize: 16, lineHeight: 24, color: "#1a3d30", marginBottom: 20 },
   factsRow: { flexDirection: "row", gap: 12, marginBottom: 20 },
   factCard: {
     flex: 1,
@@ -113,18 +113,18 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: "#e8e0d4",
+    borderColor: "#a7e3cf",
     alignItems: "center",
   },
-  factLabel: { fontSize: 12, color: "#8a7560", marginTop: 6 },
-  factValue: { fontSize: 14, fontWeight: "600", color: "#302821", marginTop: 2 },
+  factLabel: { fontSize: 12, color: "#5a9e88", marginTop: 6 },
+  factValue: { fontSize: 14, fontWeight: "600", color: "#0f2d25", marginTop: 2 },
   placeholder: {
     backgroundColor: "#fff",
     padding: 24,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: "#e8e0d4",
+    borderColor: "#a7e3cf",
     alignItems: "center",
   },
-  placeholderText: { fontSize: 14, color: "#8a7560", textAlign: "center", marginTop: 8 },
+  placeholderText: { fontSize: 14, color: "#5a9e88", textAlign: "center", marginTop: 8 },
 });
