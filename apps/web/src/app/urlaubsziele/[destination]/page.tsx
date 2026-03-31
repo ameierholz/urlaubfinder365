@@ -136,7 +136,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* Header Banner */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/urlaubziel_header.webp"
+        src="/images/urlaubziel_header.jpg"
         alt="Urlaubsziele – Jetzt günstig buchen"
         className="w-full object-cover"
         style={{ maxHeight: "180px" }}
