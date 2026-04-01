@@ -218,7 +218,7 @@ export default function GuenstigUrlaubBuchen() {
         </div>
 
         {/* ══ LAST-MINUTE — Editorial CTA-Sektion ════════════════════════ */}
-        <div className="bg-red-50">
+        <div className="bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="bg-white rounded-3xl border border-red-100 shadow-sm overflow-hidden">
               <div className="flex flex-col lg:flex-row">
@@ -249,7 +249,7 @@ export default function GuenstigUrlaubBuchen() {
                 </div>
 
                 {/* Rechte Seite: Ziel-Grid auf hellgrauem BG */}
-                <div className="lg:w-72 shrink-0 bg-gray-50 border-t lg:border-t-0 lg:border-l border-red-100 p-6">
+                <div className="lg:w-96 shrink-0 bg-gray-50 border-t lg:border-t-0 lg:border-l border-red-100 p-6">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Beliebte Ziele</p>
                   <div className="grid grid-cols-2 gap-2">
                     {[
