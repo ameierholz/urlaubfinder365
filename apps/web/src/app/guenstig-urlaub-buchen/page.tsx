@@ -388,7 +388,7 @@ export default function GuenstigUrlaubBuchen() {
         </div>
 
         {/* ══ ÄGYPTEN — Layout: Dramatisch dunkles Banner, zentriert ══════ */}
-        <div className="bg-amber-950">
+        <div className="bg-amber-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
             <div className="relative rounded-3xl overflow-hidden h-56 sm:h-72 mb-6 shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -411,7 +411,7 @@ export default function GuenstigUrlaubBuchen() {
                 </div>
               </div>
             </div>
-            <p className="text-sm text-amber-200/80 leading-relaxed mb-6 max-w-3xl">
+            <p className="text-sm text-gray-500 leading-relaxed mb-6 max-w-3xl">
               Ägypten bietet das perfekte Doppelpaket: tagsüber Schnorcheln im Roten Meer, dazu Ausflüge zu den ältesten Bauwerken der Menschheit – und das zu unschlagbaren Preisen.
             </p>
           </div>
