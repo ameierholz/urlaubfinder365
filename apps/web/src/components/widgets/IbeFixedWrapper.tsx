@@ -24,9 +24,10 @@ const THRESHOLD = 80;      // px above natural height before we intervene
 interface Props {
   dataSrc: string;
   minHeight?: number;
+  height?: number;
 }
 
-export default function IbeFixedWrapper({ dataSrc, minHeight = 500 }: Props) {
+export default function IbeFixedWrapper({ dataSrc, minHeight = 500, height }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -101,7 +102,7 @@ export default function IbeFixedWrapper({ dataSrc, minHeight = 500 }: Props) {
 
   return (
     <div ref={containerRef} style={{ minHeight }}>
-      <IbeWidget dataSrc={dataSrc} />
+      <IbeWidget dataSrc={dataSrc} height={height} />
     </div>
   );
 }

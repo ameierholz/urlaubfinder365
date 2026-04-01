@@ -201,7 +201,7 @@ export default function FlugSuchePage() {
           {/* ── IBE Flugsuche – immer sichtbar ── */}
           <div id="flugsuche-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-              <IbeFixedWrapper dataSrc="https://b2b.specials.de/index/jump/15/1450/993243/" minHeight={500} />
+              <IbeFixedWrapper dataSrc="https://b2b.specials.de/index/jump/15/1450/993243/" minHeight={500} height={800} />
             </div>
           </div>
 
