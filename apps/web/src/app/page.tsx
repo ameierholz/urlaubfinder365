@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake } from "lucide-react";
+import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map } from "lucide-react";
 import { TravelOffer } from "@/types";
 import SearchBox from "@/components/widgets/SearchBox";
 import HomeDealCard from "@/components/home/HomeDealCard";
@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     url: "https://www.urlaubfinder365.de/",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&h=630&q=80",
         width: 1200,
         height: 630,
-        alt: "Traumstrand – Pauschalreisen günstig buchen bei Urlaubfinder365",
+        alt: "Infinity Pool mit Meerblick – Pauschalreisen günstig buchen bei Urlaubfinder365",
       },
     ],
   },
@@ -134,7 +134,7 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
 // ─── Statische Daten ─────────────────────────────────────────────────────────
 
 const HERO_BG =
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80";
+  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=2000&q=80";
 
 // Günstigsten Preis pro Person aus einem Deal-Objekt extrahieren
 function minPrice(deal: TravelOffer | null, fallback: string): string {
@@ -179,6 +179,38 @@ const GUIDES = [
     flag: "tr",
     img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75",
     teaser: "Strände, Ruinen & Top-Hotels an der türkischen Riviera",
+  },
+  {
+    slug: "reisefuehrer-mallorca",
+    dest: "Mallorca",
+    country: "Spanien",
+    flag: "es",
+    img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=75",
+    teaser: "Traumstrände, Serra de Tramuntana & Palmas Altstadt",
+  },
+  {
+    slug: "reisefuehrer-kreta",
+    dest: "Kreta",
+    country: "Griechenland",
+    flag: "gr",
+    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=75",
+    teaser: "Samaria-Schlucht, Knossos & griechische Gastfreundschaft",
+  },
+  {
+    slug: "reisefuehrer-hurghada",
+    dest: "Hurghada",
+    country: "Ägypten",
+    flag: "eg",
+    img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=75",
+    teaser: "Rotes Meer, Tauchen & Wüstenabenteuer in Ägypten",
+  },
+  {
+    slug: "reisefuehrer-barcelona",
+    dest: "Barcelona",
+    country: "Spanien",
+    flag: "es",
+    img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=75",
+    teaser: "Gaudí, Tapas, Strände & katalanisches Nachtleben",
   },
 ];
 
@@ -359,12 +391,12 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           1 · HERO  –  Cinematic Full-Viewport
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative text-white flex flex-col -mt-20" style={{ minHeight: "108vh", overflow: "visible" }}>
+      <section className="relative text-white flex flex-col -mt-20" style={{ minHeight: "55vh", overflow: "visible" }}>
 
         {/* ── Hintergrundbild ── */}
         <Image
           src={HERO_BG}
-          alt="Traumstrand – Pauschalreisen günstig buchen"
+          alt="Infinity Pool mit Meerblick – Pauschalreisen günstig buchen"
           fill
           className="object-cover object-[center_40%]"
           priority
@@ -382,25 +414,25 @@ export default async function HomePage() {
 
         {/* ── Haupt-Content – vertikal zentriert ── */}
         {/* overflow-visible damit SearchBox-Dropdown nicht abgeschnitten wird */}
-        <div className="relative flex-1 flex flex-col justify-start max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-36 pb-2" style={{ overflow: "visible" }}>
+        <div className="relative flex-1 flex flex-col justify-start max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-32 pb-4" style={{ overflow: "visible" }}>
 
           {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-7">
+          <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-[2px] bg-sand-500 rounded-full" />
             <span className="text-sand-400 text-xs font-bold uppercase tracking-[0.18em]">Täglich neue Reiseangebote</span>
           </div>
 
           {/* H1 – auf Mobile umbrechen, ab sm eine Zeile */}
           <h1
-            className="font-black leading-tight mb-6 whitespace-normal sm:whitespace-nowrap"
-            style={{ fontSize: "clamp(1.6rem, 4.5vw, 4.2rem)", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
+            className="font-black leading-tight mb-4 whitespace-normal sm:whitespace-nowrap"
+            style={{ fontSize: "clamp(1.6rem, 4.5vw, 3.5rem)", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
           >
             Pauschalreisen & Urlaub günstig buchen –<br />
             <span className="text-sand-400">Wir finden deinen Traumurlaub!</span>
           </h1>
 
           {/* ── Trust-Badges ── */}
-          <div className="flex flex-wrap gap-4 sm:gap-6 mb-6">
+          <div className="flex flex-wrap gap-4 sm:gap-6 mb-4">
             {[
               ["50+", "Veranstalter"],
               ["100%", "Direkt buchen"],
@@ -419,7 +451,7 @@ export default async function HomePage() {
           </div>
 
           {/* ── QuickCategories – direkt auf dem Bild, kein Hintergrund ── */}
-          <div className="mt-0 -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="-mt-24 -mx-4 sm:-mx-6 lg:-mx-8">
             <QuickCategories transparent />
           </div>
         </div>
@@ -855,84 +887,164 @@ export default async function HomePage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          6 · URLAUBSGUIDES
-          Stil: Hell · Editorial · Zweispaltig
-          Links: Heading-Spalte mit Akzentbalken · Rechts: Guide-Zeilen
+          6 · URLAUBSGUIDES – Kompaktes Karussell
       ══════════════════════════════════════════════════════════ */}
       <section className="bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-14">
 
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
-
-            {/* ── LINKE SPALTE – Sticky Heading ── */}
-            <div className="lg:w-72 shrink-0 lg:sticky lg:top-24 lg:self-start">
-              {/* Farbiger Akzentbalken */}
-              <div className="flex gap-1 mb-5">
-                <div className="h-10 w-1.5 rounded-full bg-sand-500" />
-                <div className="h-10 w-1.5 rounded-full bg-sky-500" />
-                <div className="h-10 w-1.5 rounded-full bg-violet-500" />
+          {/* Header-Zeile */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1">
+                <div className="h-8 w-1.5 rounded-full bg-sand-500" />
+                <div className="h-8 w-1.5 rounded-full bg-sky-500" />
+                <div className="h-8 w-1.5 rounded-full bg-violet-500" />
               </div>
-              <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">📚 Kostenloses Reisewissen</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 leading-tight mt-2">
-                Unsere<br />Urlaubsguides
-              </h2>
-              <p className="text-gray-500 text-sm mt-4 leading-relaxed">
-                Einreise, Klima &amp; Insidertipps für dein Traumziel – von Reiseexperten verfasst, 100&nbsp;% kostenlos.
-              </p>
+              <div>
+                <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">📚 Kostenloses Reisewissen</span>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">Urlaubsguides</h2>
+              </div>
+            </div>
+            <Link
+              href="/urlaubsguides/"
+              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-sand-500 text-white font-black px-5 py-2.5 rounded-2xl transition-all duration-200 text-sm shrink-0"
+            >
+              Alle Guides <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Guide-Kacheln als Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {GUIDES.map((g) => (
               <Link
-                href="/urlaubsguides/"
-                className="mt-6 inline-flex items-center gap-2 bg-gray-900 hover:bg-sand-500 text-white font-black px-5 py-3 rounded-2xl transition-all duration-200 text-sm"
+                key={g.slug}
+                href={`/urlaubsguides/${g.slug}/`}
+                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                style={{ height: "clamp(180px, 22vw, 220px)" }}
               >
-                Alle Guides <ArrowRight className="w-4 h-4" />
+                <Image
+                  src={g.img}
+                  alt={`Urlaubsguide ${g.dest}`}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width:640px)50vw,(max-width:1024px)33vw,20vw"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
+                {/* Flagge oben links */}
+                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
+                  <img src={`https://flagcdn.com/16x12/${g.flag}.png`} alt={g.country} className="rounded-sm" width={16} height={12} />
+                  <span className="text-white text-[10px] font-bold">{g.country}</span>
+                </div>
+                {/* Text unten */}
+                <div className="absolute bottom-0 p-3">
+                  <h3 className="font-black text-lg text-white leading-tight" style={{ textShadow: "0 1px 6px rgba(0,0,0,.9)" }}>
+                    {g.dest}
+                  </h3>
+                  <p className="text-white/70 text-[11px] mt-0.5 line-clamp-2 leading-snug" style={{ textShadow: "0 1px 3px rgba(0,0,0,.8)" }}>
+                    {g.teaser}
+                  </p>
+                  <span className="mt-1.5 text-sand-400 font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Guide lesen <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
               </Link>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          6b · COMMUNITY BANNER
+      ══════════════════════════════════════════════════════════ */}
+      <section className="bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div
+            className="relative rounded-3xl overflow-hidden"
+            style={{ background: "linear-gradient(135deg, #0f3d2e 0%, #1a6b4a 40%, #0d8b6e 70%, #1db682 100%)" }}
+          >
+            {/* Deko */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/5" />
+              <div className="absolute -bottom-16 left-1/4 w-72 h-72 rounded-full bg-white/5" />
+              <div className="absolute top-1/2 right-1/4 w-48 h-48 rounded-full bg-emerald-400/10" style={{ transform: "translateY(-50%)" }} />
+              {/* SVG Weltkarte dezent */}
+              <svg className="absolute right-0 top-0 h-full w-1/2 opacity-[0.04]" viewBox="0 0 800 600" fill="currentColor">
+                <circle cx="200" cy="200" r="4" /><circle cx="250" cy="180" r="3" /><circle cx="300" cy="190" r="5" />
+                <circle cx="350" cy="220" r="4" /><circle cx="400" cy="200" r="3" /><circle cx="450" cy="250" r="5" />
+                <circle cx="500" cy="230" r="4" /><circle cx="550" cy="280" r="3" /><circle cx="600" cy="260" r="4" />
+                <circle cx="300" cy="300" r="5" /><circle cx="350" cy="320" r="3" /><circle cx="400" cy="350" r="4" />
+                <circle cx="500" cy="350" r="5" /><circle cx="550" cy="380" r="3" /><circle cx="250" cy="350" r="4" />
+                <circle cx="650" cy="300" r="4" /><circle cx="700" cy="250" r="3" /><circle cx="150" cy="250" r="5" />
+              </svg>
             </div>
 
-            {/* ── RECHTE SPALTE – Horizontale Guide-Zeilen ── */}
-            <div className="flex-1 flex flex-col gap-5">
-              {GUIDES.map((g, i) => (
-                <Link
-                  key={g.slug}
-                  href={`/guide/${g.slug}/`}
-                  className="group flex gap-5 bg-gray-50 hover:bg-sand-50 border border-gray-100 hover:border-sand-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-                >
-                  {/* Bild */}
-                  <div className="relative w-36 sm:w-48 shrink-0 overflow-hidden" style={{ minHeight: "140px" }}>
-                    <Image
-                      src={g.img}
-                      alt={`Urlaubsguide ${g.dest}`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 640px) 144px, 192px"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/20" />
+            <div className="relative px-6 sm:px-10 lg:px-12 py-8 lg:py-10">
+              <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
+
+                {/* LEFT – Text */}
+                <div className="flex-1 text-center lg:text-left">
+                  <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-4">
+                    <Users className="w-3.5 h-3.5 text-emerald-300" />
+                    <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest">Reise-Community</span>
                   </div>
 
-                  {/* Text */}
-                  <div className="flex-1 py-5 pr-5 flex flex-col justify-center">
-                    <div className="flex items-center gap-2 mb-2">
-                      <img src={`https://flagcdn.com/16x12/${g.flag}.png`} alt={g.country} className="rounded-sm" />
-                      <span className="text-xs text-gray-400 font-medium">{g.country}</span>
-                      <span className="ml-auto text-xs font-bold text-sand-500 bg-sand-50 border border-sand-100 rounded-full px-2 py-0.5">
-                        Guide #{i + 1}
-                      </span>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-3">
+                    Teile deine Reise.<br />
+                    <span className="text-emerald-300">Inspiriere andere.</span>
+                  </h2>
+
+                  <p className="text-emerald-100/80 text-sm max-w-md leading-relaxed mb-6 mx-auto lg:mx-0">
+                    Reiseberichte, Gruppen-Chats, Geheimtipps und neue Reisefreunde – werde Teil der Urlaubfinder365 Community.
+                  </p>
+
+                  <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                    <Link
+                      href="/community/"
+                      className="inline-flex items-center gap-2 bg-white text-emerald-800 font-black px-6 py-3 rounded-2xl transition-all shadow-lg shadow-emerald-900/30 hover:shadow-emerald-500/30 hover:-translate-y-0.5 duration-200 text-sm"
+                    >
+                      Community entdecken <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href="/community/reiseberichte/"
+                      className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3 rounded-2xl transition-all hover:-translate-y-0.5 duration-200 text-sm"
+                    >
+                      Reiseberichte lesen
+                    </Link>
+                  </div>
+                </div>
+
+                {/* RIGHT – Feature-Grid */}
+                <div className="grid grid-cols-4 lg:grid-cols-4 gap-2.5 shrink-0 w-full lg:max-w-md">
+                  {[
+                    { icon: Camera,         title: "Reiseberichte",   color: "bg-emerald-500" },
+                    { icon: Users,          title: "Reisegruppen",    color: "bg-teal-500" },
+                    { icon: MessageCircle,  title: "Diskussionen",    color: "bg-cyan-500" },
+                    { icon: Globe,          title: "250+ Ziele",      color: "bg-blue-500" },
+                    { icon: Route,          title: "Reiserouten",     color: "bg-violet-500" },
+                    { icon: Trophy,         title: "Badges & Level",  color: "bg-amber-500" },
+                    { icon: Bell,           title: "Preisalarme",     color: "bg-rose-500" },
+                    { icon: Map,            title: "Reisenden-Karte", color: "bg-indigo-500" },
+                  ].map(({ icon: Icon, title, color }) => (
+                    <div
+                      key={title}
+                      className="bg-white/10 border border-white/15 rounded-xl p-2.5 text-center hover:bg-white/15 transition-colors"
+                    >
+                      <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center mx-auto mb-1.5 shadow-md`}>
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <h3 className="text-xs font-bold text-white leading-tight">{title}</h3>
                     </div>
-                    <h3 className="font-black text-xl text-gray-900 group-hover:text-sand-500 transition-colors leading-tight">
-                      {g.dest}
-                    </h3>
-                    <p className="text-gray-500 text-sm mt-1.5 leading-relaxed line-clamp-2">{g.teaser}</p>
-                    <span className="mt-3 text-sand-500 font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Guide lesen <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  ))}
+                </div>
 
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Wave: Guides Weiß → SEO Sand */}
+      {/* Wave: Community/Guides Weiß → SEO Sand */}
       <div className="relative h-10 overflow-hidden bg-white">
         <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-full">
           <path d="M0,40 L0,20 C360,0 1080,40 1440,15 L1440,40 Z" fill="rgba(238,206,161,0.3)" />

@@ -543,7 +543,7 @@ export default function HotelSuchePage() {
         </div>{/* ── Ende Hauptinhalt ── */}
 
         {/* ── Sticky Sidebar Ad (nur XL+) ── */}
-        <aside className="hidden xl:block w-[176px] shrink-0 pr-4">
+        <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
           <div className="sticky top-24 pt-8 space-y-3">
 
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

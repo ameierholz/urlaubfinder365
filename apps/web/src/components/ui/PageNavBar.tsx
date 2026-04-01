@@ -38,26 +38,28 @@ export default function PageNavBar({ items }: Props) {
   }
 
   return (
-    <div className="sticky top-24 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex items-center gap-3 py-2.5 px-4 sm:px-6 lg:px-8 min-w-max max-w-7xl mx-auto">
-          <span className="shrink-0 text-xs font-bold text-gray-400 uppercase tracking-wider pr-1 border-r border-gray-200">
-            Schnellnavigation
-          </span>
-          {items.map(({ id, label, emoji }) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className={`inline-flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 shrink-0 cursor-pointer ${
-                active === id
-                  ? "bg-[#00838F] text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-[#00838F]/10 hover:text-[#00838F]"
-              }`}
-            >
-              <span>{emoji}</span>
-              {label}
-            </button>
-          ))}
+    <div className="sticky top-20 lg:top-28 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-3 py-2.5 px-4 sm:px-6 lg:px-8 min-w-max">
+            <span className="shrink-0 text-xs font-bold text-gray-400 uppercase tracking-wider pr-1 border-r border-gray-200">
+              Schnellnavigation
+            </span>
+            {items.map(({ id, label, emoji }) => (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className={`inline-flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 shrink-0 cursor-pointer ${
+                  active === id
+                    ? "bg-[#00838F] text-white shadow-sm"
+                    : "bg-gray-100 text-gray-600 hover:bg-[#00838F]/10 hover:text-[#00838F]"
+                }`}
+              >
+                <span>{emoji}</span>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

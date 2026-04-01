@@ -16,7 +16,7 @@ export default function FlugNavBar() {
 
   useEffect(() => {
     function onScroll() {
-      const navH = window.innerWidth >= 1024 ? 96 : 64; // lg: info-bar(32)+nav(64) | sm: nav(64)
+      const navH = window.innerWidth >= 1024 ? 112 : 80; // lg: info-bar(32)+nav(80) | sm: nav(80)
       const scrollY = window.scrollY + navH + 44 + 8; // header + navBar + breathing room
       let current = "";
       for (const { id } of NAV_ITEMS) {
@@ -35,35 +35,37 @@ export default function FlugNavBar() {
   function scrollTo(id: string) {
     const el = document.getElementById(id);
     if (!el) return;
-    const navH = window.innerWidth >= 1024 ? 96 : 64; // lg: info-bar(32)+nav(64) | sm: nav(64)
+    const navH = window.innerWidth >= 1024 ? 112 : 80; // lg: info-bar(32)+nav(80) | sm: nav(80)
     const offset = navH + 44 + 8; // header + navBar + breathing room
     const top = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top, behavior: "smooth" });
   }
 
   return (
-    <div className="sticky top-16 lg:top-24 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex items-center gap-3 py-2.5 px-4 sm:px-6 lg:px-8 min-w-max max-w-7xl mx-auto">
-          {/* Label */}
-          <span className="shrink-0 text-xs font-bold text-gray-400 uppercase tracking-wider pr-3 border-r border-gray-200">
-            Schnellnavigation
-          </span>
-          {/* Buttons */}
-          {NAV_ITEMS.map(({ id, label, emoji }) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className={`inline-flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 shrink-0 cursor-pointer ${
-                active === id
-                  ? "bg-[#00838F] text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:bg-[#00838F]/10 hover:text-[#00838F]"
-              }`}
-            >
-              <span>{emoji}</span>
-              {label}
-            </button>
-          ))}
+    <div className="sticky top-20 lg:top-28 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-3 py-2.5 px-4 sm:px-6 lg:px-8 min-w-max">
+            {/* Label */}
+            <span className="shrink-0 text-xs font-bold text-gray-400 uppercase tracking-wider pr-3 border-r border-gray-200">
+              Schnellnavigation
+            </span>
+            {/* Buttons */}
+            {NAV_ITEMS.map(({ id, label, emoji }) => (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className={`inline-flex items-center gap-1.5 whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 shrink-0 cursor-pointer ${
+                  active === id
+                    ? "bg-[#00838F] text-white shadow-sm"
+                    : "bg-gray-100 text-gray-600 hover:bg-[#00838F]/10 hover:text-[#00838F]"
+                }`}
+              >
+                <span>{emoji}</span>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

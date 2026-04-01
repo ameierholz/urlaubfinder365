@@ -376,8 +376,8 @@ const AIRLINES: Airline[] = [
 
 const TABS: { id: Region | "alle"; label: string; emoji: string }[] = [
   { id: "alle",        label: "Alle",              emoji: "✈️" },
-  { id: "deutschland", label: "Deutsche Airlines",  emoji: "🇩🇪" },
-  { id: "europa",      label: "Europa",             emoji: "🇪🇺" },
+  { id: "deutschland", label: "Deutsche Airlines",  emoji: "🦅" },
+  { id: "europa",      label: "Europa",             emoji: "🌍" },
   { id: "naherosten",  label: "Naher Osten",        emoji: "🕌" },
   { id: "asien",       label: "Asien & Pazifik",    emoji: "🌏" },
   { id: "amerika",     label: "Amerika",            emoji: "🌎" },

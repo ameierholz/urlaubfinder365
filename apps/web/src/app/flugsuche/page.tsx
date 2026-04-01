@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AdBanner from "@/components/ui/AdBanner";
 import { Plane, ShieldCheck, RefreshCcw, Tag, Zap } from "lucide-react";
-import IbeFixedWrapper from "@/components/widgets/IbeFixedWrapper";
+import IbeWidget from "@/components/widgets/IbeWidget";
 import FlugzieleGrid from "@/components/flug/FlugzieleGrid";
 import AirlineInfoSection from "@/components/flug/AirlineInfoSection";
 import FlugNavBar from "@/components/flug/FlugNavBar";
@@ -201,7 +201,7 @@ export default function FlugSuchePage() {
           {/* ── IBE Flugsuche – immer sichtbar ── */}
           <div id="flugsuche-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-              <IbeFixedWrapper dataSrc="https://b2b.specials.de/index/jump/15/1450/993243/" minHeight={500} height={800} />
+              <IbeWidget dataSrc="https://b2b.specials.de/index/jump/15/1450/993243/" height={510} />
             </div>
           </div>
 
@@ -606,7 +606,7 @@ export default function FlugSuchePage() {
         </div>{/* ── Ende Hauptinhalt ── */}
 
         {/* ── Sticky Sidebar Ad (nur XL+) ── */}
-        <aside className="hidden xl:block w-[176px] shrink-0 pr-4">
+        <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
           <div className="sticky top-24 pt-8 space-y-3">
 
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

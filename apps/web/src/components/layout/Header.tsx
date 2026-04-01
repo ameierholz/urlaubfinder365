@@ -408,6 +408,148 @@ function DestinationsMegaMenu({ onClose }: { onClose: () => void }) {
   );
 }
 
+// ─── Mega-Menu für Urlaubsarten ───────────────────────────────────────────────
+const URLAUBSARTEN_ITEMS = [
+  {
+    label: "Pauschalreisen",
+    href: "/urlaubsarten/pauschalreisen/",
+    emoji: "✈️",
+    badge: "Beliebteste Wahl",
+    badgeColor: "bg-blue-400/30 text-blue-100",
+    desc: "Flug + Hotel + Transfer – alles inklusive gebucht.",
+    img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=70",
+  },
+  {
+    label: "Frühbucher Urlaub",
+    href: "/urlaubsarten/fruhbucher-urlaub/",
+    emoji: "🌅",
+    badge: "Bis 40% sparen",
+    badgeColor: "bg-amber-400/30 text-amber-100",
+    desc: "Früh buchen und die besten Zimmer zum günstigsten Preis sichern.",
+    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70",
+  },
+  {
+    label: "All-Inclusive",
+    href: "/urlaubsarten/all-inclusive-urlaub/",
+    emoji: "🍹",
+    badge: "Sorglos genießen",
+    badgeColor: "bg-teal-400/30 text-teal-100",
+    desc: "Essen, Trinken & mehr inklusive – kein laufender Kostenstress.",
+    img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=70",
+  },
+  {
+    label: "Last-Minute",
+    href: "/urlaubsarten/last-minute-urlaub/",
+    emoji: "⚡",
+    badge: "Spontan & günstig",
+    badgeColor: "bg-orange-400/30 text-orange-100",
+    desc: "Kurzfristige Angebote bis 14 Tage vor Abreise mit Top-Rabatten.",
+    img: "https://images.unsplash.com/photo-1490650034175-5d96d2e1d0a9?w=400&q=70",
+  },
+  {
+    label: "Super-Last-Minute",
+    href: "/urlaubsarten/super-last-minute-urlaub/",
+    emoji: "🚀",
+    badge: "Innerhalb 72h",
+    badgeColor: "bg-red-400/30 text-red-100",
+    desc: "Innerhalb von 72 Stunden abreisen – maximale Ersparnis garantiert.",
+    img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=400&q=70",
+  },
+];
+
+const LIFESTYLE_PREVIEW = [
+  { label: "Familien",  emoji: "👨‍👩‍👧‍👦" },
+  { label: "Paare",     emoji: "❤️" },
+  { label: "Singles",   emoji: "🧳" },
+  { label: "Gruppen",   emoji: "👥" },
+  { label: "Abenteuer", emoji: "🏄" },
+];
+
+function UrlaubsartenMegaMenu({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="absolute top-full left-0 mt-1 rounded-xl shadow-xl border border-white/30 z-50 backdrop-blur-sm overflow-hidden"
+      style={{ backgroundColor: DROPDOWN_BG, width: "620px" }}
+    >
+      {/* Header-Link */}
+      <div className="border-b border-white/20">
+        <Link
+          href="/urlaubsarten/"
+          onClick={onClose}
+          className="flex items-center gap-2 px-4 py-3 text-sm text-white font-bold hover:bg-white/20"
+        >
+          ✈️ Alle Urlaubsarten im Überblick →
+        </Link>
+      </div>
+
+      {/* Body */}
+      <div className="flex">
+        {/* LEFT: Bild + Intro */}
+        <div className="w-48 shrink-0 relative overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&q=70"
+            alt="Urlaubsarten"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            <p className="text-[10px] text-white/70 font-bold uppercase tracking-widest mb-1">Deine Reise</p>
+            <p className="text-sm font-extrabold text-white leading-tight">Finde deine Art zu reisen</p>
+          </div>
+        </div>
+
+        {/* RIGHT: Urlaubsarten Liste */}
+        <div className="flex-1 py-2">
+          {URLAUBSARTEN_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onClose}
+              className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/15 transition-colors group"
+            >
+              <span className="text-xl shrink-0 mt-0.5">{item.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-sm font-bold text-white">{item.label}</span>
+                  <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${item.badgeColor}`}>
+                    {item.badge}
+                  </span>
+                </div>
+                <p className="text-[11px] text-white/60 leading-snug">{item.desc}</p>
+              </div>
+              <span className="text-white/40 group-hover:text-white/80 transition-colors text-sm mt-0.5">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer: Lifestyle-Teaser */}
+      <div className="border-t border-white/20 px-4 py-3 bg-white/5">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-white/60 uppercase tracking-widest font-bold mb-1">Dein Lifestyle, deine Wahl!</p>
+            <div className="flex gap-3">
+              {LIFESTYLE_PREVIEW.map((l) => (
+                <span key={l.label} className="flex items-center gap-1 text-[11px] text-white/70">
+                  <span>{l.emoji}</span>{l.label}
+                </span>
+              ))}
+            </div>
+          </div>
+          <Link
+            href="/urlaubsarten/#lifestyle"
+            onClick={onClose}
+            className="text-[11px] text-white/70 hover:text-white font-semibold transition-colors whitespace-nowrap"
+          >
+            Entdecken →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Header() {
   const { user, logout } = useAuth();
   const [mobileOpen, setMobileOpen]       = useState(false);
@@ -506,6 +648,8 @@ export default function Header() {
                       ? <DestinationsMegaMenu onClose={() => setActiveDropdown(null)} />
                       : item.label === "Urlaubsthemen"
                         ? <ThemenMegaMenu onClose={() => setActiveDropdown(null)} />
+                        : item.label === "Urlaubsarten"
+                        ? <UrlaubsartenMegaMenu onClose={() => setActiveDropdown(null)} />
                         : item.label === "Community"
                           ? <CommunityMegaMenu onClose={() => setActiveDropdown(null)} />
                           : <DropdownMenu item={item} onClose={() => setActiveDropdown(null)} />
