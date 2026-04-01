@@ -217,45 +217,71 @@ export default function GuenstigUrlaubBuchen() {
           </div>
         </div>
 
-        {/* ══ LAST-MINUTE — Dringlichkeits-Sektion ═══════════════════════ */}
-        <div className="bg-red-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
+        {/* ══ LAST-MINUTE — Editorial CTA-Sektion ════════════════════════ */}
+        <div
+          className="relative overflow-hidden"
+          style={{ background: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)" }}
+        >
+          {/* Dekorative Kreise */}
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-white/5 pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-8">
+
+              {/* Linke Seite: Text */}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-3">
                   <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-red-400">Nur noch wenige Plätze</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-red-300">Spontan &amp; günstig</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
-                  ⚡ Last-Minute – Jetzt spontan buchen
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-3">
+                  ⚡ Last-Minute
                 </h3>
-                <p className="text-red-200/80 text-sm mt-1">
-                  Abflug in den nächsten 14 Tagen · Veranstalter räumen freie Plätze mit bis zu 60 % Rabatt
+                <p className="text-red-100/80 text-base leading-relaxed mb-5 max-w-lg">
+                  Abflug in den nächsten 14 Tagen: Veranstalter räumen freie Plätze mit bis zu 60 % Rabatt. Ideal für alle, die flexibel sind und spontan in den Urlaub wollen.
                 </p>
+                {/* Fact-Chips */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {["✈️ Abflug in &lt;14 Tagen", "💸 Bis zu 60 % günstiger", "🔥 Täglich neue Angebote", "⏱️ Sofortbuchung"].map(f => (
+                    <span key={f} className="bg-red-900/60 border border-red-700/50 text-red-100 text-xs font-medium px-3 py-1.5 rounded-full"
+                      dangerouslySetInnerHTML={{ __html: f }} />
+                  ))}
+                </div>
+                <Link
+                  href="/last-minute/"
+                  className="inline-flex items-center gap-2 bg-white text-red-700 hover:bg-red-50 text-sm font-bold px-6 py-3 rounded-full transition-colors shadow-lg"
+                >
+                  Alle Last-Minute Deals ansehen →
+                </Link>
               </div>
-              <Link
-                href="/last-minute/"
-                className="shrink-0 inline-flex items-center gap-1.5 bg-red-500 hover:bg-red-400 text-white text-sm font-bold px-5 py-2.5 rounded-full transition-colors shadow"
-              >
-                Alle Last-Minute Deals →
-              </Link>
+
+              {/* Rechte Seite: Ziel-Grid */}
+              <div className="lg:w-80 shrink-0">
+                <p className="text-red-300 text-xs font-bold uppercase tracking-widest mb-3">Beliebte Last-Minute Ziele</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { flag: "tr", name: "Türkei",       href: "/urlaubsziele/tuerkei/" },
+                    { flag: "es", name: "Mallorca",      href: "/urlaubsziele/mallorca/" },
+                    { flag: "gr", name: "Griechenland",  href: "/urlaubsziele/griechenland/" },
+                    { flag: "eg", name: "Ägypten",       href: "/urlaubsziele/aegypten/" },
+                    { flag: "pt", name: "Portugal",      href: "/urlaubsziele/portugal/" },
+                    { flag: "cy", name: "Zypern",        href: "/urlaubsziele/zypern/" },
+                  ].map(({ flag, name, href }) => (
+                    <Link
+                      key={name}
+                      href={href}
+                      className="flex items-center gap-2 bg-red-900/50 hover:bg-red-800/70 border border-red-800/40 text-white text-sm font-medium px-3 py-2.5 rounded-xl transition-colors"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={`https://flagcdn.com/w20/${flag}.png`} width="18" height="13" alt={name} className="rounded-sm shrink-0" />
+                      {name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
             </div>
-            {/* Fact-Chips */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {["✈️ Abflug in <14 Tagen", "💸 Bis zu 60 % günstiger", "🔥 Täglich neue Angebote", "⏱️ Sofortbuchung"].map(f => (
-                <span key={f} className="bg-red-900/60 border border-red-700/50 text-red-100 text-xs font-medium px-3 py-1.5 rounded-full">{f}</span>
-              ))}
-            </div>
-            <IbeTeaser
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="0"
-              to="14"
-              duration="7-14"
-            />
           </div>
         </div>
 
