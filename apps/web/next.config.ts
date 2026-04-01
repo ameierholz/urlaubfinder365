@@ -4,8 +4,14 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   transpilePackages: ["@urlaubfinder/shared"],
 
-
   allowedDevOrigins: ["127.0.0.1", "localhost"],
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.target = ["web", "es2022"];
+    }
+    return config;
+  },
 
   images: {
     remotePatterns: [

@@ -368,6 +368,7 @@ export default async function HomePage() {
           fill
           className="object-cover object-[center_40%]"
           priority
+          fetchPriority="high"
           sizes="100vw"
         />
 
