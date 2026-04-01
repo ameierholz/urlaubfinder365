@@ -218,36 +218,88 @@ export default function GuenstigUrlaubBuchen() {
         </div>
 
         {/* ── Länder-Sektionen ── */}
-        {[
-          { flag: "tr", alt: "Türkei",       title: "Türkei",              subtitle: "Antalya, Side, Bodrum & mehr",      href: "/urlaubsziele/tuerkei/",       regionId: "149", accent: "from-red-500 to-red-700" },
-          { flag: "es", alt: "Spanien",       title: "Spanien & Balearen",  subtitle: "Mallorca, Teneriffa, Gran Canaria", href: "/urlaubsziele/spanien/",        regionId: "133", accent: "from-yellow-500 to-orange-600" },
-          { flag: "gr", alt: "Griechenland",  title: "Griechenland",        subtitle: "Kreta, Rhodos, Korfu & Inseln",     href: "/urlaubsziele/griechenland/",   regionId: "46",  accent: "from-blue-500 to-blue-700" },
-          { flag: "eg", alt: "Ägypten",       title: "Ägypten",             subtitle: "Hurghada, Sharm el-Sheikh & Nil",   href: "/urlaubsziele/aegypten/",       regionId: "560", accent: "from-amber-500 to-yellow-700" },
-          { flag: "it", alt: "Italien",       title: "Italien",             subtitle: "Sizilien, Sardinien, Amalfi & Rom", href: "/urlaubsziele/italien/",        regionId: "83",  accent: "from-green-500 to-emerald-700" },
-        ].map(({ flag, alt, title, subtitle, href, regionId, accent }, i) => (
+        {([
+          {
+            flag: "tr", alt: "Türkei", title: "Türkei", subtitle: "Antalya · Side · Bodrum · Alanya",
+            href: "/urlaubsziele/tuerkei/", regionId: "149",
+            img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80",
+            desc: "Die Türkei zählt zu den beliebtesten Urlaubszielen der Deutschen – und das zu Recht. Traumstrände, jahrhundertealte Geschichte und großzügige All-Inclusive-Resorts machen das Land zu einem echten Preis-Leistungs-Champion.",
+            facts: ["☀️ 300+ Sonnentage", "✈️ ~3,5h Flugzeit", "🏨 AI ab 399 €"],
+          },
+          {
+            flag: "es", alt: "Spanien", title: "Spanien & Balearen", subtitle: "Mallorca · Teneriffa · Gran Canaria · Ibiza",
+            href: "/urlaubsziele/spanien/", regionId: "133",
+            img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&q=80",
+            desc: "Von der pulsierenden Partyinsel Ibiza bis zur Familiendestination Mallorca: Spanien und seine Balearen bieten für jeden Geschmack das Richtige. Gepaart mit kurzen Flugzeiten ist es der Klassiker unter den Pauschalreise-Zielen.",
+            facts: ["🌊 Traumstrände", "✈️ ~2,5h Flugzeit", "👨‍👩‍👧 Familienfreundlich"],
+          },
+          {
+            flag: "gr", alt: "Griechenland", title: "Griechenland & Inseln", subtitle: "Kreta · Rhodos · Korfu · Santorini · Mykonos",
+            href: "/urlaubsziele/griechenland/", regionId: "46",
+            img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80",
+            desc: "Weiß-blaue Häuser, kristallklares Wasser und unschlagbare Gastfreundschaft: Griechenland verzaubert Jahr für Jahr Millionen Besucher. Jede Insel hat ihren ganz eigenen Charakter – von wild-romantisch bis kosmopolitisch.",
+            facts: ["🏛️ Antike Kultur", "✈️ ~3h Flugzeit", "🌅 Weltklasse-Sonnenuntergänge"],
+          },
+          {
+            flag: "eg", alt: "Ägypten", title: "Ägypten", subtitle: "Hurghada · Sharm el-Sheikh · Marsa Alam · Nilkreuzfahrt",
+            href: "/urlaubsziele/aegypten/", regionId: "560",
+            img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1200&q=80",
+            desc: "Ägypten bietet das perfekte Doppelpaket: tagsüber Schnorcheln und Tauchen im Roten Meer, dazu Ausflüge zu den ältesten Bauwerken der Menschheit. Besonders günstig und mit einem der besten Korallenriffe der Welt.",
+            facts: ["🐠 Top-Tauchspot", "✈️ ~4,5h Flugzeit", "🏺 7.000 Jahre Geschichte"],
+          },
+          {
+            flag: "it", alt: "Italien", title: "Italien", subtitle: "Sizilien · Sardinien · Amalfiküste · Rom · Venedig",
+            href: "/urlaubsziele/italien/", regionId: "83",
+            img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=1200&q=80",
+            desc: "La dolce vita – das süße Leben: In Italien stimmt einfach alles. Weltklasse-Küche, beeindruckende Kunstschätze, dramatische Landschaften und ein Klima, das seinesgleichen sucht. Ob Städtereise oder Strandurlaub – Italia macht alles richtig.",
+            facts: ["🍕 Weltküche", "✈️ ~2h Flugzeit", "🎨 UNESCO-Welterbe"],
+          },
+        ] as const).map(({ flag, alt, title, subtitle, href, regionId, img, desc, facts }, i) => (
           <div key={regionId} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-              {/* Länder-Header */}
-              <div className="flex items-center gap-4 mb-5">
-                {/* Farbiger Akzent-Streifen + Flag + Name */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className={`w-1 h-10 rounded-full bg-linear-to-b ${accent} shrink-0`} />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`https://flagcdn.com/w40/${flag}.png`} width="28" height="21" alt={alt} className="rounded shadow-sm shrink-0" />
-                  <div className="min-w-0">
-                    <h3 className="text-lg font-extrabold text-gray-900 leading-tight">{title}</h3>
-                    <p className="text-xs text-gray-400 leading-tight">{subtitle}</p>
+              {/* Bild-Banner mit Overlay */}
+              <div className="relative rounded-2xl overflow-hidden mb-6 h-48 sm:h-56">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img}
+                  alt={title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent" />
+
+                {/* Text-Overlay links */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-7">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`https://flagcdn.com/w40/${flag}.png`} width="28" height="21" alt={alt} className="rounded shadow" />
+                    <span className="text-white/70 text-sm font-medium">{subtitle}</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight drop-shadow mb-3">
+                    {title}
+                  </h3>
+                  {/* Fact-Chips */}
+                  <div className="flex flex-wrap gap-2">
+                    {facts.map((f) => (
+                      <span key={f} className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
+                        {f}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                {/* Alle Angebote Button */}
+
+                {/* Alle Angebote – oben rechts */}
                 <Link
                   href={href}
-                  className="shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#00838F] border border-[#00838F]/30 hover:border-[#00838F] hover:bg-[#00838F]/5 px-3.5 py-1.5 rounded-full transition-colors"
+                  className="absolute top-4 right-4 inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-[#00838F] text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors"
                 >
                   Alle {alt}-Angebote →
                 </Link>
               </div>
+
+              {/* Beschreibungstext */}
+              <p className="text-sm text-gray-500 leading-relaxed mb-5 max-w-3xl">{desc}</p>
 
               <IbeTeaser
                 regionId={regionId}

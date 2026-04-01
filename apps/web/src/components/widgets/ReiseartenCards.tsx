@@ -81,10 +81,6 @@ export default function ReiseartenCards() {
               Wähle deine Urlaubsart – wir öffnen sofort die passende Buchungsmaske.
             </p>
           </div>
-          <span className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400 shrink-0">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            Preise täglich aktualisiert
-          </span>
         </div>
 
         {/* Cards Grid */}
