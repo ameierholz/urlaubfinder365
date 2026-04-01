@@ -114,7 +114,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
       <div className="relative overflow-hidden" style={{ height: "185px" }}>
         <Image
           src={getImg(offer)}
-          alt={offer.hotel_name}
+          alt={`${offer.hotel_name} – ${offer.region_name}, ${offer.country_name}`}
           fill
           priority={priority}
           className="object-cover group-hover:scale-105 transition-transform duration-500"

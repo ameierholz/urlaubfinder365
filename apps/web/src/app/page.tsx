@@ -394,8 +394,8 @@ export default async function HomePage() {
             className="font-black leading-tight mb-6 whitespace-normal sm:whitespace-nowrap"
             style={{ fontSize: "clamp(1.6rem, 4.5vw, 4.2rem)", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
           >
-            Wir finden den günstigsten Preis,<br />
-            <span className="text-sand-400">Du deinen Traumurlaub!</span>
+            Pauschalreisen & Urlaub günstig buchen –<br />
+            <span className="text-sand-400">Wir finden deinen Traumurlaub!</span>
           </h1>
 
           {/* ── Trust-Badges ── */}

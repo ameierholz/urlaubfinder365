@@ -422,7 +422,7 @@ export default function UrlaubszielePage() {
             <span className="text-white/90">Urlaubsziele</span>
           </nav>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3 leading-tight drop-shadow-lg">
-            Deine Traumreise beginnt hier
+            Urlaubsziele weltweit – Pauschalreisen günstig buchen
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-7">
             Vergleiche günstige Pauschalreisen, All-Inclusive &amp; Last-Minute für über 200 Urlaubsziele weltweit.

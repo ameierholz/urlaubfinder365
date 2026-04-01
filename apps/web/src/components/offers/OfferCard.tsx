@@ -83,7 +83,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
       <div className={clsx("relative overflow-hidden shrink-0", compact ? "h-36" : "h-44")}>
         <Image
           src={offer.images?.medium || offer.images?.large || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"}
-          alt={offer.hotel_name}
+          alt={`${offer.hotel_name} – ${offer.region_name}, ${offer.country_name}`}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, 33vw"
