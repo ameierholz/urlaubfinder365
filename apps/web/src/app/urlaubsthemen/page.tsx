@@ -144,9 +144,40 @@ const BUDGET = [
   },
 ];
 
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Urlaubsthemen – Alle Reiseideen auf einen Blick",
+    description: "Alle Urlaubsthemen entdecken: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Hochzeitsreise, Luxusurlaub und mehr.",
+    url: "https://www.urlaubfinder365.de/urlaubsthemen/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite",     item: "https://www.urlaubfinder365.de/" },
+      { "@type": "ListItem", position: 2, name: "Urlaubsthemen",  item: "https://www.urlaubfinder365.de/urlaubsthemen/" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Urlaubsthemen",
+    itemListElement: THEMEN.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.label,
+      description: t.desc,
+      url: `https://www.urlaubfinder365.de${t.href}`,
+    })),
+  },
+];
+
 export default function UrlaubsthemenPage() {
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Hero */}
       <div
         className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[320px]"

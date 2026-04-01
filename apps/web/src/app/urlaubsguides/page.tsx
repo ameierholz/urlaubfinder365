@@ -15,9 +15,28 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Urlaubsguides – Reiseführer & Reisetipps",
+    description: "Hilfreiche Urlaubsguides und Reiseführer: Einreise, Klima, Sehenswürdigkeiten und Insidertipps für dein Reiseziel.",
+    url: "https://www.urlaubfinder365.de/urlaubsguides/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite",    item: "https://www.urlaubfinder365.de/" },
+      { "@type": "ListItem", position: 2, name: "Urlaubsguides", item: "https://www.urlaubfinder365.de/urlaubsguides/" },
+    ],
+  },
+];
+
 export default function UrlaubsguidesPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/urlaubsguides_header.webp" alt="Urlaubsguides" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

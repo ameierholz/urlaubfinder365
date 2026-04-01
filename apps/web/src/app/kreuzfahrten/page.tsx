@@ -19,6 +19,45 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Kreuzfahrten günstig buchen",
+    description: "Kreuzfahrten günstig buchen – Hochsee & Flussfahrten, Karibik & Mittelmeer, 30+ Reedereien.",
+    url: "https://www.urlaubfinder365.de/kreuzfahrten/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite",    item: "https://www.urlaubfinder365.de/" },
+      { "@type": "ListItem", position: 2, name: "Kreuzfahrten",  item: "https://www.urlaubfinder365.de/kreuzfahrten/" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Welche Kreuzfahrten gibt es bei Urlaubfinder365?",
+        acceptedAnswer: { "@type": "Answer", text: "Wir zeigen Hochseekreuzfahrten, Flusskreuzfahrten, Mittelmeerrouten und Karibik-Kreuzfahrten von über 30 Reedereien wie AIDA, TUI Cruises und MSC." },
+      },
+      {
+        "@type": "Question",
+        name: "Wann sind Kreuzfahrten am günstigsten?",
+        acceptedAnswer: { "@type": "Answer", text: "Die günstigsten Preise gibt es oft als Frühbucher (6–12 Monate vor Abfahrt) oder kurzfristig 1–4 Wochen vor der Abfahrt als Last-Minute-Angebot." },
+      },
+    ],
+  },
+];
+
 export default function KreuzfahrtenPage() {
-  return <KreuzfahrtenContent />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <KreuzfahrtenContent />
+    </>
+  );
 }

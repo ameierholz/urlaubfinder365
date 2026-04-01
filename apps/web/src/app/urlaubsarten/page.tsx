@@ -22,9 +22,40 @@ const arten = [
   { title: "Super-Last-Minute", href: "/urlaubsarten/super-last-minute-urlaub/", desc: "Innerhalb von 72 Stunden abreisen – maximale Ersparnis.", emoji: "🚀" },
 ];
 
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Urlaubsarten – Pauschalreisen, All-Inclusive & mehr",
+    description: "Alle Urlaubsarten im Überblick: Pauschalreisen, All-Inclusive, Last-Minute, Frühbucher und mehr.",
+    url: "https://www.urlaubfinder365.de/urlaubsarten/",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
+      { "@type": "ListItem", position: 2, name: "Urlaubsarten", item: "https://www.urlaubfinder365.de/urlaubsarten/" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Urlaubsarten",
+    itemListElement: arten.map((a, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: a.title,
+      description: a.desc,
+      url: `https://www.urlaubfinder365.de${a.href}`,
+    })),
+  },
+];
+
 export default function UrlaubsartenPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/urlaubsarten_header.webp" alt="Urlaubsarten" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
