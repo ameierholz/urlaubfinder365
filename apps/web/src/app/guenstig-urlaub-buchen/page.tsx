@@ -185,129 +185,85 @@ export default function GuenstigUrlaubBuchen() {
       {/* ═══════════════════════════════════════════════════════════════════
           AKTUELLE DEALS – IbeTeaser Carousels
       ═══════════════════════════════════════════════════════════════════ */}
-      <div className="bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+      <div className="bg-gray-50">
 
-          <div>
-            <h2 className="text-2xl font-extrabold text-gray-900 mb-1">
-              Aktuelle Angebote – täglich aktualisiert
-            </h2>
-            <p className="text-gray-500 text-sm">
-              Live-Preise direkt von über 200 Reiseveranstaltern – klick auf ein Angebot zur Sofortbuchung.
-            </p>
+        {/* ── Section Header ── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs font-bold uppercase tracking-widest text-green-600">Live-Preise</span>
+              </div>
+              <h2 className="text-2xl font-extrabold text-gray-900 leading-tight">
+                Aktuelle Angebote – täglich aktualisiert
+              </h2>
+              <p className="text-gray-500 text-sm mt-1">
+                Direkt von über 200 Reiseveranstaltern – klick auf ein Angebot zur Sofortbuchung.
+              </p>
+            </div>
+            {/* Stat-Chips */}
+            <div className="flex flex-wrap gap-2 shrink-0">
+              {[
+                { label: "200+ Veranstalter" },
+                { label: "5 Top-Länder" },
+                { label: "Täglich aktuell" },
+              ].map(({ label }) => (
+                <span key={label} className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
+                  {label}
+                </span>
+              ))}
+            </div>
           </div>
-
-          {/* Türkei */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w20/tr.png" width="20" height="15" alt="Türkei" className="rounded-sm" />
-              <h3 className="text-lg font-bold text-gray-900">Türkei – Günstig Urlaub buchen</h3>
-              <Link href="/urlaubsziele/tuerkei/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
-                Alle Türkei-Angebote →
-              </Link>
-            </div>
-            <IbeTeaser
-              regionId="149"
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="7"
-              to="120"
-              duration="7-14"
-            />
-          </section>
-
-          {/* Spanien */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w20/es.png" width="20" height="15" alt="Spanien" className="rounded-sm" />
-              <h3 className="text-lg font-bold text-gray-900">Spanien &amp; Balearen – Günstig buchen</h3>
-              <Link href="/urlaubsziele/spanien/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
-                Alle Spanien-Angebote →
-              </Link>
-            </div>
-            <IbeTeaser
-              regionId="133"
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="7"
-              to="120"
-              duration="7-14"
-            />
-          </section>
-
-          {/* Griechenland */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w20/gr.png" width="20" height="15" alt="Griechenland" className="rounded-sm" />
-              <h3 className="text-lg font-bold text-gray-900">Griechenland &amp; Inseln – Günstig buchen</h3>
-              <Link href="/urlaubsziele/griechenland/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
-                Alle Griechenland-Angebote →
-              </Link>
-            </div>
-            <IbeTeaser
-              regionId="46"
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="7"
-              to="120"
-              duration="7-14"
-            />
-          </section>
-
-          {/* Ägypten */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w20/eg.png" width="20" height="15" alt="Ägypten" className="rounded-sm" />
-              <h3 className="text-lg font-bold text-gray-900">Ägypten – Günstig buchen</h3>
-              <Link href="/urlaubsziele/aegypten/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
-                Alle Ägypten-Angebote →
-              </Link>
-            </div>
-            <IbeTeaser
-              regionId="560"
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="7"
-              to="120"
-              duration="7-14"
-            />
-          </section>
-
-          {/* Italien */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://flagcdn.com/w20/it.png" width="20" height="15" alt="Italien" className="rounded-sm" />
-              <h3 className="text-lg font-bold text-gray-900">Italien – Günstig buchen</h3>
-              <Link href="/urlaubsziele/italien/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
-                Alle Italien-Angebote →
-              </Link>
-            </div>
-            <IbeTeaser
-              regionId="83"
-              headline=""
-              diverseResults={true}
-              sortBy="count"
-              minRecommrate="20"
-              from="7"
-              to="120"
-              duration="7-14"
-            />
-          </section>
-
         </div>
+
+        {/* ── Länder-Sektionen ── */}
+        {[
+          { flag: "tr", alt: "Türkei",       title: "Türkei",              subtitle: "Antalya, Side, Bodrum & mehr",      href: "/urlaubsziele/tuerkei/",       regionId: "149", accent: "from-red-500 to-red-700" },
+          { flag: "es", alt: "Spanien",       title: "Spanien & Balearen",  subtitle: "Mallorca, Teneriffa, Gran Canaria", href: "/urlaubsziele/spanien/",        regionId: "133", accent: "from-yellow-500 to-orange-600" },
+          { flag: "gr", alt: "Griechenland",  title: "Griechenland",        subtitle: "Kreta, Rhodos, Korfu & Inseln",     href: "/urlaubsziele/griechenland/",   regionId: "46",  accent: "from-blue-500 to-blue-700" },
+          { flag: "eg", alt: "Ägypten",       title: "Ägypten",             subtitle: "Hurghada, Sharm el-Sheikh & Nil",   href: "/urlaubsziele/aegypten/",       regionId: "560", accent: "from-amber-500 to-yellow-700" },
+          { flag: "it", alt: "Italien",       title: "Italien",             subtitle: "Sizilien, Sardinien, Amalfi & Rom", href: "/urlaubsziele/italien/",        regionId: "83",  accent: "from-green-500 to-emerald-700" },
+        ].map(({ flag, alt, title, subtitle, href, regionId, accent }, i) => (
+          <div key={regionId} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+              {/* Länder-Header */}
+              <div className="flex items-center gap-4 mb-5">
+                {/* Farbiger Akzent-Streifen + Flag + Name */}
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className={`w-1 h-10 rounded-full bg-linear-to-b ${accent} shrink-0`} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`https://flagcdn.com/w40/${flag}.png`} width="28" height="21" alt={alt} className="rounded shadow-sm shrink-0" />
+                  <div className="min-w-0">
+                    <h3 className="text-lg font-extrabold text-gray-900 leading-tight">{title}</h3>
+                    <p className="text-xs text-gray-400 leading-tight">{subtitle}</p>
+                  </div>
+                </div>
+                {/* Alle Angebote Button */}
+                <Link
+                  href={href}
+                  className="shrink-0 inline-flex items-center gap-1.5 text-xs font-bold text-[#00838F] border border-[#00838F]/30 hover:border-[#00838F] hover:bg-[#00838F]/5 px-3.5 py-1.5 rounded-full transition-colors"
+                >
+                  Alle {alt}-Angebote →
+                </Link>
+              </div>
+
+              <IbeTeaser
+                regionId={regionId}
+                headline=""
+                diverseResults={true}
+                sortBy="count"
+                minRecommrate="20"
+                from="7"
+                to="120"
+                duration="7-14"
+              />
+            </div>
+          </div>
+        ))}
+
+        <div className="pb-4" />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
