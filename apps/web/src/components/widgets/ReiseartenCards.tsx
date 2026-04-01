@@ -26,7 +26,7 @@ const REISEARTEN = [
     badgeColor: "bg-amber-500 text-white",
     highlights: ["Vollverpflegung inklusive", "Softdrinks & Bar", "Keine Nebenkosten"],
     bg: "from-amber-600 to-orange-700",
-    url: `${BASE}?from=14&to=180&duration=7-14&adults=2`,
+    url: `${BASE}?from=14&to=180&duration=7-14&adults=2&boardCode=AI`,
     Icon: UtensilsCrossed,
   },
   {
