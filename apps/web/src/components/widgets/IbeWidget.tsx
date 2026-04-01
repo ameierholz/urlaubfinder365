@@ -1,51 +1,28 @@
 "use client";
 
-import { useEffect } from "react";
-
-const SCRIPT_SRC = "https://webmedia.ypsilon.net/spl_js/ypsnet-ibe.js";
+import { useState } from "react";
 
 interface IbeWidgetProps {
   dataSrc: string;
 }
 
-/**
- * Lädt ypsnet-ibe.js imperativ per useEffect, damit das Script IMMER
- * NACH dem Mount des #ypsnet-ibe Divs ausgeführt wird.
- *
- * Wichtig für CollapsibleIbeWidget: beim ersten Öffnen wird IbeWidget
- * lazy gemountet – ohne imperatives Laden würde das bereits gecachte
- * Script nicht erneut laufen und das Widget nicht initialisieren.
- */
 export default function IbeWidget({ dataSrc }: IbeWidgetProps) {
-  useEffect(() => {
-    const clearIbe = () => {
-      const d = document.getElementById("ypsnet-ibe");
-      if (d) while (d.firstChild) d.removeChild(d.firstChild);
-    };
+  const [loaded, setLoaded] = useState(false);
 
-    // Div sofort leeren (beide Strict-Mode-Durchläufe)
-    clearIbe();
-
-    // setTimeout(0) → der Cleanup-Schritt von React Strict Mode cancelt den
-    // Timer, bevor das Script angefügt wird → nur ein Durchlauf legt das
-    // Script an → kein doppeltes Widget
-    const timer = setTimeout(() => {
-      const prev = document.querySelector<HTMLScriptElement>(
-        `script[src="${SCRIPT_SRC}"]`
-      );
-      if (prev) prev.remove();
-
-      const script = document.createElement("script");
-      script.src = SCRIPT_SRC;
-      script.async = true;
-      document.body.appendChild(script);
-    }, 0);
-
-    return () => {
-      clearTimeout(timer);
-      clearIbe();
-    };
-  }, [dataSrc]);
-
-  return <div id="ypsnet-ibe" data-src={dataSrc} />;
+  return (
+    <div className="relative w-full" style={{ minHeight: 540 }}>
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+          <span className="text-sm text-gray-400">Suchmaske wird geladen…</span>
+        </div>
+      )}
+      <iframe
+        src={dataSrc}
+        title="Reisesuche & Buchung"
+        className="w-full border-0 block"
+        style={{ height: 620 }}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
 }
