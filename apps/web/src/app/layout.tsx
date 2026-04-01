@@ -118,12 +118,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" suppressHydrationWarning>
       <head>
-        {/* Preconnect – max. 4, nur für kritische Domains die LCP/FCP direkt beeinflussen */}
+        {/* Preconnect – nur 2 kritische Domains (LCP-Bild + SearchBox) */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://api.specials.de" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* DNS-Prefetch für sekundäre Drittanbieter */}
+        {/* DNS-Prefetch für alle weiteren Drittanbieter */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://assets.specials.de" />
         <link rel="dns-prefetch" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://flagcdn.com" />

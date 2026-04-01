@@ -104,9 +104,10 @@ const navItems: NavItem[] = [
   },
 ];
 
-// Header-Hintergrund: #6CC4BA78 = teal mit ~47% Opacity
-const HEADER_BG = "rgba(108, 196, 186, 0.47)";
-const DROPDOWN_BG = "rgba(108, 196, 186, 0.97)";
+// Header-Hintergrund: dunkel genug für WCAG-AA-Kontrast (weiße Schrift auf hellen Seiten)
+// rgba(18,107,97,0.90) → Effektiv-Farbe auf weißem BG: ~rgb(42,122,113), Kontrast 5.1:1 ✓
+const HEADER_BG = "rgba(18, 107, 97, 0.90)";
+const DROPDOWN_BG = "rgba(18, 107, 97, 0.97)";
 
 function DropdownMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
   return (
@@ -494,7 +495,7 @@ export default function Header() {
                 <div key={item.label} className="relative">
                   <button
                     onClick={() => toggleDropdown(item.label)}
-                    className={`flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-colors text-white ${
+                    className={`flex items-center gap-1 px-3 py-3 text-sm font-semibold rounded-lg transition-colors text-white ${
                       activeDropdown === item.label ? "bg-white/25" : "hover:bg-white/20"
                     }`}
                   >
@@ -515,7 +516,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href!}
-                  className="px-3 py-2 text-sm font-semibold text-white hover:bg-white/20 rounded-lg transition-colors"
+                  className="px-3 py-3 text-sm font-semibold text-white hover:bg-white/20 rounded-lg transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -588,9 +589,9 @@ export default function Header() {
 
           {/* Mobile Burger */}
           <button
-            className="lg:hidden text-white p-1"
+            className="lg:hidden text-white p-2.5"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menü"
+            aria-label="Menü öffnen"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
