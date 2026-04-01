@@ -4,13 +4,14 @@ import { useState } from "react";
 
 interface IbeWidgetProps {
   dataSrc: string;
+  height?: number;
 }
 
-export default function IbeWidget({ dataSrc }: IbeWidgetProps) {
+export default function IbeWidget({ dataSrc, height = 1200 }: IbeWidgetProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative w-full" style={{ minHeight: 3750 }}>
+    <div className="relative w-full" style={{ minHeight: height }}>
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
           <span className="text-sm text-gray-400">Suchmaske wird geladen…</span>
@@ -20,7 +21,7 @@ export default function IbeWidget({ dataSrc }: IbeWidgetProps) {
         src={dataSrc}
         title="Reisesuche & Buchung"
         className="w-full border-0 block"
-        style={{ height: 3750 }}
+        style={{ height }}
         onLoad={() => setLoaded(true)}
       />
     </div>

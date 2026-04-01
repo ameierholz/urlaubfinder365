@@ -8,9 +8,10 @@ interface Props {
   dataSrc: string;
   label?: string;
   hint?: string;
+  height?: number;
 }
 
-export default function CollapsibleIbeWidget({ dataSrc, label, hint }: Props) {
+export default function CollapsibleIbeWidget({ dataSrc, label, hint, height }: Props) {
   const [open, setOpen] = useState(false);
   // Widget erst beim ersten Öffnen mounten → Script initialisiert korrekt
   const [mounted, setMounted] = useState(false);
@@ -68,7 +69,7 @@ export default function CollapsibleIbeWidget({ dataSrc, label, hint }: Props) {
       {/* Widget erst beim ersten Öffnen in den DOM → korrekte Script-Initialisierung */}
       {mounted && (
         <div className={open ? "border-t border-gray-100" : "hidden"}>
-          <IbeWidget dataSrc={dataSrc} />
+          <IbeWidget dataSrc={dataSrc} height={height} />
         </div>
       )}
     </div>

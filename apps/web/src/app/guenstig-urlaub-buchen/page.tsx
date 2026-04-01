@@ -174,7 +174,7 @@ export default function GuenstigUrlaubBuchen() {
 
       {/* ── IBE aufklappbar (unterhalb Hero) ── */}
       <div id="ibe-suche" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-10 scroll-mt-24">
-        <CollapsibleIbeWidget dataSrc="https://b2b.specials.de/index/jump/119/2780/993243/?from=0&to=180&duration=7-14&adults=2" />
+        <CollapsibleIbeWidget dataSrc="https://b2b.specials.de/index/jump/119/2780/993243/?from=0&to=180&duration=7-14&adults=2" height={3750} />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
