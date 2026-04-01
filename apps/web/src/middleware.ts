@@ -38,7 +38,13 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Nur auf Routen ausführen, die tatsächlich Auth benötigen.
+  // Öffentliche Seiten (/, /urlaubsziele/*, /datenschutz/, etc.) werden übersprungen →
+  // kein Supabase-Netzwerkaufruf pro Bot-/Crawler-Request, zuverlässigeres SSR-Streaming.
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|images|fonts|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/dashboard/:path*",
+    "/community/:path*",
+    "/profil/:path*",
+    "/api/protected/:path*",
   ],
 };

@@ -57,6 +57,8 @@ export default function KreuzfahrtenPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* Server-gerenderter H1 – für SSR/Crawler sichtbar; der visuelle H1 liegt im Client-Component */}
+      <h1 className="sr-only">Traumkreuzfahrten günstig buchen – Hochsee, Flussfahrten, Karibik & Mittelmeer</h1>
       <KreuzfahrtenContent />
     </>
   );
