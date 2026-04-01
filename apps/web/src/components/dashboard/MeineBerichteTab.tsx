@@ -113,9 +113,7 @@ export default function MeineBerichteTab({ user }: Props) {
         <div className="space-y-3">
           {reports.map((r) => {
             // Landesflagge aus Destination ableiten (einfaches Mapping)
-            const flagEmoji = r.countryCode
-              ? String.fromCodePoint(...[...r.countryCode.toUpperCase()].map((c) => 0x1F1E6 + c.charCodeAt(0) - 65))
-              : null;
+            const flagEmoji: string | null = null;
             return (
             <div key={r.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-4 items-start">
               {/* Cover-Mini */}
