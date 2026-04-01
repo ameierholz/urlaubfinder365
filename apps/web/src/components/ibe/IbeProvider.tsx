@@ -15,7 +15,26 @@ export default function IbeProvider() {
     (window as any).ibeSaveOffer = async (btn: HTMLButtonElement, e: Event) => {
       e.preventDefault();
       e.stopPropagation();
-      if (!user) { window.location.href = "/login"; return; }
+      if (!user) {
+        // Tooltip statt Redirect – zeigt Hinweis direkt am Button
+        const existing = document.getElementById("ibe-login-tip");
+        if (existing) existing.remove();
+        const tip = document.createElement("div");
+        tip.id = "ibe-login-tip";
+        tip.textContent = "Zum Merken bitte anmelden oder registrieren";
+        tip.style.cssText =
+          "position:fixed;background:#1f2937;color:#fff;font-size:12px;line-height:1.4;" +
+          "padding:8px 12px;border-radius:8px;z-index:99999;pointer-events:none;" +
+          "max-width:210px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.35);" +
+          "white-space:normal;";
+        document.body.appendChild(tip);
+        const rect = btn.getBoundingClientRect();
+        const left = Math.max(8, Math.min(rect.left + rect.width / 2 - 105, window.innerWidth - 218));
+        tip.style.left = left + "px";
+        tip.style.top = Math.max(8, rect.top - tip.offsetHeight - 10) + "px";
+        setTimeout(() => tip.remove(), 3000);
+        return;
+      }
       const ok = btn.dataset.ok;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const offer = ok ? (window as any)._ibeOffers?.[ok] : null;

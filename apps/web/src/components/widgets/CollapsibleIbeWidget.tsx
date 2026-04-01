@@ -15,6 +15,16 @@ export default function CollapsibleIbeWidget({ dataSrc, label, hint }: Props) {
   // Widget erst beim ersten Öffnen mounten → Script initialisiert korrekt
   const [mounted, setMounted] = useState(false);
 
+  // Externe Karten (ReiseartenCards) können das Widget via Custom Event öffnen
+  useEffect(() => {
+    const handler = () => {
+      setMounted(true);
+      setOpen(true);
+    };
+    window.addEventListener("ibe:open", handler);
+    return () => window.removeEventListener("ibe:open", handler);
+  }, []);
+
   function toggle() {
     if (!mounted) setMounted(true);
     setOpen((o) => !o);
@@ -49,7 +59,7 @@ export default function CollapsibleIbeWidget({ dataSrc, label, hint }: Props) {
           </span>
         ) : (
           <span className="flex items-center gap-1.5 bg-[#00838F] hover:bg-[#006B77] text-white text-sm font-bold px-4 py-2 rounded-full transition-colors shrink-0">
-            Jetzt suchen
+            Suche ausklappen
             <ChevronDown className="w-4 h-4" />
           </span>
         )}

@@ -141,7 +141,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         )}
 
         {/* Verpflegung + Zimmertyp */}
-        <div className="flex flex-col gap-1 mb-3">
+        <div className="flex flex-col gap-1 mb-1.5">
           {offer.board_name && (
             <p className="text-xs text-gray-500 flex items-center gap-1.5">
               <UtensilsCrossed className="w-3 h-3 shrink-0 text-gray-400" />
