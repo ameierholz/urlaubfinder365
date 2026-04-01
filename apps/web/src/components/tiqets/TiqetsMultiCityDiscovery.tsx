@@ -15,7 +15,7 @@ interface TiqetsProductFull extends TiqetsProduct {
   instant_ticket_delivery?: boolean;
   smartphone_ticket?: boolean;
   skip_line?: boolean | null;
-  cancellation?: { policy: string; window: number | null } | null;
+  cancellation?: { policy: string; window: number | null };
   tag_ids?: number[];
   address?: { city_name?: string };
   ratings?: { average: number; total: number };
