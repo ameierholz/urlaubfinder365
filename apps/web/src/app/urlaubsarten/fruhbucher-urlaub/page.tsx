@@ -201,7 +201,7 @@ export default function FruhbucherUrlaub() {
 
       </div>{/* end flex-1 */}
 
-      <aside className="hidden xl:block w-[160px] shrink-0 pr-4">
+      <aside className="hidden xl:block w-[176px] shrink-0 pr-4">
         <div className="sticky top-24 pt-8 space-y-3">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
