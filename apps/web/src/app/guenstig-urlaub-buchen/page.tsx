@@ -217,6 +217,48 @@ export default function GuenstigUrlaubBuchen() {
           </div>
         </div>
 
+        {/* ══ LAST-MINUTE — Dringlichkeits-Sektion ═══════════════════════ */}
+        <div className="bg-red-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-red-400">Nur noch wenige Plätze</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                  ⚡ Last-Minute – Jetzt spontan buchen
+                </h3>
+                <p className="text-red-200/80 text-sm mt-1">
+                  Abflug in den nächsten 14 Tagen · Veranstalter räumen freie Plätze mit bis zu 60 % Rabatt
+                </p>
+              </div>
+              <Link
+                href="/last-minute/"
+                className="shrink-0 inline-flex items-center gap-1.5 bg-red-500 hover:bg-red-400 text-white text-sm font-bold px-5 py-2.5 rounded-full transition-colors shadow"
+              >
+                Alle Last-Minute Deals →
+              </Link>
+            </div>
+            {/* Fact-Chips */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {["✈️ Abflug in <14 Tagen", "💸 Bis zu 60 % günstiger", "🔥 Täglich neue Angebote", "⏱️ Sofortbuchung"].map(f => (
+                <span key={f} className="bg-red-900/60 border border-red-700/50 text-red-100 text-xs font-medium px-3 py-1.5 rounded-full">{f}</span>
+              ))}
+            </div>
+            <IbeTeaser
+              headline=""
+              diverseResults={true}
+              sortBy="count"
+              minRecommrate="20"
+              from="0"
+              to="14"
+              duration="7-14"
+            />
+          </div>
+        </div>
+
         {/* ══ TÜRKEI — Layout: Großes Banner, Text-Overlay unten ══════════ */}
         <div className="bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
@@ -256,7 +298,7 @@ export default function GuenstigUrlaubBuchen() {
             <div className="flex flex-col lg:flex-row gap-6 mb-6">
               {/* Bild links */}
               <div className="lg:w-5/12 shrink-0">
-                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-[220px] shadow-md">
+                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-55 shadow-md">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=85" alt="Spanien" className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
@@ -365,7 +407,7 @@ export default function GuenstigUrlaubBuchen() {
             <div className="flex flex-col lg:flex-row-reverse gap-6 mb-6">
               {/* Bild rechts */}
               <div className="lg:w-5/12 shrink-0">
-                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-[220px] shadow-md">
+                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-55 shadow-md">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=85" alt="Italien" className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
