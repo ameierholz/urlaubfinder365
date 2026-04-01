@@ -215,6 +215,9 @@ export default async function DestinationPage({ params }: Props) {
                   </>
                 }
               </p>
+              {!isSuperRegion && dest.description && (
+                <p className="text-gray-500 text-base leading-relaxed mt-4">{dest.description}</p>
+              )}
               <div className="flex flex-wrap gap-3 mt-6">
                 <Link
                   href="#pauschalreisen"
@@ -447,8 +450,8 @@ export default async function DestinationPage({ params }: Props) {
             Häufige Fragen zu {dest.name}
           </h2>
           <div className="divide-y divide-gray-200">
-            {dest.faqs.map((faq) => (
-              <details key={faq.question} className="py-4 group">
+            {dest.faqs.map((faq, i) => (
+              <details key={faq.question} className="py-4 group" open={i === 0 || undefined}>
                 <summary className="flex justify-between items-center cursor-pointer list-none font-semibold text-gray-800 hover:text-sand-600 transition-colors">
                   {faq.question}
                   <span className="ml-4 text-gray-400 group-open:rotate-180 transition-transform">▾</span>

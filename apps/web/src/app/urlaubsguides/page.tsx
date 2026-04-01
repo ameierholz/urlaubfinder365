@@ -46,8 +46,11 @@ export default function UrlaubsguidesPage() {
           Reiseführer
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Kostenlose Reiseführer & Urlaubstipps</h1>
-        <p className="text-gray-500 max-w-xl mx-auto">
-          Alles was du wissen musst – vor, während und nach deiner Reise.
+        <p className="text-gray-600 max-w-2xl mx-auto mb-3">
+          Unsere kostenlosen Urlaubsguides liefern dir alles Wissenswerte zu den beliebtesten Reisezielen – kompakt aufbereitet für vor, während und nach deiner Reise.
+        </p>
+        <p className="text-gray-500 max-w-2xl mx-auto">
+          Von Einreise- und Visabestimmungen über Klimatabellen und Packlisten bis hin zu Sehenswürdigkeiten, Insidertipps und lokalen Restaurantempfehlungen – unsere Reiseführer begleiten dich auf jedem Schritt deiner Reise. Alle Guides werden regelmäßig aktualisiert und sind kostenlos verfügbar.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
