@@ -290,6 +290,23 @@ export default async function DestinationPage({ params }: Props) {
         );
       })()}
 
+      {/* Inhaltsverzeichnis */}
+      <div className="bg-sand-50 border-y border-sand-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <p className="text-xs font-bold text-sand-600 uppercase tracking-wide mb-2">Inhaltsverzeichnis</p>
+          <nav className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-sand-800">
+            <a href="#pauschalreisen" className="hover:text-sand-600 transition-colors">① Pauschalreisen</a>
+            <a href="#all-inclusive"  className="hover:text-sand-600 transition-colors">② All Inclusive</a>
+            <a href="#last-minute"    className="hover:text-sand-600 transition-colors">③ Last Minute</a>
+            {dest.tiqetsCityId && <a href="#aktivitaeten" className="hover:text-sand-600 transition-colors">④ Aktivitäten & Tickets</a>}
+            {dest.iataCode    && <a href="#fluginfo"      className="hover:text-sand-600 transition-colors">⑤ Flugverbindungen</a>}
+            {dest.faqs && dest.faqs.length > 0 && <a href="#faq" className="hover:text-sand-600 transition-colors">⑥ Häufige Fragen</a>}
+            {dest.climate && dest.climate.length > 0 && <a href="#klima" className="hover:text-sand-600 transition-colors">⑦ Klima & Reisezeit</a>}
+            <a href="#externe-links" className="hover:text-sand-600 transition-colors">⑧ Weiterführende Links</a>
+          </nav>
+        </div>
+      </div>
+
       {/* Urlaubsarten-Widget */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-1">
@@ -390,7 +407,7 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* Boarding Pass / Fluginfo */}
       {dest.iataCode && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="fluginfo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
           <div className="flex items-center justify-between gap-4 mt-12 mb-0">
             <div>
               <h2 className="text-4xl font-bold text-gray-900">
@@ -422,7 +439,7 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* FAQ-Bereich */}
       {dest.faqs && dest.faqs.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div id="faq" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 scroll-mt-24">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Häufige Fragen zu {dest.name}
           </h2>
@@ -442,7 +459,9 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* Klimadiagramm */}
       {dest.climate && dest.climate.length > 0 && (
-        <ClimateChart data={dest.climate} destination={dest.name} />
+        <div id="klima" className="scroll-mt-24">
+          <ClimateChart data={dest.climate} destination={dest.name} />
+        </div>
       )}
 
       {/* Einreise-Infobox – nur wenn kein ReiseHub vorhanden */}
@@ -458,6 +477,61 @@ export default async function DestinationPage({ params }: Props) {
           destination={dest.name}
         />
       )}
+
+      {/* Weiterführende externe Links */}
+      <div id="externe-links" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 scroll-mt-24">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">
+          Offizielle Informationen für deinen {dest.name} Urlaub
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a
+            href={`https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/reise-und-sicherheitshinweise`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 bg-blue-50 border border-blue-100 rounded-xl p-4 hover:border-blue-300 transition-colors"
+          >
+            <span className="text-2xl shrink-0">🏛️</span>
+            <div>
+              <p className="font-semibold text-blue-800 text-sm">Auswärtiges Amt</p>
+              <p className="text-xs text-gray-500 mt-0.5">Reise- & Sicherheitshinweise für {dest.country}</p>
+            </div>
+          </a>
+          <a
+            href="https://www.adac.de/reise-freizeit/reiseplanung/reisevorbereitung/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 bg-yellow-50 border border-yellow-100 rounded-xl p-4 hover:border-yellow-300 transition-colors"
+          >
+            <span className="text-2xl shrink-0">🚗</span>
+            <div>
+              <p className="font-semibold text-yellow-800 text-sm">ADAC Reisevorbereitung</p>
+              <p className="text-xs text-gray-500 mt-0.5">Checklisten, Packtipps & Reiserecht</p>
+            </div>
+          </a>
+          <a
+            href="https://www.bzga.de/infomaterialien/reisemedizin/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-start gap-3 bg-green-50 border border-green-100 rounded-xl p-4 hover:border-green-300 transition-colors"
+          >
+            <span className="text-2xl shrink-0">💉</span>
+            <div>
+              <p className="font-semibold text-green-800 text-sm">BZgA Reisemedizin</p>
+              <p className="text-xs text-gray-500 mt-0.5">Impfempfehlungen & Gesundheitstipps</p>
+            </div>
+          </a>
+          <Link
+            href="/tipps/reise-packliste/"
+            className="flex items-start gap-3 bg-sand-50 border border-sand-100 rounded-xl p-4 hover:border-sand-300 transition-colors"
+          >
+            <span className="text-2xl shrink-0">🧳</span>
+            <div>
+              <p className="font-semibold text-sand-800 text-sm">Reise-Packliste</p>
+              <p className="text-xs text-gray-500 mt-0.5">Checkliste für deinen {dest.name} Urlaub</p>
+            </div>
+          </Link>
+        </div>
+      </div>
 
       {/* Ähnliche Reiseziele */}
       <SimilarDestinations current={dest} />
