@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface DestItem {
   slug: string;
@@ -112,11 +113,13 @@ export default function DestinationCarousel({
           >
             {/* Bild */}
             <div className="relative h-44 overflow-hidden bg-gray-100">
-              <img
+              <Image
                 src={d.image}
-                alt={`${d.name} Urlaub`}
+                alt={`${d.name} Urlaub günstig buchen – Pauschalreisen & Angebote`}
+                fill
+                sizes="144px"
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {/* Gradient */}
               <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
@@ -129,8 +132,8 @@ export default function DestinationCarousel({
                     srcSet={`https://flagcdn.com/48x36/${d.flagCode}.png 2x`}
                     width={24}
                     height={18}
-                    alt={d.country}
-                    className="rounded-[2px] shadow-md"
+                    alt={`Flagge ${d.country}`}
+                    className="rounded-xs shadow-md"
                   />
                 </div>
               )}

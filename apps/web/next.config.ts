@@ -53,12 +53,23 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // Next.js JS/CSS chunks – content-hashed, safe to cache forever
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/images/(.*)",
         headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        // IBE engine + CSS served from /public/scripts/ and /public/styles/
+        source: "/(scripts|styles)/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
         ],
       },
     ];

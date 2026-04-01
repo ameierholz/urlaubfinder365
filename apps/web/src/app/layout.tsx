@@ -126,6 +126,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://flagcdn.com" />
+        {/* Google Fonts (Plus Jakarta Sans, async via FontAwesomeLoader) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* FontAwesome CDN */}
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        {/* Unsplash (LCP images auf Homepage und Destination-Seiten) */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
         {/* Organization + WebSite Schema (global) */}
         <script
           type="application/ld+json"

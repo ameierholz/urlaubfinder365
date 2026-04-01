@@ -12,6 +12,10 @@ const ASYNC_STYLESHEETS = [
     id: "plus-jakarta-sans",
     href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap",
   },
+  {
+    id: "ibe-engine-css",
+    href: "/styles/ibe-engine.css",
+  },
 ];
 
 /** Lädt IBE-Stylesheets nach der Hydration – kein Render-Blocking */

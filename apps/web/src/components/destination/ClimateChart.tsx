@@ -50,6 +50,8 @@ export default function ClimateChart({ data, destination }: Props) {
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 viewBox={`0 0 ${VW} ${TOTAL_H}`}
                 preserveAspectRatio="none"
+                role="img"
+                aria-label={`Klimadiagramm für ${destination}: Temperatur- und Niederschlagsverlauf über 12 Monate`}
               >
                 {/* Grid lines */}
                 {[0, 0.25, 0.5, 0.75, 1].map((frac) => {

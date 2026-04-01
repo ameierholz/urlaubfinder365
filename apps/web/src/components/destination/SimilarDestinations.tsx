@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { destinations, destImg } from "@/lib/destinations";
 import type { DestinationConfig } from "@/types";
@@ -22,13 +23,16 @@ export default function SimilarDestinations({ current }: Props) {
             href={`/urlaubsziele/${dest.slug}/`}
             className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={destImg(dest)}
-              alt={dest.name}
-              className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-            />
+            <div className="relative w-full h-44">
+              <Image
+                src={destImg(dest)}
+                alt={`${dest.name} Urlaub günstig buchen – Pauschalreisen & Angebote`}
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
             <div className="absolute bottom-0 left-0 p-4">
               <div className="flex items-center gap-1.5 text-white">

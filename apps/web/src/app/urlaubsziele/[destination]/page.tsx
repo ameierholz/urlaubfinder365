@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import NextImage from "next/image";
 import { MapPin, Package, Umbrella, Zap, Ticket } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
@@ -155,15 +156,17 @@ export default async function DestinationPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header Banner */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/urlaubziel_header.jpg"
-        alt="Urlaubsziele – Jetzt günstig buchen"
-        className="w-full object-cover"
-        style={{ maxHeight: "180px" }}
-        loading="eager"
-      />
+      {/* Header Banner – LCP candidate: priority + fetchpriority="high" */}
+      <div className="relative w-full" style={{ height: "180px" }}>
+        <NextImage
+          src="/images/urlaubziel_header.jpg"
+          alt="Urlaubsziele – Jetzt günstig buchen"
+          fill
+          className="object-cover"
+          priority
+          fetchPriority="high"
+        />
+      </div>
 
       {/* HERO: H1 + Intro links, Destination-Bild rechts */}
       <section className="border-b border-sand-100/60">
