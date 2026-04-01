@@ -217,105 +217,186 @@ export default function GuenstigUrlaubBuchen() {
           </div>
         </div>
 
-        {/* ── Länder-Sektionen ── */}
-        {([
-          {
-            flag: "tr", alt: "Türkei", title: "Türkei", subtitle: "Antalya · Side · Bodrum · Alanya",
-            href: "/urlaubsziele/tuerkei/", regionId: "149",
-            img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80",
-            desc: "Die Türkei zählt zu den beliebtesten Urlaubszielen der Deutschen – und das zu Recht. Traumstrände, jahrhundertealte Geschichte und großzügige All-Inclusive-Resorts machen das Land zu einem echten Preis-Leistungs-Champion.",
-            facts: ["☀️ 300+ Sonnentage", "✈️ ~3,5h Flugzeit", "🏨 AI ab 399 €"],
-          },
-          {
-            flag: "es", alt: "Spanien", title: "Spanien & Balearen", subtitle: "Mallorca · Teneriffa · Gran Canaria · Ibiza",
-            href: "/urlaubsziele/spanien/", regionId: "133",
-            img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&q=80",
-            desc: "Von der pulsierenden Partyinsel Ibiza bis zur Familiendestination Mallorca: Spanien und seine Balearen bieten für jeden Geschmack das Richtige. Gepaart mit kurzen Flugzeiten ist es der Klassiker unter den Pauschalreise-Zielen.",
-            facts: ["🌊 Traumstrände", "✈️ ~2,5h Flugzeit", "👨‍👩‍👧 Familienfreundlich"],
-          },
-          {
-            flag: "gr", alt: "Griechenland", title: "Griechenland & Inseln", subtitle: "Kreta · Rhodos · Korfu · Santorini · Mykonos",
-            href: "/urlaubsziele/griechenland/", regionId: "46",
-            img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80",
-            desc: "Weiß-blaue Häuser, kristallklares Wasser und unschlagbare Gastfreundschaft: Griechenland verzaubert Jahr für Jahr Millionen Besucher. Jede Insel hat ihren ganz eigenen Charakter – von wild-romantisch bis kosmopolitisch.",
-            facts: ["🏛️ Antike Kultur", "✈️ ~3h Flugzeit", "🌅 Weltklasse-Sonnenuntergänge"],
-          },
-          {
-            flag: "eg", alt: "Ägypten", title: "Ägypten", subtitle: "Hurghada · Sharm el-Sheikh · Marsa Alam · Nilkreuzfahrt",
-            href: "/urlaubsziele/aegypten/", regionId: "560",
-            img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1200&q=80",
-            desc: "Ägypten bietet das perfekte Doppelpaket: tagsüber Schnorcheln und Tauchen im Roten Meer, dazu Ausflüge zu den ältesten Bauwerken der Menschheit. Besonders günstig und mit einem der besten Korallenriffe der Welt.",
-            facts: ["🐠 Top-Tauchspot", "✈️ ~4,5h Flugzeit", "🏺 7.000 Jahre Geschichte"],
-          },
-          {
-            flag: "it", alt: "Italien", title: "Italien", subtitle: "Sizilien · Sardinien · Amalfiküste · Rom · Venedig",
-            href: "/urlaubsziele/italien/", regionId: "83",
-            img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=1200&q=80",
-            desc: "La dolce vita – das süße Leben: In Italien stimmt einfach alles. Weltklasse-Küche, beeindruckende Kunstschätze, dramatische Landschaften und ein Klima, das seinesgleichen sucht. Ob Städtereise oder Strandurlaub – Italia macht alles richtig.",
-            facts: ["🍕 Weltküche", "✈️ ~2h Flugzeit", "🎨 UNESCO-Welterbe"],
-          },
-        ] as const).map(({ flag, alt, title, subtitle, href, regionId, img, desc, facts }, i) => (
-          <div key={regionId} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-              {/* Bild-Banner mit Overlay */}
-              <div className="relative rounded-2xl overflow-hidden mb-6 h-48 sm:h-56">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img}
-                  alt={title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent" />
-
-                {/* Text-Overlay links */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 sm:p-7">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`https://flagcdn.com/w40/${flag}.png`} width="28" height="21" alt={alt} className="rounded shadow" />
-                    <span className="text-white/70 text-sm font-medium">{subtitle}</span>
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight drop-shadow mb-3">
-                    {title}
-                  </h3>
-                  {/* Fact-Chips */}
-                  <div className="flex flex-wrap gap-2">
-                    {facts.map((f) => (
-                      <span key={f} className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">
-                        {f}
-                      </span>
-                    ))}
-                  </div>
+        {/* ══ TÜRKEI — Layout: Großes Banner, Text-Overlay unten ══════════ */}
+        <div className="bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
+            <div className="relative rounded-3xl overflow-hidden h-64 sm:h-80 mb-6 shadow-lg">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1400&q=85" alt="Türkei" className="w-full h-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
+              <Link href="/urlaubsziele/tuerkei/" className="absolute top-4 right-4 bg-white/90 hover:bg-white text-[#00838F] text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors">
+                Alle Türkei-Angebote →
+              </Link>
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <div className="flex items-center gap-2 mb-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://flagcdn.com/w40/tr.png" width="28" height="21" alt="Türkei" className="rounded shadow" />
+                  <span className="text-white/70 text-sm">Antalya · Side · Bodrum · Alanya</span>
                 </div>
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-white drop-shadow mb-3">Türkei</h3>
+                <div className="flex flex-wrap gap-2">
+                  {["☀️ 300+ Sonnentage", "✈️ ~3,5h Flugzeit", "🏨 AI ab 399 €"].map(f => (
+                    <span key={f} className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{f}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 leading-relaxed mb-6 max-w-3xl">
+              Die Türkei zählt zu den beliebtesten Urlaubszielen der Deutschen – Traumstrände, jahrhundertealte Geschichte und großzügige All-Inclusive-Resorts machen das Land zum Preis-Leistungs-Champion.
+            </p>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+            <IbeTeaser regionId="149" headline="" diverseResults={true} sortBy="count" minRecommrate="20" from="7" to="120" duration="7-14" />
+          </div>
+        </div>
 
-                {/* Alle Angebote – oben rechts */}
-                <Link
-                  href={href}
-                  className="absolute top-4 right-4 inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-[#00838F] text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors"
-                >
-                  Alle {alt}-Angebote →
+        {/* ══ SPANIEN — Layout: Split (Bild links, Text rechts) ══════════ */}
+        <div className="bg-orange-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="flex flex-col lg:flex-row gap-6 mb-6">
+              {/* Bild links */}
+              <div className="lg:w-5/12 shrink-0">
+                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-[220px] shadow-md">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=85" alt="Spanien" className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://flagcdn.com/w40/es.png" width="28" height="21" alt="Spanien" className="absolute bottom-4 left-4 rounded shadow" />
+                </div>
+              </div>
+              {/* Text rechts */}
+              <div className="flex flex-col justify-center lg:py-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-orange-500 mb-2">Spanien &amp; Balearen</p>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-1">
+                  Mallorca, Teneriffa,<br />Gran Canaria &amp; Ibiza
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed my-4">
+                  Von der pulsierenden Partyinsel Ibiza bis zur Familiendestination Mallorca: Spanien bietet für jeden das Richtige – mit kurzen Flugzeiten und unschlagbaren Preisen.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["🌊 Traumstrände", "✈️ ~2,5h Flugzeit", "👨‍👩‍👧 Familienfreundlich"].map(f => (
+                    <span key={f} className="bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1.5 rounded-full">{f}</span>
+                  ))}
+                </div>
+                <Link href="/urlaubsziele/spanien/" className="self-start inline-flex items-center gap-1.5 bg-[#00838F] hover:bg-[#006B77] text-white text-sm font-bold px-5 py-2.5 rounded-full transition-colors shadow">
+                  Alle Spanien-Angebote →
                 </Link>
               </div>
-
-              {/* Beschreibungstext */}
-              <p className="text-sm text-gray-500 leading-relaxed mb-5 max-w-3xl">{desc}</p>
-
-              <IbeTeaser
-                regionId={regionId}
-                headline=""
-                diverseResults={true}
-                sortBy="count"
-                minRecommrate="20"
-                from="7"
-                to="120"
-                duration="7-14"
-              />
             </div>
+            <IbeTeaser regionId="133" headline="" diverseResults={true} sortBy="count" minRecommrate="20" from="7" to="120" duration="7-14" />
           </div>
-        ))}
+        </div>
 
-        <div className="pb-4" />
+        {/* ══ GRIECHENLAND — Layout: Editorial (Text dominant, Bild rechts) ══ */}
+        <div className="bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="flex flex-col sm:flex-row gap-6 mb-6 items-start">
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 mb-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://flagcdn.com/w40/gr.png" width="32" height="24" alt="Griechenland" className="rounded shadow" />
+                  <div className="h-px flex-1 bg-blue-100" />
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-extrabold text-gray-900 leading-tight mb-1">
+                  Griechenland
+                </h3>
+                <p className="text-base text-blue-600 font-semibold mb-4">Kreta · Rhodos · Korfu · Santorini · Mykonos</p>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4 max-w-lg">
+                  Weiß-blaue Häuser, kristallklares Wasser und unschlagbare Gastfreundschaft: Griechenland verzaubert Jahr für Jahr Millionen Besucher. Jede Insel hat ihren ganz eigenen Charakter.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {["🏛️ Antike Kultur", "✈️ ~3h Flugzeit", "🌅 Weltklasse-Sonnenuntergänge"].map(f => (
+                    <span key={f} className="bg-blue-50 text-blue-700 text-xs font-semibold px-3 py-1.5 rounded-full">{f}</span>
+                  ))}
+                </div>
+                <Link href="/urlaubsziele/griechenland/" className="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                  Alle Griechenland-Angebote →
+                </Link>
+              </div>
+              {/* Bild rechts – kleiner, floating */}
+              <div className="sm:w-64 lg:w-80 shrink-0">
+                <div className="relative rounded-2xl overflow-hidden h-44 sm:h-52 shadow-lg">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=85" alt="Griechenland" className="w-full h-full object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+            <IbeTeaser regionId="46" headline="" diverseResults={true} sortBy="count" minRecommrate="20" from="7" to="120" duration="7-14" />
+          </div>
+        </div>
+
+        {/* ══ ÄGYPTEN — Layout: Dramatisch dunkles Banner, zentriert ══════ */}
+        <div className="bg-amber-950">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
+            <div className="relative rounded-3xl overflow-hidden h-56 sm:h-72 mb-6 shadow-xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1400&q=85" alt="Ägypten" className="w-full h-full object-cover object-center" loading="lazy" />
+              <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/40 to-black/80" />
+              <Link href="/urlaubsziele/aegypten/" className="absolute top-4 right-4 bg-amber-400/90 hover:bg-amber-400 text-amber-950 text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors">
+                Alle Ägypten-Angebote →
+              </Link>
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                <div className="flex items-center gap-2 mb-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://flagcdn.com/w40/eg.png" width="28" height="21" alt="Ägypten" className="rounded shadow" />
+                  <span className="text-amber-200 text-sm">Hurghada · Sharm el-Sheikh · Marsa Alam</span>
+                </div>
+                <h3 className="text-3xl sm:text-5xl font-extrabold text-white drop-shadow-lg mb-4">Ägypten</h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {["🐠 Top-Tauchspot", "✈️ ~4,5h Flugzeit", "🏺 7.000 Jahre Geschichte"].map(f => (
+                    <span key={f} className="bg-amber-400/20 backdrop-blur-sm border border-amber-400/30 text-amber-100 text-xs font-medium px-3 py-1 rounded-full">{f}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p className="text-sm text-amber-200/80 leading-relaxed mb-6 max-w-3xl">
+              Ägypten bietet das perfekte Doppelpaket: tagsüber Schnorcheln im Roten Meer, dazu Ausflüge zu den ältesten Bauwerken der Menschheit – und das zu unschlagbaren Preisen.
+            </p>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+            <IbeTeaser regionId="560" headline="" diverseResults={true} sortBy="count" minRecommrate="20" from="7" to="120" duration="7-14" />
+          </div>
+        </div>
+
+        {/* ══ ITALIEN — Layout: Split gespiegelt (Text links, Bild rechts) ═ */}
+        <div className="bg-green-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="flex flex-col lg:flex-row-reverse gap-6 mb-6">
+              {/* Bild rechts */}
+              <div className="lg:w-5/12 shrink-0">
+                <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-[220px] shadow-md">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=85" alt="Italien" className="w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="https://flagcdn.com/w40/it.png" width="28" height="21" alt="Italien" className="absolute bottom-4 right-4 rounded shadow" />
+                </div>
+              </div>
+              {/* Text links */}
+              <div className="flex flex-col justify-center lg:py-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-green-600 mb-2">La dolce vita</p>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-1">
+                  Italien –<br />Sizilien, Sardinien &amp; Amalfi
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed my-4">
+                  In Italien stimmt einfach alles: Weltklasse-Küche, beeindruckende Kunstschätze und dramatische Landschaften. Ob Städtereise oder Strandurlaub – Italia macht alles richtig.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {["🍕 Weltküche", "✈️ ~2h Flugzeit", "🎨 60 UNESCO-Welterbe"].map(f => (
+                    <span key={f} className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full">{f}</span>
+                  ))}
+                </div>
+                <Link href="/urlaubsziele/italien/" className="self-start inline-flex items-center gap-1.5 bg-green-700 hover:bg-green-800 text-white text-sm font-bold px-5 py-2.5 rounded-full transition-colors shadow">
+                  Alle Italien-Angebote →
+                </Link>
+              </div>
+            </div>
+            <IbeTeaser regionId="83" headline="" diverseResults={true} sortBy="count" minRecommrate="20" from="7" to="120" duration="7-14" />
+          </div>
+        </div>
+
+        <div className="pb-2" />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
