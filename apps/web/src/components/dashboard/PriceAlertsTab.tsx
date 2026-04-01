@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { PriceAlert } from "@/types";
-import { getPriceAlerts, createPriceAlert, updatePriceAlert, deletePriceAlert } from "@/lib/firestore";
+import { getPriceAlerts, createPriceAlert, updatePriceAlert, deletePriceAlert } from "@/lib/supabase-db";
 import { Bell, Trash2, Plus, X } from "lucide-react";
 import { CATALOG } from "@/data/catalog-regions";
 

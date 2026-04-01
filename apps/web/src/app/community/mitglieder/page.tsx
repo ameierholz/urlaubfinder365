@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getCommunityProfiles } from "@/lib/firestore";
+import { getCommunityProfiles } from "@/lib/supabase-db";
 import { CommunityProfile } from "@/types";
 import UserProfileCard from "@/components/community/UserProfileCard";
 import { Users, Loader2 } from "lucide-react";
@@ -16,7 +16,7 @@ export default function MitgliederPage() {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2">
           <Users className="w-6 h-6 text-teal-600" />

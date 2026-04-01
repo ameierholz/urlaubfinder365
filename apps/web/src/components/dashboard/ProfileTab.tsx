@@ -137,7 +137,7 @@ export default function ProfileTab({ user }: Props) {
 
   // Profil beim Laden holen
   useEffect(() => {
-    import("@/lib/firestore").then(({ getCommunityProfile }) => {
+    import("@/lib/supabase-db").then(({ getCommunityProfile }) => {
       getCommunityProfile(user.uid).then((p) => {
         if (p) {
           setBio(p.bio ?? "");
@@ -175,7 +175,7 @@ export default function ProfileTab({ user }: Props) {
       const [{ ref, uploadBytes, getDownloadURL }, { storage }, { updateCommunityProfile }] = await Promise.all([
         import("firebase/storage"),
         import("@/lib/firebase"),
-        import("@/lib/firestore"),
+        import("@/lib/supabase-db"),
       ]);
       const storageRef = ref(storage(), `avatars/${user.uid}`);
       await uploadBytes(storageRef, file, { contentType: file.type });
@@ -210,7 +210,7 @@ export default function ProfileTab({ user }: Props) {
       const [{ ref, uploadBytes, getDownloadURL }, { storage }, { updateCommunityProfile }] = await Promise.all([
         import("firebase/storage"),
         import("@/lib/firebase"),
-        import("@/lib/firestore"),
+        import("@/lib/supabase-db"),
       ]);
       const storageRef = ref(storage(), `banners/${user.uid}`);
       await uploadBytes(storageRef, file, { contentType: file.type });
@@ -233,7 +233,7 @@ export default function ProfileTab({ user }: Props) {
     setCommSaving(true);
     setCommMsg(null);
     try {
-      const { updateCommunityProfile } = await import("@/lib/firestore");
+      const { updateCommunityProfile } = await import("@/lib/supabase-db");
       await updateCommunityProfile(user.uid, {
         bio: bio.trim(),
         location: location.trim(),
@@ -263,7 +263,7 @@ export default function ProfileTab({ user }: Props) {
     try {
       const [{ createBrowserClient }, { updateUserProfile }] = await Promise.all([
         import("@supabase/ssr"),
-        import("@/lib/firestore"),
+        import("@/lib/supabase-db"),
       ]);
       const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -362,7 +362,7 @@ export default function ProfileTab({ user }: Props) {
           {bannerURL && !bannerPreview && !bannerUploading && (
             <button
               onClick={async () => {
-                const { updateCommunityProfile } = await import("@/lib/firestore");
+                const { updateCommunityProfile } = await import("@/lib/supabase-db");
                 await updateCommunityProfile(user.uid, { bannerURL: "" });
                 setBannerURL(null);
               }}
@@ -452,7 +452,7 @@ export default function ProfileTab({ user }: Props) {
           {photoURL && !photoPreview && !uploading && (
             <button
               onClick={async () => {
-                const { updateCommunityProfile } = await import("@/lib/firestore");
+                const { updateCommunityProfile } = await import("@/lib/supabase-db");
                 await updateCommunityProfile(user.uid, { photoURL: "" });
                 setPhotoURL(user.photoURL ?? null);
                 setCommMsg({ type: "success", text: "Profilbild entfernt." });

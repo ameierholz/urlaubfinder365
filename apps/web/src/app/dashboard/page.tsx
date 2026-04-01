@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Heart, MapPin, CheckSquare,
   User, Settings, LogOut, Menu, X, Palmtree, Ticket,
-  Map, FileText, Bell, Globe, BookOpen, Users2,
+  Map, FileText, Bell, Globe, BookOpen, Users2, Flame, Brain,
 } from "lucide-react";
 
 // Tabs
@@ -23,8 +23,10 @@ import TravelDocumentsTab    from "@/components/dashboard/TravelDocumentsTab";
 import LaenderKarteTab       from "@/components/dashboard/LaenderKarteTab";
 import MeineBerichteTab      from "@/components/dashboard/MeineBerichteTab";
 import MeineGruppenTab       from "@/components/dashboard/MeineGruppenTab";
+import CheckInTab            from "@/components/dashboard/CheckInTab";
+import QuizTab               from "@/components/dashboard/QuizTab";
 
-type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "profile" | "settings";
+type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "quiz" | "profile" | "settings";
 
 const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[] = [
   { id: "overview",     label: "Übersicht",          icon: LayoutDashboard },
@@ -38,6 +40,8 @@ const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[]
   { id: "laender",      label: "Meine Länder",         icon: Globe },
   { id: "berichte",     label: "Meine Berichte",       icon: BookOpen },
   { id: "gruppen",      label: "Meine Gruppen",        icon: Users2 },
+  { id: "checkin",      label: "Daily Check-in",       icon: Flame },
+  { id: "quiz",         label: "Travel Quiz",          icon: Brain },
   { id: "profile",      label: "Mein Profil",         icon: User },
   { id: "settings",     label: "Einstellungen",       icon: Settings },
 ];
@@ -94,7 +98,7 @@ export default function DashboardPage() {
         {/* User-Header */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00838F] to-[#005F6A] flex items-center justify-center text-white font-bold text-lg shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-[#00838F] to-[#005F6A] flex items-center justify-center text-white font-bold text-lg shrink-0">
               {initials}
             </div>
             <div className="min-w-0">
@@ -181,6 +185,8 @@ export default function DashboardPage() {
           {tab === "laender"      && <LaenderKarteTab />}
           {tab === "berichte"     && <MeineBerichteTab    user={user} />}
           {tab === "gruppen"      && <MeineGruppenTab     user={user} />}
+          {tab === "checkin"      && <CheckInTab          user={user} />}
+          {tab === "quiz"         && <QuizTab             user={user} />}
           {tab === "profile"      && <ProfileTab          user={user} />}
           {tab === "settings"     && <SettingsTab         user={user} userProfile={userProfile} />}
         </div>

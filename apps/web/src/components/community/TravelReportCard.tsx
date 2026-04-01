@@ -35,7 +35,7 @@ export default function TravelReportCard({ report, compact }: Props) {
       className="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-md border border-gray-100 overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
     >
       {/* Cover */}
-      <div className="relative h-44 bg-gradient-to-br from-teal-400 to-cyan-500 overflow-hidden">
+      <div className="relative h-44 bg-linear-to-br from-teal-400 to-cyan-500 overflow-hidden">
         {report.coverImageUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -44,7 +44,7 @@ export default function TravelReportCard({ report, compact }: Props) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
 
         {/* Badges */}
         <div className="absolute top-2.5 left-2.5 flex gap-1.5 flex-wrap">

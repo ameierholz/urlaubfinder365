@@ -259,7 +259,7 @@ function ContinentCard({
       onClick={() => onSelect(cfg.id)}
       className={`
         relative overflow-hidden rounded-2xl p-5 text-left
-        bg-gradient-to-br ${cfg.gradient} text-white
+        bg-linear-to-br ${cfg.gradient} text-white
         transition-all duration-300
         ${active
           ? `ring-4 ${cfg.ring} shadow-2xl scale-[1.01]`

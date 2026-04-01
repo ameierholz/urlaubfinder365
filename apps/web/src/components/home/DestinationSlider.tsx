@@ -134,7 +134,7 @@ export default function DestinationSlider() {
           <Link
             key={dest.slug}
             href={`/urlaubsziele/${dest.slug}/`}
-            className="flex-shrink-0 w-48 sm:w-52 group/card"
+            className="shrink-0 w-48 sm:w-52 group/card"
           >
             <div className="relative rounded-2xl overflow-hidden h-64 shadow-sm hover:shadow-xl transition-shadow duration-300">
               {/* Image */}
@@ -145,7 +145,7 @@ export default function DestinationSlider() {
                 className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500"
               />
               {/* Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent" />
 
               {/* Label Badge */}
               {dest.label && (

@@ -58,7 +58,7 @@ export default function ReiseHub({ destination, country, data }: Props) {
               Alles Wichtige für vor, während und nach der Reise – inklusive Insider-Tipps.
             </p>
           </div>
-          <div className="inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-4 py-2 flex-shrink-0 self-start md:self-auto">
+          <div className="inline-flex items-center gap-2 bg-white border border-gray-100 shadow-sm rounded-full px-4 py-2 shrink-0 self-start md:self-auto">
             <span className="bg-teal-400 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
               Urlaubfinder365 Hub
             </span>
@@ -78,7 +78,7 @@ export default function ReiseHub({ destination, country, data }: Props) {
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-12 h-12 rounded-full ${cat.color} flex-shrink-0 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-200`}
+                    className={`w-12 h-12 rounded-full ${cat.color} shrink-0 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-200`}
                   >
                     <Icon className="w-5 h-5" />
                   </div>
@@ -112,7 +112,7 @@ export default function ReiseHub({ destination, country, data }: Props) {
                   const Icon = ICON_MAP[openItem.iconFa] ?? Shield;
                   return (
                     <div
-                      className={`w-11 h-11 rounded-full ${openItem.color} flex-shrink-0 flex items-center justify-center text-white shadow`}
+                      className={`w-11 h-11 rounded-full ${openItem.color} shrink-0 flex items-center justify-center text-white shadow`}
                     >
                       <Icon className="w-5 h-5" />
                     </div>
@@ -165,7 +165,7 @@ export default function ReiseHub({ destination, country, data }: Props) {
             />
 
             {/* Modal Footer */}
-            <div className="bg-gray-50 px-6 py-3 flex justify-between items-center border-t border-gray-100 rounded-b-2xl flex-shrink-0">
+            <div className="bg-gray-50 px-6 py-3 flex justify-between items-center border-t border-gray-100 rounded-b-2xl shrink-0">
               <span className="text-xs text-gray-400">© Urlaubfinder365 Hub</span>
               <button
                 onClick={closeModal}

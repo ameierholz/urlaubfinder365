@@ -78,7 +78,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
     return (
       <div className="flex gap-4 overflow-hidden py-2">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="flex-shrink-0 w-[285px] h-[390px] bg-gray-100 rounded-2xl animate-pulse" />
+          <div key={i} className="shrink-0 w-[285px] h-[390px] bg-gray-100 rounded-2xl animate-pulse" />
         ))}
       </div>
     );
@@ -129,10 +129,10 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex-shrink-0 w-[285px] rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
+                className="group shrink-0 w-[285px] rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
               >
                 {/* ── Image ── */}
-                <div className="h-[170px] bg-gray-100 relative flex-shrink-0 overflow-hidden">
+                <div className="h-[170px] bg-gray-100 relative shrink-0 overflow-hidden">
                   {img && (
                     <img
                       src={img}
@@ -141,7 +141,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
                     />
                   )}
                   {/* dark gradient for readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
 
                   {/* Herz top-left */}
                   <div className="absolute top-2.5 left-2.5 z-10">
@@ -220,7 +220,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
                 </div>
 
                 {/* ── Footer ── */}
-                <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 flex-shrink-0">
+                <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 shrink-0">
                   <div className="leading-none">
                     {oldPrice && (
                       <div className="text-[11px] text-gray-400 line-through">{oldPrice} €</div>
@@ -228,7 +228,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
                     {!oldPrice && <div className="text-[10px] text-gray-400 mb-0.5">ab</div>}
                     <div className="text-[18px] font-extrabold text-sand-500">{price} €</div>
                   </div>
-                  <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-[12px] font-bold px-3.5 py-2 rounded-full whitespace-nowrap flex-shrink-0 transition-colors shadow-sm">
+                  <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-[12px] font-bold px-3.5 py-2 rounded-full whitespace-nowrap shrink-0 transition-colors shadow-sm">
                     Jetzt buchen →
                   </span>
                 </div>

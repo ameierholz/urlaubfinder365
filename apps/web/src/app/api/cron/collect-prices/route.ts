@@ -11,7 +11,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { CATALOG } from "@/data/catalog-regions";
-import { upsertPriceTrendProfile, checkAndUpdateAlerts } from "@/lib/firestore-admin";
+import { upsertPriceTrendProfile, checkAndUpdateAlerts } from "@/lib/supabase-db-admin";
 import type { PriceSnapshot, PriceProfileId } from "@/types";
 
 // Vercel Hobby: 60 s, Pro: 300 s

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { CommunityProfile } from "@/types";
 import { useAuth } from "@/context/AuthContext";
-import { followUser, unfollowUser } from "@/lib/firestore";
+import { followUser, unfollowUser } from "@/lib/supabase-db";
 import { MapPin, BookOpen, Globe, Users } from "lucide-react";
 
 interface Props {
@@ -18,7 +18,7 @@ export default function UserProfileCard({ profile, isFollowingInitial = false, c
   const [following, setFollowing] = useState(isFollowingInitial);
   const [loading, setLoading] = useState(false);
 
-  const initials = profile.displayName.split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
+  const initials = (profile.displayName ?? "?").split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
   const isOwn = user?.uid === profile.uid;
 
   async function toggleFollow() {
@@ -79,7 +79,7 @@ export default function UserProfileCard({ profile, isFollowingInitial = false, c
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-br from-teal-500 to-cyan-500 h-16" />
+      <div className="bg-linear-to-br from-teal-500 to-cyan-500 h-16" />
       <div className="px-4 pb-4 -mt-7">
         {avatarEl("md")}
         <div className="mt-2">

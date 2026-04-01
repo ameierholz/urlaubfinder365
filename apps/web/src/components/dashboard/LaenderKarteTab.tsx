@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { getCommunityProfile, updateCommunityProfile } from "@/lib/firestore";
+import { getCommunityProfile, updateCommunityProfile } from "@/lib/supabase-db";
 import { Globe, Save, Loader2, Check, Trophy, MapPin, TrendingUp, Star } from "lucide-react";
 
 // ─── Länder nach Kontinent ────────────────────────────────────────────────────
@@ -361,7 +361,7 @@ export default function LaenderKarteTab() {
             </button>
           </div>
         </div>
-        <ProgressBar value={visited.size} max={TOTAL} color="bg-gradient-to-r from-teal-400 to-cyan-500" height="h-3" />
+        <ProgressBar value={visited.size} max={TOTAL} color="bg-linear-to-r from-teal-400 to-cyan-500" height="h-3" />
         {/* Milestone-Marker */}
         <div className="flex justify-between mt-1.5 text-[10px] text-gray-400">
           {[10, 25, 50, 100].map((m) => (

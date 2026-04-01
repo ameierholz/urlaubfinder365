@@ -62,7 +62,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
       className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col no-underline"
     >
       {/* Image */}
-      <div className="relative h-52 bg-gray-100 overflow-hidden flex-shrink-0">
+      <div className="relative h-52 bg-gray-100 overflow-hidden shrink-0">
         {img && (
           <img
             src={img}
@@ -70,7 +70,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
 
         {/* Category badge */}
         {cat && (
@@ -109,7 +109,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
       </div>
 
       {/* Footer */}
-      <div className="px-4 pb-4 flex items-end justify-between gap-3 flex-shrink-0">
+      <div className="px-4 pb-4 flex items-end justify-between gap-3 shrink-0">
         <div className="leading-tight">
           {price ? (
             <>
@@ -118,7 +118,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
             </>
           ) : <div className="text-sm text-gray-400">Preis auf Anfrage</div>}
         </div>
-        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap flex-shrink-0 shadow-sm">
+        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap shrink-0 shadow-sm">
           Entdecken →
         </span>
       </div>
@@ -185,7 +185,7 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ── Hero ── */}
-      <div className="relative bg-gradient-to-br from-[#00838F] to-[#004F5A] text-white overflow-hidden">
+      <div className="relative bg-linear-to-br from-[#00838F] to-[#004F5A] text-white overflow-hidden">
         {heroImage && (
           <img
             src={heroImage}
@@ -239,7 +239,7 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
               <div className="flex items-center gap-2 overflow-x-auto flex-1 min-w-0 pr-2" style={{ scrollbarWidth: "none" }}>
                 <button
                   onClick={() => setActiveCat("all")}
-                  className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors flex-shrink-0 ${
+                  className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors shrink-0 ${
                     activeCat === "all" ? "bg-[#6CC4BA] text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
@@ -251,7 +251,7 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
                     <button
                       key={cat.id}
                       onClick={() => setActiveCat(cat.id)}
-                      className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors flex-shrink-0 ${
+                      className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors shrink-0 ${
                         activeCat === cat.id ? "bg-[#6CC4BA] text-white shadow-sm" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                       }`}
                     >
@@ -259,12 +259,12 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
                     </button>
                   );
                 })}
-                <span className="flex-shrink-0 w-6" aria-hidden="true" />
+                <span className="shrink-0 w-6" aria-hidden="true" />
               </div>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="flex-shrink-0 text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:border-[#6CC4BA] cursor-pointer"
+                className="shrink-0 text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:border-[#6CC4BA] cursor-pointer"
               >
                 <option value="rating">Beste Bewertung</option>
                 <option value="price_asc">Preis ↑</option>
@@ -307,7 +307,7 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
 
         {/* ── Bottom CTA ── */}
         {hasExperiences && (
-          <div className="mt-14 bg-gradient-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center">
+          <div className="mt-14 bg-linear-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center">
             <div className="text-4xl mb-3">🌍</div>
             <h2 className="text-2xl font-bold mb-2">Noch mehr Erlebnisse entdecken</h2>
             <p className="text-white/75 mb-7 max-w-md mx-auto text-sm leading-relaxed">

@@ -26,7 +26,7 @@ export default function SearchBoxAccordion() {
         className="w-full flex items-center gap-4 px-6 py-4 hover:bg-sand-50 transition-colors text-left group"
       >
         {/* Icon */}
-        <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-sand-100 flex items-center justify-center group-hover:bg-sand-200 transition-colors">
+        <span className="shrink-0 w-10 h-10 rounded-xl bg-sand-100 flex items-center justify-center group-hover:bg-sand-200 transition-colors">
           <Search className="w-5 h-5 text-sand-500" />
         </span>
 
@@ -42,7 +42,7 @@ export default function SearchBoxAccordion() {
 
         {/* Chevron */}
         <ChevronDown
-          className={`flex-shrink-0 w-5 h-5 text-gray-400 transition-transform duration-300 ${
+          className={`shrink-0 w-5 h-5 text-gray-400 transition-transform duration-300 ${
             open ? "rotate-180" : ""
           }`}
         />

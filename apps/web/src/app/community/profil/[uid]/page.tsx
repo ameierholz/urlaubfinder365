@@ -4,7 +4,7 @@ import { useState, useEffect, use } from "react";
 import {
   getCommunityProfile, getTravelReportsByUser, isFollowing,
   getUserGroups, followUser, unfollowUser,
-} from "@/lib/firestore";
+} from "@/lib/supabase-db";
 import { CommunityProfile, TravelReport, TravelGroup } from "@/types";
 import TravelReportCard from "@/components/community/TravelReportCard";
 import { useAuth } from "@/context/AuthContext";
@@ -125,7 +125,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
   const initials      = (profile.displayName ?? "").split(" ").map(w => w[0]).filter(Boolean).slice(0,2).join("").toUpperCase() || "?";
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-0">
+    <div className="max-w-7xl mx-auto px-4 py-0">
 
       {/* ── Privat-Banner ────────────────────────────────────────── */}
       {profile.isPublic === false && isOwn && (
@@ -160,7 +160,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
             className="absolute -bottom-12 left-6 w-24 h-24 rounded-2xl object-cover border-4 border-white shadow-lg"
           />
         ) : (
-          <div className="absolute -bottom-12 left-6 w-24 h-24 rounded-2xl bg-gradient-to-br from-[#00838F] to-[#005F6A] border-4 border-white shadow-lg flex items-center justify-center text-white text-2xl font-black">
+          <div className="absolute -bottom-12 left-6 w-24 h-24 rounded-2xl bg-linear-to-br from-[#00838F] to-[#005F6A] border-4 border-white shadow-lg flex items-center justify-center text-white text-2xl font-black">
             {initials}
           </div>
         )}
@@ -313,7 +313,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
                 Reise-Interessen
               </h3>
               <div className="flex flex-wrap gap-1.5">
-                {profile.travelInterests!.map((id) => (
+                {(profile.travelInterests ?? []).map((id) => (
                   <span key={id} className="bg-teal-50 text-teal-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-teal-100">
                     {INTEREST_LABELS[id] ?? id}
                   </span>
@@ -330,7 +330,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
                 Spricht
               </h3>
               <div className="flex flex-wrap gap-1.5">
-                {profile.languages!.map((lang) => (
+                {(profile.languages ?? []).map((lang) => (
                   <span key={lang} className="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-blue-100">
                     {lang}
                   </span>
@@ -373,7 +373,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
                   <Link key={g.id} href={`/community/gruppen/${g.id}/`}
                     className="flex items-center gap-2.5 hover:bg-gray-50 rounded-lg p-1.5 transition-colors"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-cyan-500 shrink-0" />
+                    <div className="w-8 h-8 rounded-lg bg-linear-to-br from-teal-400 to-cyan-500 shrink-0" />
                     <div className="min-w-0">
                       <div className="text-xs font-semibold text-gray-800 line-clamp-1">{g.name}</div>
                       <div className="text-[10px] text-gray-400">{g.membersCount} Mitglieder</div>

@@ -201,8 +201,8 @@ export default function UrlaubsthemenPage() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
                   loading="lazy"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${t.color}`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className={`absolute inset-0 bg-linear-to-t ${t.color}`} />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2 mb-1">

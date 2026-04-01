@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { TravelDocument, TravelDocumentType } from "@/types";
-import { getTravelDocuments, saveTravelDocument, updateTravelDocument, deleteTravelDocument } from "@/lib/firestore";
+import { getTravelDocuments, saveTravelDocument, updateTravelDocument, deleteTravelDocument } from "@/lib/supabase-db";
 import { FileText, Plus, X, Trash2, Eye, EyeOff, AlertTriangle, Edit2 } from "lucide-react";
 
 interface Props { user: AppUser }

@@ -83,7 +83,7 @@ export default function TravelReportForm({ initial, onSave, onCancel }: Props) {
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-600 to-cyan-600 px-6 py-4 flex items-center justify-between">
+      <div className="bg-linear-to-r from-teal-600 to-cyan-600 px-6 py-4 flex items-center justify-between">
         <div>
           <h2 className="text-white font-bold text-lg">Reisebericht schreiben</h2>
           <p className="text-teal-100 text-sm">Teile deine Erfahrungen mit der Community</p>

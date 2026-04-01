@@ -28,7 +28,7 @@ export default function EntryInfoBox({ info, destination }: Props) {
             key={key}
             className={`flex items-start gap-4 px-6 py-4 ${i % 2 === 0 ? "bg-sand-50/40" : "bg-white"}`}
           >
-            <div className="flex-shrink-0 mt-0.5 text-sand-500">{icon}</div>
+            <div className="shrink-0 mt-0.5 text-sand-500">{icon}</div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-0.5">
                 {label}

@@ -367,7 +367,7 @@ export default function FlugSuchePage() {
               { dest:"Kanaren",       months:"Ganzjährig",        temp:"18–26°C", tip:"Winter beliebt bei Deutschen",     emoji:"🌋", accent:"from-orange-400 to-red-500" },
             ] as const).map((z) => (
               <div key={z.dest} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-                <div className={`bg-gradient-to-r ${z.accent} px-3 py-2 flex items-center gap-2`}>
+                <div className={`bg-linear-to-r ${z.accent} px-3 py-2 flex items-center gap-2`}>
                   <span className="text-lg leading-none">{z.emoji}</span>
                   <span className="font-bold text-white text-sm drop-shadow-sm">{z.dest}</span>
                 </div>
@@ -485,7 +485,7 @@ export default function FlugSuchePage() {
               },
             ].map((typ) => (
               <div key={typ.label} className="rounded-2xl overflow-hidden shadow-sm">
-                <div className={`bg-gradient-to-br ${typ.bg} px-4 py-4 text-white relative`}>
+                <div className={`bg-linear-to-br ${typ.bg} px-4 py-4 text-white relative`}>
                   <div className="absolute top-2.5 right-2.5">
                     <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${typ.badgeColor}`}>
                       {typ.badge}
@@ -575,7 +575,7 @@ export default function FlugSuchePage() {
           BOTTOM CTA
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-gradient-to-br from-[#0f172a] to-[#1e3a8a] rounded-3xl p-10 text-white text-center relative overflow-hidden">
+        <div className="bg-linear-to-br from-[#0f172a] to-[#1e3a8a] rounded-3xl p-10 text-white text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
           <div className="relative z-10">

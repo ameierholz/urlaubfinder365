@@ -54,7 +54,7 @@ export default function ExpertBanner({
 
         <div className="flex items-start gap-4 md:gap-6">
           {/* Foto */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <div
               className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-[3px] shadow-md"
               style={{ borderColor: accentColor }}

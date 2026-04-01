@@ -68,7 +68,7 @@ function SpotlightCard({ p }: { p: TiqetsProduct }) {
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
       {/* Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
       {/* Badges top-right */}
       <div className="absolute top-3 right-3 flex flex-col gap-1 items-end z-10">
@@ -140,7 +140,7 @@ function SpotlightCard({ p }: { p: TiqetsProduct }) {
               <div className="text-[11px] text-emerald-400 font-medium">🛡️ Gratis Storno</div>
             )}
           </div>
-          <span className="flex-shrink-0 bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors shadow-md">
+          <span className="shrink-0 bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors shadow-md">
             Verfügbarkeit prüfen →
           </span>
         </div>

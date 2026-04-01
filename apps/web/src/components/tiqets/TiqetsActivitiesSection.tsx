@@ -85,7 +85,7 @@ function SpotlightCard({ p }: { p: TiqetsProduct }) {
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
       {/* Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
 
       {/* Herz top-left */}
       <div className="absolute top-3 left-3 z-10">
@@ -158,7 +158,7 @@ function SpotlightCard({ p }: { p: TiqetsProduct }) {
               <div className="text-[11px] text-emerald-400 font-medium">🛡️ Gratis Storno</div>
             )}
           </div>
-          <span className="flex-shrink-0 bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors shadow-md">
+          <span className="shrink-0 bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors shadow-md">
             Verfügbarkeit prüfen →
           </span>
         </div>
@@ -192,10 +192,10 @@ function CarouselCard({ p }: { p: TiqetsProduct }) {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex-shrink-0 w-[285px] rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
+      className="group shrink-0 w-[285px] rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
     >
       {/* Image */}
-      <div className="h-[170px] bg-gray-100 relative flex-shrink-0 overflow-hidden">
+      <div className="h-[170px] bg-gray-100 relative shrink-0 overflow-hidden">
         {img && (
           <img
             src={img}
@@ -203,7 +203,7 @@ function CarouselCard({ p }: { p: TiqetsProduct }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
         {/* Herz top-left */}
         <div className="absolute top-2.5 left-2.5 z-10">
           <ActivitySaveButton activity={p} variant="dark" />
@@ -272,7 +272,7 @@ function CarouselCard({ p }: { p: TiqetsProduct }) {
       </div>
 
       {/* Footer */}
-      <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 flex-shrink-0">
+      <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 shrink-0">
         <div className="leading-none">
           {oldPrice && (
             <div className="text-[11px] text-gray-400 line-through">{oldPrice} €</div>
@@ -280,7 +280,7 @@ function CarouselCard({ p }: { p: TiqetsProduct }) {
           {!oldPrice && <div className="text-[10px] text-gray-400 mb-0.5">ab</div>}
           <div className="text-[18px] font-extrabold text-sand-500">{price} €</div>
         </div>
-        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-[12px] font-bold px-3.5 py-2 rounded-full whitespace-nowrap flex-shrink-0 transition-colors shadow-sm">
+        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-[12px] font-bold px-3.5 py-2 rounded-full whitespace-nowrap shrink-0 transition-colors shadow-sm">
           Jetzt buchen →
         </span>
       </div>
@@ -295,7 +295,7 @@ function SkeletonSpot() {
 }
 
 function SkeletonCard() {
-  return <div className="flex-shrink-0 w-[285px] h-[390px] bg-gray-100 rounded-2xl animate-pulse" />;
+  return <div className="shrink-0 w-[285px] h-[390px] bg-gray-100 rounded-2xl animate-pulse" />;
 }
 
 /* ─────────────────────────── Main Component ─────────────────────────── */

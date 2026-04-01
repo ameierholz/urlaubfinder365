@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { getComments, addComment } from "@/lib/firestore";
+import { getComments, addComment } from "@/lib/supabase-db";
 import { TravelReportComment } from "@/types";
 import { MessageCircle, Send, Loader2, User } from "lucide-react";
 import Link from "next/link";
@@ -94,7 +94,7 @@ export default function CommentSection({ reportId }: { reportId: string }) {
       ) : (
         <div className="space-y-4">
           {comments.map((c) => {
-            const ini = c.displayName.split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
+            const ini = (c.displayName ?? "?").split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
             return (
               <div key={c.id} className="flex gap-3">
                 <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-600 text-sm font-bold flex items-center justify-center shrink-0">

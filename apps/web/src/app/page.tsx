@@ -373,11 +373,11 @@ export default async function HomePage() {
 
         {/* ── Cinematic Overlays ── */}
         {/* Links abdunkeln für Text-Lesbarkeit */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-black/10" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10" />
         {/* Unten abdunkeln für SearchBox-Übergang */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/30" />
         {/* Nahtloser Übergang zum Deals-Banner */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#1a1200]" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-b from-transparent to-[#1a1200]" />
 
         {/* ── Haupt-Content – vertikal zentriert ── */}
         {/* overflow-visible damit SearchBox-Dropdown nicht abgeschnitten wird */}
@@ -448,10 +448,10 @@ export default async function HomePage() {
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
 
               {/* LEFT – Icon + Text */}
-              <div className="flex items-center gap-5 flex-shrink-0">
-                <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-sand-500 shadow-2xl shadow-sand-500/40 relative">
+              <div className="flex items-center gap-5 shrink-0">
+                <div className="shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-sand-500 shadow-2xl shadow-sand-500/40 relative">
                   <Flame className="w-9 h-9 text-white" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent" />
+                  <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/20 to-transparent" />
                 </div>
                 <div>
                   <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-2">
@@ -489,7 +489,7 @@ export default async function HomePage() {
               </div>
 
               {/* RIGHT – CTA */}
-              <div className="flex-shrink-0 flex flex-col items-center gap-2">
+              <div className="shrink-0 flex flex-col items-center gap-2">
                 <Link
                   href="/urlaubsziele/"
                   className="inline-flex items-center gap-2 bg-sand-500 hover:bg-sand-400 text-white font-black px-6 py-3.5 rounded-2xl transition-all shadow-lg hover:shadow-sand-500/40 hover:-translate-y-0.5 duration-200 whitespace-nowrap"
@@ -509,7 +509,7 @@ export default async function HomePage() {
 
             {/* Label-Zeile über den Karten */}
             <div className="flex items-center gap-3 mb-5">
-              <div className="flex items-center gap-2 bg-gradient-to-r from-red-700 to-sand-600 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-md shadow-sand-500/20 uppercase tracking-wider">
+              <div className="flex items-center gap-2 bg-linear-to-r from-red-700 to-sand-600 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-md shadow-sand-500/20 uppercase tracking-wider">
                 <Flame className="w-3 h-3" /> Top Deal
               </div>
               <p className="text-xs text-gray-500 font-medium">
@@ -556,13 +556,13 @@ export default async function HomePage() {
             {/* ZEILE 1 – Badge + Text + USPs */}
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
               {/* LEFT – Savings-Badge */}
-              <div className="flex-shrink-0 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-sand-500 shadow-2xl shadow-sand-500/40 relative">
+              <div className="shrink-0 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-sand-500 shadow-2xl shadow-sand-500/40 relative">
                 <div className="text-center text-white">
                   <div className="text-xs font-bold uppercase tracking-widest opacity-80">bis zu</div>
                   <div className="text-5xl md:text-6xl font-black leading-none">60%</div>
                   <div className="text-sm font-bold uppercase tracking-wide">Rabatt</div>
                 </div>
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent" />
+                <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/20 to-transparent" />
               </div>
 
               {/* CENTER – Text */}
@@ -593,7 +593,7 @@ export default async function HomePage() {
               </div>
 
               {/* RIGHT – USP-Liste */}
-              <div className="flex-shrink-0 hidden lg:flex flex-col gap-3">
+              <div className="shrink-0 hidden lg:flex flex-col gap-3">
                 {[
                   ["✓", "Beste Hotelzimmer sichern"],
                   ["✓", "Bis zu 12 Monate im Voraus"],
@@ -601,7 +601,7 @@ export default async function HomePage() {
                   ["✓", "Preisgarantie beim Veranstalter"],
                 ].map(([icon, text]) => (
                   <div key={text} className="flex items-center gap-3 text-white/90">
-                    <span className="w-6 h-6 rounded-full bg-sand-500/30 border border-sand-400/50 text-sand-300 text-xs font-black flex items-center justify-center flex-shrink-0">
+                    <span className="w-6 h-6 rounded-full bg-sand-500/30 border border-sand-400/50 text-sand-300 text-xs font-black flex items-center justify-center shrink-0">
                       {icon}
                     </span>
                     <span className="text-sm font-medium">{text}</span>
@@ -640,7 +640,7 @@ export default async function HomePage() {
             <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
 
               {/* LEFT – Titel */}
-              <div className="flex-shrink-0 text-center md:text-left">
+              <div className="shrink-0 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-3">
                   <span className="text-xs font-bold text-violet-300 uppercase tracking-widest">✓ Warum Urlaubfinder365?</span>
                 </div>
@@ -650,7 +650,7 @@ export default async function HomePage() {
               </div>
 
               {/* Divider */}
-              <div className="hidden md:block w-px h-24 bg-white/15 flex-shrink-0" />
+              <div className="hidden md:block w-px h-24 bg-white/15 shrink-0" />
 
               {/* RIGHT – 4 Trust-Items */}
               <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -698,8 +698,8 @@ export default async function HomePage() {
           >
             <Image src={destHero.img} alt={`${destHero.name} Urlaub günstig buchen`} fill priority loading="eager" className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="100vw" />
             {/* Links-oben → rechts-unten: kräftiger Schatten */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-black/10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/40 to-black/10" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             {/* Heading – unten links */}
             <div className="absolute inset-0 flex flex-col justify-end p-7 sm:p-10">
               <div className="flex items-center gap-3 mb-3">
@@ -737,8 +737,8 @@ export default async function HomePage() {
               >
                 <Image src={r.img} alt={`${r.name} Urlaub günstig buchen`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:640px)100vw,33vw" />
                 {/* Doppelter Gradient: unten dunkel + links leicht */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/35 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-r from-black/30 to-transparent" />
                 <div className="absolute top-3 left-3 bg-black/55 backdrop-blur-sm text-white text-[10px] font-black px-2 py-0.5 rounded-full">#{i + 2}</div>
                 <div className="absolute top-3 right-3 bg-sand-500 text-white text-xs font-black px-2.5 py-1 rounded-lg shadow-md">{r.priceFrom}</div>
                 <div className="absolute bottom-0 p-4">
@@ -761,7 +761,7 @@ export default async function HomePage() {
               >
                 <Image src={r.img} alt={`${r.name} Urlaub günstig buchen`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:640px)50vw,(max-width:1024px)33vw,17vw" />
                 {/* Stärkerer Gradient für kleine Kacheln */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/5" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/40 to-black/5" />
                 <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-sm text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">#{i + 5}</div>
                 <div className="absolute top-2 right-2 bg-sand-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-md">{r.priceFrom}</div>
                 <div className="absolute bottom-0 p-2.5">
@@ -798,7 +798,7 @@ export default async function HomePage() {
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
 
             {/* ── LINKE SPALTE – Sticky Heading ── */}
-            <div className="lg:w-80 flex-shrink-0 lg:sticky lg:top-24 lg:self-start">
+            <div className="lg:w-80 shrink-0 lg:sticky lg:top-24 lg:self-start">
 
               {/* Eyebrow-Badge */}
               <div className="inline-flex items-center gap-2 bg-violet-500/20 border border-violet-400/30 rounded-full px-3 py-1.5 mb-5">
@@ -864,7 +864,7 @@ export default async function HomePage() {
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
 
             {/* ── LINKE SPALTE – Sticky Heading ── */}
-            <div className="lg:w-72 flex-shrink-0 lg:sticky lg:top-24 lg:self-start">
+            <div className="lg:w-72 shrink-0 lg:sticky lg:top-24 lg:self-start">
               {/* Farbiger Akzentbalken */}
               <div className="flex gap-1 mb-5">
                 <div className="h-10 w-1.5 rounded-full bg-sand-500" />
@@ -895,7 +895,7 @@ export default async function HomePage() {
                   className="group flex gap-5 bg-gray-50 hover:bg-sand-50 border border-gray-100 hover:border-sand-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
                 >
                   {/* Bild */}
-                  <div className="relative w-36 sm:w-48 flex-shrink-0 overflow-hidden" style={{ minHeight: "140px" }}>
+                  <div className="relative w-36 sm:w-48 shrink-0 overflow-hidden" style={{ minHeight: "140px" }}>
                     <Image
                       src={g.img}
                       alt={`Urlaubsguide ${g.dest}`}
@@ -903,7 +903,7 @@ export default async function HomePage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 640px) 144px, 192px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/20" />
                   </div>
 
                   {/* Text */}
@@ -985,7 +985,7 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════════
           9 · NEWSLETTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-14 bg-gradient-to-br from-[#00838F] to-[#005F6A]">
+      <section className="py-14 bg-linear-to-br from-[#00838F] to-[#005F6A]">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <span className="inline-block bg-white/15 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider">
             ✉️ Kostenloser Newsletter

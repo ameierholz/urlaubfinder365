@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Heart, MapPin, Plane, BedDouble, UtensilsCrossed, ThumbsUp, Clock } from "lucide-react";
 import { TravelOffer } from "@/types";
 import { useAuth } from "@/context/AuthContext";
-import { saveTrip, unsaveTrip } from "@/lib/firestore";
+import { saveTrip, unsaveTrip } from "@/lib/supabase-db";
 import Toast from "@/components/ui/Toast";
 import SaveLoginModal from "@/components/ui/SaveLoginModal";
 import clsx from "clsx";
@@ -80,7 +80,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
     <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 h-full flex flex-col">
 
       {/* Bild */}
-      <div className={clsx("relative overflow-hidden flex-shrink-0", compact ? "h-36" : "h-44")}>
+      <div className={clsx("relative overflow-hidden shrink-0", compact ? "h-36" : "h-44")}>
         <Image
           src={offer.images?.medium || offer.images?.large || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"}
           alt={offer.hotel_name}
@@ -103,13 +103,13 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         </button>
         {/* Land + Stadt Badge oben links */}
         <div className="absolute top-2 left-2 flex items-start gap-1 bg-black/50 backdrop-blur-sm text-white rounded-xl px-2.5 py-1.5 max-w-[calc(100%-44px)] z-0">
-          <MapPin className="w-3 h-3 flex-shrink-0 mt-0.5" />
+          <MapPin className="w-3 h-3 shrink-0 mt-0.5" />
           <span className="text-[11px] font-medium leading-snug">
             {offer.destination_name}{offer.country_name ? (<><br />{offer.country_name}</>) : ""}
           </span>
         </div>
         {/* Hotelname am unteren Bildrand */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 pt-8 pb-2.5">
+        <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent px-3 pt-8 pb-2.5">
           <h3 className={clsx(
             "font-bold text-white leading-snug line-clamp-2 drop-shadow",
             compact ? "text-xl" : "text-4xl"
@@ -125,7 +125,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         {/* HolidayCheck Bewertungs-Box */}
         {Number(offer.rating.overall) > 0 && (
           <div className="flex items-center gap-2.5 bg-gray-100 rounded-xl px-3 py-2 mb-3">
-            <ThumbsUp className="w-5 h-5 flex-shrink-0 text-[#f39100]" />
+            <ThumbsUp className="w-5 h-5 shrink-0 text-[#f39100]" />
             <div className="min-w-0">
               <p className="text-xs font-bold text-gray-800 leading-tight">
                 {Number(offer.rating.overall).toFixed(1)}/6
@@ -144,13 +144,13 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         <div className="flex flex-col gap-1 mb-3">
           {offer.board_name && (
             <p className="text-xs text-gray-500 flex items-center gap-1.5">
-              <UtensilsCrossed className="w-3 h-3 flex-shrink-0 text-gray-400" />
+              <UtensilsCrossed className="w-3 h-3 shrink-0 text-gray-400" />
               <span>{offer.board_name}</span>
             </p>
           )}
           {offer.lodging_name && (
             <p className="text-xs text-gray-500 flex items-center gap-1.5">
-              <BedDouble className="w-3 h-3 flex-shrink-0 text-gray-400" />
+              <BedDouble className="w-3 h-3 shrink-0 text-gray-400" />
               <span>{offer.lodging_name}</span>
             </p>
           )}
@@ -162,14 +162,14 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
             "inline-flex items-center gap-1 bg-gray-100 text-gray-700 font-medium rounded-full",
             compact ? "text-[10px] px-2 py-0.5" : "text-xs px-2.5 py-1"
           )}>
-            <Clock className="w-3 h-3 flex-shrink-0" />
+            <Clock className="w-3 h-3 shrink-0" />
             {offer.offer_duration} Nächte
           </span>
           <span className={clsx(
             "inline-flex items-center gap-1 bg-sky-50 text-sky-700 font-medium rounded-full border border-sky-100",
             compact ? "text-[10px] px-2 py-0.5" : "text-xs px-2.5 py-1"
           )}>
-            <Plane className="w-3 h-3 flex-shrink-0" />
+            <Plane className="w-3 h-3 shrink-0" />
             Flug inklusive
           </span>
         </div>
@@ -187,7 +187,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
           <button
             onClick={handleBook}
             className={clsx(
-              "flex-shrink-0 flex items-center gap-1.5 bg-sand-500 hover:bg-sand-600 text-white font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap",
+              "shrink-0 flex items-center gap-1.5 bg-sand-500 hover:bg-sand-600 text-white font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap",
               compact ? "text-xs px-3 py-1.5" : "text-sm px-4 py-2.5"
             )}
           >

@@ -70,7 +70,7 @@ export default async function TiqetsNichePage({ params }: Props) {
       />
 
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#00838F] to-[#004F5A] text-white relative overflow-hidden">
+      <div className="bg-linear-to-br from-[#00838F] to-[#004F5A] text-white relative overflow-hidden">
         {dest.heroImageFallback && (
           <img
             src={dest.heroImageFallback}
@@ -198,7 +198,7 @@ export default async function TiqetsNichePage({ params }: Props) {
                     href={similarNiche ? `/aktivitaeten/${od.slug}/${similarNiche.slug}/` : `/aktivitaeten/${od.slug}/`}
                     className="group flex items-center gap-4 bg-white border border-gray-200 hover:border-[#6CC4BA] hover:shadow-md rounded-2xl p-4 transition-all duration-200"
                   >
-                    <div className="text-3xl flex-shrink-0">🌍</div>
+                    <div className="text-3xl shrink-0">🌍</div>
                     <div className="min-w-0">
                       <p className="font-bold text-gray-900 group-hover:text-[#00838F] transition-colors">
                         {similarNiche?.label ?? "Aktivitäten"} in {od.name}

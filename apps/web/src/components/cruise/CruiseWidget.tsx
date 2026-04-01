@@ -36,7 +36,7 @@ export default function CruiseWidget() {
                   : "bg-white text-gray-600 border border-gray-200 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50"
               }`}
             >
-              <Icon className="w-4 h-4 flex-shrink-0" />
+              <Icon className="w-4 h-4 shrink-0" />
               {tab.label}
             </button>
           );

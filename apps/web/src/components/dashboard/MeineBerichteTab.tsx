@@ -5,7 +5,7 @@ import type { AppUser } from "@/context/AuthContext";
 import {
   getTravelReportsByUser, deleteTravelReport,
   publishTravelReport, createTravelReport, updateTravelReport,
-} from "@/lib/firestore";
+} from "@/lib/supabase-db";
 import { TravelReport } from "@/types";
 import TravelReportForm, { ReportFormData } from "@/components/community/TravelReportForm";
 import { BookOpen, Plus, Eye, EyeOff, Trash2, Edit3, Star, Loader2 } from "lucide-react";
@@ -98,7 +98,7 @@ export default function MeineBerichteTab({ user }: Props) {
           {reports.map((r) => (
             <div key={r.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-4 items-start">
               {/* Cover-Mini */}
-              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
+              <div className="w-16 h-16 rounded-xl bg-linear-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
                 {r.coverImageUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={r.coverImageUrl} alt="" className="w-full h-full object-cover" />

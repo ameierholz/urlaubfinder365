@@ -6,7 +6,7 @@ import { Clock, Flame, Plane, Utensils, Heart } from "lucide-react";
 import { TravelOffer } from "@/types";
 import { formatPrice } from "@/lib/travel-api";
 import { useAuth } from "@/context/AuthContext";
-import { saveTrip } from "@/lib/firestore";
+import { saveTrip } from "@/lib/supabase-db";
 import SaveLoginModal from "@/components/ui/SaveLoginModal";
 
 interface Props {
@@ -120,10 +120,10 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 20vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
 
         {/* TOP DEAL – oben links */}
-        <div className="absolute top-3 left-3 flex items-center gap-1 bg-gradient-to-r from-red-700 to-sand-600 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none">
+        <div className="absolute top-3 left-3 flex items-center gap-1 bg-linear-to-r from-red-700 to-sand-600 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none">
           <Flame className="w-2.5 h-2.5" />
           Top Deal
         </div>
@@ -165,13 +165,13 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         {/* Info-Zeile */}
         <div className="px-4 pt-3 pb-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-white/10">
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Clock className="w-4 h-4 text-gray-500 flex-shrink-0" />{offer.offer_duration} Nächte
+            <Clock className="w-4 h-4 text-gray-500 shrink-0" />{offer.offer_duration} Nächte
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Plane className="w-4 h-4 text-sky-400 flex-shrink-0" />inkl. Flug
+            <Plane className="w-4 h-4 text-sky-400 shrink-0" />inkl. Flug
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Utensils className="w-4 h-4 text-sand-400 flex-shrink-0" />{offer.board_name}
+            <Utensils className="w-4 h-4 text-sand-400 shrink-0" />{offer.board_name}
           </span>
         </div>
 
@@ -182,7 +182,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
             <p className="text-3xl font-black text-sand-400 leading-none">{formatPrice(offer.offer_price_adult)}</p>
             <p className="text-[10px] text-gray-500 mt-1">Gesamt {formatPrice(offer.offer_price_total)}</p>
           </div>
-          <span className="flex-shrink-0 bg-gradient-to-r from-sand-500 to-sand-600 group-hover:from-sand-400 group-hover:to-sand-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-sand-900/40 text-center leading-snug">
+          <span className="shrink-0 bg-linear-to-r from-sand-500 to-sand-600 group-hover:from-sand-400 group-hover:to-sand-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-sand-900/40 text-center leading-snug">
             Angebot<br />prüfen →
           </span>
         </div>

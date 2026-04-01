@@ -329,7 +329,7 @@ function DestCard({ entry }: { entry: CatalogEntry }) {
         />
       </div>
       {/* Subtiler Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
 
       {/* Zielname – oben links */}
       <div className="absolute top-3 left-3">
@@ -414,7 +414,7 @@ export default function UrlaubszielePage() {
           <img src={generateHeroFallback("santorini blue dome white buildings caldera")} className="w-1/3 h-full object-cover opacity-55" alt="" aria-hidden="true" />
           <img src={generateHeroFallback("antalya turkey turquoise coast")} className="w-1/3 h-full object-cover opacity-55" alt="" aria-hidden="true" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#003d47]/65 via-[#003d47]/45 to-[#003d47]/75" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#003d47]/65 via-[#003d47]/45 to-[#003d47]/75" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 py-14 text-center">
           <nav className="flex items-center justify-center gap-1.5 text-white/55 text-xs mb-5">
             <Link href="/" className="hover:text-white transition-colors">Startseite</Link>
@@ -511,7 +511,7 @@ export default function UrlaubszielePage() {
                     width={28}
                     height={20}
                     alt={`${group.label}`}
-                    className="rounded shadow-sm object-cover flex-shrink-0"
+                    className="rounded shadow-sm object-cover shrink-0"
                     loading="lazy"
                   />
                 ) : (
@@ -626,7 +626,7 @@ export default function UrlaubszielePage() {
             alt="Günstige Pauschalreisen buchen"
             className="w-full h-52 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#003d47]/90 to-[#00838F]/70" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#003d47]/90 to-[#00838F]/70" />
           <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-between px-8 py-6 gap-4">
             <div className="text-white text-center sm:text-left">
               <p className="text-sm text-white/70 mb-1">Dein Traumurlaub wartet</p>
@@ -634,7 +634,7 @@ export default function UrlaubszielePage() {
             </div>
             <Link
               href="/guenstig-urlaub-buchen/"
-              className="flex-shrink-0 bg-sand-500 hover:bg-sand-400 text-white font-bold px-8 py-3 rounded-full text-sm shadow-lg transition-all hover:-translate-y-0.5 whitespace-nowrap"
+              className="shrink-0 bg-sand-500 hover:bg-sand-400 text-white font-bold px-8 py-3 rounded-full text-sm shadow-lg transition-all hover:-translate-y-0.5 whitespace-nowrap"
             >
               Alle Angebote vergleichen →
             </Link>

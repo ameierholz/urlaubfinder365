@@ -80,7 +80,7 @@ export default function CookieBanner() {
           <div className="px-6 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
             {/* Notwendige Cookies */}
             <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-2xl">
-              <div className="mt-0.5 flex-shrink-0">
+              <div className="mt-0.5 shrink-0">
                 <div className="w-10 h-6 bg-[#00838F] rounded-full flex items-center justify-end pr-1">
                   <div className="w-4 h-4 bg-white rounded-full shadow" />
                 </div>
@@ -95,7 +95,7 @@ export default function CookieBanner() {
 
             {/* Statistik */}
             <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-2xl">
-              <div className="mt-0.5 flex-shrink-0">
+              <div className="mt-0.5 shrink-0">
                 <button
                   role="switch"
                   aria-checked={analytics}
@@ -115,7 +115,7 @@ export default function CookieBanner() {
 
             {/* Marketing */}
             <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-2xl">
-              <div className="mt-0.5 flex-shrink-0">
+              <div className="mt-0.5 shrink-0">
                 <button
                   role="switch"
                   aria-checked={marketing}
@@ -176,7 +176,7 @@ export default function CookieBanner() {
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
                 onClick={() => setShowSettings(true)}
                 className="text-xs font-semibold text-gray-500 hover:text-gray-800 underline underline-offset-2 transition-colors px-1"

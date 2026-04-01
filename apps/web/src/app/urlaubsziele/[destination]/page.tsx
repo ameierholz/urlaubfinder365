@@ -170,7 +170,7 @@ export default async function DestinationPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1 text-sm text-gray-500 mb-5">
-            <MapPin className="w-4 h-4 flex-shrink-0" />
+            <MapPin className="w-4 h-4 shrink-0" />
             <Link href="/urlaubsziele/" className="hover:text-sand-500 transition-colors">
               Urlaubsziele
             </Link>
@@ -217,7 +217,7 @@ export default async function DestinationPage({ params }: Props) {
                   href="#pauschalreisen"
                   className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
                 >
-                  <Package className="w-5 h-5 flex-shrink-0" />
+                  <Package className="w-5 h-5 shrink-0" />
                   <div>
                     <p className="font-semibold text-sm">Pauschalreisen</p>
                     <p className="text-xs text-sand-500">Flug + Hotel günstig</p>
@@ -227,7 +227,7 @@ export default async function DestinationPage({ params }: Props) {
                   href="#all-inclusive"
                   className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
                 >
-                  <Umbrella className="w-5 h-5 flex-shrink-0" />
+                  <Umbrella className="w-5 h-5 shrink-0" />
                   <div>
                     <p className="font-semibold text-sm">All Inclusive</p>
                     <p className="text-xs text-sand-500">Rundum sorglos</p>
@@ -237,7 +237,7 @@ export default async function DestinationPage({ params }: Props) {
                   href="#last-minute"
                   className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
                 >
-                  <Zap className="w-5 h-5 flex-shrink-0" />
+                  <Zap className="w-5 h-5 shrink-0" />
                   <div>
                     <p className="font-semibold text-sm">Last Minute</p>
                     <p className="text-xs text-sand-500">Spontan &amp; günstig</p>
@@ -248,7 +248,7 @@ export default async function DestinationPage({ params }: Props) {
                     href="#aktivitaeten"
                     className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
                   >
-                    <Ticket className="w-5 h-5 flex-shrink-0" />
+                    <Ticket className="w-5 h-5 shrink-0" />
                     <div>
                       <p className="font-semibold text-sm">Aktivitäten</p>
                       <p className="text-xs text-sand-500">Touren &amp; Erlebnisse</p>
@@ -259,7 +259,7 @@ export default async function DestinationPage({ params }: Props) {
             </div>
 
             {/* Rechts: Destination-Bild */}
-            <div className="w-full md:w-80 lg:w-96 flex-shrink-0">
+            <div className="w-full md:w-80 lg:w-96 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={richDest ? destImg(dest) : (dest.heroImageFallback ?? dest.heroImage)}
@@ -400,7 +400,7 @@ export default async function DestinationPage({ params }: Props) {
                 Wähle deinen Abflughafen für günstige Flüge nach {dest.name}.
               </p>
             </div>
-            <div className="hidden md:flex items-center gap-2 bg-white px-5 py-2 rounded-2xl border-2 border-teal-200/60 shadow-md flex-shrink-0">
+            <div className="hidden md:flex items-center gap-2 bg-white px-5 py-2 rounded-2xl border-2 border-teal-200/60 shadow-md shrink-0">
               <span className="text-teal-500 text-lg">✈</span>
               <span className="font-black text-gray-900 uppercase text-sm tracking-wide">
                 {dest.name} wartet!
@@ -468,7 +468,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* Guide CTA unten – nur wenn Reiseführer vorhanden */}
       {dest.guideSlug && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="mt-8 bg-gradient-to-r from-blue-600 to-blue-500 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="mt-8 bg-linear-to-r from-blue-600 to-blue-500 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-xl font-bold mb-1">Dein digitaler Reisebegleiter für {dest.name}</h2>
               <p className="text-blue-100 text-sm">

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
-import { getTravelTips, addTravelTip, deleteTravelTip } from "@/lib/firestore";
+import { getTravelTips, addTravelTip, deleteTravelTip } from "@/lib/supabase-db";
 import { TravelTip, TravelTipCategory } from "@/types";
 import { CATEGORY_CONFIG, FILTER_OPTIONS } from "./travelMapConfig";
 import { X, MapPin, Plus, AlertCircle, Loader2 } from "lucide-react";

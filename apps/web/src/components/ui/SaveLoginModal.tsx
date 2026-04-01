@@ -50,7 +50,7 @@ export default function SaveLoginModal({ onClose }: Props) {
       <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
 
         {/* Header Gradient */}
-        <div className="bg-gradient-to-br from-[#00838F] to-[#005F6A] px-6 pt-6 pb-8 text-white text-center relative">
+        <div className="bg-linear-to-br from-[#00838F] to-[#005F6A] px-6 pt-6 pb-8 text-white text-center relative">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
@@ -80,7 +80,7 @@ export default function SaveLoginModal({ onClose }: Props) {
           <ul className="space-y-2.5">
             {PROFILE_FEATURES.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-start gap-3">
-                <div className="w-6 h-6 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-lg bg-teal-50 flex items-center justify-center shrink-0 mt-0.5">
                   <Icon className="w-3.5 h-3.5 text-[#00838F]" />
                 </div>
                 <span className="text-sm text-gray-700 leading-snug">{text}</span>
@@ -93,7 +93,7 @@ export default function SaveLoginModal({ onClose }: Props) {
         <div className="px-6 pb-6 space-y-3">
           <button
             onClick={() => router.push("/register")}
-            className="w-full bg-gradient-to-r from-[#00838F] to-[#005F6A] hover:from-[#007A86] hover:to-[#005060] text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2"
+            className="w-full bg-linear-to-r from-[#00838F] to-[#005F6A] hover:from-[#007A86] hover:to-[#005060] text-white font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2"
           >
             <CheckCircle2 className="w-4 h-4" />
             Jetzt kostenlos registrieren

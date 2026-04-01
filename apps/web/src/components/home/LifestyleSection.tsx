@@ -77,7 +77,7 @@ export default function LifestyleSection() {
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 1024px) 50vw, 25vw"
           />
-          <div className={`absolute inset-0 bg-gradient-to-t ${item.gradient} to-transparent`} />
+          <div className={`absolute inset-0 bg-linear-to-t ${item.gradient} to-transparent`} />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
 
           <div className="relative flex flex-col h-full min-h-[200px] justify-end p-5 text-white">

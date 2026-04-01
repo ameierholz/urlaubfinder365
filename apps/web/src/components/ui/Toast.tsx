@@ -24,9 +24,9 @@ export default function Toast({ message, link, type = "save", onDismiss }: Props
           : "bg-white border-gray-200 text-gray-600"
       }`}>
         {type === "save" ? (
-          <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+          <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
         ) : (
-          <Heart className="w-5 h-5 text-gray-400 flex-shrink-0" />
+          <Heart className="w-5 h-5 text-gray-400 shrink-0" />
         )}
         <span className="flex-1">
           {message}
@@ -44,7 +44,7 @@ export default function Toast({ message, link, type = "save", onDismiss }: Props
         </span>
         <button
           onClick={onDismiss}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          className="shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
         >
           <X className="w-4 h-4" />
         </button>

@@ -45,7 +45,7 @@ function FlagImg({ emoji, name, size = "sm" }: { emoji: string; name: string; si
       width={w}
       height={h}
       alt={name}
-      className="rounded-[2px] shadow-sm flex-shrink-0"
+      className="rounded-[2px] shadow-sm shrink-0"
     />
   );
 }
@@ -87,7 +87,7 @@ export default function DestinationGrid({ destinations, accentColor = "#00838F",
               loading="eager"
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent md:hidden" />
             <div className="absolute bottom-3 left-4 flex items-center gap-2 md:hidden">
               <FlagImg emoji={featured.flag} name={featured.name} size="sm" />
               <span className="text-white font-bold text-lg drop-shadow">{featured.name}</span>
@@ -157,7 +157,7 @@ export default function DestinationGrid({ destinations, accentColor = "#00838F",
               <button
                 key={d.name}
                 onClick={() => open(d.deeplink, d.name)}
-                className="group flex-shrink-0 w-48 text-left rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 bg-white"
+                className="group shrink-0 w-48 text-left rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 bg-white"
               >
                 {/* Bild mit Gradient + Flag + Name */}
                 <div className="relative h-36 overflow-hidden">
@@ -168,7 +168,7 @@ export default function DestinationGrid({ destinations, accentColor = "#00838F",
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
                   {/* Accent-Stripe on hover */}
                   <div

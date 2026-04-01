@@ -380,7 +380,7 @@ function DestinationsMegaMenu({ onClose }: { onClose: () => void }) {
               loading="lazy"
               onError={(e) => { (e.target as HTMLImageElement).src = FALLBACK; }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
             {/* Flagge */}
             <img
               src={`https://flagcdn.com/w20/${d.flagCode}.png`}
@@ -643,7 +643,7 @@ export default function Header() {
                                   className="w-full h-full object-cover"
                                   loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
                                 <span className="absolute bottom-0.5 left-1 text-white text-[9px] font-bold drop-shadow leading-none">
                                   {d.name}
                                 </span>

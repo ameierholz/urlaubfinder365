@@ -184,7 +184,7 @@ export default function BudgetBis1500Page() {
               Täglich aktualisierte Premium-Pauschalreisen bis 1.500 € — inklusive Flug, Hotel und Transfer.
             </p>
           </div>
-          <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap flex-shrink-0">
+          <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
             Alle Themen →
           </Link>
         </div>

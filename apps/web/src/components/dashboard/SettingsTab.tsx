@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, TravelPreferences } from "@/types";
-import { updateTravelPreferences } from "@/lib/firestore";
+import { updateTravelPreferences } from "@/lib/supabase-db";
 import { Settings, Wallet, Users, Calendar, Heart, CheckCircle, Mail } from "lucide-react";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
@@ -42,9 +42,13 @@ const TRIP_TYPES = [
 ];
 
 export default function SettingsTab({ user, userProfile }: Props) {
-  const [prefs, setPrefs] = useState<TravelPreferences>(
-    userProfile?.preferences ?? DEFAULT_PREFS
-  );
+  const [prefs, setPrefs] = useState<TravelPreferences>({
+    ...DEFAULT_PREFS,
+    ...(userProfile?.preferences ?? {}),
+    preferredMonths: userProfile?.preferences?.preferredMonths ?? [],
+    preferredTypes:  userProfile?.preferences?.preferredTypes ?? [],
+    preferredRegions: userProfile?.preferences?.preferredRegions ?? [],
+  });
   const [saving, setSaving] = useState(false);
   const [saved, setSaved]   = useState(false);
 
@@ -54,17 +58,13 @@ export default function SettingsTab({ user, userProfile }: Props) {
   };
 
   const toggleMonth = (m: string) => {
-    set("preferredMonths", prefs.preferredMonths.includes(m)
-      ? prefs.preferredMonths.filter((x) => x !== m)
-      : [...prefs.preferredMonths, m]
-    );
+    const months = prefs.preferredMonths ?? [];
+    set("preferredMonths", months.includes(m) ? months.filter((x) => x !== m) : [...months, m]);
   };
 
   const toggleType = (id: string) => {
-    set("preferredTypes", prefs.preferredTypes.includes(id)
-      ? prefs.preferredTypes.filter((x) => x !== id)
-      : [...prefs.preferredTypes, id]
-    );
+    const types = prefs.preferredTypes ?? [];
+    set("preferredTypes", types.includes(id) ? types.filter((x) => x !== id) : [...types, id]);
   };
 
   const save = async () => {
@@ -166,7 +166,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
               key={m}
               onClick={() => toggleMonth(m)}
               className={`py-2 rounded-xl text-xs font-semibold transition-all ${
-                prefs.preferredMonths.includes(m)
+                (prefs.preferredMonths ?? []).includes(m)
                   ? "bg-[#00838F] text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
@@ -189,7 +189,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
               key={id}
               onClick={() => toggleType(id)}
               className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold text-left transition-all ${
-                prefs.preferredTypes.includes(id)
+                (prefs.preferredTypes ?? []).includes(id)
                   ? "bg-[#00838F] text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}

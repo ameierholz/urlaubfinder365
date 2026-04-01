@@ -39,7 +39,7 @@ export default function ThemeFAQAccordion({
             >
               {/* Nummer */}
               <span
-                className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-colors duration-200"
+                className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-colors duration-200"
                 style={
                   isOpen
                     ? { background: accentColor, color: "white" }
@@ -60,7 +60,7 @@ export default function ThemeFAQAccordion({
 
               {/* Chevron */}
               <svg
-                className="flex-shrink-0 w-4 h-4 text-gray-400 transition-transform duration-300"
+                className="shrink-0 w-4 h-4 text-gray-400 transition-transform duration-300"
                 style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
                 viewBox="0 0 16 16"
                 fill="none"

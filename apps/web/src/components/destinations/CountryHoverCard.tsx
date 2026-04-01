@@ -40,7 +40,7 @@ export default function CountryHoverCard({
         </div>
 
         {/* Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent" />
 
         {/* Flag – top left */}
         {dest.flagCode && (

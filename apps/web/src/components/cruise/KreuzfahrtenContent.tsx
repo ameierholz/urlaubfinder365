@@ -292,7 +292,7 @@ export default function KreuzfahrtenContent() {
               <button
                 key={title}
                 onClick={() => openModal(href, label)}
-                className={`group relative flex flex-col items-center text-center p-5 rounded-2xl bg-gradient-to-br ${gradient} text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer w-full`}
+                className={`group relative flex flex-col items-center text-center p-5 rounded-2xl bg-linear-to-br ${gradient} text-white hover:-translate-y-1 hover:shadow-xl transition-all duration-300 cursor-pointer w-full`}
               >
                 <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-3 group-hover:bg-white/30 transition-colors">
                   <Icon className="w-6 h-6" />
@@ -445,7 +445,7 @@ export default function KreuzfahrtenContent() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                   <h3 className="font-black text-lg leading-tight">{title}</h3>
                   <p className="text-white/70 text-xs mt-0.5">{sub}</p>
@@ -495,7 +495,7 @@ export default function KreuzfahrtenContent() {
                   <ul className="space-y-1.5 mt-auto">
                     {perks.map((p) => (
                       <li key={p} className="flex items-start gap-2 text-xs text-gray-600">
-                        <Check className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                         {p}
                       </li>
                     ))}
@@ -606,7 +606,7 @@ export default function KreuzfahrtenContent() {
                     "Kreuzfahrt + Flug-Pakete oft günstiger als Einzelbuchung",
                   ].map((t) => (
                     <li key={t} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                       {t}
                     </li>
                   ))}
@@ -625,7 +625,7 @@ export default function KreuzfahrtenContent() {
                     "Genießer: Gourmet-Restaurants & Wellnessbereiche",
                   ].map((t) => (
                     <li key={t} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                       {t}
                     </li>
                   ))}
@@ -658,7 +658,7 @@ export default function KreuzfahrtenContent() {
               ].map(({ q, a }) => (
                 <div key={q} className="border border-gray-200 rounded-xl p-5">
                   <h4 className="font-bold text-gray-900 mb-2 flex items-start gap-2">
-                    <Compass className="w-4 h-4 text-cyan-500 flex-shrink-0 mt-0.5" />
+                    <Compass className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
                     {q}
                   </h4>
                   <p className="text-gray-600 text-sm leading-relaxed pl-6">{a}</p>

@@ -6,7 +6,7 @@ import { Heart } from "lucide-react";
 import { TravelOffer } from "@/types";
 import { formatPrice } from "@/lib/travel-api";
 import { useAuth } from "@/context/AuthContext";
-import { saveTrip } from "@/lib/firestore";
+import { saveTrip } from "@/lib/supabase-db";
 import SaveLoginModal from "@/components/ui/SaveLoginModal";
 
 interface Props {
@@ -133,7 +133,7 @@ function FruehbucherCard({
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 1024px) 50vw, 25vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent" />
         {/* Frühbucher Badge */}
         <span className="absolute top-2 right-2 bg-sand-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
           Frühbucher
@@ -179,7 +179,7 @@ function FruehbucherCard({
               Gesamt: {formatPrice(offer.offer_price_total)}
             </p>
           </div>
-          <span className="flex-shrink-0 bg-sand-500 group-hover:bg-sand-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors whitespace-nowrap">
+          <span className="shrink-0 bg-sand-500 group-hover:bg-sand-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors whitespace-nowrap">
             Angebot prüfen →
           </span>
         </div>
@@ -226,7 +226,7 @@ export default function FruehbucherCards({ deals }: Props) {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="relative h-full min-h-[200px] flex flex-col justify-end p-4 text-white">
                   <div className="flex items-center gap-1.5 mb-1">
                     <img src={`https://flagcdn.com/16x12/${fb.flag}.png`} alt={fb.dest} className="rounded-sm" width={16} height={12} />

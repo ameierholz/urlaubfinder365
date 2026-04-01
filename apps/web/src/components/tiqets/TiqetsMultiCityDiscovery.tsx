@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Heart } from "lucide-react";
 import { TIQETS_CATEGORIES, matchesCategory, getPrimaryCategory } from "@/lib/tiqets-categories";
 import { useAuth } from "@/context/AuthContext";
-import { saveActivity, unsaveActivity } from "@/lib/firestore";
+import { saveActivity, unsaveActivity } from "@/lib/supabase-db";
 import Toast from "@/components/ui/Toast";
 import { TiqetsProduct } from "@/types";
 
@@ -99,7 +99,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
       rel="noopener noreferrer"
       className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col no-underline"
     >
-      <div className="relative h-44 bg-gray-100 overflow-hidden flex-shrink-0">
+      <div className="relative h-44 bg-gray-100 overflow-hidden shrink-0">
         {img && (
           <img
             src={img}
@@ -107,7 +107,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
 
         {/* City label */}
         {e.address?.city_name && (
@@ -147,7 +147,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
         </h3>
       </div>
 
-      <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 flex-shrink-0">
+      <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 shrink-0">
         <div>
           {price ? (
             <div className="text-base font-extrabold text-sand-500">ab {price} €</div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import { getTravelGroup, joinGroup, leaveGroup } from "@/lib/firestore";
+import { getTravelGroup, joinGroup, leaveGroup } from "@/lib/supabase-db";
 import { TravelGroup } from "@/types";
 import GroupPostFeed from "@/components/community/GroupPostFeed";
 import { useAuth } from "@/context/AuthContext";
@@ -58,7 +58,7 @@ export default function GruppeDetailPage({ params }: { params: Promise<{ id: str
   const isCreator = user?.uid === group.creatorId;
 
   return (
-    <div className="max-w-screen-lg mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Zurück */}
       <Link href="/community/gruppen/" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-teal-600 mb-5 transition-colors">
         <ArrowLeft className="w-4 h-4" /> Alle Gruppen
@@ -66,12 +66,12 @@ export default function GruppeDetailPage({ params }: { params: Promise<{ id: str
 
       {/* Header */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-6">
-        <div className="relative h-36 bg-gradient-to-br from-teal-400 to-cyan-500">
+        <div className="relative h-36 bg-linear-to-br from-teal-400 to-cyan-500">
           {group.coverImageUrl && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={group.coverImageUrl} alt={group.name} className="w-full h-full object-cover" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
           <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
             <div>
               <span className="text-xs bg-white/20 text-white px-2.5 py-0.5 rounded-full font-semibold">

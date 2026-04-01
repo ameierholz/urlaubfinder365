@@ -90,7 +90,7 @@ function ProductCard({ p }: { p: TiqetsProduct }) {
       className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col no-underline"
     >
       {/* Image */}
-      <div className="relative h-52 bg-gray-100 overflow-hidden flex-shrink-0">
+      <div className="relative h-52 bg-gray-100 overflow-hidden shrink-0">
         {img && (
           <img
             src={img}
@@ -163,7 +163,7 @@ function ProductCard({ p }: { p: TiqetsProduct }) {
       </div>
 
       {/* Footer */}
-      <div className="px-4 pb-4 flex items-end justify-between gap-3 flex-shrink-0">
+      <div className="px-4 pb-4 flex items-end justify-between gap-3 shrink-0">
         <div className="leading-tight">
           {oldPrice && (
             <div className="text-xs text-gray-400 line-through">{oldPrice} €</div>
@@ -171,7 +171,7 @@ function ProductCard({ p }: { p: TiqetsProduct }) {
           <div className="text-xl font-extrabold text-sand-500">ab {price} €</div>
           <div className="text-[10px] text-gray-400 mt-0.5">pro Person</div>
         </div>
-        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap flex-shrink-0 shadow-sm">
+        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap shrink-0 shadow-sm">
           Jetzt buchen →
         </span>
       </div>
@@ -243,7 +243,7 @@ export default function TiqetsActivityPage({ cityId, cityName, citySlug, heroIma
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <div className="relative bg-gradient-to-br from-[#00838F] to-[#004F5A] text-white overflow-hidden">
+      <div className="relative bg-linear-to-br from-[#00838F] to-[#004F5A] text-white overflow-hidden">
         {heroImage && (
           <img
             src={heroImage}
@@ -302,7 +302,7 @@ export default function TiqetsActivityPage({ cityId, cityName, citySlug, heroIma
             >
               <button
                 onClick={() => setActiveCategory("all")}
-                className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors flex-shrink-0 ${
+                className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors shrink-0 ${
                   activeCategory === "all"
                     ? "bg-[#6CC4BA] text-white shadow-sm"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -316,7 +316,7 @@ export default function TiqetsActivityPage({ cityId, cityName, citySlug, heroIma
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors flex-shrink-0 ${
+                    className={`whitespace-nowrap text-sm px-4 py-1.5 rounded-full font-medium transition-colors shrink-0 ${
                       activeCategory === cat
                         ? "bg-[#6CC4BA] text-white shadow-sm"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -330,7 +330,7 @@ export default function TiqetsActivityPage({ cityId, cityName, citySlug, heroIma
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortKey)}
-              className="flex-shrink-0 text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:border-[#6CC4BA] cursor-pointer"
+              className="shrink-0 text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:border-[#6CC4BA] cursor-pointer"
             >
               <option value="recommended">Empfohlen</option>
               <option value="rating">Beste Bewertung</option>
@@ -381,7 +381,7 @@ export default function TiqetsActivityPage({ cityId, cityName, citySlug, heroIma
             </div>
 
             {/* Bottom CTA */}
-            <div className="mt-14 bg-gradient-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center">
+            <div className="mt-14 bg-linear-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center">
               <div className="text-4xl mb-3">🌍</div>
               <h2 className="text-2xl font-bold mb-2">Noch mehr Erlebnisse entdecken</h2>
               <p className="text-white/75 mb-7 max-w-md mx-auto text-sm leading-relaxed">

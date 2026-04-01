@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
-import { getTravelReport, likeTravelReport } from "@/lib/firestore";
+import { getTravelReport, likeTravelReport } from "@/lib/supabase-db";
 import { TravelReport } from "@/types";
 import CommentSection from "@/components/community/CommentSection";
 import { useAuth } from "@/context/AuthContext";
@@ -47,7 +47,7 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
   if (loading) return <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-teal-600" /></div>;
   if (!report) return <div className="text-center py-20 text-gray-400">Bericht nicht gefunden.</div>;
 
-  const initials = report.displayName.split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
+  const initials = (report.displayName ?? "?").split(" ").map((p) => p[0]).join("").toUpperCase().slice(0, 2);
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">

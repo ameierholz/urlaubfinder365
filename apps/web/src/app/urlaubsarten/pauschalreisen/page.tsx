@@ -210,7 +210,7 @@ export default function PauschalreisenPage() {
               <h2 className="text-2xl font-bold text-gray-900">Aktivitäten für deinen Pauschalurlaub 🎟️</h2>
               <p className="text-gray-500 text-sm mt-1">Touren, Tickets & Erlebnisse – perfekt kombinierbar mit deiner Pauschalreise.</p>
             </div>
-            <Link href="/aktivitaeten/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:text-[#6CC4BA] whitespace-nowrap flex-shrink-0">
+            <Link href="/aktivitaeten/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:text-[#6CC4BA] whitespace-nowrap shrink-0">
               Alle Aktivitäten →
             </Link>
           </div>

@@ -186,7 +186,7 @@ export default function AdultsOnlyPage() {
               Täglich aktualisierte Angebote für Paare und Erwachsene — inklusive Flug, Hotel und Transfer.
             </p>
           </div>
-          <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap flex-shrink-0">
+          <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
             Alle Themen →
           </Link>
         </div>

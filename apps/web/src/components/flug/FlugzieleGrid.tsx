@@ -62,7 +62,7 @@ export default function FlugzieleGrid() {
               unoptimized
             />
             {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
             {/* Flag + Name overlaid at bottom */}
             <div className="absolute bottom-0 left-0 right-0 px-3 py-2.5 flex items-center gap-2">
               <Image

@@ -22,7 +22,7 @@ interface Props {
 
 function SkeletonCard() {
   return (
-    <div className="flex-shrink-0 w-56 sm:w-60 bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm animate-pulse">
+    <div className="shrink-0 w-56 sm:w-60 bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm animate-pulse">
       <div className="h-36 bg-gray-200" />
       <div className="p-3 space-y-2">
         <div className="h-3 bg-gray-200 rounded w-3/4" />
@@ -124,7 +124,7 @@ export default function DestinationOffersSection({
           <div
             key={offer.product_code}
             data-offer-card
-            className="flex-shrink-0 w-56 sm:w-60"
+            className="shrink-0 w-56 sm:w-60"
           >
             <OfferCard offer={offer} compact />
           </div>

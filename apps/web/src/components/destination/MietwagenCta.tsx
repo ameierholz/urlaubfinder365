@@ -41,7 +41,7 @@ export default function MietwagenCta({ destination, carLocationKey }: Props) {
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sand-500 to-sand-400 text-white shadow-lg">
+      <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-sand-500 to-sand-400 text-white shadow-lg">
         {/* Decorative circles */}
         <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-white/10 pointer-events-none" />
         <div className="absolute -right-6 bottom-0 w-40 h-40 rounded-full bg-white/5 pointer-events-none" />
@@ -64,7 +64,7 @@ export default function MietwagenCta({ destination, carLocationKey }: Props) {
             <ul className="space-y-1.5">
               {BENEFITS.map((b) => (
                 <li key={b} className="flex items-center gap-2 text-sm text-white/90">
-                  <CheckCircle className="w-4 h-4 text-white flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-white shrink-0" />
                   {b}
                 </li>
               ))}
@@ -72,7 +72,7 @@ export default function MietwagenCta({ destination, carLocationKey }: Props) {
           </div>
 
           {/* CTA Button */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link
               href={ctaHref}
               className="inline-flex items-center gap-2 bg-white text-sand-600 font-bold px-7 py-4 rounded-2xl shadow-md hover:bg-sand-50 transition-colors text-base whitespace-nowrap"

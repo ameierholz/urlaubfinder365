@@ -190,7 +190,7 @@ export default function ReisePacklistePage() {
                 <ul className="p-5 space-y-2">
                   {items.map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
-                      <span className="w-4 h-4 mt-0.5 border-2 border-gray-300 rounded flex-shrink-0" />
+                      <span className="w-4 h-4 mt-0.5 border-2 border-gray-300 rounded shrink-0" />
                       {item}
                     </li>
                   ))}

@@ -20,11 +20,11 @@ export default function ThemeFeatureGrid({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex items-center gap-4 mb-10">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
+          <div className="h-px flex-1 bg-linear-to-r from-transparent to-gray-200" />
           <h2 className="text-2xl font-extrabold text-gray-900 text-center whitespace-nowrap px-2">
             {heading}
           </h2>
-          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
+          <div className="h-px flex-1 bg-linear-to-l from-transparent to-gray-200" />
         </div>
 
         {/* Cards */}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { SavedActivity } from "@/types";
-import { getUserSavedActivities, unsaveActivity } from "@/lib/firestore";
+import { getUserSavedActivities, unsaveActivity } from "@/lib/supabase-db";
 import { Ticket, Trash2 } from "lucide-react";
 
 interface Props { user: AppUser }
@@ -134,7 +134,7 @@ export default function SavedActivitiesTab({ user }: Props) {
             <div key={saved.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
 
               {/* Bild – feste Höhe */}
-              <div className="relative h-40 flex-shrink-0">
+              <div className="relative h-40 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"}
@@ -156,7 +156,7 @@ export default function SavedActivitiesTab({ user }: Props) {
                   </div>
                 )}
                 {/* Title overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 pt-8 pb-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent px-3 pt-8 pb-2">
                   <h3 className="font-bold text-white text-sm leading-snug line-clamp-2 drop-shadow">
                     {a.title}
                   </h3>

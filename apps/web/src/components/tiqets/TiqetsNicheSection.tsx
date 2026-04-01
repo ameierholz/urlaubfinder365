@@ -72,7 +72,7 @@ function NicheCard({ p }: { p: TiqetsProduct }) {
       rel="noopener noreferrer"
       className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col no-underline"
     >
-      <div className="relative h-48 bg-gray-100 overflow-hidden flex-shrink-0">
+      <div className="relative h-48 bg-gray-100 overflow-hidden shrink-0">
         {img && (
           <img
             src={img}
@@ -137,7 +137,7 @@ function NicheCard({ p }: { p: TiqetsProduct }) {
         )}
       </div>
 
-      <div className="px-4 pb-4 flex items-end justify-between gap-3 flex-shrink-0">
+      <div className="px-4 pb-4 flex items-end justify-between gap-3 shrink-0">
         <div className="leading-tight">
           {oldPrice && (
             <div className="text-xs text-gray-400 line-through">{oldPrice} €</div>
@@ -145,7 +145,7 @@ function NicheCard({ p }: { p: TiqetsProduct }) {
           <div className="text-xl font-extrabold text-sand-500">ab {price} €</div>
           <div className="text-[10px] text-gray-400 mt-0.5">pro Person</div>
         </div>
-        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap flex-shrink-0 shadow-sm">
+        <span className="bg-[#6CC4BA] group-hover:bg-[#5ab0a6] text-white text-sm font-bold px-4 py-2.5 rounded-full transition-colors whitespace-nowrap shrink-0 shadow-sm">
           Jetzt buchen →
         </span>
       </div>

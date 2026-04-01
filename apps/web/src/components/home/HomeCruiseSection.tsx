@@ -110,11 +110,11 @@ export default function HomeCruiseSection() {
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
 
             {/* LEFT – Ship Icon + Text */}
-            <div className="flex items-center gap-5 flex-shrink-0">
-              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full shadow-2xl shadow-cyan-500/30 relative"
+            <div className="flex items-center gap-5 shrink-0">
+              <div className="shrink-0 flex items-center justify-center w-20 h-20 rounded-full shadow-2xl shadow-cyan-500/30 relative"
                 style={{ background: "linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)" }}>
                 <Ship className="w-9 h-9 text-white" />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent" />
+                <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/20 to-transparent" />
               </div>
               <div>
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-2">
@@ -139,14 +139,14 @@ export default function HomeCruiseSection() {
                   onClick={() => openModal(url, title)}
                   className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 active:bg-white/25 border border-white/15 rounded-full px-3 py-1.5 transition-colors cursor-pointer"
                 >
-                  <Icon className="w-3.5 h-3.5 text-cyan-300 flex-shrink-0" />
+                  <Icon className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
                   <span className="text-xs font-medium text-white/85">{label}</span>
                 </button>
               ))}
             </div>
 
             {/* RIGHT – CTA */}
-            <div className="flex-shrink-0 flex flex-col items-center gap-2">
+            <div className="shrink-0 flex flex-col items-center gap-2">
               <Link
                 href="/kreuzfahrten/"
                 className="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-white font-black px-6 py-3.5 rounded-2xl transition-all shadow-lg hover:shadow-cyan-500/40 hover:-translate-y-0.5 duration-200 whitespace-nowrap"
@@ -172,7 +172,7 @@ export default function HomeCruiseSection() {
 
           {/* Label-Zeile */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-blue-800 to-cyan-600 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-md shadow-cyan-500/20 uppercase tracking-wider">
+            <div className="flex items-center gap-2 bg-linear-to-r from-blue-800 to-cyan-600 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-md shadow-cyan-500/20 uppercase tracking-wider">
               <Ship className="w-3 h-3" /> Kreuzfahrten
             </div>
             <p className="text-xs text-gray-500 font-medium">
@@ -197,7 +197,7 @@ export default function HomeCruiseSection() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
 
                   {/* Badge */}
                   <div className={`absolute top-3 left-3 flex items-center gap-1 ${deal.badgeColor} text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none`}>
@@ -222,11 +222,11 @@ export default function HomeCruiseSection() {
                   {/* Info-Zeile */}
                   <div className="px-4 pt-3 pb-3 flex items-center gap-3 border-b border-white/10">
                     <span className="flex items-center gap-1.5 text-gray-300 text-xs">
-                      <Plane className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
+                      <Plane className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                       Inkl. An- &amp; Abreise
                     </span>
                     <span className="flex items-center gap-1.5 text-gray-300 text-xs">
-                      <Waves className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
+                      <Waves className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                       VP an Bord
                     </span>
                   </div>
@@ -240,7 +240,7 @@ export default function HomeCruiseSection() {
                       <p className="text-3xl font-black text-cyan-400 leading-none">{deal.price}</p>
                       <p className="text-[10px] text-gray-500 mt-1">Inkl. Vollpension</p>
                     </div>
-                    <span className="flex-shrink-0 bg-gradient-to-r from-cyan-600 to-cyan-700 group-hover:from-cyan-500 group-hover:to-cyan-600 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-cyan-900/40 text-center leading-snug">
+                    <span className="shrink-0 bg-linear-to-r from-cyan-600 to-cyan-700 group-hover:from-cyan-500 group-hover:to-cyan-600 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-cyan-900/40 text-center leading-snug">
                       Angebot<br />prüfen →
                     </span>
                   </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Heart } from "lucide-react";
 import type { TiqetsProduct } from "@/types";
 import { useAuth } from "@/context/AuthContext";
-import { saveActivity } from "@/lib/firestore";
+import { saveActivity } from "@/lib/supabase-db";
 import SaveLoginModal from "@/components/ui/SaveLoginModal";
 
 interface Props {

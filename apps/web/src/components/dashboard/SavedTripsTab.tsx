@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { SavedTrip } from "@/types";
-import { getUserSavedTrips, unsaveTrip } from "@/lib/firestore";
+import { getUserSavedTrips, unsaveTrip } from "@/lib/supabase-db";
 import { Heart, MapPin, Clock, Plane, Trash2 } from "lucide-react";
 
 interface Props { user: AppUser }
@@ -34,8 +34,8 @@ export default function SavedTripsTab({ user }: Props) {
     setLoading(true);
     setError("");
     getUserSavedTrips(user.uid)
-      .then((data) => setTrips(data.filter((t) => !(t as unknown as Record<string, unknown>).deleted)))
-      .catch(() => setError("Reisen konnten nicht geladen werden."))
+      .then((data) => setTrips(data))
+      .catch((e: unknown) => { console.error("SavedTrips error:", e); setError("Reisen konnten nicht geladen werden. " + JSON.stringify(e)); })
       .finally(() => setLoading(false));
   }, [user.uid]);
 
@@ -146,7 +146,7 @@ export default function SavedTripsTab({ user }: Props) {
             <div key={trip.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col">
 
               {/* Bild – feste Höhe */}
-              <div className="relative h-40 flex-shrink-0">
+              <div className="relative h-40 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
@@ -162,7 +162,7 @@ export default function SavedTripsTab({ user }: Props) {
                   <Trash2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-red-500 transition-colors" />
                 </button>
                 {/* Hotelname Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 pt-8 pb-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/70 to-transparent px-3 pt-8 pb-2">
                   <h3 className="font-bold text-white text-base leading-snug line-clamp-2 drop-shadow">
                     {trip.offer.hotel_name}
                   </h3>
@@ -174,7 +174,7 @@ export default function SavedTripsTab({ user }: Props) {
 
                 {/* Ort + Land */}
                 <p className="text-xs text-gray-500 flex items-start gap-1">
-                  <MapPin className="w-3 h-3 flex-shrink-0 mt-0.5 text-gray-400" />
+                  <MapPin className="w-3 h-3 shrink-0 mt-0.5 text-gray-400" />
                   <span>
                     {trip.offer.destination_name}
                     {trip.offer.country_name ? (<><br /><span className="text-gray-400">{trip.offer.country_name}</span></>) : ""}

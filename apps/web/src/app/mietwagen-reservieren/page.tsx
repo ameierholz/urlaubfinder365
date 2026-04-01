@@ -304,7 +304,7 @@ export default function MietwagenPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {KLASSEN.map((k) => (
               <div key={k.label} className="rounded-2xl overflow-hidden shadow-sm">
-                <div className={`bg-gradient-to-br ${k.bg} px-4 py-4 text-white relative`}>
+                <div className={`bg-linear-to-br ${k.bg} px-4 py-4 text-white relative`}>
                   <div className="absolute top-2.5 right-2.5">
                     <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-white/20 text-white">
                       {k.badge}
@@ -548,7 +548,7 @@ export default function MietwagenPage() {
           BOTTOM CTA
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-gradient-to-br from-[#064e3b] to-[#065f46] rounded-3xl p-10 text-white text-center relative overflow-hidden">
+        <div className="bg-linear-to-br from-[#064e3b] to-[#065f46] rounded-3xl p-10 text-white text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
           <div className="relative z-10">

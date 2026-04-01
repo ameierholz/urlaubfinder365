@@ -89,7 +89,7 @@ export default function AccessibilityWidget() {
     }`;
 
   const toggleCls = (active: boolean) =>
-    `relative inline-flex h-6 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${
+    `relative inline-flex h-6 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${
       active ? "bg-[#00838F]" : "bg-gray-200"
     }`;
 
@@ -135,7 +135,7 @@ export default function AccessibilityWidget() {
           className="fixed bottom-20 right-5 z-[9992] w-[320px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#00838F] text-white rounded-t-2xl flex-shrink-0">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#00838F] text-white rounded-t-2xl shrink-0">
             <div className="flex items-center gap-2">
               <span className="text-lg" aria-hidden="true">♿</span>
               <h2 className="font-bold text-sm">Barrierefreiheit</h2>
@@ -150,7 +150,7 @@ export default function AccessibilityWidget() {
           </div>
 
           {/* Tabs */}
-          <div className="flex border-b border-gray-100 flex-shrink-0">
+          <div className="flex border-b border-gray-100 shrink-0">
             {([
               { id: "display" as TabId, label: "🎨 Anzeige" },
               { id: "screenreader" as TabId, label: "🔊 Screen" },
@@ -317,7 +317,7 @@ export default function AccessibilityWidget() {
                   { key: "Pos1 / Ende", desc: "Anfang / Ende der Seite" },
                 ].map(({ key, desc }) => (
                   <div key={key} className="flex items-center gap-3">
-                    <code className="bg-gray-100 border border-gray-200 rounded px-2 py-0.5 text-[10px] font-mono text-gray-700 whitespace-nowrap flex-shrink-0">{key}</code>
+                    <code className="bg-gray-100 border border-gray-200 rounded px-2 py-0.5 text-[10px] font-mono text-gray-700 whitespace-nowrap shrink-0">{key}</code>
                     <span className="text-[11px] text-gray-500">{desc}</span>
                   </div>
                 ))}
@@ -350,7 +350,7 @@ export default function AccessibilityWidget() {
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-3 border-t border-gray-100 flex-shrink-0">
+          <div className="px-4 py-3 border-t border-gray-100 shrink-0">
             <button
               onClick={reset}
               className="w-full py-2 rounded-xl border border-gray-200 text-gray-500 text-xs font-semibold hover:bg-gray-50 hover:text-gray-700 transition-colors"

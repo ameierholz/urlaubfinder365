@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { AppUser } from "@/context/AuthContext";
-import { getUserGroups, createGroup, leaveGroup } from "@/lib/firestore";
+import { getUserGroups, createGroup, leaveGroup } from "@/lib/supabase-db";
 import { TravelGroup, GroupCategory } from "@/types";
 import { Users2, Plus, LogOut, Loader2, X } from "lucide-react";
 import Link from "next/link";
@@ -200,7 +200,7 @@ export default function MeineGruppenTab({ user }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {groups.map((g) => (
             <div key={g.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-3 items-start">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
+              <div className="w-12 h-12 rounded-xl bg-linear-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
                 {g.coverImageUrl && <img src={g.coverImageUrl} alt="" className="w-full h-full object-cover" />}
               </div>
               <div className="flex-1 min-w-0">

@@ -248,7 +248,7 @@ export default function AktivitaetenPage() {
                   key={u.label}
                   className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3"
                 >
-                  <span className="text-xl flex-shrink-0">{u.emoji}</span>
+                  <span className="text-xl shrink-0">{u.emoji}</span>
                   <div className="min-w-0">
                     <p className="text-sm font-bold text-white leading-tight">{u.label}</p>
                     <p className="text-xs text-white/65 leading-tight">{u.sub}</p>
@@ -359,7 +359,7 @@ export default function AktivitaetenPage() {
                   loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                   <p className="text-[10px] text-white/65 font-medium uppercase tracking-wide mb-0.5 leading-none">
                     {dest.country}
@@ -405,7 +405,7 @@ export default function AktivitaetenPage() {
           BOTTOM CTA
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="bg-gradient-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center relative overflow-hidden">
+        <div className="bg-linear-to-br from-[#00838F] to-[#004F5A] rounded-3xl p-10 text-white text-center relative overflow-hidden">
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2 pointer-events-none" />

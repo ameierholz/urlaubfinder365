@@ -6,16 +6,16 @@ import type { UserProfile, TravelReport, TravelGroup, CommunityProfile } from "@
 import {
   getUserSavedActivities, getCommunityProfile,
   getTravelReportsByUser, getUserGroups,
-} from "@/lib/firestore";
+} from "@/lib/supabase-db";
 import Link from "next/link";
 import {
   Heart, MapPin, CheckSquare, BookOpen, Ticket,
   Plane, Compass, Zap, ArrowRight, Sun,
   Globe, Trophy, Users2, ThumbsUp, MessageCircle,
-  FileText, Star, TrendingUp,
+  FileText, Star, TrendingUp, Sparkles,
 } from "lucide-react";
 
-type Tab = "overview"|"trips"|"activities"|"wishlist"|"checklist"|"pricealerts"|"tripplanner"|"documents"|"laender"|"berichte"|"gruppen"|"profile"|"settings";
+type Tab = "overview"|"trips"|"activities"|"wishlist"|"checklist"|"pricealerts"|"tripplanner"|"documents"|"laender"|"berichte"|"gruppen"|"checkin"|"profile"|"settings";
 
 interface Props {
   user: AppUser;
@@ -108,7 +108,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
     <div className="space-y-7">
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-[#00838F] to-[#005F6A] p-6 text-white relative">
+      <div className="rounded-2xl overflow-hidden bg-linear-to-br from-[#00838F] to-[#005F6A] p-6 text-white relative">
         <div className="absolute right-6 top-4 opacity-10"><Sun className="w-28 h-28" /></div>
         <div className="flex items-center gap-4">
           {/* Avatar */}
@@ -217,7 +217,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
               <Link key={g.id} href={`/community/gruppen/${g.id}/`}
                 className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors group"
               >
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
+                <div className="w-9 h-9 rounded-lg bg-linear-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
                   {g.coverImageUrl && <img src={g.coverImageUrl} alt="" className="w-full h-full object-cover" />}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -249,7 +249,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
               <Link key={r.id} href={`/community/reiseberichte/${r.id}/`}
                 className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors group"
               >
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-400 to-purple-500 shrink-0 overflow-hidden">
+                <div className="w-9 h-9 rounded-lg bg-linear-to-br from-violet-400 to-purple-500 shrink-0 overflow-hidden">
                   {r.coverImageUrl && <img src={r.coverImageUrl} alt="" className="w-full h-full object-cover" />}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -348,6 +348,108 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
           </div>
         </div>
       )}
+
+      {/* ── KI-Empfehlungen ───────────────────────────────────────── */}
+      <AiRecommendations userProfile={userProfile} visitedCount={laenderCount} savedCount={savedCount} />
+    </div>
+  );
+}
+
+// ── Rule-based recommendation engine ──────────────────────────────────────────
+
+interface Rec { emoji: string; title: string; reason: string; href: string; badge?: string }
+
+function buildRecommendations(
+  prefs: { budget?: string; adults?: number; preferredTypes?: string[]; preferredMonths?: string[] } | null,
+  visitedCount: number,
+  savedCount: number,
+): Rec[] {
+  const recs: Rec[] = [];
+  const month = new Date().getMonth(); // 0-11
+  const types = prefs?.preferredTypes ?? [];
+
+  // Seasonal
+  if ([5,6,7].includes(month)) {
+    recs.push({ emoji:"☀️", title:"Mallorca – Sommerhit", reason:"Perfekte Temperaturen im Sommer, ideal für Strand & Meer", href:"/urlaubsziele/mallorca/", badge:"Saison" });
+    recs.push({ emoji:"🏖️", title:"Antalya – All-Inclusive", reason:"Top-Bewertungen + günstigste Preise im Juli/August", href:"/urlaubsziele/antalya/", badge:"Beliebt" });
+  } else if ([11,0,1].includes(month)) {
+    recs.push({ emoji:"🌴", title:"Teneriffa – Winterflucht", reason:"Kanarische Inseln: 22°C im Winter, kein Flug in die Ferne nötig", href:"/urlaubsziele/teneriffa/", badge:"Geheimtipp" });
+    recs.push({ emoji:"🇦🇪", title:"Dubai – Wintersonnen", reason:"Perfektes Wetter Nov–Feb, weltklasse Shopping & Luxus", href:"/urlaubsziele/dubai/", badge:"Saison" });
+  } else {
+    recs.push({ emoji:"🌸", title:"Japan im Frühling", reason:"Kirschblüte & Kultur – eines der schönsten Reiseerlebnisse weltweit", href:"/urlaubsziele/japan/", badge:"Trend" });
+  }
+
+  // Budget-based
+  if (prefs?.budget === "budget") {
+    recs.push({ emoji:"💰", title:"Last-Minute Schnäppchen", reason:"Günstigste Angebote der letzten 48 Stunden", href:"/last-minute/", badge:"Deal" });
+    recs.push({ emoji:"🇵🇹", title:"Lissabon – Preis-Leistungs-Sieger", reason:"Westeuropas günstigstes Reiseziel mit Top-Stränden", href:"/urlaubsziele/lissabon/", badge:"Preiswert" });
+  } else if (prefs?.budget === "luxus" || prefs?.budget === "premium") {
+    recs.push({ emoji:"🏝️", title:"Santorini – Luxus & Flair", reason:"Blaue Kuppeln, Meerblick und weltberühmte Sonnenuntergänge", href:"/urlaubsziele/santorini/", badge:"Luxus" });
+  }
+
+  // Style-based
+  if (types.includes("kultur")) {
+    recs.push({ emoji:"🏛️", title:"Barcelona – Kultur & Architektur", reason:"Gaudí, Ramblas, Gothic Quarter: Kulturreichtum auf jedem Meter", href:"/urlaubsziele/barcelona/", badge:"Kultur" });
+  }
+  if (types.includes("abenteuer")) {
+    recs.push({ emoji:"🎈", title:"Hurghada – Wassersport & Meer", reason:"Tauchen, Windsurfen und Ausflüge ins Rote Meer", href:"/urlaubsziele/hurghada/", badge:"Abenteuer" });
+  }
+  if (types.includes("wellness")) {
+    recs.push({ emoji:"🧘", title:"Sardinien – Natur & Ruhe", reason:"Unberührte Buchten und traumhafte Strände abseits des Trubels", href:"/urlaubsziele/sardinien/", badge:"Wellness" });
+  }
+  if (types.includes("familie") || (prefs?.adults ?? 2) >= 2) {
+    recs.push({ emoji:"👨‍👩‍👧", title:"Kreta – Familienurlaub", reason:"Sanfte Buchten, Wasserparks und familienfreundliche Hotels", href:"/urlaubsziele/kreta/", badge:"Familie" });
+  }
+
+  // Engagement nudges
+  if (visitedCount === 0) {
+    recs.push({ emoji:"🗺️", title:"Füge deine bereisten Länder hinzu", reason:"Schalte Achievements frei und teile deine Erfahrungen", href:"/dashboard", badge:"Neu" });
+  }
+  if (savedCount === 0) {
+    recs.push({ emoji:"❤️", title:"Dein erstes Angebot speichern", reason:"Klicke auf das Herz bei einem Pauschalreisen-Angebot", href:"/", badge:"Start" });
+  }
+
+  return recs.slice(0, 4);
+}
+
+function AiRecommendations({ userProfile, visitedCount, savedCount }: {
+  userProfile: import("@/types").UserProfile | null;
+  visitedCount: number;
+  savedCount: number;
+}) {
+  const recs = buildRecommendations(userProfile?.preferences ?? null, visitedCount, savedCount);
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+      <div className="flex items-center gap-2 mb-4">
+        <Sparkles className="w-4 h-4 text-amber-500" />
+        <h2 className="font-bold text-gray-800">Empfehlungen für dich</h2>
+        <span className="text-[10px] bg-amber-50 text-amber-600 border border-amber-100 font-semibold px-2 py-0.5 rounded-full ml-auto">KI-gestützt</span>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-3">
+        {recs.map((rec) => (
+          <Link
+            key={rec.href + rec.title}
+            href={rec.href}
+            className="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:border-[#00838F]/30 hover:bg-[#00838F]/5 transition-all group"
+          >
+            <span className="text-2xl shrink-0">{rec.emoji}</span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="font-semibold text-sm text-gray-800 group-hover:text-[#00838F] transition-colors line-clamp-1">
+                  {rec.title}
+                </span>
+                {rec.badge && (
+                  <span className="text-[10px] bg-teal-50 text-teal-600 border border-teal-100 font-bold px-1.5 py-0.5 rounded-full shrink-0">
+                    {rec.badge}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{rec.reason}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

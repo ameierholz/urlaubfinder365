@@ -1,0 +1,115 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Hilfsfunktionen ──────────────────────────────────────────────────────
+    function isAuth() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isAuth() && request.auth.uid == uid;
+    }
+    function isDocOwner() {
+      return isAuth() && request.auth.uid == resource.data.userId;
+    }
+
+    // ── Nutzerprofile ─────────────────────────────────────────────────────────
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+
+    // ── Community-Profile ─────────────────────────────────────────────────────
+    match /communityProfiles/{uid} {
+      allow read: if isAuth();
+      allow write: if isOwner(uid);
+    }
+
+    // ── Gespeicherte Reisen ───────────────────────────────────────────────────
+    match /savedTrips/{docId} {
+      allow read, update, delete: if isDocOwner();
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Gespeicherte Aktivitäten ──────────────────────────────────────────────
+    match /savedActivities/{docId} {
+      allow read, update, delete: if isDocOwner();
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Preisalarme ───────────────────────────────────────────────────────────
+    match /priceAlerts/{docId} {
+      allow read, update, delete: if isDocOwner();
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Preisverläufe (öffentlich lesbar, nur server-seitig geschrieben) ──────
+    match /priceTrends/{slug} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // ── Reisepläne ────────────────────────────────────────────────────────────
+    match /tripPlans/{docId} {
+      allow read, update, delete: if isDocOwner();
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Reisedokumente ────────────────────────────────────────────────────────
+    match /travelDocuments/{docId} {
+      allow read, update, delete: if isDocOwner();
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Reisenden-Karte: Travel Tips (öffentlich lesbar) ─────────────────────
+    match /travelTips/{docId} {
+      allow read: if true;
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isDocOwner();
+    }
+
+    // ── Bereiste Länder ───────────────────────────────────────────────────────
+    match /visitedCountries/{uid} {
+      allow read, write: if isOwner(uid);
+    }
+
+    // ── Reiseberichte (Community) ─────────────────────────────────────────────
+    match /travelReports/{docId} {
+      allow read: if resource.data.isPublished == true || (isAuth() && resource.data.userId == request.auth.uid);
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update: if isDocOwner();
+      allow delete: if isDocOwner();
+    }
+
+    // ── Kommentare zu Berichten ───────────────────────────────────────────────
+    match /travelReports/{reportId}/comments/{commentId} {
+      allow read: if true;
+      allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuth() && resource.data.userId == request.auth.uid;
+    }
+
+    // ── Community-Gruppen ─────────────────────────────────────────────────────
+    match /communityGroups/{docId} {
+      allow read: if true;
+      allow create: if isAuth() && request.resource.data.creatorId == request.auth.uid;
+      allow update: if isAuth() && resource.data.creatorId == request.auth.uid;
+      allow delete: if isAuth() && resource.data.creatorId == request.auth.uid;
+    }
+
+    // ── Gruppen-Mitgliedschaften ──────────────────────────────────────────────
+    match /groupMembers/{docId} {
+      allow read: if isAuth();
+      allow write: if isAuth() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ── Direktnachrichten ─────────────────────────────────────────────────────
+    match /messages/{docId} {
+      allow read: if isAuth() && (
+        resource.data.senderId == request.auth.uid ||
+        resource.data.receiverId == request.auth.uid
+      );
+      allow create: if isAuth() && request.resource.data.senderId == request.auth.uid;
+      allow delete: if isAuth() && resource.data.senderId == request.auth.uid;
+    }
+  }
+}

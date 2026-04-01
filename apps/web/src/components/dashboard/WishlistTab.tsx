@@ -10,7 +10,7 @@ import {
   deletePriceAlert,
   updatePriceAlert,
   getPriceTrends,
-} from "@/lib/firestore";
+} from "@/lib/supabase-db";
 import {
   Heart, MapPin, Search, ExternalLink, Bell, Plus, X, Loader2,
 } from "lucide-react";
@@ -165,8 +165,8 @@ export default function WishlistTab({ user, userProfile }: Props) {
   }, [favs.join(",")]); // eslint-disable-line
 
   const filtered = allDests.filter((d) => {
-    const matchSearch    = d.name.toLowerCase().includes(search.toLowerCase()) ||
-                           d.country.toLowerCase().includes(search.toLowerCase());
+    const matchSearch    = (d.name ?? "").toLowerCase().includes(search.toLowerCase()) ||
+                           (d.country ?? "").toLowerCase().includes(search.toLowerCase());
     const matchContinent = continent === "all" || d.ibeBpRegion === continent;
     return matchSearch && matchContinent;
   });
@@ -533,7 +533,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                     `https://source.unsplash.com/400x300/?${encodeURIComponent(dest.unsplashKeyword)}`;
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
               {/* Info */}
               <div className="absolute bottom-0 left-0 right-0 p-3">

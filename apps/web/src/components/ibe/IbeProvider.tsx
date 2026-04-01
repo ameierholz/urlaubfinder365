@@ -3,7 +3,7 @@
 import Script from "next/script";
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { saveTrip, unsaveTrip } from "@/lib/firestore";
+import { saveTrip, unsaveTrip } from "@/lib/supabase-db";
 
 /** Renders the global IBE modal + loads FontAwesome + IBE engine script.
  *  Must be included once in the root layout. */

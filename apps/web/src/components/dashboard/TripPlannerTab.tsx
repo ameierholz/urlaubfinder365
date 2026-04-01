@@ -6,8 +6,8 @@ import type { TripPlan, SavedTrip, SavedActivity } from "@/types";
 import {
   createTripPlan, getTripPlans, updateTripPlan, deleteTripPlan,
   getUserSavedTrips, getUserSavedActivities,
-} from "@/lib/firestore";
-import { Map, Plus, X, Trash2, ChevronDown, ChevronUp, Users, CalendarDays, Wallet } from "lucide-react";
+} from "@/lib/supabase-db";
+import { Map, Plus, X, Trash2, ChevronDown, ChevronUp, Users, CalendarDays, Wallet, Globe, Lock } from "lucide-react";
 import { CATALOG } from "@/data/catalog-regions";
 
 interface Props { user: AppUser }
@@ -119,6 +119,12 @@ export default function TripPlannerTab({ user }: Props) {
   const handleStatusChange = async (plan: TripPlan, status: TripPlan["status"]) => {
     setPlans((prev) => prev.map((p) => p.id === plan.id ? { ...p, status } : p));
     await updateTripPlan(user.uid, plan.id, { status });
+  };
+
+  const handleTogglePublic = async (plan: TripPlan) => {
+    const isPublic = !((plan as unknown as Record<string, unknown>).isPublic);
+    setPlans((prev) => prev.map((p) => p.id === plan.id ? { ...p, isPublic } as unknown as TripPlan : p));
+    await updateTripPlan(user.uid, plan.id, { is_public: isPublic } as Partial<TripPlan>);
   };
 
   const toggleTripLink = (id: string) =>
@@ -319,8 +325,8 @@ export default function TripPlannerTab({ user }: Props) {
           {plans.sort((a, b) => (a.startDate > b.startDate ? 1 : -1)).map((plan) => {
             const days = daysUntil(plan.startDate);
             const isExpanded = expanded === plan.id;
-            const linkedTrips = trips.filter((t) => plan.linkedTripIds.includes(t.id));
-            const linkedActs  = activities.filter((a) => plan.linkedActivityIds.includes(a.id));
+            const linkedTrips = trips.filter((t) => (plan.linkedTripIds ?? []).includes(t.id));
+            const linkedActs  = activities.filter((a) => (plan.linkedActivityIds ?? []).includes(a.id));
             const status = STATUS_LABELS[plan.status];
 
             return (
@@ -343,6 +349,15 @@ export default function TripPlannerTab({ user }: Props) {
                         className="w-7 h-7 rounded-full bg-gray-50 hover:bg-gray-100 flex items-center justify-center transition-colors"
                       >
                         {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-500" />}
+                      </button>
+                      <button
+                        onClick={() => handleTogglePublic(plan)}
+                        title={(plan as unknown as Record<string, unknown>).isPublic ? "Öffentlich – klicken zum Verbergen" : "Privat – klicken zum Teilen"}
+                        className="w-7 h-7 rounded-full bg-gray-50 hover:bg-blue-50 flex items-center justify-center group transition-colors"
+                      >
+                        {(plan as unknown as Record<string, unknown>).isPublic
+                          ? <Globe className="w-3.5 h-3.5 text-[#00838F]" />
+                          : <Lock className="w-3.5 h-3.5 text-gray-400 group-hover:text-blue-500 transition-colors" />}
                       </button>
                       <button onClick={() => handleDelete(plan.id)}
                         className="w-7 h-7 rounded-full bg-gray-50 hover:bg-red-50 flex items-center justify-center group transition-colors">

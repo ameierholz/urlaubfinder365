@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { getGroupPosts, addGroupPost } from "@/lib/firestore";
+import { getGroupPosts, addGroupPost } from "@/lib/supabase-db";
 import { GroupPost } from "@/types";
 import { Send, Loader2, User } from "lucide-react";
 import Link from "next/link";
@@ -91,7 +91,7 @@ export default function GroupPostFeed({ groupId, isMember }: { groupId: string; 
       ) : (
         <div className="space-y-4">
           {posts.map((p) => {
-            const ini = p.displayName.split(" ").map((c) => c[0]).join("").toUpperCase().slice(0, 2);
+            const ini = (p.displayName ?? "?").split(" ").map((c) => c[0]).join("").toUpperCase().slice(0, 2);
             return (
               <div key={p.id} className="flex gap-3">
                 <div className="w-9 h-9 rounded-full bg-teal-100 text-teal-700 text-sm font-bold flex items-center justify-center shrink-0">

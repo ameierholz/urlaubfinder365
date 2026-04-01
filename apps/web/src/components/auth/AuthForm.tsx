@@ -201,7 +201,7 @@ export default function AuthForm({ mode }: Props) {
       <div className="bg-white rounded-3xl shadow-sm border border-gray-100 w-full max-w-4xl overflow-hidden flex flex-col lg:flex-row">
 
         {/* ── Linke Spalte: Vorteile ── */}
-        <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white p-8 lg:p-10 lg:w-[52%] flex flex-col justify-between">
+        <div className="bg-linear-to-br from-blue-600 to-blue-800 text-white p-8 lg:p-10 lg:w-[52%] flex flex-col justify-between">
           <div>
             <Link href="/" className="flex justify-start mb-8">
               <LogoSVG size={40} />

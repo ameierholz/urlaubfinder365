@@ -167,7 +167,7 @@ export default function AntalyaGuide() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`py-4 px-5 text-sm whitespace-nowrap text-gray-600 hover:text-gray-800 focus:outline-none transition-colors flex-shrink-0 ${activeTab === tab.id ? "font-semibold text-gray-900" : ""}`}
+              className={`py-4 px-5 text-sm whitespace-nowrap text-gray-600 hover:text-gray-800 focus:outline-none transition-colors shrink-0 ${activeTab === tab.id ? "font-semibold text-gray-900" : ""}`}
               style={activeTab === tab.id ? { borderBottom: `3px solid ${TEAL}` } : { borderBottom: "3px solid transparent" }}
             >
               {tab.label}
@@ -195,7 +195,7 @@ export default function AntalyaGuide() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
               {/* Weather */}
-              <div className="rounded-2xl text-white shadow-xl p-6 bg-gradient-to-br from-sky-500 to-cyan-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
+              <div className="rounded-2xl text-white shadow-xl p-6 bg-linear-to-br from-sky-500 to-cyan-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
                 <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
@@ -234,7 +234,7 @@ export default function AntalyaGuide() {
               </div>
 
               {/* Best Travel Time */}
-              <div className="rounded-2xl text-white shadow-xl p-6 bg-gradient-to-br from-emerald-500 to-teal-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
+              <div className="rounded-2xl text-white shadow-xl p-6 bg-linear-to-br from-emerald-500 to-teal-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
                 <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -257,7 +257,7 @@ export default function AntalyaGuide() {
               </div>
 
               {/* Top 5 */}
-              <div className="rounded-2xl text-white shadow-xl p-6 bg-gradient-to-br from-rose-500 to-red-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
+              <div className="rounded-2xl text-white shadow-xl p-6 bg-linear-to-br from-rose-500 to-red-600 flex flex-col transition-transform duration-300 hover:scale-[1.03]">
                 <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -659,7 +659,7 @@ export default function AntalyaGuide() {
         )}
 
         {/* ── Booking CTA ── */}
-        <div className="mt-10 bg-gradient-to-r from-sand-500 to-sand-400 rounded-2xl p-6 md:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-5">
+        <div className="mt-10 bg-linear-to-r from-sand-500 to-sand-400 rounded-2xl p-6 md:p-8 text-white flex flex-col md:flex-row items-center justify-between gap-5">
           <div>
             <h3 className="text-xl font-bold mb-1">Bereit für deinen Antalya-Urlaub?</h3>
             <p className="text-sand-100 text-sm">
@@ -668,7 +668,7 @@ export default function AntalyaGuide() {
           </div>
           <Link
             href="/urlaubsziele/antalya/"
-            className="bg-white text-sand-600 font-semibold px-6 py-3 rounded-full hover:bg-sand-50 transition-colors whitespace-nowrap flex-shrink-0"
+            className="bg-white text-sand-600 font-semibold px-6 py-3 rounded-full hover:bg-sand-50 transition-colors whitespace-nowrap shrink-0"
           >
             Antalya Angebote ansehen →
           </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getTravelGroups, getUserGroups } from "@/lib/firestore";
+import { getTravelGroups, getUserGroups } from "@/lib/supabase-db";
 import { TravelGroup, GroupCategory } from "@/types";
 import GroupCard from "@/components/community/GroupCard";
 import { useAuth } from "@/context/AuthContext";
@@ -41,7 +41,7 @@ export default function GruppenPage() {
   );
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="flex items-start justify-between flex-wrap gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2">

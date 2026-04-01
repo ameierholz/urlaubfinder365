@@ -19,7 +19,7 @@ function formatMonth(ym?: string) {
 }
 
 export default function GroupCard({ group, isMember }: { group: TravelGroup; isMember?: boolean }) {
-  const cat = CAT_LABELS[group.category];
+  const cat = CAT_LABELS[group.category] ?? { label: "Community", emoji: "👥", color: "bg-gray-100 text-gray-600" };
 
   return (
     <Link
@@ -27,14 +27,14 @@ export default function GroupCard({ group, isMember }: { group: TravelGroup; isM
       className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
     >
       {/* Cover */}
-      <div className="relative h-32 bg-gradient-to-br from-cyan-400 to-teal-500 overflow-hidden">
+      <div className="relative h-32 bg-linear-to-br from-cyan-400 to-teal-500 overflow-hidden">
         {group.coverImageUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={group.coverImageUrl} alt={group.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
         <div className="absolute top-2 left-2">
           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${cat.color}`}>
             {cat.emoji} {cat.label}

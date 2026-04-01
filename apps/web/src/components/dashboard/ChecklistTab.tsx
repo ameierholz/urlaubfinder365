@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, ChecklistItem } from "@/types";
-import { updateChecklist } from "@/lib/firestore";
+import { updateChecklist } from "@/lib/supabase-db";
 import { CheckSquare, Plus, Trash2, RotateCcw } from "lucide-react";
 
 interface Props {
@@ -155,7 +155,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
         </div>
         <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all duration-500"
+            className="h-full bg-linear-to-r from-emerald-400 to-emerald-600 rounded-full transition-all duration-500"
             style={{ width: `${percent}%` }}
           />
         </div>

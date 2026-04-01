@@ -108,7 +108,7 @@ export default function DestinationCarousel({
           <Link
             key={d.slug}
             href={`/urlaubsziele/${d.slug}/`}
-            className="group flex-shrink-0 w-36 rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+            className="group shrink-0 w-36 rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
           >
             {/* Bild */}
             <div className="relative h-44 overflow-hidden bg-gray-100">
@@ -119,7 +119,7 @@ export default function DestinationCarousel({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {/* Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 
               {/* Flagge oben rechts */}
               {d.flagCode && (

@@ -116,7 +116,7 @@ const webSiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de">
+    <html lang="de" suppressHydrationWarning>
       <head>
         {/* Preconnect – kritische Drittanbieter-Domains frühzeitig verbinden */}
         <link rel="preconnect" href="https://assets.specials.de" />

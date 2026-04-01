@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getTravelReports } from "@/lib/firestore";
+import { getTravelReports } from "@/lib/supabase-db";
 import { TravelReport } from "@/types";
 import TravelReportCard from "@/components/community/TravelReportCard";
 import { BookOpen, Loader2, Filter } from "lucide-react";
@@ -28,7 +28,7 @@ export default function ReiseberichtePage() {
   );
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2 mb-2">
         <BookOpen className="w-6 h-6 text-teal-600" />
         Reiseberichte der Community
