@@ -6,12 +6,9 @@ const nextConfig: NextConfig = {
 
   allowedDevOrigins: ["127.0.0.1", "localhost"],
 
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.target = ["web", "es2022"];
-    }
-    return config;
-  },
+  // Turbopack ist in Next.js 16 Standard – webpack-Config wird ignoriert.
+  // Turbopack liest .browserslistrc und eliminiert Polyfills nativ.
+  turbopack: {},
 
   images: {
     remotePatterns: [
