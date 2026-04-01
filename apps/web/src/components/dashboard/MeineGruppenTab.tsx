@@ -78,12 +78,28 @@ export default function MeineGruppenTab({ user }: Props) {
   if (loading) return <div className="flex justify-center py-16"><Loader2 className="w-8 h-8 animate-spin text-teal-600" /></div>;
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">👥</span><span>Klicke <strong>„Gruppe gründen"</strong> um eine neue Urlaubs-Gruppe zu erstellen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🗺️</span><span>Gib ein Ziel, Beschreibung und <strong>Tags</strong> an – Tags helfen anderen, deine Gruppe zu finden</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Entdecke Gruppen anderer Urlauber unter <a href="/community/gruppen/" className="text-blue-600 underline">Community → Gruppen</a></span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💬</span><span>Tritt einer Gruppe bei und schreibe Beiträge, teile Tipps und plane gemeinsam</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🚪</span><span>Gruppe verlassen: LogOut-Icon klicken (nur bei fremden Gruppen)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-5">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
             <Users2 className="w-6 h-6 text-teal-600" />
-            Meine Reise-Gruppen
+            Meine Urlaubs-Gruppen
           </h2>
           <p className="text-sm text-gray-500 mt-0.5">{groups.length} Gruppen beigetreten</p>
         </div>
@@ -191,7 +207,7 @@ export default function MeineGruppenTab({ user }: Props) {
         <div className="text-center py-16 text-gray-400">
           <Users2 className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p className="font-semibold">Noch keiner Gruppe beigetreten</p>
-          <p className="text-sm mt-1">Entdecke Reise-Gruppen oder gründe deine eigene</p>
+          <p className="text-sm mt-1">Entdecke Urlaubs-Gruppen oder gründe deine eigene</p>
           <Link href="/community/gruppen/" className="mt-4 inline-block bg-teal-600 hover:bg-teal-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-colors">
             Gruppen entdecken
           </Link>
@@ -199,26 +215,43 @@ export default function MeineGruppenTab({ user }: Props) {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {groups.map((g) => (
-            <div key={g.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-3 items-start">
-              <div className="w-12 h-12 rounded-xl bg-linear-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
-                {g.coverImageUrl && <img src={g.coverImageUrl} alt="" className="w-full h-full object-cover" />}
+            <div key={g.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              {/* Cover image or gradient header */}
+              <div className="relative h-20 bg-linear-to-br from-teal-400 to-cyan-500">
+                {g.coverImageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={g.coverImageUrl} alt="" className="w-full h-full object-cover" />
+                )}
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+                <p className="absolute bottom-2 left-3 font-bold text-white text-sm drop-shadow line-clamp-1">{g.name}</p>
+                {g.creatorId !== user.uid && (
+                  <button onClick={() => handleLeave(g.id)} className="absolute top-2 right-2 text-white/70 hover:text-red-300 transition-colors" title="Verlassen">
+                    <LogOut className="w-4 h-4" />
+                  </button>
+                )}
               </div>
-              <div className="flex-1 min-w-0">
-                <Link href={`/community/gruppen/${g.id}/`} className="font-bold text-sm text-gray-800 hover:text-teal-700 line-clamp-1">
-                  {g.name}
+              <div className="p-3">
+                <Link href={`/community/gruppen/${g.id}/`} className="text-xs font-semibold text-teal-700 hover:underline">
+                  Zur Gruppe →
                 </Link>
                 <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{g.description}</p>
                 <p className="text-[10px] text-gray-400 mt-1">{g.membersCount} Mitglieder · {g.postsCount} Beiträge</p>
+                {/* Tags */}
+                {g.tags && g.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {g.tags.map((tag) => (
+                      <span key={tag} className="inline-block bg-teal-50 text-teal-700 text-[10px] font-medium px-2 py-0.5 rounded-full border border-teal-100">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              {g.creatorId !== user.uid && (
-                <button onClick={() => handleLeave(g.id)} className="shrink-0 text-gray-300 hover:text-red-400 transition-colors" title="Verlassen">
-                  <LogOut className="w-4 h-4" />
-                </button>
-              )}
             </div>
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

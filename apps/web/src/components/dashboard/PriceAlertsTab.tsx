@@ -35,6 +35,7 @@ export default function PriceAlertsTab({ user }: Props) {
   const [error, setError]       = useState("");
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving]     = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   // Formular-State
   const [fDest, setFDest]     = useState(DEST_OPTIONS[0]?.slug ?? "");
@@ -55,6 +56,7 @@ export default function PriceAlertsTab({ user }: Props) {
     const entry = DEST_OPTIONS.find((d) => d.slug === fDest);
     if (!entry) return;
     setSaving(true);
+    setSaveError("");
     try {
       const id = await createPriceAlert(user.uid, {
         destination: fDest,
@@ -79,8 +81,8 @@ export default function PriceAlertsTab({ user }: Props) {
       setFPrice(800);
       setFNights(7);
       setFAdults(2);
-    } catch {
-      // ignore
+    } catch (err) {
+      setSaveError(err instanceof Error ? err.message : "Speichern fehlgeschlagen. Bitte neu laden.");
     } finally {
       setSaving(false);
     }
@@ -127,7 +129,23 @@ export default function PriceAlertsTab({ user }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">🔔</span><span>Klicke <strong>„Neuer Alarm"</strong> und wähle ein Urlaubsziel sowie dein maximales Budget</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📅</span><span>Wähle gewünschte <strong>Reisedauer</strong> und <strong>Personenzahl</strong></span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✅</span><span>Wir prüfen täglich automatisch aktuelle Angebote für dich</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🎯</span><span>Sobald ein Preis unter deinem Budget liegt, wird er hier als <strong>Treffer</strong> angezeigt</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔕</span><span>Alarm per Toggle deaktivieren oder mit dem Papierkorb löschen</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -138,7 +156,7 @@ export default function PriceAlertsTab({ user }: Props) {
               <span className="text-sm font-normal text-gray-400">({alerts.length})</span>
             )}
           </h2>
-          <p className="text-sm text-gray-500">Lege ein Reiseziel und dein maximales Budget fest – wir gleichen täglich aktuelle Angebote ab und zeigen dir Treffer direkt hier an.</p>
+          <p className="text-sm text-gray-500">Lege ein Urlaubsziel und dein maximales Budget fest – wir gleichen täglich aktuelle Angebote ab und zeigen dir Treffer direkt hier an.</p>
         </div>
         <button
           onClick={() => setShowForm(true)}
@@ -159,7 +177,7 @@ export default function PriceAlertsTab({ user }: Props) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Reiseziel</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Urlaubsziel</label>
               <select
                 value={fDest}
                 onChange={(e) => setFDest(e.target.value)}
@@ -183,7 +201,7 @@ export default function PriceAlertsTab({ user }: Props) {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Reisedauer</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Urlaubsdauer</label>
               <select
                 value={fNights}
                 onChange={(e) => setFNights(Number(e.target.value))}
@@ -207,6 +225,11 @@ export default function PriceAlertsTab({ user }: Props) {
               </select>
             </div>
           </div>
+          {saveError && (
+            <p className="mt-3 text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2">
+              {saveError}
+            </p>
+          )}
           <div className="flex gap-3 mt-4">
             <button
               onClick={handleCreate}
@@ -293,6 +316,7 @@ export default function PriceAlertsTab({ user }: Props) {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

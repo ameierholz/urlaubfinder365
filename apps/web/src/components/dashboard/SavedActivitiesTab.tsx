@@ -69,7 +69,7 @@ export default function SavedActivitiesTab({ user }: Props) {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Ticket className="w-5 h-5 text-[#6CC4BA]" /> Meine Aktivitäten
+          <Ticket className="w-5 h-5 text-brand-teal" /> Meine Aktivitäten
         </h2>
         <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
           <p className="text-red-600 text-sm font-semibold">{fetchError}</p>
@@ -86,7 +86,7 @@ export default function SavedActivitiesTab({ user }: Props) {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Ticket className="w-5 h-5 text-[#6CC4BA]" /> Meine Aktivitäten
+          <Ticket className="w-5 h-5 text-brand-teal" /> Meine Aktivitäten
         </h2>
         <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center">
           <Ticket className="w-12 h-12 text-gray-200 mx-auto mb-4" />
@@ -104,26 +104,35 @@ export default function SavedActivitiesTab({ user }: Props) {
 
   // ── Grid ────────────────────────────────────────────────────────────────────
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-1">
-          <Ticket className="w-5 h-5 text-[#6CC4BA]" />
-          Meine Aktivitäten
-          <span className="text-sm font-normal text-gray-400">({activities.length})</span>
-        </h2>
-        <ul className="mt-2 space-y-1.5 text-sm text-gray-500">
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🎯</span><span>Stöbere durch Ausflüge, Touren, Stadtführungen und Erlebnisse bei den Urlaubszielen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">❤️</span><span>Klicke auf das <strong>Herz-Icon</strong> bei einer Aktivität – sie wird sofort hier gespeichert</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">⭐</span><span>Vergleiche Bewertungen, Preise und Beschreibungen deiner gemerkten Aktivitäten auf einen Blick</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🎫</span><span>Klicke <strong>„Jetzt buchen"</strong> um direkt zur Buchung beim Anbieter zu gelangen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🗑️</span><span>Aktivität nicht mehr gewünscht? Papierkorb-Icon klicken zum Entfernen</span></li>
-        </ul>
+    <div className="flex flex-col lg:flex-row gap-6">
+
+      {/* Erklärung rechts */}
+      <div className="order-first lg:order-last lg:w-64 shrink-0">
+        <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+          <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+          <ul className="space-y-2.5 text-xs text-gray-600">
+            <li className="flex items-start gap-2"><span className="shrink-0">🎯</span><span>Stöbere durch Ausflüge, Touren und Erlebnisse bei den <a href="/urlaubsziele/" className="text-blue-600 underline">Urlaubszielen</a></span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>Klicke das <strong>Herz-Icon</strong> – die Aktivität wird sofort hier gespeichert</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">⭐</span><span>Vergleiche Bewertungen und Preise aller gemerkten Aktivitäten</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">🎫</span><span>Klicke <strong>„Zur Aktivität"</strong> für die Buchung beim Anbieter</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">🗑️</span><span>Papierkorb-Icon klicken um eine Aktivität zu entfernen</span></li>
+          </ul>
+        </div>
       </div>
+
+      <div className="flex-1 min-w-0 space-y-6">
+      <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+        <Ticket className="w-5 h-5 text-brand-teal" />
+        Meine Aktivitäten
+        <span className="text-sm font-normal text-gray-400">({activities.length})</span>
+      </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
         {activities.map((saved) => {
           const a       = saved.activity;
-          const img     = a.images?.[0]?.large ?? a.images?.[0]?.medium ?? "";
+          // Handle both Tiqets products (large/medium) and experiences (same keys) APIs
+          const imgObj  = a.images?.[0] as Record<string, string | undefined> | undefined;
+          const img     = imgObj?.extra_large ?? imgObj?.large ?? imgObj?.medium ?? imgObj?.small ?? "";
           const rating  = a.ratings?.average ? Math.round(a.ratings.average * 10) / 10 : null;
           const cnt     = a.ratings?.total ?? 0;
           const price   = typeof a.price === "number" ? a.price.toFixed(2).replace(".", ",") : null;
@@ -140,6 +149,10 @@ export default function SavedActivitiesTab({ user }: Props) {
                   src={img || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"}
                   alt={a.title}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
+                  }}
                 />
                 {/* Trash button */}
                 <button
@@ -208,6 +221,7 @@ export default function SavedActivitiesTab({ user }: Props) {
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );

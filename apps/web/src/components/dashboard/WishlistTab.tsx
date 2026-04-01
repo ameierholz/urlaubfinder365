@@ -130,8 +130,12 @@ export default function WishlistTab({ user, userProfile }: Props) {
   const [savingAlert, setSavingAlert]     = useState(false);
 
   // Price trends
-  const [trends, setTrends]     = useState<Record<string, PriceTrend>>({});
-  const [profileId, setProfileId] = useState<PriceProfileId>("pauschal");
+  const [trends, setTrends]         = useState<Record<string, PriceTrend>>({});
+  const [trendsLoading, setTrendsLoading] = useState(false);
+  const [profileId, setProfileId] = useState<PriceProfileId>(() => {
+    if (typeof window === "undefined") return "pauschal";
+    return (localStorage.getItem("wl_profileId") as PriceProfileId) ?? "pauschal";
+  });
 
   const allDests = getDestinations();
 
@@ -156,10 +160,12 @@ export default function WishlistTab({ user, userProfile }: Props) {
 
   // Preisverläufe für alle gemerkten Destinationen laden
   useEffect(() => {
-    if (favs.length === 0) return;
+    if (favs.length === 0) { setTrends({}); return; }
+    setTrendsLoading(true);
     getPriceTrends(favs)
       .then(setTrends)
-      .catch(() => { /* silent – Daten kommen täglich */ });
+      .catch(() => { /* silent – Daten kommen täglich */ })
+      .finally(() => setTrendsLoading(false));
   // Nur beim ersten Mount und wenn sich Favs ändern
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favs.join(",")]); // eslint-disable-line
@@ -244,7 +250,25 @@ export default function WishlistTab({ user, userProfile }: Props) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Rechte Erklärungsspalte */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>Scrolle durch die Liste und klicke das <strong>Herz-Icon</strong> auf einer Karte – das Ziel landet in deinen Wunschzielen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔔</span><span>Klicke bei einem Ziel auf das <strong>Glocken-Icon</strong> um einen Preisalarm zu setzen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✈️</span><span>Wähle zwischen <strong>Pauschalreise</strong>, <strong>Nur Hotel</strong> oder <strong>All-Inclusive</strong> für den Preisvergleich</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Nutze die <strong>Suchleiste</strong> oder <strong>Kontinent-Filter</strong> um Ziele zu finden</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔗</span><span>Hover über eine Karte und klicke den <strong>Pfeil-Link</strong> zur Zielseite</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✏️</span><span>Preisalarm bearbeiten: erneut auf das Glocken-Icon klicken</span></li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Hauptinhalt */}
+    <div className="flex-1 min-w-0 space-y-6">
 
       {/* Header */}
       <div>
@@ -255,13 +279,6 @@ export default function WishlistTab({ user, userProfile }: Props) {
             <span className="text-sm font-normal text-gray-500">({favs.length} gespeichert)</span>
           )}
         </h2>
-        <ul className="mt-2 space-y-1.5 text-sm text-gray-500">
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">❤️</span><span>Scrolle durch die Reiseliste unten und klicke das <strong>Herz-Icon</strong> auf einer Karte – das Ziel landet sofort in deinen Wunschzielen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔔</span><span>Klicke bei einem Wunschziel auf das <strong>Glocken-Icon</strong> um einen Preisalarm zu setzen – trage Budget, Nächte & Personenzahl ein und klicke „Alarm speichern"</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔍</span><span>Nutze die <strong>Suchleiste</strong> oder die <strong>Kontinent-Filter</strong> um schnell ein bestimmtes Reiseziel zu finden</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔗</span><span>Klicke den <strong>Pfeil-Link</strong> (erscheint beim Hover über eine Karte) um direkt zur Zielseite mit aktuellen Angeboten zu gelangen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">✏️</span><span>Preisalarm bearbeiten oder löschen: erneut auf das Glocken-Icon klicken und Werte anpassen oder „Löschen" wählen</span></li>
-        </ul>
       </div>
 
       {/* ── Preis-Profil Selector ───────────────────────────────────── */}
@@ -272,7 +289,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
             {PRICE_PROFILES.map((p) => (
               <button
                 key={p.id}
-                onClick={() => setProfileId(p.id)}
+                onClick={() => { setProfileId(p.id); localStorage.setItem("wl_profileId", p.id); }}
                 title={p.hint}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                   profileId === p.id
@@ -297,7 +314,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
           <h3 className="text-sm font-bold text-blue-700 mb-3 flex items-center gap-1.5">
             <Heart className="w-4 h-4 fill-blue-500 text-blue-500" />
             Meine Wunschziele
-            {alertsLoading && (
+            {(alertsLoading || trendsLoading) && (
               <Loader2 className="w-3 h-3 animate-spin text-blue-400 ml-1" />
             )}
           </h3>
@@ -362,7 +379,9 @@ export default function WishlistTab({ user, userProfile }: Props) {
                           })()}
                         </div>
                       ) : (
-                        <p className="text-xs text-gray-300 mt-1">Preis wird geladen…</p>
+                        <p className="text-xs text-gray-300 mt-1">
+                          {trendsLoading ? "wird geladen…" : "Noch keine Preisdaten"}
+                        </p>
                       )}
 
                       {/* Alert-Einstellung */}
@@ -521,7 +540,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
         {filtered.map((dest) => {
           const isFav = favs.includes(dest.slug);
           return (
-            <div key={dest.slug} className="relative group rounded-2xl overflow-hidden aspect-[4/3] bg-gray-100">
+            <div key={dest.slug} className="relative group rounded-2xl overflow-hidden aspect-4/3 bg-gray-100">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={generateHeroFallback(dest.unsplashKeyword).replace("w=1600", "w=400")}
@@ -589,6 +608,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
           <p className="font-medium">Keine Reiseziele gefunden</p>
         </div>
       )}
+    </div>
     </div>
   );
 }

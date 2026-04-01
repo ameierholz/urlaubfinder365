@@ -327,7 +327,23 @@ export default function LaenderKarteTab() {
   );
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">🌍</span><span>Klicke ein Land an um es als besucht zu markieren – die Statistik aktualisiert sich sofort</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Klicke <strong>„Speichern"</strong> um deine besuchten Länder zu sichern</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span><strong>Achievements</strong> werden automatisch freigeschaltet wenn du Meilensteine erreichst</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>Freigeschaltete Achievements sind in deinem <strong>öffentlichen Profil</strong> sichtbar</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Nutze die <strong>Suche</strong> um ein bestimmtes Land schnell zu finden</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-5">
 
       {/* ── Gesamt-Statistik ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -496,6 +512,7 @@ export default function LaenderKarteTab() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

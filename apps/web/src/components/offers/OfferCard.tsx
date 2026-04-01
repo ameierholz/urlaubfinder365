@@ -63,7 +63,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         await unsaveTrip(user.uid, docId, offer.product_code);
         setSaved(false);
         setDocId(null);
-        setToast({ type: "unsave", msg: "Aus deinen gespeicherten Reisen entfernt." });
+        setToast({ type: "unsave", msg: "Aus deinen gespeicherten Hotels entfernt." });
       } else {
         const id = await saveTrip(user.uid, offer);
         setSaved(true);
@@ -97,7 +97,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
             compact ? "w-7 h-7" : "w-8 h-8",
             saved ? "bg-red-500 text-white" : "bg-white/90 text-gray-500 hover:bg-white hover:text-red-500"
           )}
-          title={saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern"}
+          title={saved ? "Im Profil gespeichert ✓" : "Im Urlaubsprofil speichern"}
         >
           <Heart className={clsx(compact ? "w-3 h-3" : "w-4 h-4")} fill={saved ? "currentColor" : "none"} />
         </button>
@@ -203,7 +203,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
       <Toast
         type={toast.type}
         message={toast.msg}
-        link={toast.type === "save" ? { href: "/dashboard/", label: "Dashboard → Meine Reisen" } : undefined}
+        link={toast.type === "save" ? { href: "/dashboard/", label: "Dashboard → Meine Hotels" } : undefined}
         onDismiss={() => setToast(null)}
       />
     )}

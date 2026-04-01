@@ -119,13 +119,29 @@ export default function ChecklistTab({ user, userProfile }: Props) {
   const percent      = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">✅</span><span>Hake Punkte ab – der Fortschrittsbalken zeigt deinen Stand</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>Eigene Punkte hinzufügen: Beschreibung + Kategorie wählen und auf <strong>„+"</strong> klicken</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📂</span><span>Filtere nach Kategorien (Dokumente, Kleidung, Elektronik …) für mehr Übersicht</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Alle Änderungen werden <strong>automatisch gespeichert</strong></span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔄</span><span><strong>„Zurücksetzen"</strong> setzt alle Häkchen zurück – praktisch für den nächsten Urlaub</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
       {/* Header */}
       <div>
         <div className="flex items-center justify-between mb-1">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <CheckSquare className="w-5 h-5 text-emerald-500" />
-            Reise-Checkliste
+            Urlaubs-Checkliste
           </h2>
           <div className="flex items-center gap-3">
             {saving && <span className="text-xs text-gray-400">Speichert…</span>}
@@ -138,13 +154,6 @@ export default function ChecklistTab({ user, userProfile }: Props) {
             </button>
           </div>
         </div>
-        <ul className="mt-2 space-y-1.5 text-sm text-gray-500">
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">✅</span><span>Hake Punkte ab, sobald du sie eingepackt oder erledigt hast – der Fortschrittsbalken zeigt dir wie weit du bist</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">➕</span><span>Eigene Punkte hinzufügen: Beschreibung eingeben, Kategorie wählen und auf <strong>„Hinzufügen"</strong> klicken</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">📂</span><span>Filtere nach Kategorien (Dokumente, Kleidung, Elektronik, Gesundheit …) um die Liste übersichtlicher zu halten</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">💾</span><span>Alle Änderungen werden <strong>automatisch gespeichert</strong> – du kannst jederzeit aufhören und weitermachen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔄</span><span><strong>„Zurücksetzen"</strong> setzt alle Häkchen zurück – praktisch für die nächste Reise</span></li>
-        </ul>
       </div>
 
       {/* Fortschrittsbalken */}
@@ -161,7 +170,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
         </div>
         {percent === 100 && (
           <p className="text-sm text-emerald-600 font-semibold mt-2">
-            🎉 Alles gepackt – viel Spaß auf der Reise!
+            🎉 Alles gepackt – viel Spaß im Urlaub!
           </p>
         )}
       </div>
@@ -266,6 +275,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

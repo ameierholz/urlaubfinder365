@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Heart, MapPin, CheckSquare,
   User, Settings, LogOut, Menu, X, Palmtree, Ticket,
-  Map, FileText, Bell, Globe, BookOpen, Users2, Flame, Brain,
+  Map, FileText, Bell, Globe, BookOpen, Users2, Flame,
 } from "lucide-react";
 
 // Tabs
@@ -24,26 +24,30 @@ import LaenderKarteTab       from "@/components/dashboard/LaenderKarteTab";
 import MeineBerichteTab      from "@/components/dashboard/MeineBerichteTab";
 import MeineGruppenTab       from "@/components/dashboard/MeineGruppenTab";
 import CheckInTab            from "@/components/dashboard/CheckInTab";
-import QuizTab               from "@/components/dashboard/QuizTab";
 
-type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "quiz" | "profile" | "settings";
+type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "profile" | "settings";
 
 const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[] = [
-  { id: "overview",     label: "Übersicht",          icon: LayoutDashboard },
-  { id: "trips",        label: "Meine Reisen",        icon: Heart },
-  { id: "activities",   label: "Meine Aktivitäten",   icon: Ticket },
-  { id: "wishlist",     label: "Wunschliste",          icon: MapPin },
-  { id: "checklist",    label: "Reise-Checkliste",    icon: CheckSquare },
-  { id: "pricealerts",  label: "Preisalarme",          icon: Bell },
-  { id: "tripplanner",  label: "Reiseplanung",         icon: Map },
-  { id: "documents",    label: "Reisedokumente",       icon: FileText },
-  { id: "laender",      label: "Meine Länder",         icon: Globe },
-  { id: "berichte",     label: "Meine Berichte",       icon: BookOpen },
-  { id: "gruppen",      label: "Meine Gruppen",        icon: Users2 },
-  { id: "checkin",      label: "Daily Check-in",       icon: Flame },
-  { id: "quiz",         label: "Travel Quiz",          icon: Brain },
-  { id: "profile",      label: "Mein Profil",         icon: User },
-  { id: "settings",     label: "Einstellungen",       icon: Settings },
+  // Übersicht
+  { id: "overview",     label: "Übersicht",              icon: LayoutDashboard },
+  // Planung
+  { id: "tripplanner",  label: "Urlaubsplanung",          icon: Map },
+  { id: "checklist",    label: "Urlaubs-Checkliste",      icon: CheckSquare },
+  { id: "documents",    label: "Urlaubsdokumente",        icon: FileText },
+  // Gespeichertes
+  { id: "trips",        label: "Meine Hotels",            icon: Heart },
+  { id: "activities",   label: "Meine Aktivitäten",       icon: Ticket },
+  { id: "wishlist",     label: "Wunschliste",              icon: MapPin },
+  { id: "pricealerts",  label: "Preisalarme",              icon: Bell },
+  // Community
+  { id: "laender",      label: "Meine Länder",             icon: Globe },
+  { id: "berichte",     label: "Meine Urlaubsberichte",    icon: BookOpen },
+  { id: "gruppen",      label: "Meine Urlaubs-Gruppen",    icon: Users2 },
+  // Engagement
+  { id: "checkin",      label: "Daily Check-in",           icon: Flame },
+  // Account
+  { id: "profile",      label: "Mein Profil",             icon: User },
+  { id: "settings",     label: "Einstellungen",           icon: Settings },
 ];
 
 export default function DashboardPage() {
@@ -92,7 +96,7 @@ export default function DashboardPage() {
       {/* ── Sidebar ──────────────────────────────────────────────── */}
       <aside className={`
         fixed top-0 left-0 z-50 h-full w-72 bg-white shadow-xl flex flex-col transition-transform duration-300
-        lg:sticky lg:top-24 lg:h-[calc(100vh-96px)] lg:translate-x-0 lg:shadow-none lg:border-r lg:border-gray-100
+        lg:sticky lg:top-24 lg:h-[calc(100vh-96px)] lg:translate-x-0 lg:shadow-none lg:border-r lg:border-gray-100 lg:z-10
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
         {/* User-Header */}
@@ -103,7 +107,7 @@ export default function DashboardPage() {
             </div>
             <div className="min-w-0">
               <p className="font-bold text-gray-900 truncate">
-                {user.displayName || "Reisender"}
+                {user.displayName || "Urlauber"}
               </p>
               <p className="text-xs text-gray-500 truncate">{user.email}</p>
             </div>
@@ -186,7 +190,6 @@ export default function DashboardPage() {
           {tab === "berichte"     && <MeineBerichteTab    user={user} />}
           {tab === "gruppen"      && <MeineGruppenTab     user={user} />}
           {tab === "checkin"      && <CheckInTab          user={user} />}
-          {tab === "quiz"         && <QuizTab             user={user} />}
           {tab === "profile"      && <ProfileTab          user={user} />}
           {tab === "settings"     && <SettingsTab         user={user} userProfile={userProfile} />}
         </div>

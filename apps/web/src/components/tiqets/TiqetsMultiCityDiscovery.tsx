@@ -8,22 +8,19 @@ import { saveActivity, unsaveActivity } from "@/lib/supabase-db";
 import Toast from "@/components/ui/Toast";
 import { TiqetsProduct } from "@/types";
 
-interface TiqetsExperience {
+// Products API returns these fields (Experiences API does not)
+interface TiqetsProductFull extends TiqetsProduct {
   id: number;
-  type: "venue" | "activity" | "service" | "poi";
-  title: string;
-  tagline?: string;
-  images?: Array<{
-    medium?: string;
-    large?: string;
-    extra_large?: string;
-    alt_text?: string;
-  }>;
-  experience_url?: string;
-  from_price?: number;
-  ratings?: { average: number; total: number };
+  city_name?: string;
+  instant_ticket_delivery?: boolean;
+  smartphone_ticket?: boolean;
+  skip_line?: boolean | null;
+  cancellation?: { policy: string; window: number | null } | null;
   tag_ids?: number[];
   address?: { city_name?: string };
+  ratings?: { average: number; total: number };
+  promo_label?: string;
+  discount_percentage?: number;
 }
 
 interface Destination {
@@ -47,30 +44,24 @@ function StarRow({ rating }: { rating: number }) {
   );
 }
 
-function ExperienceCard({ e }: { e: TiqetsExperience }) {
+function ProductCard({ p }: { p: TiqetsProductFull }) {
   const { user } = useAuth();
   const [saved,  setSaved]  = useState(false);
   const [saving, setSaving] = useState(false);
   const [docId,  setDocId]  = useState<string | null>(null);
   const [toast,  setToast]  = useState<{ type: "save" | "unsave"; msg: string } | null>(null);
 
-  const img    = e.images?.[0]?.large ?? e.images?.[0]?.medium ?? "";
-  const alt    = e.images?.[0]?.alt_text ?? e.title;
-  const link   = e.experience_url ?? "#";
-  const price  = typeof e.from_price === "number" ? e.from_price.toFixed(2).replace(".", ",") : null;
-  const rating = e.ratings?.average ? Math.round(e.ratings.average * 10) / 10 : null;
-  const cnt    = e.ratings?.total ?? 0;
-  const cat    = getPrimaryCategory(e.tag_ids);
+  const imgObj = p.images?.[0] as Record<string, string | undefined> | undefined;
+  const img    = imgObj?.large ?? imgObj?.medium ?? imgObj?.extra_large ?? "";
+  const alt    = (p.images?.[0] as { alt_text?: string } | undefined)?.alt_text ?? p.title;
+  const link   = p.product_url ?? "#";
+  const price  = typeof p.price === "number" ? p.price.toFixed(2).replace(".", ",") : null;
+  const rating = p.ratings?.average ? Math.round(p.ratings.average * 10) / 10 : null;
+  const cnt    = p.ratings?.total ?? 0;
+  const cat    = getPrimaryCategory(p.tag_ids);
+  const city   = p.city_name ?? p.address?.city_name;
 
-  const asProduct: TiqetsProduct = {
-    title: e.title,
-    city_name: e.address?.city_name,
-    images: e.images as TiqetsProduct["images"],
-    product_url: e.experience_url,
-    price: e.from_price,
-    ratings: e.ratings,
-    tagline: e.tagline,
-  };
+  const hasFreeCancel = p.cancellation?.policy === "before_date" && (p.cancellation?.window ?? 0) >= 24;
 
   const handleSave = async (ev: React.MouseEvent) => {
     ev.preventDefault();
@@ -84,7 +75,7 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
         setSaved(false); setDocId(null);
         setToast({ type: "unsave", msg: "Aus deinen gespeicherten Aktivitäten entfernt." });
       } else {
-        const id = await saveActivity(user.uid, asProduct);
+        const id = await saveActivity(user.uid, p as TiqetsProduct);
         setSaved(true); setDocId(id);
         setToast({ type: "save", msg: "Gespeichert! Du findest es unter" });
       }
@@ -101,20 +92,23 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
     >
       <div className="relative h-44 bg-gray-100 overflow-hidden shrink-0">
         {img && (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={img}
             alt={alt}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
           />
         )}
         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
 
         {/* City label */}
-        {e.address?.city_name && (
+        {city && (
           <div className="absolute top-2 left-2 bg-[#00838F]/85 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-            📍 {e.address.city_name}
+            📍 {city}
           </div>
         )}
+
         {/* Herz */}
         <button
           onClick={handleSave}
@@ -126,7 +120,15 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
         >
           <Heart className="w-3.5 h-3.5" fill={saved ? "currentColor" : "none"} />
         </button>
-        {/* Category badge */}
+
+        {/* Discount badge */}
+        {p.discount_percentage && p.discount_percentage > 0 && (
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow">
+            -{Math.round(p.discount_percentage)}%
+          </div>
+        )}
+
+        {/* Category badge bottom-left */}
         {cat && (
           <div className="absolute bottom-2 left-2 bg-black/55 backdrop-blur-sm text-white text-[10px] font-medium px-2 py-0.5 rounded-full">
             {cat.emoji} {cat.label}
@@ -142,9 +144,33 @@ function ExperienceCard({ e }: { e: TiqetsExperience }) {
             {cnt > 0 && <span className="text-[10px] text-gray-400">({cnt.toLocaleString("de-DE")})</span>}
           </div>
         )}
-        <h3 className="font-bold text-gray-900 text-[17px] leading-snug line-clamp-2 group-hover:text-[#00838F] transition-colors flex-grow">
-          {e.title}
+        <h3 className="font-bold text-gray-900 text-[15px] leading-snug line-clamp-2 group-hover:text-[#00838F] transition-colors flex-grow">
+          {p.title}
         </h3>
+
+        {/* Feature Badges */}
+        <div className="flex flex-wrap gap-1 mt-2">
+          {p.instant_ticket_delivery && (
+            <span className="inline-flex items-center gap-0.5 bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+              ⚡ Sofort
+            </span>
+          )}
+          {p.smartphone_ticket && (
+            <span className="inline-flex items-center gap-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+              📱 Handy
+            </span>
+          )}
+          {p.skip_line && (
+            <span className="inline-flex items-center gap-0.5 bg-violet-50 text-violet-700 border border-violet-100 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+              🚀 Kein Anstehen
+            </span>
+          )}
+          {hasFreeCancel && (
+            <span className="inline-flex items-center gap-0.5 bg-teal-50 text-teal-700 border border-teal-100 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+              🛡️ Gratis Storno
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="px-3.5 pb-3.5 flex items-center justify-between gap-2 shrink-0">
@@ -179,6 +205,10 @@ function SkeletonCard() {
         <div className="h-3 bg-gray-200 rounded animate-pulse w-1/3" />
         <div className="h-4 bg-gray-200 rounded animate-pulse" />
         <div className="h-4 bg-gray-200 rounded animate-pulse w-4/5" />
+        <div className="flex gap-1 mt-2">
+          <div className="h-4 bg-gray-100 rounded-full animate-pulse w-14" />
+          <div className="h-4 bg-gray-100 rounded-full animate-pulse w-14" />
+        </div>
         <div className="flex items-center justify-between mt-3">
           <div className="h-5 bg-gray-200 rounded animate-pulse w-16" />
           <div className="h-8 bg-gray-200 rounded-full animate-pulse w-24" />
@@ -189,11 +219,11 @@ function SkeletonCard() {
 }
 
 export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
-  const [experiences, setExperiences] = useState<TiqetsExperience[]>([]);
-  const [loading, setLoading]         = useState(true);
-  const [activeCat, setActiveCat]     = useState<string>("all");
-  const [activeDest, setActiveDest]   = useState<string>("all");
-  const [showAll, setShowAll]         = useState(false);
+  const [products, setProducts]   = useState<TiqetsProductFull[]>([]);
+  const [loading, setLoading]     = useState(true);
+  const [activeCat, setActiveCat] = useState<string>("all");
+  const [activeDest, setActiveDest] = useState<string>("all");
+  const [showAll, setShowAll]     = useState(false);
 
   const activeCityIds = activeDest === "all"
     ? destinations.map((d) => d.cityId)
@@ -202,37 +232,36 @@ export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
   useEffect(() => {
     if (!activeCityIds.length) return;
     setLoading(true);
-    setExperiences([]);
+    setProducts([]);
     const params = activeCityIds.map((id) => `cityId=${id}`).join("&");
-    fetch(`/api/tiqets-experiences?${params}&pageSize=100`)
+    fetch(`/api/tiqets?${params}&pageSize=30`)
       .then((r) => r.json())
       .then((d) => {
-        const sorted = (d.experiences ?? []).sort(
-          (a: TiqetsExperience, b: TiqetsExperience) => (b.ratings?.average ?? 0) - (a.ratings?.average ?? 0)
+        const sorted = (d.products ?? []).sort(
+          (a: TiqetsProductFull, b: TiqetsProductFull) => (b.ratings?.average ?? 0) - (a.ratings?.average ?? 0)
         );
-        setExperiences(sorted);
+        setProducts(sorted);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeDest]);
 
-  // Which categories have at least one experience in current results
   const availableCategories = useMemo(() => {
     return TIQETS_CATEGORIES.filter((cat) =>
-      experiences.some((e) => matchesCategory(e.tag_ids, cat.id))
+      products.some((p) => matchesCategory(p.tag_ids, cat.id))
     );
-  }, [experiences]);
+  }, [products]);
 
   const filtered = useMemo(() => {
-    if (activeCat === "all") return experiences;
-    return experiences.filter((e) => matchesCategory(e.tag_ids, activeCat));
-  }, [experiences, activeCat]);
+    if (activeCat === "all") return products;
+    return products.filter((p) => matchesCategory(p.tag_ids, activeCat));
+  }, [products, activeCat]);
 
   const INITIAL_COUNT = 12;
   const visible = showAll ? filtered : filtered.slice(0, INITIAL_COUNT);
 
-  if (!loading && experiences.length === 0) return null;
+  if (!loading && products.length === 0) return null;
 
   return (
     <div>
@@ -273,10 +302,10 @@ export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
               : "bg-white text-gray-600 border-gray-200 hover:border-[#6CC4BA] hover:text-[#6CC4BA]"
           }`}
         >
-          🎟️ Alle Erlebnisse {!loading && `(${experiences.length})`}
+          🎟️ Alle Erlebnisse {!loading && `(${products.length})`}
         </button>
         {availableCategories.map((cat) => {
-          const count = experiences.filter((e) => matchesCategory(e.tag_ids, cat.id)).length;
+          const count = products.filter((p) => matchesCategory(p.tag_ids, cat.id)).length;
           return (
             <button
               key={cat.id}
@@ -301,7 +330,7 @@ export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
       ) : (
         <>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {visible.map((e) => <ExperienceCard key={e.id} e={e} />)}
+            {visible.map((p) => <ProductCard key={p.id} p={p} />)}
           </div>
 
           {!showAll && filtered.length > INITIAL_COUNT && (
@@ -310,7 +339,7 @@ export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
                 onClick={() => setShowAll(true)}
                 className="bg-white border border-gray-200 hover:border-[#6CC4BA] text-gray-700 hover:text-[#6CC4BA] font-semibold px-8 py-3 rounded-full transition-all text-sm shadow-sm hover:shadow-md"
               >
-                Alle {filtered.length} Erlebnisse anzeigen ↓
+                Alle {filtered.length} Aktivitäten anzeigen ↓
               </button>
             </div>
           )}

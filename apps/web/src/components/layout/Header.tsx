@@ -532,7 +532,7 @@ export default function Header() {
                   className="flex items-center gap-2 bg-white/20 text-white px-3 py-1.5 rounded-full text-sm font-semibold hover:bg-white/30 transition-colors"
                 >
                   <User className="w-4 h-4" />
-                  {user.displayName?.split(" ")[0] || "Mein Konto"}
+                  Hallo, {user.displayName?.split(" ")[0] || "Urlauber"}
                   <ChevronDown className="w-3 h-3" />
                 </button>
                 {userMenuOpen && (
@@ -547,6 +547,14 @@ export default function Header() {
                     >
                       <LayoutDashboard className="w-4 h-4" />
                       Mein Dashboard
+                    </Link>
+                    <Link
+                      href="/community/"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-white hover:bg-white/20"
+                    >
+                      <Users className="w-4 h-4" />
+                      Community Übersicht
                     </Link>
                     <div className="border-t border-white/20 mt-1 pt-1">
                       <button

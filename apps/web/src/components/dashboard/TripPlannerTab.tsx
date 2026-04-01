@@ -136,7 +136,7 @@ export default function TripPlannerTab({ user }: Props) {
   if (loading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-gray-900">Meine Reiseplanung</h2>
+        <h2 className="text-xl font-bold text-gray-900">Meine Urlaubsplanung</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => <div key={i} className="h-40 bg-gray-100 rounded-2xl animate-pulse" />)}
         </div>
@@ -148,7 +148,7 @@ export default function TripPlannerTab({ user }: Props) {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Map className="w-5 h-5 text-[#00838F]" /> Meine Reiseplanung
+          <Map className="w-5 h-5 text-[#00838F]" /> Meine Urlaubsplanung
         </h2>
         <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
           <p className="text-red-600 text-sm font-semibold">{error}</p>
@@ -159,22 +159,31 @@ export default function TripPlannerTab({ user }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>Klicke <strong>„Neuer Plan"</strong> – wähle Urlaubsziel, Datum, Personen und Budget</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏨</span><span>Verknüpfe gespeicherte <strong>Hotels</strong> und Aktivitäten – alles an einem Ort</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📝</span><span>Notizen und To-Dos direkt im Plan erfassen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📊</span><span>Status: <strong>In Planung → Gebucht → Abgeschlossen</strong></span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">⏳</span><span>Countdown zeigt wie viele Tage noch bis zum Urlaub</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-1">
             <Map className="w-5 h-5 text-[#00838F]" />
-            Meine Reiseplanung
+            Meine Urlaubsplanung
             {plans.length > 0 && <span className="text-sm font-normal text-gray-400">({plans.length})</span>}
           </h2>
-          <ul className="mt-2 space-y-1 text-sm text-gray-500">
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">➕</span><span>Klicke <strong>„Neuer Plan"</strong> – gib Reiseziel, Start-/Enddatum, Personenzahl und Budget an</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">📝</span><span>Trage Ideen, Notizen oder To-Dos direkt in den Plan ein (z.B. „Hotel checken", „Ausflüge vorbuchen")</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔗</span><span>Verknüpfe gespeicherte Pauschalreisen & Aktivitäten mit dem Plan – alles an einem Ort</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">📊</span><span>Status setzen: <strong>In Planung → Gebucht → Abgeschlossen</strong> – so behältst du den Überblick</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">✏️</span><span>Pläne jederzeit bearbeiten oder löschen – der Countdown zeigt dir wie viele Tage noch bis zur Abreise fehlen</span></li>
-          </ul>
         </div>
         <button
           onClick={() => setShowForm(true)}
@@ -188,7 +197,7 @@ export default function TripPlannerTab({ user }: Props) {
       {showForm && (
         <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-900">Neuen Reiseplan erstellen</h3>
+            <h3 className="font-bold text-gray-900">Neuen Urlaubsplan erstellen</h3>
             <button onClick={() => { setShowForm(false); resetForm(); }}><X className="w-5 h-5 text-gray-400" /></button>
           </div>
 
@@ -203,7 +212,7 @@ export default function TripPlannerTab({ user }: Props) {
             </div>
             {/* Destination */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Reiseziel</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Urlaubsziel</label>
               <select value={fDest} onChange={(e) => setFDest(e.target.value)}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] bg-white">
                 {DEST_OPTIONS.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
@@ -449,6 +458,7 @@ export default function TripPlannerTab({ user }: Props) {
           })}
         </div>
       )}
+    </div>
     </div>
   );
 }

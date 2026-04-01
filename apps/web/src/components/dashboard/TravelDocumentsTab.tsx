@@ -162,7 +162,7 @@ export default function TravelDocumentsTab({ user }: Props) {
   if (loading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-gray-900">Reisedokumente</h2>
+        <h2 className="text-xl font-bold text-gray-900">Urlaubsdokumente</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[1,2,3,4].map((i) => <div key={i} className="h-32 bg-gray-100 rounded-2xl animate-pulse" />)}
         </div>
@@ -174,7 +174,7 @@ export default function TravelDocumentsTab({ user }: Props) {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <FileText className="w-5 h-5 text-[#00838F]" /> Reisedokumente
+          <FileText className="w-5 h-5 text-[#00838F]" /> Urlaubsdokumente
         </h2>
         <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
           <p className="text-red-600 text-sm font-semibold">{error}</p>
@@ -185,22 +185,31 @@ export default function TravelDocumentsTab({ user }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>Klicke <strong>„Dokument hinzufügen"</strong> – wähle Typ: Reisepass, Versicherung, Visa, Impfung oder Notfallkontakt</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">⏰</span><span>Trage das <strong>Ablaufdatum</strong> ein – wir warnen dich wenn ein Dokument bald abläuft</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔒</span><span>Sensible Felder sind <strong>standardmäßig versteckt</strong> – Auge-Icon zum Anzeigen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📞</span><span>Notfallkontakt hinterlegen: Name, Telefon, E-Mail und Verhältnis</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔐</span><span><strong>Datenschutz:</strong> Deine Dokumente sind nur für dich sichtbar und werden verschlüsselt gespeichert</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-1">
             <FileText className="w-5 h-5 text-[#00838F]" />
-            Reisedokumente
+            Urlaubsdokumente
             {docs.length > 0 && <span className="text-sm font-normal text-gray-400">({docs.length})</span>}
           </h2>
-          <ul className="mt-2 space-y-1 text-sm text-gray-500">
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">➕</span><span>Klicke <strong>„Dokument hinzufügen"</strong> und wähle den Typ: Reisepass, Versicherung, Visa, Impfung oder Notfallkontakt</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">⏰</span><span>Trage das <strong>Ablaufdatum</strong> ein – wir warnen dich automatisch wenn ein Dokument in unter 60 Tagen abläuft</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">🔒</span><span>Sensible Felder (Passnummer, Policennummer) sind <strong>standardmäßig versteckt</strong> – klicke das Auge-Icon um sie anzuzeigen</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">📞</span><span>Notfallkontakt hinterlegen: Name, Telefon, E-Mail und Verhältnis – für alle Fälle auf Reisen</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0 mt-0.5">✏️</span><span>Dokumente jederzeit über das Stift-Icon bearbeiten oder über den Papierkorb löschen</span></li>
-          </ul>
         </div>
         <button onClick={openNew}
           className="shrink-0 inline-flex items-center gap-1.5 bg-[#00838F] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#006E7A] transition-colors">
@@ -461,6 +470,7 @@ export default function TravelDocumentsTab({ user }: Props) {
           </div>
         );
       })}
+    </div>
     </div>
   );
 }

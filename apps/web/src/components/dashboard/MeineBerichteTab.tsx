@@ -65,13 +65,29 @@ export default function MeineBerichteTab({ user }: Props) {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">✍️</span><span>Klicke <strong>„Neuer Bericht"</strong> und beschreibe deinen Urlaub mit Fotos, Bewertung und Highlights</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👁️</span><span>Berichte beginnen als <strong>Entwurf</strong> – klicke „Veröffentlichen" um sie der Community zu zeigen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏳️</span><span>Die <strong>Landesflagge</strong> des Reiseziels wird automatisch angezeigt</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✏️</span><span>Berichte jederzeit bearbeiten oder löschen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>Andere Mitglieder können deine Berichte liken und kommentieren</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
             <BookOpen className="w-6 h-6 text-teal-600" />
-            Meine Reiseberichte
+            Meine Urlaubsberichte
           </h2>
           <p className="text-sm text-gray-500 mt-0.5">{reports.length} Berichte · {reports.filter((r) => r.isPublished).length} veröffentlicht</p>
         </div>
@@ -85,8 +101,8 @@ export default function MeineBerichteTab({ user }: Props) {
       {reports.length === 0 ? (
         <div className="text-center py-16 text-gray-400">
           <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-30" />
-          <p className="font-semibold">Noch keine Reiseberichte</p>
-          <p className="text-sm mt-1">Teile deine Reiseerfahrungen mit der Community</p>
+          <p className="font-semibold">Noch keine Urlaubsberichte</p>
+          <p className="text-sm mt-1">Teile deine Urlaubserlebnisse mit der Community</p>
           <button onClick={() => setShowForm(true)}
             className="mt-4 bg-teal-600 hover:bg-teal-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-colors"
           >
@@ -95,7 +111,12 @@ export default function MeineBerichteTab({ user }: Props) {
         </div>
       ) : (
         <div className="space-y-3">
-          {reports.map((r) => (
+          {reports.map((r) => {
+            // Landesflagge aus Destination ableiten (einfaches Mapping)
+            const flagEmoji = r.countryCode
+              ? String.fromCodePoint(...[...r.countryCode.toUpperCase()].map((c) => 0x1F1E6 + c.charCodeAt(0) - 65))
+              : null;
+            return (
             <div key={r.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-4 items-start">
               {/* Cover-Mini */}
               <div className="w-16 h-16 rounded-xl bg-linear-to-br from-teal-400 to-cyan-500 shrink-0 overflow-hidden">
@@ -113,6 +134,7 @@ export default function MeineBerichteTab({ user }: Props) {
                     {r.isPublished ? <Eye className="w-2.5 h-2.5" /> : <EyeOff className="w-2.5 h-2.5" />}
                     {r.isPublished ? "Veröffentlicht" : "Entwurf"}
                   </span>
+                  {flagEmoji && <span className="text-sm" title={r.destination}>{flagEmoji}</span>}
                   <span className="text-[10px] text-gray-400">{r.destination}</span>
                   <span className="flex items-center gap-0.5 text-[10px] text-amber-500">
                     {[...Array(r.rating)].map((_, i) => <Star key={i} className="w-2.5 h-2.5 fill-current" />)}
@@ -144,9 +166,11 @@ export default function MeineBerichteTab({ user }: Props) {
                 </button>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
+    </div>
     </div>
   );
 }

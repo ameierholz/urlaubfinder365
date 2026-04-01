@@ -76,7 +76,23 @@ export default function SettingsTab({ user, userProfile }: Props) {
   };
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">💰</span><span>Wähle dein <strong>Urlaubsbudget</strong> – wir filtern Angebote passend für dich</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👨‍👩‍👧</span><span>Gib Anzahl <strong>Erwachsene und Kinder</strong> an für passende Angebote</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📅</span><span>Wähle bevorzugte <strong>Reisemonate</strong> für personalisierte Empfehlungen</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏖️</span><span>Wähle deinen <strong>Urlaubstyp</strong> (Strand, Stadt, Abenteuer …)</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Klicke <strong>„Speichern"</strong> oben rechts um alle Einstellungen zu sichern</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
           <Settings className="w-5 h-5 text-[#00838F]" />
@@ -99,7 +115,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <Wallet className="w-4 h-4 text-gray-400" />
-          Mein Reisebudget
+          Mein Urlaubsbudget
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {BUDGETS.map(({ id, label, sub, color }) => (
@@ -217,6 +233,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
           lastName={user.displayName?.split(" ").slice(1).join(" ") ?? ""}
         />
       </div>
+    </div>
     </div>
   );
 }

@@ -76,7 +76,23 @@ export default function CheckInTab({ user }: Props) {
   }
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="flex flex-col lg:flex-row gap-6">
+
+    {/* Erklärung rechts */}
+    <div className="order-first lg:order-last lg:w-64 shrink-0">
+      <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100 lg:sticky lg:top-28">
+        <h3 className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-3">Travel Coins</h3>
+        <ul className="space-y-2.5 text-xs text-gray-600">
+          <li className="flex items-start gap-2"><span className="shrink-0">🔥</span><span>Jeden Tag einchecken = <strong>10 Travel Coins</strong> + Streak aufrechterhalten</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🎁</span><span>7 Tage ohne Unterbrechung = <strong>+50 Bonus-Coins</strong></span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span>Coins und Streaks werden in deinem <strong>öffentlichen Profil</strong> angezeigt</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💎</span><span>Coins können zukünftig für <strong>Premium-Features</strong> und Partner-Rabatte eingelöst werden</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>Dein Rang und Streak-Rekord sind für andere Mitglieder sichtbar</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="flex-1 min-w-0 space-y-6">
 
       {/* Toast */}
       {toast && (
@@ -218,6 +234,7 @@ export default function CheckInTab({ user }: Props) {
           </ul>
         </div>
       )}
+    </div>
     </div>
   );
 }
