@@ -118,21 +118,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" suppressHydrationWarning>
       <head>
-        {/* Preconnect – kritische Drittanbieter-Domains frühzeitig verbinden */}
-        <link rel="preconnect" href="https://assets.specials.de" />
-        <link rel="dns-prefetch" href="https://assets.specials.de" />
+        {/* Preconnect – max. 4, nur für kritische Domains die LCP/FCP direkt beeinflussen */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://api.specials.de" />
-        <link rel="dns-prefetch" href="https://api.specials.de" />
-        <link rel="preconnect" href="https://b2b.specials.de" />
-        <link rel="dns-prefetch" href="https://b2b.specials.de" />
-        <link rel="dns-prefetch" href="https://flagcdn.com" />
-        {/* Google Fonts (Plus Jakarta Sans, async via FontAwesomeLoader) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* FontAwesome CDN */}
+        {/* DNS-Prefetch für sekundäre Drittanbieter */}
+        <link rel="dns-prefetch" href="https://assets.specials.de" />
+        <link rel="dns-prefetch" href="https://b2b.specials.de" />
+        <link rel="dns-prefetch" href="https://flagcdn.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-        {/* Unsplash (LCP images auf Homepage und Destination-Seiten) */}
-        <link rel="preconnect" href="https://images.unsplash.com" />
         {/* Organization + WebSite Schema (global) */}
         <script
           type="application/ld+json"

@@ -143,7 +143,7 @@ function FruehbucherCard({
           onClick={handleSave}
           disabled={saving}
           title={saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern"}
-          className="absolute top-2 left-2 w-7 h-7 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center hover:bg-black/50 transition-colors"
+          className="absolute top-1.5 left-1.5 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center hover:bg-black/50 transition-colors"
         >
           <Heart
             className={`w-4 h-4 transition-colors ${
@@ -163,19 +163,19 @@ function FruehbucherCard({
         <p className="font-bold text-gray-900 text-sm leading-tight line-clamp-1 mb-0.5">
           {offer.hotel_name}
         </p>
-        <p className="text-xs text-sand-500 font-semibold mb-1">
+        <p className="text-xs text-sand-600 font-semibold mb-1">
           {offer.destination_name || offer.city_name}, {dest}
         </p>
-        <p className="text-xs text-gray-400 mb-2">
+        <p className="text-xs text-gray-500 mb-2">
           {offer.offer_duration} Nächte · inkl. Flug · {offer.board_name}
         </p>
         <div className="flex items-end justify-between gap-2">
           <div>
-            <span className="text-xs text-gray-400">pro Person</span>
-            <p className="text-lg font-black text-sand-500 leading-none">
+            <span className="text-xs text-gray-500">pro Person</span>
+            <p className="text-lg font-black text-sand-600 leading-none">
               ab {formatPrice(offer.offer_price_adult)}
             </p>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <p className="text-xs text-gray-500 mt-0.5">
               Gesamt: {formatPrice(offer.offer_price_total)}
             </p>
           </div>

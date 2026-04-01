@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
-
   transpilePackages: ["@urlaubfinder/shared"],
+
 
   allowedDevOrigins: ["127.0.0.1", "localhost"],
 

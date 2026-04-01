@@ -132,7 +132,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         <button
           onClick={handleSave}
           disabled={saving}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
+          className={`absolute top-2 right-2 w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
             saved ? "bg-rose-500 text-white scale-110" : "bg-white/90 text-gray-400 hover:bg-white hover:text-rose-500"
           }`}
           title={saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern"}

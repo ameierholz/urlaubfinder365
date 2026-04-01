@@ -3,9 +3,16 @@
 import { useEffect } from "react";
 
 const ASYNC_STYLESHEETS = [
+  // FA: nur fontawesome-core + solid (IBE engine nutzt ausschließlich fa-solid Icons)
+  // all.min.css (~100 KB) → fontawesome.min.css + solid.min.css (~38 KB) — spart ~62 KB
   {
-    id: "fa-stylesheet",
-    href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+    id: "fa-core",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css",
+    crossOrigin: "anonymous" as const,
+  },
+  {
+    id: "fa-solid",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css",
     crossOrigin: "anonymous" as const,
   },
   {

@@ -286,7 +286,7 @@ export default function PriceAlertsTab({ user }: Props) {
                   </button>
                   <button
                     onClick={() => handleDelete(alert.id)}
-                    className="w-7 h-7 rounded-full bg-gray-50 hover:bg-red-50 flex items-center justify-center group transition-colors"
+                    className="w-10 h-10 rounded-full bg-gray-50 hover:bg-red-50 flex items-center justify-center group transition-colors"
                     title="Alarm löschen"
                   >
                     <Trash2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-red-500 transition-colors" />
