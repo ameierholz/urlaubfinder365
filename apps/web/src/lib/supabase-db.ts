@@ -759,12 +759,16 @@ function mapGroup(r: Record<string, unknown>): TravelGroup {
     creatorName: r.creator_name as string,
     name: r.name as string,
     description: r.description as string,
-    destination: r.destination as string,
-    tags: (r.tags as string[]) ?? [],
+    destination: r.destination as string | undefined,
+    country: r.country as string | undefined,
+    travelMonth: r.travel_month as string | undefined,
+    category: (r.category as string ?? "destination") as import("@/types").GroupCategory,
     isPublic: r.is_public as boolean,
     membersCount: r.members_count as number,
     memberIds: (r.member_ids as string[]) ?? [],
     postsCount: r.posts_count as number,
+    coverImageUrl: r.cover_image_url as string | undefined,
+    tags: (r.tags as string[]) ?? [],
     createdAt: r.created_at,
   };
 }
