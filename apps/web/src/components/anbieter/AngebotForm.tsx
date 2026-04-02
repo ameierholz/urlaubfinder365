@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowser } from "@/lib/supabase-browser";
 import { Plus, X, Loader2, CheckCircle, Upload, ImageIcon, Star, Euro, Info } from "lucide-react";
+import WerbeplatzBuchen from "@/components/anbieter/WerbeplatzBuchen";
 import Image from "next/image";
 
 const KATEGORIEN = [
@@ -493,9 +494,10 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
         </button>
       </form>
 
-      {/* ── Rechte Spalte: Preis-Vorschau ──────────────────────────────── */}
+      {/* ── Rechte Spalte: Preis-Vorschau + Werbeplatz ────────────────── */}
       <div className="sticky top-24 space-y-4">
         <PreisVorschau preis={preis} preistyp={preistyp} />
+        <WerbeplatzBuchen anbieter_id={anbieter_id} />
       </div>
     </div>
   );
