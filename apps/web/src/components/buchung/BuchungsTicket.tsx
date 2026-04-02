@@ -115,21 +115,21 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
 
       {/* ── Header: Logo + Buchungsnummer ─────────────────── */}
       <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Image
             src="/images/urlaubfinder-logo.webp"
             alt="Urlaubfinder365"
-            width={96}
-            height={96}
-            className="w-24 h-24 object-contain shrink-0"
+            width={112}
+            height={112}
+            className="w-28 h-28 object-contain shrink-0"
             unoptimized
           />
-          <div>
+          <div className="flex flex-col justify-center">
             <p className="font-black text-gray-900 text-2xl leading-tight">Urlaubfinder365</p>
-            <p className="text-sm text-gray-400">urlaubfinder365.de</p>
+            <p className="text-sm text-gray-400 mt-0.5">www.urlaubfinder365.de</p>
           </div>
         </div>
-        <div className="text-right">
+        <div className="text-right self-center">
           <p className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Buchungs-Ticket</p>
           <p className="text-sm font-black text-gray-900 font-mono mt-0.5">{d.buchungs_nummer}</p>
         </div>
@@ -164,9 +164,9 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
       <div className="px-6 py-4">
         <div className="divide-y divide-gray-100">
           {rows.map((row, i) => (
-            <div key={i} className="flex items-start gap-3 py-2.5">
-              <div className="w-4 mt-0.5 shrink-0 text-gray-400">{row.icon}</div>
-              <span className="text-sm text-gray-400 w-28 shrink-0 pt-px">{row.label}</span>
+            <div key={i} className="flex items-center gap-3 py-2.5">
+              <div className="w-4 shrink-0 text-gray-400">{row.icon}</div>
+              <span className="text-sm text-gray-400 w-28 shrink-0">{row.label}</span>
               <div className="text-left">
                 <span className={`text-sm font-semibold ${row.highlight ? "text-[#00838F] font-black text-base" : "text-gray-800"}`}>
                   {row.value}
@@ -196,11 +196,10 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
 
         <div className="flex items-start gap-5">
           {/* QR Code */}
-          <div className="flex flex-col items-center gap-1.5 shrink-0">
+          <div className="shrink-0">
             <div className="bg-white p-2.5 rounded-xl border-2 border-gray-200 shadow-sm">
               <QRCodeSVG value={d.qr_token} size={110} level="M" fgColor="#111827" />
             </div>
-            <p className="text-[10px] text-gray-400 font-semibold text-center">QR-Code scannen</p>
           </div>
 
           {/* Buchungsnummer */}
