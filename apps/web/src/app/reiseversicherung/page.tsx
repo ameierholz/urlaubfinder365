@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ShieldCheck, Euro, Clock, Star } from "lucide-react";
+import { ShieldCheck, Euro, Clock, Star, ExternalLink } from "lucide-react";
 import VersicherungVergleich from "@/components/versicherung/VersicherungVergleich";
 
 export const metadata: Metadata = {
@@ -22,23 +22,53 @@ const STATS = [
   { icon: Clock,       zahl: "2 Min.",      text: "Bis zum Abschluss" },
 ];
 
+const ERV_URL = "https://www.travialinks.de/link/A-30412-0/A/erv";
+
 export default function ReiseversicherungPage() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
-      <section className="bg-linear-to-br from-[#1a5f9a] to-[#0e4070] text-white py-14 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+
+      {/* Hero mit Hintergrundbild */}
+      <section className="relative overflow-hidden text-white" style={{ minHeight: "420px" }}>
+        {/* Hintergrundbild */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80"
+          alt="Reiseversicherung"
+          className="absolute inset-0 w-full h-full object-cover"
+          // @ts-ignore
+          fetchPriority="high"
+        />
+        {/* Gradient */}
+        <div className="absolute inset-0 bg-linear-to-br from-[#0e4070]/90 via-[#1a5f9a]/80 to-[#0e4070]/85" />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-3xl mx-auto text-center px-4 py-16">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
             🛡️ Reiseversicherung Vergleich 2025
           </div>
           <h1 className="text-4xl md:text-5xl font-black leading-tight mb-4">
             Sicher reisen —<br />günstig versichert
           </h1>
-          <p className="text-lg text-white/85 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/85 max-w-xl mx-auto leading-relaxed mb-8">
             Vergleiche Auslandskrankenversicherung, Reiserücktritt & Co. und finde den besten Tarif
             für deine nächste Reise. Ab 9,80 € pro Jahr bereits gut abgesichert.
           </p>
 
+          {/* Haupt-CTA */}
+          <a
+            href={ERV_URL}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="inline-flex items-center gap-2 bg-white text-[#0e4070] font-black px-8 py-4 rounded-2xl text-base shadow-xl hover:bg-blue-50 transition-colors"
+          >
+            <ShieldCheck className="w-5 h-5" />
+            Jetzt Reiseversicherung abschließen
+            <ExternalLink className="w-4 h-4 opacity-60" />
+          </a>
+          <p className="text-white/60 text-xs mt-3">ERV – Europäische Reiseversicherung · Marktführer & Testsieger</p>
+
+          {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10">
             {STATS.map(({ icon: Icon, zahl, text }) => (
               <div key={text} className="bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-3">
@@ -48,27 +78,6 @@ export default function ReiseversicherungPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ERV Buchungswidget */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          <div className="bg-[#00838F] px-6 py-4 flex items-center gap-3">
-            <span className="text-2xl">🛡️</span>
-            <div>
-              <p className="font-bold text-white text-sm">ERV – Europäische Reiseversicherung</p>
-              <p className="text-white/75 text-xs">Direkt hier abschließen — Marktführer & Testsieger</p>
-            </div>
-          </div>
-          <iframe
-            src="https://www.travialinks.de/link/A-30412-0/A/erv"
-            frameBorder={0}
-            width="100%"
-            height="480"
-            title="ERV Reiseversicherung abschließen"
-            className="block w-full"
-          />
         </div>
       </section>
 
