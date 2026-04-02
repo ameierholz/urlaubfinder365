@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IbeBoardingPassProps {
   city: string;   // e.g. "Antalya"
@@ -11,10 +11,19 @@ interface IbeBoardingPassProps {
 /** Boarding-pass widget: flight cards per departure airport + airline info + destination bar.
  *  Initialized by ibe-engine.js on mount. */
 export default function IbeBoardingPass({ city, code, region = "" }: IbeBoardingPassProps) {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any)._ibeScan?.();
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) return null;
 
   return (
     <div

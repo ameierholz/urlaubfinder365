@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IbeTeaserProps {
   regionId?: string;
@@ -50,12 +50,21 @@ export default function IbeTeaser({
 }: IbeTeaserProps) {
   // hideHeading wird als data-Attribut an ibe-engine.js übergeben
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     // Trigger scan so newly mounted elements are picked up
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any)._ibeScan?.();
-  }, []);
+  }, [mounted]);
+
+  // Kein SSR – verhindert Hydration-Mismatch durch DOM-Mutation von ibe-engine.js
+  if (!mounted) return null;
 
   return (
     <div
