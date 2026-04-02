@@ -1,0 +1,102 @@
+"use client";
+
+import { useState } from "react";
+import { Ticket, X, Loader2, ExternalLink, Printer } from "lucide-react";
+import { createSupabaseBrowser } from "@/lib/supabase-browser";
+import BuchungsTicket, { type TicketDaten } from "@/components/buchung/BuchungsTicket";
+
+export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: string }) {
+  const [open, setOpen]       = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [data, setData]       = useState<TicketDaten | null>(null);
+  const sb = createSupabaseBrowser();
+
+  const oeffnen = async () => {
+    setOpen(true);
+    if (data) return;
+    setLoading(true);
+    const { data: raw } = await sb
+      .from("buchungen" as never)
+      .select(`
+        buchungs_nummer, qr_token, kunden_name, datum, personen,
+        gesamtpreis, status, created_at,
+        angebote:angebot_id (titel, ziel, dauer, foto_url, treffpunkt, treffpunkt_hinweis),
+        anbieter_profile:anbieter_id (name, telefon, avatar_url, verifiziert)
+      `)
+      .eq("buchungs_nummer", buchungsNummer)
+      .single();
+    setData(raw as unknown as TicketDaten);
+    setLoading(false);
+  };
+
+  return (
+    <>
+      <button
+        onClick={oeffnen}
+        className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors"
+      >
+        <Ticket className="w-3 h-3" /> Ticket
+      </button>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setOpen(false)} />
+
+          {/* Modal */}
+          <div className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl">
+
+            {/* Toolbar */}
+            <div className="flex items-center justify-between bg-gray-900 px-4 py-3 rounded-t-3xl border-b border-gray-700">
+              <p className="text-sm font-bold text-white flex items-center gap-2">
+                <Ticket className="w-4 h-4 text-gray-400" /> {buchungsNummer}
+              </p>
+              <div className="flex items-center gap-2">
+                {data && (
+                  <>
+                    <button
+                      onClick={() => window.open(`/buchung/ticket/${buchungsNummer}/`, "_blank")}
+                      className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-gray-800"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" /> Neuer Tab
+                    </button>
+                    <button
+                      onClick={() => window.open(`/buchung/ticket/${buchungsNummer}/`, "_blank")}
+                      className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-gray-800"
+                    >
+                      <Printer className="w-3.5 h-3.5" /> Drucken
+                    </button>
+                  </>
+                )}
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Inhalt */}
+            {loading && (
+              <div className="bg-white flex items-center justify-center py-20 rounded-b-3xl">
+                <Loader2 className="w-8 h-8 animate-spin text-gray-300" />
+              </div>
+            )}
+            {!loading && data && (
+              <BuchungsTicket d={data} compact />
+            )}
+            {!loading && !data && (
+              <div className="bg-white py-16 text-center text-gray-400 rounded-b-3xl text-sm">
+                Ticket konnte nicht geladen werden.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

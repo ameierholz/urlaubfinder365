@@ -1,7 +1,6 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Ticket } from "lucide-react";
+import AdminTicketModal from "@/components/admin/AdminTicketModal";
 
 export const metadata: Metadata = { title: "Buchungen | Admin" };
 
@@ -88,13 +87,7 @@ export default async function AdminBuchungenPage() {
                     </td>
                     <td className="px-4 py-3 text-center">
                       {b.status === "bestaetigt" || b.status === "abgeschlossen" ? (
-                        <Link
-                          href={`/buchung/ticket/${b.buchungs_nummer}/`}
-                          target="_blank"
-                          className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors"
-                        >
-                          <Ticket className="w-3 h-3" /> Ticket
-                        </Link>
+                        <AdminTicketModal buchungsNummer={b.buchungs_nummer} />
                       ) : (
                         <span className="text-gray-700 text-xs">—</span>
                       )}

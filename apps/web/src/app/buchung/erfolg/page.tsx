@@ -24,8 +24,8 @@ export default async function BuchungErfolgPage({ searchParams }: Props) {
   const { data } = await supabaseAdmin
     .from("buchungen")
     .select(`
-      buchungs_nummer, qr_token, kunden_name, kunden_email, kunden_telefon,
-      datum, personen, gesamtpreis, status,
+      buchungs_nummer, qr_token, kunden_name,
+      datum, personen, gesamtpreis, status, created_at,
       angebote:angebot_id (titel, ziel, dauer, foto_url, treffpunkt, treffpunkt_hinweis),
       anbieter_profile:anbieter_id (name, telefon, avatar_url, verifiziert)
     `)
