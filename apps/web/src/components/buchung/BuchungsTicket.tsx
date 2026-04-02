@@ -110,14 +110,14 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
           <Image
             src="/images/urlaubfinder-logo.webp"
             alt="Urlaubfinder365"
-            width={80}
-            height={80}
-            className="w-20 h-20 object-contain shrink-0"
+            width={96}
+            height={96}
+            className="w-24 h-24 object-contain shrink-0"
             unoptimized
           />
           <div>
-            <p className="font-black text-white text-lg leading-tight print:text-gray-900">Urlaubfinder365</p>
-            <p className="text-xs text-gray-400">urlaubfinder365.de</p>
+            <p className="font-black text-white text-2xl leading-tight print:text-gray-900">Urlaubfinder365</p>
+            <p className="text-sm text-gray-400">urlaubfinder365.de</p>
           </div>
         </div>
         <div className="text-right">
