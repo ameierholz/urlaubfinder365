@@ -10,7 +10,6 @@ import IbeTeaser from "@/components/ibe/IbeTeaser";
 import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
 import ReiseHub from "@/components/reise-hub/ReiseHub";
 import TiqetsActivitiesSection from "@/components/tiqets/TiqetsActivitiesSection";
-import SimilarDestinations from "@/components/destination/SimilarDestinations";
 import DestinationCarousel, { type DestCarouselItem } from "@/components/ui/DestinationCarousel";
 import EntryInfoBox from "@/components/destination/EntryInfoBox";
 import DestinationMap from "@/components/destination/DestinationMap";
@@ -488,11 +487,8 @@ export default async function DestinationPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Ähnliche Reiseziele */}
-      <SimilarDestinations current={dest} />
-
       {/* Alle Reiseziele – Carousel */}
-      <DestinationCarousel title="Weitere Reiseziele entdecken" />
+      <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
 
       {/* Guide CTA unten – nur wenn Reiseführer vorhanden */}
       {dest.guideSlug && (
