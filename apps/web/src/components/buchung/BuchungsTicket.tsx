@@ -110,14 +110,14 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
           <Image
             src="/images/urlaubfinder-logo.webp"
             alt="Urlaubfinder365"
-            width={48}
-            height={48}
-            className="w-14 h-14 object-contain shrink-0"
+            width={64}
+            height={64}
+            className="w-16 h-16 object-contain shrink-0"
             unoptimized
           />
           <div>
-            <p className="font-black text-white text-sm leading-tight print:text-gray-900">Urlaubfinder365</p>
-            <p className="text-[10px] text-gray-400">urlaubfinder365.de</p>
+            <p className="font-black text-white text-base leading-tight print:text-gray-900">Urlaubfinder365</p>
+            <p className="text-[11px] text-gray-400">urlaubfinder365.de</p>
           </div>
         </div>
         <div className="text-right">
@@ -183,33 +183,32 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
       </div>
 
       {/* ── QR + Token ────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-6 px-6 py-5">
+      <div className="px-6 py-5 space-y-4">
+        <p className="text-xs font-black text-gray-700 uppercase tracking-widest">Verifizierung</p>
+        <p className="text-xs text-gray-400 leading-relaxed">
+          Zeige dem Anbieter den QR-Code zum Scannen — oder gib die Buchungsnummer manuell ein.
+        </p>
 
-        {/* QR Code */}
-        <div className="flex flex-col items-center gap-2 shrink-0">
-          <div className="bg-white p-3 rounded-2xl border-2 border-gray-200 shadow-sm">
-            <QRCodeSVG value={d.qr_token} size={116} level="M" fgColor="#111827" />
-          </div>
-          <p className="text-[10px] text-gray-400 font-semibold text-center">QR-Code scannen</p>
-        </div>
-
-        {/* Token-Info */}
-        <div className="flex-1 space-y-3">
-          <div>
-            <p className="text-xs font-black text-gray-700 uppercase tracking-widest mb-1">Buchungs-Token</p>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              Zeige diesen Code dem Anbieter zum Scannen — oder gib den Token manuell auf der Anbieterseite ein.
-            </p>
+        <div className="flex items-start gap-5">
+          {/* QR Code */}
+          <div className="flex flex-col items-start gap-1.5 shrink-0">
+            <div className="bg-white p-2.5 rounded-xl border-2 border-gray-200 shadow-sm">
+              <QRCodeSVG value={d.qr_token} size={110} level="M" fgColor="#111827" />
+            </div>
+            <p className="text-[10px] text-gray-400 font-semibold">QR-Code scannen</p>
           </div>
 
-          {/* Buchungsnummer als manueller Code */}
-          <div className="bg-gray-50 border-2 border-dashed border-[#00838F]/40 rounded-xl p-3.5 text-center">
-            <p className="text-[10px] text-gray-400 mb-2 font-bold uppercase tracking-widest">Manuelle Eingabe</p>
-            <p className="font-mono font-black text-gray-900 text-xl tracking-widest select-all">
-              {d.buchungs_nummer}
-            </p>
-            <p className="text-[10px] text-gray-400 mt-2 leading-relaxed">
-              Eingeben unter <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
+          {/* Buchungsnummer */}
+          <div className="flex-1 space-y-2">
+            <div className="bg-gray-50 border-2 border-dashed border-[#00838F]/40 rounded-xl p-4">
+              <p className="text-[10px] text-gray-400 mb-2 font-bold uppercase tracking-widest">Buchungsnummer</p>
+              <p className="font-mono font-black text-gray-900 text-2xl tracking-widest select-all">
+                {d.buchungs_nummer}
+              </p>
+            </div>
+            <p className="text-[10px] text-gray-400 leading-relaxed">
+              Manuell eingeben unter{" "}
+              <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
             </p>
           </div>
         </div>
