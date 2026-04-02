@@ -8,15 +8,16 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Frühbucher Urlaub 2026 – bis zu 40% sparen",
-  description:
-    "Frühbucher Angebote 2026: Frühzeitig buchen und bis zu 40% auf Pauschalreisen sparen. ✓ Beste Hotelzimmer sichern ✓ Maximale Auswahl ✓ Niedrigste Preise.",
+  title: `🌅 Frühbucher Urlaub ${YEAR}/${YEAR + 1} – bis 40% sparen`,
+  description: `Frühbucher Angebote ${YEAR}/${YEAR + 1}: Bis zu 40% auf Pauschalreisen sparen ✓ Beste Hotels sichern ✓ Maximale Auswahl ✓ Jetzt früh buchen!`,
+  keywords: ["Frühbucher Urlaub", "Frühbucher Angebote", "Frühbucher Türkei", "Frühbucher Mallorca", "Frühbucher Griechenland", "Früh buchen sparen", "Frühbucher Pauschalreise", "Frühbucherrabatt"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/fruhbucher-urlaub/" },
   openGraph: {
-    title: "Frühbucher Urlaub 2026 – bis zu 40% sparen | Urlaubfinder365",
-    description:
-      "Frühbucher Angebote 2026: Frühzeitig buchen und bis zu 40% auf Pauschalreisen sparen. ✓ Beste Hotelzimmer sichern ✓ Maximale Auswahl ✓ Niedrigste Preise.",
+    title: `🌅 Frühbucher Urlaub ${YEAR}/${YEAR + 1} – bis 40% sparen | Urlaubfinder365`,
+    description: `Frühbucher Angebote ${YEAR}/${YEAR + 1}: Bis zu 40% auf Pauschalreisen sparen ✓ Beste Hotels sichern ✓ Maximale Auswahl ✓ Jetzt früh buchen!`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/fruhbucher-urlaub/",
     siteName: "Urlaubfinder365",
     images: [{ url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80", width: 1200, height: 630, alt: "Frühbucher Urlaub – Traumstrand auf griechischer Insel" }],

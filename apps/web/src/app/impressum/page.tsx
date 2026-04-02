@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Impressum",
-  description: "Impressum und rechtliche Angaben von Urlaubfinder365.de – Ihr Reiseportal für Pauschalreisen, Last Minute & Reiseführer.",
+  title: "📄 Impressum – Urlaubfinder365",
+  description: "Impressum und Anbieterkennzeichnung von Urlaubfinder365.de gemäß § 5 TMG.",
   robots: { index: true, follow: false },
   alternates: { canonical: "https://www.urlaubfinder365.de/impressum/" },
 };

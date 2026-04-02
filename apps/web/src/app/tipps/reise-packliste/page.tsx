@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CheckSquare, Sun, Plane, Shield, Smartphone, ShoppingBag } from "lucide-react";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Reise-Packliste 2026 – Checkliste für den Urlaub",
-  description:
-    "Die ultimative Reise-Packliste 2026: Checkliste für Strand-, Sommer- und Pauschalurlaub. Dokumente, Kleidung, Apotheke – alles zum Ausdrucken.",
-  keywords: [
-    "Reise Packliste",
-    "Packliste Urlaub",
-    "Checkliste Urlaub",
-    "Packliste Strand",
-    "Packliste Türkei",
-    "Packliste Mallorca",
-    "Reise Checkliste ausdrucken",
-  ],
+  title: `🧳 Reise-Packliste ${YEAR} – nichts vergessen!`,
+  description: `Kostenlose Reise-Packliste ${YEAR}: Checkliste zum Abhaken ✓ Nach Reiseart sortiert ✓ Strandurlaub, Städtereise & Winterurlaub ✓ Jetzt drucken.`,
+  keywords: ["Reise Packliste", "Packliste Urlaub", "Koffer packen Checkliste", "Packliste Strandurlaub", "Packliste Städtereise", "Reisecheckliste"],
   alternates: { canonical: "https://www.urlaubfinder365.de/tipps/reise-packliste/" },
   openGraph: {
-    title: "Reise-Packliste 2026 – Die ultimative Checkliste für deinen Urlaub",
-    description:
-      "Vergiss nie wieder etwas! Unsere kostenlose Reise-Packliste für Strand- und Pauschalurlaub – zum Ausdrucken oder als digitale Checkliste.",
+    title: `🧳 Reise-Packliste ${YEAR} | Urlaubfinder365`,
+    description: `Kostenlose Reise-Packliste ${YEAR}: Checkliste zum Abhaken ✓ Nach Reiseart sortiert ✓ Strandurlaub, Städtereise & Winterurlaub ✓ Jetzt drucken.`,
     url: "https://www.urlaubfinder365.de/tipps/reise-packliste/",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1553531384-411a247ccd73?w=1200&h=630&fit=crop&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Gepackter Koffer mit Reiseutensilien – Reise-Packliste bei Urlaubfinder365",
+      },
+    ],
   },
 };
 

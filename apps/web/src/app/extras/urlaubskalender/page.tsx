@@ -4,13 +4,16 @@ import PageNavBar from "@/components/ui/PageNavBar";
 import AdBanner from "@/components/ui/AdBanner";
 import DestinationCard, { type Destination } from "@/components/urlaubskalender/DestinationCard";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaubskalender – Die besten Reiseziele nach Monat",
-  description: "Wann ist wo die beste Reisezeit? Unser Urlaubskalender zeigt dir die Top-Ziele für Sommer- und Winterurlaub – jeden Monat des Jahres.",
+  title: `📅 Urlaubskalender ${YEAR} – beste Reisezeit finden`,
+  description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Reiseziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
+  keywords: ["Urlaubskalender", "Beste Reisezeit", "Wann wohin reisen", "Reisezeit Kalender", "Schulferien Urlaub", "Klimatabelle Reiseziele"],
   alternates: { canonical: "https://www.urlaubfinder365.de/extras/urlaubskalender/" },
   openGraph: {
-    title: "Urlaubskalender – Die besten Reiseziele nach Monat",
-    description: "Wann ist wo die beste Reisezeit? Unser Urlaubskalender zeigt dir die Top-Ziele für Sommer- und Winterurlaub.",
+    title: `📅 Urlaubskalender ${YEAR} – beste Reisezeit | Urlaubfinder365`,
+    description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Reiseziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
     url: "https://www.urlaubfinder365.de/extras/urlaubskalender/",
     type: "website",
   },

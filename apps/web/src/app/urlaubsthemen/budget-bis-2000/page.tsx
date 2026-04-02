@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaub bis 2.000 € buchen – Premium & Luxusreisen",
-  description:
-    "Pauschalreisen bis 2.000 € pro Person ✓ Flug + Hotel ✓ 5-Sterne Hotels ✓ Täglich neue Angebote.",
+  title: `👑 Urlaub bis 2.000€ – Luxus-Pauschalreisen ${YEAR}`,
+  description: `Urlaub bis 2.000€ pro Person ${YEAR}: Luxuriöse Pauschalreisen ✓ 5 Sterne Hotels ✓ Suite & Meerblick ✓ Ultra All Inclusive ✓ Jetzt buchen.`,
+  keywords: ["Urlaub bis 2000 Euro", "Luxus Pauschalreise", "5 Sterne Hotel günstig", "Ultra All Inclusive", "Luxusurlaub buchen", "Premium Reise buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-2000/",
   },
   openGraph: {
-    title: "Urlaub bis 2.000 € buchen – Premium & Luxusreisen",
-    description:
-      "Pauschalreisen bis 2.000 € pro Person ✓ Flug + Hotel ✓ 5-Sterne Hotels ✓ Täglich neue Angebote.",
+    title: `👑 Urlaub bis 2.000€ ${YEAR} – Luxus buchen | Urlaubfinder365`,
+    description: `Urlaub bis 2.000€ pro Person ${YEAR}: Luxuriöse Pauschalreisen ✓ 5 Sterne Hotels ✓ Suite & Meerblick ✓ Ultra All Inclusive ✓ Jetzt buchen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-2000/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/budget-bis-1500/", label: "💳 Budget bis 1.500 €" },
   { href: "/urlaubsthemen/luxusurlaub/", label: "👑 Luxusurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function BudgetBis2000Page() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

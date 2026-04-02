@@ -10,17 +10,18 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Strandurlaub günstig buchen – Traumhotels am Meer",
-  description:
-    "Strandurlaub mit Traumhotels in bester Lage ✓ Beachfront-Hotels ✓ Mindestens 50% HolidayCheck ✓ Täglich aktualisierte Angebote am Meer.",
+  title: `🏖 Strandurlaub ${YEAR} günstig buchen – Traumhotels am Meer`,
+  description: `Strandurlaub ${YEAR} günstig buchen ✓ Beachfront-Hotels ✓ Traumstrände weltweit ✓ Täglich aktualisierte Angebote ✓ Jetzt Traumstrand sichern!`,
+  keywords: ["Strandurlaub günstig", "Strandurlaub buchen", "Strandhotel", "Beachfront Hotel", "Strandurlaub Türkei", "Strandurlaub Mallorca", "Urlaub am Meer", "Badeurlaub buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/strandurlaub/",
   },
   openGraph: {
-    title: "Strandurlaub günstig buchen – Traumhotels am Meer",
-    description:
-      "Strandurlaub mit Traumhotels in bester Lage ✓ Beachfront-Hotels ✓ Mindestens 50% HolidayCheck ✓ Täglich aktualisierte Angebote am Meer.",
+    title: `🏖 Strandurlaub ${YEAR} – Traumhotels am Meer | Urlaubfinder365`,
+    description: `Strandurlaub ${YEAR} günstig buchen ✓ Beachfront-Hotels ✓ Traumstrände weltweit ✓ Täglich aktualisierte Angebote ✓ Jetzt Traumstrand sichern!`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/strandurlaub/",
     type: "website",
     images: [
@@ -72,16 +73,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/adults-only/", label: "💑 Adults Only" },
   { href: "/urlaubsthemen/familienurlaub/", label: "👨‍👩‍👧‍👦 Familienurlaub" },
@@ -103,7 +94,6 @@ const breadcrumbSchema = {
 export default function StrandUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

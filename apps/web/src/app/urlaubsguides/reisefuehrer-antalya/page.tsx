@@ -4,22 +4,23 @@ import AdBanner from "@/components/ui/AdBanner";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-antalya/`;
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: "Antalya Reiseführer 2026 – Tipps, Sehenswürdigkeiten & praktische Infos",
-  description:
-    "Antalya Reiseführer 2026: Sehenswürdigkeiten, Strände, Geheimtipps, Essen & Trinken, Viertel-Guide und Notfallkontakte für deinen Türkei-Urlaub.",
+  title: `☀ Antalya Reiseführer ${YEAR} – Tipps & Sehenswürdigkeiten`,
+  description: `Antalya Reiseführer ${YEAR}: Top-Sehenswürdigkeiten, Strände, Geheimtipps, Essen & Trinken, Viertel-Guide ✓ Dein kompletter Türkei-Urlaubs-Guide.`,
+  keywords: ["Antalya Reiseführer", "Antalya Tipps", "Antalya Sehenswürdigkeiten", "Antalya Strände", "Antalya Urlaub", "Türkei Reiseführer", "Antalya Geheimtipps", "Antalya Guide"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Antalya Reiseführer 2026 – Dein kompletter Türkei-Urlaubs-Guide",
-    description: "Alles über Antalya: Top-Sehenswürdigkeiten, Strände, Viertel, Geheimtipps, Reisezeit & Buchung – der umfassendste Antalya-Guide.",
+    title: `☀ Antalya Reiseführer ${YEAR} – Türkei Guide | Urlaubfinder365`,
+    description: `Antalya Reiseführer ${YEAR}: Top-Sehenswürdigkeiten, Strände, Geheimtipps, Essen & Trinken, Viertel-Guide ✓ Dein kompletter Türkei-Urlaubs-Guide.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80",
       width: 1200,
       height: 630,
-      alt: "Antalya Türkei – Reiseführer 2026",
+      alt: `Antalya Türkei – Reiseführer ${YEAR}`,
     }],
   },
 };
@@ -40,7 +41,21 @@ const jsonLd = {
       "headline": "Antalya Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
       "description": "Dein umfassender Antalya Reiseführer: Sehenswürdigkeiten, Tagesplanung, Geheimtipps, Essen & Trinken, Sprachhilfe und Notfallkontakte.",
       "url": CANONICAL,
-      "about": { "@type": "TouristDestination", "name": "Antalya", "containedInPlace": { "@type": "Country", "name": "Türkei" } },
+      "datePublished": "2026-04-01",
+      "dateModified": "2026-04-02",
+      "author": { "@type": "Organization", "name": "Urlaubfinder365" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Urlaubfinder365",
+        "logo": { "@type": "ImageObject", "url": `${BASE_URL}/images/header_logo.webp` },
+      },
+      "image": "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80",
+      "about": {
+        "@type": "TouristDestination",
+        "name": "Antalya",
+        "description": "Beliebtes Reiseziel an der türkischen Riviera mit antiken Ruinen, traumhaften Stränden und mediterranem Flair.",
+        "containedInPlace": { "@type": "Country", "name": "Türkei" },
+      },
     },
   ],
 };

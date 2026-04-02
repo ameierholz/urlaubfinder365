@@ -12,17 +12,19 @@ import HomeCruiseSection from "@/components/home/HomeCruiseSection";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaub günstig buchen – Pauschalreisen & Last Minute",
-  description:
-    "Pauschalreisen, All Inclusive & Last Minute günstig buchen ✓ Täglich aktuell ✓ Türkei, Mallorca & Ägypten ✓ Direkt beim Veranstalter buchen.",
+  title: `✈ Pauschalreisen & Last Minute günstig buchen ${YEAR}`,
+  description: `Pauschalreisen, All Inclusive & Last Minute ${YEAR} günstig buchen ✓ Über 50 Veranstalter ✓ Türkei ab 199€ ✓ Mallorca ab 249€ ✓ Täglich neue Deals.`,
+  keywords: ["Pauschalreisen günstig buchen", "Urlaub günstig buchen", "Last Minute Urlaub", "All Inclusive Urlaub", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Pauschalreisen Ägypten", "Billig Urlaub buchen", "Urlaubsschnäppchen", "Reise buchen online"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/",
   },
   openGraph: {
-    title: "Urlaub günstig buchen – Pauschalreisen & Last Minute | Urlaubfinder365",
+    title: `✈ Pauschalreisen & Last Minute günstig buchen ${YEAR} | Urlaubfinder365`,
     description:
-      "Täglich aktuelle Pauschalreisen, All Inclusive & Last Minute Angebote für Türkei, Mallorca, Griechenland & Ägypten. Jetzt Traumurlaub günstig buchen!",
+      "Täglich aktuelle Pauschalreisen, All Inclusive & Last Minute für Türkei, Mallorca, Griechenland & Ägypten. Jetzt Traumurlaub günstig buchen!",
     url: "https://www.urlaubfinder365.de/",
     images: [
       {
@@ -315,53 +317,6 @@ export default async function HomePage() {
     },
   };
 
-  const schemaFAQ = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Wie finde ich günstige Pauschalreisen?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Auf Urlaubfinder365 vergleichen wir täglich tausende Pauschalreisen von über 50 führenden Reiseveranstaltern. Nutze die Suche, filtere nach Reiseziel, Dauer und Budget – und finde immer das günstigste Angebot.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Wann lohnen sich Frühbucher-Angebote?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Frühbucher-Rabatte sind am größten bei Buchung 6–12 Monate vor Reisebeginn. Du sicherst dir die besten Zimmerkategorien und Preisgarantien – oft bis zu 60 % günstiger als Last-Minute-Angebote.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Welche Urlaubsziele sind 2026 besonders günstig?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Günstige Pauschalreisen 2026 gibt es vor allem in die Türkei (ab 299 €), nach Ägypten (ab 449 €), nach Griechenland (ab 389 €) und nach Spanien/Mallorca (ab 349 €). Alle Preise für 7 Nächte/2 Personen inkl. Flug.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Was ist bei All Inclusive Urlaub inbegriffen?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "All Inclusive (AI) umfasst alle Mahlzeiten, Snacks und Getränke rund um die Uhr. Viele Hotels bieten zusätzlich Animation, Sport und Wasserpark inklusive an.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Ist Last Minute buchen günstig und sicher?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Last-Minute-Reisen (3–28 Tage vor Abflug) sind häufig 20–50 % günstiger als der Normalpreis, da Veranstalter freie Kapazitäten füllen. Die Buchung erfolgt direkt beim zugelassenen Reiseveranstalter – sicher und vertrauenswürdig.",
-        },
-      },
-    ],
-  };
-
   const schemaItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -379,8 +334,8 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* JSON-LD – Organization, WebSite, FAQPage, ItemList */}
-      {[schemaOrganization, schemaWebSite, schemaFAQ, schemaItemList].map((schema, i) => (
+      {/* JSON-LD – Organization, WebSite, ItemList */}
+      {[schemaOrganization, schemaWebSite, schemaItemList].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"

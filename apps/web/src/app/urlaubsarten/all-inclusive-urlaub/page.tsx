@@ -9,15 +9,16 @@ import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "All-Inclusive Urlaub 2026 – günstig ab 299 €",
-  description:
-    "All-Inclusive Urlaub 2026 günstig buchen: Essen, Trinken & Unterhaltung inklusive. ✓ 4 & 5 Sterne Hotels ✓ Täglich neue Angebote ✓ Bestpreis-Garantie.",
+  title: `☀ All Inclusive Urlaub ${YEAR} – günstig ab 299€ buchen`,
+  description: `All Inclusive Urlaub ${YEAR} günstig buchen ✓ Essen, Trinken & Unterhaltung inklusive ✓ 4 & 5 Sterne Hotels ✓ Täglich neue Angebote ✓ Bestpreis.`,
+  keywords: ["All Inclusive Urlaub", "All Inclusive günstig", "All Inclusive Türkei", "All Inclusive Mallorca", "All Inclusive Ägypten", "AI Urlaub buchen", "Ultra All Inclusive", "All Inclusive Hotel", "All Inclusive Pauschalreise"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/all-inclusive-urlaub/" },
   openGraph: {
-    title: "All-Inclusive Urlaub 2026 – günstig ab 299 € | Urlaubfinder365",
-    description:
-      "All-Inclusive Urlaub 2026 günstig buchen: Essen, Trinken & Unterhaltung inklusive. ✓ 4 & 5 Sterne Hotels ✓ Täglich neue Angebote ✓ Bestpreis-Garantie.",
+    title: `☀ All Inclusive Urlaub ${YEAR} – günstig ab 299€ | Urlaubfinder365`,
+    description: `All Inclusive Urlaub ${YEAR} günstig buchen ✓ Essen, Trinken & Unterhaltung inklusive ✓ 4 & 5 Sterne Hotels ✓ Täglich neue Angebote ✓ Bestpreis.`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/all-inclusive-urlaub/",
     siteName: "Urlaubfinder365",
     images: [{ url: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80", width: 1200, height: 630, alt: "All Inclusive Hotel Pool mit türkisblauem Wasser" }],
@@ -35,14 +36,14 @@ const FAQ = [
   { q: "Wie unterscheidet sich UAI von AI?", a: "UAI (Ultra All-Inclusive) ist die Premium-Variante: mehr Restaurants, höherwertige Alkoholmarken, mehr Inklusivleistungen wie Wassersport oder Spa. Der Preisunterschied beträgt oft 20–40%." },
 ];
 
-const faqSchema = {
+const breadcrumbSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
+    { "@type": "ListItem", position: 2, name: "Urlaubsarten", item: "https://www.urlaubfinder365.de/urlaubsarten/" },
+    { "@type": "ListItem", position: 3, name: "All-Inclusive Urlaub", item: "https://www.urlaubfinder365.de/urlaubsarten/all-inclusive-urlaub/" },
+  ],
 };
 
 const AI_HIGHLIGHTS = [
@@ -58,7 +59,7 @@ export default function AllInclusiveUrlaub() {
 
   return (
     <div className="min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* Hero */}
       <div
         className="text-white relative overflow-hidden -mt-24 pt-24 min-h-[380px]"

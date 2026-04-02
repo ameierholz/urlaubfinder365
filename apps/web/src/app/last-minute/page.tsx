@@ -4,15 +4,17 @@ import { fetchOffers } from "@/lib/travel-api";
 import { destinations } from "@/lib/destinations";
 import OffersGrid from "@/components/offers/OffersGrid";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Last-Minute Urlaub 2026 – bis zu 60% günstiger",
-  description:
-    "Last-Minute Urlaub günstig buchen ✓ Täglich aktualisiert ✓ Bis zu 60% sparen ✓ Türkei, Mallorca, Ägypten & Griechenland – spontan verreisen zum Bestpreis!",
+  title: `⚡ Last Minute Urlaub ${YEAR} – bis 60% günstiger buchen`,
+  description: `Last Minute Urlaub ${YEAR} günstig buchen ✓ Täglich neue Deals ✓ Bis zu 60% sparen ✓ Türkei, Mallorca, Ägypten & Griechenland – jetzt spontan verreisen!`,
+  keywords: ["Last Minute Urlaub", "Last Minute Reisen günstig", "Last Minute Türkei", "Last Minute Mallorca", "Last Minute Ägypten", "Kurzfristig Urlaub buchen", "Spontan verreisen", "Billige Last Minute Angebote", "Last Minute Pauschalreise"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/last-minute/",
   },
   openGraph: {
-    title: "Last-Minute Urlaub 2026 – Kurzfristige Angebote günstig buchen",
+    title: `⚡ Last Minute Urlaub ${YEAR} – günstige Angebote | Urlaubfinder365`,
     description:
       "Täglich neue Last-Minute Deals ✓ Bis zu 60% günstiger ✓ Türkei, Mallorca, Griechenland & mehr – jetzt spontan buchen!",
     url: "https://www.urlaubfinder365.de/last-minute/",
@@ -28,11 +30,8 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD Structured Data
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
+// FAQ data for rendering (JSON-LD FAQPage removed – restricted by Google since Aug 2023)
+const faqData = [
     {
       "@type": "Question",
       name: "Wie viel spare ich mit Last-Minute Urlaub?",
@@ -73,8 +72,7 @@ const faqSchema = {
         text: "Last-Minute Angebote gelten für Reisen 1–21 Tage im Voraus. Super-Last-Minute bezeichnet extrem kurzfristige Angebote für den selben oder nächsten Tag mit den größten Rabatten.",
       },
     },
-  ],
-};
+];
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -94,7 +92,6 @@ export default async function LastMinutePage() {
   return (
     <>
       {/* Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <div className="min-h-screen">
@@ -410,7 +407,7 @@ export default async function LastMinutePage() {
         <div id="faq" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Häufige Fragen zu Last-Minute Urlaub</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {faqSchema.mainEntity.map((item) => (
+            {faqData.map((item) => (
               <div key={item.name} className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
                 <h3 className="font-semibold text-gray-900 mb-2 text-[15px]">{item.name}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{item.acceptedAnswer.text}</p>

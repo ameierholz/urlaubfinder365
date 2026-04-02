@@ -10,17 +10,18 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Adults Only Urlaub – Paare & Erwachsene ohne Kinder",
-  description:
-    "Adults Only Hotels für Paare ✓ Romantic, ruhig, exklusiv ✓ Mindestens 50% HolidayCheck-Empfehlung ✓ Täglich aktuelle Angebote für Urlaub ohne Kinder.",
+  title: `💑 Adults Only Urlaub ${YEAR} – Hotels nur für Erwachsene`,
+  description: `Adults Only Urlaub ${YEAR} günstig buchen ✓ Hotels exklusiv für Erwachsene ✓ Keine Kinder ✓ Ruhe & Romantik ✓ Täglich neue Angebote.`,
+  keywords: ["Adults Only Urlaub", "Adults Only Hotel", "Urlaub ohne Kinder", "Erwachsenenhotel", "Adults Only Türkei", "Adults Only Mallorca", "Paarurlaub", "Romantikurlaub"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/adults-only/",
   },
   openGraph: {
-    title: "Adults Only Urlaub – Paare & Erwachsene ohne Kinder",
-    description:
-      "Adults Only Hotels für Paare ✓ Romantic, ruhig, exklusiv ✓ Mindestens 50% HolidayCheck-Empfehlung ✓ Täglich aktuelle Angebote für Urlaub ohne Kinder.",
+    title: `💑 Adults Only Urlaub ${YEAR} – nur für Erwachsene | Urlaubfinder365`,
+    description: `Adults Only Urlaub ${YEAR} günstig buchen ✓ Hotels exklusiv für Erwachsene ✓ Keine Kinder ✓ Ruhe & Romantik ✓ Täglich neue Angebote.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/adults-only/",
     type: "website",
     images: [
@@ -73,16 +74,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/hochzeitsreise/", label: "💒 Hochzeitsreise" },
   { href: "/urlaubsthemen/luxusurlaub/", label: "👑 Luxusurlaub" },
@@ -104,7 +95,6 @@ const breadcrumbSchema = {
 export default function AdultsOnlyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

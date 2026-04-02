@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaub bis 1.000 € buchen – Günstige Pauschalreisen",
-  description:
-    "Pauschalreisen bis 1.000 € pro Person ✓ Flug + Hotel ✓ Täglich neue Angebote ✓ Günstig in den Urlaub.",
+  title: `💶 Urlaub bis 1.000€ – Pauschalreisen ${YEAR}`,
+  description: `Urlaub bis 1.000€ pro Person ${YEAR}: Hochwertige Pauschalreisen ✓ 4-Sterne Hotels ✓ All Inclusive möglich ✓ Jetzt Top-Deals sichern.`,
+  keywords: ["Urlaub bis 1000 Euro", "Pauschalreise 1000 Euro", "Mittelklasse Urlaub", "4 Sterne Urlaub günstig", "All Inclusive günstig", "Urlaub gutes Preis-Leistungs-Verhältnis"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-1000/",
   },
   openGraph: {
-    title: "Urlaub bis 1.000 € buchen – Günstige Pauschalreisen",
-    description:
-      "Pauschalreisen bis 1.000 € pro Person ✓ Flug + Hotel ✓ Täglich neue Angebote ✓ Günstig in den Urlaub.",
+    title: `💶 Urlaub bis 1.000€ ${YEAR} – Top-Deals | Urlaubfinder365`,
+    description: `Urlaub bis 1.000€ pro Person ${YEAR}: Hochwertige Pauschalreisen ✓ 4-Sterne Hotels ✓ All Inclusive möglich ✓ Jetzt Top-Deals sichern.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-1000/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/budget-bis-500/", label: "💸 Budget bis 500 €" },
   { href: "/urlaubsthemen/budget-bis-1500/", label: "💳 Budget bis 1.500 €" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function BudgetBis1000Page() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

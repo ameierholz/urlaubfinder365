@@ -14,14 +14,16 @@ const AKTIV_NAV_ITEMS = [
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Aktivitäten & Tickets weltweit buchen",
-  description:
-    "Aktivitäten & Tickets in 30+ Reisezielen günstig buchen ✓ Sofortbuchung ✓ Gratis Storno ✓ Top-Bewertungen. Museen, Outdoor & Stadtführungen.",
+  title: `🎯 Aktivitäten & Tickets buchen – 250+ Reiseziele ${YEAR}`,
+  description: `Aktivitäten & Tickets ${YEAR} in 250+ Reisezielen günstig buchen ✓ Sofortbuchung ✓ Gratis Storno ✓ Museen, Touren, Stadtführungen & Outdoor.`,
+  keywords: ["Aktivitäten buchen", "Tickets Sehenswürdigkeiten", "Touren buchen", "Ausflüge buchen", "Aktivitäten Urlaub", "Eintrittskarten online", "Stadtführungen buchen", "Erlebnisse buchen"],
   alternates: { canonical: `${BASE_URL}/aktivitaeten/` },
   openGraph: {
-    title: "Aktivitäten & Tickets buchen – Touren, Erlebnisse & Eintrittskarten | Urlaubfinder365",
-    description: "Aktivitäten, Tickets & Touren in 30+ Reisezielen weltweit günstig buchen. ✓ Sofortbuchung ✓ Gratis Storno ✓ Top-Bewertungen. Museen, Outdoor, Stadtführungen & mehr.",
+    title: `🎯 Aktivitäten & Tickets weltweit buchen ${YEAR} | Urlaubfinder365`,
+    description: `Aktivitäten & Tickets ${YEAR} in 250+ Reisezielen günstig buchen ✓ Sofortbuchung ✓ Gratis Storno ✓ Museen, Touren, Stadtführungen & Outdoor.`,
     url: `${BASE_URL}/aktivitaeten/`,
     type: "website",
   },
@@ -174,23 +176,12 @@ export default function AktivitaetenPage() {
     },
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
 
       {/* ── JSON-LD ─────────────────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO

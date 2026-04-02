@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Aktivurlaub günstig buchen – Sport & Outdoor",
-  description:
-    "Aktivurlaub mit Sport & Outdoor-Programm ✓ Golf, Tauchen, Surfen, Wandern ✓ Täglich aktuelle Angebote.",
+  title: `🧗 Aktivurlaub ${YEAR} günstig buchen – Sport & Abenteuer`,
+  description: `Aktivurlaub ${YEAR} günstig buchen ✓ Wandern, Radfahren, Wassersport ✓ Sportreisen & Outdoor ✓ Abenteuer weltweit ✓ Jetzt vergleichen.`,
+  keywords: ["Aktivurlaub günstig", "Aktivurlaub buchen", "Sportreise", "Wanderurlaub", "Radurlaub", "Wassersport Urlaub", "Outdoor Urlaub", "Abenteuerurlaub buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/aktivurlaub/",
   },
   openGraph: {
-    title: "Aktivurlaub günstig buchen – Sport & Outdoor",
-    description:
-      "Aktivurlaub mit Sport & Outdoor-Programm ✓ Golf, Tauchen, Surfen, Wandern ✓ Täglich aktuelle Angebote.",
+    title: `🧗 Aktivurlaub ${YEAR} – Sport & Abenteuer | Urlaubfinder365`,
+    description: `Aktivurlaub ${YEAR} günstig buchen ✓ Wandern, Radfahren, Wassersport ✓ Sportreisen & Outdoor ✓ Abenteuer weltweit ✓ Jetzt vergleichen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/aktivurlaub/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/abenteuerurlaub/", label: "🧗 Abenteuerurlaub" },
   { href: "/urlaubsthemen/strandurlaub/", label: "🏖️ Strandurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function AktivUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

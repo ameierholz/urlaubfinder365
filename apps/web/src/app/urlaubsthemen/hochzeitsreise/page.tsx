@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Hochzeitsreise & Flitterwochen – Romantik pur",
-  description:
-    "Hochzeitsreise & Flitterwochen ✓ 5-Sterne Hotels ✓ All-Inclusive ✓ ≥90% HolidayCheck ✓ Für das schönste Erlebnis im Leben zu zweit.",
+  title: `💍 Hochzeitsreise ${YEAR} buchen – Flitterwochen-Hotels`,
+  description: `Hochzeitsreise ${YEAR} günstig buchen ✓ Romantik-Hotels & Suiten ✓ Flitterwochen-Pakete ✓ Malediven, Mauritius & mehr ✓ Jetzt Traumreise planen.`,
+  keywords: ["Hochzeitsreise buchen", "Flitterwochen", "Honeymoon Urlaub", "Romantikurlaub", "Hochzeitsreise günstig", "Flitterwochen Hotel", "Honeymoon Reise", "Romantik Pauschalreise"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/hochzeitsreise/",
   },
   openGraph: {
-    title: "Hochzeitsreise & Flitterwochen – Romantik pur",
-    description:
-      "Hochzeitsreise & Flitterwochen ✓ 5-Sterne Hotels ✓ All-Inclusive ✓ ≥90% HolidayCheck ✓ Für das schönste Erlebnis im Leben zu zweit.",
+    title: `💍 Hochzeitsreise ${YEAR} – Flitterwochen buchen | Urlaubfinder365`,
+    description: `Hochzeitsreise ${YEAR} günstig buchen ✓ Romantik-Hotels & Suiten ✓ Flitterwochen-Pakete ✓ Malediven, Mauritius & mehr ✓ Jetzt Traumreise planen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/hochzeitsreise/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/adults-only/", label: "💑 Adults Only" },
   { href: "/urlaubsthemen/luxusurlaub/", label: "👑 Luxusurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function HochzeitsreisePage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

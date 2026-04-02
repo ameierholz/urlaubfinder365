@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Luxusurlaub buchen – 5-Sterne Hotels & Resorts",
-  description:
-    "Luxusurlaub in 5-Sterne Hotels ✓ ≥90% HolidayCheck-Empfehlung ✓ Wellness, Strand & Exklusivität ✓ Täglich aktuelle Luxusreisen.",
+  title: `💎 Luxusurlaub ${YEAR} buchen – 5-Sterne Hotels & Resorts`,
+  description: `Luxusurlaub ${YEAR} in 5-Sterne Hotels buchen ✓ ≥90% Empfehlung ✓ Wellness, Strand & Exklusivität ✓ Täglich aktuelle Luxusreisen.`,
+  keywords: ["Luxusurlaub buchen", "5 Sterne Hotel", "Luxushotel", "Luxusreise", "Premium Urlaub", "Luxus All Inclusive", "Exklusiver Urlaub", "High-End Reise"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/luxusurlaub/",
   },
   openGraph: {
-    title: "Luxusurlaub buchen – 5-Sterne Hotels & Resorts",
-    description:
-      "Luxusurlaub in 5-Sterne Hotels ✓ ≥90% HolidayCheck-Empfehlung ✓ Wellness, Strand & Exklusivität ✓ Täglich aktuelle Luxusreisen.",
+    title: `💎 Luxusurlaub ${YEAR} – 5-Sterne Hotels | Urlaubfinder365`,
+    description: `Luxusurlaub ${YEAR} in 5-Sterne Hotels buchen ✓ ≥90% Empfehlung ✓ Wellness, Strand & Exklusivität ✓ Täglich aktuelle Luxusreisen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/luxusurlaub/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/hochzeitsreise/", label: "💒 Hochzeitsreise" },
   { href: "/urlaubsthemen/adults-only/", label: "💑 Adults Only" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function LuxusUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

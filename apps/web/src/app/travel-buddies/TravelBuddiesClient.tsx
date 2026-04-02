@@ -32,6 +32,51 @@ const TRAVEL_STYLES = [
 ];
 
 const AGE_RANGES = ["18-24", "25-35", "36-45", "46-55", "56+"];
+
+const DEMO_BUDDIES: Buddy[] = [
+  {
+    id: "demo-1", userId: "demo-1", displayName: "Sandra K.", photoUrl: null,
+    ageRange: "25-35", gender: "Weiblich", languages: ["Deutsch", "Englisch", "Spanisch"],
+    destinations: ["Mallorca", "Barcelona", "Teneriffa"], travelStyle: ["strand", "stadt", "kultur"],
+    bio: "Reisebloggerin & Fotografin. Suche Reisepartnerin für Mallorca im September. Am liebsten Strand tagsüber und Tapas abends!",
+    departureFrom: "München", travelMonths: ["Sep", "Okt", "Mai"],
+  },
+  {
+    id: "demo-2", userId: "demo-2", displayName: "Marco T.", photoUrl: null,
+    ageRange: "36-45", gender: "Männlich", languages: ["Deutsch", "Englisch"],
+    destinations: ["Hurghada", "Sharm el Sheikh", "Malediven"], travelStyle: ["strand", "abenteuer"],
+    bio: "Leidenschaftlicher Taucher. Suche Buddy für Tauchurlaub am Roten Meer. PADI Advanced zertifiziert.",
+    departureFrom: "Wien", travelMonths: ["Nov", "Dez", "Jan", "Feb"],
+  },
+  {
+    id: "demo-3", userId: "demo-3", displayName: "Julia M.", photoUrl: null,
+    ageRange: "25-35", gender: "Weiblich", languages: ["Deutsch", "Englisch", "Französisch"],
+    destinations: ["Kreta", "Santorini", "Korfu"], travelStyle: ["kultur", "natur", "strand"],
+    bio: "Griechenland-Fan! Suche Mitreisende für Insel-Hopping im Juni. Wandern, Kultur und griechisches Essen.",
+    departureFrom: "Frankfurt", travelMonths: ["Jun", "Jul"],
+  },
+  {
+    id: "demo-4", userId: "demo-4", displayName: "Tim B.", photoUrl: null,
+    ageRange: "25-35", gender: "Männlich", languages: ["Deutsch", "Englisch"],
+    destinations: ["Thailand", "Vietnam", "Bali"], travelStyle: ["backpacker", "abenteuer", "natur"],
+    bio: "Solo-Backpacker sucht Reisebegleitung für 3 Wochen Südostasien. Flexibel, spontan, budgetbewusst.",
+    departureFrom: "Berlin", travelMonths: ["Feb", "Mär"],
+  },
+  {
+    id: "demo-5", userId: "demo-5", displayName: "Lena M.", photoUrl: null,
+    ageRange: "36-45", gender: "Weiblich", languages: ["Deutsch"],
+    destinations: ["Antalya", "Side", "Bodrum"], travelStyle: ["wellness", "strand", "luxus"],
+    bio: "Spa-Liebhaberin sucht Reisepartnerin für Wellness-Woche in der Türkei. 5-Sterne All-Inclusive bevorzugt.",
+    departureFrom: "Zürich", travelMonths: ["Apr", "Mai", "Okt"],
+  },
+  {
+    id: "demo-6", userId: "demo-6", displayName: "Alex R.", photoUrl: null,
+    ageRange: "46-55", gender: "Männlich", languages: ["Deutsch", "Englisch"],
+    destinations: ["Mittelmeer Kreuzfahrt", "Karibik", "Norwegen"], travelStyle: ["luxus", "kultur"],
+    bio: "Kreuzfahrt-Enthusiast. Suche Mitreisende für AIDA Mittelmeer-Route im Herbst. Gerne auch Paare.",
+    departureFrom: "Hamburg", travelMonths: ["Sep", "Okt"],
+  },
+];
 const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
 
 function db() {
@@ -88,7 +133,7 @@ export default function TravelBuddiesClient() {
       departureFrom: r.departure_from ?? "", travelMonths: r.travel_months ?? [],
     }));
 
-    setBuddies(list);
+    setBuddies(list.length > 0 ? list : DEMO_BUDDIES);
     if (uid) {
       const mine = list.find((b) => b.userId === uid);
       setMyProfile(mine ?? null);

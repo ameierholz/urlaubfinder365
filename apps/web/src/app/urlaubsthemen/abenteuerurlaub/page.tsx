@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Abenteuerurlaub günstig buchen – Action & Outdoor",
-  description:
-    "Abenteuerurlaub mit Action & Outdoor-Aktivitäten ✓ Sport, Wandern, Tauchen ✓ Täglich aktualisierte Abenteuerpakete.",
+  title: `🌋 Abenteuerurlaub ${YEAR} günstig buchen – Erlebnisreisen`,
+  description: `Abenteuerurlaub ${YEAR} günstig buchen ✓ Safari, Trekking, Rafting & mehr ✓ Erlebnisreisen weltweit ✓ Outdoor & Natur ✓ Jetzt entdecken.`,
+  keywords: ["Abenteuerurlaub günstig", "Abenteuerurlaub buchen", "Erlebnisreise", "Safari Urlaub", "Trekking Urlaub", "Abenteuerreise", "Outdoor Reise", "Natur Urlaub"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/abenteuerurlaub/",
   },
   openGraph: {
-    title: "Abenteuerurlaub günstig buchen – Action & Outdoor",
-    description:
-      "Abenteuerurlaub mit Action & Outdoor-Aktivitäten ✓ Sport, Wandern, Tauchen ✓ Täglich aktualisierte Abenteuerpakete.",
+    title: `🌋 Abenteuerurlaub ${YEAR} – Erlebnisreisen | Urlaubfinder365`,
+    description: `Abenteuerurlaub ${YEAR} günstig buchen ✓ Safari, Trekking, Rafting & mehr ✓ Erlebnisreisen weltweit ✓ Outdoor & Natur ✓ Jetzt entdecken.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/abenteuerurlaub/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/aktivurlaub/", label: "🏃 Aktivurlaub" },
   { href: "/urlaubsthemen/strandurlaub/", label: "🏖️ Strandurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function AbenteuerUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

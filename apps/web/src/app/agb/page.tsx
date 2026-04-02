@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AGB – Allgemeine Nutzungsbedingungen",
-  description:
-    "Allgemeine Geschäftsbedingungen (AGB) für die Nutzung von Urlaubfinder365.de – Reisevergleich, Reiseführer und Buchungsempfehlungen.",
+  title: "📋 AGB – Allgemeine Geschäftsbedingungen",
+  description: "Allgemeine Geschäftsbedingungen (AGB) von Urlaubfinder365.de ✓ Nutzungsbedingungen ✓ Haftungshinweise ✓ Transparenz.",
   robots: { index: true, follow: false },
   alternates: { canonical: "https://www.urlaubfinder365.de/agb/" },
 };

@@ -4,13 +4,16 @@ import Image from "next/image";
 import PageNavBar from "@/components/ui/PageNavBar";
 import LifestyleSection from "@/components/home/LifestyleSection";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaubsarten – Pauschalreisen, All-Inclusive & mehr",
-  description: "Alle Urlaubsarten im Überblick: Pauschalreisen, All-Inclusive, Last-Minute, Frühbucher und mehr.",
+  title: `✈ Urlaubsarten ${YEAR} – Pauschalreisen, All Inclusive & mehr`,
+  description: `Alle Urlaubsarten ${YEAR} im Überblick: Pauschalreisen, All Inclusive, Last Minute, Frühbucher & mehr ✓ Täglich aktuelle Angebote vergleichen.`,
+  keywords: ["Urlaubsarten", "Pauschalreisen", "All Inclusive Urlaub", "Last Minute Urlaub", "Frühbucher Urlaub", "Reisearten", "Urlaubstypen"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/" },
   openGraph: {
-    title: "Urlaubsarten – Pauschalreisen, All-Inclusive & mehr",
-    description: "Alle Urlaubsarten im Überblick: Pauschalreisen, All-Inclusive, Last-Minute, Frühbucher und mehr.",
+    title: `✈ Urlaubsarten ${YEAR} – alle Reisearten | Urlaubfinder365`,
+    description: `Alle Urlaubsarten ${YEAR} im Überblick: Pauschalreisen, All Inclusive, Last Minute, Frühbucher & mehr ✓ Täglich aktuelle Angebote vergleichen.`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/",
     type: "website",
   },
@@ -152,15 +155,6 @@ const jsonLd = [
       { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
       { "@type": "ListItem", position: 2, name: "Urlaubsarten", item: "https://www.urlaubfinder365.de/urlaubsarten/" },
     ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
   },
 ];
 

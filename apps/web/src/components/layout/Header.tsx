@@ -753,7 +753,7 @@ export default function Header() {
                 {item.href && !item.children && (
                   <Link
                     href={item.href}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }}
                     className="block px-3 py-2.5 text-sm font-semibold text-white hover:bg-white/20 rounded-lg"
                   >
                     {item.label}
@@ -773,7 +773,7 @@ export default function Header() {
                         {item.href && (
                           <Link
                             href={item.href}
-                            onClick={() => setMobileOpen(false)}
+                            onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }}
                             className="block py-1.5 text-sm text-sand-200 font-semibold"
                           >
                             Alle {item.label}
@@ -781,12 +781,12 @@ export default function Header() {
                         )}
                         {/* Urlaubsziele: Bildkarten-Grid auf Mobile */}
                         {item.label === "Urlaub finden" && (
-                          <div className="grid grid-cols-5 gap-1.5 my-2">
+                          <div className="grid grid-cols-3 sm:grid-cols-5 gap-1.5 my-2">
                             {MEGA_DESTINATIONS.map((d) => (
                               <Link
                                 key={d.name}
                                 href={`/urlaubsziele/${d.slug}/`}
-                                onClick={() => setMobileOpen(false)}
+                                onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }}
                                 className="relative rounded-lg overflow-hidden h-12 block w-full"
                               >
                                 <img
@@ -808,7 +808,7 @@ export default function Header() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              onClick={() => setMobileOpen(false)}
+                              onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }}
                               className="flex items-center gap-2 py-1.5 text-sm text-white/90 hover:text-white"
                             >
                               {child.icon && <span className="opacity-70">{child.icon}</span>}
@@ -826,19 +826,19 @@ export default function Header() {
           <div className="px-4 pb-4 pt-2 border-t border-white/20 flex gap-2">
             {user ? (
               <>
-                <Link href="/dashboard" onClick={() => setMobileOpen(false)} className="flex-1 text-center bg-white/20 text-white py-2 rounded-lg text-sm font-semibold">
+                <Link href="/dashboard" onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-white/20 text-white py-2 rounded-lg text-sm font-semibold">
                   Dashboard
                 </Link>
-                <button onClick={() => { logout(); setMobileOpen(false); }} className="flex-1 text-center bg-sand-500/80 text-white py-2 rounded-lg text-sm font-semibold">
+                <button onClick={() => { logout(); setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-sand-500/80 text-white py-2 rounded-lg text-sm font-semibold">
                   Abmelden
                 </button>
               </>
             ) : (
               <>
-                <Link href="/login"    onClick={() => setMobileOpen(false)} className="flex-1 text-center border border-white/30 text-white py-2 rounded-lg text-sm font-semibold">
+                <Link href="/login"    onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center border border-white/30 text-white py-2 rounded-lg text-sm font-semibold">
                   Anmelden
                 </Link>
-                <Link href="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center bg-sand-500 text-white py-2 rounded-lg text-sm font-semibold">
+                <Link href="/register" onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-sand-500 text-white py-2 rounded-lg text-sm font-semibold">
                   Registrieren
                 </Link>
               </>

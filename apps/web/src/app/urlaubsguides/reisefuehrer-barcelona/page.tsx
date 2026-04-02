@@ -4,21 +4,23 @@ import AdBanner from "@/components/ui/AdBanner";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-barcelona/`;
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: "Barcelona Reiseführer 2026 – Tipps, Sehenswürdigkeiten & praktische Infos",
-  description: "Barcelona Reiseführer 2026: Sagrada Família, Strände, Gaudí, Tapas & Nachtleben – dein kompletter Barcelona-Guide.",
+  title: `🏙 Barcelona Reiseführer ${YEAR} – Gaudí, Strand & Tapas`,
+  description: `Barcelona Reiseführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
+  keywords: ["Barcelona Reiseführer", "Barcelona Tipps", "Barcelona Sehenswürdigkeiten", "Sagrada Familia", "Barcelona Urlaub", "Barcelona Guide", "Barcelona Geheimtipps", "Park Güell"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Barcelona Reiseführer 2026 – Dein kompletter Städtereise-Guide",
-    description: "Alles über Barcelona: Gaudí, Ramblas, Strände, Geheimtipps & Buchung.",
+    title: `🏙 Barcelona Reiseführer ${YEAR} – Stadtguide | Urlaubfinder365`,
+    description: `Barcelona Reiseführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&h=630&fit=crop&q=80",
       width: 1200,
       height: 630,
-      alt: "Barcelona Spanien – Reiseführer 2026",
+      alt: `Barcelona Spanien – Reiseführer ${YEAR}`,
     }],
   },
 };
@@ -37,8 +39,23 @@ const jsonLd = {
     {
       "@type": "Article",
       "headline": "Barcelona Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
+      "description": "Dein umfassender Barcelona Reiseführer: Sagrada Família, Gaudí, Strände, Tapas, Nachtleben und praktische Infos.",
       "url": CANONICAL,
-      "about": { "@type": "TouristDestination", "name": "Barcelona", "containedInPlace": { "@type": "Country", "name": "Spanien" } },
+      "datePublished": "2026-04-01",
+      "dateModified": "2026-04-02",
+      "author": { "@type": "Organization", "name": "Urlaubfinder365" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Urlaubfinder365",
+        "logo": { "@type": "ImageObject", "url": `${BASE_URL}/images/header_logo.webp` },
+      },
+      "image": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&h=630&fit=crop&q=80",
+      "about": {
+        "@type": "TouristDestination",
+        "name": "Barcelona",
+        "description": "Katalanische Metropole am Mittelmeer mit Gaudís Meisterwerken, lebhaften Ramblas und goldenem Stadtstrand.",
+        "containedInPlace": { "@type": "Country", "name": "Spanien" },
+      },
     },
   ],
 };

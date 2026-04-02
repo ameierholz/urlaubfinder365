@@ -64,6 +64,7 @@ export default function Footer() {
               <Link href="/impressum/" className="block hover:text-gray-300">Impressum</Link>
               <Link href="/datenschutz/" className="block hover:text-gray-300">Datenschutz</Link>
               <Link href="/agb/" className="block hover:text-gray-300">AGB</Link>
+              <Link href="/ueber-uns/" className="block hover:text-gray-300">Über uns</Link>
               <Link href="/presse/" className="block hover:text-gray-300">Presse & Partner</Link>
             </div>
           </div>

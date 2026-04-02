@@ -3,13 +3,12 @@ import Link from "next/link";
 import { ArrowRight, Mail, Download, Globe, Users, TrendingUp, Star } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Presse – Mediadaten & Partneranfragen",
-  description:
-    "Mediadaten, Pressemitteilungen & Partneranfragen für Urlaubfinder365.de – Deutschlands Reisevergleichsportal für Pauschalreisen & Last Minute.",
+  title: "📰 Presse – Urlaubfinder365",
+  description: "Presseinformationen, Medienkit und Kontakt für Journalisten von Urlaubfinder365.de.",
   alternates: { canonical: "https://www.urlaubfinder365.de/presse/" },
   openGraph: {
-    title: "Presse & Partner | Urlaubfinder365",
-    description: "Mediadaten, Pressemitteilungen und Kooperationsanfragen – Urlaubfinder365.de",
+    title: "📰 Presse – Urlaubfinder365",
+    description: "Presseinformationen, Medienkit und Kontakt für Journalisten von Urlaubfinder365.de.",
     url: "https://www.urlaubfinder365.de/presse/",
   },
 };

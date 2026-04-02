@@ -17,14 +17,16 @@ const MIETWAGEN_NAV_ITEMS = [
   { id: "faq",                 label: "FAQ",               emoji: "❓" },
 ];
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Mietwagen reservieren – günstig buchen",
-  description:
-    "Mietwagen günstig vergleichen & buchen ✓ Alle Fahrzeugklassen ✓ Vollkasko inklusive ✓ Kein Aufpreis – täglich aktuelle Preise weltweit.",
+  title: `🚗 Mietwagen günstig buchen ${YEAR} – weltweit vergleichen`,
+  description: `Mietwagen ${YEAR} günstig vergleichen & buchen ✓ Alle Fahrzeugklassen ✓ Vollkasko inklusive ✓ Kein Aufpreis ✓ 100+ Anbieter weltweit.`,
+  keywords: ["Mietwagen günstig", "Mietwagen buchen", "Mietwagen Preisvergleich", "Mietwagen Mallorca", "Mietwagen Türkei", "Mietwagen Kreta", "Autovermietung günstig", "Leihwagen buchen"],
   alternates: { canonical: `${BASE_URL}/mietwagen-reservieren/` },
   openGraph: {
-    title: "Mietwagen reservieren – Günstig & weltweit buchen | Urlaubfinder365",
-    description: "Günstige Mietwagen weltweit vergleichen & direkt buchen. Alle Fahrzeugklassen, Vollkasko inklusive, kein Aufpreis – täglich aktuelle Preise von über 100 Anbietern.",
+    title: `🚗 Mietwagen günstig buchen ${YEAR} | Urlaubfinder365`,
+    description: `Mietwagen ${YEAR} günstig vergleichen & buchen ✓ Alle Fahrzeugklassen ✓ Vollkasko inklusive ✓ Kein Aufpreis ✓ 100+ Anbieter weltweit.`,
     url: `${BASE_URL}/mietwagen-reservieren/`,
     type: "website",
   },
@@ -149,22 +151,11 @@ const breadcrumbSchema = {
   ],
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
-
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function MietwagenPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO

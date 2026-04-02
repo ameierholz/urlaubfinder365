@@ -10,17 +10,18 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Wellnessurlaub günstig buchen – Spa & Entspannung",
-  description:
-    "Wellnessurlaub mit Spa & Massagen ✓ Hotels mit Wellness-Ausstattung ✓ Für Körper und Geist ✓ Täglich aktualisierte Wellnessreisen.",
+  title: `🧘 Wellnessurlaub ${YEAR} günstig buchen – Spa & Entspannung`,
+  description: `Wellnessurlaub ${YEAR} günstig buchen ✓ Hotels mit Spa & Massagen ✓ Sauna & Pool ✓ Für Körper und Geist ✓ Täglich neue Wellnessreisen.`,
+  keywords: ["Wellnessurlaub günstig", "Wellnessurlaub buchen", "Wellnesshotel", "Spa Urlaub", "Wellness Türkei", "Wellness Mallorca", "Entspannungsurlaub", "Wellnessreise buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/wellnessurlaub/",
   },
   openGraph: {
-    title: "Wellnessurlaub günstig buchen – Spa & Entspannung",
-    description:
-      "Wellnessurlaub mit Spa & Massagen ✓ Hotels mit Wellness-Ausstattung ✓ Für Körper und Geist ✓ Täglich aktualisierte Wellnessreisen.",
+    title: `🧘 Wellnessurlaub ${YEAR} – Spa & Entspannung | Urlaubfinder365`,
+    description: `Wellnessurlaub ${YEAR} günstig buchen ✓ Hotels mit Spa & Massagen ✓ Sauna & Pool ✓ Für Körper und Geist ✓ Täglich neue Wellnessreisen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/wellnessurlaub/",
     type: "website",
     images: [
@@ -71,16 +72,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/kurreisen/", label: "💧 Kurreisen" },
   { href: "/urlaubsthemen/adults-only/", label: "💑 Adults Only" },
@@ -102,7 +93,6 @@ const breadcrumbSchema = {
 export default function WellnessUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

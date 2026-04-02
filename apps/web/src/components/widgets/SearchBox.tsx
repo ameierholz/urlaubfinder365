@@ -55,12 +55,14 @@ export default function SearchBox() {
   }, []);
 
   return (
-    /* overflow-x: hidden blendet den internen Scrollbalken des Widgets aus */
+    /* overflow-x: clip verhindert horizontalen Scrollbalken, lässt aber
+       Dropdowns vertikal herausragen (im Gegensatz zu overflow: hidden) */
     <div
       style={{
         width: "100%",
         height: height,
-        overflow: "hidden",
+        overflowX: "clip",
+        overflowY: "visible",
         position: "relative",
       }}
     >

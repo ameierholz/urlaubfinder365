@@ -10,14 +10,16 @@ import EinreiseSchnellcheck from "@/components/flug/EinreiseSchnellcheck";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Flugsuche – Günstige Flüge finden & buchen",
-  description:
-    "Günstige Flüge vergleichen & direkt buchen. Täglich aktualisierte Flugpreise von über 200 Airlines – One-Way, Hin- & Rückflug, alle Abflughäfen.",
+  title: `✈ Günstige Flüge finden & buchen ${YEAR}`,
+  description: `Günstige Flüge ${YEAR} vergleichen & direkt buchen ✓ 200+ Airlines ✓ One-Way & Hin-Rückflug ✓ Alle Abflughäfen ✓ Täglich aktualisierte Preise.`,
+  keywords: ["Günstige Flüge", "Flüge buchen", "Billigflüge", "Flugvergleich", "Flüge Türkei", "Flüge Mallorca", "Flüge Ägypten", "Flug buchen online", "Cheap Flights Deutschland"],
   alternates: { canonical: `${BASE_URL}/flugsuche/` },
   openGraph: {
-    title: "Flugsuche – Günstige Flüge finden & buchen | Urlaubfinder365",
-    description: "Günstige Flüge vergleichen & direkt buchen. Täglich aktualisierte Flugpreise von über 200 Airlines – One-Way, Hin- & Rückflug, alle Abflughäfen.",
+    title: `✈ Günstige Flüge finden & buchen ${YEAR} | Urlaubfinder365`,
+    description: `Günstige Flüge ${YEAR} vergleichen & direkt buchen ✓ 200+ Airlines ✓ One-Way & Hin-Rückflug ✓ Alle Abflughäfen ✓ Täglich aktualisierte Preise.`,
     url: `${BASE_URL}/flugsuche/`,
     type: "website",
   },
@@ -95,22 +97,11 @@ const breadcrumbSchema = {
   ],
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
-
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function FlugSuchePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO

@@ -1,0 +1,58 @@
+# Urlaubfinder365.de
+
+> Urlaubfinder365 ist ein deutsches Reiseportal, das täglich tausende Pauschalreisen, All-Inclusive- und Last-Minute-Angebote von über 50 Reiseveranstaltern vergleicht. Nutzer finden günstige Urlaube mit Flug und Hotel, kostenlose Reiseführer, eine aktive Reise-Community und Aktivitäten-Tickets für 250+ Reiseziele weltweit.
+
+## Hauptseiten
+
+- [Startseite](https://www.urlaubfinder365.de/): Pauschalreisen, Last Minute und All Inclusive günstig buchen
+- [Alle Urlaubsziele](https://www.urlaubfinder365.de/urlaubsziele/): Über 50 Reiseziele mit tagesaktuellen Preisen
+- [Günstig Urlaub buchen](https://www.urlaubfinder365.de/guenstig-urlaub-buchen/): Aktuelle Deals und Angebote
+- [Last Minute](https://www.urlaubfinder365.de/last-minute/): Spontan verreisen und bis zu 60% sparen
+- [Kreuzfahrten](https://www.urlaubfinder365.de/kreuzfahrten/): Kreuzfahrten günstig buchen
+- [Flugsuche](https://www.urlaubfinder365.de/flugsuche/): Günstige Flüge finden und buchen
+- [Hotelsuche](https://www.urlaubfinder365.de/hotelsuche/): Hotels weltweit vergleichen
+- [Mietwagen](https://www.urlaubfinder365.de/mietwagen-reservieren/): Mietwagen günstig reservieren
+- [Aktivitäten](https://www.urlaubfinder365.de/aktivitaeten/): Tickets und Erlebnisse für 250+ Reiseziele
+
+## Urlaubsarten
+
+- [Pauschalreisen](https://www.urlaubfinder365.de/urlaubsarten/pauschalreisen/): Flug + Hotel günstig im Paket
+- [All-Inclusive Urlaub](https://www.urlaubfinder365.de/urlaubsarten/all-inclusive-urlaub/): Rundum-sorglos-Pakete
+- [Frühbucher Urlaub](https://www.urlaubfinder365.de/urlaubsarten/fruhbucher-urlaub/): Früh buchen und bis zu 40% sparen
+- [Last Minute Urlaub](https://www.urlaubfinder365.de/urlaubsarten/last-minute-urlaub/): Kurzfristig günstig verreisen
+- [Super Last Minute](https://www.urlaubfinder365.de/urlaubsarten/super-last-minute-urlaub/): Abreise in 72 Stunden
+
+## Beliebte Reiseziele
+
+- [Türkei / Antalya](https://www.urlaubfinder365.de/urlaubsziele/antalya/): Türkische Riviera ab 299 EUR
+- [Mallorca](https://www.urlaubfinder365.de/urlaubsziele/mallorca/): Balearen ab 349 EUR
+- [Kreta](https://www.urlaubfinder365.de/urlaubsziele/kreta/): Griechenlands größte Insel
+- [Hurghada](https://www.urlaubfinder365.de/urlaubsziele/hurghada/): Rotes Meer und Tauchen
+- [Barcelona](https://www.urlaubfinder365.de/urlaubsziele/barcelona/): Gaudí, Tapas und Strand
+
+## Kostenlose Reiseführer
+
+- [Antalya Reiseführer](https://www.urlaubfinder365.de/urlaubsguides/reisefuehrer-antalya/): Strände, Ruinen und All-Inclusive
+- [Mallorca Reiseführer](https://www.urlaubfinder365.de/urlaubsguides/reisefuehrer-mallorca/): Traumstrände und Serra de Tramuntana
+- [Kreta Reiseführer](https://www.urlaubfinder365.de/urlaubsguides/reisefuehrer-kreta/): Samaria-Schlucht und Knossos
+- [Hurghada Reiseführer](https://www.urlaubfinder365.de/urlaubsguides/reisefuehrer-hurghada/): Rotes Meer und Wüstenabenteuer
+- [Barcelona Reiseführer](https://www.urlaubfinder365.de/urlaubsguides/reisefuehrer-barcelona/): Sagrada Família und Tapas
+
+## Community
+
+- [Reise-Community](https://www.urlaubfinder365.de/community/): Reiseberichte, Gruppen und Tipps
+- [Reiseberichte](https://www.urlaubfinder365.de/community/reiseberichte/): Echte Erfahrungen von Reisenden
+- [Reisegruppen](https://www.urlaubfinder365.de/community/gruppen/): Gleichgesinnte finden
+
+## Über uns
+
+- [Über uns](https://www.urlaubfinder365.de/ueber-uns/): Mission, Team und Hintergrund von Urlaubfinder365
+
+## Kontakt
+
+- Website: https://www.urlaubfinder365.de
+- E-Mail: info@urlaubfinder365.de
+- Unternehmen: Urlaubfinder365
+- Gründer: Andre Meier
+- Sprache: Deutsch
+- Zielmarkt: Deutschland, Österreich, Schweiz

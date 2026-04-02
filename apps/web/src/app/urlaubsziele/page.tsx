@@ -9,11 +9,26 @@ import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Alle Urlaubsziele – Pauschalreisen & Angebote weltweit",
-  description:
-    "Alle Urlaubsziele auf einen Blick: Pauschalreisen, All-Inclusive & Last-Minute nach Spanien, Türkei, Griechenland, Ägypten, Thailand & mehr. Jetzt günstig vergleichen & buchen.",
+  title: `🌍 Alle Urlaubsziele ${YEAR} – Pauschalreisen weltweit`,
+  description: `50+ Urlaubsziele ${YEAR}: Pauschalreisen, All Inclusive & Last Minute nach Türkei, Mallorca, Griechenland, Ägypten, Thailand & mehr ✓ Jetzt vergleichen.`,
+  keywords: ["Urlaubsziele", "Reiseziele", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Urlaub Griechenland", "Urlaub Ägypten", "Urlaubsziele weltweit", "Beliebte Reiseziele", "Urlaubsziele Sommer"],
   alternates: { canonical: `${BASE_URL}/urlaubsziele/` },
+  openGraph: {
+    title: `🌍 Alle Urlaubsziele ${YEAR} – Pauschalreisen weltweit | Urlaubfinder365`,
+    description: `50+ Urlaubsziele ${YEAR}: Pauschalreisen, All Inclusive & Last Minute nach Türkei, Mallorca, Griechenland, Ägypten, Thailand & mehr ✓ Jetzt vergleichen.`,
+    url: `${BASE_URL}/urlaubsziele/`,
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=630&fit=crop&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Traumstrand mit türkisblauem Wasser – Urlaubsziele weltweit bei Urlaubfinder365",
+      },
+    ],
+  },
 };
 
 // ─── TOP 10 Urlaubsziele (Hero-Grid) ─────────────────────────────────────────
@@ -392,20 +407,9 @@ export default function UrlaubszielePage() {
     },
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  };
-
   return (
     <div className="bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ══ HERO ══════════════════════════════════════════════════════════════ */}
       <div className="relative overflow-hidden bg-[#003d47]" style={{ minHeight: 300 }}>

@@ -23,14 +23,16 @@ const annie = Annie_Use_Your_Telescope({
   variable: "--font-annie",
 });
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.urlaubfinder365.de"),
   title: {
-    default: "Pauschalreisen günstig buchen | Urlaubfinder365",
+    default: `✈ Pauschalreisen günstig buchen ${YEAR} | Urlaubfinder365`,
     template: "%s | Urlaubfinder365",
   },
   description:
-    "Pauschalreisen, All Inclusive & Last Minute günstig buchen ✓ Täglich aktuell ✓ Türkei, Mallorca & Ägypten ✓ Direkt beim Veranstalter buchen.",
+    `Pauschalreisen, All Inclusive & Last Minute ${YEAR} günstig buchen ✓ Über 50 Veranstalter ✓ Türkei, Mallorca & Ägypten ✓ Täglich neue Deals.`,
   keywords: [
     "Pauschalreisen günstig buchen",
     "Urlaub günstig buchen",
@@ -42,9 +44,15 @@ export const metadata: Metadata = {
     "Pauschalreisen Ägypten",
     "Kreuzfahrten günstig",
     "Frühbucher Urlaub",
-    "Urlaub buchen",
-    "Reiseführer",
-    "Urlaubsfinder",
+    "Urlaub buchen online",
+    "Billig Urlaub buchen",
+    "Urlaubsschnäppchen",
+    "Reiseführer kostenlos",
+    "Urlaubsfinder365",
+    "Reisevergleich",
+    "Hotelvergleich",
+    "Strandurlaub günstig",
+    "Familienurlaub buchen",
   ],
   robots: {
     index: true,
@@ -77,7 +85,7 @@ export const metadata: Metadata = {
         url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
         width: 1200,
         height: 630,
-        alt: "Traumstrand – Pauschalreisen günstig buchen | Urlaubfinder365",
+        alt: `Traumstrand – Pauschalreisen günstig buchen ${YEAR} | Urlaubfinder365`,
       },
     ],
   },
@@ -129,6 +137,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://flagcdn.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        {/* Google AdSense – Verifizierung & Auto-Ads */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
+          crossOrigin="anonymous"
+        />
         {/* Organization + WebSite Schema (global) */}
         <script
           type="application/ld+json"

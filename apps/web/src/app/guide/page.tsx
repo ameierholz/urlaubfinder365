@@ -6,20 +6,21 @@ import { destinations } from "@/lib/destinations";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 export const metadata: Metadata = {
-  title: "Reiseführer & Reisetipps",
-  description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise. Einreise, Klima, Sehenswürdigkeiten & mehr.",
+  title: "📖 Reiseführer – alle Urlaubsziele im Überblick",
+  description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
+  keywords: ["Reiseführer", "Urlaubsguide", "Reisetipps", "Reiseinformationen", "Reiseführer kostenlos"],
   alternates: { canonical: `${BASE_URL}/guide/` },
   openGraph: {
-    title: "Reiseführer & Reisetipps | Urlaubfinder365",
-    description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise.",
+    title: "📖 Reiseführer – alle Urlaubsziele | Urlaubfinder365",
+    description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
     url: `${BASE_URL}/guide/`,
     type: "website",
     siteName: "Urlaubfinder365",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reiseführer & Reisetipps | Urlaubfinder365",
-    description: "Hilfreiche Reiseführer und Tipps für dein Urlaubsziel – vor, während und nach der Reise.",
+    title: "📖 Reiseführer – alle Urlaubsziele | Urlaubfinder365",
+    description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
   },
 };
 

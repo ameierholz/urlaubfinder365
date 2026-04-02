@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung",
-  description:
-    "Datenschutzerklärung von Urlaubfinder365.de – Informationen zur Erhebung, Verarbeitung und Nutzung personenbezogener Daten gemäß DSGVO.",
+  title: "🔒 Datenschutzerklärung – Urlaubfinder365",
+  description: "Datenschutzerklärung von Urlaubfinder365.de: Welche Daten wir erheben, wie wir sie nutzen und Ihre Rechte nach DSGVO.",
   robots: { index: true, follow: false },
   alternates: { canonical: "https://www.urlaubfinder365.de/datenschutz/" },
 };
@@ -135,7 +134,7 @@ export default function DatenschutzPage() {
           <ul className="list-disc list-inside space-y-1 mb-3">
             <li><strong>Notwendig</strong> – technisch erforderlich für den Betrieb (immer aktiv, keine Einwilligung nötig)</li>
             <li><strong>Statistik</strong> – anonymisierte Nutzungsanalyse via Vercel Analytics (kein Cookie, kein personenbezogenes Tracking; Art. 6 Abs. 1 lit. f DSGVO). Nur bei Einwilligung aktiv.</li>
-            <li><strong>Marketing</strong> – derzeit nicht im Einsatz. Wird nur mit ausdrücklicher Einwilligung aktiviert.</li>
+            <li><strong>Marketing</strong> – Werbe-Cookies von Google AdSense zur Anzeige personalisierter Werbung. Wird nur mit ausdrücklicher Einwilligung aktiviert.</li>
           </ul>
           <p>
             Du kannst deine Einwilligung jederzeit widerrufen, indem du die Seite neu lädst und im erneut erscheinenden
@@ -198,6 +197,55 @@ export default function DatenschutzPage() {
                 auf der Tiqets-Plattform und unterliegen deren{" "}
                 <a href="https://www.tiqets.com/de/datenschutzrichtlinie/" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
                   Datenschutzrichtlinie
+                </a>.
+              </p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">Google AdSense (Werbung)</span>
+              <p className="mb-2">
+                Wir nutzen <strong>Google AdSense</strong>, einen Dienst der Google Ireland Limited,
+                Gordon House, Barrow Street, Dublin 4, Irland, zur Einblendung von Werbeanzeigen.
+                Google AdSense verwendet Cookies und Web Beacons, um Werbung auf Basis deiner
+                bisherigen Besuche auf unserer und anderen Websites zu schalten (personalisierte Werbung).
+              </p>
+              <p className="mb-2">
+                <strong>Verarbeitete Daten:</strong> IP-Adresse, Cookie-Kennungen, Geräte- und
+                Browser-Informationen, Seitenaufruf-Daten. Google kann diese Informationen mit
+                deinem Google-Konto verknüpfen, falls du eingeloggt bist.
+              </p>
+              <p className="mb-2">
+                <strong>Rechtsgrundlage:</strong> Einwilligung gem. Art. 6 Abs. 1 lit. a DSGVO
+                über unser Cookie-Banner (Kategorie „Marketing"). Ohne deine Einwilligung werden
+                keine personalisierten Werbeanzeigen geschaltet.
+              </p>
+              <p className="mb-2">
+                <strong>Opt-out:</strong> Du kannst die personalisierte Werbung in den{" "}
+                <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  Google Ads-Einstellungen
+                </a>{" "}
+                deaktivieren oder unter{" "}
+                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  aboutads.info
+                </a>{" "}
+                verwalten.
+              </p>
+              <p>
+                Weitere Informationen zum Datenschutz bei Google:{" "}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  policies.google.com/privacy
+                </a>.
+              </p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">adup Technology GmbH (Werbung)</span>
+              <p className="mb-2">
+                Auf einigen Seiten werden Werbeanzeigen über <strong>adup Technology GmbH</strong>,
+                Schönhauser Allee 141, 10437 Berlin, eingebunden. Dabei werden technische
+                Anfragedaten (IP-Adresse, Seitenkontext) an deren Server übertragen.
+                Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+                Weitere Infos:{" "}
+                <a href="https://www.adup-tech.com/datenschutz" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  adup-tech.com/datenschutz
                 </a>.
               </p>
             </div>

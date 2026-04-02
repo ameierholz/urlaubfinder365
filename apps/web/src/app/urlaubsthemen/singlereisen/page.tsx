@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Singlereisen & Alleinreisende – Urlaub solo buchen",
-  description:
-    "Singlereisen ohne Einzelzimmerzuschlag ✓ Neue Bekanntschaften machen ✓ Täglich aktuelle Angebote für Alleinreisende.",
+  title: `🎒 Singlereisen ${YEAR} günstig buchen – allein verreisen`,
+  description: `Singlereisen ${YEAR} günstig buchen ✓ Ohne Einzelzimmerzuschlag ✓ Alleinreisende willkommen ✓ Neue Leute kennenlernen ✓ Jetzt vergleichen.`,
+  keywords: ["Singlereisen günstig", "Singleurlaub", "Alleinreisende", "Urlaub alleine", "Singlereise buchen", "Ohne Einzelzimmerzuschlag", "Solo Urlaub", "Alleinreisende Urlaub"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/singlereisen/",
   },
   openGraph: {
-    title: "Singlereisen & Alleinreisende – Urlaub solo buchen",
-    description:
-      "Singlereisen ohne Einzelzimmerzuschlag ✓ Neue Bekanntschaften machen ✓ Täglich aktuelle Angebote für Alleinreisende.",
+    title: `🎒 Singlereisen ${YEAR} – allein verreisen | Urlaubfinder365`,
+    description: `Singlereisen ${YEAR} günstig buchen ✓ Ohne Einzelzimmerzuschlag ✓ Alleinreisende willkommen ✓ Neue Leute kennenlernen ✓ Jetzt vergleichen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/singlereisen/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/aktivurlaub/", label: "🏃 Aktivurlaub" },
   { href: "/urlaubsthemen/staedtereisen/", label: "🏙️ Städtereisen" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function SinglereisenPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

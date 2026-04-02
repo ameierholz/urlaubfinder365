@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Kurreisen günstig buchen – Kur & Erholung",
-  description:
-    "Kurreisen mit medizinischer Behandlung ✓ Kur-Hotels ✓ Erholung für Körper und Geist ✓ Täglich aktualisierte Kur-Angebote.",
+  title: `🏥 Kurreisen ${YEAR} günstig buchen – Kur & Erholung`,
+  description: `Kurreisen ${YEAR} günstig buchen ✓ Thermalbäder & Heilbehandlungen ✓ Kururlaub & Gesundheitsreisen ✓ Erholung für Körper und Geist.`,
+  keywords: ["Kurreisen günstig", "Kururlaub buchen", "Gesundheitsreise", "Thermalbad Urlaub", "Kur Tschechien", "Kur Ungarn", "Heilbad Reise", "Gesundheitsurlaub"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/kurreisen/",
   },
   openGraph: {
-    title: "Kurreisen günstig buchen – Kur & Erholung",
-    description:
-      "Kurreisen mit medizinischer Behandlung ✓ Kur-Hotels ✓ Erholung für Körper und Geist ✓ Täglich aktualisierte Kur-Angebote.",
+    title: `🏥 Kurreisen ${YEAR} – Kur & Erholung | Urlaubfinder365`,
+    description: `Kurreisen ${YEAR} günstig buchen ✓ Thermalbäder & Heilbehandlungen ✓ Kururlaub & Gesundheitsreisen ✓ Erholung für Körper und Geist.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/kurreisen/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/wellnessurlaub/", label: "🧖 Wellnessurlaub" },
   { href: "/urlaubsthemen/seniorenreisen/", label: "🌟 Seniorenreisen" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function KurreisenPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

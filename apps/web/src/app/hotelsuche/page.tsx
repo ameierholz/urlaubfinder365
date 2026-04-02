@@ -89,24 +89,16 @@ const breadcrumbSchema = {
   ],
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: "Hotelsuche – Günstige Hotels finden & buchen",
-  description:
-    "Hotels weltweit vergleichen & direkt buchen. Täglich aktualisierte Hotelpreise von über 200 Veranstaltern – alle Kategorien, alle Reiseziele, kein Aufpreis.",
+  title: `🏨 Hotels weltweit vergleichen & günstig buchen ${YEAR}`,
+  description: `Hotels ${YEAR} weltweit vergleichen & direkt buchen ✓ 200+ Veranstalter ✓ Alle Kategorien ✓ Kein Aufpreis ✓ Täglich aktualisierte Hotelpreise.`,
+  keywords: ["Hotels günstig buchen", "Hotelvergleich", "Hotels Türkei", "Hotels Mallorca", "Hotels Griechenland", "Hotel buchen online", "Günstige Hotels", "Hotelsuche", "Hotel Preisvergleich"],
   alternates: { canonical: `${BASE_URL}/hotelsuche/` },
   openGraph: {
-    title: "Hotelsuche – Günstige Hotels finden & buchen | Urlaubfinder365",
-    description: "Hotels weltweit vergleichen & direkt buchen. Täglich aktualisierte Hotelpreise von über 200 Veranstaltern – alle Kategorien, alle Reiseziele, kein Aufpreis.",
+    title: `🏨 Hotels weltweit vergleichen & günstig buchen ${YEAR} | Urlaubfinder365`,
+    description: `Hotels ${YEAR} weltweit vergleichen & direkt buchen ✓ 200+ Veranstalter ✓ Alle Kategorien ✓ Kein Aufpreis ✓ Täglich aktualisierte Hotelpreise.`,
     url: `${BASE_URL}/hotelsuche/`,
     type: "website",
   },
@@ -117,7 +109,6 @@ export default function HotelSuchePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO

@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Seniorenreisen – Entspannter Urlaub ab 60",
-  description:
-    "Seniorenreisen mit barrierefreien Hotels ✓ Ruhige Lage ✓ Ausgezeichneter Service ✓ Täglich aktualisierte Reiseangebote für Senioren.",
+  title: `🌿 Seniorenreisen ${YEAR} günstig buchen – barrierefrei`,
+  description: `Seniorenreisen ${YEAR} günstig buchen ✓ Barrierefreie Hotels ✓ Betreute Reisen ✓ Komfort & Sicherheit ✓ Jetzt passende Seniorenreise finden.`,
+  keywords: ["Seniorenreisen günstig", "Seniorenreise buchen", "Urlaub für Senioren", "Barrierefreier Urlaub", "Betreute Reisen", "Seniorenurlaub", "Komfortreise Senioren"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/seniorenreisen/",
   },
   openGraph: {
-    title: "Seniorenreisen – Entspannter Urlaub ab 60",
-    description:
-      "Seniorenreisen mit barrierefreien Hotels ✓ Ruhige Lage ✓ Ausgezeichneter Service ✓ Täglich aktualisierte Reiseangebote für Senioren.",
+    title: `🌿 Seniorenreisen ${YEAR} – komfortabel reisen | Urlaubfinder365`,
+    description: `Seniorenreisen ${YEAR} günstig buchen ✓ Barrierefreie Hotels ✓ Betreute Reisen ✓ Komfort & Sicherheit ✓ Jetzt passende Seniorenreise finden.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/seniorenreisen/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/kurreisen/", label: "💧 Kurreisen" },
   { href: "/urlaubsthemen/wellnessurlaub/", label: "🧖 Wellnessurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function SeniorenreisenPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

@@ -10,17 +10,18 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Familienurlaub günstig buchen – Hotels mit Kinderclub",
-  description:
-    "Familienurlaub mit Kinderclub ✓ Wasserpark & Animationsteam ✓ Für Familien mit Kindern optimiert ✓ Täglich aktuelle Pauschalreisen für die ganze Familie.",
+  title: `👨‍👩‍👧‍👦 Familienurlaub ${YEAR} günstig buchen – mit Kinderclub`,
+  description: `Familienurlaub ${YEAR} günstig buchen ✓ Hotels mit Kinderclub & Wasserpark ✓ Animation ✓ Für Familien mit Kindern optimiert ✓ Jetzt vergleichen.`,
+  keywords: ["Familienurlaub günstig", "Familienurlaub buchen", "Familienurlaub Türkei", "Familienurlaub Mallorca", "Hotel mit Kinderclub", "Familienhotel", "Urlaub mit Kindern", "Familienreise buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/familienurlaub/",
   },
   openGraph: {
-    title: "Familienurlaub günstig buchen – Hotels mit Kinderclub",
-    description:
-      "Familienurlaub mit Kinderclub ✓ Wasserpark & Animationsteam ✓ Für Familien mit Kindern optimiert ✓ Täglich aktuelle Pauschalreisen für die ganze Familie.",
+    title: `👨‍👩‍👧‍👦 Familienurlaub ${YEAR} – Hotels mit Kinderclub | Urlaubfinder365`,
+    description: `Familienurlaub ${YEAR} günstig buchen ✓ Hotels mit Kinderclub & Wasserpark ✓ Animation ✓ Für Familien mit Kindern optimiert ✓ Jetzt vergleichen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/familienurlaub/",
     type: "website",
     images: [
@@ -71,16 +72,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/strandurlaub/", label: "🏖️ Strandurlaub" },
   { href: "/urlaubsthemen/aktivurlaub/", label: "🏃 Aktivurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function FamilienUrlaubPage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

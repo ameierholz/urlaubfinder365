@@ -4,19 +4,21 @@ import AdBanner from "@/components/ui/AdBanner";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-kreta/`;
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: "Kreta Reiseführer 2026 – Tipps, Sehenswürdigkeiten & praktische Infos",
-  description: "Kreta Reiseführer 2026: Strände, Sehenswürdigkeiten, Samaria-Schlucht, Essen & Trinken und praktische Infos für deinen Griechenland-Urlaub.",
+  title: `🏛 Kreta Reiseführer ${YEAR} – Strände, Tipps & Kultur`,
+  description: `Kreta Reiseführer ${YEAR}: Samaria-Schlucht, Knossos, Traumstrände & Geheimtipps ✓ Griechenlands größte Insel komplett erklärt.`,
+  keywords: ["Kreta Reiseführer", "Kreta Tipps", "Kreta Strände", "Kreta Sehenswürdigkeiten", "Kreta Urlaub", "Griechenland Reiseführer", "Kreta Geheimtipps", "Samaria Schlucht"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Kreta Reiseführer 2026 – Dein kompletter Griechenland-Guide",
-    description: "Alles über Kreta: Strände, Schluchten, Chania, Geheimtipps, Reisezeit & Buchung.",
+    title: `🏛 Kreta Reiseführer ${YEAR} – Griechenland Guide | Urlaubfinder365`,
+    description: `Kreta Reiseführer ${YEAR}: Samaria-Schlucht, Knossos, Traumstrände & Geheimtipps ✓ Griechenlands größte Insel komplett erklärt.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&h=630&fit=crop&q=80",
-      width: 1200, height: 630, alt: "Kreta Griechenland – Reiseführer 2026",
+      width: 1200, height: 630, alt: `Kreta Griechenland – Reiseführer ${YEAR}`,
     }],
   },
 };
@@ -35,9 +37,23 @@ const jsonLd = {
     {
       "@type": "Article",
       headline: "Kreta Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
-      description: "Dein umfassender Kreta Reiseführer.",
+      description: "Dein umfassender Kreta Reiseführer: Strände, Samaria-Schlucht, Chania, Essen & Trinken und praktische Infos.",
       url: CANONICAL,
-      about: { "@type": "TouristDestination", name: "Kreta", containedInPlace: { "@type": "Country", name: "Griechenland" } },
+      datePublished: "2026-04-01",
+      dateModified: "2026-04-02",
+      author: { "@type": "Organization", name: "Urlaubfinder365" },
+      publisher: {
+        "@type": "Organization",
+        name: "Urlaubfinder365",
+        logo: { "@type": "ImageObject", url: `${BASE_URL}/images/header_logo.webp` },
+      },
+      image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&h=630&fit=crop&q=80",
+      about: {
+        "@type": "TouristDestination",
+        name: "Kreta",
+        description: "Größte griechische Insel mit der Samaria-Schlucht, venezianischen Häfen und kilometerlangen Sandstränden.",
+        containedInPlace: { "@type": "Country", name: "Griechenland" },
+      },
     },
   ],
 };

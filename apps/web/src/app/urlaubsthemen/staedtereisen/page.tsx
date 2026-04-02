@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Städtereisen günstig buchen – Metropolen entdecken",
-  description:
-    "Städtereisen mit Hotel ✓ Zentrale Lage ✓ Europas schönste Metropolen ✓ Täglich aktualisierte Städtereise-Angebote.",
+  title: `🏙 Städtereisen ${YEAR} günstig buchen – Kultur & Sightseeing`,
+  description: `Städtereisen ${YEAR} günstig buchen ✓ Barcelona, Rom, Paris & mehr ✓ Flug + Hotel ✓ Sightseeing & Kultur ✓ Jetzt Städtetrip vergleichen.`,
+  keywords: ["Städtereisen günstig", "Städtereise buchen", "Städtetrip", "Kurzurlaub Stadt", "Städtereise Barcelona", "Städtereise Rom", "Städtereise Paris", "City Trip buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/staedtereisen/",
   },
   openGraph: {
-    title: "Städtereisen günstig buchen – Metropolen entdecken",
-    description:
-      "Städtereisen mit Hotel ✓ Zentrale Lage ✓ Europas schönste Metropolen ✓ Täglich aktualisierte Städtereise-Angebote.",
+    title: `🏙 Städtereisen ${YEAR} – günstig buchen | Urlaubfinder365`,
+    description: `Städtereisen ${YEAR} günstig buchen ✓ Barcelona, Rom, Paris & mehr ✓ Flug + Hotel ✓ Sightseeing & Kultur ✓ Jetzt Städtetrip vergleichen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/staedtereisen/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/abenteuerurlaub/", label: "🧗 Abenteuerurlaub" },
   { href: "/urlaubsthemen/aktivurlaub/", label: "🏃 Aktivurlaub" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function StaedtereisePage() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

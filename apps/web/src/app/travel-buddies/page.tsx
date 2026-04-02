@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import TravelBuddiesClient from "./TravelBuddiesClient";
 
 export const metadata: Metadata = {
-  title: "Travel Buddies – Reisepartner finden | Urlaubfinder365",
-  description: "Finde Gleichgesinnte für deine nächste Reise. Verbinde dich mit anderen Reisenden, die ähnliche Ziele und Reisestile haben.",
+  title: "🤝 Travel Buddies – Reisepartner finden",
+  description: "Travel Buddies finden bei Urlaubfinder365: Reisepartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
+  keywords: ["Travel Buddy finden", "Reisepartner suchen", "Gemeinsam verreisen", "Reisebegleitung", "Travel Buddy Deutschland", "Mitreisende finden"],
   alternates: { canonical: "https://www.urlaubfinder365.de/travel-buddies/" },
   openGraph: {
-    title: "Travel Buddies – Reisepartner finden | Urlaubfinder365",
-    description: "Finde Gleichgesinnte für deine nächste Reise. Verbinde dich mit anderen Reisenden, die ähnliche Ziele und Reisestile haben.",
+    title: "🤝 Travel Buddies – Reisepartner finden | Urlaubfinder365",
+    description: "Travel Buddies finden bei Urlaubfinder365: Reisepartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
     url: "https://www.urlaubfinder365.de/travel-buddies/",
     type: "website",
   },

@@ -116,14 +116,6 @@ export default async function DestinationPage({ params }: Props) {
         "touristType": ["Strandurlaub", "Pauschalreise", "All-Inclusive"],
         "containedInPlace": { "@type": "Country", "name": dest.country },
       },
-      ...(dest.faqs && dest.faqs.length > 0 ? [{
-        "@type": "FAQPage",
-        "mainEntity": dest.faqs.map((f) => ({
-          "@type": "Question",
-          "name": f.question,
-          "acceptedAnswer": { "@type": "Answer", "text": f.answer },
-        })),
-      }] : []),
       {
         "@type": "TravelAction",
         "name": `Urlaub in ${dest.name} buchen`,

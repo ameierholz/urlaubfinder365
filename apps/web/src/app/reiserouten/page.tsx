@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import ReiseroutenClient from "./ReiseroutenClient";
 
 export const metadata: Metadata = {
-  title: "Reiserouten – Inspiration & Planung | Urlaubfinder365",
-  description: "Entdecke Reiserouten anderer Urlauber und klone sie mit einem Klick für deine eigene Planung.",
+  title: "🗺 Reiserouten – Routen planen, teilen & klonen",
+  description: "Reiserouten planen & teilen ✓ Beliebte Routen anderer Reisender klonen ✓ Tagesplanung & Sehenswürdigkeiten ✓ Kostenlos nutzen.",
+  keywords: ["Reiserouten planen", "Reiseroute erstellen", "Route teilen", "Reiseplaner", "Urlaubsroute", "Routenplaner Urlaub"],
   alternates: { canonical: "https://www.urlaubfinder365.de/reiserouten/" },
   openGraph: {
-    title: "Reiserouten – Inspiration & Planung | Urlaubfinder365",
-    description: "Entdecke Reiserouten anderer Urlauber und klone sie mit einem Klick für deine eigene Planung.",
+    title: "🗺 Reiserouten planen & teilen | Urlaubfinder365",
+    description: "Reiserouten planen & teilen ✓ Beliebte Routen anderer Reisender klonen ✓ Tagesplanung & Sehenswürdigkeiten ✓ Kostenlos nutzen.",
     url: "https://www.urlaubfinder365.de/reiserouten/",
     type: "website",
   },

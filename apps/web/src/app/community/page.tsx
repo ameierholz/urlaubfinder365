@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import CommunityPageClient from "./CommunityPageClient";
 
 export const metadata: Metadata = {
-  title: "Reise-Community – Berichte, Gruppen & Reisetipps | Urlaubfinder365",
-  description:
-    "Lies echte Reiseberichte, tausche dich in Gruppen aus und entdecke Geheimtipps von Reisenden. Kostenlos mitmachen – Urlaubfinder365 Community.",
+  title: "🌍 Reise-Community – Berichte, Gruppen & Tipps",
+  description: "Urlaubfinder365 Reise-Community: Echte Reiseberichte lesen, Reisegruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.",
+  keywords: ["Reise-Community", "Reiseberichte", "Reisegruppen", "Reisetipps", "Reiseforum", "Reisende vernetzen", "Urlaubserfahrungen", "Reise Austausch"],
   alternates: { canonical: "https://www.urlaubfinder365.de/community/" },
   openGraph: {
-    title: "Reise-Community – Berichte, Gruppen & Reisetipps | Urlaubfinder365",
-    description:
-      "Lies echte Reiseberichte, tausche dich in Gruppen aus und entdecke Geheimtipps von Reisenden.",
+    title: "🌍 Reise-Community – Berichte & Tipps | Urlaubfinder365",
+    description: "Urlaubfinder365 Reise-Community: Echte Reiseberichte lesen, Reisegruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.",
     url: "https://www.urlaubfinder365.de/community/",
     type: "website",
     images: [

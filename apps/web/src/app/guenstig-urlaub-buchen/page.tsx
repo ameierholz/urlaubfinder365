@@ -7,13 +7,15 @@ import ReiseartenCards from "@/components/widgets/ReiseartenCards";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Günstig Urlaub buchen – aktuelle Deals 2026",
-  description:
-    "Günstig Urlaub buchen: Pauschalreisen, All-Inclusive & Last-Minute täglich aktuell ✓ Direktbuchung beim Veranstalter ✓ Bestpreis ohne versteckte Aufpreise.",
+  title: `💰 Günstig Urlaub buchen ${YEAR} – aktuelle Deals & Angebote`,
+  description: `Günstig Urlaub buchen ${YEAR}: Pauschalreisen, All Inclusive & Last Minute ✓ Täglich aktuell ✓ Direktbuchung ✓ Bestpreis ohne Aufpreis.`,
+  keywords: ["Günstig Urlaub buchen", "Billig Urlaub buchen", "Urlaub Schnäppchen", "Urlaub Deals", "Pauschalreisen günstig", "Urlaub unter 500 Euro", "Billige Reisen", "Urlaub Angebote", "Günstige Reiseangebote"],
   alternates: { canonical: `${BASE_URL}/guenstig-urlaub-buchen/` },
   openGraph: {
-    title: "Günstig Urlaub buchen 2026 – aktuelle Deals | Urlaubfinder365",
+    title: `💰 Günstig Urlaub buchen ${YEAR} – Deals & Angebote | Urlaubfinder365`,
     description:
       "Pauschalreisen, All-Inclusive & Last-Minute täglich aktualisiert ✓ Direktbuchung ✓ Bestpreis-Garantie – jetzt vergleichen auf Urlaubfinder365.",
     url: `${BASE_URL}/guenstig-urlaub-buchen/`,
@@ -101,22 +103,11 @@ const breadcrumbSchema = {
   ],
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
-
 // ── Page ────────────────────────────────────────────────────────────────────────
 export default function GuenstigUrlaubBuchen() {
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO + SUCHE

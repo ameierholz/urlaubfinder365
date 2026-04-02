@@ -9,11 +9,19 @@ import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Pauschalreisen günstig buchen – Flug + Hotel",
-  description:
-    "Pauschalreisen mit Flug, Hotel & Transfer günstig buchen ✓ Täglich aktuell ✓ Ab 3 Sterne ✓ ≥50% HolidayCheck-Empfehlung ✓ Direkt buchen.",
+  title: `✈ Pauschalreisen ${YEAR} günstig buchen – Flug + Hotel`,
+  description: `Pauschalreisen ${YEAR} mit Flug, Hotel & Transfer günstig buchen ✓ Täglich aktuell ✓ Ab 3 Sterne ✓ 50+ Veranstalter ✓ Direkt buchen & sparen.`,
+  keywords: ["Pauschalreisen günstig", "Pauschalreisen buchen", "Flug und Hotel", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Pauschalreisen Griechenland", "Pauschalreisen Ägypten", "Billige Pauschalreisen", "Paketreise buchen"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/pauschalreisen/" },
+  openGraph: {
+    title: `✈ Pauschalreisen ${YEAR} günstig buchen | Urlaubfinder365`,
+    description: `Pauschalreisen ${YEAR} mit Flug, Hotel & Transfer günstig buchen ✓ Täglich aktuell ✓ Ab 3 Sterne ✓ 50+ Veranstalter ✓ Direkt buchen & sparen.`,
+    url: "https://www.urlaubfinder365.de/urlaubsarten/pauschalreisen/",
+    type: "website",
+  },
 };
 
 export const revalidate = 3600;
@@ -48,14 +56,14 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
+const breadcrumbSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
+    { "@type": "ListItem", position: 2, name: "Urlaubsarten", item: "https://www.urlaubfinder365.de/urlaubsarten/" },
+    { "@type": "ListItem", position: 3, name: "Pauschalreisen", item: "https://www.urlaubfinder365.de/urlaubsarten/pauschalreisen/" },
+  ],
 };
 
 export default function PauschalreisenPage() {
@@ -65,7 +73,7 @@ export default function PauschalreisenPage() {
 
   return (
     <div className="min-h-screen">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* Hero */}
       <div

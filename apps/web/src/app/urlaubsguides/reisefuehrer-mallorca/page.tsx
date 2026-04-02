@@ -4,22 +4,23 @@ import AdBanner from "@/components/ui/AdBanner";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-mallorca/`;
+const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: "Mallorca Reiseführer 2026 – Tipps, Sehenswürdigkeiten & praktische Infos",
-  description:
-    "Mallorca Reiseführer 2026: Strände, Sehenswürdigkeiten, Serra de Tramuntana, Essen & Trinken, Viertel-Guide und praktische Infos für deinen Balearen-Urlaub.",
+  title: `🏖 Mallorca Reiseführer ${YEAR} – Strände, Tipps & mehr`,
+  description: `Mallorca Reiseführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
+  keywords: ["Mallorca Reiseführer", "Mallorca Tipps", "Mallorca Strände", "Mallorca Sehenswürdigkeiten", "Mallorca Urlaub", "Palma de Mallorca", "Mallorca Geheimtipps", "Mallorca Guide"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Mallorca Reiseführer 2026 – Dein kompletter Balearen-Guide",
-    description: "Alles über Mallorca: Strände, Tramuntana, Palma, Geheimtipps, Reisezeit & Buchung – der umfassendste Mallorca-Guide.",
+    title: `🏖 Mallorca Reiseführer ${YEAR} – Balearen Guide | Urlaubfinder365`,
+    description: `Mallorca Reiseführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&h=630&fit=crop&q=80",
       width: 1200,
       height: 630,
-      alt: "Mallorca Spanien – Reiseführer 2026",
+      alt: `Mallorca Spanien – Reiseführer ${YEAR}`,
     }],
   },
 };
@@ -38,9 +39,23 @@ const jsonLd = {
     {
       "@type": "Article",
       headline: "Mallorca Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
-      description: "Dein umfassender Mallorca Reiseführer.",
+      description: "Dein umfassender Mallorca Reiseführer: Strände, Serra de Tramuntana, Palma, Essen & Trinken und praktische Infos.",
       url: CANONICAL,
-      about: { "@type": "TouristDestination", name: "Mallorca", containedInPlace: { "@type": "Country", name: "Spanien" } },
+      datePublished: "2026-04-01",
+      dateModified: "2026-04-02",
+      author: { "@type": "Organization", name: "Urlaubfinder365" },
+      publisher: {
+        "@type": "Organization",
+        name: "Urlaubfinder365",
+        logo: { "@type": "ImageObject", url: `${BASE_URL}/images/header_logo.webp` },
+      },
+      image: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&h=630&fit=crop&q=80",
+      about: {
+        "@type": "TouristDestination",
+        name: "Mallorca",
+        description: "Größte Baleareninsel mit traumhaften Buchten, dem Tramuntana-Gebirge und der lebendigen Hauptstadt Palma.",
+        containedInPlace: { "@type": "Country", name: "Spanien" },
+      },
     },
   ],
 };

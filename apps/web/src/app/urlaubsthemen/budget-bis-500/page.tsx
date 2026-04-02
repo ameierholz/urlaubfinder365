@@ -10,17 +10,18 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import Image from "next/image";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaub bis 500 € buchen – Günstige Reisen",
-  description:
-    "Pauschalreisen bis 500 € pro Person ✓ Flug + Hotel ✓ Täglich neue Schnäppchen ✓ Günstig in den Urlaub ohne Kompromisse.",
+  title: `💶 Urlaub bis 500€ – günstige Pauschalreisen ${YEAR}`,
+  description: `Urlaub bis 500€ pro Person ${YEAR}: Günstige Pauschalreisen mit Flug & Hotel ✓ Türkei, Griechenland & Ägypten ✓ Jetzt Schnäppchen buchen.`,
+  keywords: ["Urlaub bis 500 Euro", "Günstiger Urlaub", "Billiger Urlaub", "Pauschalreise günstig", "Urlaub unter 500", "Budget Urlaub", "Urlaub Schnäppchen", "Billig verreisen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-500/",
   },
   openGraph: {
-    title: "Urlaub bis 500 € buchen – Günstige Reisen",
-    description:
-      "Pauschalreisen bis 500 € pro Person ✓ Flug + Hotel ✓ Täglich neue Schnäppchen ✓ Günstig in den Urlaub ohne Kompromisse.",
+    title: `💶 Urlaub bis 500€ ${YEAR} – Schnäppchen | Urlaubfinder365`,
+    description: `Urlaub bis 500€ pro Person ${YEAR}: Günstige Pauschalreisen mit Flug & Hotel ✓ Türkei, Griechenland & Ägypten ✓ Jetzt Schnäppchen buchen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-500/",
     type: "website",
     images: [
@@ -70,16 +71,6 @@ const FAQ = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
 const LINKS = [
   { href: "/urlaubsthemen/budget-bis-1000/", label: "💰 Budget bis 1.000 €" },
   { href: "/urlaubsthemen/budget-bis-1500/", label: "💳 Budget bis 1.500 €" },
@@ -101,7 +92,6 @@ const breadcrumbSchema = {
 export default function BudgetBis500Page() {
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       {/* HERO */}

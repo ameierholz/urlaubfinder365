@@ -8,6 +8,143 @@ import TravelReportCard from "@/components/community/TravelReportCard";
 import UserProfileCard from "@/components/community/UserProfileCard";
 import { BookOpen, Users, Map, Users2, ArrowRight, Globe, Star, MessageCircle, Play, UserSearch, Route, Sparkles, Brain, Flame } from "lucide-react";
 
+/* ── Demo-Daten (Fallback wenn DB leer) ──────────────────────────────────── */
+
+const DEMO_REPORTS: TravelReport[] = [
+  {
+    id: "demo-1",
+    userId: "demo",
+    displayName: "Familie Weber",
+    destination: "Antalya, Türkei",
+    country: "Türkei",
+    title: "Traumurlaub an der türkischen Riviera",
+    highlights: "Riesiger Strand, tolles Essen, Kinderclub, saubere Anlage",
+    lowlights: "Pool manchmal voll, Liegen früh reserviert",
+    tips: "Früh aufstehen für Strandliegen, Ausflug nach Side lohnt sich",
+    priceRange: "mittel",
+    rating: 5,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80",
+    visitedAt: "2025-08",
+    createdAt: "2025-09-01T10:00:00Z",
+    likesCount: 24,
+    likedBy: [],
+    commentsCount: 5,
+    isPublished: true,
+  },
+  {
+    id: "demo-2",
+    userId: "demo",
+    displayName: "Sandra K.",
+    destination: "Mallorca, Spanien",
+    country: "Spanien",
+    title: "Entspannter Pärchenurlaub auf Mallorca",
+    highlights: "Strandlage, gutes Restaurant, ruhig im Oktober",
+    lowlights: "WLAN im Zimmer schwach",
+    tips: "Mietwagen buchen für Serra de Tramuntana, Tapas in Palma",
+    priceRange: "mittel",
+    rating: 4,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80",
+    visitedAt: "2025-10",
+    createdAt: "2025-10-20T14:30:00Z",
+    likesCount: 18,
+    likedBy: [],
+    commentsCount: 3,
+    isPublished: true,
+  },
+  {
+    id: "demo-3",
+    userId: "demo",
+    displayName: "Marco T.",
+    destination: "Hurghada, Ägypten",
+    country: "Ägypten",
+    title: "Schnorchel-Paradies am Roten Meer",
+    highlights: "Fantastisches Hausriff, All-Inclusive top, Spa",
+    lowlights: "Flughafentransfer 45 Min.",
+    tips: "Tauchkurs vor Ort buchen, Ausflug nach Luxor einplanen",
+    priceRange: "mittel",
+    rating: 5,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80",
+    visitedAt: "2025-11",
+    createdAt: "2025-12-01T09:15:00Z",
+    likesCount: 31,
+    likedBy: [],
+    commentsCount: 7,
+    isPublished: true,
+  },
+  {
+    id: "demo-4",
+    userId: "demo",
+    displayName: "Julia & Max",
+    destination: "Kreta, Griechenland",
+    country: "Griechenland",
+    title: "Kreta – Kultur und Traumstrände",
+    highlights: "Vielfältige Insel, freundliche Locals, tolles Essen",
+    lowlights: "Mietwagen fast Pflicht für Ausflüge",
+    tips: "Elafonissi Beach besuchen, Samaria-Schlucht früh starten",
+    priceRange: "mittel",
+    rating: 4,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80",
+    visitedAt: "2025-06",
+    createdAt: "2025-07-10T16:00:00Z",
+    likesCount: 22,
+    likedBy: [],
+    commentsCount: 4,
+    isPublished: true,
+  },
+  {
+    id: "demo-5",
+    userId: "demo",
+    displayName: "Tim B.",
+    destination: "Barcelona, Spanien",
+    country: "Spanien",
+    title: "Barcelona – die perfekte Städtereise",
+    highlights: "Architektur, Essen, Strand, Nightlife",
+    lowlights: "Taschendiebe auf La Rambla – aufpassen!",
+    tips: "Tickets für Sagrada Família vorher online buchen",
+    priceRange: "mittel",
+    rating: 5,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80",
+    visitedAt: "2025-09",
+    createdAt: "2025-09-25T11:45:00Z",
+    likesCount: 15,
+    likedBy: [],
+    commentsCount: 2,
+    isPublished: true,
+  },
+  {
+    id: "demo-6",
+    userId: "demo",
+    displayName: "Fam. Schneider",
+    destination: "Side, Türkei",
+    country: "Türkei",
+    title: "Perfekter Familienurlaub in Side",
+    highlights: "Kinderfreundlich, Preis-Leistung, flacher Strand",
+    lowlights: "Animation manchmal zu laut",
+    tips: "Kinderbuffet nutzen, Basar in Side besuchen",
+    priceRange: "budget",
+    rating: 4,
+    recommendation: true,
+    coverImageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+    visitedAt: "2025-07",
+    createdAt: "2025-07-20T08:30:00Z",
+    likesCount: 29,
+    likedBy: [],
+    commentsCount: 6,
+    isPublished: true,
+  },
+];
+
+const DEMO_MEMBERS: CommunityProfile[] = [
+  { uid: "demo-1", displayName: "Sandra K.", bio: "Reisebloggerin & Mallorca-Fan. 15+ Länder bereist.", nationality: "Deutschland", visitedCountries: ["DE","ES","TR","GR","IT"], followersCount: 42, followingCount: 18, reportsCount: 8, tipsCount: 12, groupsCount: 3 },
+  { uid: "demo-2", displayName: "Marco T.", bio: "Taucher & Ägypten-Liebhaber. Unterwasserfotografie ist meine Leidenschaft.", nationality: "Österreich", visitedCountries: ["AT","EG","TR","GR","TH"], followersCount: 35, followingCount: 22, reportsCount: 5, tipsCount: 9, groupsCount: 2 },
+  { uid: "demo-3", displayName: "Julia & Max", bio: "Pärchen aus München. Wir lieben Griechenland und gutes Essen!", nationality: "Deutschland", visitedCountries: ["DE","GR","ES","IT","HR"], followersCount: 28, followingCount: 15, reportsCount: 3, tipsCount: 6, groupsCount: 2 },
+];
+
 export default function CommunityPageClient() {
   const [reports, setReports] = useState<TravelReport[]>([]);
   const [members, setMembers] = useState<CommunityProfile[]>([]);
@@ -15,7 +152,7 @@ export default function CommunityPageClient() {
 
   useEffect(() => {
     Promise.all([getTravelReports(6), getCommunityProfiles(6)])
-      .then(([r, m]) => { setReports(r); setMembers(m); })
+      .then(([r, m]) => { setReports(r.length > 0 ? r : DEMO_REPORTS); setMembers(m.length > 0 ? m : DEMO_MEMBERS); })
       .finally(() => setLoading(false));
   }, []);
 

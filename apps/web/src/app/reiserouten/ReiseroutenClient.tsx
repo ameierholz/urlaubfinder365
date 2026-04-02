@@ -29,6 +29,51 @@ function db() {
   );
 }
 
+const DEMO_ROUTES: PublicRoute[] = [
+  {
+    id: "demo-1", userId: "demo", title: "Türkei-Rundreise: Antalya, Side & Alanya",
+    destination: "antalya", destinationName: "Antalya, Türkei",
+    startDate: "2026-06-15", endDate: "2026-06-25", adults: 2, children: 0,
+    notes: "10 Tage Türkische Riviera: 4 Nächte Antalya Altstadt, 3 Nächte Side (Strand), 3 Nächte Alanya (Burg & Kleopatra-Strand). Mietwagen empfohlen!",
+    cloneCount: 23, coverImageUrl: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", createdAt: "2025-09-01T10:00:00Z",
+  },
+  {
+    id: "demo-2", userId: "demo", title: "Mallorca mit Kindern – Strand & Natur",
+    destination: "mallorca", destinationName: "Mallorca, Spanien",
+    startDate: "2026-07-20", endDate: "2026-07-31", adults: 2, children: 2,
+    notes: "Familienurlaub: Cala Millor (Familienhotel), Drach-Höhlen, Palma Aquarium, Es Trenc, Serra de Tramuntana Wanderung (leicht). Budget ca. 3.500€ für 4 Personen AI.",
+    cloneCount: 45, coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", createdAt: "2025-08-15T14:00:00Z",
+  },
+  {
+    id: "demo-3", userId: "demo", title: "Kreta Insel-Erkundung: West nach Ost",
+    destination: "kreta", destinationName: "Kreta, Griechenland",
+    startDate: "2026-09-01", endDate: "2026-09-14", adults: 2, children: 0,
+    notes: "2 Wochen Kreta mit Mietwagen: Chania (3N), Rethymno (2N), Heraklion/Knossos (2N), Agios Nikolaos (3N), Elafonissi Tagestrip. Samaria-Schlucht an Tag 4.",
+    cloneCount: 31, coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", createdAt: "2025-07-20T09:00:00Z",
+  },
+  {
+    id: "demo-4", userId: "demo", title: "Barcelona Städtetrip: 5 Tage Kultur & Tapas",
+    destination: "barcelona", destinationName: "Barcelona, Spanien",
+    startDate: "2026-04-10", endDate: "2026-04-15", adults: 2, children: 0,
+    notes: "Tag 1: Barri Gòtic & La Rambla. Tag 2: Sagrada Família + Park Güell. Tag 3: Barceloneta Strand & Born-Viertel. Tag 4: Montjuïc + Camp Nou. Tag 5: La Boqueria & Abflug. Tickets vorher buchen!",
+    cloneCount: 67, coverImageUrl: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80", createdAt: "2025-10-05T16:00:00Z",
+  },
+  {
+    id: "demo-5", userId: "demo", title: "Ägypten: Hurghada + Luxor Kombi",
+    destination: "hurghada", destinationName: "Hurghada, Ägypten",
+    startDate: "2026-11-01", endDate: "2026-11-14", adults: 2, children: 0,
+    notes: "10 Tage Strand in Hurghada (Schnorcheln, Tauchen), dann 4 Tage Nilkreuzfahrt Luxor–Assuan. Tempel von Karnak, Tal der Könige, Abu Simbel als Tagesausflug.",
+    cloneCount: 18, coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80", createdAt: "2025-11-10T11:00:00Z",
+  },
+  {
+    id: "demo-6", userId: "demo", title: "All-Inclusive Familienurlaub Side/Türkei",
+    destination: "antalya", destinationName: "Side, Türkei",
+    startDate: "2026-08-01", endDate: "2026-08-14", adults: 2, children: 3,
+    notes: "2 Wochen AI in Side. Hotel mit Kinderclub, Wasserpark und flachem Strand. Tagesausflug Manavgat-Wasserfall und Aspendos Theater. Budget: 3.200€ für 5 Personen.",
+    cloneCount: 52, coverImageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80", createdAt: "2025-06-20T08:30:00Z",
+  },
+];
+
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString("de-DE", { day: "2-digit", month: "short", year: "numeric" });
 }
@@ -58,13 +103,14 @@ export default function ReiseroutenClient() {
       .order("created_at", { ascending: false })
       .limit(50);
 
-    setRoutes((data ?? []).map((r) => ({
+    const mapped: PublicRoute[] = (data ?? []).map((r) => ({
       id: r.id, userId: r.user_id, title: r.title, destination: r.destination,
       destinationName: r.destination_name, startDate: r.start_date, endDate: r.end_date,
       adults: r.adults, children: r.children, notes: r.notes ?? "",
       cloneCount: r.clone_count ?? 0, coverImageUrl: r.cover_image_url ?? null,
       createdAt: r.created_at,
-    })));
+    }));
+    setRoutes(mapped.length > 0 ? mapped : DEMO_ROUTES);
     setLoading(false);
   }, []);
 

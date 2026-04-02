@@ -8,11 +8,19 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Last Minute Urlaub – Günstige Reisen kurzfristig buchen",
-  description:
-    "Last Minute Urlaub günstig buchen: Spontan verreisen und bis zu 60% sparen. ✓ Tägliche neue Angebote ✓ Sofortbuchung ✓ Aktivitäten dazu buchen.",
+  title: `⚡ Last Minute Urlaub ${YEAR} – günstig & spontan buchen`,
+  description: `Last Minute Urlaub ${YEAR} günstig buchen ✓ Spontan verreisen ✓ Bis 60% sparen ✓ Sofortbuchung ✓ Tägliche neue Angebote für Türkei, Mallorca & mehr.`,
+  keywords: ["Last Minute Urlaub", "Last Minute Reisen", "Last Minute günstig", "Spontan verreisen", "Kurzfristig Urlaub", "Last Minute Pauschalreise", "Last Minute Angebote"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/last-minute-urlaub/" },
+  openGraph: {
+    title: `⚡ Last Minute Urlaub ${YEAR} – günstig buchen | Urlaubfinder365`,
+    description: `Last Minute Urlaub ${YEAR} günstig buchen ✓ Spontan verreisen ✓ Bis 60% sparen ✓ Sofortbuchung.`,
+    url: "https://www.urlaubfinder365.de/urlaubsarten/last-minute-urlaub/",
+    type: "website",
+  },
 };
 
 export const revalidate = 1800;

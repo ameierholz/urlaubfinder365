@@ -1,11 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaubsthemen – Alle Reiseideen auf einen Blick",
-  description:
-    "Alle Urlaubsthemen entdecken: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Hochzeitsreise, Luxusurlaub und mehr ✓ Täglich aktuelle Pauschalreisen.",
+  title: `🌴 Urlaubsthemen ${YEAR} – Reiseideen für jeden Geschmack`,
+  description: `Alle Urlaubsthemen ${YEAR}: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Luxus & mehr ✓ Täglich aktuelle Pauschalreisen.`,
+  keywords: ["Urlaubsthemen", "Reiseideen", "Urlaubsarten", "Familienurlaub", "Strandurlaub", "Wellnessurlaub", "Luxusurlaub", "Städtereisen", "Aktivurlaub"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsthemen/" },
+  openGraph: {
+    title: `🌴 Urlaubsthemen ${YEAR} – alle Reiseideen | Urlaubfinder365`,
+    description: `Alle Urlaubsthemen ${YEAR}: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Luxus & mehr ✓ Täglich aktuelle Pauschalreisen.`,
+    url: "https://www.urlaubfinder365.de/urlaubsthemen/",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&fit=crop&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Reisende mit Koffer am Flughafen – Urlaubsthemen und Reiseideen bei Urlaubfinder365",
+      },
+    ],
+  },
 };
 
 export const revalidate = 3600;

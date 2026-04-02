@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import AuthForm from "@/components/auth/AuthForm";
 
 export const metadata: Metadata = {
-  title: "Registrieren",
-  description: "Erstelle dein kostenloses Urlaubfinder365-Konto und erhalte exklusive Reiseangebote, Preisalarme und persönliche Empfehlungen.",
+  title: "✨ Kostenlos registrieren – Urlaubfinder365",
+  description: "Kostenlos bei Urlaubfinder365 registrieren ✓ Preisalarme ✓ Reiseberichte schreiben ✓ Community beitreten ✓ Favoriten speichern.",
   alternates: { canonical: "https://www.urlaubfinder365.de/register/" },
   robots: { index: false, follow: true },
 };

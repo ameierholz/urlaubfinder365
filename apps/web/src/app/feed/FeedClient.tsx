@@ -19,6 +19,45 @@ interface FeedPost {
   createdAt: string;
 }
 
+const DEMO_POSTS: FeedPost[] = [
+  {
+    id: "demo-1", displayName: "Sandra K.", destination: "Mallorca", destinationSlug: "mallorca",
+    mediaUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1080&q=80",
+    mediaType: "image", caption: "Sonnenuntergang in Cala Deià – einer der schönsten Strände Mallorcas. Diesen Moment werde ich nie vergessen!",
+    tags: ["Mallorca", "Strand", "Sonnenuntergang", "Balearen"], likesCount: 47, likedBy: [], createdAt: "2025-09-15T18:30:00Z",
+  },
+  {
+    id: "demo-2", displayName: "Marco T.", destination: "Hurghada", destinationSlug: "hurghada",
+    mediaUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1080&q=80",
+    mediaType: "image", caption: "Schnorcheln am Mahmya Island – das Rote Meer ist ein Unterwasser-Paradies! Schildkröten, Clownfische und Korallen.",
+    tags: ["Hurghada", "Schnorcheln", "RotesMeer", "Ägypten"], likesCount: 82, likedBy: [], createdAt: "2025-10-20T11:00:00Z",
+  },
+  {
+    id: "demo-3", displayName: "Julia & Max", destination: "Kreta", destinationSlug: "kreta",
+    mediaUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1080&q=80",
+    mediaType: "image", caption: "Elafonissi Beach – pink Sand und türkisblaues Wasser. Kreta hat uns komplett begeistert!",
+    tags: ["Kreta", "Elafonissi", "Griechenland", "Traumstrand"], likesCount: 123, likedBy: [], createdAt: "2025-07-05T14:00:00Z",
+  },
+  {
+    id: "demo-4", displayName: "Fam. Weber", destination: "Antalya", destinationSlug: "antalya",
+    mediaUrl: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1080&q=80",
+    mediaType: "image", caption: "Familienurlaub in Side – die Kids lieben den flachen Strand und die Wasserrutschen im Hotel!",
+    tags: ["Antalya", "Side", "Familienurlaub", "Türkei"], likesCount: 56, likedBy: [], createdAt: "2025-08-10T09:00:00Z",
+  },
+  {
+    id: "demo-5", displayName: "Tim B.", destination: "Barcelona", destinationSlug: "barcelona",
+    mediaUrl: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1080&q=80",
+    mediaType: "image", caption: "Sagrada Família von innen – die Lichtspiele durch die bunten Fenster sind atemberaubend. Gaudís Meisterwerk!",
+    tags: ["Barcelona", "SagradaFamilia", "Städtereise", "Architektur"], likesCount: 94, likedBy: [], createdAt: "2025-09-20T16:30:00Z",
+  },
+  {
+    id: "demo-6", displayName: "Lena M.", destination: "Mallorca", destinationSlug: "mallorca",
+    mediaUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1080&q=80",
+    mediaType: "image", caption: "Es Trenc – der schönste Naturstrand Mallorcas. Kristallklares Wasser und feiner weißer Sand.",
+    tags: ["Mallorca", "EsTrenc", "Naturstrand", "Sommer"], likesCount: 68, likedBy: [], createdAt: "2025-08-25T12:00:00Z",
+  },
+];
+
 function db() {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -60,7 +99,7 @@ export default function FeedClient() {
 
   useEffect(() => {
     db().auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
-    loadPosts().then((p) => { setPosts(p); setLoading(false); });
+    loadPosts().then((p) => { setPosts(p.length > 0 ? p : DEMO_POSTS); setLoading(false); });
   }, []);
 
   const goTo = useCallback((idx: number) => {

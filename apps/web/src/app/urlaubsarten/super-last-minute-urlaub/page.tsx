@@ -8,15 +8,16 @@ import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Super Last Minute Urlaub – Abreise in 72 Stunden",
-  description:
-    "Super-Last-Minute Urlaub: Abreise innerhalb von 72 Stunden zum Spitzenpreis. ✓ Maximale Ersparnis ✓ Sofortbuchung ✓ Aktivitäten sofort buchbar.",
+  title: `⚡ Super Last Minute ${YEAR} – Abreise in 72 Stunden`,
+  description: `Super Last Minute ${YEAR}: In 72 Stunden am Strand ✓ Maximale Ersparnis ✓ Sofortbuchung ✓ Türkei, Griechenland & Ägypten zum Spitzenpreis.`,
+  keywords: ["Super Last Minute", "Super Last Minute Urlaub", "72 Stunden Urlaub", "Last Minute Restplätze", "Sofort verreisen", "Spontanurlaub", "Billigster Last Minute Urlaub"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsarten/super-last-minute-urlaub/" },
   openGraph: {
-    title: "Super Last Minute Urlaub – Abreise in 72 Stunden",
-    description:
-      "Super-Last-Minute Urlaub: Abreise innerhalb von 72 Stunden zum Spitzenpreis. ✓ Maximale Ersparnis ✓ Sofortbuchung ✓ Aktivitäten sofort buchbar.",
+    title: `⚡ Super Last Minute ${YEAR} – Abreise in 72h | Urlaubfinder365`,
+    description: `Super Last Minute ${YEAR}: In 72 Stunden am Strand ✓ Maximale Ersparnis ✓ Sofortbuchung ✓ Türkei, Griechenland & Ägypten zum Spitzenpreis.`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/super-last-minute-urlaub/",
     siteName: "Urlaubfinder365",
     images: [{ url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&q=80", width: 1200, height: 630, alt: "Super Last Minute – Antalya Strand mit Taurusgebirge" }],

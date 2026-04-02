@@ -3,13 +3,16 @@ import Link from "next/link";
 import { BookOpen, Clock } from "lucide-react";
 import { destinations, destImg } from "@/lib/destinations";
 
+const YEAR = new Date().getFullYear();
+
 export const metadata: Metadata = {
-  title: "Urlaubsguides – Reiseführer & Reisetipps",
-  description: "Hilfreiche Urlaubsguides und Reiseführer: Einreise, Klima, Sehenswürdigkeiten und Insidertipps für dein Reiseziel.",
+  title: `📖 Urlaubsguides ${YEAR} – kostenlose Reiseführer & Tipps`,
+  description: `Kostenlose Urlaubsguides ${YEAR}: Sehenswürdigkeiten, Geheimtipps, Klima & Einreise für Antalya, Mallorca, Kreta, Hurghada & Barcelona.`,
+  keywords: ["Reiseführer kostenlos", "Urlaubsguide", "Reisetipps", "Reiseführer Antalya", "Reiseführer Mallorca", "Reiseführer Kreta", "Reiseführer Hurghada", "Reiseführer Barcelona"],
   alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsguides/" },
   openGraph: {
-    title: "Urlaubsguides – Reiseführer & Reisetipps",
-    description: "Hilfreiche Urlaubsguides und Reiseführer: Einreise, Klima, Sehenswürdigkeiten und Insidertipps für dein Reiseziel.",
+    title: `📖 Urlaubsguides ${YEAR} – kostenlose Reiseführer | Urlaubfinder365`,
+    description: `Kostenlose Urlaubsguides ${YEAR}: Sehenswürdigkeiten, Geheimtipps, Klima & Einreise für Antalya, Mallorca, Kreta, Hurghada & Barcelona.`,
     url: "https://www.urlaubfinder365.de/urlaubsguides/",
     type: "website",
   },
