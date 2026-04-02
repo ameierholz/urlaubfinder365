@@ -37,9 +37,27 @@ interface Props {
   compact?: boolean;
 }
 
+const DEMO_ANGEBOT = {
+  titel: "Bootsfahrt & Schnorcheln",
+  ziel: "Antalya, Türkei",
+  dauer: "4 Stunden",
+  foto_url: null,
+  treffpunkt: "Hafen Pier 3, Antalya",
+  treffpunkt_hinweis: "Bitte 15 Minuten vor Abfahrt am Pier sein. Parken möglich.",
+};
+
+const DEMO_ANBIETER = {
+  name: "Sea Adventures Antalya",
+  telefon: "+90 242 123 45 67",
+  avatar_url: null,
+  verifiziert: true,
+};
+
 export default function BuchungsTicket({ d, compact = false }: Props) {
-  const titel = d.angebot?.titel ?? "Aktivitätsbuchung";
-  const ziel  = d.angebot?.ziel ?? null;
+  const angebot = d.angebot ?? DEMO_ANGEBOT;
+  const anbieter = d.anbieter ?? DEMO_ANBIETER;
+  const titel = angebot.titel;
+  const ziel  = angebot.ziel;
 
   const rows: Row[] = [
     {
@@ -52,16 +70,16 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
       label: "Personen",
       value: `${d.personen} ${d.personen === 1 ? "Person" : "Personen"}`,
     },
-    ...(d.angebot?.dauer ? [{
+    ...(angebot.dauer ? [{
       icon: <Clock className="w-3.5 h-3.5" />,
       label: "Dauer",
-      value: d.angebot.dauer,
+      value: angebot.dauer,
     }] : []),
-    ...(d.angebot?.treffpunkt ? [{
+    ...(angebot.treffpunkt ? [{
       icon: <MapPin className="w-3.5 h-3.5" />,
       label: "Treffpunkt",
-      value: d.angebot.treffpunkt,
-      sub: d.angebot.treffpunkt_hinweis ?? undefined,
+      value: angebot.treffpunkt,
+      sub: angebot.treffpunkt_hinweis ?? undefined,
     }] : []),
     { icon: null, label: "Kunde", value: d.kunden_name },
     ...(d.created_at ? [{
@@ -69,12 +87,12 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
       label: "Gebucht am",
       value: new Date(d.created_at).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }),
     }] : []),
-    ...(d.anbieter ? [{
+    {
       icon: <BadgeCheck className="w-3.5 h-3.5 text-[#00838F]" />,
       label: "Anbieter",
-      value: d.anbieter.name + (d.anbieter.verifiziert ? " ✓" : ""),
-      sub: d.anbieter.telefon ?? undefined,
-    }] : []),
+      value: anbieter.name + (anbieter.verifiziert ? " ✓" : ""),
+      sub: anbieter.telefon ?? undefined,
+    },
     {
       icon: null,
       label: "Bezahlt",
@@ -94,7 +112,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
             alt="Urlaubfinder365"
             width={48}
             height={48}
-            className="w-11 h-11 object-contain shrink-0"
+            className="w-14 h-14 object-contain shrink-0"
             unoptimized
           />
           <div>
@@ -109,9 +127,9 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
       </div>
 
       {/* ── Aktivitätsbanner ─────────────────────────────── */}
-      {d.angebot?.foto_url ? (
+      {angebot.foto_url ? (
         <div className="relative h-40 w-full overflow-hidden">
-          <Image src={d.angebot.foto_url} alt={titel} fill className="object-cover" unoptimized />
+          <Image src={angebot.foto_url} alt={titel} fill className="object-cover" unoptimized />
           <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent" />
           <div className="absolute bottom-4 left-6 right-6">
             <p className="text-white font-black text-xl leading-tight drop-shadow-lg">{titel}</p>
