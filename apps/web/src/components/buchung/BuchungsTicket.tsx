@@ -106,6 +106,7 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
       label: "Bezahlt",
       value: `${Number(d.gesamtpreis).toFixed(2)} €`,
       highlight: true,
+      sub: "✅ Buchung bestätigt & bezahlt",
     },
   ];
 
@@ -175,12 +176,6 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
             </div>
           ))}
         </div>
-      </div>
-
-      {/* ── Status-Badge ──────────────────────────────────── */}
-      <div className="flex items-center gap-2 bg-emerald-50 border-y border-emerald-100 mx-6 mb-2 px-4 py-2.5 rounded-xl">
-        <span className="text-base">✅</span>
-        <span className="text-emerald-700 font-bold text-sm">Buchung bestätigt &amp; bezahlt</span>
       </div>
 
       {/* ── Perforierte Trennlinie ────────────────────────── */}
