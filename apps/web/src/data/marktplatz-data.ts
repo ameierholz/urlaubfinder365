@@ -9,8 +9,11 @@ export type Kategorie =
   | "kultur";
 
 export interface Anbieter {
+  slug: string;
   name: string;
   avatar: string;       // Unsplash URL
+  titelbild?: string;   // Cover image URL
+  bio?: string;
   bewertung: number;
   bewertungenAnzahl: number;
   sprachen: string[];
@@ -76,7 +79,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.9, bewertungenAnzahl: 127,
     beliebt: true,
     anbieter: {
+      slug: "mehmet-k",
       name: "Mehmet K.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=1200&q=80",
+      bio: "Ich bin in Antalya aufgewachsen und kenne jede Gasse der Altstadt. Als lizenzierter Reiseführer zeige ich dir das echte Antalya – abseits der Touristenpfade.",
       bewertung: 4.9, bewertungenAnzahl: 312, sprachen: ["Deutsch", "Englisch", "Türkisch"],
       mitgliedSeit: "2022", verifiziert: true,
     },
@@ -98,7 +104,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.8, bewertungenAnzahl: 89,
     neu: true,
     anbieter: {
+      slug: "ahmet-y",
       name: "Ahmet Y.", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+      bio: "Kapitän mit Leidenschaft: Seit über 10 Jahren fahre ich Gäste aus aller Welt zu den schönsten Buchten der Türkischen Riviera. Jede Tour ist für mich ein Abenteuer.",
       bewertung: 4.8, bewertungenAnzahl: 203, sprachen: ["Deutsch", "Englisch"],
       mitgliedSeit: "2023", verifiziert: true,
     },
@@ -119,7 +128,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     treffpunkt: "Kalekapısı Platz, Antalya",
     bewertung: 4.7, bewertungenAnzahl: 54,
     anbieter: {
+      slug: "fatma-s",
       name: "Fatma S.", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80",
+      bio: "Kulinarik ist meine Leidenschaft. Ich nehme dich mit auf eine Geschmacksreise durch Antalyas Streetfood-Szene – von der Großmutters Gözleme bis zum besten Baklava der Stadt.",
       bewertung: 4.7, bewertungenAnzahl: 98, sprachen: ["Deutsch", "Englisch"],
       mitgliedSeit: "2023", verifiziert: true,
     },
@@ -143,7 +155,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.9, bewertungenAnzahl: 73,
     beliebt: true,
     anbieter: {
+      slug: "tomeu-m",
       name: "Tomeu M.", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&q=80",
+      bio: "Mallorca ist meine Heimat und die Tramuntana mein Wohnzimmer. Als zertifizierter Bergführer zeige ich dir die Seele dieser Insel – fernab der Touristenströme.",
       bewertung: 4.9, bewertungenAnzahl: 187, sprachen: ["Deutsch", "Englisch", "Spanisch"],
       mitgliedSeit: "2021", verifiziert: true,
     },
@@ -165,7 +180,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 5.0, bewertungenAnzahl: 41,
     neu: true,
     anbieter: {
+      slug: "julia-w",
       name: "Julia W.", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=1200&q=80",
+      bio: "Fotografie ist mehr als ein Beruf – es ist die Kunst, Momente einzufrieren. Ich zeige dir die schönsten Seiten Mallorcas und du nimmst Erinnerungen mit, die ein Leben lang halten.",
       bewertung: 5.0, bewertungenAnzahl: 67, sprachen: ["Deutsch", "Englisch"],
       mitgliedSeit: "2024", verifiziert: true,
     },
@@ -189,7 +207,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.8, bewertungenAnzahl: 156,
     beliebt: true,
     anbieter: {
+      slug: "nikos-p",
       name: "Nikos P.", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80",
+      bio: "Kreta ist die Seele Griechenlands und die Samaria-Schlucht ihr Herzschlag. Seit 2020 führe ich Gäste sicher durch das wildeste Naturerlebnis der Insel.",
       bewertung: 4.8, bewertungenAnzahl: 289, sprachen: ["Deutsch", "Englisch", "Griechisch"],
       mitgliedSeit: "2020", verifiziert: true,
     },
@@ -213,7 +234,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.7, bewertungenAnzahl: 203,
     beliebt: true,
     anbieter: {
+      slug: "omar-a",
       name: "Omar A.", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80",
+      bio: "Dubai ist meine Stadt – und die Wüste ist mein zweites Zuhause. Ich biete unvergessliche Safari-Erlebnisse für alle, die das echte Arabien spüren möchten.",
       bewertung: 4.7, bewertungenAnzahl: 445, sprachen: ["Deutsch", "Englisch", "Arabisch"],
       mitgliedSeit: "2021", verifiziert: true,
     },
@@ -237,7 +261,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     bewertung: 4.9, bewertungenAnzahl: 118,
     beliebt: true,
     anbieter: {
+      slug: "wayan-s",
       name: "Wayan S.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
+      titelbild: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80",
+      bio: "Als geborener Balinese ist es mir eine Ehre, Gäste in die spirituelle Welt meiner Insel einzuführen. Tempel, Reisterrassen und Traditionen – ich zeige dir das echte Bali.",
       bewertung: 4.9, bewertungenAnzahl: 267, sprachen: ["Deutsch", "Englisch"],
       mitgliedSeit: "2022", verifiziert: true,
     },

@@ -696,6 +696,16 @@ export default function Header() {
                       <LayoutDashboard className="w-4 h-4" />
                       Mein Dashboard
                     </Link>
+                    {user.rolle === "anbieter" && (
+                      <Link
+                        href="/anbieter/dashboard/"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-white hover:bg-white/20"
+                      >
+                        <Sparkles className="w-4 h-4 text-amber-300" />
+                        Mein Anbieter-Portal
+                      </Link>
+                    )}
                     <Link
                       href="/community/"
                       onClick={() => setUserMenuOpen(false)}
@@ -833,6 +843,11 @@ export default function Header() {
                 <Link href="/dashboard" onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-white/20 text-white py-2 rounded-lg text-sm font-semibold">
                   Dashboard
                 </Link>
+                {user?.rolle === "anbieter" && (
+                  <Link href="/anbieter/dashboard/" onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-[#00838F]/80 text-white py-2 rounded-lg text-sm font-semibold">
+                    Anbieter-Portal
+                  </Link>
+                )}
                 <button onClick={() => { logout(); setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-sand-500/80 text-white py-2 rounded-lg text-sm font-semibold">
                   Abmelden
                 </button>

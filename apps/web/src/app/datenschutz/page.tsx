@@ -13,7 +13,7 @@ export default function DatenschutzPage() {
     <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 className="text-3xl font-black text-gray-900 mb-2">Datenschutzerklärung</h1>
       <p className="text-sm text-gray-500 mb-10">
-        Zuletzt aktualisiert: März 2026 (Cookie-Einwilligung & Barrierefreiheit ergänzt) · Gemäß DSGVO, BDSG und TTDSG
+        Zuletzt aktualisiert: April 2026 (Marktplatz & Buchungsdaten ergänzt) · Gemäß DSGVO, BDSG und TTDSG
       </p>
 
       <div className="space-y-10 text-gray-700 text-sm leading-relaxed">
@@ -49,20 +49,32 @@ export default function DatenschutzPage() {
             Grundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
           </p>
           <p className="mb-2">
-            Für Authentifizierung (<strong>Firebase Authentication</strong>) und Datenspeicherung
-            (gespeicherte Wunschlisten, Preisalarme, Reisedokumente via <strong>Cloud Firestore</strong>)
-            nutzen wir Firebase-Dienste der <strong>Google LLC, 1600 Amphitheatre Parkway,
-            Mountain View, CA 94043, USA</strong>. Die Übertragung erfolgt auf Basis der
-            EU-Standardvertragsklauseln (SCC). Daten werden gelöscht, sobald du dein Konto
-            löschst (Anfrage an info@urlaubfinder365.de). Weitere Infos:{" "}
-            <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
-              firebase.google.com/support/privacy
+            Für Authentifizierung und Datenspeicherung nutzen wir <strong>Supabase</strong> (Supabase Inc.,
+            970 Toa Payoh North, Singapur) mit Datenbankservern in der <strong>EU (Frankfurt, AWS eu-central-1)</strong>.
+            Supabase ist als Auftragsverarbeiter gemäß Art. 28 DSGVO eingebunden. Daten werden gelöscht,
+            sobald du dein Konto löschst (Anfrage an info@urlaubfinder365.de). Weitere Infos:{" "}
+            <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+              supabase.com/privacy
             </a>.
+          </p>
+          <p className="mb-2">
+            Für Push-Benachrichtigungen (App) nutzen wir <strong>Firebase Cloud Messaging</strong> der
+            Google LLC. Dabei werden ausschließlich anonymisierte Geräte-Token übertragen.
           </p>
           <p className="mb-3">
             <strong>Verarbeitete Daten:</strong> E-Mail-Adresse, verschlüsseltes Passwort,
             Zeitstempel der Registrierung, gespeicherte Reisepräferenzen und Wunschlisten.
             <strong> Speicherdauer:</strong> Bis zur Kontolöschung auf Anfrage.
+          </p>
+
+          <h3 className="font-semibold text-gray-800 mb-1">b2) Anbieter-Registrierung (Marktplatz)</h3>
+          <p className="mb-3">
+            Lokale Guides und Veranstalter können sich als Anbieter auf unserem Marktplatz registrieren.
+            Bei der Registrierung verarbeiten wir: Name, E-Mail-Adresse, Passwort (verschlüsselt),
+            Telefonnummer (freiwillig), Standort, Kategorie der Angebote sowie eine Kurzbeschreibung.
+            Diese Daten werden benötigt, um das Anbieter-Profil zu erstellen und die Freischaltung zu prüfen.
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Speicherdauer: Bis zur Löschung des
+            Anbieter-Accounts auf Anfrage.
           </p>
           <h3 className="font-semibold text-gray-800 mb-1">c) Newsletter (Brevo)</h3>
           <p className="mb-3">
@@ -89,6 +101,36 @@ export default function DatenschutzPage() {
             Unsere Newsletter enthalten Öffnungs- und Klick-Tracking zur Optimierung des Angebots
             (Art. 6 Abs. 1 lit. f DSGVO). Das Tracking kannst du durch Deaktivieren des
             Bildladens in deinem E-Mail-Programm verhindern.
+          </p>
+
+          <h3 className="font-semibold text-gray-800 mb-1">c2) Buchungen über den Aktivitäten-Marktplatz</h3>
+          <p className="mb-2">
+            Wenn du eine Tour oder Aktivität über unseren Marktplatz buchst, verarbeiten wir folgende Daten
+            zur Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO):
+          </p>
+          <ul className="list-disc list-inside space-y-1 mb-3">
+            <li>Name, E-Mail-Adresse, Telefonnummer (freiwillig)</li>
+            <li>Buchungsdatum, Anzahl der Personen, gebuchte Aktivität</li>
+            <li>Buchungspreis, Zahlungsstatus</li>
+            <li>Individueller QR-Code (Buchungsnachweis)</li>
+          </ul>
+          <p className="mb-2">
+            <strong>Weitergabe an den lokalen Anbieter:</strong> Zur Durchführung der gebuchten Leistung
+            übermitteln wir Name, E-Mail-Adresse, Buchungsdatum und Personenanzahl an den jeweiligen
+            lokalen Anbieter. Die Weitergabe ist zur Vertragserfüllung erforderlich (Art. 6 Abs. 1 lit. b DSGVO).
+          </p>
+          <p className="mb-2">
+            <strong>Zahlungsabwicklung (Stripe):</strong> Zahlungen werden über <strong>Stripe, Inc.</strong>
+            (354 Oyster Point Blvd, South San Francisco, CA 94080, USA) abgewickelt. Zahlungsdaten
+            (Kreditkartennummer etc.) werden ausschließlich von Stripe verarbeitet und nicht auf
+            unseren Servern gespeichert. Die Übertragung erfolgt auf Basis der EU-Standardvertragsklauseln.
+            Weitere Infos:{" "}
+            <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+              stripe.com/de/privacy
+            </a>.
+          </p>
+          <p className="mb-3">
+            <strong>Speicherdauer Buchungsdaten:</strong> 10 Jahre gemäß § 147 AO (steuerrechtliche Aufbewahrungspflicht).
           </p>
 
           <h3 className="font-semibold text-gray-800 mb-1">d) Cookies, localStorage & Einwilligung</h3>
@@ -164,6 +206,30 @@ export default function DatenschutzPage() {
             <div>
               <span className="font-semibold text-gray-800">Vercel Analytics & Speed Insights</span>
               <p>Anonymisierte Performance-Daten; kein personenbezogenes Tracking. Anbieter: Vercel Inc., San Francisco, USA.</p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">Supabase (Authentifizierung & Datenbank)</span>
+              <p>
+                Nutzerkonten, Buchungsdaten, Anbieterprofile und Community-Inhalte werden in der
+                Supabase-Datenbank gespeichert (Serverstandort: EU / Frankfurt, AWS eu-central-1).
+                Supabase Inc. ist als Auftragsverarbeiter gemäß Art. 28 DSGVO eingebunden.
+                Weitere Infos:{" "}
+                <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  supabase.com/privacy
+                </a>.
+              </p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">Stripe (Zahlungsabwicklung)</span>
+              <p>
+                Buchungszahlungen über den Marktplatz werden über Stripe, Inc. (USA) abgewickelt.
+                Stripe ist PCI-DSS-zertifiziert. Zahlungsdaten werden nicht auf unseren Servern
+                gespeichert. Die Übertragung erfolgt auf Basis der EU-Standardvertragsklauseln.
+                Weitere Infos:{" "}
+                <a href="https://stripe.com/de/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  stripe.com/de/privacy
+                </a>.
+              </p>
             </div>
             <div>
               <span className="font-semibold text-gray-800">specials.de (Ypsilon.Net AG) – Pauschalreisen, Last Minute & All Inclusive</span>

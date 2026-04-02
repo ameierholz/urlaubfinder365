@@ -8,6 +8,7 @@ import {
   Sparkles, Shield, ThumbsUp,
 } from "lucide-react";
 import { AKTIVITAETEN, KATEGORIEN, type Kategorie } from "@/data/marktplatz-data";
+import FavoritButton from "@/components/marktplatz/FavoritButton";
 
 // ── Kategorie-Navigation ────────────────────────────────────────────────────
 const KATEGORIE_NAV: { id: Kategorie | "alle"; emoji: string; label: string }[] = [
@@ -35,7 +36,7 @@ function AktivitaetKarte({ a }: { a: typeof AKTIVITAETEN[0] }) {
   return (
     <Link
       href={`/marktplatz/${a.slug}/`}
-      className="group flex-shrink-0 w-64 sm:w-72 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+      className="group shrink-0 w-64 sm:w-72 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
     >
       {/* Foto */}
       <div className="relative h-44 overflow-hidden">
@@ -58,6 +59,10 @@ function AktivitaetKarte({ a }: { a: typeof AKTIVITAETEN[0] }) {
               Neu
             </span>
           )}
+        </div>
+        {/* Favorit-Button oben rechts */}
+        <div className="absolute top-2.5 right-2.5">
+          <FavoritButton slug={a.slug} size="sm" />
         </div>
       </div>
 
@@ -205,7 +210,7 @@ export default function MarktplatzHome() {
                 <button
                   key={k.id}
                   onClick={() => setKategorie(k.id)}
-                  className={`flex-shrink-0 flex flex-col items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  className={`shrink-0 flex flex-col items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                     kategorie === k.id
                       ? "bg-[#00838F] text-white"
                       : "text-gray-600 hover:bg-gray-100"
@@ -219,7 +224,7 @@ export default function MarktplatzHome() {
             {/* Anbieter-Button in Nav */}
             <Link
               href="/marktplatz/anbieter-werden/"
-              className="flex-shrink-0 flex items-center gap-1.5 border-2 border-[#00838F] text-[#00838F] hover:bg-[#00838F] hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all whitespace-nowrap"
+              className="shrink-0 flex items-center gap-1.5 border-2 border-[#00838F] text-[#00838F] hover:bg-[#00838F] hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Anbieter werden
@@ -254,6 +259,9 @@ export default function MarktplatzHome() {
                     <div className="relative h-48 overflow-hidden">
                       <Image src={a.foto} alt={a.titel} fill className="object-cover group-hover:scale-105 transition-transform duration-300" unoptimized />
                       {a.beliebt && <span className="absolute top-2.5 left-2.5 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">Meistgebucht</span>}
+                      <div className="absolute top-2.5 right-2.5">
+                        <FavoritButton slug={a.slug} size="sm" />
+                      </div>
                     </div>
                     <div className="p-4">
                       <p className="text-[10px] font-semibold text-gray-400 mb-1">{KATEGORIEN[a.kategorie].emoji} {KATEGORIEN[a.kategorie].label}</p>
@@ -279,6 +287,61 @@ export default function MarktplatzHome() {
 
             {/* Neue Erlebnisse */}
             <ScrollSection titel="✨ Neu auf dem Marktplatz" items={neu} />
+
+            {/* Beliebte Anbieter */}
+            <section>
+              <div className="flex items-center justify-between mb-5">
+                <h2 className="text-xl font-bold text-gray-900">⭐ Beliebte Anbieter</h2>
+                <Link href="/marktplatz/anbieter-werden/" className="text-xs text-[#00838F] font-semibold hover:underline">
+                  Selbst Anbieter werden →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {(() => {
+                  // Unique Anbieter aus Demo-Daten, sortiert nach Bewertung
+                  const seen = new Set<string>();
+                  return AKTIVITAETEN
+                    .filter((a) => { if (seen.has(a.anbieter.name)) return false; seen.add(a.anbieter.name); return true; })
+                    .sort((a, b) => b.anbieter.bewertung - a.anbieter.bewertung)
+                    .slice(0, 4)
+                    .map((a) => (
+                      <div key={a.anbieter.name} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all">
+                        <div className="relative mb-3">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={a.anbieter.avatar}
+                            alt={a.anbieter.name}
+                            className="w-16 h-16 rounded-full object-cover"
+                          />
+                          {a.anbieter.verifiziert && (
+                            <div className="absolute -bottom-1 -right-1 bg-[#00838F] rounded-full p-0.5">
+                              <BadgeCheck className="w-4 h-4 text-white" />
+                            </div>
+                          )}
+                        </div>
+                        <p className="font-bold text-gray-900 text-sm">{a.anbieter.name}</p>
+                        <p className="text-[10px] text-gray-400 mb-2">{a.ziel.split(",")[1]?.trim() ?? a.ziel}</p>
+                        <div className="flex items-center gap-1 mb-2">
+                          <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                          <span className="text-xs font-bold text-gray-800">{a.anbieter.bewertung}</span>
+                          <span className="text-[10px] text-gray-400">({a.anbieter.bewertungenAnzahl})</span>
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-1 mb-3">
+                          {a.anbieter.sprachen.slice(0, 2).map((s) => (
+                            <span key={s} className="text-[10px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">{s}</span>
+                          ))}
+                        </div>
+                        <Link
+                          href={`/marktplatz/anbieter/${a.anbieter.slug}/`}
+                          className="mt-auto w-full py-2 bg-gray-50 hover:bg-[#00838F] hover:text-white text-gray-700 text-xs font-bold rounded-xl transition-colors"
+                        >
+                          Profil ansehen
+                        </Link>
+                      </div>
+                    ));
+                })()}
+              </div>
+            </section>
 
             {/* Anbieter-Banner */}
             <section className="relative overflow-hidden rounded-3xl">

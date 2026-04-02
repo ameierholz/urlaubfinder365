@@ -45,6 +45,8 @@ export const config = {
     "/dashboard/:path*",
     "/community/:path*",
     "/profil/:path*",
+    "/anbieter/:path*",
+    "/admin/:path*",
     "/api/protected/:path*",
   ],
 };

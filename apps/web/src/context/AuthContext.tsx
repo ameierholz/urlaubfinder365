@@ -12,6 +12,7 @@ export interface AppUser {
   displayName: string | null; // = user_metadata.full_name
   photoURL: string | null;    // = user_metadata.avatar_url
   metadata: { creationTime?: string };
+  rolle?: string;         // = user_metadata.rolle (z.B. "anbieter")
 }
 
 interface AuthContextType {
@@ -41,6 +42,7 @@ function mapToAppUser(supabaseUser: { id: string; email?: string | null; user_me
     null;
   const photoURL = (supabaseUser.user_metadata?.avatar_url as string | undefined) ?? null;
   const creationTime = (supabaseUser as { created_at?: string }).created_at;
+  const rolle = (supabaseUser.user_metadata?.rolle as string | undefined) ?? undefined;
   return {
     uid: supabaseUser.id,
     id: supabaseUser.id,
@@ -48,6 +50,7 @@ function mapToAppUser(supabaseUser: { id: string; email?: string | null; user_me
     displayName,
     photoURL,
     metadata: { creationTime },
+    rolle,
   };
 }
 

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { MapPin, Clock, Users, Star, BadgeCheck, Check, X, ChevronLeft, Languages } from "lucide-react";
 import { AKTIVITAETEN, KATEGORIEN } from "@/data/marktplatz-data";
 import AnfrageFormular from "@/components/marktplatz/AnfrageFormular";
+import FavoritButton from "@/components/marktplatz/FavoritButton";
+import BewertungsSection from "@/components/marktplatz/BewertungsSection";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -66,6 +68,9 @@ export default async function AktivitaetPage({ params }: Props) {
                 {a.neu && (
                   <span className="bg-[#00838F] text-white text-xs font-bold px-3 py-1 rounded-full">✨ Neu</span>
                 )}
+              </div>
+              <div className="absolute top-4 right-4">
+                <FavoritButton slug={a.slug} />
               </div>
             </div>
 
@@ -156,13 +161,19 @@ export default async function AktivitaetPage({ params }: Props) {
                 <p className="text-sm text-gray-600">{a.treffpunkt}</p>
               </div>
             </div>
+
+            {/* Bewertungen */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+              <h2 className="font-bold text-gray-900 text-lg mb-5">⭐ Bewertungen</h2>
+              <BewertungsSection slug={a.slug} />
+            </div>
           </div>
 
           {/* ── Rechts: Buchungs-Sidebar ── */}
-          <div className="space-y-4">
+          <div className="space-y-4 sticky top-24 self-start">
 
             {/* Preis-Card */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sticky top-24">
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
               <div className="flex items-baseline gap-1 mb-1">
                 <span className="text-3xl font-black text-[#00838F]">{a.preis} €</span>
                 <span className="text-sm text-gray-400">/ Person</span>
@@ -200,11 +211,17 @@ export default async function AktivitaetPage({ params }: Props) {
                   </div>
                 </div>
               </div>
-              <div className="space-y-1.5 text-xs text-gray-500">
+              <div className="space-y-1.5 text-xs text-gray-500 mb-4">
                 <p>🗣️ Spricht: {a.anbieter.sprachen.join(", ")}</p>
                 <p>📅 Mitglied seit {a.anbieter.mitgliedSeit}</p>
                 {a.anbieter.verifiziert && <p className="text-[#00838F] font-semibold">✅ Verifizierter Anbieter</p>}
               </div>
+              <Link
+                href={`/marktplatz/anbieter/${a.anbieter.slug}/`}
+                className="block w-full text-center text-xs font-bold text-[#00838F] border border-[#00838F] rounded-xl py-2 hover:bg-[#00838F] hover:text-white transition-colors"
+              >
+                Alle Angebote ansehen →
+              </Link>
             </div>
           </div>
         </div>
