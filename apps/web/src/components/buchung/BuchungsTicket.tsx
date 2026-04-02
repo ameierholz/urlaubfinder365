@@ -209,7 +209,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
               </p>
             </div>
             <p className="text-[10px] text-gray-400 leading-relaxed">
-              Anbieter gibt ein unter{" "}
+              Manuelle Eingabe für Anbieter:{" "}
               <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
             </p>
             <p className="mt-2 text-[11px] text-gray-400">
