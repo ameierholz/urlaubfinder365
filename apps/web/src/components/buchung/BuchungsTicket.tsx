@@ -35,23 +35,54 @@ interface Props {
   compact?: boolean;
 }
 
+type DetailRow = { icon: React.ReactNode; label: string; value: string; sub?: string; highlight?: boolean };
+
 export default function BuchungsTicket({ d, compact = false }: Props) {
   const titel = d.angebot?.titel ?? "Aktivitätsbuchung";
   const ziel   = d.angebot?.ziel ?? null;
+
+  const rows: DetailRow[] = [
+    { icon: <Calendar className="w-3.5 h-3.5 text-gray-400" />, label: "Termin",
+      value: new Date(d.datum).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long", year: "numeric" }) },
+    { icon: <Users className="w-3.5 h-3.5 text-gray-400" />, label: "Personen",
+      value: `${d.personen} ${d.personen === 1 ? "Person" : "Personen"}` },
+    ...(d.angebot?.dauer ? [{ icon: <Clock className="w-3.5 h-3.5 text-gray-400" />, label: "Dauer", value: d.angebot.dauer }] : []),
+    ...(d.angebot?.treffpunkt ? [{
+      icon: <MapPin className="w-3.5 h-3.5 text-gray-400" />, label: "Treffpunkt",
+      value: d.angebot.treffpunkt, sub: d.angebot.treffpunkt_hinweis ?? undefined,
+    }] : []),
+    { icon: null, label: "Kunde", value: d.kunden_name },
+    ...(d.created_at ? [{
+      icon: <CalendarCheck className="w-3.5 h-3.5 text-gray-400" />, label: "Gebucht am",
+      value: new Date(d.created_at).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }),
+    }] : []),
+    ...(d.anbieter ? [{
+      icon: <BadgeCheck className="w-3.5 h-3.5 text-[#00838F]" />, label: "Anbieter",
+      value: d.anbieter.name + (d.anbieter.verifiziert ? " ✓" : ""),
+      sub: d.anbieter.telefon ?? undefined,
+    }] : []),
+    { icon: null, label: "Gesamt bezahlt", value: `${Number(d.gesamtpreis).toFixed(2)} €`, highlight: true },
+  ];
 
   const ticket = (
     <div id="ticket" className="bg-white overflow-hidden print:shadow-none">
 
       {/* ── Logo-Header ─────────────────────────────────────── */}
       <div className="flex items-center justify-between px-5 py-3.5 border-b border-gray-100">
-        <Image
-          src="/images/urlaubfinder-logo.webp"
-          alt="Urlaubfinder365"
-          width={120}
-          height={40}
-          className="h-9 w-auto object-contain"
-          unoptimized
-        />
+        <div className="flex items-center gap-2.5">
+          <Image
+            src="/images/urlaubfinder-logo.webp"
+            alt="Urlaubfinder365"
+            width={48}
+            height={48}
+            className="w-12 h-12 object-contain shrink-0"
+            unoptimized
+          />
+          <div>
+            <p className="font-black text-gray-900 text-base leading-tight">Urlaubfinder365</p>
+            <p className="text-[10px] text-gray-400">urlaubfinder365.de</p>
+          </div>
+        </div>
         <div className="text-right">
           <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Buchungs-Ticket</p>
           <p className="text-xs font-black text-gray-700 font-mono">{d.buchungs_nummer}</p>
@@ -87,113 +118,34 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
         {/* Linke Seite: Details */}
         <div className="flex-1 p-5 space-y-4">
 
-          {/* Termin + Personen */}
-          <div className="grid grid-cols-2 gap-2">
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="flex items-center gap-1 text-gray-400 text-[10px] mb-1 uppercase tracking-wide font-semibold">
-                <Calendar className="w-3 h-3" /> Termin
-              </div>
-              <p className="font-black text-gray-900 text-sm">
-                {new Date(d.datum).toLocaleDateString("de-DE", { weekday: "short", day: "numeric", month: "short", year: "numeric" })}
-              </p>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-3">
-              <div className="flex items-center gap-1 text-gray-400 text-[10px] mb-1 uppercase tracking-wide font-semibold">
-                <Users className="w-3 h-3" /> Personen
-              </div>
-              <p className="font-black text-gray-900 text-sm">{d.personen} {d.personen === 1 ? "Person" : "Personen"}</p>
-            </div>
-          </div>
-
-          {/* Dauer + Treffpunkt */}
-          {(d.angebot?.dauer || d.angebot?.treffpunkt) && (
-            <div className="space-y-2.5">
-              {d.angebot.dauer && (
-                <div className="flex items-start gap-2">
-                  <Clock className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wide font-semibold">Dauer</p>
-                    <p className="font-semibold text-gray-800 text-sm">{d.angebot.dauer}</p>
-                  </div>
+          {/* Alle Details in einheitlicher Tabelle */}
+          <div className="divide-y divide-gray-100 border border-gray-100 rounded-xl overflow-hidden">
+            {rows.map((row, i) => (
+              <div key={i} className="flex items-start gap-3 px-4 py-2.5 bg-white">
+                <div className="w-4 flex items-center justify-center mt-0.5 shrink-0">
+                  {row.icon}
                 </div>
-              )}
-              {d.angebot.treffpunkt && (
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wide font-semibold">Treffpunkt</p>
-                    <p className="font-semibold text-gray-800 text-sm">{d.angebot.treffpunkt}</p>
-                    {d.angebot.treffpunkt_hinweis && (
-                      <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{d.angebot.treffpunkt_hinweis}</p>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Kunde + Gebucht am */}
-          <div className="border-t border-gray-100 pt-3 space-y-2">
-            <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-sm">
-              <span className="text-gray-400 text-xs self-center">Kunde</span>
-              <span className="font-semibold text-gray-800">{d.kunden_name}</span>
-              {d.created_at && (
-                <>
-                  <span className="text-gray-400 text-xs flex items-center gap-1 self-center">
-                    <CalendarCheck className="w-3 h-3" /> Gebucht am
+                <span className="text-xs text-gray-400 w-24 shrink-0 pt-0.5">{row.label}</span>
+                <div className="flex-1">
+                  <span className={`text-sm font-semibold ${row.highlight ? "text-[#00838F] font-black" : "text-gray-800"}`}>
+                    {row.value}
                   </span>
-                  <span className="font-semibold text-gray-800 text-sm">
-                    {new Date(d.created_at).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
-                  </span>
-                </>
-              )}
-            </div>
+                  {row.sub && <p className="text-xs text-gray-400 mt-0.5">{row.sub}</p>}
+                </div>
+              </div>
+            ))}
           </div>
-
-          {/* Anbieter */}
-          {d.anbieter && (
-            <div className="flex items-center gap-2.5 bg-gray-50 rounded-xl p-3">
-              {d.anbieter.avatar_url ? (
-                <Image src={d.anbieter.avatar_url} alt={d.anbieter.name} width={32} height={32}
-                  className="w-8 h-8 rounded-full object-cover shrink-0" unoptimized />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-[#00838F]/15 flex items-center justify-center text-xs font-black text-[#00838F] shrink-0">
-                  {d.anbieter.name.charAt(0)}
-                </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1">
-                  <span className="text-sm font-bold text-gray-800 truncate">{d.anbieter.name}</span>
-                  {d.anbieter.verifiziert && <BadgeCheck className="w-3.5 h-3.5 text-[#00838F] shrink-0" />}
-                </div>
-                {d.anbieter.telefon && (
-                  <a href={`tel:${d.anbieter.telefon}`} className="text-xs text-[#00838F]">{d.anbieter.telefon}</a>
-                )}
-              </div>
-              <div className="text-right shrink-0">
-                <p className="text-[10px] text-gray-400">Gesamt</p>
-                <p className="font-black text-[#00838F] text-sm">{Number(d.gesamtpreis).toFixed(2)} €</p>
-              </div>
-            </div>
-          )}
-
-          {/* Preis-Fallback wenn kein Anbieter */}
-          {!d.anbieter && (
-            <div className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3">
-              <span className="text-sm text-gray-500 font-semibold">Gesamt bezahlt</span>
-              <span className="font-black text-[#00838F] text-sm">{Number(d.gesamtpreis).toFixed(2)} €</span>
-            </div>
-          )}
         </div>
 
         {/* Rechte Seite: QR */}
-        <div className="sm:w-40 bg-gray-50 flex flex-col items-center justify-center p-4 gap-2 border-t sm:border-t-0 sm:border-l border-gray-100">
+        <div className="sm:w-44 bg-gray-50 flex flex-col items-center justify-center p-4 gap-2.5 border-t sm:border-t-0 sm:border-l border-gray-100">
           <div className="bg-white p-2.5 rounded-xl shadow-sm border border-gray-200">
-            <QRCodeSVG value={d.qr_token} size={100} level="M" fgColor="#1a1a1a" />
+            <QRCodeSVG value={d.qr_token} size={108} level="M" fgColor="#1a1a1a" />
           </div>
-          <p className="text-[9px] text-gray-400 text-center font-bold uppercase tracking-wide leading-tight">
-            Scan zur<br />Verifizierung
-          </p>
+          <div className="text-center">
+            <p className="text-[10px] font-black text-gray-600 uppercase tracking-wide">Buchungs-Token</p>
+            <p className="text-[9px] text-gray-400 mt-0.5">Vom Anbieter zu scannen</p>
+          </div>
         </div>
       </div>
 
