@@ -163,8 +163,8 @@ export default async function DestinationPage({ params }: Props) {
         {/* Gradient: leichter oben, stärker zur Mitte, dann konstant für Pills-Bereich */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/30 to-black/15" />
 
-        {/* Content anchored to bottom */}
-        <div className="absolute inset-0 flex flex-col justify-between">
+        {/* Content: Breadcrumb oben, H1+Pills vertikal zentriert */}
+        <div className="absolute inset-0 flex flex-col">
           {/* Top: Breadcrumb */}
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-5">
             <nav className="inline-flex items-center gap-1 text-sm text-white bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full">
@@ -188,9 +188,8 @@ export default async function DestinationPage({ params }: Props) {
             </nav>
           </div>
 
-          {/* Bottom: H1 + Beschreibung + Pills */}
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-7">
-            {/* H1: Name groß, Jahr + Subtitle kleiner */}
+          {/* H1 + Beschreibung + Pills — vertikal zentriert im verbleibenden Platz */}
+          <div className="flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-5">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-none drop-shadow-lg mb-1">
               {dest.name}
             </h1>
@@ -207,7 +206,6 @@ export default async function DestinationPage({ params }: Props) {
               </p>
             )}
 
-            {/* Nav-Pills: weißer Hintergrund mit dunklem Text – immer lesbar */}
             <div className="flex flex-wrap gap-2">
               <Link href="#pauschalreisen" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
                 <Package className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Pauschalreisen
