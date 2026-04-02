@@ -107,15 +107,20 @@ export default function AccessibilityWidget() {
         </defs>
       </svg>
 
-      {/* FAB – Floating Pill Button (links) */}
+      {/* FAB – Vertical Tab am rechten Bildschirmrand, vertikal zentriert */}
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Barrierefreiheits-Einstellungen öffnen"
         aria-expanded={open}
-        className="fixed bottom-6 left-5 z-9990 flex items-center gap-2 px-4 h-11 rounded-full bg-[#00838F] text-white shadow-lg hover:bg-[#006d78] hover:shadow-xl transition-all focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-9990 flex flex-col items-center gap-2 px-2.5 py-4 bg-[#00838F] text-white rounded-l-2xl shadow-xl hover:bg-[#006d78] hover:pr-3.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50"
       >
-        <span className="text-lg leading-none" aria-hidden="true">♿</span>
-        <span className="text-xs font-semibold leading-tight">Barrierefreiheit</span>
+        <span className="text-xl leading-none" aria-hidden="true">♿</span>
+        <span
+          className="text-[10px] font-bold tracking-wide leading-none"
+          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+        >
+          Barrierefreiheit
+        </span>
       </button>
 
       {/* Backdrop */}
@@ -133,7 +138,7 @@ export default function AccessibilityWidget() {
           role="dialog"
           aria-modal="true"
           aria-label="Barrierefreiheits-Einstellungen"
-          className="fixed bottom-20 left-5 z-9992 w-[320px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
+          className="fixed right-14 top-1/2 -translate-y-1/2 z-9992 w-[320px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#00838F] text-white rounded-t-2xl shrink-0">
