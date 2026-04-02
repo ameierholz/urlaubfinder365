@@ -1,7 +1,7 @@
 "use client";
 
 import QRCodeSVG from "react-qr-code";
-import { Printer, MapPin, Clock, Users, Calendar, BadgeCheck, CalendarCheck, Link as LinkIcon } from "lucide-react";
+import { Printer, MapPin, Clock, Users, Calendar, BadgeCheck, CalendarCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -202,21 +202,15 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
             </p>
           </div>
 
-          {/* Token-Box */}
-          <div className="bg-gray-50 border border-dashed border-gray-300 rounded-xl p-3">
-            <p className="text-[10px] text-gray-400 mb-1.5 font-semibold uppercase tracking-wide">Token</p>
-            <p className="font-mono text-xs text-gray-700 break-all leading-relaxed tracking-wide select-all">
-              {d.qr_token}
+          {/* Buchungsnummer als manueller Code */}
+          <div className="bg-gray-50 border-2 border-dashed border-[#00838F]/40 rounded-xl p-3.5 text-center">
+            <p className="text-[10px] text-gray-400 mb-2 font-bold uppercase tracking-widest">Manuelle Eingabe</p>
+            <p className="font-mono font-black text-gray-900 text-xl tracking-widest select-all">
+              {d.buchungs_nummer}
             </p>
-          </div>
-
-          {/* Scanner-Link */}
-          <div className="flex items-start gap-2 bg-[#00838F]/8 rounded-xl p-3">
-            <LinkIcon className="w-3.5 h-3.5 text-[#00838F] mt-0.5 shrink-0" />
-            <div>
-              <p className="text-[10px] font-bold text-[#00838F] uppercase tracking-wide">Manuelle Eingabe</p>
-              <p className="text-[11px] text-gray-500 mt-0.5 font-mono">urlaubfinder365.de/anbieter/scanner</p>
-            </div>
+            <p className="text-[10px] text-gray-400 mt-2 leading-relaxed">
+              Eingeben unter <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
+            </p>
           </div>
         </div>
       </div>

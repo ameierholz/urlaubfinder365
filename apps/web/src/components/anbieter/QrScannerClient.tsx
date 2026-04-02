@@ -26,13 +26,12 @@ export default function QrScannerClient() {
     setLoading(true);
     setResult(null);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (sb.rpc as any)("verify_qr_token", { token: token.trim() });
-    if (error) {
-      setResult({ valid: false, reason: error.message });
-    } else {
-      setResult(data as Result);
-    }
+    const res = await fetch("/api/anbieter/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: token.trim() }),
+    });
+    setResult(await res.json() as Result);
     setLoading(false);
   };
 
@@ -45,8 +44,8 @@ export default function QrScannerClient() {
         <p className="font-bold text-[#00838F] mb-2">💡 So funktioniert es</p>
         <ol className="space-y-1 text-gray-600 list-decimal list-inside">
           <li>Kunde zeigt den QR-Code aus seiner Buchungs-E-Mail</li>
-          <li>Scanne den Code mit deinem Handy-Scanner (öffnet URL)</li>
-          <li>Oder gib den Token manuell ein</li>
+          <li>Scanne den QR-Code mit deinem Handy</li>
+          <li>Oder gib die Buchungsnummer manuell ein (z. B. UF-2026-000111)</li>
           <li>Grüner Haken = Buchung gültig ✅</li>
         </ol>
       </div>
@@ -58,13 +57,13 @@ export default function QrScannerClient() {
             <div className="w-16 h-16 rounded-2xl bg-[#00838F]/10 flex items-center justify-center">
               <QrCode className="w-8 h-8 text-[#00838F]" />
             </div>
-            <p className="font-bold text-gray-900">Buchungs-Token eingeben</p>
+            <p className="font-bold text-gray-900">Buchungsnummer eingeben</p>
           </div>
           <input
             type="text"
             value={token}
             onChange={(e) => setToken(e.target.value)}
-            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            placeholder="z. B. UF-2026-000111"
             className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm font-mono focus:outline-none focus:border-[#00838F] text-center"
           />
           <button
