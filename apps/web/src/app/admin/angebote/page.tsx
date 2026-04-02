@@ -1,5 +1,7 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import AngebotStatusToggle from "@/components/admin/AngebotStatusToggle";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Angebote | Admin" };
@@ -31,13 +33,18 @@ export default async function AdminAngebotePage() {
           }) => {
             const st = STATUS_INFO[a.status] ?? STATUS_INFO.entwurf;
             return (
-              <div key={a.id} className="px-6 py-4 flex items-center gap-4 flex-wrap">
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white text-sm truncate">{a.titel}</p>
-                  <p className="text-xs text-gray-500">{a.ziel} · {Number(a.preis).toFixed(2)} €/Person · {anbieterMap[a.anbieter_id ?? ""] ?? "–"}</p>
+              <div key={a.id} className="flex items-center gap-4 flex-wrap hover:bg-gray-800/50 transition-colors">
+                <Link href={`/admin/angebote/${a.id}/`} className="flex-1 flex items-center gap-4 px-6 py-4 min-w-0">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-white text-sm truncate">{a.titel}</p>
+                    <p className="text-xs text-gray-500">{a.ziel} · {Number(a.preis).toFixed(2)} € · {anbieterMap[a.anbieter_id ?? ""] ?? "–"}</p>
+                  </div>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${st.cls}`}>{st.label}</span>
+                  <ChevronRight className="w-4 h-4 text-gray-600 shrink-0" />
+                </Link>
+                <div className="pr-6 shrink-0">
+                  <AngebotStatusToggle angebotId={a.id} currentStatus={a.status} />
                 </div>
-                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${st.cls}`}>{st.label}</span>
-                <AngebotStatusToggle angebotId={a.id} currentStatus={a.status} />
               </div>
             );
           })}

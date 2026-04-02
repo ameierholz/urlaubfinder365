@@ -107,6 +107,22 @@ export interface Database {
           >;
         Update: Partial<Database["public"]["Tables"]["offers"]["Row"]>;
       };
+      admin_crm_tickets: {
+        Row: {
+          id: string;
+          anbieter_id: string;
+          betreff: string;
+          nachricht: string;
+          typ: "intern" | "email_gesendet" | "email_empfangen" | "anruf" | "dokument" | "auszahlung" | "sonstiges";
+          status: "offen" | "in_bearbeitung" | "erledigt";
+          prioritaet: "niedrig" | "normal" | "hoch" | "dringend";
+          erstellt_von: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["admin_crm_tickets"]["Row"], "id" | "created_at" | "updated_at"> & Partial<Pick<Database["public"]["Tables"]["admin_crm_tickets"]["Row"], "id" | "created_at" | "updated_at">>;
+        Update: Partial<Database["public"]["Tables"]["admin_crm_tickets"]["Row"]>;
+      };
       reports: {
         Row: {
           id: string;
