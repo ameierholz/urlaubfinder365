@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, calcApplicationFee } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
+import type Stripe from "stripe";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://urlaubfinder365.de";
 
   // Checkout Session Optionen
-  const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
+  const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
     customer_email: buchung.kunden_email,
     line_items: [

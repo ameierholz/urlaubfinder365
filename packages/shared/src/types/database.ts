@@ -252,6 +252,86 @@ export interface Database {
           Database["public"]["Tables"]["user_achievements"]["Row"]
         >;
       };
+      anbieter_profile: {
+        Row: {
+          id: string; user_id: string | null; name: string; email: string;
+          status: string; verifiziert: boolean; telefon: string | null;
+          website: string | null; webseite: string | null; bio: string | null;
+          beschreibung: string | null; adresse: string | null; strasse: string | null;
+          plz: string | null; stadt: string | null; land_name: string | null;
+          kategorie: string | null; iban: string | null; bic: string | null;
+          kontoinhaber: string | null; umsatzsteuer_id: string | null;
+          steuernummer: string | null; dokument_ausweis: string | null;
+          dokument_nachweis: string | null; dokument_url: string | null;
+          stripe_account_id: string | null; stripe_onboarding_complete: boolean;
+          sprachen: string[] | null; erfahrung_jahre: number | null;
+          instagram: string | null; tripadvisor: string | null;
+          avatar_url: string | null; created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["anbieter_profile"]["Row"]> & { name: string; email: string };
+        Update: Partial<Database["public"]["Tables"]["anbieter_profile"]["Row"]>;
+      };
+      angebote: {
+        Row: {
+          id: string; anbieter_id: string | null; titel: string; slug: string;
+          kurzbeschreibung: string | null; beschreibung: string | null;
+          kategorie: string | null; ziel: string | null; land: string | null;
+          preis: number; preistyp: string; dauer: string | null;
+          max_teilnehmer: number | null; sprachen: string[] | null;
+          highlights: string[] | null; inbegriffen: string[] | null;
+          nicht_inbegriffen: string[] | null; treffpunkt: string | null;
+          treffpunkt_hinweis: string | null; foto_url: string | null;
+          fotos: string[] | null; status: string | null;
+          created_at: string; updated_at: string | null;
+        };
+        Insert: Partial<Database["public"]["Tables"]["angebote"]["Row"]> & { titel: string; slug: string; preis: number; preistyp: string };
+        Update: Partial<Database["public"]["Tables"]["angebote"]["Row"]>;
+      };
+      buchungen: {
+        Row: {
+          id: string; buchungs_nummer: string; angebot_id: string | null;
+          anbieter_id: string | null; kunden_name: string; kunden_email: string;
+          kunden_telefon: string | null; datum: string; personen: number;
+          gesamtpreis: number; provision_betrag: number; auszahlungs_betrag: number;
+          status: string | null; stripe_payment_intent_id: string | null;
+          stripe_payment_status: string | null; stripe_checkout_session_id: string | null;
+          qr_token: string | null; eingeloest_at: string | null;
+          notiz: string | null; created_at: string | null;
+        };
+        Insert: Partial<Database["public"]["Tables"]["buchungen"]["Row"]> & {
+          buchungs_nummer: string; kunden_name: string; kunden_email: string;
+          datum: string; personen: number; gesamtpreis: number;
+          provision_betrag: number; auszahlungs_betrag: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["buchungen"]["Row"]>;
+      };
+      auszahlungen: {
+        Row: {
+          id: string; anbieter_id: string; betrag: number; status: string;
+          buchungs_ids: string[]; referenz: string | null; notiz: string | null;
+          stripe_transfer_id: string | null; created_at: string;
+          ueberwiesen_at: string | null;
+        };
+        Insert: Partial<Database["public"]["Tables"]["auszahlungen"]["Row"]> & { anbieter_id: string; betrag: number; status: string; buchungs_ids: string[] };
+        Update: Partial<Database["public"]["Tables"]["auszahlungen"]["Row"]>;
+      };
+      werbeplaetze_buchungen: {
+        Row: {
+          id: string; anbieter_id: string; angebot_id: string | null;
+          paket: string; zielseite: string | null; laufzeit_monate: number;
+          preis_monatlich: number; preis_gesamt: number; status: string;
+          admin_notiz: string | null; placement_info: string | null;
+          starts_at: string | null; ends_at: string | null;
+          stripe_checkout_session_id: string | null;
+          stripe_payment_intent_id: string | null; bezahlt_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["werbeplaetze_buchungen"]["Row"]> & {
+          anbieter_id: string; paket: string; laufzeit_monate: number;
+          preis_monatlich: number; preis_gesamt: number; status: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["werbeplaetze_buchungen"]["Row"]>;
+      };
     };
   };
 }

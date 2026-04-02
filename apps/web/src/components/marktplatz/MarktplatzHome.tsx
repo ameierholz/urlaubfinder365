@@ -133,7 +133,7 @@ function ScrollSection({ titel, items }: { titel: string; items: typeof AKTIVITA
 }
 
 // ── Hauptkomponente ─────────────────────────────────────────────────────────
-export default function MarktplatzHome() {
+export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode }) {
   const [suche, setSuche]         = useState("");
   const [kategorie, setKategorie] = useState<Kategorie | "alle">("alle");
   const katRef = useRef<HTMLDivElement>(null);
@@ -234,7 +234,9 @@ export default function MarktplatzHome() {
       </div>
 
       {/* ── Hauptinhalt ────────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className={sidebar ? "flex gap-8 items-start" : ""}>
+      <div className={sidebar ? "flex-1 min-w-0 space-y-12" : "space-y-12"}>
 
         {/* Gefilterte Ergebnisse */}
         {istGefiltert ? (
@@ -414,6 +416,15 @@ export default function MarktplatzHome() {
             </section>
           </>
         )}
+      </div>
+
+      {/* Sidebar (Gesponserte Angebote) */}
+      {sidebar && (
+        <aside className="hidden lg:block w-72 shrink-0 sticky top-24 self-start">
+          {sidebar}
+        </aside>
+      )}
+      </div>
       </div>
     </div>
   );

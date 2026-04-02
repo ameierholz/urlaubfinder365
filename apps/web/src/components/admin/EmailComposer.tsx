@@ -55,6 +55,7 @@ export default function EmailComposer({
     setLoading(true);
     const supabase = createSupabaseBrowser();
     // Als CRM-Ticket speichern
+    // @ts-expect-error — Supabase Insert-Typen für diese Tabelle noch nicht generiert
     await supabase.from("admin_crm_tickets").insert({
       anbieter_id: anbieterId,
       typ: "email_gesendet",

@@ -30,6 +30,22 @@ const PRIO_CLS: Record<string, string> = {
   dringend:"text-red-400 font-bold",
 };
 
+interface AnbieterProfil {
+  id: string; name: string; email: string; status: string; verifiziert: boolean;
+  telefon?: string | null; website?: string | null; webseite?: string | null;
+  beschreibung?: string | null; bio?: string | null;
+  adresse?: string | null; strasse?: string | null; plz?: string | null;
+  stadt?: string | null; land_name?: string | null;
+  kategorie?: string | null; iban?: string | null; kontoinhaber?: string | null;
+  umsatzsteuer_id?: string | null; steuernummer?: string | null;
+  dokument_ausweis?: string | null; dokument_nachweis?: string | null;
+  stripe_account_id?: string | null; stripe_onboarding_complete?: boolean;
+  sprachen?: string[] | null; erfahrung_jahre?: number | null;
+  instagram?: string | null; tripadvisor?: string | null;
+  bic?: string | null; dokument_url?: string | null;
+  created_at?: string | null;
+}
+
 interface Props { params: Promise<{ id: string }> }
 
 export default async function AnbieterDetailPage({ params }: Props) {
@@ -44,7 +60,7 @@ export default async function AnbieterDetailPage({ params }: Props) {
     { data: tickets },
     { data: werbung },
   ] = await Promise.all([
-    supabase.from("anbieter_profile").select("*").eq("id", id).single() as unknown as Promise<{ data: Record<string, unknown> | null }>,
+    supabase.from("anbieter_profile").select("*").eq("id", id).single() as unknown as Promise<{ data: AnbieterProfil | null }>,
     supabase.from("angebote").select("id, titel, status, preis, ziel, created_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
     supabase.from("buchungen").select("id, buchungs_nummer, kunden_name, datum, gesamtpreis, auszahlungs_betrag, status, created_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
     supabase.from("auszahlungen").select("id, betrag, status, referenz, created_at, ueberwiesen_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
@@ -122,8 +138,8 @@ export default async function AnbieterDetailPage({ params }: Props) {
               {anbieter.erfahrung_jahre && (
                 <div><span className="text-gray-500">Erfahrung</span><br /><span className="text-white">{anbieter.erfahrung_jahre} Jahre</span></div>
               )}
-              {anbieter.sprachen?.length > 0 && (
-                <div><span className="text-gray-500">Sprachen</span><br /><span className="text-white">{anbieter.sprachen.join(", ")}</span></div>
+              {(anbieter.sprachen?.length ?? 0) > 0 && (
+                <div><span className="text-gray-500">Sprachen</span><br /><span className="text-white">{anbieter.sprachen!.join(", ")}</span></div>
               )}
               {anbieter.instagram && (
                 <div><span className="text-gray-500">Instagram</span><br /><span className="text-white">{anbieter.instagram}</span></div>
@@ -132,7 +148,7 @@ export default async function AnbieterDetailPage({ params }: Props) {
                 <div><span className="text-gray-500">TripAdvisor</span><br /><span className="text-white">{anbieter.tripadvisor}</span></div>
               )}
             </div>
-            <p className="text-[11px] text-gray-600">Registriert: {new Date(anbieter.created_at).toLocaleDateString("de-DE")}</p>
+            {anbieter.created_at && <p className="text-[11px] text-gray-600">Registriert: {new Date(anbieter.created_at).toLocaleDateString("de-DE")}</p>}
           </div>
 
           {/* Bankdaten */}

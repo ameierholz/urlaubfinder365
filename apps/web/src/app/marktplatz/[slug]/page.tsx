@@ -7,6 +7,8 @@ import { AKTIVITAETEN, KATEGORIEN } from "@/data/marktplatz-data";
 import AnfrageFormular from "@/components/marktplatz/AnfrageFormular";
 import FavoritButton from "@/components/marktplatz/FavoritButton";
 import BewertungsSection from "@/components/marktplatz/BewertungsSection";
+import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
+import { Suspense } from "react";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -239,6 +241,15 @@ export default async function AktivitaetPage({ params }: Props) {
                 Alle Angebote ansehen →
               </Link>
             </div>
+
+            {/* Gesponserte Angebote in der Sidebar */}
+            <Suspense fallback={null}>
+              <SponsoredAngebote
+                context={{ type: "homepage" }}
+                variant="sidebar"
+                maxItems={4}
+              />
+            </Suspense>
           </div>
         </div>
       </div>

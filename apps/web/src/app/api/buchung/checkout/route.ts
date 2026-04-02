@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, calcApplicationFee } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
+import type Stripe from "stripe";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -80,7 +81,7 @@ export async function POST(req: NextRequest) {
   const preisInCent = Math.round(gesamtpreis * 100);
   const applicationFeeInCent = calcApplicationFee(gesamtpreis);
 
-  const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
+  const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: "payment",
     customer_email: kunden_email,
     line_items: [

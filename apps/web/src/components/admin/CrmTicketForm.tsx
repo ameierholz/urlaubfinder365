@@ -35,6 +35,7 @@ export default function CrmTicketForm({ anbieterId }: { anbieterId: string }) {
     if (!betreff.trim() || !nachricht.trim()) return;
     setLoading(true);
     const supabase = createSupabaseBrowser();
+    // @ts-expect-error — Supabase Insert-Typen für diese Tabelle noch nicht generiert
     await supabase.from("admin_crm_tickets").insert({
       anbieter_id: anbieterId,
       typ, prioritaet, betreff, nachricht,

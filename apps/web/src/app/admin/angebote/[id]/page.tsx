@@ -7,27 +7,41 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Angebot bearbeiten | Admin" };
 
+interface Angebot {
+  id: string; anbieter_id?: string | null; titel: string;
+  kurzbeschreibung?: string | null; beschreibung?: string | null;
+  kategorie?: string | null; ziel?: string | null; land?: string | null;
+  preis: number; preistyp?: string | null; dauer?: string | null;
+  max_teilnehmer?: number | null; treffpunkt?: string | null;
+  treffpunkt_hinweis?: string | null; status?: string | null;
+  highlights?: string[] | null; inbegriffen?: string[] | null;
+  nicht_inbegriffen?: string[] | null; fotos?: string[] | null;
+  slug?: string | null;
+}
+
 interface Props { params: Promise<{ id: string }> }
 
 export default async function AngebotDetailPage({ params }: Props) {
   const { id } = await params;
   const supabase = await createSupabaseServer();
 
-  const [{ data: angebot }, { data: buchungen }] = await Promise.all([
-    supabase.from("angebote").select("*").eq("id", id).single(),
+  const [{ data: angebotRaw }, { data: buchungen }] = await Promise.all([
+    supabase.from("angebote").select("*").eq("id", id).single() as unknown as Promise<{ data: Angebot | null }>,
     supabase.from("buchungen")
       .select("id, buchungs_nummer, kunden_name, datum, personen, gesamtpreis, status, created_at")
       .eq("angebot_id", id)
       .order("created_at", { ascending: false }),
   ]);
 
+  const angebot = angebotRaw;
   if (!angebot) notFound();
 
-  const { data: anbieter } = await supabase
+  const { data: anbieterRaw } = await supabase
     .from("anbieter_profile")
     .select("id, name")
-    .eq("id", angebot.anbieter_id)
-    .single();
+    .eq("id", angebot.anbieter_id ?? "")
+    .maybeSingle();
+  const anbieter = anbieterRaw as { id: string; name: string } | null;
 
   const STATUS_CLS: Record<string, string> = {
     ausstehend:    "bg-amber-900/40 text-amber-400",
@@ -52,8 +66,7 @@ export default async function AngebotDetailPage({ params }: Props) {
                 {anbieter.name}
               </Link>
             )}
-            <span>·</span>
-            <span>{angebot.ziel}</span>
+            {angebot.ziel && <><span>·</span><span>{angebot.ziel}</span></>}
             <span>·</span>
             <span>{Number(angebot.preis).toFixed(2)} €</span>
             {angebot.slug && (
@@ -77,17 +90,17 @@ export default async function AngebotDetailPage({ params }: Props) {
           <AngebotEditForm angebot={{
             id: angebot.id,
             titel: angebot.titel ?? "",
-            kurzbeschreibung: angebot.kurzbeschreibung,
-            beschreibung: angebot.beschreibung,
-            kategorie: angebot.kategorie,
-            ziel: angebot.ziel,
-            land: angebot.land,
+            kurzbeschreibung: angebot.kurzbeschreibung ?? null,
+            beschreibung: angebot.beschreibung ?? null,
+            kategorie: angebot.kategorie ?? null,
+            ziel: angebot.ziel ?? null,
+            land: angebot.land ?? null,
             preis: Number(angebot.preis),
             preistyp: angebot.preistyp ?? "pro_person",
-            dauer: angebot.dauer,
+            dauer: angebot.dauer ?? null,
             max_teilnehmer: angebot.max_teilnehmer ?? 10,
-            treffpunkt: angebot.treffpunkt,
-            treffpunkt_hinweis: angebot.treffpunkt_hinweis,
+            treffpunkt: angebot.treffpunkt ?? null,
+            treffpunkt_hinweis: angebot.treffpunkt_hinweis ?? null,
             status: angebot.status ?? "entwurf",
             highlights: angebot.highlights ?? [],
             inbegriffen: angebot.inbegriffen ?? [],
@@ -127,9 +140,9 @@ export default async function AngebotDetailPage({ params }: Props) {
           {/* Fotos */}
           {(angebot.fotos ?? []).length > 0 && (
             <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
-              <h2 className="font-bold text-white text-sm mb-3">Fotos ({angebot.fotos.length})</h2>
+              <h2 className="font-bold text-white text-sm mb-3">Fotos ({angebot.fotos!.length})</h2>
               <div className="grid grid-cols-2 gap-2">
-                {angebot.fotos.slice(0, 4).map((url: string, i: number) => (
+                {angebot.fotos!.slice(0, 4).map((url: string, i: number) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img key={i} src={url} alt={`Foto ${i + 1}`}
                     className="w-full aspect-square object-cover rounded-xl" />

@@ -22,6 +22,7 @@ export default function CrmTicketStatusButton({ ticketId, currentStatus }: { tic
   const handleClick = async () => {
     setLoading(true);
     const supabase = createSupabaseBrowser();
+    // @ts-expect-error — Supabase Insert-Typen für diese Tabelle noch nicht generiert
     await supabase.from("admin_crm_tickets").update({ status: next }).eq("id", ticketId);
     setLoading(false);
     router.refresh();

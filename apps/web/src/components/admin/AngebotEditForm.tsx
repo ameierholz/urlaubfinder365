@@ -37,6 +37,7 @@ export default function AngebotEditForm({ angebot }: { angebot: Angebot }) {
     e.preventDefault();
     setLoading(true);
     const supabase = createSupabaseBrowser();
+    // @ts-expect-error — Supabase Insert-Typen für diese Tabelle noch nicht generiert
     await supabase.from("angebote").update({
       titel: form.titel,
       kurzbeschreibung: form.kurzbeschreibung,

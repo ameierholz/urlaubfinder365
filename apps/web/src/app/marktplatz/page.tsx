@@ -18,13 +18,16 @@ export const metadata: Metadata = {
 
 export default function MarktplatzPage() {
   return (
-    <>
-      {/* Gesponserte Angebote — Homepage-Plätze (oben, vor dem organischen Feed) */}
-      <Suspense fallback={null}>
-        <SponsoredAngebote context={{ type: "homepage" }} position="oben" maxItems={4} />
-      </Suspense>
-
-      <MarktplatzHome />
-    </>
+    <MarktplatzHome
+      sidebar={
+        <Suspense fallback={null}>
+          <SponsoredAngebote
+            context={{ type: "homepage" }}
+            variant="sidebar"
+            maxItems={6}
+          />
+        </Suspense>
+      }
+    />
   );
 }
