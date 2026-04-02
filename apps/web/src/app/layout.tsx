@@ -9,6 +9,7 @@ import FontAwesomeLoader from "@/components/FontAwesomeLoader";
 import CookieBanner from "@/components/ui/CookieBanner";
 import AccessibilityWidget from "@/components/ui/AccessibilityWidget";
 import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -164,6 +165,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <CookieBanner />
           <AccessibilityWidget />
+          <ScrollToTopButton />
         </AuthProvider>
         <Analytics />
         <SpeedInsights />
