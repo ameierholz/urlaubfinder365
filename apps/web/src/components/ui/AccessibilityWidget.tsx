@@ -107,20 +107,21 @@ export default function AccessibilityWidget() {
         </defs>
       </svg>
 
-      {/* FAB – Floating Button */}
+      {/* FAB – Floating Pill Button (links) */}
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Barrierefreiheits-Einstellungen öffnen"
         aria-expanded={open}
-        className="fixed bottom-6 right-5 z-[9990] w-12 h-12 rounded-full bg-[#00838F] text-white shadow-lg hover:bg-[#006d78] hover:shadow-xl transition-all flex items-center justify-center text-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50"
+        className="fixed bottom-6 left-5 z-9990 flex items-center gap-2 px-4 h-11 rounded-full bg-[#00838F] text-white shadow-lg hover:bg-[#006d78] hover:shadow-xl transition-all focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50"
       >
-        ♿
+        <span className="text-lg leading-none" aria-hidden="true">♿</span>
+        <span className="text-xs font-semibold leading-tight">Barrierefreiheit</span>
       </button>
 
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-[9991] bg-black/20 backdrop-blur-[2px]"
+          className="fixed inset-0 z-9991 bg-black/20 backdrop-blur-[2px]"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
@@ -132,7 +133,7 @@ export default function AccessibilityWidget() {
           role="dialog"
           aria-modal="true"
           aria-label="Barrierefreiheits-Einstellungen"
-          className="fixed bottom-20 right-5 z-[9992] w-[320px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
+          className="fixed bottom-20 left-5 z-9992 w-[320px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#00838F] text-white rounded-t-2xl shrink-0">
