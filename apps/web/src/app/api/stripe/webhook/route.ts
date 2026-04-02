@@ -90,5 +90,3 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
-// Stripe braucht den Raw Body — kein Parsen durch Next.js
-export const config = { api: { bodyParser: false } };

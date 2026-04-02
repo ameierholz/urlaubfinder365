@@ -44,7 +44,7 @@ export default async function AnbieterDetailPage({ params }: Props) {
     { data: tickets },
     { data: werbung },
   ] = await Promise.all([
-    supabase.from("anbieter_profile").select("*").eq("id", id).single(),
+    supabase.from("anbieter_profile").select("*").eq("id", id).single() as unknown as Promise<{ data: Record<string, unknown> | null }>,
     supabase.from("angebote").select("id, titel, status, preis, ziel, created_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
     supabase.from("buchungen").select("id, buchungs_nummer, kunden_name, datum, gesamtpreis, auszahlungs_betrag, status, created_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
     supabase.from("auszahlungen").select("id, betrag, status, referenz, created_at, ueberwiesen_at").eq("anbieter_id", id).order("created_at", { ascending: false }),
