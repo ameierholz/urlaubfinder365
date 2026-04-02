@@ -39,6 +39,7 @@ export interface Aktivitaet {
   inbegriffen: string[];
   nichtInbegriffen: string[];
   treffpunkt: string;
+  treffpunkt_hinweis?: string;
   bewertung: number;
   bewertungenAnzahl: number;
   anbieter: Anbieter;
@@ -76,6 +77,7 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     inbegriffen: ["Professioneller Guide", "Wasserflaschen", "Lokale Kostproben"],
     nichtInbegriffen: ["Transfer zum Treffpunkt", "Eintrittskarten (ca. 5 €)"],
     treffpunkt: "Hadriantor, Kaleiçi, Antalya",
+    treffpunkt_hinweis: "Bitte 10 Minuten vor Tourstart am Hadriantor sein. Der Guide trägt eine rote Mütze.",
     bewertung: 4.9, bewertungenAnzahl: 127,
     beliebt: true,
     anbieter: {
@@ -101,6 +103,7 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     inbegriffen: ["Bootstour", "Mittagessen", "Snorkelausrüstung", "Transfers vom Hotel"],
     nichtInbegriffen: ["Getränke (außer Wasser)", "Trinkgeld"],
     treffpunkt: "Antalya Alter Hafen",
+    treffpunkt_hinweis: "Bitte 15 Minuten vor Abfahrt am Boot sein. Pier C, Liegeplatz 7.",
     bewertung: 4.8, bewertungenAnzahl: 89,
     neu: true,
     anbieter: {

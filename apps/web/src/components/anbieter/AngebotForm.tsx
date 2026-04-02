@@ -276,7 +276,7 @@ interface AngebotData {
   titel?: string; slug?: string; kurzbeschreibung?: string; beschreibung?: string;
   kategorie?: string; ziel?: string; land?: string; preis?: number; preistyp?: string;
   dauer?: string; max_teilnehmer?: number; sprachen?: string[]; highlights?: string[];
-  inbegriffen?: string[]; nicht_inbegriffen?: string[]; treffpunkt?: string;
+  inbegriffen?: string[]; nicht_inbegriffen?: string[]; treffpunkt?: string; treffpunkt_hinweis?: string;
   foto_url?: string; fotos?: string[]; status?: string;
 }
 
@@ -300,7 +300,8 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
   const [highlights,       setHighlights]       = useState<string[]>(initial?.highlights ?? []);
   const [inbegriffen,      setInbegriffen]      = useState<string[]>(initial?.inbegriffen ?? []);
   const [nichtInbegriffen, setNichtInbegriffen] = useState<string[]>(initial?.nicht_inbegriffen ?? []);
-  const [treffpunkt,       setTreffpunkt]       = useState(initial?.treffpunkt ?? "");
+  const [treffpunkt,        setTreffpunkt]        = useState(initial?.treffpunkt ?? "");
+  const [treffpunktHinweis, setTreffpunktHinweis] = useState(initial?.treffpunkt_hinweis ?? "");
   const [hauptfoto,        setHauptfoto]        = useState(initial?.foto_url ?? "");
   const [weiterefotos,     setWeiterefotos]     = useState<string[]>(initial?.fotos ?? []);
   const [status,           setStatus]           = useState(initial?.status ?? "entwurf");
@@ -331,7 +332,8 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
       max_teilnehmer: parseInt(maxTn),
       sprachen, highlights, inbegriffen,
       nicht_inbegriffen: nichtInbegriffen,
-      treffpunkt, foto_url: hauptfoto, fotos: weiterefotos, status,
+      treffpunkt, treffpunkt_hinweis: treffpunktHinweis || null,
+      foto_url: hauptfoto, fotos: weiterefotos, status,
     };
 
     if (isEdit) {
@@ -458,9 +460,14 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
             <label className="text-xs font-semibold text-gray-600 mb-1.5 block">Sprachen</label>
             <SprachenInput values={sprachen} onChange={setSprachen} />
           </div>
-          <Field label="Treffpunkt" hint="Genaue Adresse oder Beschreibung des Startpunkts">
+          <Field label="Treffpunkt" hint="Genaue Adresse — wird automatisch mit Google Maps verlinkt">
             <input type="text" value={treffpunkt} onChange={(e) => setTreffpunkt(e.target.value)}
               placeholder="z. B. Hadriantor, Kaleiçi, Antalya" className={INPUT} />
+          </Field>
+          <Field label="Hinweis zum Treffpunkt" hint="z. B. Ankunftszeit, Erkennungszeichen, Parkinfos">
+            <input type="text" value={treffpunktHinweis} onChange={(e) => setTreffpunktHinweis(e.target.value)}
+              placeholder="z. B. Bitte 15 Minuten vorher da sein. Guide trägt eine rote Mütze."
+              className={INPUT} />
           </Field>
         </div>
 

@@ -154,12 +154,28 @@ export default async function AktivitaetPage({ params }: Props) {
             </div>
 
             {/* Treffpunkt */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-[#00838F] shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-gray-900 text-sm mb-1">Treffpunkt</p>
-                <p className="text-sm text-gray-600">{a.treffpunkt}</p>
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#00838F] shrink-0 mt-0.5" />
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-gray-900 text-sm mb-1">Treffpunkt</p>
+                  <p className="text-sm text-gray-600 mb-3">{a.treffpunkt}</p>
+                  <Link
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.treffpunkt)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00838F] border border-[#00838F]/30 bg-[#00838F]/5 hover:bg-[#00838F] hover:text-white px-3 py-1.5 rounded-xl transition-colors"
+                  >
+                    <MapPin className="w-3.5 h-3.5" /> In Google Maps öffnen
+                  </Link>
+                </div>
               </div>
+              {a.treffpunkt_hinweis && (
+                <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                  <span className="text-base shrink-0">⏰</span>
+                  <p className="text-xs text-amber-800 leading-relaxed">{a.treffpunkt_hinweis}</p>
+                </div>
+              )}
             </div>
 
             {/* Bewertungen */}
