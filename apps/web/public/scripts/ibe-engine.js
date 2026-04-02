@@ -492,7 +492,7 @@
         depapt1: ap.code,
         dstapt1: code,
         action: "search",
-        afid: AGENT,
+        agent: AGENT,
       });
       const ibeUrl    = `https://ibe.specials.de/?${ibeParams}`;
       const cardTitle = `Flüge ab ${ap.city} nach ${city}`.replace(/'/g, "\\'");
