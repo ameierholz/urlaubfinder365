@@ -1,5 +1,6 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import { Euro, TrendingUp, Clock } from "lucide-react";
+import StripeConnectButton from "@/components/stripe/StripeConnectButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Einnahmen | Anbieter-Portal" };
@@ -8,8 +9,11 @@ export default async function AnbieterEinnahmenPage() {
   const supabase = await createSupabaseServer();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: profilRaw } = await supabase
-    .from("anbieter_profile").select("id").eq("user_id", user!.id).maybeSingle();
-  const profil = profilRaw as { id: string } | null;
+    .from("anbieter_profile")
+    .select("id, stripe_account_id, stripe_onboarding_complete")
+    .eq("user_id", user!.id)
+    .maybeSingle();
+  const profil = profilRaw as { id: string; stripe_account_id: string | null; stripe_onboarding_complete: boolean } | null;
 
   const [{ data: buchungen }, { data: auszahlungen }] = await Promise.all([
     supabase.from("buchungen")
@@ -27,9 +31,30 @@ export default async function AnbieterEinnahmenPage() {
   const ausgezahlt   = (auszahlungen ?? []).filter((a: { status: string }) => a.status === "ueberwiesen").reduce((s: number, a: { betrag: number }) => s + Number(a.betrag), 0);
   const ausstehend   = gesamt - ausgezahlt;
 
+  const stripeVerbunden = !!(profil?.stripe_account_id && profil?.stripe_onboarding_complete);
+
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-black text-gray-900">Meine Einnahmen</h1>
+
+      {/* Stripe Connect Banner */}
+      <div className={`rounded-2xl border p-5 flex items-start gap-4 flex-wrap ${
+        stripeVerbunden
+          ? "bg-violet-50 border-violet-200"
+          : "bg-amber-50 border-amber-200"
+      }`}>
+        <div className="flex-1 min-w-0">
+          <p className="font-bold text-gray-900 mb-0.5">
+            {stripeVerbunden ? "⚡ Stripe Connect aktiv" : "💳 Stripe Connect einrichten"}
+          </p>
+          <p className="text-xs text-gray-600">
+            {stripeVerbunden
+              ? "Deine Auszahlungen werden automatisch via Stripe auf dein Konto überwiesen."
+              : "Verbinde dein Stripe-Konto, damit wir deine Einnahmen automatisch auszahlen können. Dauert ca. 5 Minuten."}
+          </p>
+        </div>
+        <StripeConnectButton complete={stripeVerbunden} />
+      </div>
 
       {/* Übersicht */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Users, MessageSquare, CheckCircle, Loader2 } from "lucide-react";
+import { Calendar, Users, MessageSquare, Loader2, CreditCard } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -11,14 +11,13 @@ interface Props {
   maxTeilnehmer: number;
 }
 
-export default function AnfrageFormular({ aktivitaetTitel, preis, maxTeilnehmer }: Props) {
+export default function AnfrageFormular({ aktivitaetTitel, aktivitaetSlug, preis, maxTeilnehmer }: Props) {
   const [personen, setPersonen] = useState(2);
   const [datum, setDatum]       = useState("");
   const [name, setName]         = useState("");
   const [email, setEmail]       = useState("");
   const [nachricht, setNachricht] = useState("");
   const [loading, setLoading]   = useState(false);
-  const [gesendet, setGesendet] = useState(false);
   const [fehler, setFehler]     = useState("");
 
   const gesamtpreis = preis * personen;
@@ -29,26 +28,37 @@ export default function AnfrageFormular({ aktivitaetTitel, preis, maxTeilnehmer 
     setFehler("");
     setLoading(true);
 
-    // Demo: Anfrage per Newsletter-API (später eigene Buchungs-API mit Stripe)
-    await new Promise((r) => setTimeout(r, 1200));
-    setGesendet(true);
-    setLoading(false);
-  };
+    try {
+      const res = await fetch("/api/buchung/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          angebot_slug:    aktivitaetSlug,
+          titel:           aktivitaetTitel,
+          kunden_name:     name,
+          kunden_email:    email,
+          datum,
+          personen,
+          preis_pro_person: preis,
+          nachricht,
+        }),
+      });
 
-  if (gesendet) {
-    return (
-      <div className="text-center py-6">
-        <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
-        <p className="font-bold text-gray-900 text-lg mb-1">Anfrage gesendet! 🎉</p>
-        <p className="text-sm text-gray-500">
-          {name.split(" ")[0]}, der Anbieter meldet sich innerhalb von 24 Stunden bei dir.
-        </p>
-        <p className="text-xs text-gray-400 mt-3">
-          Buchungsbestätigung kommt an: <strong>{email}</strong>
-        </p>
-      </div>
-    );
-  }
+      const data = await res.json();
+
+      if (!res.ok || !data.url) {
+        setFehler(data.error ?? "Fehler beim Checkout. Bitte versuche es erneut.");
+        setLoading(false);
+        return;
+      }
+
+      // Weiterleitung zu Stripe Checkout
+      window.location.href = data.url;
+    } catch {
+      setFehler("Netzwerkfehler. Bitte versuche es erneut.");
+      setLoading(false);
+    }
+  };
 
   return (
     <form onSubmit={senden} className="space-y-3">
@@ -112,11 +122,14 @@ export default function AnfrageFormular({ aktivitaetTitel, preis, maxTeilnehmer 
         disabled={loading}
         className="w-full flex items-center justify-center gap-2 bg-[#00838F] hover:bg-[#006d78] disabled:opacity-60 text-white font-black py-3.5 rounded-2xl transition-colors"
       >
-        {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gesendet …</> : "Jetzt anfragen →"}
+        {loading
+          ? <><Loader2 className="w-4 h-4 animate-spin" /> Weiterleitung zu Stripe…</>
+          : <><CreditCard className="w-4 h-4" /> Jetzt sicher buchen →</>
+        }
       </button>
 
       <p className="text-[10px] text-gray-400 text-center leading-snug">
-        Keine Zahlung jetzt. Der Anbieter bestätigt die Verfügbarkeit und meldet sich bei dir.
+        Sichere Zahlung via Stripe · SSL-verschlüsselt
       </p>
 
       <div className="bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[10px] text-gray-500 leading-relaxed">

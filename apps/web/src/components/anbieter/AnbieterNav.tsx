@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, PackageSearch, CalendarCheck,
-  QrCode, TrendingUp, BadgeCheck, LogOut, Menu, X, UserCircle
+  QrCode, TrendingUp, BadgeCheck, LogOut, Menu, X, UserCircle, Megaphone
 } from "lucide-react";
 import { useState } from "react";
 import { createSupabaseBrowser } from "@/lib/supabase-browser";
@@ -16,6 +16,7 @@ const NAV = [
   { href: "/anbieter/buchungen/",  icon: CalendarCheck,   label: "Buchungen" },
   { href: "/anbieter/scanner/",    icon: QrCode,          label: "QR-Scanner" },
   { href: "/anbieter/einnahmen/",  icon: TrendingUp,      label: "Einnahmen" },
+  { href: "/anbieter/werbeplatz/", icon: Megaphone,       label: "Werbeplatz buchen" },
   { href: "/anbieter/profil/",     icon: UserCircle,      label: "Mein Profil" },
 ];
 
