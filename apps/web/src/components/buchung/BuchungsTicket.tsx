@@ -193,11 +193,11 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
 
         <div className="flex items-start gap-5">
           {/* QR Code */}
-          <div className="flex flex-col items-start gap-1.5 shrink-0">
+          <div className="flex flex-col items-center gap-1.5 shrink-0">
             <div className="bg-white p-2.5 rounded-xl border-2 border-gray-200 shadow-sm">
               <QRCodeSVG value={d.qr_token} size={110} level="M" fgColor="#111827" />
             </div>
-            <p className="text-[10px] text-gray-400 font-semibold">QR-Code scannen</p>
+            <p className="text-[10px] text-gray-400 font-semibold text-center">QR-Code scannen</p>
           </div>
 
           {/* Buchungsnummer */}
