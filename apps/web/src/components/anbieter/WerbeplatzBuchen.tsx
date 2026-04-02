@@ -36,9 +36,9 @@ export const PAKETE = [
   {
     id:          "stadt_oben",
     emoji:       "🌆",
-    label:       "Stadtseite Premium",
-    position:    "Ganz oben auf der Seite",
-    beschreibung:"Top-Platzierung auf einer Zielort-Seite — maximale Sichtbarkeit direkt beim ersten Scroll.",
+    label:       "Stadtseite Top-Platz",
+    position:    "Immer ganz oben — auch wenn mehrere Anzeigen aktiv sind",
+    beschreibung:"Deine Anzeige erscheint stets als erste — egal wie viele andere Werbeplätze auf derselben Stadtseite gebucht sind.",
     preisMonat:  49,
     badge:       "Beliebt",
   },

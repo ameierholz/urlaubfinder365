@@ -20,7 +20,7 @@ const PAKET_PREISE: Record<string, number> = {
 
 const PAKET_LABEL: Record<string, string> = {
   stadt_unten: "Stadtseite Banner",
-  stadt_oben:  "Stadtseite Premium",
+  stadt_oben:  "Stadtseite Top-Platz",
   kategorie:   "Themenseite",
   region:      "Regionspaket",
   homepage:    "Marktplatz-Startseite",

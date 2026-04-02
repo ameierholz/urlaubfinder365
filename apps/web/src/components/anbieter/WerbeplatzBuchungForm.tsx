@@ -4,8 +4,8 @@ import { useState } from "react";
 import { CreditCard, Loader2, Check } from "lucide-react";
 
 const PAKETE = [
-  { key: "stadt_unten", label: "Stadtseite Banner",       preis: 29,  beschreibung: "Banner-Anzeige auf Stadtseiten" },
-  { key: "stadt_oben",  label: "Stadtseite Premium",      preis: 49,  beschreibung: "Premium-Platz oben auf Stadtseiten" },
+  { key: "stadt_unten", label: "Stadtseite Banner",       preis: 29,  beschreibung: "Anzeige auf Stadtseiten" },
+  { key: "stadt_oben",  label: "Stadtseite Top-Platz",    preis: 49,  beschreibung: "Immer ganz oben — erscheint als erstes, wenn mehrere Anzeigen sichtbar sind" },
   { key: "kategorie",   label: "Themenseite",             preis: 39,  beschreibung: "Sichtbar auf Kategorie-/Themenseiten" },
   { key: "region",      label: "Regionspaket",            preis: 59,  beschreibung: "Alle Seiten einer Region" },
   { key: "homepage",    label: "Marktplatz-Startseite",   preis: 99,  beschreibung: "Premium-Platzierung auf der Startseite" },
