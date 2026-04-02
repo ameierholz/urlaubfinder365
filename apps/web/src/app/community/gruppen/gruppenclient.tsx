@@ -187,7 +187,7 @@ export default function GruppenPage() {
           </p>
         </div>
         {user && (
-          <Link href="/dashboard/" className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl text-sm font-bold">
+          <Link href="/community/gruppen/neu/" className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl text-sm font-bold">
             <Plus className="w-4 h-4" /> Gruppe gründen
           </Link>
         )}
