@@ -171,13 +171,13 @@ export default function VersicherungVergleich() {
             Für oft unter 15 € pro Person bist du für alle Reisen des Jahres abgesichert — ohne jedes Mal neu abschließen zu müssen.
           </p>
           <a
-            href="https://www.check24.de/reiseversicherung/auslandskranken/"
+            href="https://www.travialinks.de/link/A-30412-0/A/erv"
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="inline-flex items-center gap-1.5 mt-3 text-[#00838F] font-bold text-sm hover:underline"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Jahrespolicen vergleichen
+            Jetzt bei ERV abschließen
           </a>
         </div>
       </section>

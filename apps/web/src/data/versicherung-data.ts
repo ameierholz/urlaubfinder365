@@ -42,7 +42,7 @@ export const VERSICHERUNG_TYPEN: VersicherungTyp[] = [
       "Kosmetische Behandlungen",
       "Chronische Erkrankungen",
     ],
-    affiliateUrl: "https://www.check24.de/reiseversicherung/auslandskranken/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     id: "reiseruecktritt",
@@ -63,7 +63,7 @@ export const VERSICHERUNG_TYPEN: VersicherungTyp[] = [
       "Bereits bekannte Erkrankungen",
       "Reiseänderungen (nur Rücktritt)",
     ],
-    affiliateUrl: "https://www.check24.de/reiseversicherung/reiseruecktritt/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     id: "reiseabbruch",
@@ -79,7 +79,7 @@ export const VERSICHERUNG_TYPEN: VersicherungTyp[] = [
       "Bei Krankheit, Todesfall, Naturkatastrophen",
       "Oft kombinierbar mit Reiserücktritt",
     ],
-    affiliateUrl: "https://www.check24.de/reiseversicherung/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     id: "reisegepaeck",
@@ -100,7 +100,7 @@ export const VERSICHERUNG_TYPEN: VersicherungTyp[] = [
       "Bargeld und Ausweise",
       "Smartphones (oft separat)",
     ],
-    affiliateUrl: "https://www.check24.de/reiseversicherung/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     id: "kombiversicherung",
@@ -117,27 +117,27 @@ export const VERSICHERUNG_TYPEN: VersicherungTyp[] = [
       "Jahrespolicen für mehrere Reisen verfügbar",
       "Nur eine Police für alles",
     ],
-    affiliateUrl: "https://www.check24.de/reiseversicherung/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
 ];
 
 export const ANBIETER: Anbieter[] = [
   {
-    name: "CHECK24 Vergleich",
-    logo: "🔍",
+    name: "ERV – Europäische Reiseversicherung",
+    logo: "🛡️",
     bewertung: 5,
-    preisAb: "Bester Marktpreis",
-    highlight: "Vergleicht 50+ Tarife auf einmal — größte Auswahl",
-    affiliateUrl: "https://www.check24.de/reiseversicherung/",
+    preisAb: "ab 9,80 € / Jahr",
+    highlight: "Marktführer & Testsieger — über 100 Jahre Erfahrung, exzellente Schadenregulierung",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
     testsieger: true,
   },
   {
     name: "HanseMerkur",
     logo: "🏛️",
     bewertung: 5,
-    preisAb: "ab 9,80 € / Jahr",
-    highlight: "Testsieger bei Stiftung Warentest — sehr gute Leistungen",
-    affiliateUrl: "https://www.hansemerkur.de/reiseversicherung",
+    preisAb: "ab 9,90 € / Jahr",
+    highlight: "Sehr gut bei Stiftung Warentest — starke Auslandskrankenversicherung",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     name: "ERGO Reiseversicherung",
@@ -145,7 +145,7 @@ export const ANBIETER: Anbieter[] = [
     bewertung: 4,
     preisAb: "ab 10,50 € / Jahr",
     highlight: "Starke Kombipakete, einfache Online-Abwicklung",
-    affiliateUrl: "https://www.ergo.de/de/Produkte/Reiseversicherung",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     name: "Allianz Travel",
@@ -153,7 +153,7 @@ export const ANBIETER: Anbieter[] = [
     bewertung: 4,
     preisAb: "ab 11 € / Jahr",
     highlight: "Weltweite Präsenz, schnelle Schadensregulierung",
-    affiliateUrl: "https://www.allianztravelversicherung.de/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
   {
     name: "ADAC",
@@ -161,7 +161,7 @@ export const ANBIETER: Anbieter[] = [
     bewertung: 4,
     preisAb: "ab 15 € / Jahr (Mitglieder)",
     highlight: "Attraktiv für ADAC-Mitglieder, guter Pannenschutz kombinierbar",
-    affiliateUrl: "https://www.adac.de/reise-freizeit/reiseversicherung/",
+    affiliateUrl: "https://www.travialinks.de/link/A-30412-0/A/erv",
   },
 ];
 
