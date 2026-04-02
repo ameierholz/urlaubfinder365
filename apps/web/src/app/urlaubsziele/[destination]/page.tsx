@@ -90,6 +90,7 @@ export default async function DestinationPage({ params }: Props) {
   const dest: DestinationConfig = richDest ?? catalogToConfig(catalogEntry!);
   const isSuperRegion = !richDest && catalogEntry?.type === "super";
   const subDestinations = isSuperRegion ? getCatalogByParent(catalogEntry!.slug) : [];
+  const YEAR = new Date().getFullYear();
 
   const regionId = dest.ibeRegionId ?? dest.regionIds[0].toString();
   const cityId   = dest.ibeCityId ?? "";
@@ -148,7 +149,7 @@ export default async function DestinationPage({ params }: Props) {
       />
 
       {/* ── Cinematic Hero ─────────────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden" style={{ height: "clamp(460px, 65vh, 700px)" }}>
+      <section className="relative w-full overflow-hidden" style={{ height: "clamp(360px, 52vh, 540px)" }}>
         {/* Background image – LCP candidate */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -187,17 +188,17 @@ export default async function DestinationPage({ params }: Props) {
             </nav>
           </div>
 
-          {/* Bottom: H1 + subtitle + Inhaltsverzeichnis als Pills */}
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg mb-2">
+          {/* Bottom: H1 + Beschreibung + Inhaltsverzeichnis als Pills */}
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-7">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight drop-shadow-lg mb-2">
               {isSuperRegion
-                ? <>{dest.name}<span className="block text-2xl md:text-3xl font-semibold text-white/80 mt-1">Alle Reiseziele auf einen Blick</span></>
-                : <>{dest.name}<span className="block text-xl md:text-2xl font-semibold text-white/75 mt-1">Pauschalreisen, All Inclusive &amp; Last Minute</span></>
+                ? <>{dest.name} Urlaub {YEAR} <span className="block text-lg md:text-xl font-semibold text-white/80 mt-0.5">Alle Reiseziele &amp; günstige Angebote im Überblick</span></>
+                : <>{dest.name} Urlaub {YEAR} <span className="block text-lg md:text-xl font-semibold text-white/80 mt-0.5">Günstige Pauschalreisen, All Inclusive &amp; Last Minute buchen</span></>
               }
             </h1>
 
-            {!isSuperRegion && dest.description && (
-              <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-2xl mb-4 drop-shadow">
+            {dest.description && (
+              <p className="text-white/80 text-sm leading-relaxed max-w-2xl mb-4 drop-shadow line-clamp-2">
                 {dest.description}
               </p>
             )}
