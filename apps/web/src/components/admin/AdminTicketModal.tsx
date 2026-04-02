@@ -2,30 +2,19 @@
 
 import { useState } from "react";
 import { Ticket, X, Loader2, ExternalLink, Printer } from "lucide-react";
-import { createSupabaseBrowser } from "@/lib/supabase-browser";
 import BuchungsTicket, { type TicketDaten } from "@/components/buchung/BuchungsTicket";
 
 export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: string }) {
   const [open, setOpen]       = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData]       = useState<TicketDaten | null>(null);
-  const sb = createSupabaseBrowser();
 
   const oeffnen = async () => {
     setOpen(true);
     if (data) return;
     setLoading(true);
-    const { data: raw } = await sb
-      .from("buchungen" as never)
-      .select(`
-        buchungs_nummer, qr_token, kunden_name, datum, personen,
-        gesamtpreis, status, created_at,
-        angebote:angebot_id (titel, ziel, dauer, foto_url, treffpunkt, treffpunkt_hinweis),
-        anbieter_profile:anbieter_id (name, telefon, avatar_url, verifiziert)
-      `)
-      .eq("buchungs_nummer", buchungsNummer)
-      .single();
-    setData(raw as unknown as TicketDaten);
+    const res = await fetch(`/api/admin/ticket?nummer=${encodeURIComponent(buchungsNummer)}`);
+    if (res.ok) setData(await res.json() as TicketDaten);
     setLoading(false);
   };
 

@@ -46,11 +46,12 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
       {/* ── Logo-Header ─────────────────────────────────────── */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
         <Image
-          src="/images/header_logo.svg"
+          src="/images/header_logo.webp"
           alt="Urlaubfinder365"
-          width={140}
-          height={32}
-          className="h-7 w-auto"
+          width={160}
+          height={36}
+          className="h-8 w-auto"
+          unoptimized
         />
         <div className="text-right">
           <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Buchungs-Ticket</p>
