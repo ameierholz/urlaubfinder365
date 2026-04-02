@@ -164,11 +164,11 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
             <div key={i} className="flex items-start gap-3 py-2.5">
               <div className="w-4 mt-0.5 shrink-0 text-gray-400">{row.icon}</div>
               <span className="text-xs text-gray-400 w-28 shrink-0 pt-px">{row.label}</span>
-              <div>
+              <div className="text-left">
                 <span className={`text-sm font-semibold ${row.highlight ? "text-[#00838F] font-black text-base" : "text-gray-800"}`}>
                   {row.value}
                 </span>
-                {row.sub && <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{row.sub}</p>}
+                {row.sub && <p className="text-xs text-gray-400 mt-0.5 leading-relaxed text-left">{row.sub}</p>}
               </div>
             </div>
           ))}
