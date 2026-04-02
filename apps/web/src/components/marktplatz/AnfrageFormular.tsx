@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Calendar, Users, MessageSquare, CheckCircle, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 interface Props {
   aktivitaetTitel: string;
@@ -117,6 +118,13 @@ export default function AnfrageFormular({ aktivitaetTitel, preis, maxTeilnehmer 
       <p className="text-[10px] text-gray-400 text-center leading-snug">
         Keine Zahlung jetzt. Der Anbieter bestätigt die Verfügbarkeit und meldet sich bei dir.
       </p>
+
+      <div className="bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[10px] text-gray-500 leading-relaxed">
+        <strong className="text-gray-600">Hinweis:</strong> Du schließt den Vertrag direkt mit dem Anbieter ab.
+        Urlaubfinder365 handelt als Vermittler (offener Stellvertreter gem.{" "}
+        <Link href="/agb/#stellvertretung" className="underline hover:text-gray-700">§ 3a AGB</Link>)
+        und ist nicht Vertragspartner für die Aktivität selbst.
+      </div>
     </form>
   );
 }

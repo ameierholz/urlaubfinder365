@@ -48,22 +48,70 @@ export default function AgbPage() {
           </p>
           <p>
             Zusätzlich betreibt Urlaubfinder365.de einen eigenen <strong>Aktivitäten-Marktplatz</strong>{" "}
-            (§ 3), über den lokale Touren, Stadtführungen und Erlebnisse direkt gebucht werden können.
-            Für diesen Bereich gilt Urlaubfinder365.de als Vertragspartner des Kunden; die Leistung
-            wird durch den jeweiligen lokalen Anbieter erbracht.
+            (§ 3), über den lokale Touren, Stadtführungen und Erlebnisse gebucht werden können.
+            Urlaubfinder365.de handelt dabei ausschließlich als <strong>Vermittler im Namen und auf
+            Rechnung des jeweiligen lokalen Anbieters</strong> (offene Stellvertretung gem. § 3a).
+            Urlaubfinder365.de ist <strong>kein Reiseveranstalter</strong> im Sinne des § 25 UStG.
           </p>
         </section>
 
         <section>
           <h2 className="text-base font-bold text-gray-900 mb-3">§ 3 Aktivitäten-Marktplatz</h2>
 
-          <h3 className="font-semibold text-gray-800 mb-2">a) Buchungen durch Kunden</h3>
+          {/* Stellvertretung — Highlight-Box */}
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-5">
+            <p className="text-xs font-black text-blue-800 uppercase tracking-wide mb-1.5">
+              ⚖️ Wichtiger Hinweis: Vermittlertätigkeit & offene Stellvertretung
+            </p>
+            <p className="text-xs text-blue-900 leading-relaxed">
+              Urlaubfinder365.de handelt auf dem Aktivitäten-Marktplatz ausschließlich als{" "}
+              <strong>offener Stellvertreter</strong> der jeweiligen Anbieter im Sinne des{" "}
+              § 164 BGB. Dies wird dem Kunden bei jeder Buchung ausdrücklich angezeigt.
+              Urlaubfinder365.de ist <strong>kein Reiseveranstalter</strong> nach § 25 UStG
+              (Margenbesteuerung) und erwirbt die Leistungen nicht im eigenen Namen.
+            </p>
+          </div>
+
+          <h3 className="font-semibold text-gray-800 mb-2">a) Vermittlertätigkeit und offene Stellvertretung</h3>
           <p className="mb-3">
-            Über den Marktplatz unter urlaubfinder365.de/marktplatz/ können Nutzer Touren,
-            Stadtführungen, Wassersport und weitere Aktivitäten bei verifizierten lokalen Anbietern
-            buchen. Mit Absenden einer Buchungsanfrage kommt ein verbindlicher Vertrag zwischen dem
-            Kunden und Urlaubfinder365.de zustande. Die Leistungserbringung erfolgt durch den
-            jeweiligen lokalen Anbieter.
+            Urlaubfinder365.de vermittelt auf dem Marktplatz Buchungen von Touren, Stadtführungen,
+            Wassersport und weiteren Aktivitäten lokaler Anbieter. Bei allen Buchungen über den
+            Marktplatz gilt:
+          </p>
+          <ul className="list-disc list-inside space-y-1.5 mb-4 text-gray-700">
+            <li>
+              <strong>Vertragspartner des Kunden</strong> für die gebuchte Aktivität ist
+              ausschließlich der jeweilige lokale Anbieter. Der Vertrag kommt unmittelbar zwischen
+              dem Kunden und dem Anbieter zustande (§ 164 Abs. 1 BGB).
+            </li>
+            <li>
+              Urlaubfinder365.de ist <strong>nicht Vertragspartner</strong> des Kunden hinsichtlich
+              der Leistungserbringung und kein Reiseveranstalter im Sinne des § 651a BGB.
+            </li>
+            <li>
+              Urlaubfinder365.de zieht den Gesamtbetrag <strong>im Namen und auf Rechnung des
+              Anbieters</strong> als dessen offener Stellvertreter ein (§ 164 Abs. 2 BGB). Der
+              Anbieter ist auf der Buchungsbestätigung und dem Rechnungsbeleg namentlich ausgewiesen.
+            </li>
+            <li>
+              Die Vermittlungsprovision von <strong>15 % des Buchungsbetrags</strong> verbleibt bei
+              Urlaubfinder365.de als Entgelt für die Vermittlungsleistung. Diese
+              Vermittlungsleistung unterliegt dem regulären Umsatzsteuersatz gemäß § 3a UStG.
+            </li>
+            <li>
+              Die umsatzsteuerliche Behandlung der Aktivität selbst obliegt dem jeweiligen Anbieter
+              nach den Steuergesetzen seines Wohnsitz- bzw. Niederlassungslandes.
+              Urlaubfinder365.de unterliegt für diese Leistungen <strong>nicht der Margen­besteuerung
+              nach § 25 UStG</strong>.
+            </li>
+          </ul>
+
+          <h3 className="font-semibold text-gray-800 mb-2">b) Buchungen durch Kunden</h3>
+          <p className="mb-3">
+            Über den Marktplatz unter urlaubfinder365.de/marktplatz/ können Nutzer Aktivitäten bei
+            verifizierten lokalen Anbietern buchen. Mit Absenden und Bestätigung einer Buchungsanfrage
+            kommt ein verbindlicher Vertrag <strong>zwischen dem Kunden und dem jeweiligen Anbieter</strong>{" "}
+            zustande. Urlaubfinder365.de handelt dabei als offener Stellvertreter des Anbieters (§ 3a).
           </p>
           <p className="mb-2"><strong>Stornierung durch den Kunden:</strong></p>
           <ul className="list-disc list-inside space-y-1 mb-3">
@@ -72,33 +120,33 @@ export default function AgbPage() {
             <li>Stornierungen sind schriftlich per E-Mail an info@urlaubfinder365.de einzureichen</li>
           </ul>
           <p className="mb-3">
-            <strong>Buchungsnachweis:</strong> Nach erfolgreicher Bezahlung erhält der Kunde einen
-            Buchungs-Voucher mit individuellem QR-Code per E-Mail. Dieser Voucher ist vor Ort beim
-            Anbieter vorzuzeigen und gilt als Leistungsnachweis.
+            <strong>Buchungsnachweis:</strong> Nach erfolgreicher Zahlung erhält der Kunde einen
+            Buchungs-Voucher mit individuellem QR-Code per E-Mail. Der Voucher weist den Anbieter
+            als Leistungserbringer aus und ist vor Ort vorzuzeigen.
           </p>
           <p className="mb-3">
-            <strong>Zahlungsabwicklung:</strong> Die Zahlung erfolgt über unseren Zahlungsdienstleister
-            Stripe. Alle Zahlungsdaten werden verschlüsselt übertragen und nicht auf unseren Servern
-            gespeichert. Es gelten die AGB von Stripe, Inc.
+            <strong>Zahlungsabwicklung:</strong> Die Zahlung erfolgt über Stripe als offener
+            Stellvertreter des Anbieters. Auf der Buchungsbestätigung und dem Zahlungsbeleg ist der
+            Anbieter als Leistungserbringer ausgewiesen. Es gelten zudem die AGB von Stripe, Inc.
           </p>
 
-          <h3 className="font-semibold text-gray-800 mb-2">b) Bedingungen für Anbieter</h3>
+          <h3 className="font-semibold text-gray-800 mb-2">c) Bedingungen für Anbieter</h3>
           <p className="mb-3">
             Lokale Guides und Veranstalter können sich unter urlaubfinder365.de/marktplatz/anbieter-werden/
-            kostenlos registrieren und nach Freischaltung durch Urlaubfinder365.de Angebote einstellen.
+            kostenlos registrieren und nach Freischaltung Angebote einstellen. Mit der Registrierung
+            erkennt der Anbieter ausdrücklich an, dass Urlaubfinder365.de als sein offener
+            Stellvertreter gegenüber Kunden auftritt und Zahlungen in seinem Namen einzieht.
           </p>
           <ul className="list-disc list-inside space-y-1 mb-3">
-            <li><strong>Provision:</strong> 15 % des Buchungspreises (inkl. MwSt.) je erfolgreicher Buchung</li>
-            <li><strong>Auszahlung:</strong> 85 % des Buchungspreises werden nach Abschluss der Aktivität ausgezahlt</li>
-            <li><strong>Freischaltung:</strong> Urlaubfinder365.de behält sich vor, Anbieterprofile abzulehnen oder zu sperren, insbesondere bei Verstößen gegen diese AGB oder bei Qualitätsmängeln</li>
-            <li><strong>Anbieter-Pflichten:</strong> Anbieter sind für die ordnungsgemäße Durchführung der beworbenen Leistungen verantwortlich und stellen sicher, dass alle erforderlichen Genehmigungen, Versicherungen und behördlichen Zulassungen vorliegen</li>
-            <li><strong>Haftung des Anbieters:</strong> Urlaubfinder365.de haftet nicht für Schäden, die durch die Leistungserbringung des lokalen Anbieters entstehen</li>
-            <li><strong>Stornierung durch Anbieter:</strong> Bei vom Anbieter verursachten Stornierungen wird die volle Rückerstattung an den Kunden veranlasst; dem Anbieter wird eine Gebühr von 20 % des entgangenen Buchungsbetrags berechnet</li>
+            <li><strong>Provision:</strong> 15 % des Buchungsbetrags je erfolgreicher Buchung als Vermittlungsentgelt</li>
+            <li><strong>Auszahlung:</strong> 85 % des Buchungsbetrags werden nach Abschluss der Aktivität ausgezahlt</li>
+            <li><strong>Rechnungsstellung:</strong> Urlaubfinder365.de stellt die Kundenrechnung im Namen des Anbieters aus (Gutschriftverfahren); der Anbieter ist auf allen Belegen als Leistungserbringer ausgewiesen</li>
+            <li><strong>Steuerliche Pflichten:</strong> Der Anbieter ist für die korrekte Versteuerung der erhaltenen Leistungserlöse nach dem Recht seines Wohnsitz-/Niederlassungslandes eigenverantwortlich</li>
+            <li><strong>Freischaltung:</strong> Urlaubfinder365.de behält sich vor, Anbieterprofile abzulehnen oder zu sperren, insbesondere bei Verstößen gegen diese AGB oder Qualitätsmängeln</li>
+            <li><strong>Anbieter-Pflichten:</strong> Anbieter sind für die ordnungsgemäße Durchführung der Leistungen verantwortlich und stellen sicher, dass alle erforderlichen Genehmigungen, Versicherungen und behördlichen Zulassungen vorliegen</li>
+            <li><strong>Haftung:</strong> Urlaubfinder365.de haftet nicht für Schäden durch die Leistungserbringung des lokalen Anbieters</li>
+            <li><strong>Stornierung durch Anbieter:</strong> Bei anbieterseitiger Stornierung wird die volle Rückerstattung an den Kunden veranlasst; dem Anbieter wird eine Gebühr von 20 % des entgangenen Buchungsbetrags berechnet</li>
           </ul>
-          <p>
-            Mit der Registrierung als Anbieter erkennt dieser die vorliegenden AGB sowie die
-            gesonderten Anbieter-Vereinbarungen an, die ihm bei der Registrierung zugehen.
-          </p>
         </section>
 
         <section>
