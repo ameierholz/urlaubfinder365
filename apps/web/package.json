@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0",
+    "@stripe/react-stripe-js": "^6.1.0",
+    "@stripe/stripe-js": "^9.0.1",
     "@supabase/ssr": "^0.5",
     "@supabase/supabase-js": "^2",
     "@urlaubfinder/shared": "workspace:*",
@@ -24,7 +26,8 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-leaflet": "^4"
+    "react-leaflet": "^4",
+    "stripe": "^21.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
