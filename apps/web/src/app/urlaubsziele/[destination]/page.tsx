@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MapPin, Package, Umbrella, Zap, Ticket } from "lucide-react";
+import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
 import { catalogToConfig, generateHeroFallback } from "@/lib/catalog-helpers";
@@ -164,72 +164,78 @@ export default async function DestinationPage({ params }: Props) {
 
         {/* Content anchored to bottom */}
         <div className="absolute inset-0 flex flex-col justify-between">
-          {/* Top: Breadcrumb */}
+          {/* Top: Breadcrumb – frosted glass für Lesbarkeit */}
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-5">
-            <nav className="flex items-center gap-1 text-sm text-white/70">
-              <MapPin className="w-4 h-4 shrink-0" />
-              <Link href="/urlaubsziele/" className="hover:text-white transition-colors">
+            <nav className="inline-flex items-center gap-1 text-sm text-white bg-black/35 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <MapPin className="w-3.5 h-3.5 shrink-0 text-white/70" />
+              <Link href="/urlaubsziele/" className="hover:text-white/70 transition-colors">
                 Urlaubsziele
               </Link>
               {catalogEntry && catalogEntry.type === "region" && catalogEntry.parentSlug && (
                 <>
-                  <span className="mx-1 text-white/40">›</span>
+                  <span className="mx-0.5 text-white/50">›</span>
                   <Link
                     href={`/urlaubsziele/${catalogEntry.parentSlug}/`}
-                    className="hover:text-white transition-colors"
+                    className="hover:text-white/70 transition-colors"
                   >
                     {catalogEntry.superRegionName}
                   </Link>
                 </>
               )}
-              <span className="mx-1 text-white/40">›</span>
-              <span className="text-white font-medium">{dest.name}</span>
+              <span className="mx-0.5 text-white/50">›</span>
+              <span className="font-semibold">{dest.name}</span>
             </nav>
           </div>
 
-          {/* Bottom: H1 + subtitle + CTA pills */}
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg mb-3">
+          {/* Bottom: H1 + subtitle + Inhaltsverzeichnis als Pills */}
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg mb-2">
               {isSuperRegion
                 ? <>{dest.name}<span className="block text-2xl md:text-3xl font-semibold text-white/80 mt-1">Alle Reiseziele auf einen Blick</span></>
-                : <>{dest.name}<span className="block text-xl md:text-2xl font-semibold text-white/80 mt-2">Pauschalreisen, All Inclusive &amp; Last Minute</span></>
+                : <>{dest.name}<span className="block text-xl md:text-2xl font-semibold text-white/75 mt-1">Pauschalreisen, All Inclusive &amp; Last Minute</span></>
               }
             </h1>
 
             {!isSuperRegion && dest.description && (
-              <p className="text-white/75 text-base md:text-lg leading-relaxed max-w-2xl mb-5 drop-shadow">
+              <p className="text-white/70 text-sm md:text-base leading-relaxed max-w-2xl mb-4 drop-shadow">
                 {dest.description}
               </p>
             )}
 
-            {/* Quick-nav pills */}
-            <div className="flex flex-wrap gap-2 mt-4">
-              <Link
-                href="#pauschalreisen"
-                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
-              >
-                <Package className="w-4 h-4 shrink-0" /> Pauschalreisen
+            {/* Inhaltsverzeichnis als Frosted-Glass-Pills */}
+            <div className="flex flex-wrap gap-2">
+              <Link href="#pauschalreisen" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                <Package className="w-3.5 h-3.5 shrink-0" /> Pauschalreisen
               </Link>
-              <Link
-                href="#all-inclusive"
-                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
-              >
-                <Umbrella className="w-4 h-4 shrink-0" /> All Inclusive
+              <Link href="#all-inclusive" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                <Umbrella className="w-3.5 h-3.5 shrink-0" /> All Inclusive
               </Link>
-              <Link
-                href="#last-minute"
-                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
-              >
-                <Zap className="w-4 h-4 shrink-0" /> Last Minute
+              <Link href="#last-minute" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                <Zap className="w-3.5 h-3.5 shrink-0" /> Last Minute
               </Link>
               {dest.tiqetsCityId && (
-                <Link
-                  href="#aktivitaeten"
-                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
-                >
-                  <Ticket className="w-4 h-4 shrink-0" /> Aktivitäten
+                <Link href="#aktivitaeten" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                  <Ticket className="w-3.5 h-3.5 shrink-0" /> Aktivitäten
                 </Link>
               )}
+              {dest.iataCode && (
+                <Link href="#fluginfo" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                  <PlaneTakeoff className="w-3.5 h-3.5 shrink-0" /> Flugverbindungen
+                </Link>
+              )}
+              {dest.faqs && dest.faqs.length > 0 && (
+                <Link href="#faq" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                  <HelpCircle className="w-3.5 h-3.5 shrink-0" /> FAQ
+                </Link>
+              )}
+              {dest.climate && dest.climate.length > 0 && (
+                <Link href="#klima" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                  <Thermometer className="w-3.5 h-3.5 shrink-0" /> Klima
+                </Link>
+              )}
+              <Link href="#externe-links" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" /> Infos &amp; Links
+              </Link>
             </div>
           </div>
         </div>
@@ -252,22 +258,6 @@ export default async function DestinationPage({ params }: Props) {
         );
       })()}
 
-      {/* Inhaltsverzeichnis */}
-      <div className="bg-sand-50 border-y border-sand-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-xs font-bold text-sand-600 uppercase tracking-wide mb-2">Inhaltsverzeichnis</p>
-          <nav className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-sand-800">
-            <a href="#pauschalreisen" className="hover:text-sand-600 transition-colors">① Pauschalreisen</a>
-            <a href="#all-inclusive"  className="hover:text-sand-600 transition-colors">② All Inclusive</a>
-            <a href="#last-minute"    className="hover:text-sand-600 transition-colors">③ Last Minute</a>
-            {dest.tiqetsCityId && <a href="#aktivitaeten" className="hover:text-sand-600 transition-colors">④ Aktivitäten & Tickets</a>}
-            {dest.iataCode    && <a href="#fluginfo"      className="hover:text-sand-600 transition-colors">⑤ Flugverbindungen</a>}
-            {dest.faqs && dest.faqs.length > 0 && <a href="#faq" className="hover:text-sand-600 transition-colors">⑥ Häufige Fragen</a>}
-            {dest.climate && dest.climate.length > 0 && <a href="#klima" className="hover:text-sand-600 transition-colors">⑦ Klima & Reisezeit</a>}
-            <a href="#externe-links" className="hover:text-sand-600 transition-colors">⑧ Weiterführende Links</a>
-          </nav>
-        </div>
-      </div>
 
       {/* Urlaubsarten-Widget */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
