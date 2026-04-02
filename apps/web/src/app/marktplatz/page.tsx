@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import MarktplatzHome from "@/components/marktplatz/MarktplatzHome";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
+import SponsoredAnbieter from "@/components/marktplatz/SponsoredAnbieter";
 
 export const metadata: Metadata = {
   title: "Touren, Aktivitäten & Erlebnisse buchen | Urlaubfinder365 Marktplatz",
@@ -20,13 +21,18 @@ export default function MarktplatzPage() {
   return (
     <MarktplatzHome
       sidebar={
-        <Suspense fallback={null}>
-          <SponsoredAngebote
-            context={{ type: "homepage" }}
-            variant="sidebar"
-            maxItems={6}
-          />
-        </Suspense>
+        <div className="space-y-4">
+          <Suspense fallback={null}>
+            <SponsoredAngebote
+              context={{ type: "homepage" }}
+              variant="sidebar"
+              maxItems={6}
+            />
+          </Suspense>
+          <Suspense fallback={null}>
+            <SponsoredAnbieter />
+          </Suspense>
+        </div>
       }
     />
   );

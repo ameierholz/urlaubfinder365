@@ -10,6 +10,7 @@ const PAKETE = [
   { key: "region",      label: "Regionspaket",            preis: 149, beschreibung: "Alle Seiten einer Region" },
   { key: "homepage",    label: "Marktplatz-Startseite",   preis: 199, beschreibung: "Premium-Platzierung auf der Startseite" },
   { key: "rundum",      label: "Rundum-Paket",            preis: 299, beschreibung: "Maximale Sichtbarkeit auf allen Seiten" },
+  { key: "anbieter_spotlight", label: "Anbieter-Spotlight", preis: 99, beschreibung: "Dein Profil in der \"Empfohlene Anbieter\" Sidebar" },
 ] as const;
 
 const LAUFZEITEN = [

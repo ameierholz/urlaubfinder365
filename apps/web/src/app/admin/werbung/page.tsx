@@ -6,12 +6,13 @@ import WerbungPlacementForm from "@/components/admin/WerbungPlacementForm";
 export const metadata: Metadata = { title: "Werbeplätze | Admin" };
 
 const PAKET_LABEL: Record<string, { label: string; emoji: string }> = {
-  stadt_unten:  { label: "Stadtseite",            emoji: "🌆" },
-  stadt_oben:   { label: "Stadtseite Top-Platz",  emoji: "🌆" },
-  kategorie:    { label: "Themenseite",            emoji: "🏷️" },
-  region:       { label: "Regionspaket",           emoji: "🗺️" },
-  homepage:     { label: "Marktplatz-Startseite", emoji: "🏠" },
-  rundum:       { label: "Rundum-Paket",           emoji: "⭐" },
+  stadt_unten:        { label: "Stadtseite",            emoji: "🌆" },
+  stadt_oben:         { label: "Stadtseite Top-Platz",  emoji: "🌆" },
+  kategorie:          { label: "Themenseite",            emoji: "🏷️" },
+  region:             { label: "Regionspaket",           emoji: "🗺️" },
+  homepage:           { label: "Marktplatz-Startseite", emoji: "🏠" },
+  rundum:             { label: "Rundum-Paket",           emoji: "⭐" },
+  anbieter_spotlight: { label: "Anbieter-Spotlight",    emoji: "👤" },
 };
 
 const STATUS_CLS: Record<string, string> = {

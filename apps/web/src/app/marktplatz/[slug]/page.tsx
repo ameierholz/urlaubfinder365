@@ -8,6 +8,7 @@ import AnfrageFormular from "@/components/marktplatz/AnfrageFormular";
 import FavoritButton from "@/components/marktplatz/FavoritButton";
 import BewertungsSection from "@/components/marktplatz/BewertungsSection";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
+import SponsoredAnbieter from "@/components/marktplatz/SponsoredAnbieter";
 import { Suspense } from "react";
 
 interface Props {
@@ -249,6 +250,9 @@ export default async function AktivitaetPage({ params }: Props) {
                 variant="sidebar"
                 maxItems={4}
               />
+            </Suspense>
+            <Suspense fallback={null}>
+              <SponsoredAnbieter />
             </Suspense>
           </div>
         </div>

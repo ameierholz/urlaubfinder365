@@ -8,12 +8,13 @@ const supabaseAdmin = createClient(
 );
 
 const PAKET_LABEL: Record<string, string> = {
-  stadt_unten: "Stadtseite Banner",
-  stadt_oben:  "Stadtseite Top-Platz",
-  kategorie:   "Themenseite",
-  region:      "Regionspaket",
-  homepage:    "Marktplatz-Startseite",
-  rundum:      "Rundum-Paket",
+  stadt_unten:        "Stadtseite Banner",
+  stadt_oben:         "Stadtseite Top-Platz",
+  kategorie:          "Themenseite",
+  region:             "Regionspaket",
+  homepage:           "Marktplatz-Startseite",
+  rundum:             "Rundum-Paket",
+  anbieter_spotlight: "Anbieter-Spotlight",
 };
 
 export async function POST(req: NextRequest) {

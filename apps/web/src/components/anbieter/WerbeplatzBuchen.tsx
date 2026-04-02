@@ -78,6 +78,15 @@ export const PAKETE = [
     preisMonat:  299,
     badge:       "Bestes Preis-Leistungs-Verhältnis",
   },
+  {
+    id:          "anbieter_spotlight",
+    emoji:       "👤",
+    label:       "Anbieter-Spotlight",
+    position:    "\"Empfohlene Anbieter\" Sidebar",
+    beschreibung:"Dein Anbieterprofil wird in der Sidebar auf Marktplatz- und Zielort-Seiten hervorgehoben.",
+    preisMonat:  99,
+    badge:       null,
+  },
 ] as const;
 
 type PaketId = typeof PAKETE[number]["id"];

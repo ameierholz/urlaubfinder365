@@ -6,6 +6,7 @@ import {
   FileText, Euro, CalendarCheck, MessageSquare, ExternalLink,
 } from "lucide-react";
 import AnbieterStatusButton from "@/components/admin/AnbieterStatusButton";
+import AnbieterBilderLoeschen from "@/components/admin/AnbieterBilderLoeschen";
 import CrmTicketForm from "@/components/admin/CrmTicketForm";
 import CrmTicketStatusButton from "@/components/admin/CrmTicketStatusButton";
 import EmailComposer from "@/components/admin/EmailComposer";
@@ -43,6 +44,7 @@ interface AnbieterProfil {
   sprachen?: string[] | null; erfahrung_jahre?: number | null;
   instagram?: string | null; tripadvisor?: string | null;
   bic?: string | null; dokument_url?: string | null;
+  avatar_url?: string | null; titelbild_url?: string | null;
   created_at?: string | null;
 }
 
@@ -179,6 +181,13 @@ export default async function AnbieterDetailPage({ params }: Props) {
               <p className="text-sm text-gray-500">Kein Dokument hochgeladen</p>
             )}
           </div>
+
+          {/* Bilder löschen */}
+          <AnbieterBilderLoeschen
+            anbieterId={anbieter.id}
+            avatarUrl={anbieter.avatar_url ?? null}
+            titelbildUrl={anbieter.titelbild_url ?? null}
+          />
         </div>
 
         {/* ── Rechte Spalte: Aktivitäten ── */}

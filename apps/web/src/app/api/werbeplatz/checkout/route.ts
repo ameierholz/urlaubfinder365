@@ -10,21 +10,23 @@ const supabaseAdmin = createClient(
 
 // Monatspreise je Paket in EUR
 const PAKET_PREISE: Record<string, number> = {
-  stadt_unten: 49,
-  stadt_oben:  79,
-  kategorie:   99,
-  region:      149,
-  homepage:    199,
-  rundum:      299,
+  stadt_unten:        49,
+  stadt_oben:         79,
+  kategorie:          99,
+  region:             149,
+  homepage:           199,
+  rundum:             299,
+  anbieter_spotlight: 99,
 };
 
 const PAKET_LABEL: Record<string, string> = {
-  stadt_unten: "Stadtseite Banner",
-  stadt_oben:  "Stadtseite Top-Platz",
-  kategorie:   "Themenseite",
-  region:      "Regionspaket",
-  homepage:    "Marktplatz-Startseite",
-  rundum:      "Rundum-Paket",
+  stadt_unten:        "Stadtseite Banner",
+  stadt_oben:         "Stadtseite Top-Platz",
+  kategorie:          "Themenseite",
+  region:             "Regionspaket",
+  homepage:           "Marktplatz-Startseite",
+  rundum:             "Rundum-Paket",
+  anbieter_spotlight: "Anbieter-Spotlight",
 };
 
 // Rabatt je Laufzeit (%)
