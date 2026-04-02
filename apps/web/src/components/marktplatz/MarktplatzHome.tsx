@@ -199,21 +199,31 @@ export default function MarktplatzHome() {
       {/* ── Kategorie-Navigation ───────────────────────────────────── */}
       <div className="sticky top-16 z-30 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div ref={katRef} className="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
-            {KATEGORIE_NAV.map((k) => (
-              <button
-                key={k.id}
-                onClick={() => setKategorie(k.id)}
-                className={`flex-shrink-0 flex flex-col items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-                  kategorie === k.id
-                    ? "bg-[#00838F] text-white"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                <span className="text-lg leading-none">{k.emoji}</span>
-                <span>{k.label}</span>
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <div ref={katRef} className="flex gap-1 overflow-x-auto py-3 scrollbar-hide flex-1">
+              {KATEGORIE_NAV.map((k) => (
+                <button
+                  key={k.id}
+                  onClick={() => setKategorie(k.id)}
+                  className={`flex-shrink-0 flex flex-col items-center gap-1 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                    kategorie === k.id
+                      ? "bg-[#00838F] text-white"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="text-lg leading-none">{k.emoji}</span>
+                  <span>{k.label}</span>
+                </button>
+              ))}
+            </div>
+            {/* Anbieter-Button in Nav */}
+            <Link
+              href="/marktplatz/anbieter-werden/"
+              className="flex-shrink-0 flex items-center gap-1.5 border-2 border-[#00838F] text-[#00838F] hover:bg-[#00838F] hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all whitespace-nowrap"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Anbieter werden
+            </Link>
           </div>
         </div>
       </div>
@@ -269,6 +279,45 @@ export default function MarktplatzHome() {
 
             {/* Neue Erlebnisse */}
             <ScrollSection titel="✨ Neu auf dem Marktplatz" items={neu} />
+
+            {/* Anbieter-Banner */}
+            <section className="relative overflow-hidden rounded-3xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&q=80"
+                alt="Anbieter werden"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-r from-[#00838F]/95 via-[#00838F]/85 to-transparent" />
+              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 px-8 py-10">
+                <div className="text-white max-w-lg">
+                  <span className="inline-flex items-center gap-1.5 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300" /> Für lokale Guides & Anbieter
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-black leading-tight mb-3">
+                    Deine Touren. Tausende deutsche Urlauber.
+                  </h2>
+                  <p className="text-white/80 leading-relaxed text-sm mb-2">
+                    Liste deine Aktivitäten kostenlos auf unserem Marktplatz.
+                    Kein Abo, keine Fixkosten — <strong className="text-white">nur 15% Provision</strong> bei erfolgreicher Buchung.
+                  </p>
+                  <ul className="text-white/75 text-sm space-y-1 mt-3">
+                    <li>✅ Kostenlose Registrierung & Listing</li>
+                    <li>✅ Verifiziertes Anbieter-Badge</li>
+                    <li>✅ Buchungsanfragen direkt per E-Mail</li>
+                  </ul>
+                </div>
+                <div className="shrink-0 flex flex-col items-center gap-3">
+                  <Link
+                    href="/marktplatz/anbieter-werden/"
+                    className="bg-white text-[#00838F] font-black px-8 py-4 rounded-2xl hover:bg-amber-50 transition-colors text-base shadow-xl whitespace-nowrap"
+                  >
+                    Jetzt kostenlos registrieren →
+                  </Link>
+                  <p className="text-white/60 text-xs">Freischaltung innerhalb von 48 Stunden</p>
+                </div>
+              </div>
+            </section>
 
             {/* Alle Aktivitäten */}
             <ScrollSection titel="🌍 Alle Erlebnisse entdecken" items={AKTIVITAETEN} />
