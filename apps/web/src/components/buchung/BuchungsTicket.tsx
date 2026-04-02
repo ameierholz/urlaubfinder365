@@ -166,7 +166,7 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
           {rows.map((row, i) => (
             <div key={i} className="flex items-start gap-3 py-2.5">
               <div className="w-4 mt-0.5 shrink-0 text-gray-400">{row.icon}</div>
-              <span className="text-xs text-gray-400 w-28 shrink-0 pt-px">{row.label}</span>
+              <span className="text-sm text-gray-400 w-28 shrink-0 pt-px">{row.label}</span>
               <div className="text-left">
                 <span className={`text-sm font-semibold ${row.highlight ? "text-[#00838F] font-black text-base" : "text-gray-800"}`}>
                   {row.value}
