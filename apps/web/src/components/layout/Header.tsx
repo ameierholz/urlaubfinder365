@@ -8,7 +8,7 @@ import {
   Menu, X, User, LogOut, LayoutDashboard,
   ChevronDown, Plane, Hotel, Ship, Car, BookOpen, Calendar, Map, Ticket,
   Mail, Clock, Heart, Users, Sun, Leaf, Building2, Gem, Backpack, Star, Euro, UserCheck, Tent, Waves,
-  Users2, Globe, ShieldCheck, Star,
+  Users2, Globe, ShieldCheck,
 } from "lucide-react";
 import { destinations } from "@/lib/destinations";
 
