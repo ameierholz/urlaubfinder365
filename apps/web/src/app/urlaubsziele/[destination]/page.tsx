@@ -160,14 +160,14 @@ export default async function DestinationPage({ params }: Props) {
           fetchPriority="high"
         />
 
-        {/* Gradient overlay – dark at bottom, subtle top */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-black/10" />
+        {/* Gradient: leichter oben, stärker zur Mitte, dann konstant für Pills-Bereich */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/30 to-black/15" />
 
         {/* Content anchored to bottom */}
         <div className="absolute inset-0 flex flex-col justify-between">
-          {/* Top: Breadcrumb – frosted glass für Lesbarkeit */}
+          {/* Top: Breadcrumb */}
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-5">
-            <nav className="inline-flex items-center gap-1 text-sm text-white bg-black/35 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <nav className="inline-flex items-center gap-1 text-sm text-white bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full">
               <MapPin className="w-3.5 h-3.5 shrink-0 text-white/70" />
               <Link href="/urlaubsziele/" className="hover:text-white/70 transition-colors">
                 Urlaubsziele
@@ -188,54 +188,58 @@ export default async function DestinationPage({ params }: Props) {
             </nav>
           </div>
 
-          {/* Bottom: H1 + Beschreibung + Inhaltsverzeichnis als Pills */}
+          {/* Bottom: H1 + Beschreibung + Pills */}
           <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-7">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight drop-shadow-lg mb-2">
-              {isSuperRegion
-                ? <>{dest.name} Urlaub {YEAR} <span className="block text-lg md:text-xl font-semibold text-white/80 mt-0.5">Alle Reiseziele &amp; günstige Angebote im Überblick</span></>
-                : <>{dest.name} Urlaub {YEAR} <span className="block text-lg md:text-xl font-semibold text-white/80 mt-0.5">Günstige Pauschalreisen, All Inclusive &amp; Last Minute buchen</span></>
-              }
+            {/* H1: Name groß, Jahr + Subtitle kleiner */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-none drop-shadow-lg mb-1">
+              {dest.name}
             </h1>
+            <p className="text-base md:text-lg font-semibold text-white/85 drop-shadow mb-2">
+              {isSuperRegion
+                ? <>Alle Reiseziele &amp; günstige Angebote im Überblick – {YEAR}</>
+                : <>Günstige Pauschalreisen, All Inclusive &amp; Last Minute – {YEAR}</>
+              }
+            </p>
 
             {dest.description && (
-              <p className="text-white/80 text-sm leading-relaxed max-w-2xl mb-4 drop-shadow line-clamp-2">
+              <p className="text-white/75 text-sm leading-relaxed max-w-2xl mb-4 drop-shadow line-clamp-2">
                 {dest.description}
               </p>
             )}
 
-            {/* Inhaltsverzeichnis als Frosted-Glass-Pills */}
+            {/* Nav-Pills: weißer Hintergrund mit dunklem Text – immer lesbar */}
             <div className="flex flex-wrap gap-2">
-              <Link href="#pauschalreisen" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                <Package className="w-3.5 h-3.5 shrink-0" /> Pauschalreisen
+              <Link href="#pauschalreisen" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                <Package className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Pauschalreisen
               </Link>
-              <Link href="#all-inclusive" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                <Umbrella className="w-3.5 h-3.5 shrink-0" /> All Inclusive
+              <Link href="#all-inclusive" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                <Umbrella className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> All Inclusive
               </Link>
-              <Link href="#last-minute" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                <Zap className="w-3.5 h-3.5 shrink-0" /> Last Minute
+              <Link href="#last-minute" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                <Zap className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Last Minute
               </Link>
               {dest.tiqetsCityId && (
-                <Link href="#aktivitaeten" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                  <Ticket className="w-3.5 h-3.5 shrink-0" /> Aktivitäten
+                <Link href="#aktivitaeten" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                  <Ticket className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Aktivitäten
                 </Link>
               )}
               {dest.iataCode && (
-                <Link href="#fluginfo" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                  <PlaneTakeoff className="w-3.5 h-3.5 shrink-0" /> Flugverbindungen
+                <Link href="#fluginfo" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                  <PlaneTakeoff className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Flugverbindungen
                 </Link>
               )}
               {dest.faqs && dest.faqs.length > 0 && (
-                <Link href="#faq" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                  <HelpCircle className="w-3.5 h-3.5 shrink-0" /> FAQ
+                <Link href="#faq" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                  <HelpCircle className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> FAQ
                 </Link>
               )}
               {dest.climate && dest.climate.length > 0 && (
-                <Link href="#klima" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                  <Thermometer className="w-3.5 h-3.5 shrink-0" /> Klima
+                <Link href="#klima" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                  <Thermometer className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Klima
                 </Link>
               )}
-              <Link href="#externe-links" className="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/28 backdrop-blur-md border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all">
-                <ExternalLink className="w-3.5 h-3.5 shrink-0" /> Infos &amp; Links
+              <Link href="#externe-links" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                <ExternalLink className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Infos &amp; Links
               </Link>
             </div>
           </div>
@@ -347,7 +351,7 @@ export default async function DestinationPage({ params }: Props) {
                 <Link
                   key={niche.slug}
                   href={`/aktivitaeten/${dest.slug}/${niche.slug}/`}
-                  className="inline-flex items-center gap-1.5 bg-teal-50 border border-teal-200 text-[#00838F] hover:bg-[#6CC4BA] hover:text-white hover:border-[#6CC4BA] text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
+                  className="inline-flex items-center gap-1.5 bg-teal-50 border border-teal-200 text-[#00838F] hover:bg-brand-teal hover:text-white hover:border-brand-teal text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
                 >
                   🎟️ {niche.label}
                 </Link>
