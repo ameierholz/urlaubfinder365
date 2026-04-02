@@ -212,6 +212,11 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
               Anbieter gibt ein unter{" "}
               <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
             </p>
+            <div className="mt-3 bg-amber-50 border border-amber-100 rounded-xl p-3">
+              <p className="text-xs text-amber-800 leading-relaxed">
+                💛 Hat dir die Tour gefallen? Dein Anbieter freut sich sehr über ein Trinkgeld — ein kleines Dankeschön, das direkt ankommt.
+              </p>
+            </div>
           </div>
         </div>
       </div>
