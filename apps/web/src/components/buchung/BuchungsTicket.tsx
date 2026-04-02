@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import QRCodeSVG from "react-qr-code";
 import { Printer, MapPin, Clock, Users, Calendar, BadgeCheck, CalendarCheck } from "lucide-react";
 import Image from "next/image";
@@ -55,6 +56,12 @@ const DEMO_ANBIETER = {
 };
 
 export default function BuchungsTicket({ d, compact = false, autoPrint = false }: Props) {
+  useEffect(() => {
+    if (autoPrint) {
+      const t = setTimeout(() => window.print(), 400);
+      return () => clearTimeout(t);
+    }
+  }, [autoPrint]);
   const angebot = d.angebot ?? DEMO_ANGEBOT;
   const anbieter = d.anbieter ?? DEMO_ANBIETER;
   const titel = angebot.titel;
@@ -142,10 +149,10 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
           </div>
         </div>
       ) : (
-        <div className="bg-linear-to-r from-[#00838F] to-[#005f6b] px-6 py-5 text-left">
-          <p className="text-white font-black text-xl">{titel}</p>
+        <div className="bg-linear-to-r from-[#00838F] to-[#005f6b] px-6 py-5 text-left print:bg-none print:bg-white print:border-b print:border-gray-200">
+          <p className="text-white font-black text-xl print:text-gray-900">{titel}</p>
           {ziel && (
-            <p className="text-white/80 text-xs flex items-center gap-1 mt-1.5">
+            <p className="text-white/80 text-xs flex items-center gap-1 mt-1.5 print:text-gray-500">
               <MapPin className="w-3 h-3" /> {ziel}
             </p>
           )}
@@ -153,7 +160,7 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
       )}
 
       {/* ── Status-Badge ──────────────────────────────────── */}
-      <div className="flex items-center gap-2 bg-emerald-50 border-y border-emerald-100 px-6 py-2.5">
+      <div className="flex items-center gap-2 bg-emerald-50 border-y border-emerald-100 px-6 py-2.5 print:bg-white print:border-gray-200">
         <span className="text-base">✅</span>
         <span className="text-emerald-700 font-bold text-sm">Buchung bestätigt &amp; bezahlt</span>
       </div>
@@ -231,7 +238,7 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
   if (compact) return ticket;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white print:p-0" ref={(el) => { if (el && autoPrint) { setTimeout(() => window.print(), 300); } }}>
+    <div className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white print:p-0">
       <div className="max-w-xl mx-auto">
         <div className="shadow-2xl rounded-3xl overflow-hidden border border-gray-200 print:shadow-none print:border-0 print:rounded-none">
           {ticket}
