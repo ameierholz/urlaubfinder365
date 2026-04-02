@@ -51,6 +51,27 @@ export default function ReiseversicherungPage() {
         </div>
       </section>
 
+      {/* ERV Buchungswidget */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+          <div className="bg-[#00838F] px-6 py-4 flex items-center gap-3">
+            <span className="text-2xl">🛡️</span>
+            <div>
+              <p className="font-bold text-white text-sm">ERV – Europäische Reiseversicherung</p>
+              <p className="text-white/75 text-xs">Direkt hier abschließen — Marktführer & Testsieger</p>
+            </div>
+          </div>
+          <iframe
+            src="https://www.travialinks.de/link/A-30412-0/A/erv"
+            frameBorder={0}
+            width="100%"
+            height="480"
+            title="ERV Reiseversicherung abschließen"
+            className="block w-full"
+          />
+        </div>
+      </section>
+
       {/* Wichtigkeits-Banner */}
       <div className="bg-red-50 border-b border-red-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
