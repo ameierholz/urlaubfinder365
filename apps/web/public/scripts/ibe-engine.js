@@ -492,9 +492,8 @@
         depapt1: ap.code,
         dstapt1: code,
         action: "search",
-        afid: AGENT,
       });
-      const ibeUrl    = `https://ibe.specials.de/?${ibeParams}`;
+      const ibeUrl    = `https://b2b.specials.de/index/jump/15/1450/${AGENT}/?${ibeParams}`;
       const cardTitle = `Flüge ab ${ap.city} nach ${city}`.replace(/'/g, "\\'");
 
       const card = document.createElement("div");
