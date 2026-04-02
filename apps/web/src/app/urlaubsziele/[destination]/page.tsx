@@ -6,6 +6,8 @@ import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-reg
 import { catalogToConfig, generateHeroFallback } from "@/lib/catalog-helpers";
 import { getHubDataByCountry } from "@/lib/reise-hub-data";
 import IbeHolidayWidget from "@/components/ibe/IbeHolidayWidget";
+import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
+import { Suspense } from "react";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
 import ReiseHub from "@/components/reise-hub/ReiseHub";
@@ -261,6 +263,15 @@ export default async function DestinationPage({ params }: Props) {
       })()}
 
 
+      {/* Gesponserte Angebote — Stadtseite oben */}
+      <Suspense fallback={null}>
+        <SponsoredAngebote
+          context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
+          position="oben"
+          maxItems={4}
+        />
+      </Suspense>
+
       {/* Urlaubsarten-Widget */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <h2 className="text-4xl font-bold text-gray-900 mb-1">
@@ -358,6 +369,15 @@ export default async function DestinationPage({ params }: Props) {
           <TiqetsActivitiesSection cityId={dest.tiqetsCityId} cityName={dest.name} citySlug={dest.slug} />
         </div>
       )}
+
+      {/* Gesponserte Angebote — Stadtseite unten + Region */}
+      <Suspense fallback={null}>
+        <SponsoredAngebote
+          context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
+          position="unten"
+          maxItems={4}
+        />
+      </Suspense>
 
       {/* Boarding Pass / Fluginfo */}
       {dest.iataCode && (
