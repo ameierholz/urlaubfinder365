@@ -35,6 +35,7 @@ type Row = { icon: React.ReactNode; label: string; value: string; sub?: string; 
 interface Props {
   d: TicketDaten;
   compact?: boolean;
+  autoPrint?: boolean;
 }
 
 const DEMO_ANGEBOT = {
@@ -53,7 +54,7 @@ const DEMO_ANBIETER = {
   verifiziert: true,
 };
 
-export default function BuchungsTicket({ d, compact = false }: Props) {
+export default function BuchungsTicket({ d, compact = false, autoPrint = false }: Props) {
   const angebot = d.angebot ?? DEMO_ANGEBOT;
   const anbieter = d.anbieter ?? DEMO_ANBIETER;
   const titel = angebot.titel;
@@ -105,7 +106,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
     <div id="ticket" className="bg-white overflow-hidden rounded-3xl print:rounded-none">
 
       {/* ── Header: Logo + Buchungsnummer ─────────────────── */}
-      <div className="flex items-center justify-between px-6 py-4 bg-gray-900 print:bg-gray-100">
+      <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100">
         <div className="flex items-center gap-3">
           <Image
             src="/images/urlaubfinder-logo.webp"
@@ -116,13 +117,13 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
             unoptimized
           />
           <div>
-            <p className="font-black text-white text-2xl leading-tight print:text-gray-900">Urlaubfinder365</p>
+            <p className="font-black text-gray-900 text-2xl leading-tight">Urlaubfinder365</p>
             <p className="text-sm text-gray-400">urlaubfinder365.de</p>
           </div>
         </div>
         <div className="text-right">
           <p className="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Buchungs-Ticket</p>
-          <p className="text-sm font-black text-white font-mono mt-0.5 print:text-gray-900">{d.buchungs_nummer}</p>
+          <p className="text-sm font-black text-gray-900 font-mono mt-0.5">{d.buchungs_nummer}</p>
         </div>
       </div>
 
@@ -230,7 +231,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
   if (compact) return ticket;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white print:p-0">
+    <div className="min-h-screen bg-gray-100 py-10 px-4 print:bg-white print:p-0" ref={(el) => { if (el && autoPrint) { setTimeout(() => window.print(), 300); } }}>
       <div className="max-w-xl mx-auto">
         <div className="shadow-2xl rounded-3xl overflow-hidden border border-gray-200 print:shadow-none print:border-0 print:rounded-none">
           {ticket}

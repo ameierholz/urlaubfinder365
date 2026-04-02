@@ -8,7 +8,10 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-interface Props { params: Promise<{ nummer: string }> }
+interface Props {
+  params: Promise<{ nummer: string }>;
+  searchParams: Promise<{ print?: string }>;
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { nummer } = await params;
@@ -18,8 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function TicketPage({ params }: Props) {
+export default async function TicketPage({ params, searchParams }: Props) {
   const { nummer } = await params;
+  const { print } = await searchParams;
 
   const { data } = await supabaseAdmin
     .from("buchungen")
@@ -37,5 +41,5 @@ export default async function TicketPage({ params }: Props) {
 
   const ticket = data as unknown as TicketDaten;
 
-  return <BuchungsTicket d={ticket} />;
+  return <BuchungsTicket d={ticket} autoPrint={print === "1"} />;
 }

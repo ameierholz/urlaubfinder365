@@ -53,7 +53,7 @@ export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: s
                       <ExternalLink className="w-3.5 h-3.5" /> Neuer Tab
                     </button>
                     <button
-                      onClick={() => window.open(`/buchung/ticket/${buchungsNummer}/`, "_blank")}
+                      onClick={() => window.open(`/buchung/ticket/${buchungsNummer}/?print=1`, "_blank")}
                       className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-gray-800"
                     >
                       <Printer className="w-3.5 h-3.5" /> Drucken
