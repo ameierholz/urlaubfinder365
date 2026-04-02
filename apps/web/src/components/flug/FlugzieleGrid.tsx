@@ -34,7 +34,7 @@ const ABFLUEGHAEFEN = [
 ];
 
 function openFlugModal(dep: string, dst: string, name: string) {
-  const url = `https://b2b.specials.de/index/jump/15/1450/993243/?depapt1=${dep}&dstapt1=${dst}&action=search`;
+  const url = `https://ibe.specials.de/?depapt1=${dep}&dstapt1=${dst}&action=search&afid=993243`;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const w = window as any;
   if (typeof w.ibeOpenBooking === "function") {

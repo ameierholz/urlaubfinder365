@@ -489,11 +489,10 @@
 
     GERMAN_AIRPORTS.forEach(ap => {
       const ibeParams = new URLSearchParams({
-        agent: AGENT,
-        departureAirport: ap.code,
-        destinationAirport: code,
-        adults: "2",
-        duration: "7-7",
+        depapt1: ap.code,
+        dstapt1: code,
+        action: "search",
+        afid: AGENT,
       });
       const ibeUrl    = `https://ibe.specials.de/?${ibeParams}`;
       const cardTitle = `Flüge ab ${ap.city} nach ${city}`.replace(/'/g, "\\'");
