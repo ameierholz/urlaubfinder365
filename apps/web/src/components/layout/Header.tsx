@@ -8,7 +8,7 @@ import {
   Menu, X, User, LogOut, LayoutDashboard,
   ChevronDown, Plane, Hotel, Ship, Car, BookOpen, Calendar, Map, Ticket,
   Mail, Clock, Heart, Users, Sun, Leaf, Building2, Gem, Backpack, Star, Euro, UserCheck, Tent, Waves,
-  Users2, Globe,
+  Users2, Globe, ShieldCheck,
 } from "lucide-react";
 import { destinations } from "@/lib/destinations";
 
@@ -97,9 +97,10 @@ const navItems: NavItem[] = [
   {
     label: "Extras",
     children: [
-      { label: "Urlaubsziele",    href: "/urlaubsziele",           icon: <Map       className="w-4 h-4" /> },
-      { label: "Urlaubsguides",   href: "/urlaubsguides",          icon: <BookOpen  className="w-4 h-4" /> },
-      { label: "Urlaubskalender", href: "/extras/urlaubskalender", icon: <Calendar  className="w-4 h-4" /> },
+      { label: "Urlaubsziele",    href: "/urlaubsziele",           icon: <Map         className="w-4 h-4" /> },
+      { label: "Urlaubsguides",   href: "/urlaubsguides",          icon: <BookOpen    className="w-4 h-4" /> },
+      { label: "Visum-Checker",   href: "/visum-checker/",         icon: <ShieldCheck className="w-4 h-4" /> },
+      { label: "Urlaubskalender", href: "/extras/urlaubskalender", icon: <Calendar    className="w-4 h-4" /> },
     ],
   },
 ];
