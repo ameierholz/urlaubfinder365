@@ -149,21 +149,15 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
           </div>
         </div>
       ) : (
-        <div className="bg-linear-to-r from-[#00838F] to-[#005f6b] px-6 py-5 text-left print:bg-none print:bg-white print:border-b print:border-gray-200">
-          <p className="text-white font-black text-xl print:text-gray-900">{titel}</p>
+        <div className="px-6 py-5 text-left border-b-4 border-[#00838F]">
+          <p className="text-gray-900 font-black text-xl">{titel}</p>
           {ziel && (
-            <p className="text-white/80 text-xs flex items-center gap-1 mt-1.5 print:text-gray-500">
+            <p className="text-gray-500 text-xs flex items-center gap-1 mt-1.5">
               <MapPin className="w-3 h-3" /> {ziel}
             </p>
           )}
         </div>
       )}
-
-      {/* ── Status-Badge ──────────────────────────────────── */}
-      <div className="flex items-center gap-2 bg-emerald-50 border-y border-emerald-100 px-6 py-2.5 print:bg-white print:border-gray-200">
-        <span className="text-base">✅</span>
-        <span className="text-emerald-700 font-bold text-sm">Buchung bestätigt &amp; bezahlt</span>
-      </div>
 
       {/* ── Detailtabelle ─────────────────────────────────── */}
       <div className="px-6 py-4">
@@ -181,6 +175,12 @@ export default function BuchungsTicket({ d, compact = false, autoPrint = false }
             </div>
           ))}
         </div>
+      </div>
+
+      {/* ── Status-Badge ──────────────────────────────────── */}
+      <div className="flex items-center gap-2 bg-emerald-50 border-y border-emerald-100 mx-6 mb-2 px-4 py-2.5 rounded-xl">
+        <span className="text-base">✅</span>
+        <span className="text-emerald-700 font-bold text-sm">Buchung bestätigt &amp; bezahlt</span>
       </div>
 
       {/* ── Perforierte Trennlinie ────────────────────────── */}
