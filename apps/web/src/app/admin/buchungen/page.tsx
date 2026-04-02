@@ -1,5 +1,7 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Ticket } from "lucide-react";
 
 export const metadata: Metadata = { title: "Buchungen | Admin" };
 
@@ -56,6 +58,7 @@ export default async function AdminBuchungenPage() {
                 <th className="px-4 py-3 text-right">Provision</th>
                 <th className="px-4 py-3 text-right">An Anbieter</th>
                 <th className="px-4 py-3 text-center">Status</th>
+                <th className="px-4 py-3 text-center">Ticket</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800">
@@ -82,6 +85,19 @@ export default async function AdminBuchungenPage() {
                     <td className="px-4 py-3 text-right text-gray-400">{Number(b.auszahlungs_betrag).toFixed(2)} €</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${st.cls}`}>{st.label}</span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {b.status === "bestaetigt" || b.status === "abgeschlossen" ? (
+                        <Link
+                          href={`/buchung/ticket/${b.buchungs_nummer}/`}
+                          target="_blank"
+                          className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors"
+                        >
+                          <Ticket className="w-3 h-3" /> Ticket
+                        </Link>
+                      ) : (
+                        <span className="text-gray-700 text-xs">—</span>
+                      )}
                     </td>
                   </tr>
                 );

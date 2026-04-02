@@ -1,25 +1,25 @@
-import { redirect } from "next/navigation";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 import BuchungsTicket, { type TicketDaten } from "@/components/buchung/BuchungsTicket";
-
-export const metadata: Metadata = {
-  title: "Buchung erfolgreich | Urlaubfinder365",
-  robots: { index: false, follow: false },
-};
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-interface Props { searchParams: Promise<{ buchung?: string; session_id?: string }> }
+interface Props { params: Promise<{ nummer: string }> }
 
-export default async function BuchungErfolgPage({ searchParams }: Props) {
-  const { buchung } = await searchParams;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { nummer } = await params;
+  return {
+    title: `Buchung ${nummer} | Urlaubfinder365`,
+    robots: { index: false, follow: false },
+  };
+}
 
-  if (!buchung) redirect("/marktplatz/");
+export default async function TicketPage({ params }: Props) {
+  const { nummer } = await params;
 
   const { data } = await supabaseAdmin
     .from("buchungen")
@@ -29,7 +29,8 @@ export default async function BuchungErfolgPage({ searchParams }: Props) {
       angebote:angebot_id (titel, ziel, dauer, foto_url, treffpunkt, treffpunkt_hinweis),
       anbieter_profile:anbieter_id (name, telefon, avatar_url, verifiziert)
     `)
-    .eq("buchungs_nummer", buchung)
+    .eq("buchungs_nummer", nummer)
+    .eq("status", "bestaetigt")
     .single();
 
   if (!data) notFound();
