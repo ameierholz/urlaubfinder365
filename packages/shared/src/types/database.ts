@@ -59,6 +59,7 @@ export interface Database {
           is_public: boolean;
           fcm_token: string | null;
           notification_prefs: Json;
+          role: "user" | "admin" | "moderator" | "support";
           created_at: string;
           updated_at: string;
         };

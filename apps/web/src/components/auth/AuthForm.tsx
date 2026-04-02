@@ -21,6 +21,7 @@ function LogoSVG({ size = 44 }: { size?: number }) {
 
 interface Props {
   mode: "login" | "register";
+  redirectTo?: string;
 }
 
 const BENEFITS = [
@@ -56,7 +57,7 @@ const BENEFITS = [
   },
 ];
 
-export default function AuthForm({ mode }: Props) {
+export default function AuthForm({ mode, redirectTo }: Props) {
   const { login, register, loginWithGoogle } = useAuth();
   const router = useRouter();
 
@@ -76,7 +77,7 @@ export default function AuthForm({ mode }: Props) {
     try {
       if (mode === "login") {
         await login(email, password);
-        router.push("/dashboard");
+        router.push(redirectTo ?? "/dashboard");
       } else {
         if (!name.trim()) { setError("Bitte gib deinen Namen ein."); setLoading(false); return; }
         const { needsConfirmation } = await register(email, password, name);

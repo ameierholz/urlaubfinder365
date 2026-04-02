@@ -1,0 +1,16 @@
+node_modules
+.next
+.turbo
+dist
+build
+out
+coverage
+.expo
+android
+ios
+*.log
+.env
+.env.local
+.env.*.local
+packages/supabase
+apps/mobile

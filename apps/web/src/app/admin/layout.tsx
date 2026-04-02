@@ -2,15 +2,21 @@ import { redirect } from "next/navigation";
 import { createSupabaseServer } from "@/lib/supabase-server";
 import AdminNav from "@/components/admin/AdminNav";
 
-// WICHTIG: Admin-E-Mails hier eintragen
-const ADMIN_EMAILS = ["admin@urlaubfinder365.de", "a.meierholz@urlaubfinder365.de"];
-
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createSupabaseServer();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) redirect("/auth/login?redirect=/admin/dashboard/");
-  if (!ADMIN_EMAILS.includes(user.email ?? "")) redirect("/");
+
+  const { data: profile } = await supabase
+    .from("users")
+    .select("role")
+    .eq("id", user.id)
+    .single() as { data: { role: string } | null; error: unknown };
+
+  if (!profile || !["admin", "moderator", "support"].includes(profile.role)) {
+    redirect("/");
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 flex">
