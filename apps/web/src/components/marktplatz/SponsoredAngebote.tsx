@@ -108,10 +108,10 @@ export default async function SponsoredAngebote({
           <Link
             key={a.id}
             href={`/marktplatz/${a.slug}/`}
-            className="group flex gap-3 bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden p-2.5"
+            className="group block bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden"
           >
-            {/* Kleines Foto */}
-            <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-gray-100">
+            {/* Hauptfoto */}
+            <div className="relative h-28 bg-gray-100 overflow-hidden">
               {a.foto_url ? (
                 <Image
                   src={a.foto_url}
@@ -121,38 +121,68 @@ export default async function SponsoredAngebote({
                   unoptimized
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-2xl">
+                <div className="w-full h-full flex items-center justify-center text-3xl">
                   {KAT_EMOJI[a.kategorie] ?? "🌍"}
                 </div>
               )}
-              <span className="absolute top-1 right-1 bg-amber-400 text-amber-900 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none">
-                Ad
+              <span className="absolute top-2 left-2 bg-amber-400 text-amber-900 text-[9px] font-bold px-2 py-0.5 rounded-full leading-none">
+                Anzeige
               </span>
             </div>
 
             {/* Info */}
-            <div className="flex-1 min-w-0">
-              <p className="font-bold text-gray-900 text-xs leading-snug line-clamp-2 group-hover:text-[#00838F] transition-colors mb-1">
+            <div className="p-3">
+              <p className="font-bold text-gray-900 text-xs leading-snug line-clamp-2 group-hover:text-[#00838F] transition-colors mb-2">
                 {a.titel}
               </p>
-              <p className="flex items-center gap-0.5 text-[10px] text-gray-400 mb-1.5">
-                <MapPin className="w-2.5 h-2.5 shrink-0" />
-                <span className="truncate">{a.ziel}</span>
-              </p>
+
+              {/* Anbieter-Zeile mit Avatar + Name + Verifiziert-Badge */}
               {a.anbieter_profile && (
-                <div className="flex items-center gap-1 mb-1">
-                  <span className="text-[10px] text-gray-500 truncate">{a.anbieter_profile.name}</span>
-                  {a.anbieter_profile.verifiziert && <BadgeCheck className="w-2.5 h-2.5 text-[#00838F] shrink-0" />}
+                <div className="flex items-center gap-2 mb-2">
+                  {a.anbieter_profile.avatar_url ? (
+                    <Image
+                      src={a.anbieter_profile.avatar_url}
+                      alt={a.anbieter_profile.name}
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 rounded-full object-cover shrink-0"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full bg-[#00838F]/20 flex items-center justify-center shrink-0">
+                      <span className="text-[9px] font-bold text-[#00838F]">
+                        {a.anbieter_profile.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                  <span className="text-[11px] text-gray-600 font-medium truncate">{a.anbieter_profile.name}</span>
+                  {a.anbieter_profile.verifiziert && (
+                    <span className="shrink-0 flex items-center gap-0.5 bg-[#00838F]/10 text-[#00838F] text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                      <BadgeCheck className="w-3 h-3" /> Verifiziert
+                    </span>
+                  )}
                 </div>
               )}
-              {a.preis ? (
-                <div className="flex items-baseline gap-0.5">
-                  <span className="text-sm font-black text-[#00838F]">{Number(a.preis).toFixed(0)} €</span>
-                  <span className="text-[10px] text-gray-400">{PREISTYP_LABEL[a.preistyp] ?? ""}</span>
+
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-0.5 text-[10px] text-gray-400">
+                  <MapPin className="w-2.5 h-2.5 shrink-0" />
+                  <span className="truncate">{a.ziel}</span>
                 </div>
-              ) : (
-                <span className="text-[11px] font-bold text-gray-500">Auf Anfrage</span>
-              )}
+                {a.preis ? (
+                  <div className="flex items-baseline gap-0.5 shrink-0">
+                    <span className="text-sm font-black text-[#00838F]">{Number(a.preis).toFixed(0)} €</span>
+                    <span className="text-[10px] text-gray-400">{PREISTYP_LABEL[a.preistyp] ?? ""}</span>
+                  </div>
+                ) : (
+                  <span className="text-[11px] font-bold text-gray-500 shrink-0">Auf Anfrage</span>
+                )}
+              </div>
+
+              {/* CTA */}
+              <div className="mt-2.5 w-full text-center bg-[#00838F] group-hover:bg-[#006d78] text-white text-[11px] font-bold py-1.5 rounded-xl transition-colors">
+                Jetzt buchen →
+              </div>
             </div>
           </Link>
         ))}
