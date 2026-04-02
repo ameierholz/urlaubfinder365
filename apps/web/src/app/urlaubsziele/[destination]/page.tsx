@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import NextImage from "next/image";
 import { MapPin, Package, Umbrella, Zap, Ticket } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
@@ -148,124 +147,89 @@ export default async function DestinationPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Header Banner – LCP candidate: priority + fetchpriority="high" */}
-      <div className="relative w-full" style={{ height: "180px" }}>
-        <NextImage
-          src="/images/urlaubziel_header.jpg"
-          alt="Urlaubsziele – Jetzt günstig buchen"
-          fill
-          className="object-cover"
-          priority
+      {/* ── Cinematic Hero ─────────────────────────────────────────────────── */}
+      <section className="relative w-full overflow-hidden" style={{ height: "clamp(460px, 65vh, 700px)" }}>
+        {/* Background image – LCP candidate */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={richDest ? destImg(dest) : (dest.heroImageFallback ?? dest.heroImage)}
+          alt={`${dest.name} Urlaub`}
+          className="absolute inset-0 w-full h-full object-cover"
+          // @ts-ignore
           fetchPriority="high"
         />
-      </div>
 
-      {/* HERO: H1 + Intro links, Destination-Bild rechts */}
-      <section className="border-b border-sand-100/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1 text-sm text-gray-500 mb-5">
-            <MapPin className="w-4 h-4 shrink-0" />
-            <Link href="/urlaubsziele/" className="hover:text-sand-500 transition-colors">
-              Urlaubsziele
-            </Link>
-            {catalogEntry && catalogEntry.type === "region" && catalogEntry.parentSlug && (
-              <>
-                <span className="mx-1 text-gray-300">›</span>
-                <Link
-                  href={`/urlaubsziele/${catalogEntry.parentSlug}/`}
-                  className="hover:text-sand-500 transition-colors"
-                >
-                  {catalogEntry.superRegionName}
-                </Link>
-              </>
-            )}
-            <span className="mx-1 text-gray-300">›</span>
-            <span className="text-gray-700 font-medium">{dest.name}</span>
-          </nav>
+        {/* Gradient overlay – dark at bottom, subtle top */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-black/10" />
 
-          <div className="flex flex-col md:flex-row gap-10 items-center">
-            {/* Links: H1 + Text */}
-            <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                {isSuperRegion
-                  ? <>Urlaub <span className="text-sand-500">{dest.name}</span> – Alle Reiseziele auf einen Blick</>
-                  : <>Dein nächster <span className="text-sand-500">{dest.name}</span> Urlaub?{" "}
-                     Günstige Pauschalreisen, All Inclusive &amp; Last Minute.</>
-                }
-              </h1>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                {isSuperRegion
-                  ? `Entdecke alle Reiseziele in ${dest.name} und vergleiche günstige Pauschalreisen, All Inclusive Urlaube und Last Minute Deals auf einen Blick.`
-                  : <>Finde tagesaktuelle Reiseangebote für deinen Traumurlaub in {dest.name}. Wir vergleichen
-                     für dich die besten Preise für günstige Pauschalreisen, komfortable All Inclusive Urlaube
-                     sowie spontane Last Minute Deals.
-                     {dest.iataCode && (
-                       <> Fliege bequem zum Flughafen <strong>{dest.iataCode}</strong> und genieße entspannte
-                       Tage in perfekt bewerteten Hotels.</>
-                     )}
-                  </>
-                }
-              </p>
-              {!isSuperRegion && dest.description && (
-                <p className="text-gray-500 text-base leading-relaxed mt-4">{dest.description}</p>
-              )}
-              <div className="flex flex-wrap gap-3 mt-6">
-                <Link
-                  href="#pauschalreisen"
-                  className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
-                >
-                  <Package className="w-5 h-5 shrink-0" />
-                  <div>
-                    <p className="font-semibold text-sm">Pauschalreisen</p>
-                    <p className="text-xs text-sand-500">Flug + Hotel günstig</p>
-                  </div>
-                </Link>
-                <Link
-                  href="#all-inclusive"
-                  className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
-                >
-                  <Umbrella className="w-5 h-5 shrink-0" />
-                  <div>
-                    <p className="font-semibold text-sm">All Inclusive</p>
-                    <p className="text-xs text-sand-500">Rundum sorglos</p>
-                  </div>
-                </Link>
-                <Link
-                  href="#last-minute"
-                  className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
-                >
-                  <Zap className="w-5 h-5 shrink-0" />
-                  <div>
-                    <p className="font-semibold text-sm">Last Minute</p>
-                    <p className="text-xs text-sand-500">Spontan &amp; günstig</p>
-                  </div>
-                </Link>
-                {dest.tiqetsCityId && (
+        {/* Content anchored to bottom */}
+        <div className="absolute inset-0 flex flex-col justify-between">
+          {/* Top: Breadcrumb */}
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-5">
+            <nav className="flex items-center gap-1 text-sm text-white/70">
+              <MapPin className="w-4 h-4 shrink-0" />
+              <Link href="/urlaubsziele/" className="hover:text-white transition-colors">
+                Urlaubsziele
+              </Link>
+              {catalogEntry && catalogEntry.type === "region" && catalogEntry.parentSlug && (
+                <>
+                  <span className="mx-1 text-white/40">›</span>
                   <Link
-                    href="#aktivitaeten"
-                    className="inline-flex items-center gap-2 bg-sand-50 border border-sand-200 text-sand-700 px-5 py-3 rounded-2xl hover:bg-sand-100 transition-colors"
+                    href={`/urlaubsziele/${catalogEntry.parentSlug}/`}
+                    className="hover:text-white transition-colors"
                   >
-                    <Ticket className="w-5 h-5 shrink-0" />
-                    <div>
-                      <p className="font-semibold text-sm">Aktivitäten</p>
-                      <p className="text-xs text-sand-500">Touren &amp; Erlebnisse</p>
-                    </div>
+                    {catalogEntry.superRegionName}
                   </Link>
-                )}
-              </div>
-            </div>
+                </>
+              )}
+              <span className="mx-1 text-white/40">›</span>
+              <span className="text-white font-medium">{dest.name}</span>
+            </nav>
+          </div>
 
-            {/* Rechts: Destination-Bild */}
-            <div className="w-full md:w-80 lg:w-96 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={richDest ? destImg(dest) : (dest.heroImageFallback ?? dest.heroImage)}
-                alt={`${dest.name} Urlaub – Pauschalreisen & Angebote`}
-                className="w-full h-64 md:h-72 object-cover rounded-2xl shadow-lg"
-                // @ts-ignore
-                fetchPriority="high"
-              />
+          {/* Bottom: H1 + subtitle + CTA pills */}
+          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg mb-3">
+              {isSuperRegion
+                ? <>{dest.name}<span className="block text-2xl md:text-3xl font-semibold text-white/80 mt-1">Alle Reiseziele auf einen Blick</span></>
+                : <>{dest.name}<span className="block text-xl md:text-2xl font-semibold text-white/80 mt-2">Pauschalreisen, All Inclusive &amp; Last Minute</span></>
+              }
+            </h1>
+
+            {!isSuperRegion && dest.description && (
+              <p className="text-white/75 text-base md:text-lg leading-relaxed max-w-2xl mb-5 drop-shadow">
+                {dest.description}
+              </p>
+            )}
+
+            {/* Quick-nav pills */}
+            <div className="flex flex-wrap gap-2 mt-4">
+              <Link
+                href="#pauschalreisen"
+                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
+              >
+                <Package className="w-4 h-4 shrink-0" /> Pauschalreisen
+              </Link>
+              <Link
+                href="#all-inclusive"
+                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
+              >
+                <Umbrella className="w-4 h-4 shrink-0" /> All Inclusive
+              </Link>
+              <Link
+                href="#last-minute"
+                className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
+              >
+                <Zap className="w-4 h-4 shrink-0" /> Last Minute
+              </Link>
+              {dest.tiqetsCityId && (
+                <Link
+                  href="#aktivitaeten"
+                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                >
+                  <Ticket className="w-4 h-4 shrink-0" /> Aktivitäten
+                </Link>
+              )}
             </div>
           </div>
         </div>
