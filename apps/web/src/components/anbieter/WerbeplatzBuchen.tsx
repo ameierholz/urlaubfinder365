@@ -30,7 +30,7 @@ export const PAKETE = [
     label:       "Stadtseite",
     position:    "Unten auf der Seite",
     beschreibung:"Dein Angebot wird auf einer Zielort-Seite deiner Wahl prominent platziert.",
-    preisMonat:  29,
+    preisMonat:  49,
     badge:       null,
   },
   {
@@ -39,7 +39,7 @@ export const PAKETE = [
     label:       "Stadtseite Top-Platz",
     position:    "Immer ganz oben — auch wenn mehrere Anzeigen aktiv sind",
     beschreibung:"Deine Anzeige erscheint stets als erste — egal wie viele andere Werbeplätze auf derselben Stadtseite gebucht sind.",
-    preisMonat:  49,
+    preisMonat:  79,
     badge:       "Beliebt",
   },
   {
@@ -48,7 +48,7 @@ export const PAKETE = [
     label:       "Themenseite",
     position:    "Auf einer Kategorie-Seite",
     beschreibung:"Erscheine auf allen Seiten einer Aktivitätskategorie (z. B. alle Wassersport-Seiten).",
-    preisMonat:  59,
+    preisMonat:  99,
     badge:       null,
   },
   {
@@ -57,7 +57,7 @@ export const PAKETE = [
     label:       "Regionspaket",
     position:    "Alle Seiten einer Region / eines Landes",
     beschreibung:"Dein Angebot ist auf sämtlichen Seiten eines Landes oder einer Region sichtbar.",
-    preisMonat:  89,
+    preisMonat:  149,
     badge:       null,
   },
   {
@@ -66,7 +66,7 @@ export const PAKETE = [
     label:       "Marktplatz-Startseite",
     position:    "Featured-Bereich der Startseite",
     beschreibung:"Maximale Reichweite: Dein Angebot erscheint im Featured-Bereich der Marktplatz-Startseite.",
-    preisMonat:  149,
+    preisMonat:  199,
     badge:       "Meiste Reichweite",
   },
   {
@@ -75,7 +75,7 @@ export const PAKETE = [
     label:       "Rundum-Paket",
     position:    "Startseite + Kategorie + Region",
     beschreibung:"Alle Kanäle auf einmal: Startseite, Themenseite und Regionsseiten deiner Wahl.",
-    preisMonat:  229,
+    preisMonat:  299,
     badge:       "Bestes Preis-Leistungs-Verhältnis",
   },
 ] as const;

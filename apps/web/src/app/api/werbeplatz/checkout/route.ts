@@ -10,12 +10,12 @@ const supabaseAdmin = createClient(
 
 // Monatspreise je Paket in EUR
 const PAKET_PREISE: Record<string, number> = {
-  stadt_unten: 29,
-  stadt_oben:  49,
-  kategorie:   39,
-  region:      59,
-  homepage:    99,
-  rundum:      149,
+  stadt_unten: 49,
+  stadt_oben:  79,
+  kategorie:   99,
+  region:      149,
+  homepage:    199,
+  rundum:      299,
 };
 
 const PAKET_LABEL: Record<string, string> = {
