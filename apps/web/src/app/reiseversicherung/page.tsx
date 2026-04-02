@@ -81,39 +81,6 @@ export default function ReiseversicherungPage() {
         </div>
       </section>
 
-      {/* ERV White-Label IBE */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          <div className="bg-[#0e4070] px-6 py-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">🛡️</span>
-              <div>
-                <p className="font-bold text-white text-sm">ERV – Europäische Reiseversicherung</p>
-                <p className="text-white/70 text-xs">Direkt hier Tarif berechnen & abschließen</p>
-              </div>
-            </div>
-            <a
-              href={ERV_URL}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="shrink-0 inline-flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-full transition-colors"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Neues Fenster
-            </a>
-          </div>
-          <iframe
-            src="https://www.travialinks.de/link/A-30412-0/A/erv"
-            frameBorder={0}
-            width="100%"
-            height="520"
-            title="ERV Reiseversicherung – Tarif berechnen & abschließen"
-            className="block w-full"
-            loading="lazy"
-          />
-        </div>
-      </section>
-
       {/* Wichtigkeits-Banner */}
       <div className="bg-red-50 border-b border-red-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
