@@ -110,14 +110,14 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
           <Image
             src="/images/urlaubfinder-logo.webp"
             alt="Urlaubfinder365"
-            width={64}
-            height={64}
-            className="w-16 h-16 object-contain shrink-0"
+            width={80}
+            height={80}
+            className="w-20 h-20 object-contain shrink-0"
             unoptimized
           />
           <div>
-            <p className="font-black text-white text-base leading-tight print:text-gray-900">Urlaubfinder365</p>
-            <p className="text-[11px] text-gray-400">urlaubfinder365.de</p>
+            <p className="font-black text-white text-lg leading-tight print:text-gray-900">Urlaubfinder365</p>
+            <p className="text-xs text-gray-400">urlaubfinder365.de</p>
           </div>
         </div>
         <div className="text-right">
@@ -131,7 +131,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
         <div className="relative h-40 w-full overflow-hidden">
           <Image src={angebot.foto_url} alt={titel} fill className="object-cover" unoptimized />
           <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent" />
-          <div className="absolute bottom-4 left-6 right-6">
+          <div className="absolute bottom-4 left-6 right-6 text-left">
             <p className="text-white font-black text-xl leading-tight drop-shadow-lg">{titel}</p>
             {ziel && (
               <p className="text-white/80 text-xs flex items-center gap-1 mt-1">
@@ -141,7 +141,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
           </div>
         </div>
       ) : (
-        <div className="bg-linear-to-r from-[#00838F] to-[#005f6b] px-6 py-5">
+        <div className="bg-linear-to-r from-[#00838F] to-[#005f6b] px-6 py-5 text-left">
           <p className="text-white font-black text-xl">{titel}</p>
           {ziel && (
             <p className="text-white/80 text-xs flex items-center gap-1 mt-1.5">
@@ -184,10 +184,12 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
 
       {/* ── QR + Token ────────────────────────────────────── */}
       <div className="px-6 py-5 space-y-4">
-        <p className="text-xs font-black text-gray-700 uppercase tracking-widest">Verifizierung</p>
-        <p className="text-xs text-gray-400 leading-relaxed">
-          Zeige dem Anbieter den QR-Code zum Scannen — oder gib die Buchungsnummer manuell ein.
-        </p>
+        <div>
+          <p className="text-xs font-black text-gray-700 uppercase tracking-widest">Verifizierung</p>
+          <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+            Zeige dieses Ticket dem Anbieter vor Ort — er scannt den QR-Code oder gibt die Buchungsnummer ein.
+          </p>
+        </div>
 
         <div className="flex items-start gap-5">
           {/* QR Code */}
@@ -207,7 +209,7 @@ export default function BuchungsTicket({ d, compact = false }: Props) {
               </p>
             </div>
             <p className="text-[10px] text-gray-400 leading-relaxed">
-              Manuell eingeben unter{" "}
+              Anbieter gibt ein unter{" "}
               <span className="font-semibold text-[#00838F]">urlaubfinder365.de/anbieter/scanner</span>
             </p>
           </div>
