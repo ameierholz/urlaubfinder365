@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Anchor, Ship, Waves, Plane, Zap, Compass } from "lucide-react";
 
 const TRAVIA_URL = "https://www.travialinks.de/link/A-30412-0/A/cruisecompass";
@@ -19,6 +19,8 @@ const TABS = [
 
 export default function CruiseWidget() {
   const [active, setActive] = useState("all");
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   function handleTab(id: string) {
     setActive(id);
@@ -61,17 +63,19 @@ export default function CruiseWidget() {
         })}
       </div>
 
-      {/* CruiseCompass IBE Widget */}
-      <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white">
-        <iframe
-          src={TRAVIA_URL}
-          width="100%"
-          height="1350"
-          frameBorder="0"
-          title="Kreuzfahrten buchen – CruiseCompass"
-          className="w-full block"
-          loading="lazy"
-        />
+      {/* CruiseCompass IBE Widget – nur client-seitig rendern (kein SSR → kein Hydration-Mismatch) */}
+      <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-white" style={{ minHeight: 400 }}>
+        {mounted && (
+          <iframe
+            src={TRAVIA_URL}
+            width="100%"
+            height="1350"
+            frameBorder="0"
+            title="Kreuzfahrten buchen – CruiseCompass"
+            className="w-full block"
+            loading="lazy"
+          />
+        )}
       </div>
     </div>
   );
