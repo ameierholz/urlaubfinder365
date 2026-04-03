@@ -12,6 +12,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
@@ -164,16 +165,6 @@ export default async function LocaleLayout({
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="https://widget.trustpilot.com" />
         <script
-          type="text/javascript"
-          src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
-          async
-        />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
-          crossOrigin="anonymous"
-        />
-        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
@@ -199,6 +190,16 @@ export default async function LocaleLayout({
             <ScrollToTopButton />
           </AuthProvider>
         </NextIntlClientProvider>
+        {/* Drittanbieter-Scripts nach Hydration laden → kein Mismatch */}
+        <Script
+          src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <Analytics />
         <SpeedInsights />
       </body>
