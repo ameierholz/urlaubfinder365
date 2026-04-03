@@ -1,9 +1,6 @@
-// Minimales Root-Layout — html/body kommen vom [locale]/layout.tsx.
-// Next.js 16 erfordert trotzdem html+body im Root-Layout.
+// Root-Layout für next-intl App-Router-Setup.
+// html/body werden vom [locale]/layout.tsx gerendert.
+// Next.js 16 zeigt eine Warnung, die bei next-intl mit [locale]-Segment erwartet wird.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html>
-      <body>{children}</body>
-    </html>
-  );
+  return children;
 }
