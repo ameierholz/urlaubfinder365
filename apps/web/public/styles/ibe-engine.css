@@ -214,6 +214,23 @@
 #ibe-modal-overlay.ibe-modal--cruise .ibe-trust-brand,#ibe-modal-overlay.ibe-modal--cruise .ibe-trust-brand strong{color:#6CC4BA}
 #ibe-modal-overlay.ibe-modal--cruise .ibe-modal-loader{background:linear-gradient(180deg,#051e41 0%,#0a3060 100%);color:rgba(200,235,255,.7)}
 
+/* ─── Reise Modal Theme ────────────────────────────────────────────────────── */
+#ibe-modal-overlay.ibe-modal--travel{background:radial-gradient(ellipse at 15% 85%,rgba(255,165,50,.32) 0%,transparent 50%),radial-gradient(ellipse at 85% 15%,rgba(29,182,130,.28) 0%,transparent 50%),linear-gradient(155deg,rgba(8,22,14,.96) 0%,rgba(12,35,22,.94) 45%,rgba(16,45,28,.92) 100%)}
+#ibe-modal-overlay.ibe-modal--travel #ibe-modal-box{border:1px solid rgba(29,182,130,.22);box-shadow:0 30px 70px -12px rgba(0,30,15,.65),0 0 60px rgba(29,182,130,.1)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-header{background:linear-gradient(135deg,#081f10 0%,#0e3a1e 40%,#166534 75%,#15803d 100%);border-bottom:1px solid rgba(29,182,130,.3);position:relative;overflow:hidden}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-header::before{content:'✈';position:absolute;right:3.5rem;top:50%;transform:translateY(-50%);font-size:3.5rem;opacity:.07;pointer-events:none;line-height:1;font-style:normal}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(29,182,130,.55),rgba(251,191,36,.65),rgba(29,182,130,.55),transparent)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-title{color:rgba(220,255,235,.95)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-title svg{stroke:#4dd4a5}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-close{background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.75)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-close:hover{background:rgba(239,68,68,.25);border-color:rgba(239,68,68,.5);color:#fca5a5}
+#ibe-modal-overlay.ibe-modal--travel .ibe-trust-bar{background:linear-gradient(90deg,#060f09 0%,#0b1f11 50%,#0e2916 100%);border-bottom:1px solid rgba(29,182,130,.18)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-trust-item{color:rgba(255,255,255,.7)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-trust-item svg{color:#1db682}
+#ibe-modal-overlay.ibe-modal--travel .ibe-trust-sep{color:rgba(255,255,255,.15)}
+#ibe-modal-overlay.ibe-modal--travel .ibe-trust-brand,#ibe-modal-overlay.ibe-modal--travel .ibe-trust-brand strong{color:#4dd4a5}
+#ibe-modal-overlay.ibe-modal--travel .ibe-modal-loader{background:linear-gradient(180deg,#081f10 0%,#0e3a1e 100%);color:rgba(180,255,220,.7)}
+
 /* Override FontAwesome font-display: block → swap (verhindert FOIT, spart ~160ms) */
 @font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:swap;src:url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2") format("woff2")}
 @font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:400;font-display:swap;src:url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2") format("woff2")}

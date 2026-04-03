@@ -65,6 +65,10 @@
     const isCruise = /kreuzfahrten|travialinks|cruisecompass/i.test(url);
     overlay.classList.toggle("ibe-modal--cruise", isCruise);
 
+    // Reise-Theme für normale IBE-Buchungen
+    const isTravel = !isCruise && /specials\.de|ibe\.specials|b2b\.specials/i.test(url);
+    overlay.classList.toggle("ibe-modal--travel", isTravel);
+
     if (titleEl && title) titleEl.textContent = title;
     if (loader) loader.style.display = "flex";
     iframe.src = url;
@@ -81,7 +85,7 @@
     const iframe  = document.getElementById("ibe-modal-iframe");
     if (!overlay) return;
     overlay.style.display = "none";
-    overlay.classList.remove("ibe-modal--cruise");
+    overlay.classList.remove("ibe-modal--cruise", "ibe-modal--travel");
     document.body.style.overflow = "";
     if (iframe) iframe.src = "about:blank";
   };
