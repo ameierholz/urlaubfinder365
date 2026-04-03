@@ -9,10 +9,15 @@ const PARTNER_ID = "30412";
 const DL = (params = "") =>
   `https://kreuzfahrten.travelsystem.de/de?p=2&subid=${PARTNER_ID}${params}`;
 
-// Kreuzfahrten-Buchungssystem blockiert iframe-Embedding → kein Modal möglich.
-// Homepage-Kacheln navigieren zur internen Kreuzfahrten-Seite.
-function goToCruisePage() {
-  window.location.href = "/kreuzfahrten/";
+function openModal(url: string, title: string) {
+  const w = window as typeof window & {
+    ibeOpenBooking?: (u: string, t: string) => void;
+  };
+  if (w.ibeOpenBooking) {
+    w.ibeOpenBooking(url, title);
+  } else {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
 }
 
 // ─── Kreuzfahrt-Destinationen ─────────────────────────────────────────────────
@@ -133,7 +138,7 @@ export default function HomeCruiseSection() {
               {QUICK_TYPES.map(({ icon: Icon, label, url, title }) => (
                 <button
                   key={label}
-                  onClick={goToCruisePage}
+                  onClick={() => openModal(url, title)}
                   className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 active:bg-white/25 border border-white/15 rounded-full px-3 py-1.5 transition-colors cursor-pointer"
                 >
                   <Icon className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
@@ -182,7 +187,7 @@ export default function HomeCruiseSection() {
             {CRUISE_DEALS.map((deal) => (
               <button
                 key={deal.id}
-                onClick={goToCruisePage}
+                onClick={() => openModal(deal.url, deal.label)}
                 className="group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 bg-white text-left w-full cursor-pointer ring-0 hover:ring-2 hover:ring-cyan-400/60"
               >
                 {/* Bild */}

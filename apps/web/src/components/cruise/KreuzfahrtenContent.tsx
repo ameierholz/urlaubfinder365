@@ -14,9 +14,15 @@ const PARTNER_ID = "30412";
 const DL = (params = "") =>
   `https://kreuzfahrten.travelsystem.de/de?p=2&subid=${PARTNER_ID}${params}`;
 
-/** Kreuzfahrten-Buchungssystem blockiert Iframe-Embedding → neuer Tab */
-function openModal(url: string, _title = "Kreuzfahrten buchen") {
-  window.open(url, "_blank", "noopener,noreferrer");
+function openModal(url: string, title = "Kreuzfahrten buchen") {
+  const w = window as typeof window & {
+    ibeOpenBooking?: (u: string, t: string) => void;
+  };
+  if (w.ibeOpenBooking) {
+    w.ibeOpenBooking(url, title);
+  } else {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
 }
 
 // ─── Reisetypen ────────────────────────────────────────────────────────────────
