@@ -1,5 +1,9 @@
-// Minimales Root-Layout — nur HTML-Shell.
-// Alle Seiten-Inhalte, Provider und Metadata sind im [locale]/layout.tsx.
+// Minimales Root-Layout — html/body kommen vom [locale]/layout.tsx.
+// Next.js 16 erfordert trotzdem html+body im Root-Layout.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  );
 }
