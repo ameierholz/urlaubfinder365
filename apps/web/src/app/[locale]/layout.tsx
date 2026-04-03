@@ -192,10 +192,6 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         {/* Drittanbieter-Scripts nach Hydration laden → kein Mismatch */}
         <Script
-          src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
-          strategy="afterInteractive"
-        />
-        <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
           strategy="afterInteractive"
           crossOrigin="anonymous"

@@ -402,8 +402,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
 
           {/* ── Trustpilot ── */}
-          <div className="mb-4" style={{ display: "flex", justifyContent: "flex-start" }}>
-            <TrustpilotWidget theme="dark" templateId="5419b637fa0340045cd0c936" height="24px" />
+          <div className="mb-4">
+            <TrustpilotWidget theme="dark" />
           </div>
 
           {/* ── SearchBox ── */}
