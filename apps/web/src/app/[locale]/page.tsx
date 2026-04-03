@@ -411,10 +411,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       </section>
 
       {/* ── QuickCategories – direkt unter dem Hero ── */}
-      <div className="bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto">
-          <QuickCategories />
-        </div>
+      <div className="max-w-7xl mx-auto">
+        <QuickCategories />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
