@@ -9,15 +9,10 @@ const PARTNER_ID = "30412";
 const DL = (params = "") =>
   `https://kreuzfahrten.travelsystem.de/de?p=2&subid=${PARTNER_ID}${params}`;
 
-function openModal(url: string, title: string) {
-  const w = window as typeof window & {
-    ibeOpenBooking?: (u: string, t: string) => void;
-  };
-  if (w.ibeOpenBooking) {
-    w.ibeOpenBooking(url, title);
-  } else {
-    window.open(url, "_blank", "noopener,noreferrer");
-  }
+function openModal(url: string, _title: string) {
+  // kreuzfahrten.travelsystem.de blockiert iframe-Einbettung (X-Frame-Options)
+  // → immer in neuem Tab öffnen, nie über IBE-Modal
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 // ─── Kreuzfahrt-Destinationen ─────────────────────────────────────────────────
