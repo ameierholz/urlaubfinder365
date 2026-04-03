@@ -68,6 +68,7 @@ export default function TrustpilotWidget({
       data-style-height={height}
       data-style-width="100%"
       data-theme={theme}
+      style={{ display: "block", textAlign: "left" }}
     >
       <a href={REVIEW_URL} target="_blank" rel="noopener noreferrer">
         Trustpilot

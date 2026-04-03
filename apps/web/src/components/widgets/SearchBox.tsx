@@ -54,17 +54,20 @@ export default function SearchBox() {
     return () => window.removeEventListener("message", onMessage);
   }, []);
 
+  // Beim Klick in den Widget-Bereich Höhe expandieren damit Dropdowns sichtbar sind
+  function handleInteract() {
+    setHeight((prev) => Math.max(prev, 500));
+  }
+
   return (
-    /* overflow-x: clip verhindert horizontalen Scrollbalken, lässt aber
-       Dropdowns vertikal herausragen (im Gegensatz zu overflow: hidden) */
     <div
       style={{
         width: "100%",
         height: height,
-        overflowX: "clip",
-        overflowY: "visible",
+        overflow: "visible",
         position: "relative",
       }}
+      onClick={handleInteract}
     >
       {ready && (
         <iframe
