@@ -384,8 +384,13 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
               </div>
             </section>
 
-            {/* Alle Aktivitäten */}
-            <ScrollSection titel="🌍 Alle Erlebnisse entdecken" items={AKTIVITAETEN} />
+            {/* Alle Aktivitäten – als Grid statt Karussell */}
+            <section>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">🌍 Alle Erlebnisse entdecken</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {AKTIVITAETEN.map((a) => <AktivitaetKarte key={a.slug} a={a} />)}
+              </div>
+            </section>
 
             {/* Nach Reiseziel */}
             {ZIEL_SEKTIONEN.map(({ label, filter }) => {
