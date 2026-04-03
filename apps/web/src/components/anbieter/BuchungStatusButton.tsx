@@ -14,6 +14,12 @@ export default function BuchungStatusButton({ buchungId, status }: { buchungId: 
   const stornieren = async () => {
     setLoading(true);
     await sb.from("buchungen" as never).update({ status: "storniert" } as never).eq("id", buchungId);
+    // Stornierung-Email via API
+    await fetch("/api/email/stornierung", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ buchung_id: buchungId }),
+    });
     setLoading(false);
     setConfirm(false);
     router.refresh();
