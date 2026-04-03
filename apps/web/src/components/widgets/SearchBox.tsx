@@ -14,7 +14,7 @@ const WIDGET_SRC =
  */
 export default function SearchBox() {
   const [ready, setReady] = useState(false);
-  const [height, setHeight] = useState(220);
+  const [height, setHeight] = useState(450);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Lazy-load nach erstem Paint
@@ -44,7 +44,6 @@ export default function SearchBox() {
         if (match) newH = Number(match[1]);
       }
 
-      // Sinnvolle Werte: 150–1200 px, und nie kleiner als 450 px (Mobilschutz)
       if (newH >= 150 && newH <= 1200) {
         setHeight(newH);
       }
@@ -54,11 +53,6 @@ export default function SearchBox() {
     return () => window.removeEventListener("message", onMessage);
   }, []);
 
-  // Beim Klick in den Widget-Bereich Höhe expandieren damit Dropdowns sichtbar sind
-  function handleInteract() {
-    setHeight((prev) => Math.max(prev, 500));
-  }
-
   return (
     <div
       style={{
@@ -67,7 +61,6 @@ export default function SearchBox() {
         overflow: "visible",
         position: "relative",
       }}
-      onClick={handleInteract}
     >
       {ready && (
         <iframe

@@ -402,7 +402,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
 
           {/* ── Trustpilot ── */}
-          <div className="mb-4 max-w-xs">
+          <div className="mb-4" style={{ display: "flex", justifyContent: "flex-start" }}>
             <TrustpilotWidget theme="dark" templateId="5419b637fa0340045cd0c936" height="24px" />
           </div>
 
@@ -412,7 +412,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
 
           {/* ── QuickCategories – transparent, Headerbild dahinter ── */}
-          <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8" style={{ position: "relative", zIndex: 1 }}>
             <QuickCategories transparent />
           </div>
 
