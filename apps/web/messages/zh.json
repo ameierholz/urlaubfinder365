@@ -377,7 +377,16 @@
     "editorialAegypten": "尼罗河与红海的魅力",
     "editorialKanaren": "加那利群岛的常春气候",
     "editorialGriechenland": "希腊众神与海滩",
-    "editorialDefault": "绝佳优惠等您来"
+    "editorialDefault": "绝佳优惠等您来",
+    "editorial": {
+      "tuerkei": "土耳其里维埃拉阳光之旅",
+      "spanien": "棕榈树下的休闲时光",
+      "griechenland": "希腊的风情与魅力",
+      "aegypten": "尼罗河与红海的魅力",
+      "italien": "体验甜蜜生活",
+      "kroatien": "亚得里亚海梦幻海岸",
+      "fallback": "{country}的梦想假期"
+    }
   },
   "fruehbucher": {
     "badge": "早鸟优惠",
@@ -385,7 +394,9 @@
     "perPerson": "每人",
     "from": "起",
     "total": "总计：",
-    "checkOffer": "查看优惠 →"
+    "checkOffer": "查看优惠 →",
+    "editorialLabel": "编辑精选旅行时段优惠：",
+    "nightsInclFlight": "{nights}晚 · 含机票 · {board}"
   },
   "newsletter": {
     "title": "再也不错过优惠！",
@@ -481,7 +492,40 @@
     "typeRiver": "河轮",
     "typeCombi": "组合游",
     "typeLastMinute": "最后一分钟",
-    "typeAll": "全部优惠"
+    "typeAll": "全部优惠",
+    "bookCheap": "以优惠价格预订梦想邮轮",
+    "tagline": "30+航运公司 · 地中海、加勒比海、北欧及河轮",
+    "offersFrom": "来自30+航运公司的数千个优惠 · 直接预订",
+    "inclTransfer": "含交通接送",
+    "fullBoard": "船上全包餐饮",
+    "fullBoardLabel": "含全包餐饮",
+    "perPerson": "每人",
+    "checkOffer": "查看\n优惠 →",
+    "discoverAll": "探索所有邮轮",
+    "quickTypes": {
+      "hochsee": "远洋",
+      "inclFlight": "含机票",
+      "fluss": "河轮",
+      "kombi": "组合游",
+      "lastMinute": "最后一分钟",
+      "alleAngebote": "全部优惠"
+    },
+    "destinations": {
+      "mittelmeer": "地中海",
+      "mittelmeeSub": "巴塞罗那 · 罗马 · 雅典 · 伊斯坦布尔",
+      "karibik": "加勒比海",
+      "karibikSub": "巴哈马 · 牙买加 · 圣马丁",
+      "nordeuropa": "北欧及峡湾",
+      "nordeuropaSub": "挪威 · 冰岛 · 斯瓦尔巴",
+      "fluss": "河轮",
+      "flussSub": "莱茵河 · 多瑙河 · 易北河 · 尼罗河"
+    },
+    "badges": {
+      "bestseller": "畅销",
+      "traumziel": "梦想目的地",
+      "erlebnis": "体验",
+      "gemutlich": "舒适休闲"
+    }
   },
   "marktplatzPage": {
     "heroTitle": "旅游市场",

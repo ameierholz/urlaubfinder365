@@ -377,7 +377,16 @@
     "editorialAegypten": "سحر النيل والبحر الأحمر",
     "editorialKanaren": "ربيع دائم في جزر الكناري",
     "editorialGriechenland": "آلهة وشواطئ في اليونان",
-    "editorialDefault": "عرض رائع بانتظارك"
+    "editorialDefault": "عرض رائع بانتظارك",
+    "editorial": {
+      "tuerkei": "شمس على الريفييرا التركية",
+      "spanien": "راحة تحت أشجار النخيل",
+      "griechenland": "آلهة وشواطئ في اليونان",
+      "aegypten": "سحر النيل والبحر الأحمر",
+      "italien": "اكتشف لا دولتشه فيتا",
+      "kroatien": "ساحل الأدرياتيك الخيالي",
+      "fallback": "عطلة أحلام في {country}"
+    }
   },
   "fruehbucher": {
     "badge": "حجز مبكر",
@@ -385,7 +394,9 @@
     "perPerson": "للشخص",
     "from": "من",
     "total": "الإجمالي:",
-    "checkOffer": "تحقق من العرض →"
+    "checkOffer": "تحقق من العرض →",
+    "editorialLabel": "عروض مختارة من قبل هيئة التحرير للفترة:",
+    "nightsInclFlight": "{nights} ليالٍ · شامل الطيران · {board}"
   },
   "newsletter": {
     "title": "لا تفوّت صفقة بعد الآن!",
@@ -481,7 +492,40 @@
     "typeRiver": "أنهار",
     "typeCombi": "رحلة مشتركة",
     "typeLastMinute": "اللحظة الأخيرة",
-    "typeAll": "جميع العروض"
+    "typeAll": "جميع العروض",
+    "bookCheap": "احجز رحلاتك البحرية بأسعار مميزة",
+    "tagline": "أكثر من 30 شركة شحن · بحر أبيض متوسط، كاريبي، أوروبا الشمالية وأنهار",
+    "offersFrom": "آلاف العروض من أكثر من 30 شركة · قابلة للحجز مباشرة",
+    "inclTransfer": "شامل النقل",
+    "fullBoard": "إقامة كاملة على متن الباخرة",
+    "fullBoardLabel": "شامل الإقامة الكاملة",
+    "perPerson": "للشخص",
+    "checkOffer": "تحقق من\nالعرض →",
+    "discoverAll": "اكتشف جميع الرحلات البحرية",
+    "quickTypes": {
+      "hochsee": "بحر مفتوح",
+      "inclFlight": "يشمل الطيران",
+      "fluss": "أنهار",
+      "kombi": "رحلة مشتركة",
+      "lastMinute": "اللحظة الأخيرة",
+      "alleAngebote": "جميع العروض"
+    },
+    "destinations": {
+      "mittelmeer": "البحر الأبيض المتوسط",
+      "mittelmeeSub": "برشلونة · روما · أثينا · إسطنبول",
+      "karibik": "البحر الكاريبي",
+      "karibikSub": "باهاماس · جاميكا · سانت مارتن",
+      "nordeuropa": "شمال أوروبا والفيوردات",
+      "nordeuropaSub": "النرويج · آيسلندا · سفالبارد",
+      "fluss": "رحلات الأنهار",
+      "flussSub": "الراين · الدانوب · إلبه · النيل"
+    },
+    "badges": {
+      "bestseller": "الأكثر مبيعًا",
+      "traumziel": "وجهة الأحلام",
+      "erlebnis": "تجربة",
+      "gemutlich": "مريح وهادئ"
+    }
   },
   "marktplatzPage": {
     "heroTitle": "السوق السياحي",
