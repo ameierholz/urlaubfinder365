@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   templateId?: string;
@@ -25,13 +25,20 @@ export default function TrustpilotWidget({
   className = "",
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Trustpilot Widget nach dem Mount initialisieren
-    if (typeof window !== "undefined" && (window as { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } }).Trustpilot) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    if ((window as { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } }).Trustpilot) {
       (window as { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } }).Trustpilot!.loadFromElement(ref.current!);
     }
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) return null;
 
   return (
     <div
