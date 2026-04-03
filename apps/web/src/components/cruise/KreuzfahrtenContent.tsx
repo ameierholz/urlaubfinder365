@@ -64,7 +64,7 @@ const CRUISE_TYPES = [
     title: "Last-Minute Deals",
     desc: "Spontan auf große Fahrt – zu unschlagbaren Preisen.",
     gradient: "from-sand-700 to-red-600",
-    href: DL("&sort=pauf"),
+    href: DL("&sort=pauf&sdt=1"),
     label: "Last-Minute Kreuzfahrten",
   },
   {

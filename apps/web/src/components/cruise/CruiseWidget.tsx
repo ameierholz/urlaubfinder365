@@ -14,7 +14,7 @@ const TABS = [
   { id: "fly",   label: "Hochsee + Flug",     icon: Plane,   extra: "&type=S" },
   { id: "river", label: "Flusskreuzfahrten",  icon: Waves,   extra: "&type=R" },
   { id: "kombi", label: "Kreuzfahrt + Hotel", icon: Compass, extra: "&type=KOMBI" },
-  { id: "last",  label: "Last-Minute",        icon: Zap,     extra: "&sort=pauf" },
+  { id: "last",  label: "Last-Minute",        icon: Zap,     extra: "&sort=pauf&sdt=1" },
 ];
 
 export default function CruiseWidget() {

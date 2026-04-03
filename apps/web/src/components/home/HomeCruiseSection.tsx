@@ -80,7 +80,7 @@ const QUICK_TYPES = [
   { icon: Plane,   label: "Inkl. Flug",     url: DL("&type=S&sort=pauf"),     title: "Kreuzfahrt + Flug" },
   { icon: Waves,   label: "Fluss",          url: DL("&type=R&sort=pauf"),     title: "Flusskreuzfahrten" },
   { icon: Compass, label: "Kombi",          url: DL("&type=KOMBI&sort=pauf"), title: "Kreuzfahrt + Hotel" },
-  { icon: Zap,     label: "Last-Minute",    url: DL("&sort=pauf&sdt=1&bdt=14"), title: "Last-Minute Kreuzfahrten" },
+  { icon: Zap,     label: "Last-Minute",    url: DL("&sort=pauf&sdt=1"),        title: "Last-Minute Kreuzfahrten" },
   { icon: Anchor,  label: "Alle Angebote",  url: DL("&sort=pauf"),            title: "Alle Kreuzfahrten" },
 ];
 
