@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { Expert } from "@/lib/experts";
 
 interface Props {
@@ -20,8 +21,9 @@ export default function ExpertBanner({
   accentColor = "#00838F",
   tip,
   deeplink,
-  deeplinkLabel = "Jetzt Angebote ansehen",
+  deeplinkLabel,
 }: Props) {
+  const t = useTranslations("ui");
   const handleClick = () => {
     if (!deeplink) return;
     const ibe = (window as any).ibeOpenBooking;
@@ -48,7 +50,7 @@ export default function ExpertBanner({
             className="text-[11px] font-extrabold uppercase tracking-widest"
             style={{ color: accentColor }}
           >
-            Expertenempfehlung
+            {t("expertBanner.badge")}
           </span>
         </div>
 
@@ -101,7 +103,7 @@ export default function ExpertBanner({
                   className="inline-flex items-center gap-1.5 text-[12px] font-bold py-2 px-4 rounded-full text-white shadow-sm hover:opacity-90 transition-opacity"
                   style={{ backgroundColor: accentColor }}
                 >
-                  {deeplinkLabel} →
+                  {deeplinkLabel ?? t("expertBanner.defaultDeeplinkLabel")} →
                 </button>
               )}
             </div>

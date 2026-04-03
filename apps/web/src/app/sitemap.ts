@@ -1,111 +1,108 @@
 import { MetadataRoute } from "next";
 import { destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
+import { locales, SITE_URL } from "@/i18n/routing";
 
-// Guide-Slugs mit echtem Seiteninhalt
 const GUIDE_SLUGS = ["reisefuehrer-antalya"];
 
-const BASE_URL = "https://www.urlaubfinder365.de";
+// Nicht-DE Locales für Alternate-URLs
+const NON_DEFAULT_LOCALES = locales.filter((l) => l !== "de");
+
+/** Erstellt alle Locale-Varianten einer URL als alternates-Objekt (für hreflang) */
+function withAlternates(path: string) {
+  const alternates: Record<string, string> = { de: `${SITE_URL}${path}` };
+  NON_DEFAULT_LOCALES.forEach((l) => {
+    alternates[l] = `${SITE_URL}/${l}${path}`;
+  });
+  return alternates;
+}
+
+/** Gibt DE + alle Sprachvarianten einer Seite zurück */
+function localizedEntries(
+  path: string,
+  opts: Pick<MetadataRoute.Sitemap[number], "lastModified" | "changeFrequency" | "priority">
+): MetadataRoute.Sitemap {
+  return [
+    // DE (kein Präfix – bestehende URL)
+    { url: `${SITE_URL}${path}`, ...opts, alternates: { languages: withAlternates(path) } },
+    // Alle anderen Sprachen
+    ...NON_DEFAULT_LOCALES.map((l) => ({
+      url: `${SITE_URL}/${l}${path}`,
+      ...opts,
+      alternates: { languages: withAlternates(path) },
+    })),
+  ];
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const today      = new Date();                    // Deal-Seiten: täglich frisch
-  const content    = new Date("2026-03-18");        // Content-Seiten: letztes größeres Update
-  const legal      = new Date("2025-01-01");        // Rechtliche Seiten: kaum Änderungen
+  const today   = new Date();
+  const content = new Date("2026-03-18");
+  const legal   = new Date("2025-01-01");
 
-  // Statische Seiten – nach SEO-Wert priorisiert
-  const staticPages: MetadataRoute.Sitemap = [
-    // ── Kernseiten (höchste Priorität) ──────────────────────────────────────
-    { url: `${BASE_URL}/`, lastModified: today, changeFrequency: "daily", priority: 1.0 },
-    { url: `${BASE_URL}/last-minute/`, lastModified: today, changeFrequency: "daily", priority: 0.95 },
-    { url: `${BASE_URL}/guenstig-urlaub-buchen/`, lastModified: today, changeFrequency: "daily", priority: 0.95 },
-    { url: `${BASE_URL}/urlaubsziele/`, lastModified: content, changeFrequency: "weekly", priority: 0.92 },
-    // ── Buchungs-Einstiegsseiten ─────────────────────────────────────────────
-    { url: `${BASE_URL}/urlaubsarten/pauschalreisen/`, lastModified: content, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/urlaubsarten/all-inclusive-urlaub/`, lastModified: content, changeFrequency: "weekly", priority: 0.88 },
-    { url: `${BASE_URL}/urlaubsarten/last-minute-urlaub/`, lastModified: today, changeFrequency: "daily", priority: 0.85 },
-    { url: `${BASE_URL}/urlaubsarten/super-last-minute-urlaub/`, lastModified: today, changeFrequency: "daily", priority: 0.82 },
-    { url: `${BASE_URL}/kreuzfahrten/`, lastModified: content, changeFrequency: "weekly", priority: 0.82 },
-    { url: `${BASE_URL}/flugsuche/`, lastModified: content, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/hotelsuche/`, lastModified: content, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/urlaubsarten/fruhbucher-urlaub/`, lastModified: content, changeFrequency: "weekly", priority: 0.78 },
-    { url: `${BASE_URL}/urlaubsarten/`, lastModified: content, changeFrequency: "weekly", priority: 0.78 },
-    { url: `${BASE_URL}/mietwagen-reservieren/`, lastModified: content, changeFrequency: "weekly", priority: 0.72 },
-    // ── Content / Ratgeber ───────────────────────────────────────────────────
-    { url: `${BASE_URL}/urlaubsguides/`, lastModified: content, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/guide/`, lastModified: content, changeFrequency: "weekly", priority: 0.75 },
-    { url: `${BASE_URL}/aktivitaeten/`, lastModified: today, changeFrequency: "daily", priority: 0.8 },
-    { url: `${BASE_URL}/tipps/reise-packliste/`, lastModified: content, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${BASE_URL}/extras/reisenden-karte/`, lastModified: content, changeFrequency: "weekly", priority: 0.72 },
-    // ── Community ────────────────────────────────────────────────────────────
-    { url: `${BASE_URL}/community/`, lastModified: today, changeFrequency: "daily", priority: 0.82 },
-    { url: `${BASE_URL}/community/reiseberichte/`, lastModified: today, changeFrequency: "daily", priority: 0.8 },
-    { url: `${BASE_URL}/community/gruppen/`, lastModified: today, changeFrequency: "daily", priority: 0.78 },
-    { url: `${BASE_URL}/community/mitglieder/`, lastModified: today, changeFrequency: "weekly", priority: 0.7 },
-    // ── Linkable / PR ────────────────────────────────────────────────────────
-    { url: `${BASE_URL}/presse/`, lastModified: content, changeFrequency: "monthly", priority: 0.55 },
-    // ── Rechtliche Pflichtseiten ─────────────────────────────────────────────
-    { url: `${BASE_URL}/impressum/`, lastModified: legal, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/datenschutz/`, lastModified: legal, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE_URL}/agb/`, lastModified: legal, changeFrequency: "yearly", priority: 0.3 },
+  // ── Statische Kernseiten ────────────────────────────────────────────────────
+  const staticPages = [
+    ...localizedEntries("/",                                   { lastModified: today,   changeFrequency: "daily",   priority: 1.0 }),
+    ...localizedEntries("/last-minute/",                       { lastModified: today,   changeFrequency: "daily",   priority: 0.95 }),
+    ...localizedEntries("/guenstig-urlaub-buchen/",            { lastModified: today,   changeFrequency: "daily",   priority: 0.95 }),
+    ...localizedEntries("/urlaubsziele/",                      { lastModified: content, changeFrequency: "weekly",  priority: 0.92 }),
+    ...localizedEntries("/urlaubsarten/pauschalreisen/",       { lastModified: content, changeFrequency: "weekly",  priority: 0.9 }),
+    ...localizedEntries("/urlaubsarten/all-inclusive-urlaub/", { lastModified: content, changeFrequency: "weekly",  priority: 0.88 }),
+    ...localizedEntries("/urlaubsarten/last-minute-urlaub/",   { lastModified: today,   changeFrequency: "daily",   priority: 0.85 }),
+    ...localizedEntries("/kreuzfahrten/",                      { lastModified: content, changeFrequency: "weekly",  priority: 0.82 }),
+    ...localizedEntries("/flugsuche/",                         { lastModified: content, changeFrequency: "weekly",  priority: 0.8 }),
+    ...localizedEntries("/hotelsuche/",                        { lastModified: content, changeFrequency: "weekly",  priority: 0.8 }),
+    ...localizedEntries("/urlaubsguides/",                     { lastModified: content, changeFrequency: "weekly",  priority: 0.8 }),
+    ...localizedEntries("/aktivitaeten/",                      { lastModified: today,   changeFrequency: "daily",   priority: 0.8 }),
+    ...localizedEntries("/marktplatz/",                        { lastModified: today,   changeFrequency: "daily",   priority: 0.82 }),
+    ...localizedEntries("/urlaubsarten/fruhbucher-urlaub/",    { lastModified: content, changeFrequency: "weekly",  priority: 0.78 }),
+    ...localizedEntries("/urlaubsarten/",                      { lastModified: content, changeFrequency: "weekly",  priority: 0.78 }),
+    ...localizedEntries("/mietwagen-reservieren/",             { lastModified: content, changeFrequency: "weekly",  priority: 0.72 }),
+    ...localizedEntries("/community/",                         { lastModified: today,   changeFrequency: "daily",   priority: 0.82 }),
+    ...localizedEntries("/community/reiseberichte/",           { lastModified: today,   changeFrequency: "daily",   priority: 0.8 }),
+    ...localizedEntries("/community/gruppen/",                 { lastModified: today,   changeFrequency: "daily",   priority: 0.78 }),
+    ...localizedEntries("/presse/",                            { lastModified: content, changeFrequency: "monthly", priority: 0.55 }),
+    ...localizedEntries("/impressum/",                         { lastModified: legal,   changeFrequency: "yearly",  priority: 0.3 }),
+    ...localizedEntries("/datenschutz/",                       { lastModified: legal,   changeFrequency: "yearly",  priority: 0.3 }),
+    ...localizedEntries("/agb/",                               { lastModified: legal,   changeFrequency: "yearly",  priority: 0.3 }),
   ];
 
-  // Rich destination pages (vollständige Seiten mit Inhalten) → höchste Prio
-  const richDestinationPages: MetadataRoute.Sitemap = destinations.map((d) => ({
-    url: `${BASE_URL}/urlaubsziele/${d.slug}/`,
-    lastModified: today,
-    changeFrequency: "daily" as const,
-    priority: 0.95,
-  }));
+  // ── Destination-Seiten mit allen Sprachvarianten ────────────────────────────
+  const richDestinationPages = destinations.flatMap((d) =>
+    localizedEntries(`/urlaubsziele/${d.slug}/`, { lastModified: today, changeFrequency: "daily", priority: 0.95 })
+  );
 
-  // Katalog: nur Super-Regionen (Länder/große Regionen wie "türkei", "spanien" etc.)
-  // Sub-Regionen (202 Städte/Resorts wie "antalya-side", "mallorca-playa") werden bewusst
-  // NICHT in die Sitemap aufgenommen – sie haben zu wenig Unique Content und verschwenden
-  // Crawl-Budget. Google findet sie weiterhin über interne Links (z.B. von der Super-Region).
   const richSlugs = new Set(destinations.map((d) => d.slug));
-  const catalogPages: MetadataRoute.Sitemap = CATALOG.filter(
+  const catalogPages = CATALOG.filter(
     (e) => !richSlugs.has(e.slug) && e.type === "super"
-  ).map((e) => ({
-    url: `${BASE_URL}/urlaubsziele/${e.slug}/`,
-    lastModified: content,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  ).flatMap((e) =>
+    localizedEntries(`/urlaubsziele/${e.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.8 })
+  );
 
-  // Guide-Seiten (urlaubsguides/ = SEO-Guides aus Firestore/CMS)
-  const guidePages: MetadataRoute.Sitemap = destinations
+  const guidePages = destinations
     .filter((d) => d.guideSlug)
-    .map((d) => ({
-      url: `${BASE_URL}/urlaubsguides/${d.guideSlug}/`,
-      lastModified: content,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
+    .flatMap((d) =>
+      localizedEntries(`/urlaubsguides/${d.guideSlug}/`, { lastModified: content, changeFrequency: "monthly", priority: 0.7 })
+    );
 
-  // /guide/[slug]/ Seiten (statische Reiseführer)
-  const staticGuidePages: MetadataRoute.Sitemap = GUIDE_SLUGS.map((slug) => ({
-    url: `${BASE_URL}/guide/${slug}/`,
-    lastModified: content,
-    changeFrequency: "monthly" as const,
-    priority: 0.72,
-  }));
+  const staticGuidePages = GUIDE_SLUGS.flatMap((slug) =>
+    localizedEntries(`/guide/${slug}/`, { lastModified: content, changeFrequency: "monthly", priority: 0.72 })
+  );
 
-  // Aktivitäten-Stadtseiten (alle Destinations mit tiqetsCityId)
-  const aktivitaetenPages: MetadataRoute.Sitemap = destinations
+  const aktivitaetenPages = destinations
     .filter((d) => d.tiqetsCityId)
     .flatMap((d) => [
-      {
-        url: `${BASE_URL}/aktivitaeten/${d.slug}/`,
-        lastModified: content,
-        changeFrequency: "weekly" as const,
-        priority: 0.78,
-      },
-      ...(d.tiqetsNiches ?? []).map((n) => ({
-        url: `${BASE_URL}/aktivitaeten/${d.slug}/${n.slug}/`,
-        lastModified: content,
-        changeFrequency: "weekly" as const,
-        priority: 0.72,
-      })),
+      ...localizedEntries(`/aktivitaeten/${d.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.78 }),
+      ...(d.tiqetsNiches ?? []).flatMap((n) =>
+        localizedEntries(`/aktivitaeten/${d.slug}/${n.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.72 })
+      ),
     ]);
 
-  return [...staticPages, ...richDestinationPages, ...catalogPages, ...guidePages, ...staticGuidePages, ...aktivitaetenPages];
+  return [
+    ...staticPages,
+    ...richDestinationPages,
+    ...catalogPages,
+    ...guidePages,
+    ...staticGuidePages,
+    ...aktivitaetenPages,
+  ];
 }

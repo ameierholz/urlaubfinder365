@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createSupabaseBrowser } from "@/lib/supabase-browser";
-import { Megaphone, ChevronDown, ChevronUp, CheckCircle, Loader2, X } from "lucide-react";
+import { Megaphone, ChevronDown, ChevronUp, Loader2, X } from "lucide-react";
 
 const KATEGORIEN_LABELS: Record<string, string> = {
   stadtfuehrung: "Stadtführungen", tagesausflug: "Tagesausflüge",
@@ -97,7 +96,7 @@ interface Props {
 }
 
 export default function WerbeplatzBuchen({ anbieter_id, angebot_id }: Props) {
-  const sb = createSupabaseBrowser();
+  void anbieter_id; void angebot_id; // werden im neuen Flow über die Session geladen
   const [open, setOpen]           = useState(false);
   const [selectedId, setSelectedId] = useState<PaketId | null>(null);
   const [laufzeit, setLaufzeit]   = useState(1);
@@ -118,30 +117,28 @@ export default function WerbeplatzBuchen({ anbieter_id, angebot_id }: Props) {
     if (!paket || !isZielseiteValid) return;
     setLoading(true);
     setError("");
-
-    const { error: err } = await sb.from("werbeplaetze_buchungen" as never).insert({
-      anbieter_id,
-      angebot_id: angebot_id || null,
-      paket: paket.id,
-      zielseite: zielseite || null,
-      laufzeit_monate: laufzeit,
-      preis_monatlich: preisMonat,
-      preis_gesamt: preisGesamt,
-      status: "angefragt",
-    } as never);
-
-    setLoading(false);
-    if (err) { setError(err.message); return; }
-    setDone(true);
+    try {
+      const res = await fetch("/api/werbeplatz/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paket:           paket.id,
+          laufzeit_monate: laufzeit,
+          zielseite:       zielseite || undefined,
+        }),
+      });
+      const data = await res.json() as { url?: string; error?: string };
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Fehler beim Checkout");
+        setLoading(false);
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      setError("Netzwerkfehler. Bitte versuche es erneut.");
+      setLoading(false);
+    }
   };
-
-  if (done) return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 text-center">
-      <CheckCircle className="w-10 h-10 text-emerald-500 mx-auto mb-3" />
-      <p className="font-bold text-gray-900 text-sm">Anfrage gesendet!</p>
-      <p className="text-xs text-gray-500 mt-1">Wir schalten deinen Werbeplatz innerhalb von 24 h frei.</p>
-    </div>
-  );
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -292,7 +289,7 @@ export default function WerbeplatzBuchen({ anbieter_id, angebot_id }: Props) {
               </div>
 
               <p className="text-[11px] text-gray-400 leading-relaxed">
-                Nach Eingang deiner Anfrage schalten wir den Werbeplatz innerhalb von 24 Stunden frei. Die Abrechnung erfolgt per Rechnung.
+                Sichere Zahlung via Stripe · Monatlich abgebucht · Läuft nach Laufzeit automatisch aus · Freischaltung nach Inhaltsprüfung (max. 24 h)
               </p>
 
               {error && <p className="text-xs text-red-600 bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
@@ -304,8 +301,8 @@ export default function WerbeplatzBuchen({ anbieter_id, angebot_id }: Props) {
                 className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-bold py-3 rounded-xl text-sm transition-colors"
               >
                 {loading
-                  ? <><Loader2 className="w-4 h-4 animate-spin" /> Wird gesendet …</>
-                  : "Werbeplatz anfragen →"
+                  ? <><Loader2 className="w-4 h-4 animate-spin" /> Weiterleitung zu Stripe …</>
+                  : `Jetzt buchen · ${preisGesamt.toFixed(2)} €`
                 }
               </button>
             </div>

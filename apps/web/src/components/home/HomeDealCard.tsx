@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Clock, Flame, Plane, Utensils, Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { TravelOffer } from "@/types";
 import { formatPrice } from "@/lib/travel-api";
 import { useAuth } from "@/context/AuthContext";
@@ -32,22 +33,14 @@ function getImg(offer: { images?: { large?: string; medium?: string }; country_n
   return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80";
 }
 
-const EDITORIAL: Record<string, string> = {
-  türkei:       "Sonne an der türkischen Riviera",
-  spanien:      "Auszeit unter Palmen",
-  griechenland: "Griechisches Flair",
-  ägypten:      "Sonne für die Seele",
-  italien:      "La Dolce Vita erleben",
-  kroatien:     "Adria-Traumküste erleben",
+const EDITORIAL_KEYS: Record<string, string> = {
+  türkei:       "tuerkei",
+  spanien:      "spanien",
+  griechenland: "griechenland",
+  ägypten:      "aegypten",
+  italien:      "italien",
+  kroatien:     "kroatien",
 };
-
-function getHeadline(offer: TravelOffer): string {
-  const c = (offer.country_name ?? "").toLowerCase();
-  for (const [key, val] of Object.entries(EDITORIAL)) {
-    if (c.includes(key)) return val;
-  }
-  return `Traumurlaub in ${offer.country_name ?? "Europa"}`;
-}
 
 /** Saubere Ortsangabe: "Sardinien · Italien" statt "Olbia, Sardinien, Italien" */
 function getLocation(offer: TravelOffer): string {
@@ -63,11 +56,20 @@ function getLocation(offer: TravelOffer): string {
 }
 
 export default function HomeDealCard({ offer, priority = false }: Props) {
+  const t = useTranslations("dealCard");
   const { user } = useAuth();
   const [saved, setSaved]           = useState(false);
   const [saving, setSaving]         = useState(false);
   const [showModal, setShowModal]   = useState(false);
   const rec = Number(offer.rating?.recommendation ?? 0);
+
+  function getHeadline(o: TravelOffer): string {
+    const c = (o.country_name ?? "").toLowerCase();
+    for (const [key, editKey] of Object.entries(EDITORIAL_KEYS)) {
+      if (c.includes(key)) return t(`editorial.${editKey}`);
+    }
+    return t("editorial.fallback", { country: o.country_name ?? "Europa" });
+  }
 
   const handleSave = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -125,7 +127,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         {/* TOP DEAL – oben links */}
         <div className="absolute top-3 left-3 flex items-center gap-1 bg-linear-to-r from-red-700 to-sand-600 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none">
           <Flame className="w-2.5 h-2.5" />
-          Top Deal
+          {t("topDeal")}
         </div>
 
         {/* Herz-Button oben rechts */}
@@ -135,7 +137,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
           className={`absolute top-2 right-2 w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
             saved ? "bg-rose-500 text-white scale-110" : "bg-white/90 text-gray-400 hover:bg-white hover:text-rose-500"
           }`}
-          title={saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern"}
+          title={saved ? t("savedInProfile") : t("saveToProfile")}
         >
           <Heart className="w-4 h-4" fill={saved ? "currentColor" : "none"} />
         </button>
@@ -143,7 +145,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         {/* Weiterempfehlung oben rechts */}
         {rec >= 90 && (
           <span className={`absolute top-3 right-3 flex items-center gap-1 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md leading-none ${rec >= 95 ? "bg-green-500/90" : "bg-emerald-500/90"}`}>
-            ✓ {rec}% empfohlen
+            ✓ {t("recommended", { pct: rec })}
           </span>
         )}
 
@@ -165,10 +167,10 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         {/* Info-Zeile */}
         <div className="px-4 pt-3 pb-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-white/10">
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Clock className="w-4 h-4 text-gray-500 shrink-0" />{offer.offer_duration} Nächte
+            <Clock className="w-4 h-4 text-gray-500 shrink-0" />{t("nights", { count: offer.offer_duration })}
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Plane className="w-4 h-4 text-sky-400 shrink-0" />inkl. Flug
+            <Plane className="w-4 h-4 text-sky-400 shrink-0" />{t("inclFlight")}
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
             <Utensils className="w-4 h-4 text-sand-400 shrink-0" />{offer.board_name}
@@ -178,12 +180,12 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
         {/* Preis + CTA */}
         <div className="px-4 pt-3 pb-4 mt-auto flex items-center justify-between gap-3">
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">Pro Person</p>
+            <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{t("perPerson")}</p>
             <p className="text-3xl font-black text-sand-400 leading-none">{formatPrice(offer.offer_price_adult)}</p>
-            <p className="text-[10px] text-gray-500 mt-1">Gesamt {formatPrice(offer.offer_price_total)}</p>
+            <p className="text-[10px] text-gray-500 mt-1">{t("total")} {formatPrice(offer.offer_price_total)}</p>
           </div>
           <span className="shrink-0 bg-linear-to-r from-sand-500 to-sand-600 group-hover:from-sand-400 group-hover:to-sand-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-sand-900/40 text-center leading-snug">
-            Angebot<br />prüfen →
+            {t("checkOfferLine1")}<br />{t("checkOfferLine2")}
           </span>
         </div>
 

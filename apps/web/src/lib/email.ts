@@ -10,6 +10,7 @@ export const FROM_BUCHUNG = "Urlaubfinder365 Buchungen <buchungen@urlaubfinder36
 export async function sendMail(opts: {
   to: string;
   from?: string;
+  replyTo?: string;
   subject: string;
   react: React.ReactElement;
   attachments?: { filename: string; content: Buffer }[];
@@ -17,6 +18,7 @@ export async function sendMail(opts: {
   const { error } = await resend.emails.send({
     from: opts.from ?? FROM_DEFAULT,
     to: opts.to,
+    replyTo: opts.replyTo,
     subject: opts.subject,
     react: opts.react,
     attachments: opts.attachments,

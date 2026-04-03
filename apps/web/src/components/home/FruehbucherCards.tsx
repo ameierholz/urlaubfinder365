@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Heart } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { TravelOffer } from "@/types";
 import { formatPrice } from "@/lib/travel-api";
 import { useAuth } from "@/context/AuthContext";
@@ -98,6 +99,8 @@ function FruehbucherCard({
   fromDays: number;
   toDays: number;
 }) {
+  const t = useTranslations("fruehbucher");
+  const tDeal = useTranslations("dealCard");
   const { user } = useAuth();
   const [saved, setSaved]         = useState(false);
   const [saving, setSaving]       = useState(false);
@@ -136,13 +139,13 @@ function FruehbucherCard({
         <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent" />
         {/* Frühbucher Badge */}
         <span className="absolute top-2 right-2 bg-sand-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-          Frühbucher
+          {t("badge")}
         </span>
         {/* Herz */}
         <button
           onClick={handleSave}
           disabled={saving}
-          title={saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern"}
+          title={saved ? tDeal("savedInProfile") : tDeal("saveToProfile")}
           className="absolute top-1.5 left-1.5 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center hover:bg-black/50 transition-colors"
         >
           <Heart
@@ -167,20 +170,20 @@ function FruehbucherCard({
           {offer.destination_name || offer.city_name}, {dest}
         </p>
         <p className="text-xs text-gray-500 mb-2">
-          {offer.offer_duration} Nächte · inkl. Flug · {offer.board_name}
+          {t("nightsInclFlight", { nights: offer.offer_duration, board: offer.board_name })}
         </p>
         <div className="flex items-end justify-between gap-2">
           <div>
-            <span className="text-xs text-gray-500">pro Person</span>
+            <span className="text-xs text-gray-500">{t("perPerson")}</span>
             <p className="text-lg font-black text-sand-600 leading-none">
-              ab {formatPrice(offer.offer_price_adult)}
+              {t("from")} {formatPrice(offer.offer_price_adult)}
             </p>
             <p className="text-xs text-gray-500 mt-0.5">
-              Gesamt: {formatPrice(offer.offer_price_total)}
+              {t("total")} {formatPrice(offer.offer_price_total)}
             </p>
           </div>
           <span className="shrink-0 bg-sand-500 group-hover:bg-sand-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition-colors whitespace-nowrap">
-            Angebot prüfen →
+            {t("checkOffer")}
           </span>
         </div>
       </div>
@@ -191,6 +194,7 @@ function FruehbucherCard({
 }
 
 export default function FruehbucherCards({ deals }: Props) {
+  const t = useTranslations("fruehbucher");
   const { fromDays, toDays, fromDate, toDate } = getNextSummerRange();
   const fromLabel = fmtMonth(fromDate);
   const toLabel   = fmtMonth(toDate);
@@ -199,7 +203,7 @@ export default function FruehbucherCards({ deals }: Props) {
     <div>
       {/* Reisezeitraum-Anzeige außerhalb der Kacheln */}
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <span className="text-white/50 text-xs font-semibold">Von der Redaktion ausgewählte Angebote für den Reisezeitraum:</span>
+        <span className="text-white/50 text-xs font-semibold">{t("editorialLabel")}</span>
         <span className="text-sand-300 text-xs font-bold bg-white/10 border border-white/15 rounded-full px-3 py-0.5">
           {fromLabel} – {toLabel}
         </span>
@@ -215,7 +219,7 @@ export default function FruehbucherCards({ deals }: Props) {
             return (
               <button
                 key={fb.dest}
-                onClick={() => openModal(deeplink, `Frühbucher ${fb.dest}`)}
+                onClick={() => openModal(deeplink, `${t("badge")} ${fb.dest}`)}
                 className="group relative rounded-2xl overflow-hidden text-left hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
                 style={{ minHeight: "200px" }}
               >
@@ -230,11 +234,11 @@ export default function FruehbucherCards({ deals }: Props) {
                 <div className="relative h-full min-h-[200px] flex flex-col justify-end p-4 text-white">
                   <div className="flex items-center gap-1.5 mb-1">
                     <img src={`https://flagcdn.com/16x12/${fb.flag}.png`} alt={fb.dest} className="rounded-sm" width={16} height={12} />
-                    <span className="text-xs text-sand-300 font-bold uppercase tracking-wide">Frühbucher</span>
+                    <span className="text-xs text-sand-300 font-bold uppercase tracking-wide">{t("badge")}</span>
                   </div>
                   <p className="font-black text-lg leading-tight">{fb.dest}</p>
                   <span className="mt-2 inline-block text-xs bg-sand-500 text-white font-bold px-3 py-1 rounded-full w-fit group-hover:bg-sand-400 transition-colors">
-                    Angebot prüfen →
+                    {t("checkOffer")}
                   </span>
                 </div>
               </button>
