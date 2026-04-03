@@ -29,7 +29,10 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
-      { source: "/aktivitaeten/:path*", destination: "/marktplatz/:path*" },
+      // /aktivitaeten/ (root) zeigt Marktplatz; Sub-Routes (/aktivitaeten/[city]/) bleiben intakt
+      { source: "/aktivitaeten/", destination: "/marktplatz/" },
+      // Tiqets-Übersicht "Aktivitäten & Tickets weltweit" unter /erlebnisse/
+      { source: "/erlebnisse/", destination: "/aktivitaeten/" },
     ];
   },
 

@@ -535,8 +535,9 @@ export default function Header() {
       children: [
         { label: t("reiseziele"),    href: "/urlaubsziele",           icon: <Map          className="w-4 h-4" /> },
         { label: t("urlaubsguides"), href: "/urlaubsguides",          icon: <BookOpen     className="w-4 h-4" /> },
-        { label: "KI-Reiseplaner",   href: "/ki-reiseplaner/",        icon: <Sparkles     className="w-4 h-4" /> },
-        { label: "Visum-Checker",    href: "/visum-checker/",         icon: <ShieldCheck  className="w-4 h-4" /> },
+        { label: "KI-Reiseplaner",        href: "/ki-reiseplaner/",   icon: <Sparkles     className="w-4 h-4" /> },
+        { label: "Aktivitäten & Tickets", href: "/erlebnisse/",      icon: <Compass      className="w-4 h-4" /> },
+        { label: "Visum-Checker",         href: "/visum-checker/",   icon: <ShieldCheck  className="w-4 h-4" /> },
         { label: "Reiseversicherung",href: "/reiseversicherung/",     icon: <Star         className="w-4 h-4" /> },
         { label: "Urlaubskalender",  href: "/extras/urlaubskalender", icon: <Calendar     className="w-4 h-4" /> },
       ],
