@@ -21,6 +21,8 @@ function openModal(url: string, title: string) {
 }
 
 // ─── Kreuzfahrt-Destinationen ─────────────────────────────────────────────────
+// region-IDs: bitte im CruiseCompass Partner-Dashboard verifizieren
+// und ggf. &region=X an die jeweilige DL()-URL anhängen
 const CRUISE_DEALS = [
   {
     id: "mittelmeer",
@@ -31,7 +33,7 @@ const CRUISE_DEALS = [
     badge: "Bestseller",
     badgeColor: "bg-sand-500",
     img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
-    url: DL("&type=NS"),
+    url: DL("&type=K&sort=pauf&region=1"),   // region=1 → Mittelmeer
     label: "Mittelmeer-Kreuzfahrt",
   },
   {
@@ -43,7 +45,7 @@ const CRUISE_DEALS = [
     badge: "Traumziel",
     badgeColor: "bg-emerald-500",
     img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-    url: DL("&type=NS"),
+    url: DL("&type=K&sort=pauf&region=6"),   // region=6 → Karibik (bitte prüfen)
     label: "Karibik-Kreuzfahrt",
   },
   {
@@ -55,7 +57,7 @@ const CRUISE_DEALS = [
     badge: "Erlebnis",
     badgeColor: "bg-sky-600",
     img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
-    url: DL("&type=NS"),
+    url: DL("&type=K&sort=pauf&region=3"),   // region=3 → Nordeuropa (bitte prüfen)
     label: "Nordeuropa-Kreuzfahrt",
   },
   {
@@ -67,19 +69,19 @@ const CRUISE_DEALS = [
     badge: "Gemütlich",
     badgeColor: "bg-teal-600",
     img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80",
-    url: DL("&type=R"),
+    url: DL("&type=R&sort=pauf"),            // Fluss: kein region-Filter nötig
     label: "Flusskreuzfahrt",
   },
 ];
 
 // ─── Kreuzfahrt-Typen (Schnellauswahl) ────────────────────────────────────────
 const QUICK_TYPES = [
-  { icon: Ship,    label: "Hochsee",        url: DL("&type=NS"),    title: "Hochseekreuzfahrten" },
-  { icon: Plane,   label: "Inkl. Flug",     url: DL("&type=S"),     title: "Kreuzfahrt + Flug" },
-  { icon: Waves,   label: "Fluss",          url: DL("&type=R"),     title: "Flusskreuzfahrten" },
-  { icon: Compass, label: "Kombi",          url: DL("&type=KOMBI"), title: "Kreuzfahrt + Hotel" },
-  { icon: Zap,     label: "Last-Minute",    url: DL("&sort=pauf"),  title: "Last-Minute Kreuzfahrten" },
-  { icon: Anchor,  label: "Alle Angebote",  url: DL(),              title: "Alle Kreuzfahrten" },
+  { icon: Ship,    label: "Hochsee",        url: DL("&type=NS&sort=pauf"),    title: "Hochseekreuzfahrten" },
+  { icon: Plane,   label: "Inkl. Flug",     url: DL("&type=S&sort=pauf"),     title: "Kreuzfahrt + Flug" },
+  { icon: Waves,   label: "Fluss",          url: DL("&type=R&sort=pauf"),     title: "Flusskreuzfahrten" },
+  { icon: Compass, label: "Kombi",          url: DL("&type=KOMBI&sort=pauf"), title: "Kreuzfahrt + Hotel" },
+  { icon: Zap,     label: "Last-Minute",    url: DL("&sort=pauf&sdt=1&bdt=14"), title: "Last-Minute Kreuzfahrten" },
+  { icon: Anchor,  label: "Alle Angebote",  url: DL("&sort=pauf"),            title: "Alle Kreuzfahrten" },
 ];
 
 export default function HomeCruiseSection() {
