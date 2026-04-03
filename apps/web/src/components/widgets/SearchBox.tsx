@@ -14,7 +14,7 @@ const WIDGET_SRC =
  */
 export default function SearchBox() {
   const [ready, setReady] = useState(false);
-  const [height, setHeight] = useState(500);
+  const [height, setHeight] = useState(220);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Lazy-load nach erstem Paint
@@ -46,7 +46,7 @@ export default function SearchBox() {
 
       // Sinnvolle Werte: 150–1200 px, und nie kleiner als 450 px (Mobilschutz)
       if (newH >= 150 && newH <= 1200) {
-        setHeight(Math.max(newH, 500));
+        setHeight(newH);
       }
     }
 
