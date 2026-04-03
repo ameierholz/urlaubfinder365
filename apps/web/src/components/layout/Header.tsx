@@ -497,7 +497,7 @@ export default function Header() {
     { id: "hotel",       label: t("hotel"),       href: "/hotelsuche" },
     { id: "mietwagen",   label: t("mietwagen"),   href: "/mietwagen-reservieren" },
     { id: "kreuzfahrt",  label: t("kreuzfahrt"),  href: "/kreuzfahrten" },
-    { id: "marktplatz",  label: t("aktivitaeten"), href: "/marktplatz/" },
+    { id: "marktplatz",  label: t("aktivitaeten"), href: "/aktivitaeten/" },
     {
       id: "urlaubsarten",
       label: t("urlaubsarten"),

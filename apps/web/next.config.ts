@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   },
 
+  async rewrites() {
+    return [
+      { source: "/aktivitaeten/:path*", destination: "/marktplatz/:path*" },
+    ];
+  },
+
   async headers() {
     return [
       {
