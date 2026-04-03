@@ -24,7 +24,7 @@ export default function QuickCategories({ transparent = false }: { transparent?:
           href={href}
           className={`group relative flex flex-col items-center gap-2.5 py-4 px-3 text-center transition-all duration-200
             ${transparent
-              ? "border-r border-white/10 last:border-r-0 hover:bg-white/10"
+              ? "border-r border-white/10 last:border-r-0"
               : "border-r border-gray-100 last:border-r-0 hover:bg-gray-50"
             }`}
         >
