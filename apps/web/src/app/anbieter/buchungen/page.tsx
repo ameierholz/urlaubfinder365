@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Buchungen | Anbieter-Portal" };
 
 const STATUS_INFO: Record<string, { label: string; cls: string }> = {
-  ausstehend:   { label: "⏳ Ausstehend",   cls: "bg-amber-100 text-amber-700" },
-  bestaetigt:   { label: "✓ Bestätigt",     cls: "bg-blue-100 text-blue-700" },
-  abgeschlossen:{ label: "✅ Abgeschlossen", cls: "bg-emerald-100 text-emerald-700" },
-  storniert:    { label: "✗ Storniert",     cls: "bg-red-100 text-red-600" },
+  ausstehend:   { label: "⏳ Zahlung ausstehend",        cls: "bg-amber-100 text-amber-700" },
+  bestaetigt:   { label: "✓ Buchung eingegangen & bezahlt", cls: "bg-emerald-100 text-emerald-700" },
+  abgeschlossen:{ label: "✅ Abgeschlossen",              cls: "bg-blue-100 text-blue-700" },
+  storniert:    { label: "✗ Storniert",                  cls: "bg-red-100 text-red-600" },
 };
 
 export default async function AnbieterBuchungenPage() {
@@ -70,8 +70,8 @@ export default async function AnbieterBuchungenPage() {
                   <div><span className="text-gray-400 block">Personen</span>{b.personen}</div>
                 </div>
 
-                {b.status === "ausstehend" && (
-                  <BuchungStatusButton buchungId={b.id} />
+                {(b.status === "ausstehend" || b.status === "bestaetigt") && (
+                  <BuchungStatusButton buchungId={b.id} status={b.status} />
                 )}
               </div>
             );
