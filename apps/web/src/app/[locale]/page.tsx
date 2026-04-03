@@ -351,7 +351,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* ══════════════════════════════════════════════════════════
           1 · HERO  –  Cinematic Full-Viewport
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative text-white flex flex-col -mt-20" style={{ minHeight: "55vh", overflow: "visible" }}>
+      <section className="relative text-white flex flex-col -mt-20" style={{ minHeight: "min(90vh, 820px)", overflow: "visible" }}>
 
         {/* ── Hintergrundbild ── */}
         <Image
