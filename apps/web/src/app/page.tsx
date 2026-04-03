@@ -407,7 +407,7 @@ export default async function HomePage() {
           </div>
 
           {/* ── SearchBox – overflow-visible damit Dropdown nicht clippt ── */}
-          <div style={{ overflow: "visible", position: "relative", zIndex: 20 }} className="-ml-5">
+          <div style={{ overflow: "visible", position: "relative", zIndex: 20 }} className="-ml-4">
             <SearchBox />
           </div>
 
