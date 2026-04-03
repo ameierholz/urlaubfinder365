@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Sun, Mail, Phone } from "lucide-react";
 import { destinations } from "@/lib/destinations";
+import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
 
 export default function Footer() {
   return (
@@ -13,9 +14,10 @@ export default function Footer() {
               <Sun className="w-6 h-6 text-sand-400" />
               Urlaubfinder<span className="text-sand-400">365</span>
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed">
+            <p className="text-sm text-gray-400 leading-relaxed mb-4">
               Dein Reiseportal für Pauschalreisen, Last-Minute Angebote und hilfreiche Reiseführer.
             </p>
+            <TrustpilotWidget theme="dark" />
           </div>
 
           {/* Urlaubsziele */}
