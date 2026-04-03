@@ -32,11 +32,11 @@ const ZIEL_SEKTIONEN = [
 ];
 
 // ── Aktivitäts-Karte ────────────────────────────────────────────────────────
-function AktivitaetKarte({ a }: { a: typeof AKTIVITAETEN[0] }) {
+function AktivitaetKarte({ a, className = "" }: { a: typeof AKTIVITAETEN[0]; className?: string }) {
   return (
     <Link
       href={`/marktplatz/${a.slug}/`}
-      className="group shrink-0 w-64 sm:w-72 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+      className={`group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${className}`}
     >
       {/* Foto */}
       <div className="relative h-44 overflow-hidden">
@@ -126,7 +126,7 @@ function ScrollSection({ titel, items }: { titel: string; items: typeof AKTIVITA
         </div>
       </div>
       <div ref={ref} className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth">
-        {items.map((a) => <AktivitaetKarte key={a.slug} a={a} />)}
+        {items.map((a) => <AktivitaetKarte key={a.slug} a={a} className="shrink-0 w-64 sm:w-72" />)}
       </div>
     </section>
   );
