@@ -126,7 +126,7 @@ function ScrollSection({ titel, items }: { titel: string; items: typeof AKTIVITA
         </div>
       </div>
       <div ref={ref} className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth">
-        {items.map((a) => <AktivitaetKarte key={a.slug} a={a} className="shrink-0 w-64 sm:w-72" />)}
+        {items.map((a) => <AktivitaetKarte key={a.slug} a={a} className="shrink-0 w-52 sm:w-56" />)}
       </div>
     </section>
   );
