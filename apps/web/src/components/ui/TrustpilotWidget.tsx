@@ -66,7 +66,7 @@ export default function TrustpilotWidget({
       data-template-id={templateId}
       data-businessunit-id={BUSINESS_UNIT_ID}
       data-style-height={height}
-      data-style-width="100%"
+      data-style-width="200px"
       data-style-alignment="left"
       data-theme={theme}
       style={{ display: "block", textAlign: "left" }}
