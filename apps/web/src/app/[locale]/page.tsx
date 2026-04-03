@@ -351,30 +351,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* ══════════════════════════════════════════════════════════
           1 · HERO  –  Cinematic Full-Viewport
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative text-white flex flex-col -mt-20" style={{ minHeight: "min(90vh, 820px)", overflow: "visible" }}>
-
-        {/* ── Hintergrundbild ── */}
-        <Image
-          src={HERO_BG}
-          alt="Infinity Pool mit Meerblick – Pauschalreisen günstig buchen"
-          fill
-          className="object-cover object-[center_40%]"
-          priority
-          fetchPriority="high"
-          sizes="100vw"
-        />
-
+      <section
+        className="relative text-white flex flex-col -mt-20"
+        style={{
+          backgroundImage: `url(${HERO_BG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 40%",
+          overflow: "visible",
+        }}
+      >
         {/* ── Cinematic Overlays ── */}
-        {/* Links abdunkeln für Text-Lesbarkeit */}
-        <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10" />
-        {/* Unten abdunkeln für SearchBox-Übergang */}
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/30" />
-        {/* Nahtloser Übergang zum Deals-Banner */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-b from-transparent to-[#1a1200]" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
 
-        {/* ── Haupt-Content – vertikal zentriert ── */}
-        {/* overflow-visible damit SearchBox-Dropdown nicht abgeschnitten wird */}
-        <div className="relative flex-1 flex flex-col justify-start max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-32 pb-4" style={{ overflow: "visible" }}>
+        {/* ── Haupt-Content ── */}
+        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-32 pb-6" style={{ overflow: "visible" }}>
 
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4">
@@ -382,7 +373,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <span className="text-sand-400 text-xs font-bold uppercase tracking-[0.18em]">Täglich neue Reiseangebote</span>
           </div>
 
-          {/* H1 – auf Mobile umbrechen, ab sm eine Zeile */}
+          {/* H1 */}
           <h1
             className="font-black leading-tight mb-4 whitespace-normal sm:whitespace-nowrap"
             style={{ fontSize: "clamp(1.6rem, 4.5vw, 3.5rem)", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
@@ -410,18 +401,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <TrustpilotWidget theme="dark" templateId="5419b637fa0340045cd0c936" height="24px" />
           </div>
 
-          {/* ── SearchBox – overflow-visible damit Dropdown nicht clippt ── */}
+          {/* ── SearchBox ── */}
           <div style={{ overflow: "visible", position: "relative", zIndex: 20 }} className="-ml-4">
             <SearchBox />
           </div>
 
-          {/* ── QuickCategories – direkt unter der SearchBox ── */}
-          <div className="-mx-4 sm:-mx-6 lg:-mx-8">
-            <QuickCategories transparent />
-          </div>
         </div>
 
       </section>
+
+      {/* ── QuickCategories – direkt unter dem Hero ── */}
+      <div className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-7xl mx-auto">
+          <QuickCategories />
+        </div>
+      </div>
 
       {/* ══════════════════════════════════════════════════════════
           3 · DEAL-KACHELN (Top Angebote – live aus der API)
