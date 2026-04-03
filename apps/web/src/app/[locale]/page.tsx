@@ -12,7 +12,7 @@ import HomeCruiseSection from "@/components/home/HomeCruiseSection";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
 import FeaturedAngebotsCarousel from "@/components/home/FeaturedAngebotsCarousel";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -239,6 +239,7 @@ const SEO_LINKS = [
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("home");
   // Je 1 Top-Deal pro Land – täglich um Mitternacht frisch (ibeRegionIds)
   const [
     turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal,
@@ -374,7 +375,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-[2px] bg-sand-500 rounded-full" />
-            <span className="text-sand-400 text-xs font-bold uppercase tracking-[0.18em]">Täglich neue Reiseangebote</span>
+            <span className="text-sand-400 text-xs font-bold uppercase tracking-[0.18em]">{t("heroEyebrow")}</span>
           </div>
 
           {/* H1 */}
@@ -382,16 +383,16 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             className="font-black leading-tight mb-4 whitespace-normal sm:whitespace-nowrap"
             style={{ fontSize: "clamp(1.6rem, 4.5vw, 3.5rem)", textShadow: "0 2px 20px rgba(0,0,0,0.6)" }}
           >
-            Pauschalreisen & Urlaub günstig buchen –<br />
-            <span className="text-sand-400">Wir finden deinen Traumurlaub!</span>
+            {t("heroH1Line1")}<br />
+            <span className="text-sand-400">{t("heroH1Line2")}</span>
           </h1>
 
           {/* ── Trust-Badges ── */}
           <div className="flex flex-wrap gap-4 sm:gap-6 mb-4">
             {[
-              ["50+", "Veranstalter"],
-              ["100%", "Direkt buchen"],
-              ["täglich", "Aktualisiert"],
+              [t("heroTrust1Val"), t("heroTrust1Label")],
+              ["100%",            t("heroTrust2Label")],
+              [t("heroTrust3Val"), t("heroTrust3Label")],
             ].map(([val, label]) => (
               <div key={label} className="flex items-baseline gap-1.5">
                 <span className="text-sand-400 font-black text-lg" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>{val}</span>
@@ -447,13 +448,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 </div>
                 <div>
                   <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-2">
-                    <span className="text-xs font-bold text-sand-300 uppercase tracking-widest">🔥 TOP DEALS – Täglich um Mitternacht neu</span>
+                    <span className="text-xs font-bold text-sand-300 uppercase tracking-widest">{t("dealsEyebrow")}</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight whitespace-nowrap">
-                    Top Reiseangebote – täglich aktuell
+                    {t("dealsTitle")}
                   </h2>
                   <p className="text-sand-100/70 text-sm mt-1 hidden md:block">
-                    ≥ 90 % Weiterempfehlung · ≥ 70 Bewertungen · günstigstes Angebot pro Land
+                    {t("dealsSubtitle")}
                   </p>
                 </div>
               </div>
@@ -461,16 +462,16 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* MIDDLE – Länder-Flags */}
               <div className="flex-1 flex flex-wrap gap-2 justify-center">
                 {[
-                  ["tr", "Türkei"],
-                  ["es", "Spanien"],
-                  ["gr", "Griechenland"],
-                  ["eg", "Ägypten"],
-                  ["it", "Italien"],
-                  ["hr", "Kroatien"],
-                  ["pt", "Portugal"],
-                  ["bg", "Bulgarien"],
-                  ["cy", "Zypern"],
-                  ["tn", "Tunesien"],
+                  ["tr", t("countryTurkei")],
+                  ["es", t("countrySpanien")],
+                  ["gr", t("countryGriechenland")],
+                  ["eg", t("countryAegypten")],
+                  ["it", t("countryItalien")],
+                  ["hr", t("countryKroatien")],
+                  ["pt", t("countryPortugal")],
+                  ["bg", t("countryBulgarien")],
+                  ["cy", t("countryZypern")],
+                  ["tn", t("countryTunesien")],
                 ].map(([code, name]) => (
                   <div key={code} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-3 py-1.5 transition-colors">
                     <img
@@ -491,9 +492,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   href="/urlaubsziele/"
                   className="inline-flex items-center gap-2 bg-sand-500 hover:bg-sand-400 text-white font-black px-6 py-3.5 rounded-2xl transition-all shadow-lg hover:shadow-sand-500/40 hover:-translate-y-0.5 duration-200 whitespace-nowrap"
                 >
-                  Alle Urlaubsziele <ArrowRight className="w-4 h-4" />
+                  {t("allDestinations")} <ArrowRight className="w-4 h-4" />
                 </Link>
-                <p className="text-white/40 text-xs">Pauschalreisen für 2 Personen</p>
+                <p className="text-white/40 text-xs">{t("forTwoPax")}</p>
               </div>
 
             </div>
@@ -510,7 +511,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <Flame className="w-3 h-3" /> Top Deal
               </div>
               <p className="text-xs text-gray-500 font-medium">
-                Von der Redaktion täglich kuratiert · 1 Topangebot pro Land
+                {t("dealsLabel")}
               </p>
             </div>
 
@@ -533,7 +534,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               </div>
             ) : (
               <div className="text-center py-16 text-gray-400">
-                <p>Angebote werden geladen…</p>
+                <p>{t("dealsLoading")}</p>
               </div>
             )}
           </div>
@@ -566,9 +567,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* LEFT – Savings-Badge */}
               <div className="shrink-0 flex items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-sand-500 shadow-2xl shadow-sand-500/40 relative">
                 <div className="text-center text-white">
-                  <div className="text-xs font-bold uppercase tracking-widest opacity-80">bis zu</div>
+                  <div className="text-xs font-bold uppercase tracking-widest opacity-80">{t("fbBadgeUpTo")}</div>
                   <div className="text-5xl md:text-6xl font-black leading-none">60%</div>
-                  <div className="text-sm font-bold uppercase tracking-wide">Rabatt</div>
+                  <div className="text-sm font-bold uppercase tracking-wide">{t("fbBadgeDiscount")}</div>
                 </div>
                 <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/20 to-transparent" />
               </div>
@@ -576,26 +577,26 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* CENTER – Text */}
               <div className="flex-1 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1 mb-4">
-                  <span className="text-xs font-bold text-sand-300 uppercase tracking-widest">🌅 Frühbucher-Vorteil</span>
+                  <span className="text-xs font-bold text-sand-300 uppercase tracking-widest">{t("fbEyebrow")}</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-3">
-                  Jetzt früh buchen &amp; richtig sparen!
+                  {t("fbTitle")}
                 </h2>
                 <p className="text-blue-100/80 text-sm sm:text-base max-w-xl leading-relaxed mb-5">
-                  Wer früh plant, zahlt weniger. Sichere dir jetzt die besten Zimmer und günstigsten Preise für den Sommer 2027 – Frühbucher-Rabatte bis zu 60% gegenüber Last-Minute.
+                  {t("fbDesc")}
                 </p>
                 <div className="flex flex-wrap gap-3 justify-center md:justify-start">
                   <a
                     href="/urlaubsarten/fruhbucher-urlaub/"
                     className="inline-flex items-center gap-2 bg-sand-500 hover:bg-sand-600 text-white font-black px-7 py-3.5 rounded-2xl transition-all shadow-lg hover:shadow-sand-500/40 hover:-translate-y-0.5 duration-200"
                   >
-                    Frühbucher-Deals entdecken <ArrowRight className="w-4 h-4" />
+                    {t("fbCta1")} <ArrowRight className="w-4 h-4" />
                   </a>
                   <a
                     href="/last-minute/"
                     className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-7 py-3.5 rounded-2xl transition-all hover:-translate-y-0.5 duration-200"
                   >
-                    Last-Minute Deals
+                    {t("fbCta2")}
                   </a>
                 </div>
               </div>
@@ -603,10 +604,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* RIGHT – USP-Liste */}
               <div className="shrink-0 hidden lg:flex flex-col gap-3">
                 {[
-                  ["✓", "Beste Hotelzimmer sichern"],
-                  ["✓", "Bis zu 12 Monate im Voraus"],
-                  ["✓", "Flexible Stornierung"],
-                  ["✓", "Preisgarantie beim Veranstalter"],
+                  ["✓", t("fbUsp1")],
+                  ["✓", t("fbUsp2")],
+                  ["✓", t("fbUsp3")],
+                  ["✓", t("fbUsp4")],
                 ].map(([icon, text]) => (
                   <div key={text} className="flex items-center gap-3 text-white/90">
                     <span className="w-6 h-6 rounded-full bg-sand-500/30 border border-sand-400/50 text-sand-300 text-xs font-black flex items-center justify-center shrink-0">
@@ -650,10 +651,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* LEFT – Titel */}
               <div className="shrink-0 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-3">
-                  <span className="text-xs font-bold text-violet-300 uppercase tracking-widest">✓ Warum Urlaubfinder365?</span>
+                  <span className="text-xs font-bold text-violet-300 uppercase tracking-widest">{t("whyEyebrow")}</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-                  Dein Vorteil<br className="hidden md:block" /> bei uns
+                  {t("whyTitle").split("\n")[0]}<br className="hidden md:block" /> {t("whyTitle").split("\n")[1]}
                 </h2>
               </div>
 
@@ -663,10 +664,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {/* RIGHT – 4 Trust-Items */}
               <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { icon: ShieldCheck,    title: "Günstigster Preis",      text: "Täglich tausende Angebote verglichen – immer der beste Preis.",          color: "bg-teal-500",    shadow: "shadow-teal-500/40" },
-                  { icon: RefreshCcw,     title: "Täglich aktuell",        text: "Laufend von offiziellen Veranstaltern aktualisiert.",                    color: "bg-sand-500",  shadow: "shadow-sand-500/40" },
-                  { icon: BookOpen,       title: "Kostenlose Guides",      text: "Einreise, Klima & Tipps für dein Traumziel – gratis.",                   color: "bg-violet-500",  shadow: "shadow-violet-500/40" },
-                  { icon: HeartHandshake, title: "Sicher & direkt",        text: "Du buchst direkt beim Veranstalter – vertrauenswürdig ohne Umwege.",     color: "bg-emerald-500", shadow: "shadow-emerald-500/40" },
+                  { icon: ShieldCheck,    title: t("whyTrust1Title"), text: t("whyTrust1Text"), color: "bg-teal-500",    shadow: "shadow-teal-500/40" },
+                  { icon: RefreshCcw,     title: t("whyTrust2Title"), text: t("whyTrust2Text"), color: "bg-sand-500",    shadow: "shadow-sand-500/40" },
+                  { icon: BookOpen,       title: t("whyTrust3Title"), text: t("whyTrust3Text"), color: "bg-violet-500",  shadow: "shadow-violet-500/40" },
+                  { icon: HeartHandshake, title: t("whyTrust4Title"), text: t("whyTrust4Text"), color: "bg-emerald-500", shadow: "shadow-emerald-500/40" },
                 ].map(({ icon: Icon, title, text, color, shadow }) => (
                   <div key={title} className="flex flex-col items-center text-center gap-2.5">
                     <div className={`w-12 h-12 rounded-2xl ${color} flex items-center justify-center shadow-lg ${shadow}`}>
@@ -712,13 +713,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="absolute inset-0 flex flex-col justify-end p-7 sm:p-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-1 bg-sand-500 rounded-full" />
-                <span className="text-sand-400 text-xs font-bold uppercase tracking-widest" style={{ textShadow: "0 1px 4px rgba(0,0,0,.8)" }}>🌍 Top 10 – Deutschland · Österreich · Schweiz</span>
+                <span className="text-sand-400 text-xs font-bold uppercase tracking-widest" style={{ textShadow: "0 1px 4px rgba(0,0,0,.8)" }}>{t("destEyebrow")}</span>
               </div>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-none whitespace-nowrap" style={{ textShadow: "0 2px 8px rgba(0,0,0,.9)" }}>
-                Beliebte <span className="text-sand-400">Urlaubsziele</span>
+                {t("destTitle").replace(t("destTitleHighlight"), "").trim()} <span className="text-sand-400">{t("destTitleHighlight")}</span>
               </h2>
               <p className="text-white/75 text-sm mt-3 whitespace-nowrap" style={{ textShadow: "0 1px 4px rgba(0,0,0,.8)" }}>
-                Top-Destinationen der Deutschen · Preise für 7 Nächte / 2 Personen inkl. Flug
+                {t("destSubtitle")}
               </p>
             </div>
             {/* Preis + Flagge – oben rechts */}
@@ -732,7 +733,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
             {/* Kein <Link> hier – äußere Karte ist bereits ein <a> → span als CTA */}
             <span className="absolute bottom-5 right-5 inline-flex items-center gap-2 bg-white/15 hover:bg-sand-500 border border-white/30 text-white text-sm font-bold px-4 py-2 rounded-xl backdrop-blur-sm transition-all duration-200 cursor-pointer">
-              Alle Ziele <ArrowRight className="w-3.5 h-3.5" />
+              {t("destAllCta")} <ArrowRight className="w-3.5 h-3.5" />
             </span>
           </Link>
 
@@ -812,14 +813,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
               <div className="relative px-8 py-9 flex flex-col h-full">
                 <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1 mb-4 w-fit">
-                  <span className="text-xs font-bold text-white uppercase tracking-widest">🎯 Neu auf Urlaubfinder365</span>
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">{t("aktivEyebrow")}</span>
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-3">
-                  Aktivitäten &amp; Erlebnisse<br className="hidden sm:block" /> direkt buchen
+                  {t("aktivTitle")}
                 </h2>
                 <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6 max-w-md">
-                  Entdecke hunderte Touren, Ausflüge und Erlebnisse an deinem Urlaubsziel – von lokalen Anbietern, direkt buchbar, ohne Umweg.
+                  {t("aktivDesc")}
                 </p>
 
                 <div className="flex flex-wrap gap-3 mt-auto">
@@ -827,22 +828,22 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     href="/marktplatz/"
                     className="inline-flex items-center gap-2 bg-white text-teal-700 font-black px-6 py-3 rounded-2xl hover:bg-sand-50 transition-all shadow-lg hover:-translate-y-0.5 duration-200 text-sm"
                   >
-                    Marktplatz entdecken <ArrowRight className="w-4 h-4" />
+                    {t("aktivCta1")} <ArrowRight className="w-4 h-4" />
                   </a>
                   <a
                     href="/anbieter/"
                     className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-bold px-6 py-3 rounded-2xl hover:bg-white/25 transition-all hover:-translate-y-0.5 duration-200 text-sm"
                   >
-                    Anbieter werden
+                    {t("aktivCta2")}
                   </a>
                 </div>
 
                 {/* Stats */}
                 <div className="flex gap-6 mt-6 pt-5 border-t border-white/20">
                   {[
-                    ["250+", "Reiseziele"],
-                    ["100%", "Lokal & direkt"],
-                    ["Gratis", "Registrierung"],
+                    ["250+", t("aktivStat1Label")],
+                    ["100%", t("aktivStat2Label")],
+                    [t("aktivStat3Val"), t("aktivStat3Label")],
                   ].map(([val, label]) => (
                     <div key={label} className="text-center">
                       <div className="text-xl font-black text-white">{val}</div>
@@ -883,24 +884,24 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
               {/* Eyebrow-Badge */}
               <div className="inline-flex items-center gap-2 bg-violet-500/20 border border-violet-400/30 rounded-full px-3 py-1.5 mb-5">
-                <span className="text-violet-300 text-xs font-bold uppercase tracking-widest">✨ Für jeden das Richtige</span>
+                <span className="text-violet-300 text-xs font-bold uppercase tracking-widest">{t("lifestyleEyebrow")}</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">
-                <span className="text-white">Dein Lifestyle,</span>{" "}
+                <span className="text-white">{t("lifestyleTitle1")}</span>{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(90deg, #a78bfa, #f472b6)" }}
                 >
-                  deine Wahl!
+                  {t("lifestyleTitle2")}
                 </span>
               </h2>
 
               <p className="text-white/40 text-sm mt-4 leading-none">
-                Familie · Strand · Abenteuer · Städte uvm.
+                {t("lifestyleSub1")}
               </p>
               <p className="text-white/25 text-sm mt-1.5 leading-none">
-                Urlaub nach deinen Vorstellungen
+                {t("lifestyleSub2")}
               </p>
 
               {/* Farbige Akzentpunkte */}
@@ -914,7 +915,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 href="/urlaubsarten/"
                 className="mt-8 inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-black px-5 py-3.5 rounded-2xl transition-all duration-200 text-sm shadow-lg shadow-violet-900/50 hover:-translate-y-0.5"
               >
-                Alle Urlaubsarten <ArrowRight className="w-4 h-4" />
+                {t("lifestyleCta")} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
@@ -949,15 +950,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <div className="h-8 w-1.5 rounded-full bg-violet-500" />
               </div>
               <div>
-                <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">📚 Kostenloses Reisewissen</span>
-                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">Urlaubsguides</h2>
+                <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">{t("guidesEyebrow")}</span>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">{t("guidesTitle")}</h2>
               </div>
             </div>
             <Link
               href="/urlaubsguides/"
               className="inline-flex items-center gap-2 bg-gray-900 hover:bg-sand-500 text-white font-black px-5 py-2.5 rounded-2xl transition-all duration-200 text-sm shrink-0"
             >
-              Alle Guides <ArrowRight className="w-4 h-4" />
+              {t("guidesAllCta")} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
@@ -992,7 +993,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     {g.teaser}
                   </p>
                   <span className="mt-1.5 text-sand-400 font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Guide lesen <ArrowRight className="w-3 h-3" />
+                    {t("guidesReadCta")} <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
               </Link>
@@ -1034,16 +1035,16 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <div className="flex-1 text-center lg:text-left">
                   <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-4">
                     <Users className="w-3.5 h-3.5 text-emerald-300" />
-                    <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest">Reise-Community</span>
+                    <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest">{t("communityEyebrow")}</span>
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-3">
-                    Teile deine Reise.<br />
-                    <span className="text-emerald-300">Inspiriere andere.</span>
+                    {t("communityTitle1")}<br />
+                    <span className="text-emerald-300">{t("communityTitle2")}</span>
                   </h2>
 
                   <p className="text-emerald-100/80 text-sm max-w-md leading-relaxed mb-6 mx-auto lg:mx-0">
-                    Reiseberichte, Gruppen-Chats, Geheimtipps und neue Reisefreunde – werde Teil der Urlaubfinder365 Community.
+                    {t("communityDesc")}
                   </p>
 
                   <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
@@ -1051,13 +1052,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                       href="/community/"
                       className="inline-flex items-center gap-2 bg-white text-emerald-800 font-black px-6 py-3 rounded-2xl transition-all shadow-lg shadow-emerald-900/30 hover:shadow-emerald-500/30 hover:-translate-y-0.5 duration-200 text-sm"
                     >
-                      Community entdecken <ArrowRight className="w-4 h-4" />
+                      {t("communityCta1")} <ArrowRight className="w-4 h-4" />
                     </Link>
                     <Link
                       href="/community/reiseberichte/"
                       className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3 rounded-2xl transition-all hover:-translate-y-0.5 duration-200 text-sm"
                     >
-                      Reiseberichte lesen
+                      {t("communityCta2")}
                     </Link>
                   </div>
                 </div>
@@ -1065,14 +1066,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 {/* RIGHT – Feature-Grid */}
                 <div className="grid grid-cols-4 lg:grid-cols-4 gap-2.5 shrink-0 w-full lg:max-w-md">
                   {[
-                    { icon: Camera,         title: "Reiseberichte",   color: "bg-emerald-500" },
-                    { icon: Users,          title: "Reisegruppen",    color: "bg-teal-500" },
-                    { icon: MessageCircle,  title: "Diskussionen",    color: "bg-cyan-500" },
-                    { icon: Globe,          title: "250+ Ziele",      color: "bg-blue-500" },
-                    { icon: Route,          title: "Reiserouten",     color: "bg-violet-500" },
-                    { icon: Trophy,         title: "Badges & Level",  color: "bg-amber-500" },
-                    { icon: Bell,           title: "Preisalarme",     color: "bg-rose-500" },
-                    { icon: Map,            title: "Reisenden-Karte", color: "bg-indigo-500" },
+                    { icon: Camera,         title: t("communityFeat1"), color: "bg-emerald-500" },
+                    { icon: Users,          title: t("communityFeat2"), color: "bg-teal-500" },
+                    { icon: MessageCircle,  title: t("communityFeat3"), color: "bg-cyan-500" },
+                    { icon: Globe,          title: t("communityFeat4"), color: "bg-blue-500" },
+                    { icon: Route,          title: t("communityFeat5"), color: "bg-violet-500" },
+                    { icon: Trophy,         title: t("communityFeat6"), color: "bg-amber-500" },
+                    { icon: Bell,           title: t("communityFeat7"), color: "bg-rose-500" },
+                    { icon: Map,            title: t("communityFeat8"), color: "bg-indigo-500" },
                   ].map(({ icon: Icon, title, color }) => (
                     <div
                       key={title}
@@ -1105,29 +1106,17 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <section className="pt-4 pb-12" style={{ backgroundColor: "rgba(238,206,161,0.15)" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-xl sm:text-2xl font-black text-gray-900 mb-4">
-            Pauschalreisen &amp; Urlaub günstig buchen – Urlaubfinder365
+            {t("seoTitle")}
           </h2>
           <div className="prose prose-sm text-gray-600 max-w-none space-y-3">
-            <p>
-              <strong>Urlaubfinder365</strong> ist dein persönlicher Reiseberater für günstige Pauschalreisen,
-              All-Inclusive-Urlaub und Last-Minute-Angebote. Wir vergleichen täglich tausende Reiseangebote
-              namhafter Veranstalter – damit du immer den besten Preis für deinen Traumurlaub findest.
-            </p>
-            <p>
-              Ob Strandurlaub in der Türkei, Kulturreise nach Barcelona, Entspannung auf Mallorca oder
-              Tauchen in Ägypten – unsere Angebote decken die beliebtesten Reiseziele Deutschlands ab.
-              Alle Preise verstehen sich inklusive Flug und Unterkunft für 2 Personen, sofern nicht anders angegeben.
-            </p>
-            <p>
-              Zusätzlich zu den Reiseangeboten findest du bei uns kostenlose <strong>Reiseführer</strong> für
-              die Top-Destinationen: Einreisebestimmungen, Klimatabellen, Packlisten und lokale Insidertipps –
-              alles, was du für einen perfekten Urlaub brauchst.
-            </p>
+            <p>{t("seoPara1")}</p>
+            <p>{t("seoPara2")}</p>
+            <p>{t("seoPara3")}</p>
           </div>
 
           {/* SEO-Linksammlung */}
           <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Weitere Themen</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">{t("seoMoreTopics")}</p>
             <div className="flex flex-wrap gap-2">
               {SEO_LINKS.map((l) => (
                 <Link
@@ -1149,13 +1138,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <section className="py-14 bg-linear-to-br from-[#00838F] to-[#005F6A]">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <span className="inline-block bg-white/15 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wider">
-            ✉️ Kostenloser Newsletter
+            {t("nlEyebrow")}
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
-            Die besten Deals direkt ins Postfach
+            {t("nlTitle")}
           </h2>
           <p className="text-white/75 mb-8 text-sm sm:text-base">
-            Wöchentlich die günstigsten Last-Minute-Angebote, Frühbucher-Deals und Reise-Inspiration – kostenlos und jederzeit abmeldbar.
+            {t("nlDesc")}
           </p>
           <NewsletterSignup variant="hero" />
         </div>
@@ -1176,25 +1165,24 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
             <div className="relative z-10">
               <span className="inline-block bg-sand-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-5 uppercase tracking-wider">
-                Kostenlos & unverbindlich
+                {t("ctaEyebrow")}
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black mb-3">Wunschliste &amp; persönliche Deals</h2>
+              <h2 className="text-3xl sm:text-4xl font-black mb-3">{t("ctaTitle")}</h2>
               <p className="text-blue-100 text-base sm:text-lg mb-8 max-w-lg mx-auto leading-relaxed">
-                Erstelle ein kostenloses Konto – speichere Lieblingsangebote, merke dir Reiseziele und
-                erhalte personalisierte Empfehlungen.
+                {t("ctaDesc")}
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link
                   href="/register/"
                   className="bg-sand-500 hover:bg-sand-600 text-white font-black px-8 py-4 rounded-2xl transition-all shadow-lg hover:shadow-sand-500/40 hover:-translate-y-0.5 duration-200 text-base"
                 >
-                  Jetzt kostenlos registrieren
+                  {t("ctaBtn1")}
                 </Link>
                 <Link
                   href="/urlaubsziele/"
                   className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl transition-all hover:-translate-y-0.5 duration-200 text-base"
                 >
-                  Reiseziele entdecken
+                  {t("ctaBtn2")}
                 </Link>
               </div>
             </div>
