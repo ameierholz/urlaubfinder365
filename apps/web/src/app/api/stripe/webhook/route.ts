@@ -54,8 +54,8 @@ export async function POST(req: NextRequest) {
           .single();
 
         if (buchung) {
-          const angebot = buchung.angebote as { titel: string; ziel: string; treffpunkt?: string } | null;
-          const anbieter = buchung.anbieter_profile as { name: string; email: string; telefon?: string; sprache?: string } | null;
+          const angebot = buchung.angebote as unknown as { titel: string; ziel: string; treffpunkt?: string } | null;
+          const anbieter = buchung.anbieter_profile as unknown as { name: string; email: string; telefon?: string; sprache?: string } | null;
           const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " €";
           const datumFormatiert = new Date(buchung.datum).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
           const ticketUrl = `https://urlaubfinder365.de/buchung/ticket/${buchung.buchungs_nummer}/`;
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
           .single();
 
         if (az) {
-          const ap = az.anbieter_profile as { name: string; email: string; iban?: string; sprache?: string } | null;
+          const ap = az.anbieter_profile as unknown as { name: string; email: string; iban?: string; sprache?: string } | null;
           if (ap?.email) {
             const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " €";
             const erwDatum = new Date();

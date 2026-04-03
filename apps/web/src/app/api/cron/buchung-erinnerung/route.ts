@@ -37,8 +37,8 @@ export async function GET(req: Request) {
 
   let sent = 0;
   for (const b of buchungen) {
-    const angebot = b.angebote as { titel: string; treffpunkt?: string } | null;
-    const anbieter = b.anbieter_profile as { name: string; telefon?: string } | null;
+    const angebot = b.angebote as unknown as { titel: string; treffpunkt?: string } | null;
+    const anbieter = b.anbieter_profile as unknown as { name: string; telefon?: string } | null;
     await sendMail({
       to: b.kunden_email,
       from: FROM_BUCHUNG,

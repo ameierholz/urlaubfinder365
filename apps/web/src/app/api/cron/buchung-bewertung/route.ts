@@ -32,7 +32,7 @@ export async function GET(req: Request) {
 
   let sent = 0;
   for (const b of buchungen) {
-    const angebot = b.angebote as { id: string; titel: string } | null;
+    const angebot = b.angebote as unknown as { id: string; titel: string } | null;
     await sendMail({
       to: b.kunden_email,
       from: FROM_DEFAULT,
