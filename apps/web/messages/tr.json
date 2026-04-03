@@ -138,7 +138,19 @@
     "ctaTitle": "Dilekler listesi & kişisel fırsatlar",
     "ctaDesc": "Ücretsiz bir hesap oluşturun – favori tekliflerinizi kaydedin, destinasyonları işaretleyin ve kişiselleştirilmiş öneriler alın.",
     "ctaBtn1": "Şimdi ücretsiz kayıt ol",
-    "ctaBtn2": "Destinasyonları keşfet"
+    "ctaBtn2": "Destinasyonları keşfet",
+    "seoLinkTuerkei": "Türkiye Tatili",
+    "seoLinkMallorca": "Mayorka Tatili",
+    "seoLinkGriechenland": "Yunanistan Tatili",
+    "seoLinkAegypten": "Mısır Tatili",
+    "seoLinkPortugal": "Portekiz Tatili",
+    "seoLinkKreta": "Girit Tatili",
+    "seoLinkPauschalreisen": "Paket Tatiller",
+    "seoLinkLastMinute": "Son Dakika",
+    "seoLinkAllInclusive": "Her Şey Dahil",
+    "seoLinkKreuzfahrten": "Kruvaziyer",
+    "seoLinkGuides": "Seyahat Rehberleri",
+    "seoLinkAlleZiele": "Tüm Tatil Yerleri"
   },
   "search": {
     "destination": "Destinasyon",

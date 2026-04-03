@@ -138,7 +138,19 @@
     "ctaTitle": "Lista życzeń i osobiste oferty",
     "ctaDesc": "Utwórz bezpłatne konto – zapisuj ulubione oferty, zaznaczaj kierunki i otrzymuj spersonalizowane rekomendacje.",
     "ctaBtn1": "Zarejestruj się bezpłatnie teraz",
-    "ctaBtn2": "Odkryj kierunki"
+    "ctaBtn2": "Odkryj kierunki",
+    "seoLinkTuerkei": "Wakacje Turcja",
+    "seoLinkMallorca": "Wakacje Majorka",
+    "seoLinkGriechenland": "Wakacje Grecja",
+    "seoLinkAegypten": "Wakacje Egipt",
+    "seoLinkPortugal": "Wakacje Portugalia",
+    "seoLinkKreta": "Wakacje Kreta",
+    "seoLinkPauschalreisen": "Pakiety wakacyjne",
+    "seoLinkLastMinute": "Last Minute",
+    "seoLinkAllInclusive": "All Inclusive",
+    "seoLinkKreuzfahrten": "Rejsy",
+    "seoLinkGuides": "Przewodniki",
+    "seoLinkAlleZiele": "Wszystkie kierunki"
   },
   "search": {
     "destination": "Kierunek",

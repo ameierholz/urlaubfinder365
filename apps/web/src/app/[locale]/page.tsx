@@ -219,19 +219,19 @@ const GUIDES = [
   },
 ];
 
-const SEO_LINKS = [
-  { label: "Türkei Urlaub", href: "/urlaubsziele/tuerkei/" },
-  { label: "Mallorca Urlaub", href: "/urlaubsziele/balearen/" },
-  { label: "Griechenland Urlaub", href: "/urlaubsziele/griechische-inseln/" },
-  { label: "Ägypten Urlaub", href: "/urlaubsziele/aegypten/" },
-  { label: "Portugal Urlaub", href: "/urlaubsziele/portugal/" },
-  { label: "Kreta Urlaub", href: "/urlaubsziele/kreta/" },
-  { label: "Pauschalreisen", href: "/guenstig-urlaub-buchen/" },
-  { label: "Last Minute", href: "/last-minute/" },
-  { label: "All Inclusive", href: "/urlaubsarten/pauschalreisen/" },
-  { label: "Kreuzfahrten", href: "/kreuzfahrten/" },
-  { label: "Urlaubsguides", href: "/urlaubsguides/" },
-  { label: "Alle Reiseziele", href: "/urlaubsziele/" },
+const SEO_LINK_HREFS = [
+  { key: "seoLinkTuerkei",       href: "/urlaubsziele/tuerkei/" },
+  { key: "seoLinkMallorca",      href: "/urlaubsziele/balearen/" },
+  { key: "seoLinkGriechenland",  href: "/urlaubsziele/griechische-inseln/" },
+  { key: "seoLinkAegypten",      href: "/urlaubsziele/aegypten/" },
+  { key: "seoLinkPortugal",      href: "/urlaubsziele/portugal/" },
+  { key: "seoLinkKreta",         href: "/urlaubsziele/kreta/" },
+  { key: "seoLinkPauschalreisen",href: "/guenstig-urlaub-buchen/" },
+  { key: "seoLinkLastMinute",    href: "/last-minute/" },
+  { key: "seoLinkAllInclusive",  href: "/urlaubsarten/pauschalreisen/" },
+  { key: "seoLinkKreuzfahrten",  href: "/kreuzfahrten/" },
+  { key: "seoLinkGuides",        href: "/urlaubsguides/" },
+  { key: "seoLinkAlleZiele",     href: "/urlaubsziele/" },
 ];
 
 // ─── Page ────────────────────────────────────────────────────────────────────
@@ -1118,13 +1118,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div className="mt-8 pt-6 border-t border-gray-200">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">{t("seoMoreTopics")}</p>
             <div className="flex flex-wrap gap-2">
-              {SEO_LINKS.map((l) => (
+              {SEO_LINK_HREFS.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
                   className="text-sm text-gray-600 hover:text-sand-500 bg-white px-3 py-1.5 rounded-lg border border-gray-100 hover:border-sand-200 transition-all"
                 >
-                  {l.label}
+                  {t(l.key as Parameters<typeof t>[0])}
                 </Link>
               ))}
             </div>

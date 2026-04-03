@@ -138,7 +138,19 @@
     "ctaTitle": "Wishlist & personal deals",
     "ctaDesc": "Create a free account – save your favourite deals, bookmark destinations and receive personalised recommendations.",
     "ctaBtn1": "Register for free now",
-    "ctaBtn2": "Explore destinations"
+    "ctaBtn2": "Explore destinations",
+    "seoLinkTuerkei": "Turkey Holidays",
+    "seoLinkMallorca": "Mallorca Holidays",
+    "seoLinkGriechenland": "Greece Holidays",
+    "seoLinkAegypten": "Egypt Holidays",
+    "seoLinkPortugal": "Portugal Holidays",
+    "seoLinkKreta": "Crete Holidays",
+    "seoLinkPauschalreisen": "Package Holidays",
+    "seoLinkLastMinute": "Last Minute",
+    "seoLinkAllInclusive": "All Inclusive",
+    "seoLinkKreuzfahrten": "Cruises",
+    "seoLinkGuides": "Travel Guides",
+    "seoLinkAlleZiele": "All Destinations"
   },
   "search": {
     "destination": "Destination",

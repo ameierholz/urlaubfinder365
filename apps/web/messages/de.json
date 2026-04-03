@@ -138,7 +138,19 @@
     "ctaTitle": "Wunschliste & persönliche Deals",
     "ctaDesc": "Erstelle ein kostenloses Konto – speichere Lieblingsangebote, merke dir Reiseziele und erhalte personalisierte Empfehlungen.",
     "ctaBtn1": "Jetzt kostenlos registrieren",
-    "ctaBtn2": "Reiseziele entdecken"
+    "ctaBtn2": "Reiseziele entdecken",
+    "seoLinkTuerkei": "Türkei Urlaub",
+    "seoLinkMallorca": "Mallorca Urlaub",
+    "seoLinkGriechenland": "Griechenland Urlaub",
+    "seoLinkAegypten": "Ägypten Urlaub",
+    "seoLinkPortugal": "Portugal Urlaub",
+    "seoLinkKreta": "Kreta Urlaub",
+    "seoLinkPauschalreisen": "Pauschalreisen",
+    "seoLinkLastMinute": "Last Minute",
+    "seoLinkAllInclusive": "All Inclusive",
+    "seoLinkKreuzfahrten": "Kreuzfahrten",
+    "seoLinkGuides": "Urlaubsguides",
+    "seoLinkAlleZiele": "Alle Reiseziele"
   },
   "search": {
     "destination": "Reiseziel",

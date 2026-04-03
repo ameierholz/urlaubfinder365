@@ -138,7 +138,19 @@
     "ctaTitle": "愿望清单与个人优惠",
     "ctaDesc": "创建免费账户 – 保存您的最爱优惠、收藏目的地并获取个性化推荐。",
     "ctaBtn1": "立即免费注册",
-    "ctaBtn2": "探索目的地"
+    "ctaBtn2": "探索目的地",
+    "seoLinkTuerkei": "土耳其假期",
+    "seoLinkMallorca": "马略卡岛假期",
+    "seoLinkGriechenland": "希腊假期",
+    "seoLinkAegypten": "埃及假期",
+    "seoLinkPortugal": "葡萄牙假期",
+    "seoLinkKreta": "克里特岛假期",
+    "seoLinkPauschalreisen": "套餐度假",
+    "seoLinkLastMinute": "最后一分钟",
+    "seoLinkAllInclusive": "全包",
+    "seoLinkKreuzfahrten": "邮轮",
+    "seoLinkGuides": "旅游指南",
+    "seoLinkAlleZiele": "所有目的地"
   },
   "search": {
     "destination": "目的地",

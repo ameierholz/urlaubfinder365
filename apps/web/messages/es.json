@@ -138,7 +138,19 @@
     "ctaTitle": "Lista de deseos y ofertas personales",
     "ctaDesc": "Crea una cuenta gratuita – guarda tus ofertas favoritas, marca destinos y recibe recomendaciones personalizadas.",
     "ctaBtn1": "Regístrate gratis ahora",
-    "ctaBtn2": "Explorar destinos"
+    "ctaBtn2": "Explorar destinos",
+    "seoLinkTuerkei": "Vacaciones Turquía",
+    "seoLinkMallorca": "Vacaciones Mallorca",
+    "seoLinkGriechenland": "Vacaciones Grecia",
+    "seoLinkAegypten": "Vacaciones Egipto",
+    "seoLinkPortugal": "Vacaciones Portugal",
+    "seoLinkKreta": "Vacaciones Creta",
+    "seoLinkPauschalreisen": "Viajes combinados",
+    "seoLinkLastMinute": "Último minuto",
+    "seoLinkAllInclusive": "Todo incluido",
+    "seoLinkKreuzfahrten": "Cruceros",
+    "seoLinkGuides": "Guías de viaje",
+    "seoLinkAlleZiele": "Todos los destinos"
   },
   "search": {
     "destination": "Destino",

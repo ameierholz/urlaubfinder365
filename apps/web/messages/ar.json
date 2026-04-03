@@ -138,7 +138,19 @@
     "ctaTitle": "قائمة الأمنيات والعروض الشخصية",
     "ctaDesc": "أنشئ حساباً مجانياً – احفظ عروضك المفضلة وضع الوجهات في قائمتك واحصل على توصيات مخصّصة.",
     "ctaBtn1": "سجّل مجاناً الآن",
-    "ctaBtn2": "استكشف الوجهات"
+    "ctaBtn2": "استكشف الوجهات",
+    "seoLinkTuerkei": "عطلة تركيا",
+    "seoLinkMallorca": "عطلة مايوركا",
+    "seoLinkGriechenland": "عطلة اليونان",
+    "seoLinkAegypten": "عطلة مصر",
+    "seoLinkPortugal": "عطلة البرتغال",
+    "seoLinkKreta": "عطلة كريت",
+    "seoLinkPauschalreisen": "رحلات شاملة",
+    "seoLinkLastMinute": "اللحظة الأخيرة",
+    "seoLinkAllInclusive": "كل شيء شامل",
+    "seoLinkKreuzfahrten": "رحلات بحرية",
+    "seoLinkGuides": "أدلة السفر",
+    "seoLinkAlleZiele": "جميع الوجهات"
   },
   "search": {
     "destination": "الوجهة",

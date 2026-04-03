@@ -138,7 +138,19 @@
     "ctaTitle": "Список желаний и персональные предложения",
     "ctaDesc": "Создайте бесплатный аккаунт – сохраняйте любимые предложения, отмечайте направления и получайте персонализированные рекомендации.",
     "ctaBtn1": "Зарегистрироваться бесплатно",
-    "ctaBtn2": "Открыть направления"
+    "ctaBtn2": "Открыть направления",
+    "seoLinkTuerkei": "Отдых в Турции",
+    "seoLinkMallorca": "Отдых на Майорке",
+    "seoLinkGriechenland": "Отдых в Греции",
+    "seoLinkAegypten": "Отдых в Египте",
+    "seoLinkPortugal": "Отдых в Португалии",
+    "seoLinkKreta": "Отдых на Крите",
+    "seoLinkPauschalreisen": "Пакетные туры",
+    "seoLinkLastMinute": "Горящие туры",
+    "seoLinkAllInclusive": "Всё включено",
+    "seoLinkKreuzfahrten": "Круизы",
+    "seoLinkGuides": "Путеводители",
+    "seoLinkAlleZiele": "Все направления"
   },
   "search": {
     "destination": "Направление",
