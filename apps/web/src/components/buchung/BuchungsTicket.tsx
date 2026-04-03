@@ -57,9 +57,14 @@ const DEMO_ANBIETER = {
 
 export default function BuchungsTicket({ d, compact = false, autoPrint = false }: Props) {
   useEffect(() => {
-    if (autoPrint) {
-      const t = setTimeout(() => window.print(), 400);
-      return () => clearTimeout(t);
+    if (!autoPrint) return;
+    // Warte bis alles gerendert ist, dann Druckdialog öffnen
+    const onLoad = () => setTimeout(() => window.print(), 300);
+    if (document.readyState === "complete") {
+      onLoad();
+    } else {
+      window.addEventListener("load", onLoad, { once: true });
+      return () => window.removeEventListener("load", onLoad);
     }
   }, [autoPrint]);
   const angebot = d.angebot ?? DEMO_ANGEBOT;

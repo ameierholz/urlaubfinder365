@@ -18,6 +18,44 @@ export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: s
     setLoading(false);
   };
 
+  const drucken = () => {
+    const ticketEl = document.getElementById("__ticket-print-root");
+    if (!ticketEl) return;
+
+    const origin = window.location.origin;
+
+    // Stylesheet-Links mit absoluten URLs
+    const styleLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+      .map((l) => {
+        const href = l.getAttribute("href") ?? "";
+        const abs = href.startsWith("/") ? `${origin}${href}` : href;
+        return `<link rel="stylesheet" href="${abs}">`;
+      })
+      .join("");
+
+    const inlineStyles = Array.from(document.querySelectorAll("style"))
+      .map((s) => `<style>${s.innerHTML}</style>`)
+      .join("");
+
+    const iframe = document.createElement("iframe");
+    iframe.style.cssText = "position:fixed;width:0;height:0;border:0;opacity:0;";
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument!;
+    doc.open();
+    doc.write(`<!DOCTYPE html><html><head>${styleLinks}${inlineStyles}</head><body class="bg-white p-0 m-0">${ticketEl.innerHTML}</body></html>`);
+    doc.close();
+
+    // Warten bis Styles geladen sind, dann drucken
+    iframe.onload = () => {
+      iframe.contentWindow!.focus();
+      iframe.contentWindow!.print();
+      iframe.contentWindow!.addEventListener("afterprint", () => {
+        document.body.removeChild(iframe);
+      }, { once: true });
+    };
+  };
+
   return (
     <>
       <button
@@ -53,7 +91,7 @@ export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: s
                       <ExternalLink className="w-3.5 h-3.5" /> Neuer Tab
                     </button>
                     <button
-                      onClick={() => window.open(`/buchung/ticket/${buchungsNummer}/?print=1`, "_blank")}
+                      onClick={drucken}
                       className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors px-2 py-1 rounded-lg hover:bg-gray-800"
                     >
                       <Printer className="w-3.5 h-3.5" /> Drucken
@@ -76,7 +114,9 @@ export default function AdminTicketModal({ buchungsNummer }: { buchungsNummer: s
               </div>
             )}
             {!loading && data && (
-              <BuchungsTicket d={data} compact />
+              <div id="__ticket-print-root">
+                <BuchungsTicket d={data} compact />
+              </div>
             )}
             {!loading && !data && (
               <div className="bg-white py-16 text-center text-gray-400 rounded-b-3xl text-sm">

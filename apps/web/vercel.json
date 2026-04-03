@@ -16,6 +16,18 @@
     {
       "path": "/api/cron/collect-prices?profile=ai",
       "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/anbieter-monatsbericht",
+      "schedule": "0 8 1 * *"
+    },
+    {
+      "path": "/api/cron/buchung-erinnerung",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/buchung-bewertung",
+      "schedule": "0 10 * * *"
     }
   ],
   "headers": [

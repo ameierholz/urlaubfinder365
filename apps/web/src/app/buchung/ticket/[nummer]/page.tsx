@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
@@ -41,5 +43,15 @@ export default async function TicketPage({ params, searchParams }: Props) {
 
   const ticket = data as unknown as TicketDaten;
 
-  return <BuchungsTicket d={ticket} autoPrint={print === "1"} />;
+  const shouldPrint = print === "1";
+
+  return (
+    <>
+      {shouldPrint && (
+        // eslint-disable-next-line react/no-danger
+        <script dangerouslySetInnerHTML={{ __html: "window.addEventListener('load',function(){setTimeout(function(){window.print()},600)});" }} />
+      )}
+      <BuchungsTicket d={ticket} autoPrint={shouldPrint} />
+    </>
+  );
 }
