@@ -26,6 +26,7 @@
     "leaflet": "^1.9",
     "lucide-react": "^0.577",
     "next": "16.1.6",
+    "next-intl": "^4.9.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-leaflet": "^4",

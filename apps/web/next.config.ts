@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
@@ -6,9 +9,12 @@ const nextConfig: NextConfig = {
 
   allowedDevOrigins: ["127.0.0.1", "localhost"],
 
-  // Turbopack ist in Next.js 16 Standard – webpack-Config wird ignoriert.
-  // Turbopack liest .browserslistrc und eliminiert Polyfills nativ.
-  turbopack: {},
+  // Turbopack – next-intl benötigt expliziten Alias für den Config-Pfad
+  turbopack: {
+    resolveAlias: {
+      "next-intl/config": "./src/i18n/request.ts",
+    },
+  },
 
   images: {
     remotePatterns: [
@@ -211,4 +217,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

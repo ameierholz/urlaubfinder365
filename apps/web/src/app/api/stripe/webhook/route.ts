@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
 import type Stripe from "stripe";
-import { sendMail, FROM_BUCHUNG } from "@/lib/email";
+import { sendMail, FROM_BUCHUNG, FROM_DEFAULT } from "@/lib/email";
 import { EmailBuchungsbestaetigung } from "@/emails/templates/EmailBuchungsbestaetigung";
 import { EmailAnbieterNeueBuchung } from "@/emails/templates/EmailAnbieterNeueBuchung";
 import { EmailAnbieterAuszahlung } from "@/emails/templates/EmailAnbieterAuszahlung";
+import { EmailWerbeplatzAdminPruefung } from "@/emails/templates/EmailWerbeplatzAdminPruefung";
 
 // Supabase Admin Client (umgeht RLS)
 const supabaseAdmin = createClient(
@@ -100,13 +101,86 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      if (meta.typ === "werbung" && meta.werbung_id) {
+      // ── Werbeplatz-Subscription bezahlt → zur Prüfung ───────────
+      if (meta.typ === "werbeplatz" && meta.werbeplatz_id) {
+        const sub = session.subscription as string | null;
         await supabaseAdmin.from("werbeplaetze_buchungen").update({
-          status: "bestaetigt",
+          status: "angefragt",
+          stripe_subscription_id: sub,
           stripe_checkout_session_id: session.id,
-          stripe_payment_intent_id: session.payment_intent as string,
           bezahlt_at: new Date().toISOString(),
-        }).eq("id", meta.werbung_id);
+          sub_status: "active",
+        }).eq("id", meta.werbeplatz_id);
+
+        // Daten für Admin-Mail laden
+        const { data: wp } = await supabaseAdmin
+          .from("werbeplaetze_buchungen")
+          .select("kontakt_name, kontakt_firma, kontakt_email, paket, angebot_url, werbeinhalt_text")
+          .eq("id", meta.werbeplatz_id)
+          .single();
+
+        if (wp?.kontakt_email) {
+          const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.urlaubfinder365.de";
+          const paketLabel: Record<string, string> = {
+            starter: "Starter (99 €/Mo.)", featured: "Featured (199 €/Mo.)", premium: "Premium (349 €/Mo.)",
+          };
+          await sendMail({
+            to: "info@urlaubfinder365.de",
+            from: FROM_DEFAULT,
+            subject: `Werbeplatz zur Prüfung: ${wp.kontakt_firma ?? wp.kontakt_name}`,
+            react: EmailWerbeplatzAdminPruefung({
+              firma:       wp.kontakt_firma ?? "–",
+              kontaktName: wp.kontakt_name  ?? "–",
+              email:       wp.kontakt_email,
+              paket:       paketLabel[wp.paket] ?? wp.paket,
+              angebotUrl:  wp.angebot_url    ?? undefined,
+              werbeinhalt: wp.werbeinhalt_text ?? undefined,
+              adminUrl:    `${siteUrl}/admin/werbung`,
+            }),
+          });
+        }
+      }
+      break;
+    }
+
+    // ── Werbeplatz-Subscription storniert (Selbstkündigung) ──────
+    case "customer.subscription.deleted": {
+      const sub = event.data.object as Stripe.Subscription;
+      const werbeplatzId = sub.metadata?.werbeplatz_id;
+      if (werbeplatzId) {
+        await supabaseAdmin.from("werbeplaetze_buchungen").update({
+          status: "storniert",
+          sub_status: "canceled",
+          gekuendigt_at: new Date().toISOString(),
+        }).eq("stripe_subscription_id", sub.id);
+      }
+      break;
+    }
+
+    // ── Werbeplatz: Zahlung fehlgeschlagen ───────────────────────
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice & { subscription?: string | null };
+      const subId = invoice.subscription ?? null;
+      if (subId) {
+        await supabaseAdmin.from("werbeplaetze_buchungen").update({
+          sub_status: "past_due",
+          status: "zahlungsproblem",
+        }).eq("stripe_subscription_id", subId);
+      }
+      break;
+    }
+
+    // ── Werbeplatz: Monatsrechnung erfolgreich erneuert ──────────
+    case "invoice.payment_succeeded": {
+      const invoice = event.data.object as Stripe.Invoice & { subscription?: string | null };
+      const subId = invoice.subscription ?? null;
+      if (subId) {
+        await supabaseAdmin.from("werbeplaetze_buchungen").update({
+          sub_status: "active",
+          naechste_zahlung_at: invoice.period_end
+            ? new Date(invoice.period_end * 1000).toISOString()
+            : null,
+        }).eq("stripe_subscription_id", subId).neq("status", "angefragt"); // nur wenn schon aktiv
       }
       break;
     }
