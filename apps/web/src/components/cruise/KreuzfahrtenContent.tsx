@@ -14,20 +14,9 @@ const PARTNER_ID = "30412";
 const DL = (params = "") =>
   `https://kreuzfahrten.travelsystem.de/de?p=2&subid=${PARTNER_ID}${params}`;
 
-// travialinks-URL erlaubt iframe-Einbettung im IBE-Modal
-const TRAVIA_URL = "https://www.travialinks.de/link/A-30412-0/A/cruisecompass";
-
-/** Opens the IBE modal with travialinks URL (iframe-kompatibel).
- *  Fallback: öffnet den Typ-spezifischen Link im neuen Tab. */
-function openModal(_fallbackUrl: string, title = "Kreuzfahrten buchen") {
-  const w = window as typeof window & {
-    ibeOpenBooking?: (u: string, t: string) => void;
-  };
-  if (w.ibeOpenBooking) {
-    w.ibeOpenBooking(TRAVIA_URL, title);
-  } else {
-    window.location.href = "/kreuzfahrten/";
-  }
+/** Kreuzfahrten-Buchungssystem blockiert Iframe-Embedding → neuer Tab */
+function openModal(url: string, _title = "Kreuzfahrten buchen") {
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 // ─── Reisetypen ────────────────────────────────────────────────────────────────

@@ -24,19 +24,9 @@ export default function CruiseWidget() {
 
   function handleTab(id: string) {
     setActive(id);
-    // Tab-Klick öffnet Typ-spezifische Suche im IBE-Modal
     const tab = TABS.find((t) => t.id === id);
     if (!tab) return;
-    const url = DL(tab.extra);
-    const label = tab.label;
-    const w = window as typeof window & {
-      ibeOpenBooking?: (u: string, t: string) => void;
-    };
-    if (w.ibeOpenBooking) {
-      w.ibeOpenBooking(TRAVIA_URL, label);
-    } else {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
+    window.open(DL(tab.extra), "_blank", "noopener,noreferrer");
   }
 
   return (
