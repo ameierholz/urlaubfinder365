@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   let sent = 0;
   for (const alarm of alarme) {
-    const user = alarm.users as { email: string; kunden_name: string } | null;
+    const user = alarm.users as unknown as { email: string; kunden_name: string } | null;
     if (!user?.email) continue;
     await sendMail({
       to: user.email,

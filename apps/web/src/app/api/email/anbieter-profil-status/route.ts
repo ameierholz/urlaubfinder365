@@ -26,15 +26,16 @@ export async function POST(req: NextRequest) {
     .eq("id", anbieter_id)
     .single();
 
-  if (!anbieter?.email) return NextResponse.json({ error: "Anbieter nicht gefunden" }, { status: 404 });
+  const ap = anbieter as unknown as { name: string; email: string; sprache?: string } | null;
+  if (!ap?.email) return NextResponse.json({ error: "Anbieter nicht gefunden" }, { status: 404 });
 
   await sendMail({
-    to: anbieter.email,
+    to: ap.email,
     from: FROM_DEFAULT,
     subject: status === "approved" ? "Dein Profil wurde freigeschaltet – Urlaubfinder365" : "Dokumente: Bitte nachreichen – Urlaubfinder365",
     react: EmailAnbieterProfilStatus({
-      anbieterName: anbieter.name,
-      sprache: anbieter.sprache,
+      anbieterName: ap.name,
+      sprache: ap.sprache,
       status,
       hinweis,
       dashboardUrl: "https://urlaubfinder365.de/anbieter/dashboard",
