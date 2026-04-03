@@ -10,6 +10,7 @@ import LifestyleSection from "@/components/home/LifestyleSection";
 import FruehbucherCards from "@/components/home/FruehbucherCards";
 import HomeCruiseSection from "@/components/home/HomeCruiseSection";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -398,6 +399,11 @@ export default async function HomePage() {
                 <span className="text-white/60 text-sm">{label}</span>
               </div>
             ))}
+          </div>
+
+          {/* ── Trustpilot ── */}
+          <div className="mb-4 max-w-xs">
+            <TrustpilotWidget theme="dark" templateId="5419b637fa0340045cd0c936" height="24px" />
           </div>
 
           {/* ── SearchBox – overflow-visible damit Dropdown nicht clippt ── */}
