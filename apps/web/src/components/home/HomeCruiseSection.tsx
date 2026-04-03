@@ -12,16 +12,14 @@ const DL = (params = "") =>
 // travialinks-URL erlaubt iframe-Einbettung im IBE-Modal
 const TRAVIA_URL = "https://www.travialinks.de/link/A-30412-0/A/cruisecompass";
 
-function openModal(fallbackUrl: string, title: string) {
+function openModal(_fallbackUrl: string, title: string) {
   const w = window as typeof window & {
     ibeOpenBooking?: (u: string, t: string) => void;
   };
   if (w.ibeOpenBooking) {
-    // Modal nutzt travialinks – kein X-Frame-Options-Block
     w.ibeOpenBooking(TRAVIA_URL, title);
   } else {
-    // Kein ibe-engine: typ-spezifische URL direkt im neuen Tab
-    window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+    window.location.href = "/kreuzfahrten/";
   }
 }
 
