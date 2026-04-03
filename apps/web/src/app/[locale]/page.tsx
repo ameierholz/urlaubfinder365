@@ -415,8 +415,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <SearchBox />
           </div>
 
-          {/* ── QuickCategories – direkt auf dem Bild, kein Hintergrund ── */}
-          <div className="-mt-24 -mx-4 sm:-mx-6 lg:-mx-8">
+          {/* ── QuickCategories – direkt unter der Suchbox ── */}
+          <div className="mt-5 -mx-4 sm:-mx-6 lg:-mx-8">
             <QuickCategories transparent />
           </div>
         </div>
