@@ -32,10 +32,28 @@ export default function TrustpilotWidget({
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-    if ((window as { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } }).Trustpilot) {
-      (window as { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } }).Trustpilot!.loadFromElement(ref.current!);
+    if (!mounted || !ref.current) return;
+    type TP = { Trustpilot?: { loadFromElement: (el: HTMLElement) => void } };
+
+    // Script bereits geladen → direkt initialisieren
+    if ((window as TP).Trustpilot) {
+      (window as TP).Trustpilot!.loadFromElement(ref.current);
+      return;
     }
+
+    // Script noch nicht geladen → auf Verfügbarkeit warten (max 5s)
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if ((window as TP).Trustpilot) {
+        (window as TP).Trustpilot!.loadFromElement(ref.current!);
+        clearInterval(interval);
+      } else if (attempts >= 50) {
+        clearInterval(interval);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
   }, [mounted]);
 
   if (!mounted) return null;

@@ -194,6 +194,14 @@ export default async function LocaleLayout({
         <Script
           src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
           strategy="afterInteractive"
+          onLoad={() => {
+            const tp = (window as { Trustpilot?: { loadFromElement: (el: Element) => void } }).Trustpilot;
+            if (tp) {
+              document.querySelectorAll(".trustpilot-widget").forEach((el) => {
+                tp.loadFromElement(el);
+              });
+            }
+          }}
         />
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
