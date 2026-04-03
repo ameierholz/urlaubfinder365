@@ -55,7 +55,7 @@ export async function GET(req: Request) {
         monat: monatLabel,
         buchungen: buchungen.map((b) => ({
           datum: new Date(b.datum).toLocaleDateString("de-DE"),
-          angebot: (b.angebote as { titel: string } | null)?.titel ?? "–",
+          angebot: (b.angebote as unknown as { titel: string } | null)?.titel ?? "–",
           personen: b.personen,
           betrag: fmt(b.gesamtpreis ?? 0),
         })),
