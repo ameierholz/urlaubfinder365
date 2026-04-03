@@ -414,16 +414,16 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div style={{ overflow: "visible", position: "relative", zIndex: 20 }} className="-ml-4">
             <SearchBox />
           </div>
-
-          {/* ── QuickCategories – direkt unter der Suchbox ── */}
-          <div className="mt-5 -mx-4 sm:-mx-6 lg:-mx-8">
-            <QuickCategories transparent />
-          </div>
         </div>
 
       </section>
 
-      {/* Schnellauswahl-Section entfernt – jetzt im Hero */}
+      {/* ── QuickCategories – weißer Streifen unter dem Hero ── */}
+      <div className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-7xl mx-auto">
+          <QuickCategories />
+        </div>
+      </div>
 
       {/* ══════════════════════════════════════════════════════════
           3 · DEAL-KACHELN (Top Angebote – live aus der API)
