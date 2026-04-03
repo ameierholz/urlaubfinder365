@@ -371,7 +371,11 @@
       "aegypten": "Ruha güneş",
       "italien": "La Dolce Vita'yı yaşayın",
       "kroatien": "Adriyatik'in rüya kıyıları",
-      "fallback": "{country}'da Rüya Tatil"
+      "fallback": "{country}'da Rüya Tatil",
+      "portugal": "Altın Algarve ve Lizbon",
+      "bulgarien": "Karadeniz tatili",
+      "zypern": "Afrodit'in Adası",
+      "tunesien": "Sahra ve Akdeniz"
     }
   },
   "fruehbucher": {

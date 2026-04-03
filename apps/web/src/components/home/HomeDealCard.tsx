@@ -35,11 +35,24 @@ function getImg(offer: { images?: { large?: string; medium?: string }; country_n
 
 const EDITORIAL_KEYS: Record<string, string> = {
   türkei:       "tuerkei",
+  turkey:       "tuerkei",
   spanien:      "spanien",
+  spain:        "spanien",
   griechenland: "griechenland",
+  greece:       "griechenland",
   ägypten:      "aegypten",
+  egypt:        "aegypten",
   italien:      "italien",
+  italy:        "italien",
   kroatien:     "kroatien",
+  croatia:      "kroatien",
+  portugal:     "portugal",
+  bulgarien:    "bulgarien",
+  bulgaria:     "bulgarien",
+  zypern:       "zypern",
+  cyprus:       "zypern",
+  tunesien:     "tunesien",
+  tunisia:      "tunesien",
 };
 
 /** Saubere Ortsangabe: "Sardinien · Italien" statt "Olbia, Sardinien, Italien" */
@@ -130,28 +143,28 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
           {t("topDeal")}
         </div>
 
-        {/* Herz-Button oben rechts */}
+        {/* Weiterempfehlung oben rechts */}
+        {rec >= 90 && (
+          <span className={`absolute top-3 right-3 flex items-center gap-1 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md leading-none z-10 ${rec >= 95 ? "bg-green-500/90" : "bg-emerald-500/90"}`}>
+            ✓ {t("recommended", { pct: rec })}
+          </span>
+        )}
+
+        {/* Herz-Button unten rechts */}
         <button
           onClick={handleSave}
           disabled={saving}
-          className={`absolute top-2 right-2 w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
-            saved ? "bg-rose-500 text-white scale-110" : "bg-white/90 text-gray-400 hover:bg-white hover:text-rose-500"
+          className={`absolute bottom-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
+            saved ? "bg-rose-500 text-white scale-110" : "bg-black/40 backdrop-blur-sm text-white/70 hover:bg-black/60 hover:text-rose-400"
           }`}
           title={saved ? t("savedInProfile") : t("saveToProfile")}
         >
           <Heart className="w-4 h-4" fill={saved ? "currentColor" : "none"} />
         </button>
 
-        {/* Weiterempfehlung oben rechts */}
-        {rec >= 90 && (
-          <span className={`absolute top-3 right-3 flex items-center gap-1 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md leading-none ${rec >= 95 ? "bg-green-500/90" : "bg-emerald-500/90"}`}>
-            ✓ {t("recommended", { pct: rec })}
-          </span>
-        )}
-
         {/* Editoriale Headline unten */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <p className="text-xs font-semibold text-sand-300 uppercase tracking-wider mb-1">
+        <div className="absolute bottom-0 left-0 right-0 p-4 pr-12 text-white">
+          <p className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1 drop-shadow">
             {getLocation(offer)}
           </p>
           <h3 className="font-black text-lg leading-tight drop-shadow-md group-hover:text-sand-200 transition-colors">

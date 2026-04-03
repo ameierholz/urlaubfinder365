@@ -371,7 +371,11 @@
       "aegypten": "Sonne für die Seele",
       "italien": "La Dolce Vita erleben",
       "kroatien": "Adria-Traumküste erleben",
-      "fallback": "Traumurlaub in {country}"
+      "fallback": "Traumurlaub in {country}",
+      "portugal": "Goldene Algarve & Lissabon",
+      "bulgarien": "Schwarzmeerurlaub entdecken",
+      "zypern": "Insel der Aphrodite",
+      "tunesien": "Sahara & Mittelmeer"
     }
   },
   "fruehbucher": {

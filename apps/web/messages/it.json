@@ -371,7 +371,11 @@
       "aegypten": "Sole per l'anima",
       "italien": "Vivi la dolce vita",
       "kroatien": "La costa da sogno dell'Adriatico",
-      "fallback": "Vacanze da sogno in {country}"
+      "fallback": "Vacanze da sogno in {country}",
+      "portugal": "Algarve dorata e Lisbona",
+      "bulgarien": "Mar Nero da scoprire",
+      "zypern": "Isola di Afrodite",
+      "tunesien": "Sahara e Mediterraneo"
     }
   },
   "fruehbucher": {

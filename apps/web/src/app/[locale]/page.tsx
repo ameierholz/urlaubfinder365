@@ -240,10 +240,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const { locale } = await params;
   setRequestLocale(locale);
   // Je 1 Top-Deal pro Land – täglich um Mitternacht frisch (ibeRegionIds)
-  // Türkei=149 | Spanien=133 | Griechenland=46 | Ägypten=560 | Italien=83+84
   const [
     turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal,
-    croatDeal, portDeal,
+    croatDeal, portDeal, bulgariaDeal, cyprusDeal, tunesiaDeal,
     fbTurkey, fbEgypt, fbGreece, fbSpain,
   ] = await Promise.all([
     fetchTopDeal([149]),       // Türkei / Antalya
@@ -253,6 +252,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     fetchTopDeal([83, 84]),    // Italien / Sardinien + Sizilien
     fetchTopDeal([122, 123]),  // Kroatien (Dalmatien + Istrien)
     fetchTopDeal([92]),        // Portugal / Algarve
+    fetchTopDeal([150]),       // Bulgarien / Sonnenstrand
+    fetchTopDeal([113]),       // Zypern
+    fetchTopDeal([562]),       // Tunesien
     // Frühbucher: All Inclusive, 4+ Sterne, max. 1.200 €/Person, täglich rotierend
     fetchFruehbucherDeal([149]),  // Frühbucher Türkei
     fetchFruehbucherDeal([560]),  // Frühbucher Ägypten
@@ -260,8 +262,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     fetchFruehbucherDeal([133]),  // Frühbucher Spanien
   ]);
 
-  const topDeals = [turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal]
-    .filter((o): o is TravelOffer => o !== null);
+  const topDeals = [
+    turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal,
+    croatDeal, portDeal, bulgariaDeal, cyprusDeal, tunesiaDeal,
+  ].filter((o): o is TravelOffer => o !== null);
 
   const fruehbucherDeals = [fbTurkey, fbEgypt, fbGreece, fbSpain];
 

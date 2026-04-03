@@ -371,7 +371,11 @@
       "aegypten": "Sun for the soul",
       "italien": "Experience la dolce vita",
       "kroatien": "Adriatic dream coastline",
-      "fallback": "Dream holiday in {country}"
+      "fallback": "Dream holiday in {country}",
+      "portugal": "Golden Algarve & Lisbon",
+      "bulgarien": "Black Sea escape",
+      "zypern": "Island of Aphrodite",
+      "tunesien": "Sahara & Mediterranean"
     }
   },
   "fruehbucher": {

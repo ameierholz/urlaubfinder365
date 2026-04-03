@@ -385,7 +385,11 @@
       "aegypten": "尼罗河与红海的魅力",
       "italien": "体验甜蜜生活",
       "kroatien": "亚得里亚海梦幻海岸",
-      "fallback": "{country}的梦想假期"
+      "fallback": "{country}的梦想假期",
+      "portugal": "黄金阿尔加维与里斯本",
+      "bulgarien": "黑海度假胜地",
+      "zypern": "阿芙罗狄蒂之岛",
+      "tunesien": "撒哈拉与地中海"
     }
   },
   "fruehbucher": {

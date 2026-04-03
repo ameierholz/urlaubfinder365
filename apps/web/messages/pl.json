@@ -371,7 +371,11 @@
       "aegypten": "Słońce dla duszy",
       "italien": "Przeżyj la dolce vita",
       "kroatien": "Wymarzone wybrzeże Adriatyku",
-      "fallback": "Wymarzone wakacje w {country}"
+      "fallback": "Wymarzone wakacje w {country}",
+      "portugal": "Złote Algarve i Lizbona",
+      "bulgarien": "Wakacje nad Morzem Czarnym",
+      "zypern": "Wyspa Afrodyty",
+      "tunesien": "Sahara i Morze Śródziemne"
     }
   },
   "fruehbucher": {
