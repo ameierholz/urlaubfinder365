@@ -61,6 +61,10 @@
     const titleEl = document.getElementById("ibe-modal-title-text");
     if (!overlay || !iframe) return;
 
+    // Kreuzfahrt-Theme automatisch anhand der URL erkennen
+    const isCruise = /kreuzfahrten|travialinks|cruisecompass/i.test(url);
+    overlay.classList.toggle("ibe-modal--cruise", isCruise);
+
     if (titleEl && title) titleEl.textContent = title;
     if (loader) loader.style.display = "flex";
     iframe.src = url;
@@ -77,6 +81,7 @@
     const iframe  = document.getElementById("ibe-modal-iframe");
     if (!overlay) return;
     overlay.style.display = "none";
+    overlay.classList.remove("ibe-modal--cruise");
     document.body.style.overflow = "";
     if (iframe) iframe.src = "about:blank";
   };
