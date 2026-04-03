@@ -406,14 +406,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <SearchBox />
           </div>
 
+          {/* ── QuickCategories – transparent, Headerbild dahinter ── */}
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+            <QuickCategories transparent />
+          </div>
+
         </div>
 
       </section>
-
-      {/* ── QuickCategories – direkt unter dem Hero ── */}
-      <div className="max-w-7xl mx-auto">
-        <QuickCategories />
-      </div>
 
       {/* ══════════════════════════════════════════════════════════
           3 · DEAL-KACHELN (Top Angebote – live aus der API)
