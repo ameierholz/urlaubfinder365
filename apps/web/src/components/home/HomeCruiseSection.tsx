@@ -9,14 +9,19 @@ const PARTNER_ID = "30412";
 const DL = (params = "") =>
   `https://kreuzfahrten.travelsystem.de/de?p=2&subid=${PARTNER_ID}${params}`;
 
-function openModal(url: string, title: string) {
+// travialinks-URL erlaubt iframe-Einbettung im IBE-Modal
+const TRAVIA_URL = "https://www.travialinks.de/link/A-30412-0/A/cruisecompass";
+
+function openModal(fallbackUrl: string, title: string) {
   const w = window as typeof window & {
     ibeOpenBooking?: (u: string, t: string) => void;
   };
   if (w.ibeOpenBooking) {
-    w.ibeOpenBooking(url, title);
+    // Modal nutzt travialinks – kein X-Frame-Options-Block
+    w.ibeOpenBooking(TRAVIA_URL, title);
   } else {
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Kein ibe-engine: typ-spezifische URL direkt im neuen Tab
+    window.open(fallbackUrl, "_blank", "noopener,noreferrer");
   }
 }
 
