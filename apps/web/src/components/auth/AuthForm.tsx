@@ -69,6 +69,8 @@ export default function AuthForm({ mode, redirectTo }: Props) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmationSent, setConfirmationSent] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendDone, setResendDone] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -105,6 +107,23 @@ export default function AuthForm({ mode, redirectTo }: Props) {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    setResendLoading(true);
+    try {
+      const { createBrowserClient } = await import("@supabase/ssr");
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      await supabase.auth.resend({ type: "signup", email });
+      setResendDone(true);
+    } catch {
+      // Fehler ignorieren
+    } finally {
+      setResendLoading(false);
     }
   };
 
@@ -161,7 +180,17 @@ export default function AuthForm({ mode, redirectTo }: Props) {
                 </button>
               </div>
             </div>
-            {error && <p className="text-red-600 text-sm bg-red-50 px-4 py-2.5 rounded-xl">{error}</p>}
+            {error && (
+              <div className="bg-red-50 px-4 py-3 rounded-xl">
+                <p className="text-red-600 text-sm">{error}</p>
+                {error.includes("bestätige") && (
+                  <button type="button" onClick={handleResend} disabled={resendLoading}
+                    className="mt-2 text-sm text-[#1db682] font-medium hover:underline disabled:opacity-60">
+                    {resendLoading ? "Wird gesendet…" : resendDone ? "✓ Gesendet" : "Bestätigungs-E-Mail erneut senden →"}
+                  </button>
+                )}
+              </div>
+            )}
             <button type="submit" disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold py-2.5 rounded-xl transition-colors">
               {loading ? "Bitte warten…" : "Anmelden"}
@@ -182,15 +211,34 @@ export default function AuthForm({ mode, redirectTo }: Props) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 w-full max-w-md p-10 text-center">
-          <div className="text-5xl mb-4">✉️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Fast geschafft!</h1>
-          <p className="text-gray-500 text-sm mb-6">
-            Wir haben eine Bestätigungs-E-Mail an <strong>{email}</strong> geschickt.
-            Bitte klicke auf den Link in der E-Mail, um dein Konto zu aktivieren.
-          </p>
-          <Link href="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors text-sm">
-            Zur Anmeldung
+          <Link href="/" className="flex justify-center mb-6">
+            <LogoSVG size={52} />
           </Link>
+          <div className="w-16 h-16 rounded-full bg-[#f0fdf9] flex items-center justify-center mx-auto mb-4">
+            <span className="text-3xl">✉️</span>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Fast geschafft!</h1>
+          <p className="text-gray-500 text-sm mb-2">
+            Wir haben eine Bestätigungs-E-Mail an
+          </p>
+          <p className="font-semibold text-gray-900 text-sm mb-6">{email}</p>
+          <p className="text-gray-500 text-sm mb-8">
+            Bitte klicke auf den Link in der E-Mail, um dein Konto zu aktivieren. Schau auch im Spam-Ordner nach.
+          </p>
+          <div className="space-y-3">
+            <Link href="/login"
+              className="block w-full bg-[#1db682] hover:bg-[#18a573] text-white font-semibold py-2.5 px-6 rounded-xl transition-colors text-sm">
+              Zur Anmeldung
+            </Link>
+            {!resendDone ? (
+              <button onClick={handleResend} disabled={resendLoading}
+                className="block w-full border border-gray-200 text-gray-600 hover:bg-gray-50 font-medium py-2.5 px-6 rounded-xl transition-colors text-sm disabled:opacity-60">
+                {resendLoading ? "Wird gesendet…" : "E-Mail erneut senden"}
+              </button>
+            ) : (
+              <p className="text-sm text-[#1db682] font-medium">✓ E-Mail wurde erneut gesendet</p>
+            )}
+          </div>
         </div>
       </div>
     );

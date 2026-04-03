@@ -30,8 +30,18 @@ export async function GET(request: NextRequest) {
       }
     );
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error && data.user) {
+      // Welcome-Email senden (fire & forget)
+      const user = data.user;
+      const name = user.user_metadata?.full_name ?? user.email?.split("@")[0] ?? "dort";
+      const typ = user.user_metadata?.typ ?? "kunde";
+      fetch(`${origin}/api/email/welcome`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email, name, typ }),
+      }).catch(() => {});
+
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
