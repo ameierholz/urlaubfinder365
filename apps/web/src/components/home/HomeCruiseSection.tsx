@@ -33,7 +33,7 @@ const CRUISE_DEALS = [
     badge: "Bestseller",
     badgeColor: "bg-sand-500",
     img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=1"),   // region=1 → Mittelmeer
+    url: DL("&type=K&sort=pauf&region=10"),  // region=10 → Mittelmeer
     label: "Mittelmeer-Kreuzfahrt",
   },
   {
@@ -45,7 +45,7 @@ const CRUISE_DEALS = [
     badge: "Traumziel",
     badgeColor: "bg-emerald-500",
     img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=6"),   // region=6 → Karibik (bitte prüfen)
+    url: DL("&type=K&sort=pauf&region=8"),   // region=8 → Karibik
     label: "Karibik-Kreuzfahrt",
   },
   {
@@ -57,7 +57,7 @@ const CRUISE_DEALS = [
     badge: "Erlebnis",
     badgeColor: "bg-sky-600",
     img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=3"),   // region=3 → Nordeuropa (bitte prüfen)
+    url: DL("&type=K&sort=pauf&region=12"),  // region=12 → Nordeuropa
     label: "Nordeuropa-Kreuzfahrt",
   },
   {
