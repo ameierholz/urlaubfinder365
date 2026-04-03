@@ -466,6 +466,11 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   ["gr", "Griechenland"],
                   ["eg", "Ägypten"],
                   ["it", "Italien"],
+                  ["hr", "Kroatien"],
+                  ["pt", "Portugal"],
+                  ["bg", "Bulgarien"],
+                  ["cy", "Zypern"],
+                  ["tn", "Tunesien"],
                 ].map(([code, name]) => (
                   <div key={code} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-3 py-1.5 transition-colors">
                     <img
@@ -510,10 +515,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
 
             {topDeals.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                {topDeals.map((offer, i) => (
-                  <HomeDealCard key={offer.product_code} offer={offer} priority={i === 0} />
-                ))}
+              <div className="space-y-5">
+                {/* Top 3 – groß & prominent */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  {topDeals.slice(0, 3).map((offer, i) => (
+                    <HomeDealCard key={offer.product_code} offer={offer} priority={i === 0} featured />
+                  ))}
+                </div>
+                {/* Rest – kompakter, 5 pro Reihe */}
+                {topDeals.length > 3 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {topDeals.slice(3).map((offer) => (
+                      <HomeDealCard key={offer.product_code} offer={offer} />
+                    ))}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="text-center py-16 text-gray-400">

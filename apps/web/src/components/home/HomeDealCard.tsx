@@ -13,6 +13,7 @@ import SaveLoginModal from "@/components/ui/SaveLoginModal";
 interface Props {
   offer: TravelOffer;
   priority?: boolean;
+  featured?: boolean;
 }
 
 const COUNTRY_FALLBACK: Record<string, string> = {
@@ -68,7 +69,7 @@ function getLocation(offer: TravelOffer): string {
   return `${region} · ${country}`;
 }
 
-export default function HomeDealCard({ offer, priority = false }: Props) {
+export default function HomeDealCard({ offer, priority = false, featured = false }: Props) {
   const t = useTranslations("dealCard");
   const { user } = useAuth();
   const [saved, setSaved]           = useState(false);
@@ -126,7 +127,7 @@ export default function HomeDealCard({ offer, priority = false }: Props) {
       className="group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 bg-white text-left w-full cursor-pointer ring-0 hover:ring-2 hover:ring-sand-400/60"
     >
       {/* ── Bild ── */}
-      <div className="relative overflow-hidden" style={{ height: "185px" }}>
+      <div className="relative overflow-hidden" style={{ height: featured ? "240px" : "160px" }}>
         <Image
           src={getImg(offer)}
           alt={`${offer.hotel_name} – ${offer.region_name}, ${offer.country_name}`}
