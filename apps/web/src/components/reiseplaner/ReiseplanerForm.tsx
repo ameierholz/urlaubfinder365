@@ -76,8 +76,7 @@ export default function ReiseplanerForm({ onResult, onLoading, loading }: Props)
       });
       const data = await res.json();
       if (!res.ok || data.error) {
-        const debugInfo = data._debug ? ` [Debug: ${JSON.stringify(data._debug)}]` : "";
-        setFehler((data.error ?? "Fehler beim Generieren. Bitte erneut versuchen.") + debugInfo);
+        setFehler(data.error ?? "Fehler beim Generieren. Bitte erneut versuchen.");
       } else {
         onResult(data.reiseplan, ziel);
       }

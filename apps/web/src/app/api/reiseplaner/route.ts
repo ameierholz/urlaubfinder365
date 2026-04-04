@@ -6,6 +6,36 @@ export const maxDuration = 60;
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
+/** Versuche JSON zu reparieren: abgeschnittene Antworten, trailing commas etc. */
+function tryParseJSON(raw: string): unknown | null {
+  // 1. Direkter Versuch
+  try { return JSON.parse(raw); } catch { /* weiter */ }
+
+  // 2. Trailing commas entfernen (,] oder ,})
+  let fixed = raw.replace(/,\s*([}\]])/g, "$1");
+  try { return JSON.parse(fixed); } catch { /* weiter */ }
+
+  // 3. Abgeschnittenes JSON: fehlende schließende Klammern ergänzen
+  const opens  = (fixed.match(/[{[]/g) || []).length;
+  const closes = (fixed.match(/[}\]]/g) || []).length;
+  const missing = opens - closes;
+  if (missing > 0) {
+    // Finde die offenen Klammern in umgekehrter Reihenfolge
+    const stack: string[] = [];
+    for (const ch of fixed) {
+      if (ch === "{" || ch === "[") stack.push(ch === "{" ? "}" : "]");
+      else if (ch === "}" || ch === "]") stack.pop();
+    }
+    // Trailing comma vor dem Schließen entfernen
+    fixed = fixed.replace(/,\s*$/, "");
+    // Fehlende Klammern in umgekehrter Reihenfolge anhängen
+    fixed += stack.reverse().join("");
+    try { return JSON.parse(fixed); } catch { /* aufgeben */ }
+  }
+
+  return null;
+}
+
 export async function POST(req: NextRequest) {
   // Strenges Rate-Limiting: max 3 Anfragen pro Minute (teurer KI-API-Call)
   const limited = rateLimit(req, 3, 60_000);
@@ -32,7 +62,7 @@ export async function POST(req: NextRequest) {
 **Interessen:** ${interessen?.join(", ") || "allgemein"}
 **Unterkunft:** ${unterkunft || "Hotel"}
 
-Erstelle einen strukturierten Tagesplan im folgenden JSON-Format (nur JSON, kein anderer Text):
+Erstelle einen strukturierten Tagesplan im folgenden JSON-Format. WICHTIG: Antworte ausschließlich mit validem JSON, kein anderer Text davor oder danach. Achte auf korrekte JSON-Syntax (keine Trailing Commas, alle Strings in doppelten Anführungszeichen).
 
 {
   "zusammenfassung": "2-3 Sätze Überblick über die Reise",
@@ -67,7 +97,7 @@ Erstelle für jeden der ${tage} Tage mindestens 3 Aktivitäten (Vormittag, Nachm
 
     const message = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 4000,
+      max_tokens: 4096,
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -79,20 +109,17 @@ Erstelle für jeden der ${tage} Tage mindestens 3 Aktivitäten (Vormittag, Nachm
       return NextResponse.json({ error: "Ungültige KI-Antwort" }, { status: 500 });
     }
 
-    const reiseplan = JSON.parse(jsonMatch[0]);
+    const reiseplan = tryParseJSON(jsonMatch[0]);
+    if (!reiseplan) {
+      console.error("JSON parse failed, raw length:", text.length, "stop_reason:", message.stop_reason);
+      return NextResponse.json({ error: "KI-Antwort konnte nicht verarbeitet werden. Bitte erneut versuchen." }, { status: 500 });
+    }
+
     return NextResponse.json({ reiseplan });
 
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
-    const status = (e as { status?: number }).status;
-    console.error("REISEPLANER_ERR_MSG:", msg);
-    console.error("REISEPLANER_ERR_STATUS:", status);
-    console.error("REISEPLANER_KEY_SET:", !!process.env.ANTHROPIC_API_KEY);
-    console.error("REISEPLANER_KEY_PREFIX:", process.env.ANTHROPIC_API_KEY?.slice(0, 10));
-    // Temporär: Fehlerdetails in Response für Debugging
-    return NextResponse.json({
-      error: "Serverfehler",
-      _debug: { msg: msg.slice(0, 200), status, keySet: !!process.env.ANTHROPIC_API_KEY }
-    }, { status: 500 });
+    console.error("Urlaubsplaner API Error:", msg);
+    return NextResponse.json({ error: "Serverfehler. Bitte erneut versuchen." }, { status: 500 });
   }
 }
