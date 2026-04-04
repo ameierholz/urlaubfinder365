@@ -82,8 +82,10 @@ Erstelle für jeden der ${tage} Tage mindestens 3 Aktivitäten (Vormittag, Nachm
     const reiseplan = JSON.parse(jsonMatch[0]);
     return NextResponse.json({ reiseplan });
 
-  } catch (e) {
-    console.error("Urlaubsplaner API Error:", e instanceof Error ? e.message : String(e));
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    const status = (e as { status?: number }).status;
+    console.error("Urlaubsplaner API Error:", msg, "| status:", status, "| key set:", !!process.env.ANTHROPIC_API_KEY);
     return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }
