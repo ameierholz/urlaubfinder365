@@ -138,10 +138,10 @@ export default async function DestinationPage({ params }: Props) {
           }],
         } : {}),
         ...(dest.climate && dest.climate.length > 0 ? {
-          "amenityFeature": dest.climate.slice(0, 4).map((m: { month: string; temp: number; sun?: number }) => ({
+          "amenityFeature": dest.climate.slice(0, 4).map((m) => ({
             "@type": "LocationFeatureSpecification",
             "name": `Durchschnittstemperatur ${m.month}`,
-            "value": `${m.temp}°C`,
+            "value": `${m.tempHigh}°C`,
           })),
         } : {}),
         ...(topDeals.length > 0 && topDeals[0].offer_price_adult ? {
@@ -344,24 +344,16 @@ export default async function DestinationPage({ params }: Props) {
               </li>
             )}
             {dest.climate && dest.climate.length > 0 && (() => {
-              const peak = dest.climate.reduce(
-                (best: { month: string; temp: number; sun?: number }, m: { month: string; temp: number; sun?: number }) =>
-                  m.temp > best.temp ? m : best,
-                dest.climate[0]
-              );
+              const peak = dest.climate.reduce((best, m) => m.tempHigh > best.tempHigh ? m : best, dest.climate[0]);
               return (
                 <li className="flex flex-col gap-0.5">
                   <span className="text-xs text-gray-400 font-medium">Wärmster Monat</span>
-                  <span className="font-semibold text-gray-800">{peak.month} ({peak.temp}°C)</span>
+                  <span className="font-semibold text-gray-800">{peak.month} ({peak.tempHigh}°C)</span>
                 </li>
               );
             })()}
             {dest.climate && dest.climate.length > 0 && (() => {
-              const cheap = dest.climate.reduce(
-                (best: { month: string; temp: number; sun?: number }, m: { month: string; temp: number; sun?: number }) =>
-                  m.temp < best.temp ? m : best,
-                dest.climate[0]
-              );
+              const cheap = dest.climate.reduce((best, m) => m.tempHigh < best.tempHigh ? m : best, dest.climate[0]);
               return (
                 <li className="flex flex-col gap-0.5">
                   <span className="text-xs text-gray-400 font-medium">Günstigste Saison</span>
