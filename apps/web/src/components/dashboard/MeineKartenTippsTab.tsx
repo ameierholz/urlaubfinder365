@@ -8,9 +8,9 @@ import {
   MapPin, Clock, CheckCircle2, XCircle, Hourglass,
   Trash2, ImageIcon, AlertCircle, Loader2, Map,
 } from "lucide-react";
-import type { User } from "firebase/auth";
+import type { AppUser } from "@/context/AuthContext";
 
-interface Props { user: User }
+interface Props { user: AppUser }
 
 const STATUS_CONFIG = {
   approved: { label: "Freigegeben",    icon: CheckCircle2, color: "text-teal-600",  bg: "bg-teal-50",  border: "border-teal-200" },

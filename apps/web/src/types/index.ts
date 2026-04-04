@@ -133,6 +133,7 @@ export interface UserProfile {
   preferences?: TravelPreferences;
   checklist?: ChecklistItem[];
   notes?: string;                    // Persönliche Reisenotizen
+  role?: "user" | "admin" | "moderator";
 }
 
 export interface SavedTrip {
