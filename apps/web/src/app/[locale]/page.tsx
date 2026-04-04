@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map } from "lucide-react";
+import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map, Sparkles, Calendar, TrendingUp, ShieldAlert, Star, Compass } from "lucide-react";
 import { TravelOffer } from "@/types";
 import SearchBox from "@/components/widgets/SearchBox";
 import HomeDealCard from "@/components/home/HomeDealCard";
@@ -1137,6 +1137,86 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          6c · EXTRAS BANNER – Alle Tools auf einen Blick
+      ══════════════════════════════════════════════════════════ */}
+      <section className="bg-white pb-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="flex items-end justify-between gap-4 mb-6">
+            <div>
+              <p className="text-[#1db682] text-sm font-bold uppercase tracking-widest mb-1.5">Kostenlose Tools</p>
+              <h2 className="text-2xl sm:text-3xl font-black text-gray-900">Dein Reise-Cockpit</h2>
+              <p className="text-gray-500 text-sm mt-1">9 Tools für die perfekte Urlaubsplanung – alle kostenlos</p>
+            </div>
+            <Link href="/extras/" className="hidden sm:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
+              Alle Extras →
+            </Link>
+          </div>
+
+          {/* Featured: KI-Urlaubsplaner */}
+          <Link
+            href="/ki-reiseplaner/"
+            className="group flex items-center gap-4 sm:gap-6 rounded-2xl p-5 mb-4 transition-all hover:shadow-xl hover:-translate-y-0.5"
+            style={{ background: "linear-gradient(135deg, #2d1b69 0%, #7c3aed 60%, #8b5cf6 100%)" }}
+          >
+            <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
+              <Sparkles className="w-7 h-7 text-purple-200" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-white font-black text-lg">KI-Urlaubsplaner</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 text-purple-100">KI</span>
+              </div>
+              <p className="text-purple-200/80 text-sm leading-snug">Dein persönlicher Reiseplan in Sekunden – Powered by Claude AI</p>
+            </div>
+            <span className="text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all text-xl shrink-0">→</span>
+          </Link>
+
+          {/* 8 Tools Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {([
+              { href: "/urlaubsguides/",           icon: BookOpen,    bg: "bg-blue-50",    iconColor: "text-blue-500",    label: "Urlaubsguides",     desc: "Tipps & Infos zu 250+ Zielen",          badge: null },
+              { href: "/preisentwicklung/",        icon: TrendingUp,  bg: "bg-emerald-50", iconColor: "text-emerald-500", label: "Preisentwicklung",   desc: "Wann buchen am günstigsten?",           badge: "NEU" },
+              { href: "/extras/urlaubskalender/",  icon: Calendar,    bg: "bg-pink-50",    iconColor: "text-pink-500",    label: "Urlaubskalender",    desc: "Ferientermine & Brückentage",           badge: null },
+              { href: "/visum-checker/",           icon: ShieldCheck, bg: "bg-teal-50",    iconColor: "text-teal-500",    label: "Visum-Checker",      desc: "Einreisebestimmungen prüfen",           badge: null },
+              { href: "/reisewarnungen/",          icon: ShieldAlert, bg: "bg-red-50",     iconColor: "text-red-500",     label: "Reisewarnungen",     desc: "Aktuelle Sicherheitshinweise",          badge: null },
+              { href: "/reiseversicherung/",       icon: Star,        bg: "bg-indigo-50",  iconColor: "text-indigo-500",  label: "Reiseversicherung",  desc: "Kranken-, Gepäck & Storno",             badge: null },
+              { href: "/erlebnisse/",              icon: Compass,     bg: "bg-orange-50",  iconColor: "text-orange-500",  label: "Erlebnisse",         desc: "Tickets & Aktivitäten weltweit",        badge: null },
+              { href: "/extras/reisenden-karte/",  icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    label: "Urlauber-Karte",     desc: "Alle Urlauber auf der Weltkarte",       badge: null },
+            ] as const).map(({ href, icon: Icon, bg, iconColor, label, desc, badge }) => (
+              <Link
+                key={href}
+                href={href}
+                className="group flex items-start gap-3 bg-white border border-gray-100 hover:border-gray-200 hover:shadow-md rounded-xl p-4 transition-all hover:-translate-y-0.5"
+              >
+                <div className={`w-9 h-9 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
+                  <Icon className={`w-4 h-4 ${iconColor}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-sm font-bold text-gray-800 truncate">{label}</span>
+                    {badge && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-600 shrink-0">{badge}</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500 leading-snug">{desc}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="sm:hidden mt-4 text-center">
+            <Link href="/extras/" className="text-sm font-semibold text-[#00838F] hover:underline">
+              Alle Extras ansehen →
+            </Link>
+          </div>
+
         </div>
       </section>
 
