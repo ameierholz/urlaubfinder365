@@ -3,9 +3,9 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 
 const LIFESTYLE_ITEMS = [
-  { img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=75",  gradient: "from-blue-900/75",    labelKey: "familien",     href: "/urlaubsthemen/familienurlaub/" },
+  { img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=75",  gradient: "from-blue-900/75",    labelKey: "familien",     href: "/urlaubsthemen/familienurlaub/" },
   { img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=75",  gradient: "from-pink-900/70",    labelKey: "paare",        href: "/urlaubsthemen/wellnessurlaub/" },
-  { img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=75",  gradient: "from-sand-900/70",    labelKey: "singles",      href: "/urlaubsthemen/singlereisen/" },
+  { img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=75",  gradient: "from-sand-900/70",    labelKey: "singles",      href: "/urlaubsthemen/singlereisen/" },
   { img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=75",  gradient: "from-teal-900/70",    labelKey: "gruppen",      href: "/urlaubsthemen/familienurlaub/" },
   { img: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=75",     gradient: "from-emerald-900/70", labelKey: "aktiv",        href: "/urlaubsthemen/aktivurlaub/" },
   { img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=75",  gradient: "from-cyan-900/70",    labelKey: "allInclusive", href: "/urlaubsarten/all-inclusive-urlaub/" },
