@@ -19,12 +19,19 @@ function subscribe(cb: () => void) {
   return () => listeners.delete(cb);
 }
 
+// Cache für stabile Referenz – useSyncExternalStore vergleicht per ===
+let cachedRaw: string | null = null;
+let cachedParsed: CookieConsent | null = null;
+
 function getSnapshot(): CookieConsent | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as CookieConsent;
+    if (!raw) { cachedRaw = null; cachedParsed = null; return null; }
+    if (raw === cachedRaw) return cachedParsed;
+    cachedRaw = raw;
+    cachedParsed = JSON.parse(raw) as CookieConsent;
+    return cachedParsed;
   } catch {
     return null;
   }
