@@ -78,7 +78,7 @@ export async function GET(
   const { data: monthly } = await supabase.rpc("price_history_monthly_avg", {
     p_slug:    slug,
     p_profile: profile,
-  }).catch(() => ({ data: null }));
+  }).then((r) => r, () => ({ data: null }));
 
   // Jahr-über-Jahr-Vergleich
   const todayStr = new Date().toISOString().slice(0, 10);
