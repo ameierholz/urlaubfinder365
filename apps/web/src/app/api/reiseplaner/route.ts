@@ -85,7 +85,14 @@ Erstelle für jeden der ${tage} Tage mindestens 3 Aktivitäten (Vormittag, Nachm
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     const status = (e as { status?: number }).status;
-    console.error("Urlaubsplaner API Error:", msg, "| status:", status, "| key set:", !!process.env.ANTHROPIC_API_KEY);
-    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
+    console.error("REISEPLANER_ERR_MSG:", msg);
+    console.error("REISEPLANER_ERR_STATUS:", status);
+    console.error("REISEPLANER_KEY_SET:", !!process.env.ANTHROPIC_API_KEY);
+    console.error("REISEPLANER_KEY_PREFIX:", process.env.ANTHROPIC_API_KEY?.slice(0, 10));
+    // Temporär: Fehlerdetails in Response für Debugging
+    return NextResponse.json({
+      error: "Serverfehler",
+      _debug: { msg: msg.slice(0, 200), status, keySet: !!process.env.ANTHROPIC_API_KEY }
+    }, { status: 500 });
   }
 }
