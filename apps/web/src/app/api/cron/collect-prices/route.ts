@@ -30,31 +30,48 @@ const HOTEL_BOARDS = ["RO", "BB", "HB", "FB", "HP", "VP"]; // alles außer AI
 const PROFILES = {
   pauschal: {
     label:         "Pauschalreise",
-    boardFilter:   null as string[] | null,   // alle Board-Typen
+    boardFilter:   null as string[] | null,
     excludeBoards: null as string[] | null,
     minCat:        "3",
     minRecommrate: "50",
+    fromDays:      null as string | null,
+    toDays:        null as string | null,
   },
   hotel: {
     label:         "Nur Hotel",
-    boardFilter:   HOTEL_BOARDS,              // nur Nicht-AI-Boards
+    boardFilter:   HOTEL_BOARDS,
     excludeBoards: null as string[] | null,
     minCat:        "3",
     minRecommrate: "50",
+    fromDays:      null as string | null,
+    toDays:        null as string | null,
   },
   ai: {
     label:         "All-Inclusive",
-    boardFilter:   AI_BOARDS,                 // nur AI-Boards
+    boardFilter:   AI_BOARDS,
     excludeBoards: null as string[] | null,
     minCat:        "3",
     minRecommrate: "50",
+    fromDays:      null as string | null,
+    toDays:        null as string | null,
   },
-} as const satisfies Record<PriceProfileId, {
+  last_minute: {
+    label:         "Last Minute",
+    boardFilter:   null as string[] | null,
+    excludeBoards: null as string[] | null,
+    minCat:        "3",
+    minRecommrate: "40",
+    fromDays:      "3",
+    toDays:        "21",
+  },
+} satisfies Record<PriceProfileId, {
   label: string;
   boardFilter: string[] | null;
   excludeBoards: string[] | null;
   minCat: string;
   minRecommrate: string;
+  fromDays: string | null;
+  toDays: string | null;
 }>;
 
 // ── API-Fetch ─────────────────────────────────────────────────────────────────
@@ -78,6 +95,8 @@ async function fetchMinPriceForProfile(
     url.searchParams.set("limit",        LIMIT);
     url.searchParams.set("minCat",       profile.minCat);
     url.searchParams.set("minRecommrate",profile.minRecommrate);
+    if (profile.fromDays) url.searchParams.set("from", profile.fromDays);
+    if (profile.toDays)   url.searchParams.set("to",   profile.toDays);
 
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) return null;
@@ -128,7 +147,7 @@ export async function GET(req: NextRequest) {
   const profileParam = req.nextUrl.searchParams.get("profile") ?? "pauschal";
   if (!(profileParam in PROFILES)) {
     return NextResponse.json(
-      { error: `Ungültiges Profil: ${profileParam}. Erlaubt: pauschal, hotel, ai` },
+      { error: `Ungültiges Profil: ${profileParam}. Erlaubt: pauschal, hotel, ai, last_minute` },
       { status: 400 }
     );
   }
