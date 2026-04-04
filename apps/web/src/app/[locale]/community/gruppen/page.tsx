@@ -3,13 +3,13 @@ import GruppenClient from "./gruppenclient";
 import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
-  title: "👥 Reisegruppen – Gleichgesinnte finden & vernetzen",
-  description: "Reisegruppen bei Urlaubfinder365: Gleichgesinnte Reisende finden ✓ Nach Interessen filtern ✓ Gemeinsam planen ✓ Kostenlos beitreten.",
-  keywords: ["Reisegruppen", "Reisende finden", "Gemeinsam verreisen", "Reisegruppe beitreten", "Reisepartner finden", "Gruppenreise"],
+  title: "👥 Urlaubsgruppen – Gleichgesinnte finden & vernetzen",
+  description: "Urlaubsgruppen bei Urlaubfinder365: Gleichgesinnte Reisende finden ✓ Nach Interessen filtern ✓ Gemeinsam planen ✓ Kostenlos beitreten.",
+  keywords: ["Urlaubsgruppen", "Reisende finden", "Gemeinsam verreisen", "Urlaubsgruppe beitreten", "Urlaubspartner finden", "Gruppenreise"],
   alternates: { canonical: "https://www.urlaubfinder365.de/community/gruppen/" },
   openGraph: {
-    title: "👥 Reisegruppen – vernetzen & reisen | Urlaubfinder365",
-    description: "Reisegruppen bei Urlaubfinder365: Gleichgesinnte Reisende finden ✓ Nach Interessen filtern ✓ Gemeinsam planen ✓ Kostenlos beitreten.",
+    title: "👥 Urlaubsgruppen – vernetzen & reisen | Urlaubfinder365",
+    description: "Urlaubsgruppen bei Urlaubfinder365: Gleichgesinnte Reisende finden ✓ Nach Interessen filtern ✓ Gemeinsam planen ✓ Kostenlos beitreten.",
     url: "https://www.urlaubfinder365.de/community/gruppen/",
     type: "website",
   },
@@ -21,7 +21,7 @@ const jsonLd = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
     { "@type": "ListItem", position: 2, name: "Community", item: "https://www.urlaubfinder365.de/community/" },
-    { "@type": "ListItem", position: 3, name: "Reisegruppen", item: "https://www.urlaubfinder365.de/community/gruppen/" },
+    { "@type": "ListItem", position: 3, name: "Urlaubsgruppen", item: "https://www.urlaubfinder365.de/community/gruppen/" },
   ],
 };
 

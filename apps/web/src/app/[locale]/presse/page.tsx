@@ -18,7 +18,7 @@ const STATS = [
   { icon: Globe,      value: "365 Tage",  label: "täglich neue Angebote" },
   { icon: Users,      value: "50+",       label: "Reiseveranstalter verglichen" },
   { icon: TrendingUp, value: "10.000+",   label: "Angebote täglich aktuell" },
-  { icon: Star,       value: "kostenlos", label: "Reiseführer für Nutzer" },
+  { icon: Star,       value: "kostenlos", label: "Urlaubsführer für Nutzer" },
 ];
 
 // Betreiber
@@ -33,7 +33,7 @@ const PRESS_RELEASES = [
     date: "März 2026",
     title: "Urlaubfinder365.de startet als neues Reisevergleichsportal für den deutschsprachigen Markt",
     teaser:
-      "Das neue Reiseportal Urlaubfinder365.de vergleicht täglich tausende Pauschalreisen, All-Inclusive- und Last-Minute-Angebote von über 50 namhaften Reiseveranstaltern.",
+      "Das neue Urlaubsportal Urlaubfinder365.de vergleicht täglich tausende Pauschalreisen, All-Inclusive- und Last-Minute-Angebote von über 50 namhaften Reiseveranstaltern.",
   },
 ];
 
@@ -86,12 +86,12 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="text-sm text-gray-600 space-y-3 leading-relaxed">
               <p>
                 <strong>Urlaubfinder365.de</strong> ist ein unabhängiges deutschsprachiges
-                Reisevergleichsportal. Wir aggregieren täglich tausende Reiseangebote von über 50
+                Reisevergleichsportal. Wir aggregieren täglich tausende Urlaubsangebote von über 50
                 führenden Reiseveranstaltern und stellen sie übersichtlich dar – von Pauschalreisen
                 über All-Inclusive bis hin zu Last-Minute-Deals und Kreuzfahrten.
               </p>
               <p>
-                Zusätzlich bieten wir kostenlose <strong>Reiseführer</strong> für die beliebtesten
+                Zusätzlich bieten wir kostenlose <strong>Urlaubsführer</strong> für die beliebtesten
                 deutschen Urlaubsziele: Türkei, Griechenland, Spanien, Ägypten und mehr.
               </p>
               <p>
@@ -137,13 +137,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <section>
           <h2 className="text-xl font-black text-gray-900 mb-4">Kooperationen & Partnerschaften</h2>
           <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-            Wir sind offen für Kooperationen mit Reiseveranstaltern, Reisebloggern,
+            Wir sind offen für Kooperationen mit Reiseveranstaltern, Urlaubsbloggern,
             Tourismusorganisationen und Medienpartnern. Mögliche Formen der Zusammenarbeit:
           </p>
           <div className="grid sm:grid-cols-3 gap-4">
             {[
-              { title: "Content-Kooperationen", desc: "Gastbeiträge, Reiseberichte und gemeinsame Reiseführer mit Verlinkung." },
-              { title: "Affiliate & Vertrieb", desc: "Wir verlinken Reiseangebote von Veranstaltern mit Partnerlink (Affiliate)." },
+              { title: "Content-Kooperationen", desc: "Gastbeiträge, Urlaubsberichte und gemeinsame Urlaubsführer mit Verlinkung." },
+              { title: "Affiliate & Vertrieb", desc: "Wir verlinken Urlaubsangebote von Veranstaltern mit Partnerlink (Affiliate)." },
               { title: "Medienkooperationen", desc: "Preisvergleiche, Marktübersichten und Daten für redaktionelle Beiträge." },
             ].map(({ title, desc }) => (
               <div key={title} className="bg-sand-50 rounded-2xl border border-sand-100 p-5">

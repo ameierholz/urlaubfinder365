@@ -1,20 +1,125 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageNavBar from "@/components/ui/PageNavBar";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import DestinationCard, { type Destination } from "@/components/urlaubskalender/DestinationCard";
+import KalenderAngebotBox, { type KalenderAngebot } from "@/components/urlaubskalender/KalenderAngebotBox";
 import { setRequestLocale } from "next-intl/server";
 
 const YEAR = new Date().getFullYear();
 
+const KALENDER_ANGEBOTE: KalenderAngebot[] = [
+  {
+    id: "ka-1",
+    titel: "All-Inclusive Strandurlaub",
+    ziel: "Antalya, Türkei",
+    countryCode: "tr",
+    preis: 349,
+    foto_url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=300&h=150&q=70&fit=crop&auto=format",
+    regionId: "100046",
+  },
+  {
+    id: "ka-2",
+    titel: "Traumstrand & Meerblick",
+    ziel: "Mallorca, Spanien",
+    countryCode: "es",
+    preis: 299,
+    foto_url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=150&q=70&fit=crop&auto=format",
+    regionId: "100052",
+  },
+  {
+    id: "ka-3",
+    titel: "Tauchen & Entspannen",
+    ziel: "Hurghada, Ägypten",
+    countryCode: "eg",
+    preis: 279,
+    foto_url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&h=150&q=70&fit=crop&auto=format",
+    regionId: "100070",
+  },
+  {
+    id: "ka-4",
+    titel: "Kultur & Strand",
+    ziel: "Kreta, Griechenland",
+    countryCode: "gr",
+    preis: 319,
+    foto_url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-5",
+    titel: "Wüste & Meer",
+    ziel: "Dubai, VAE",
+    countryCode: "ae",
+    preis: 499,
+    foto_url: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-6",
+    titel: "Trauminseln & Natur",
+    ziel: "Malediven",
+    countryCode: "mv",
+    preis: 899,
+    foto_url: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-7",
+    titel: "Tempel & Strände",
+    ziel: "Thailand",
+    countryCode: "th",
+    preis: 599,
+    foto_url: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=300&h=150&q=70&fit=crop&auto=format",
+    regionId: "100220",
+  },
+  {
+    id: "ka-8",
+    titel: "Safari & Atlantik",
+    ziel: "Kapverdische Inseln",
+    countryCode: "cv",
+    preis: 449,
+    foto_url: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-9",
+    titel: "Flamenco & Sonne",
+    ziel: "Andalusien, Spanien",
+    countryCode: "es",
+    preis: 329,
+    foto_url: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-10",
+    titel: "Karibik-Feeling",
+    ziel: "Kuba",
+    countryCode: "cu",
+    preis: 699,
+    foto_url: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=300&h=150&q=70&fit=crop&auto=format",
+    regionId: "100017",
+  },
+  {
+    id: "ka-11",
+    titel: "Safari & Sunset",
+    ziel: "Kenia",
+    countryCode: "ke",
+    preis: 749,
+    foto_url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+  {
+    id: "ka-12",
+    titel: "Skiurlaub & Bergpanorama",
+    ziel: "Österreich",
+    countryCode: "at",
+    preis: 389,
+    foto_url: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=150&q=70&fit=crop&auto=format",
+  },
+];
+
 export const metadata: Metadata = {
   title: `📅 Urlaubskalender ${YEAR} – beste Reisezeit finden`,
-  description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Reiseziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
-  keywords: ["Urlaubskalender", "Beste Reisezeit", "Wann wohin reisen", "Reisezeit Kalender", "Schulferien Urlaub", "Klimatabelle Reiseziele"],
+  description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Urlaubsziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
+  keywords: ["Urlaubskalender", "Beste Reisezeit", "Wann wohin reisen", "Reisezeit Kalender", "Schulferien Urlaub", "Klimatabelle Urlaubsziele"],
   alternates: { canonical: "https://www.urlaubfinder365.de/extras/urlaubskalender/" },
   openGraph: {
     title: `📅 Urlaubskalender ${YEAR} – beste Reisezeit | Urlaubfinder365`,
-    description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Reiseziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
+    description: `Urlaubskalender ${YEAR}: Finde die beste Reisezeit für jedes Urlaubsziel ✓ Klima & Wetter ✓ Preistipps ✓ Feiertage & Schulferien.`,
     url: "https://www.urlaubfinder365.de/extras/urlaubskalender/",
     type: "website",
   },
@@ -274,20 +379,28 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ── Hero ── */}
-      <div className="relative bg-linear-to-br from-[#00838F] to-[#1db682] text-white pt-16 pb-12 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none select-none">
-          <div className="absolute top-8 left-12 text-8xl">☀️</div>
-          <div className="absolute top-4 right-24 text-6xl">❄️</div>
-          <div className="absolute bottom-4 left-1/3 text-5xl">🌍</div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-3">Urlaubsplanung leicht gemacht</p>
-          <h1 className="text-3xl md:text-5xl font-extrabold mb-4">Urlaubskalender</h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+      <section className="relative overflow-hidden text-white" style={{ minHeight: "340px" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80"
+          alt="Urlaubskalender – beste Reisezeit"
+          className="absolute inset-0 w-full h-full object-cover"
+          // @ts-ignore
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-linear-to-br from-[#00838F]/90 via-[#1db682]/75 to-[#006d78]/85" />
+        <div className="relative z-10 max-w-3xl mx-auto text-center px-4 py-16">
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
+            📅 Urlaubsplanung leicht gemacht
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black leading-tight mb-4">
+            Urlaubskalender
+          </h1>
+          <p className="text-lg text-white/85 max-w-xl mx-auto leading-relaxed">
             Wann ist wo die beste Reisezeit? Unser Monatsguide zeigt dir die Top-Ziele für Sommer- und Winterurlaub – jeden Monat des Jahres.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* ── NavBar ── */}
       <PageNavBar items={NAV_ITEMS} />
@@ -418,7 +531,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
 
             <div className="space-y-6">
-              {MONTHS.map((m) => (
+              {MONTHS.map((m, idx) => (
                 <div
                   key={m.month}
                   id={m.month.toLowerCase()}
@@ -480,6 +593,34 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                       </div>
                     </div>
                   </div>
+
+                  {/* Gesponserte Angebotsboxen */}
+                  <div className="px-5 pb-5 pt-4 border-t border-gray-100">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                        Passende Angebote im {m.month}
+                      </span>
+                      <span className="text-[9px] text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full font-bold">
+                        Anzeige
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <KalenderAngebotBox
+                        angebot={KALENDER_ANGEBOTE[(idx * 2) % KALENDER_ANGEBOTE.length]}
+                      />
+                      <KalenderAngebotBox
+                        angebot={KALENDER_ANGEBOTE[(idx * 2 + 1) % KALENDER_ANGEBOTE.length]}
+                      />
+                    </div>
+                    <div className="mt-3 text-right">
+                      <Link
+                        href="/guenstig-urlaub-buchen/"
+                        className="text-xs font-bold text-[#00838F] hover:underline"
+                      >
+                        Alle Angebote ansehen →
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -505,12 +646,28 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
         </div>
 
-        {/* ── Sticky Ad Sidebar ── */}
-        <aside className="hidden xl:block w-46.5 shrink-0 sticky top-28 pt-12">
-          <AdBanner
-            placementKey="86c5e79b5bd126e0b09685dad18c2682"
-            height={600}
-          />
+        {/* ── Sidebar ── */}
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24 pt-12">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=200&q=70&auto=format&fit=crop",
+                eyebrow: "Urlaub planen",
+                title: "Günstige Pauschalreisen",
+                description: "Täglich tausende Angebote vergleichen – Last-Minute & Frühbucher.",
+                href: "/guenstig-urlaub-buchen/",
+                ctaLabel: "Angebote vergleichen →",
+              }}
+              seoLinksTitle="📅 Reiseplanung"
+              seoLinks={[
+                { href: "/urlaubsarten/last-minute-urlaub/",    label: "Last-Minute Urlaub" },
+                { href: "/urlaubsarten/fruhbucher-urlaub/",     label: "Frühbucher Urlaub" },
+                { href: "/urlaubsziele/",                       label: "Alle Urlaubsziele" },
+                { href: "/ki-reiseplaner/",                     label: "KI-Urlaubsplaner" },
+                { href: "/preisentwicklung/",                   label: "Preisentwicklung" },
+              ]}
+            />
+          </div>
         </aside>
 
       </div>

@@ -133,7 +133,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
                   <span className="font-normal text-gray-500 ml-1">| {offer.rating.recommendation}% Empfehlung</span>
                 )}
               </p>
-              <p className="text-[10px] text-gray-500 leading-tight mt-0.5">
+              <p className="text-xs sm:text-[10px] text-gray-500 leading-tight mt-0.5">
                 <span className="font-semibold text-[#f39100]">HolidayCheck</span>: {offer.rating.count} Bewertungen
               </p>
             </div>
@@ -160,14 +160,14 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
         <div className="flex gap-2 flex-wrap mb-4">
           <span className={clsx(
             "inline-flex items-center gap-1 bg-gray-100 text-gray-700 font-medium rounded-full",
-            compact ? "text-[10px] px-2 py-0.5" : "text-xs px-2.5 py-1"
+            compact ? "text-xs px-2 py-0.5" : "text-xs px-2.5 py-1"
           )}>
             <Clock className="w-3 h-3 shrink-0" />
             {offer.offer_duration} Nächte
           </span>
           <span className={clsx(
             "inline-flex items-center gap-1 bg-sky-50 text-sky-700 font-medium rounded-full border border-sky-100",
-            compact ? "text-[10px] px-2 py-0.5" : "text-xs px-2.5 py-1"
+            compact ? "text-xs px-2 py-0.5" : "text-xs px-2.5 py-1"
           )}>
             <Plane className="w-3 h-3 shrink-0" />
             Flug inklusive
@@ -181,7 +181,7 @@ export default function OfferCard({ offer, savedProductCodes = [], compact = fal
             <p className={clsx("font-extrabold text-gray-900 leading-none", compact ? "text-sm" : "text-lg")}>
               ab {price},- €
             </p>
-            <p className="text-[10px] text-gray-400 mt-0.5">Preis für 2 Erwachsene</p>
+            <p className="text-xs sm:text-[10px] text-gray-400 mt-0.5">Preis für 2 Erwachsene</p>
           </div>
           {/* Button */}
           <button

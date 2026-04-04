@@ -417,7 +417,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
 
         {/* ── Haupt-Content ── */}
-        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-32 pb-6" style={{ overflow: "visible" }}>
+        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-32 pb-6" style={{ overflow: "visible" }}>
 
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4">

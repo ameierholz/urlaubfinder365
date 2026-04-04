@@ -127,14 +127,14 @@ export default function DestinationSlider() {
       {/* Scroll Container */}
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth pb-2"
+        className="flex gap-4 overflow-x-auto scroll-smooth pb-2 snap-x snap-mandatory"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {DESTINATIONS.map((dest) => (
           <Link
             key={dest.slug}
             href={`/urlaubsziele/${dest.slug}/`}
-            className="shrink-0 w-48 sm:w-52 group/card"
+            className="shrink-0 w-48 sm:w-52 group/card snap-start"
           >
             <div className="relative rounded-2xl overflow-hidden h-64 shadow-sm hover:shadow-xl transition-shadow duration-300">
               {/* Image */}

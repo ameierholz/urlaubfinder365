@@ -6,12 +6,12 @@ import { setRequestLocale } from "next-intl/server";
 export const metadata: Metadata = {
   title: "Über uns – Urlaubfinder365",
   description:
-    "Erfahre mehr über Urlaubfinder365: Unsere Mission, unser Team und warum wir täglich tausende Reiseangebote vergleichen, damit du den besten Urlaub findest.",
+    "Erfahre mehr über Urlaubfinder365: Unsere Mission, unser Team und warum wir täglich tausende Urlaubsangebote vergleichen, damit du den besten Urlaub findest.",
   alternates: { canonical: "https://www.urlaubfinder365.de/ueber-uns/" },
   openGraph: {
     title: "Über uns – Urlaubfinder365",
     description:
-      "Erfahre mehr über Urlaubfinder365: Unsere Mission, unser Team und warum wir täglich tausende Reiseangebote vergleichen.",
+      "Erfahre mehr über Urlaubfinder365: Unsere Mission, unser Team und warum wir täglich tausende Urlaubsangebote vergleichen.",
     url: "https://www.urlaubfinder365.de/ueber-uns/",
     type: "website",
   },
@@ -26,12 +26,12 @@ const WERTE = [
   {
     icon: Globe,
     title: "Vielfalt",
-    desc: "Über 50 Reiseveranstalter, 250+ Reiseziele und tausende Hotels – täglich aktualisiert.",
+    desc: "Über 50 Reiseveranstalter, 250+ Urlaubsziele und tausende Hotels – täglich aktualisiert.",
   },
   {
     icon: Users,
     title: "Community",
-    desc: "Echte Reiseberichte, Gruppen und Tipps von Reisenden für Reisende – nicht von Marketing-Teams.",
+    desc: "Echte Urlaubsberichte, Gruppen und Tipps von Reisenden für Reisende – nicht von Marketing-Teams.",
   },
   {
     icon: TrendingUp,
@@ -41,7 +41,7 @@ const WERTE = [
   {
     icon: Heart,
     title: "Leidenschaft",
-    desc: "Wir reisen selbst leidenschaftlich gern. Jeder Guide basiert auf echtem Reisewissen.",
+    desc: "Wir reisen selbst leidenschaftlich gern. Jeder Guide basiert auf echtem Urlaubswissen.",
   },
   {
     icon: Award,
@@ -53,7 +53,7 @@ const WERTE = [
 const MEILENSTEINE = [
   { year: "2024", text: "Idee und Konzeptentwicklung: Reisevergleich einfach, ehrlich und für alle zugänglich machen." },
   { year: "2025", text: "Gründung von Urlaubfinder365. Anbindung an specials.de, travianet und Tiqets. Launch der ersten Version." },
-  { year: "2026", text: "Community-Funktionen, kostenlose Reiseführer für 5 Top-Ziele und über 250 buchbare Reiseziele." },
+  { year: "2026", text: "Community-Funktionen, kostenlose Urlaubsführer für 5 Top-Ziele und über 250 buchbare Urlaubsziele." },
 ];
 
 const jsonLd = [
@@ -128,15 +128,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               Genau das wollen wir ändern.
             </p>
             <p>
-              <strong>Urlaubfinder365</strong> vergleicht täglich tausende Reiseangebote von über
+              <strong>Urlaubfinder365</strong> vergleicht täglich tausende Urlaubsangebote von über
               50 namhaften Veranstaltern – von TUI und DERTOUR bis FTI und Alltours. Unser Ziel:
               Dir den besten Preis zeigen, ohne Tricks, ohne versteckte Kosten. Du buchst direkt
               beim Veranstalter und bist durch das deutsche Pauschalreisegesetz voll geschützt.
             </p>
             <p>
               Aber Urlaubfinder365 ist mehr als ein Preisvergleich. Mit unseren kostenlosen
-              Reiseführern, der aktiven Reise-Community und Aktivitäten-Tickets für über 250
-              Reiseziele begleiten wir dich von der ersten Inspiration bis zum letzten Urlaubstag.
+              Urlaubsführern, der aktiven Urlaubs-Community und Aktivitäten-Tickets für über 250
+              Urlaubsziele begleiten wir dich von der ersten Inspiration bis zum letzten Urlaubstag.
             </p>
           </div>
         </section>
@@ -172,7 +172,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 aus einer einfachen Überzeugung gegründet: Urlaub buchen sollte nicht kompliziert
                 sein. Mit Erfahrung in Webentwicklung und einem tiefen Verständnis für die
                 Bedürfnisse von Reisenden hat er eine Plattform geschaffen, die Preistransparenz,
-                Community und Reise-Inspiration vereint.
+                Community und Urlaubs-Inspiration vereint.
               </p>
             </div>
           </div>
@@ -201,8 +201,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { num: "50+", label: "Reiseveranstalter" },
-              { num: "250+", label: "Reiseziele" },
-              { num: "5", label: "Kostenlose Reiseführer" },
+              { num: "250+", label: "Urlaubsziele" },
+              { num: "5", label: "Kostenlose Urlaubsführer" },
               { num: "24/7", label: "Täglich aktuell" },
             ].map(({ num, label }) => (
               <div key={label} className="bg-emerald-50 rounded-xl p-5 text-center">
@@ -217,7 +217,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <section className="py-12 border-t border-gray-200">
           <h2 className="text-2xl font-black text-gray-900 mb-4">Unsere Partner</h2>
           <p className="text-gray-700 text-sm mb-6">
-            Wir arbeiten mit etablierten Partnern zusammen, um dir die besten Reiseangebote zu bieten:
+            Wir arbeiten mit etablierten Partnern zusammen, um dir die besten Urlaubsangebote zu bieten:
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white rounded-xl p-5 border border-gray-100 text-center">
@@ -248,7 +248,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               href="/"
               className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-emerald-700 transition-colors"
             >
-              Reise suchen
+              Urlaub suchen
             </Link>
             <Link
               href="/community/"

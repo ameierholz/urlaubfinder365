@@ -115,7 +115,7 @@ export default function MeineGruppenTab({ user }: Props) {
         <div className="bg-white rounded-2xl border border-teal-200 shadow-sm p-5 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-gray-800">Neue Gruppe gründen</h3>
-            <button onClick={() => setShowForm(false)}><X className="w-4 h-4 text-gray-400" /></button>
+            <button onClick={() => setShowForm(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

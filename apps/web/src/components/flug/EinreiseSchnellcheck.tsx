@@ -208,7 +208,7 @@ const LAENDER: Land[] = [
     visa: true, label: "Visumfrei", labelColor: "bg-emerald-100 text-emerald-700",
     doc: "Kein Visum (bis 365 Tage!)",
     pass: "Gültig bei Einreise",
-    hint: "Beliebt als Langzeit-Reiseziel – Tiflis & Kaukasus günstig erreichbar",
+    hint: "Beliebt als Langzeit-Urlaubsziel – Tiflis & Kaukasus günstig erreichbar",
     link: "https://www.auswaertiges-amt.de/de/service/laender/georgien-node",
   },
 ];
@@ -235,7 +235,7 @@ export default function EinreiseSchnellcheck() {
         </div>
         <h2 className="text-2xl font-extrabold text-gray-900 mb-1">Einreise-Schnellcheck</h2>
         <p className="text-gray-500 text-sm mb-5">
-          Visum, eTA und Reisepass-Anforderungen für beliebte Reiseziele weltweit – für deutsche Staatsbürger.
+          Visum, eTA und Reisepass-Anforderungen für beliebte Urlaubsziele weltweit – für deutsche Staatsbürger.
         </p>
 
         {/* Tabs */}

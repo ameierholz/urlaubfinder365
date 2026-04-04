@@ -126,7 +126,7 @@ const SECTIONS = [
       "Wasserfeste Tasche / Dry Bag",
       "Schnorchelset (oder am Zielort ausleihen)",
       "Sonnenschirm (falls im Gepäck möglich)",
-      "Bücher / Reiseführer",
+      "Bücher / Urlaubsführer",
       "Kartenspiel / Reisespiele",
       "Reisekissen (für Langstreckenflug)",
     ],

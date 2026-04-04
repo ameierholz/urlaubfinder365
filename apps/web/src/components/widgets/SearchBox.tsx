@@ -14,11 +14,12 @@ const WIDGET_SRC =
  */
 export default function SearchBox() {
   const [ready, setReady] = useState(false);
-  const [height, setHeight] = useState(450);
+  const [height, setHeight] = useState(320);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Lazy-load nach erstem Paint
+  // Lazy-load nach erstem Paint + Desktop-Höhe setzen
   useEffect(() => {
+    if (window.innerWidth >= 640) setHeight(450);
     const raf = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(raf);
   }, []);

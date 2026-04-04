@@ -310,7 +310,7 @@ export default function BarcelonaGuide() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                Barcelona Reiseführer
+                Barcelona Urlaubsführer
                 <span className="block sm:inline sm:ml-2 text-white/80 font-bold">2026</span>
               </h1>
               <p className="text-white/80 mt-2 text-sm sm:text-base max-w-xl leading-relaxed">

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import ReiseberichteClient from "./reiseberichteclient";
+import UrlaubsberichteClient from "./reiseberichteclient";
 import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
-  title: "📝 Reiseberichte – echte Erfahrungen von Urlaubern",
-  description: "Echte Reiseberichte & Urlaubserfahrungen lesen ✓ Bewertungen ✓ Hotelberichte ✓ Insidertipps von Reisenden ✓ Jetzt Community beitreten.",
-  keywords: ["Reiseberichte", "Urlaubserfahrungen", "Hotelberichte", "Reisebewertungen", "Urlauber Erfahrungen", "Reiseblog", "Urlaub Erfahrungsbericht"],
+  title: "📝 Urlaubsberichte – echte Erfahrungen von Urlaubern",
+  description: "Echte Urlaubsberichte & Urlaubserfahrungen lesen ✓ Bewertungen ✓ Hotelberichte ✓ Insidertipps von Reisenden ✓ Jetzt Community beitreten.",
+  keywords: ["Urlaubsberichte", "Urlaubserfahrungen", "Hotelberichte", "Reisebewertungen", "Urlauber Erfahrungen", "Urlaubsblog", "Urlaub Erfahrungsbericht"],
   alternates: { canonical: "https://www.urlaubfinder365.de/community/reiseberichte/" },
   openGraph: {
-    title: "📝 Reiseberichte – echte Erfahrungen | Urlaubfinder365",
-    description: "Echte Reiseberichte & Urlaubserfahrungen lesen ✓ Bewertungen ✓ Hotelberichte ✓ Insidertipps von Reisenden ✓ Jetzt Community beitreten.",
+    title: "📝 Urlaubsberichte – echte Erfahrungen | Urlaubfinder365",
+    description: "Echte Urlaubsberichte & Urlaubserfahrungen lesen ✓ Bewertungen ✓ Hotelberichte ✓ Insidertipps von Reisenden ✓ Jetzt Community beitreten.",
     url: "https://www.urlaubfinder365.de/community/reiseberichte/",
     type: "website",
   },
@@ -21,7 +21,7 @@ const jsonLd = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.urlaubfinder365.de/" },
     { "@type": "ListItem", position: 2, name: "Community", item: "https://www.urlaubfinder365.de/community/" },
-    { "@type": "ListItem", position: 3, name: "Reiseberichte", item: "https://www.urlaubfinder365.de/community/reiseberichte/" },
+    { "@type": "ListItem", position: 3, name: "Urlaubsberichte", item: "https://www.urlaubfinder365.de/community/reiseberichte/" },
   ],
 };
 
@@ -31,7 +31,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ReiseberichteClient />
+      <UrlaubsberichteClient />
     </>
   );
 }

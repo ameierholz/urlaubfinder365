@@ -39,7 +39,7 @@ export function EmailWillkommen({ name, typ }: Props) {
         Deine E-Mail-Adresse wurde bestätigt — dein Urlaubfinder365-Konto ist jetzt vollständig aktiv.
       </EmailBody>
       <EmailBody>
-        Entdecke Tausende von Aktivitäten, Touren und Erlebnissen weltweit. Starte noch heute deine nächste Reise!
+        Entdecke Tausende von Aktivitäten, Touren und Erlebnissen weltweit. Starte noch heute deinen nächsten Urlaub!
       </EmailBody>
       <EmailButton href={`${BASE}/marktplatz`}>Angebote entdecken</EmailButton>
       <EmailDivider />

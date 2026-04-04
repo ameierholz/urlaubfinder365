@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import KreuzfahrtenContent from "@/components/cruise/KreuzfahrtenContent";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,7 +44,29 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <KreuzfahrtenContent />
+      <KreuzfahrtenContent
+        sidebar={
+          <RightSidebar
+            extrasBox={{
+              image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=400&h=200&q=70",
+              eyebrow: "Kreuzfahrt buchen",
+              title: "30+ Reedereien vergleichen",
+              description: "AIDA, TUI Cruises & MSC – jetzt günstige Kreuzfahrten finden.",
+              href: "/kreuzfahrten/",
+              ctaLabel: "Jetzt buchen →",
+              accentColor: "bg-cyan-700",
+            }}
+            seoLinksTitle="🌊 Kreuzfahrt-Routen"
+            seoLinks={[
+              { href: "/urlaubsziele/griechenland/",    label: "Mittelmeer-Kreuzfahrt" },
+              { href: "/urlaubsziele/kanaren/",         label: "Kanaren-Kreuzfahrt" },
+              { href: "/urlaubsziele/skandinavien/",    label: "Norwegen & Fjorde" },
+              { href: "/urlaubsziele/karibik/",         label: "Karibik-Kreuzfahrt" },
+              { href: "/urlaubsarten/pauschalreisen/",  label: "Pauschalreisen" },
+            ]}
+          />
+        }
+      />
     </>
   );
 }

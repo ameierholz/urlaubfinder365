@@ -42,7 +42,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
         <CheckCircle className="w-6 h-6 text-emerald-500 shrink-0" />
         <div>
           <p className="font-bold">Erfolgreich angemeldet! 🎉</p>
-          <p className="text-sm opacity-75">Du erhältst jetzt die besten Reiseangebote per E-Mail.</p>
+          <p className="text-sm opacity-75">Du erhältst jetzt die besten Urlaubsangebote per E-Mail.</p>
         </div>
       </div>
     );
@@ -77,7 +77,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
             className="mt-0.5 accent-white"
           />
           <span>
-            Ich stimme zu, Reiseangebote per E-Mail zu erhalten. Die{" "}
+            Ich stimme zu, Urlaubsangebote per E-Mail zu erhalten. Die{" "}
             <a href="/datenschutz/" className="underline hover:text-white">Datenschutzerklärung</a>{" "}
             habe ich gelesen. Abmeldung jederzeit möglich.
           </span>
@@ -132,7 +132,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
           className="mt-0.5 accent-[#00838F]"
         />
         <span>
-          Ich möchte Reiseangebote, Deals und Inspirationen per E-Mail erhalten.
+          Ich möchte Urlaubsangebote, Deals und Inspirationen per E-Mail erhalten.
           Die{" "}
           <a href="/datenschutz/" className="text-[#00838F] hover:underline">Datenschutzerklärung</a>{" "}
           habe ich gelesen. Abmeldung jederzeit möglich.

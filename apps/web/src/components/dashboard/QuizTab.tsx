@@ -190,7 +190,7 @@ export default function QuizTab({ user }: Props) {
               <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mx-auto">
                 <Brain className="w-8 h-8 text-indigo-500" />
               </div>
-              <h3 className="font-bold text-gray-900 text-xl">Teste dein Reisewissen!</h3>
+              <h3 className="font-bold text-gray-900 text-xl">Teste dein Urlaubswissen!</h3>
               <p className="text-gray-500 text-sm">
                 {QUIZ_LENGTH} Fragen · 15 Sekunden pro Frage · täglich neue Quizzes
               </p>

@@ -405,7 +405,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                       <button
                         onClick={() => handleOpenAlertForm(slug)}
                         title={alert ? "Preisalarm bearbeiten" : "Preisalarm setzen"}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                        className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
                           alert
                             ? "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
                             : isOpen
@@ -420,7 +420,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                         onClick={() => toggle(slug)}
                         disabled={isPending}
                         title="Aus Wunschliste entfernen"
-                        className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 text-gray-400 hover:bg-red-50 hover:text-red-400 transition-colors"
+                        className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 text-gray-400 hover:bg-red-50 hover:text-red-400 transition-colors"
                       >
                         <X className="w-3.5 h-3.5" />
                       </button>
@@ -514,7 +514,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Reiseziel suchen…"
+            placeholder="Urlaubsziel suchen…"
             className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#00838F] bg-white"
           />
         </div>
@@ -605,7 +605,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
       {filtered.length === 0 && (
         <div className="text-center py-12 text-gray-400">
           <MapPin className="w-10 h-10 mx-auto mb-3 opacity-30" />
-          <p className="font-medium">Keine Reiseziele gefunden</p>
+          <p className="font-medium">Keine Urlaubsziele gefunden</p>
         </div>
       )}
     </div>

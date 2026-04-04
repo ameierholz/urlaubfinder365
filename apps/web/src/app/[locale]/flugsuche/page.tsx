@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import AdBanner from "@/components/ui/AdBanner";
 import { Plane, ShieldCheck, RefreshCcw, Tag, Zap } from "lucide-react";
 import IbeWidget from "@/components/widgets/IbeWidget";
+import RightSidebar from "@/components/layout/RightSidebar";
 import FlugzieleGrid from "@/components/flug/FlugzieleGrid";
 import AirlineInfoSection from "@/components/flug/AirlineInfoSection";
 import FlugNavBar from "@/components/flug/FlugNavBar";
@@ -599,80 +599,30 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
         </div>{/* ── Ende Hauptinhalt ── */}
 
-        {/* ── Sticky Sidebar Ad (nur XL+) ── */}
-        <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
-          <div className="sticky top-24 pt-8 space-y-3">
-
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-                Anzeige
-              </p>
-              <AdBanner
-                placementKey="86c5e79b5bd126e0b09685dad18c2682"
-                height={600}
-              />
-            </div>
-
-            <div className="bg-[#00838F]/8 rounded-2xl p-4 border border-[#00838F]/15 text-center">
-              <p className="text-xs font-bold text-[#00838F] mb-1">✈️ Pauschalreise?</p>
-              <p className="text-[11px] text-gray-500 mb-3 leading-snug">
-                Flug + Hotel oft günstiger als Einzelbuchung
-              </p>
-              <Link
-                href="/guenstig-urlaub-buchen/"
-                className="inline-block bg-[#00838F] text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-[#006d78] transition-colors"
-              >
-                Jetzt vergleichen →
-              </Link>
-            </div>
-
-            {/* SEO-Linkbox: Beliebte Flugziele */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                ✈️ Beliebte Flugziele
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/urlaubsziele/mallorca/",  label: "Flüge Mallorca" },
-                  { href: "/urlaubsziele/antalya/",   label: "Flüge Antalya" },
-                  { href: "/urlaubsziele/kreta/",     label: "Flüge Kreta" },
-                  { href: "/urlaubsziele/barcelona/", label: "Flüge Barcelona" },
-                  { href: "/urlaubsziele/kanaren/",   label: "Flüge Kanaren" },
-                  { href: "/urlaubsziele/aegypten/",  label: "Flüge Ägypten" },
-                  { href: "/urlaubsziele/tuerkei/",   label: "Flüge Türkei" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* SEO-Linkbox: Schnellzugriff */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                🔗 Mehr entdecken
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/last-minute/",                       label: "Last-Minute Reisen" },
-                  { href: "/urlaubsarten/pauschalreisen/",       label: "Pauschalreisen" },
-                  { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive Urlaub" },
-                  { href: "/urlaubsarten/fruhbucher-urlaub/",    label: "Frühbucher Angebote" },
-                  { href: "/hotelsuche/",                        label: "Hotelsuche" },
-                  { href: "/urlaubsziele/",                      label: "Alle Reiseziele" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+        {/* ── Sticky Sidebar (nur XL+) ── */}
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24 pt-8">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+                eyebrow: "Tipp",
+                title: "Pauschalreise statt Einzelbuchung",
+                description: "Flug + Hotel als Paket ist oft günstiger. Täglich tausende Angebote vergleichen.",
+                href: "/guenstig-urlaub-buchen/",
+                ctaLabel: "Jetzt vergleichen →",
+                accentColor: "bg-[#00838F]",
+              }}
+              seoLinksTitle="✈️ Beliebte Flugziele"
+              seoLinks={[
+                { href: "/urlaubsziele/mallorca/",  label: "Flüge Mallorca" },
+                { href: "/urlaubsziele/antalya/",   label: "Flüge Antalya" },
+                { href: "/urlaubsziele/kreta/",     label: "Flüge Kreta" },
+                { href: "/urlaubsziele/barcelona/", label: "Flüge Barcelona" },
+                { href: "/urlaubsziele/kanaren/",   label: "Flüge Kanaren" },
+                { href: "/urlaubsziele/aegypten/",  label: "Flüge Ägypten" },
+                { href: "/urlaubsziele/tuerkei/",   label: "Flüge Türkei" },
+              ]}
+            />
           </div>
         </aside>
 

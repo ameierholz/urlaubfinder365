@@ -81,7 +81,7 @@ function buildNextStep(opts: {
     return { emoji:"✅", title:`Noch ${opts.totalItems - opts.checkedItems} Aufgaben auf der Checkliste`, sub:"Häkchen machen macht Spaß – und bereitet dich perfekt auf den Urlaub vor.", tab:"checklist", cta:"Checkliste öffnen" };
   if (opts.reportCount === 0)
     return { emoji:"📖", title:"Teile dein erstes Reiseerlebnis", sub:"Schreib einen Urlaubsbericht und inspiriere andere Reisende.", tab:"berichte", cta:"Bericht schreiben" };
-  return { emoji:"🧭", title:"Erkunde neue Reiseziele", sub:"Entdecke über 250 Urlaubsziele mit aktuellen Preisen und Bewertungen.", href:"/urlaubsziele/", cta:"Urlaubsziele entdecken" };
+  return { emoji:"🧭", title:"Erkunde neue Urlaubsziele", sub:"Entdecke über 250 Urlaubsziele mit aktuellen Preisen und Bewertungen.", href:"/urlaubsziele/", cta:"Urlaubsziele entdecken" };
 }
 
 // ── Seasonal Recommendations ─────────────────────────────────────────────────
@@ -447,7 +447,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
         <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-bold text-gray-800 text-sm flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-violet-600" /> Meine Reiseberichte
+              <BookOpen className="w-4 h-4 text-violet-600" /> Meine Urlaubsberichte
             </h2>
             <button onClick={() => setTab("berichte")} className="text-xs text-[#00838F] font-medium hover:underline flex items-center gap-1">
               Alle <ArrowRight className="w-3 h-3" />

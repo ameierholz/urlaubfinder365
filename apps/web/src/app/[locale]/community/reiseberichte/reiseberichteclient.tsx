@@ -141,7 +141,7 @@ const DEMO_REPORTS: TravelReport[] = [
 const RATINGS = [5, 4, 3, 2, 1];
 const COUNTRIES = ["Alle","Türkei","Griechenland","Spanien","Ägypten","Italien","Portugal","Thailand","Malediven","Marokko","USA"];
 
-export default function ReiseberichtePage() {
+export default function UrlaubsberichtePage() {
   const [all, setAll]       = useState<TravelReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [country, setCountry] = useState("Alle");
@@ -162,7 +162,7 @@ export default function ReiseberichtePage() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2 mb-2">
         <BookOpen className="w-6 h-6 text-teal-600" />
-        Reiseberichte der Community
+        Urlaubsberichte der Community
       </h1>
       <p className="text-gray-500 text-sm mb-6">
         Echte Erfahrungen von echten Reisenden — strukturiert, ehrlich, hilfreich.

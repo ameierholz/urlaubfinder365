@@ -47,8 +47,8 @@ const BENEFITS = [
   },
   {
     icon: Map,
-    title: "Reiseplaner",
-    desc: "Plane deine nächste Reise Schritt für Schritt an einem Ort.",
+    title: "Urlaubsplaner",
+    desc: "Plane deinen nächsten Urlaub Schritt für Schritt an einem Ort.",
   },
   {
     icon: Star,
@@ -149,7 +149,7 @@ export default function AuthForm({ mode, redirectTo }: Props) {
             <LogoSVG size={56} />
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 text-center mb-1">Willkommen zurück</h1>
-          <p className="text-gray-500 text-sm text-center mb-6">Melde dich an, um deine Reisen zu verwalten.</p>
+          <p className="text-gray-500 text-sm text-center mb-6">Melde dich an, um deinen Urlaubn zu verwalten.</p>
 
           <button onClick={handleGoogle} disabled={loading}
             className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors mb-4">
@@ -256,7 +256,7 @@ export default function AuthForm({ mode, redirectTo }: Props) {
               <LogoSVG size={40} />
             </Link>
 
-            <h2 className="text-2xl font-bold mb-1">Dein kostenloses Reisekonto</h2>
+            <h2 className="text-2xl font-bold mb-1">Dein kostenloses Urlaubskonto</h2>
             <p className="text-blue-200 text-sm mb-8">
               Registriere dich in weniger als einer Minute und hol das Beste aus deiner Urlaubsplanung heraus.
             </p>
@@ -330,7 +330,7 @@ export default function AuthForm({ mode, redirectTo }: Props) {
                 className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 shrink-0"
               />
               <span className="text-xs text-gray-500 leading-relaxed">
-                Ja, ich möchte den kostenlosen Newsletter mit Reiseangeboten, Preisalarmen und Tipps erhalten.
+                Ja, ich möchte den kostenlosen Newsletter mit Urlaubsangeboten, Preisalarmen und Tipps erhalten.
                 Die Abmeldung ist jederzeit möglich.
               </span>
             </label>

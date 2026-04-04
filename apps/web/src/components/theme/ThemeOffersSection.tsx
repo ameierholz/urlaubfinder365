@@ -122,14 +122,14 @@ export default function ThemeOffersSection({
       {/* Scroll Container */}
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth px-1 pb-3"
+        className="flex gap-4 overflow-x-auto scroll-smooth px-1 pb-3 snap-x snap-mandatory"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {offers.map((offer) => (
           <div
             key={offer.product_code}
             data-offer-card
-            className="shrink-0 w-56 sm:w-60"
+            className="shrink-0 w-56 sm:w-60 snap-start"
           >
             <OfferCard offer={offer} compact />
           </div>

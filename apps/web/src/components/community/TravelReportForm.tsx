@@ -85,7 +85,7 @@ export default function TravelReportForm({ initial, onSave, onCancel }: Props) {
       {/* Header */}
       <div className="bg-linear-to-r from-teal-600 to-cyan-600 px-6 py-4 flex items-center justify-between">
         <div>
-          <h2 className="text-white font-bold text-lg">Reisebericht schreiben</h2>
+          <h2 className="text-white font-bold text-lg">Urlaubsbericht schreiben</h2>
           <p className="text-teal-100 text-sm">Teile deine Erfahrungen mit der Community</p>
         </div>
         <button onClick={onCancel} className="text-white/80 hover:text-white transition-colors">

@@ -43,7 +43,7 @@ export default function MarktplatzListe() {
               type="text"
               value={suche}
               onChange={(e) => setSuche(e.target.value)}
-              placeholder="Aktivität oder Reiseziel suchen …"
+              placeholder="Aktivität oder Urlaubsziel suchen …"
               className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#00838F] focus:ring-2 focus:ring-[#00838F]/10"
             />
           </div>

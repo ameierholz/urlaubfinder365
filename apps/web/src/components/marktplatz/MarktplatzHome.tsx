@@ -23,7 +23,7 @@ const KATEGORIE_NAV: { id: Kategorie | "alle"; emoji: string; label: string }[] 
   { id: "transfer",      emoji: "🚗", label: "Transfer" },
 ];
 
-// ── Reiseziele für Sektionen ────────────────────────────────────────────────
+// ── Urlaubsziele für Sektionen ────────────────────────────────────────────────
 const ZIEL_SEKTIONEN = [
   { label: "Türkei",           filter: (a: typeof AKTIVITAETEN[0]) => a.land === "tr" },
   { label: "Mallorca",         filter: (a: typeof AKTIVITAETEN[0]) => a.land === "es" },
@@ -183,7 +183,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
                 type="text"
                 value={suche}
                 onChange={(e) => setSuche(e.target.value)}
-                placeholder="Aktivität oder Reiseziel suchen …"
+                placeholder="Aktivität oder Urlaubsziel suchen …"
                 className="w-full pl-11 pr-4 py-3.5 text-gray-900 text-sm focus:outline-none rounded-xl"
               />
             </div>
@@ -387,7 +387,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
             {/* Alle Aktivitäten */}
             <ScrollSection titel="🌍 Alle Erlebnisse entdecken" items={AKTIVITAETEN} />
 
-            {/* Nach Reiseziel */}
+            {/* Nach Urlaubsziel */}
             {ZIEL_SEKTIONEN.map(({ label, filter }) => {
               const items = AKTIVITAETEN.filter(filter);
               return items.length > 0 ? (
@@ -420,7 +420,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
 
       {/* Sidebar (Gesponserte Angebote) */}
       {sidebar && (
-        <aside className="hidden lg:block w-72 shrink-0 sticky top-24 self-start">
+        <aside className="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
           {sidebar}
         </aside>
       )}

@@ -53,7 +53,7 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
     <div className="max-w-3xl mx-auto px-4 py-8">
       {/* Zurück */}
       <Link href="/community/reiseberichte/" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-teal-600 mb-5 transition-colors">
-        <ArrowLeft className="w-4 h-4" /> Alle Reiseberichte
+        <ArrowLeft className="w-4 h-4" /> Alle Urlaubsberichte
       </Link>
 
       {/* Cover */}
@@ -154,7 +154,7 @@ export default function ReportDetailPage({ params }: { params: Promise<{ id: str
         <Link href="/community/reiseberichte/"
           className="inline-flex items-center gap-2 text-sm text-teal-600 font-semibold hover:underline"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Weitere Reiseberichte entdecken
+          <ArrowLeft className="w-3.5 h-3.5" /> Weitere Urlaubsberichte entdecken
         </Link>
       </div>
     </div>

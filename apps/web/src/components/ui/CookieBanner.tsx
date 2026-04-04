@@ -64,7 +64,7 @@ export default function CookieBanner() {
 
       {/* Settings-Panel */}
       {showSettings && (
-        <div className="fixed inset-x-4 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[520px] bottom-24 z-[9999] bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+        <div className="fixed inset-x-3 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-[520px] bottom-24 z-[9999] bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden max-h-[85vh] flex flex-col">
           <div className="px-6 pt-6 pb-2 border-b border-gray-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-xl">🍪</span>
@@ -72,7 +72,7 @@ export default function CookieBanner() {
             </div>
             <button
               onClick={() => setShowSettings(false)}
-              className="text-gray-400 hover:text-gray-700 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"
+              className="text-gray-400 hover:text-gray-700 transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100"
               aria-label="Schließen"
             >
               ✕
@@ -181,19 +181,19 @@ export default function CookieBanner() {
             <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
                 onClick={() => setShowSettings(true)}
-                className="text-xs font-semibold text-gray-500 hover:text-gray-800 underline underline-offset-2 transition-colors px-1"
+                className="text-xs font-semibold text-gray-500 hover:text-gray-800 underline underline-offset-2 transition-colors px-2 py-2 min-h-11 flex items-center"
               >
                 Einstellungen
               </button>
               <button
                 onClick={() => save(false, false)}
-                className="px-4 py-2 rounded-xl border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50 transition-colors whitespace-nowrap"
+                className="px-4 py-2.5 min-h-11 rounded-xl border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50 transition-colors whitespace-nowrap"
               >
                 Nur notwendige
               </button>
               <button
                 onClick={() => save(true, false)}
-                className="px-4 py-2 rounded-xl bg-[#00838F] text-white text-xs font-bold hover:bg-[#006d78] transition-colors whitespace-nowrap"
+                className="px-4 py-2.5 min-h-11 rounded-xl bg-[#00838F] text-white text-xs font-bold hover:bg-[#006d78] transition-colors whitespace-nowrap"
               >
                 Alle akzeptieren ✓
               </button>

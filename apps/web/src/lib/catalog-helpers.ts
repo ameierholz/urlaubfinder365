@@ -5,14 +5,14 @@ import type { CatalogEntry, ClimateZone } from "@/data/catalog-regions";
 
 export function generateMetaTitle(name: string, type: "super" | "region"): string {
   if (type === "super") {
-    return `Urlaub ${name} – Alle Reiseziele günstig vergleichen | Urlaubfinder365`;
+    return `Urlaub ${name} – Alle Urlaubsziele günstig vergleichen | Urlaubfinder365`;
   }
   return `${name} Urlaub günstig buchen – Pauschalreisen & Angebote | Urlaubfinder365`;
 }
 
 export function generateMetaDescription(name: string, country: string, type: "super" | "region"): string {
   if (type === "super") {
-    return `${name} Urlaub günstig buchen ✓ Alle Reiseziele auf einen Blick ✓ Pauschalreisen ✓ All Inclusive ✓ Last Minute ✓ Jetzt Angebote vergleichen und ${name} entdecken.`;
+    return `${name} Urlaub günstig buchen ✓ Alle Urlaubsziele auf einen Blick ✓ Pauschalreisen ✓ All Inclusive ✓ Last Minute ✓ Jetzt Angebote vergleichen und ${name} entdecken.`;
   }
   return `${name} Urlaub günstig buchen ✓ Pauschalreisen ✓ All Inclusive ✓ Last Minute ✓ Jetzt Angebote vergleichen und ${country === name ? "dieses Traumziel" : name} entdecken.`;
 }
@@ -24,7 +24,7 @@ export function generateDescription(
   type: "super" | "region"
 ): string {
   if (type === "super") {
-    return `${name} – Entdecke alle Reiseziele und finde günstige Pauschalreisen, All Inclusive Urlaube und Last Minute Deals. Jetzt Angebote vergleichen und deinen Traumurlaub buchen.`;
+    return `${name} – Entdecke alle Urlaubsziele und finde günstige Pauschalreisen, All Inclusive Urlaube und Last Minute Deals. Jetzt Angebote vergleichen und deinen Traumurlaub buchen.`;
   }
   const location = country !== superRegionName ? `${superRegionName}, ${country}` : country;
   return `${name} – Dein Traumreiseziel in ${location}. Günstige Pauschalreisen, All Inclusive und Last Minute Deals auf einen Blick. Jetzt vergleichen und buchen!`;
@@ -593,7 +593,7 @@ export function generateFaqs(
     },
     {
       question: `Welche Sehenswürdigkeiten und Aktivitäten gibt es in ${name}?`,
-      answer:   `${name} bietet eine Vielzahl an Erlebnissen – von Strandurlaub über Kulturausflüge bis hin zu Outdoor-Abenteuern. Je nach Reiseziel findest du historische Stätten, Naturparks, lokale Märkte und mehr. Tickets für Attraktionen kannst du bequem vorab buchen.`,
+      answer:   `${name} bietet eine Vielzahl an Erlebnissen – von Strandurlaub über Kulturausflüge bis hin zu Outdoor-Abenteuern. Je nach Urlaubsziel findest du historische Stätten, Naturparks, lokale Märkte und mehr. Tickets für Attraktionen kannst du bequem vorab buchen.`,
     },
     {
       question: `Ist ${name} für Familien mit Kindern geeignet?`,
@@ -628,7 +628,7 @@ export function generateEntryInfo(country: string, ibeBpRegion: string): EntryIn
       language: "Je nach Land Arabisch, Französisch, Englisch oder lokale Sprachen. In Touristengebieten Englisch üblich.",
       timezone: "Abweichend je nach Land – meist UTC bis UTC+4.",
       voltage:  "220–240 V, 50 Hz. Steckertyp je nach Land variiert – Adapter empfohlen.",
-      health:   "Auslandskrankenversicherung mit Notfallevakuierung dringend empfohlen. Impfungen je nach Reiseziel (Malaria, Hepatitis, Gelbfieber) – Reisemediziner konsultieren.",
+      health:   "Auslandskrankenversicherung mit Notfallevakuierung dringend empfohlen. Impfungen je nach Urlaubsziel (Malaria, Hepatitis, Gelbfieber) – Reisemediziner konsultieren.",
     },
     asia: {
       visa:     "Visabestimmungen je nach Land unterschiedlich. Für viele Länder Visum bei Einreise oder E-Visum möglich.",

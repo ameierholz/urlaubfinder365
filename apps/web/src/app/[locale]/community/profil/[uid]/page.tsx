@@ -54,7 +54,7 @@ function popularityLabel(likes: number, comments: number): { label: string; colo
   return { label: "Neu dabei", color: "text-gray-400", stars: 0 };
 }
 
-// ─── Reise-Interessen Labels ─────────────────────────────────────────────────
+// ─── Urlaubs-Interessen Labels ─────────────────────────────────────────────────
 
 const INTEREST_LABELS: Record<string, string> = {
   strand: "🏖️ Strand & Meer", stadt: "🏙️ Städtetrips", natur: "🏔️ Natur & Wandern",
@@ -305,12 +305,12 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
             </div>
           </div>
 
-          {/* Reise-Interessen */}
+          {/* Urlaubs-Interessen */}
           {(profile.travelInterests?.length ?? 0) > 0 && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <h3 className="font-bold text-sm text-gray-700 flex items-center gap-1.5 mb-3">
                 <Plane className="w-4 h-4 text-teal-600" />
-                Reise-Interessen
+                Urlaubs-Interessen
               </h3>
               <div className="flex flex-wrap gap-1.5">
                 {(profile.travelInterests ?? []).map((id) => (
@@ -366,7 +366,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
           {groups.length > 0 && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <h3 className="font-bold text-sm text-gray-700 flex items-center gap-1.5 mb-3">
-                <Users2 className="w-4 h-4 text-blue-600" /> Reise-Gruppen
+                <Users2 className="w-4 h-4 text-blue-600" /> Urlaubs-Gruppen
               </h3>
               <div className="space-y-2">
                 {groups.slice(0, 5).map((g) => (
@@ -389,7 +389,7 @@ export default function ProfilPage({ params }: { params: Promise<{ uid: string }
         <main>
           <h2 className="text-xl font-black text-gray-800 flex items-center gap-2 mb-5">
             <BookOpen className="w-5 h-5 text-violet-600" />
-            Reiseberichte ({reports.length})
+            Urlaubsberichte ({reports.length})
           </h2>
           {reports.length === 0 ? (
             <div className="text-center py-16 text-gray-400">

@@ -3152,7 +3152,7 @@ export const CATALOG: CatalogEntry[] = [
 
   // ─── NEUE DESTINATIONS ──────────────────────────────────────────────────────
 
-  // Türkei – weitere Reiseziele
+  // Türkei – weitere Urlaubsziele
   {
     slug: "side",
     name: "Side",
@@ -3803,7 +3803,7 @@ export const CATALOG: CatalogEntry[] = [
     parentSlug: "karibik",
   },
 
-  // Thailand – weitere Reiseziele
+  // Thailand – weitere Urlaubsziele
   {
     slug: "krabi",
     name: "Krabi & Ao Nang",

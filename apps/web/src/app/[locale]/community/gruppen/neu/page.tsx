@@ -21,7 +21,7 @@ const PRESET_IMAGES = [
   { url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", label: "Ägypten" },
   { url: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80", label: "Barcelona" },
   { url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80", label: "Abenteuer" },
-  { url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80", label: "Solo-Reise" },
+  { url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80", label: "Solo-Urlaub" },
   { url: "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&q=80", label: "Familie" },
   { url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80", label: "All-Inclusive" },
   { url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80", label: "Berge & Natur" },
@@ -29,7 +29,7 @@ const PRESET_IMAGES = [
 ];
 
 const CATEGORY_OPTIONS: { value: GroupCategory; label: string; emoji: string; hint: string }[] = [
-  { value: "destination", emoji: "📍", label: "Reiseziel",   hint: "z.B. Türkei-Fans, Mallorca Insider" },
+  { value: "destination", emoji: "📍", label: "Urlaubsziel",   hint: "z.B. Türkei-Fans, Mallorca Insider" },
   { value: "style",       emoji: "🎒", label: "Reisestil",   hint: "z.B. Familien, Budget-Reisende, Solo" },
   { value: "date",        emoji: "📅", label: "Zeitraum",    hint: "z.B. Sommer 2026, Weihnachtsurlaub" },
   { value: "interest",    emoji: "💡", label: "Interesse",   hint: "z.B. Schnorcheln, Fotografie, Kulinarik" },
@@ -301,7 +301,7 @@ export default function NeueGruppePage() {
       </Link>
 
       <h1 className="text-2xl font-black text-gray-800 mb-1">Neue Gruppe gründen</h1>
-      <p className="text-sm text-gray-500 mb-8">Erstelle in wenigen Schritten deine eigene Reise-Community.</p>
+      <p className="text-sm text-gray-500 mb-8">Erstelle in wenigen Schritten deine eigene Urlaubs-Community.</p>
 
       {/* Step indicator */}
       <div className="flex items-center mb-8">
@@ -368,7 +368,7 @@ export default function NeueGruppePage() {
           {/* Conditional fields */}
           {category === "destination" && (
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-1.5">Reiseziel</label>
+              <label className="block text-sm font-bold text-gray-700 mb-1.5">Urlaubsziel</label>
               <input
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}

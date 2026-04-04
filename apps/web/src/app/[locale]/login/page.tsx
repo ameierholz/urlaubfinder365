@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "🔑 Anmelden – Urlaubfinder365",
-  description: "Jetzt bei Urlaubfinder365 anmelden und alle Community-Features nutzen ✓ Reiseberichte ✓ Gruppen ✓ Preisalarme.",
+  description: "Jetzt bei Urlaubfinder365 anmelden und alle Community-Features nutzen ✓ Urlaubsberichte ✓ Gruppen ✓ Preisalarme.",
   alternates: { canonical: "https://www.urlaubfinder365.de/login/" },
   robots: { index: false, follow: true },
 };

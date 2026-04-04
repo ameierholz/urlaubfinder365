@@ -4,6 +4,7 @@ import Image from "next/image";
 import PageNavBar from "@/components/ui/PageNavBar";
 import LifestyleSection from "@/components/home/LifestyleSection";
 import { setRequestLocale } from "next-intl/server";
+import RightSidebar from "@/components/layout/RightSidebar";
 
 const YEAR = new Date().getFullYear();
 
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 const NAV_ITEMS = [
   { id: "urlaubsarten-uebersicht", label: "Urlaubsarten",    emoji: "✈️" },
   { id: "lifestyle",               label: "Dein Lifestyle",  emoji: "💫" },
-  { id: "reise-tipps",             label: "Reise-Tipps",     emoji: "💡" },
+  { id: "reise-tipps",             label: "Urlaubs-Tipps",     emoji: "💡" },
   { id: "faq",                     label: "FAQ",             emoji: "❓" },
 ];
 
@@ -180,6 +181,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <PageNavBar items={NAV_ITEMS} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="xl:flex xl:gap-8 xl:items-start">
+      <div className="flex-1 min-w-0">
 
         {/* ═══════════════════════════════════════════════════════
             URLAUBSARTEN ÜBERSICHT
@@ -188,7 +191,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div className="text-center mb-10">
             <p className="text-xs font-bold uppercase tracking-widest text-[#00838F] mb-2">Alle Möglichkeiten im Überblick</p>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              Urlaubsarten – finde deine perfekte Reise
+              Urlaubsarten – finde deinen perfekten Urlaub
             </h1>
             <p className="text-gray-500 max-w-xl mx-auto">
               Von entspannten Pauschalreisen über All-Inclusive bis zu spontanen Last-Minute-Deals – hier findest du die Reiseart, die zu dir passt.
@@ -239,7 +242,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <section id="reise-tipps" className="py-12 border-t border-gray-100">
           <div className="mb-8">
             <p className="text-xs font-bold uppercase tracking-widest text-[#00838F] mb-2">Expertenwissen</p>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Reise-Tipps für den perfekten Urlaub</h2>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Urlaubs-Tipps für den perfekten Urlaub</h2>
             <p className="text-gray-500 mt-2 max-w-xl">
               Mit diesen Tipps buchst du smarter, sparst mehr und reist entspannter.
             </p>
@@ -281,7 +284,33 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
         </section>
 
-      </div>
+      </div>{/* end flex-1 */}
+
+      <aside className="hidden xl:block w-64 shrink-0">
+        <div className="sticky top-24">
+          <RightSidebar
+            extrasBox={{
+              image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+              eyebrow: "Jetzt buchen",
+              title: "Günstige Pauschalreisen",
+              description: "Täglich aktuelle Angebote – All-Inclusive, Last-Minute & mehr.",
+              href: "/guenstig-urlaub-buchen/",
+              ctaLabel: "Angebote vergleichen →",
+            }}
+            seoLinksTitle="✈️ Urlaubsarten"
+            seoLinks={[
+              { href: "/urlaubsarten/pauschalreisen/",         label: "Pauschalreisen" },
+              { href: "/urlaubsarten/all-inclusive-urlaub/",   label: "All-Inclusive" },
+              { href: "/urlaubsarten/last-minute-urlaub/",     label: "Last-Minute" },
+              { href: "/urlaubsarten/fruhbucher-urlaub/",      label: "Frühbucher" },
+              { href: "/urlaubsarten/super-last-minute-urlaub/", label: "Super-Last-Minute" },
+              { href: "/urlaubsziele/",                        label: "Alle Urlaubsziele" },
+            ]}
+          />
+        </div>
+      </aside>
+      </div>{/* end xl:flex */}
+      </div>{/* end max-w-7xl */}
     </>
   );
 }

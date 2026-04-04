@@ -20,7 +20,7 @@ export default function EntryInfoBox({ info, destination }: Props) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">
-        Einreise &amp; Reisetipps für {destination}
+        Einreise &amp; Urlaubstipps für {destination}
       </h2>
       <div className="bg-white rounded-3xl border border-sand-100 shadow-sm overflow-hidden">
         {rows.map(({ icon, label, key }, i) => (

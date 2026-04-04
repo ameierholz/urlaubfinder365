@@ -13,7 +13,7 @@ const YEAR = new Date().getFullYear();
 export const metadata: Metadata = {
   title: `💰 Günstig Urlaub buchen ${YEAR} – aktuelle Deals & Angebote`,
   description: `Günstig Urlaub buchen ${YEAR}: Pauschalreisen, All Inclusive & Last Minute ✓ Täglich aktuell ✓ Direktbuchung ✓ Bestpreis ohne Aufpreis.`,
-  keywords: ["Günstig Urlaub buchen", "Billig Urlaub buchen", "Urlaub Schnäppchen", "Urlaub Deals", "Pauschalreisen günstig", "Urlaub unter 500 Euro", "Billige Reisen", "Urlaub Angebote", "Günstige Reiseangebote"],
+  keywords: ["Günstig Urlaub buchen", "Billig Urlaub buchen", "Urlaub Schnäppchen", "Urlaub Deals", "Pauschalreisen günstig", "Urlaub unter 500 Euro", "Billige Reisen", "Urlaub Angebote", "Günstige Urlaubsangebote"],
   alternates: { canonical: `${BASE_URL}/guenstig-urlaub-buchen/` },
   openGraph: {
     title: `💰 Günstig Urlaub buchen ${YEAR} – Deals & Angebote | Urlaubfinder365`,
@@ -73,15 +73,15 @@ const FAQS = [
     a: "Reiseveranstalter buchen Flugplätze und Hotelzimmer in großen Kontingenten zu Großhandelspreisen ein. Diese Ersparnis geben sie an Kunden weiter – das Ergebnis ist ein Paket, das günstiger ist als Flug + Hotel einzeln gebucht. Hinzu kommt der gesetzliche Reiseschutz (Insolvenzschutz), den du bei Einzelbuchungen nicht automatisch hast.",
   },
   {
-    q: "Wann sind Last-Minute Reisen am günstigsten?",
+    q: "Wann sind Last-Minute Urlaube am günstigsten?",
     a: "Die besten Last-Minute Preise findest du typischerweise 7 bis 14 Tage vor Abflug, wenn Veranstalter noch freie Plätze füllen müssen. Besonders attraktiv sind dabei Reisen ab Donnerstag bis Samstag. Wichtig: Du brauchst Flexibilität beim Ziel, Abflughafen und Hotelkategorie.",
   },
   {
-    q: "Wie finde ich den günstigsten Preis für meine Reise?",
+    q: "Wie finde ich den günstigsten Preis für meinen Urlaub?",
     a: "Unser Vergleichsrechner oben durchsucht täglich Tausende Angebote von über 200 Reiseveranstaltern. Einfach Abflughafen, Reisezeitraum, Reisedauer und Reiseteilnehmer eingeben – die Ergebnisse sind sofort nach Preis sortiert. Es fallen keine Buchungsgebühren an, du buchst direkt beim Veranstalter.",
   },
   {
-    q: "Wann sollte ich eine Frühbucher-Reise buchen?",
+    q: "Wann sollte ich eine Frühbucher-Urlaub buchen?",
     a: "Frühbucher-Angebote gibt es typischerweise 8 bis 12 Monate vor Abflug. Die besten Preise für den Sommer findest du demnach ab Oktober/November des Vorjahres. Besonders lohnt sich Frühbuchen bei beliebten Zielen (Mallorca, Kreta, Türkei) und in der Hauptreisezeit Juli/August.",
   },
   {
@@ -151,7 +151,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               {([
                 { Icon: ShieldCheck,    label: "Günstigster Preis",       color: "#6CC4BA" },
                 { Icon: RefreshCcw,     label: "Täglich aktuell",          color: "#f59e0b" },
-                { Icon: BookOpen,       label: "Kostenlose Reiseführer",   color: "#a78bfa" },
+                { Icon: BookOpen,       label: "Kostenlose Urlaubsführer",   color: "#a78bfa" },
                 { Icon: HeartHandshake, label: "Sicher & einfach",         color: "#34d399" },
               ] as const).map(({ Icon, label, color }) => (
                 <div key={label} className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl">
@@ -462,7 +462,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           6 Tipps für günstigen Urlaub
         </h2>
         <p className="text-gray-500 text-sm mb-6">
-          So holst du das Beste aus deinem Reisebudget heraus.
+          So holst du das Beste aus deinem Urlaubsbudget heraus.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -524,7 +524,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <h2 className="text-2xl font-bold mb-2">Alle Urlaubsziele entdecken</h2>
             <p className="text-white/80 mb-7 max-w-md mx-auto text-sm leading-relaxed">
               Von Türkei über Mallorca bis Malediven – entdecke günstige Angebote
-              für über 50 Reiseziele weltweit.
+              für über 50 Urlaubsziele weltweit.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -35,7 +35,7 @@ export default function ActivitySaveButton({ activity, variant = "light", classN
     }
   };
 
-  const tooltip = saved ? "Im Profil gespeichert ✓" : "Im Reiseprofil speichern";
+  const tooltip = saved ? "Im Profil gespeichert ✓" : "Im Urlaubsprofil speichern";
 
   if (variant === "dark") {
     return (

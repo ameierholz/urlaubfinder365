@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import BarcelonaGuide from "@/components/guides/BarcelonaGuide";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -8,20 +8,20 @@ const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-barcelona/`;
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: `🏙 Barcelona Reiseführer ${YEAR} – Gaudí, Strand & Tapas`,
-  description: `Barcelona Reiseführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
-  keywords: ["Barcelona Reiseführer", "Barcelona Tipps", "Barcelona Sehenswürdigkeiten", "Sagrada Familia", "Barcelona Urlaub", "Barcelona Guide", "Barcelona Geheimtipps", "Park Güell"],
+  title: `🏙 Barcelona Urlaubsführer ${YEAR} – Gaudí, Strand & Tapas`,
+  description: `Barcelona Urlaubsführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
+  keywords: ["Barcelona Urlaubsführer", "Barcelona Tipps", "Barcelona Sehenswürdigkeiten", "Sagrada Familia", "Barcelona Urlaub", "Barcelona Guide", "Barcelona Geheimtipps", "Park Güell"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: `🏙 Barcelona Reiseführer ${YEAR} – Stadtguide | Urlaubfinder365`,
-    description: `Barcelona Reiseführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
+    title: `🏙 Barcelona Urlaubsführer ${YEAR} – Stadtguide | Urlaubfinder365`,
+    description: `Barcelona Urlaubsführer ${YEAR}: Sagrada Família, Park Güell, Tapas, Nightlife & Insidertipps ✓ Dein kompletter Barcelona-Stadtguide.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1200&h=630&fit=crop&q=80",
       width: 1200,
       height: 630,
-      alt: `Barcelona Spanien – Reiseführer ${YEAR}`,
+      alt: `Barcelona Spanien – Urlaubsführer ${YEAR}`,
     }],
   },
 };
@@ -34,13 +34,13 @@ const jsonLd = {
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Startseite", "item": `${BASE_URL}/` },
         { "@type": "ListItem", "position": 2, "name": "Urlaubsguides", "item": `${BASE_URL}/urlaubsguides/` },
-        { "@type": "ListItem", "position": 3, "name": "Barcelona Reiseführer", "item": CANONICAL },
+        { "@type": "ListItem", "position": 3, "name": "Barcelona Urlaubsführer", "item": CANONICAL },
       ],
     },
     {
       "@type": "Article",
-      "headline": "Barcelona Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
-      "description": "Dein umfassender Barcelona Reiseführer: Sagrada Família, Gaudí, Strände, Tapas, Nachtleben und praktische Infos.",
+      "headline": "Barcelona Urlaubsführer – Tipps, Sehenswürdigkeiten & praktische Infos",
+      "description": "Dein umfassender Barcelona Urlaubsführer: Sagrada Família, Gaudí, Strände, Tapas, Nachtleben und praktische Infos.",
       "url": CANONICAL,
       "datePublished": "2026-04-01",
       "dateModified": "2026-04-02",
@@ -71,8 +71,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="flex-1 min-w-0">
           <BarcelonaGuide />
         </div>
-        <aside className="hidden xl:block w-46.5 shrink-0 sticky top-28">
-          <AdBanner placementKey="86c5e79b5bd126e0b09685dad18c2682" height={600} />
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&h=200&q=70&auto=format&fit=crop",
+                eyebrow: "Urlaub buchen",
+                title: "Barcelona – Günstig nach Spanien",
+                description: "Pauschalreisen & City-Trips nach Barcelona zum Bestpreis vergleichen.",
+                href: "/urlaubsziele/barcelona/",
+                ctaLabel: "Angebote vergleichen →",
+              }}
+              seoLinksTitle="📚 Weitere Guides"
+              seoLinks={[
+                { href: "/urlaubsguides/reisefuehrer-antalya/",   label: "Antalya Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-mallorca/",  label: "Mallorca Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-kreta/",     label: "Kreta Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-hurghada/",  label: "Hurghada Urlaubsführer" },
+                { href: "/urlaubsguides/",                        label: "Alle Guides →" },
+              ]}
+            />
+          </div>
         </aside>
       </div>
     </>

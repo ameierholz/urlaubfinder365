@@ -22,11 +22,11 @@ const guideContent: Record<string, {
     slug: "reisefuehrer-antalya",
     destination: "Antalya",
     destinationSlug: "antalya",
-    title: "Antalya Reiseführer: Alles was du wissen musst",
+    title: "Antalya Urlaubsführer: Alles was du wissen musst",
     readingTime: 8,
     coverImage: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=1600&q=80",
     intro:
-      "Antalya ist das Herz der türkischen Riviera – eine faszinierende Mischung aus antiker Geschichte, modernen Resorts und atemberaubender Natur. Dieser Reiseführer bereitet dich optimal auf deinen Urlaub vor.",
+      "Antalya ist das Herz der türkischen Riviera – eine faszinierende Mischung aus antiker Geschichte, modernen Resorts und atemberaubender Natur. Dieser Urlaubsführer bereitet dich optimal auf deinen Urlaub vor.",
     sections: [
       {
         heading: "Einreise & Visum",
@@ -114,7 +114,7 @@ export default async function GuideDetailPage({ params }: Props) {
         className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
-        Alle Reiseführer
+        Alle Urlaubsführer
       </Link>
 
       {/* Hero Bild */}
@@ -140,7 +140,7 @@ export default async function GuideDetailPage({ params }: Props) {
         </span>
         <span className="flex items-center gap-1.5">
           <BookOpen className="w-4 h-4 text-sand-400" />
-          Reiseführer
+          Urlaubsführer
         </span>
       </div>
 

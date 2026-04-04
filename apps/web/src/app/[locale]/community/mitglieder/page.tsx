@@ -4,12 +4,12 @@ import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "👤 Community-Mitglieder – Reisende entdecken",
-  description: "Entdecke aktive Mitglieder der Urlaubfinder365 Community ✓ Profile ansehen ✓ Reiseerfahrung teilen ✓ Neue Kontakte knüpfen.",
+  description: "Entdecke aktive Mitglieder der Urlaubfinder365 Community ✓ Profile ansehen ✓ Urlaubserfahrung teilen ✓ Neue Kontakte knüpfen.",
   keywords: ["Community Mitglieder", "Reisende entdecken", "Reise Community", "Reisende Profile", "Urlaubfinder Community"],
   alternates: { canonical: "https://www.urlaubfinder365.de/community/mitglieder/" },
   openGraph: {
     title: "👤 Community-Mitglieder | Urlaubfinder365",
-    description: "Entdecke aktive Mitglieder der Urlaubfinder365 Community ✓ Profile ansehen ✓ Reiseerfahrung teilen ✓ Neue Kontakte knüpfen.",
+    description: "Entdecke aktive Mitglieder der Urlaubfinder365 Community ✓ Profile ansehen ✓ Urlaubserfahrung teilen ✓ Neue Kontakte knüpfen.",
     url: "https://www.urlaubfinder365.de/community/mitglieder/",
     type: "website",
   },

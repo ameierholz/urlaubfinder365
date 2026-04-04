@@ -591,14 +591,14 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Bio ── */}
             <SectionCard>
-              <SectionTitle icon={Plane} title="Über mich" subtitle="Erzähl der Community deine Reisegeschichte" />
+              <SectionTitle icon={Plane} title="Über mich" subtitle="Erzähl der Community deinen Urlaubgeschichte" />
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 maxLength={400}
                 rows={4}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#00838F] resize-none"
-                placeholder="Erzähl uns von deiner Leidenschaft fürs Reisen, deinen schönsten Erlebnissen oder Reisezielen, die du noch entdecken möchtest…"
+                placeholder="Erzähl uns von deiner Leidenschaft fürs Reisen, deinen schönsten Erlebnissen oder Urlaubszielen, die du noch entdecken möchtest…"
               />
               <p className="text-xs text-gray-400 text-right mt-1">{bio.length}/400</p>
             </SectionCard>
@@ -632,9 +632,9 @@ export default function ProfileTab({ user }: Props) {
               </div>
             </SectionCard>
 
-            {/* ── Reise-Interessen ── */}
+            {/* ── Urlaubs-Interessen ── */}
             <SectionCard>
-              <SectionTitle icon={Heart} title="Reise-Interessen" subtitle="Was begeistert dich beim Reisen? (Mehrfachauswahl)" />
+              <SectionTitle icon={Heart} title="Urlaubs-Interessen" subtitle="Was begeistert dich beim Reisen? (Mehrfachauswahl)" />
               <div className="grid grid-cols-2 gap-2">
                 {TRAVEL_INTERESTS.map(({ id, label, icon: Icon }) => {
                   const active = travelInterests.includes(id);
@@ -706,7 +706,7 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Social Links ── */}
             <SectionCard>
-              <SectionTitle icon={Link2} title="Social Media & Website" subtitle="Optional: Verlinke deine Reise-Accounts" />
+              <SectionTitle icon={Link2} title="Social Media & Website" subtitle="Optional: Verlinke deinen Urlaub-Accounts" />
               <div className="space-y-3">
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5 flex items-center gap-1">

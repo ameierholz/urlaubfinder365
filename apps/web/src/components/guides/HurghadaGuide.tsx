@@ -310,7 +310,7 @@ export default function HurghadaGuide() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                Hurghada Reiseführer
+                Hurghada Urlaubsführer
                 <span className="block sm:inline sm:ml-2 text-white/80 font-bold">2026</span>
               </h1>
               <p className="text-white/80 mt-2 text-sm sm:text-base max-w-xl leading-relaxed">
@@ -581,7 +581,7 @@ export default function HurghadaGuide() {
                 <TimelineItem year="7.–19. Jh." era="Islamische Periode" text="Nach der arabischen Eroberung Ägyptens blieb die Region dünn besiedelt. Fischer und Beduinenstämme prägten das Leben an der Küste über Jahrhunderte." color="bg-purple-500" />
                 <TimelineItem year="Frühes 20. Jh." era="Kleines Fischerdorf" text="Hurghada war ein verschlafenes Fischerdorf mit wenigen Hundert Einwohnern. Die Entdeckung von Erdöl in der Region brachte erste wirtschaftliche Impulse." color="bg-emerald-500" />
                 <TimelineItem year="1980er Jahre" era="Tourismus-Boom" text="Die Schönheit der Korallenriffe wurde international bekannt. Erste Tauchschulen und Hotels entstanden. Der Flughafen wurde ausgebaut und Hurghada entwickelte sich rasant." color="bg-blue-500" />
-                <TimelineItem year="Heute" era="Internationale Urlaubsmetropole" text="Hurghada ist eines der beliebtesten Reiseziele Ägyptens mit über 200 Hotels, einem internationalen Flughafen und Millionen von Besuchern jährlich. Die Stadt erstreckt sich über 40 km Küstenlinie." color="bg-teal-500" />
+                <TimelineItem year="Heute" era="Internationale Urlaubsmetropole" text="Hurghada ist eines der beliebtesten Urlaubsziele Ägyptens mit über 200 Hotels, einem internationalen Flughafen und Millionen von Besuchern jährlich. Die Stadt erstreckt sich über 40 km Küstenlinie." color="bg-teal-500" />
               </div>
 
               <div className="lg:col-span-2 space-y-5">

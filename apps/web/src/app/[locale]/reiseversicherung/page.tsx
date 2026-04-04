@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { ShieldCheck, Euro, Clock, Star, ExternalLink } from "lucide-react";
 import VersicherungVergleich from "@/components/versicherung/VersicherungVergleich";
 import { setRequestLocale } from "next-intl/server";
@@ -55,7 +56,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </h1>
           <p className="text-lg text-white/85 max-w-xl mx-auto leading-relaxed mb-8">
             Vergleiche Auslandskrankenversicherung, Reiserücktritt & Co. und finde den besten Tarif
-            für deine nächste Reise. Ab 9,80 € pro Jahr bereits gut abgesichert.
+            für deinen nächsten Urlaub. Ab 9,80 € pro Jahr bereits gut abgesichert.
           </p>
 
           {/* Haupt-CTA */}
@@ -96,10 +97,34 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </div>
 
-      {/* Hauptinhalt */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <VersicherungVergleich />
-      </section>
+      {/* Hauptinhalt + Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          <div className="flex-1 min-w-0">
+            <VersicherungVergleich />
+          </div>
+          <aside className="hidden xl:block w-64 shrink-0">
+            <div className="sticky top-24">
+              <RightSidebar
+                extrasBox={{
+                  image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+                  eyebrow: "Günstig buchen",
+                  title: "Pauschalreise + Versicherung",
+                  description: "Täglich tausende Pauschalreisen vergleichen – inkl. Versicherungsoptionen.",
+                  href: "/guenstig-urlaub-buchen/",
+                  ctaLabel: "Angebote vergleichen →",
+                }}
+                seoLinksTitle="🛡️ Mehr Infos"
+                seoLinks={[
+                  { href: "/reisewarnungen/", label: "Reisewarnungen" },
+                  { href: "/visum-checker/",  label: "Visum-Checker" },
+                  { href: "/urlaubsziele/",   label: "Urlaubsziele" },
+                ]}
+              />
+            </div>
+          </aside>
+        </div>
+      </div>
     </div>
   );
 }

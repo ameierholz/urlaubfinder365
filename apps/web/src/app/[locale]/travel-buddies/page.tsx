@@ -3,13 +3,13 @@ import TravelBuddiesClient from "./TravelBuddiesClient";
 import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
-  title: "🤝 Travel Buddies – Reisepartner finden",
-  description: "Travel Buddies finden bei Urlaubfinder365: Reisepartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
-  keywords: ["Travel Buddy finden", "Reisepartner suchen", "Gemeinsam verreisen", "Reisebegleitung", "Travel Buddy Deutschland", "Mitreisende finden"],
+  title: "🤝 Travel Buddies – Urlaubspartner finden",
+  description: "Travel Buddies finden bei Urlaubfinder365: Urlaubspartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
+  keywords: ["Travel Buddy finden", "Urlaubspartner suchen", "Gemeinsam verreisen", "Reisebegleitung", "Travel Buddy Deutschland", "Mitreisende finden"],
   alternates: { canonical: "https://www.urlaubfinder365.de/travel-buddies/" },
   openGraph: {
-    title: "🤝 Travel Buddies – Reisepartner finden | Urlaubfinder365",
-    description: "Travel Buddies finden bei Urlaubfinder365: Reisepartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
+    title: "🤝 Travel Buddies – Urlaubspartner finden | Urlaubfinder365",
+    description: "Travel Buddies finden bei Urlaubfinder365: Urlaubspartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
     url: "https://www.urlaubfinder365.de/travel-buddies/",
     type: "website",
   },
@@ -19,8 +19,8 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Travel Buddies – Reisepartner finden",
-    description: "Finde Gleichgesinnte für deine nächste Reise.",
+    name: "Travel Buddies – Urlaubspartner finden",
+    description: "Finde Gleichgesinnte für deinen nächsten Urlaub.",
     url: "https://www.urlaubfinder365.de/travel-buddies/",
   },
   {

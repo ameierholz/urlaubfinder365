@@ -316,7 +316,7 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!titel || !kategorie || !ziel) { setError("Titel, Kategorie und Reiseziel sind Pflicht."); return; }
+    if (!titel || !kategorie || !ziel) { setError("Titel, Kategorie und Urlaubsziel sind Pflicht."); return; }
     if (preistyp !== "auf_anfrage" && !preis) { setError("Bitte Preis eingeben oder 'Auf Anfrage' wählen."); return; }
     if (!hauptfoto) { setError("Bitte lade mindestens ein Hauptfoto hoch."); return; }
     setError("");
@@ -388,7 +388,7 @@ export default function AngebotForm({ anbieter_id, initial }: { anbieter_id: str
                 {KATEGORIEN.map((k) => <option key={k} value={k}>{KAT_LABEL[k]}</option>)}
               </select>
             </Field>
-            <Field label="Reiseziel / Stadt" required hint="z. B. Antalya, Türkei">
+            <Field label="Urlaubsziel / Stadt" required hint="z. B. Antalya, Türkei">
               <input type="text" value={ziel} onChange={(e) => setZiel(e.target.value)}
                 placeholder="Antalya, Türkei" className={INPUT} />
             </Field>

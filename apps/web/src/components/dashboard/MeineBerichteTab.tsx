@@ -74,7 +74,7 @@ export default function MeineBerichteTab({ user }: Props) {
         <ul className="space-y-2.5 text-xs text-gray-600">
           <li className="flex items-start gap-2"><span className="shrink-0">✍️</span><span>Klicke <strong>„Neuer Bericht"</strong> und beschreibe deinen Urlaub mit Fotos, Bewertung und Highlights</span></li>
           <li className="flex items-start gap-2"><span className="shrink-0">👁️</span><span>Berichte beginnen als <strong>Entwurf</strong> – klicke „Veröffentlichen" um sie der Community zu zeigen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🏳️</span><span>Die <strong>Landesflagge</strong> des Reiseziels wird automatisch angezeigt</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏳️</span><span>Die <strong>Landesflagge</strong> des Urlaubsziels wird automatisch angezeigt</span></li>
           <li className="flex items-start gap-2"><span className="shrink-0">✏️</span><span>Berichte jederzeit bearbeiten oder löschen</span></li>
           <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>Andere Mitglieder können deine Berichte liken und kommentieren</span></li>
         </ul>

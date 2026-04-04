@@ -1,7 +1,97 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, Check, X, Star, Crown, ShieldCheck } from "lucide-react";
+import { ExternalLink, Check, X, Star, Crown, ShieldCheck, Shield } from "lucide-react";
+
+const ERV_URL = "https://www.travialinks.de/link/A-30412-0/A/erv";
+
+function ErvModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-[#0e4070]/85 via-[#0e4070]/80 to-[#0e4070]/95" />
+
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+          aria-label="Schließen"
+        >
+          <X className="w-4 h-4 text-white" />
+        </button>
+
+        {/* Content */}
+        <div className="relative z-10 p-8 text-white">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400/30 rounded-full px-3 py-1 text-xs font-bold text-amber-300 mb-5">
+            🏆 #1 Empfehlung · Testsieger 2025
+          </div>
+
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center">
+              <Shield className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black leading-tight">ERV Reiseversicherung</h2>
+              <p className="text-white/70 text-sm">Europäische Reiseversicherung – Marktführer</p>
+            </div>
+          </div>
+
+          <p className="text-white/80 text-sm leading-relaxed mb-6">
+            Deutschlands meistgekaufte Reiseversicherung – über 10 Millionen Kunden vertrauen der ERV.
+            Günstiger Schutz mit Top-Leistungen für deinen nächsten Urlaub.
+          </p>
+
+          {/* Benefits */}
+          <ul className="space-y-2 mb-7">
+            {[
+              "Auslandskrankenversicherung bereits ab 9,80 €/Jahr",
+              "Jahrespolice für unbegrenzte Reisen möglich",
+              "24/7 Notfall-Hotline weltweit",
+              "Sofortiger Online-Abschluss in 2 Minuten",
+            ].map((b) => (
+              <li key={b} className="flex items-center gap-2.5 text-sm text-white/90">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                {b}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <a
+            href={ERV_URL}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="flex items-center justify-center gap-2 w-full py-4 bg-white text-[#0e4070] font-black rounded-2xl hover:bg-blue-50 transition-colors text-base shadow-lg"
+          >
+            <Shield className="w-5 h-5" />
+            Jetzt bei ERV abschließen
+            <ExternalLink className="w-4 h-4 opacity-60" />
+          </a>
+          <p className="text-white/50 text-[11px] text-center mt-3">
+            Affiliate-Link · Keine Mehrkosten für dich
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 import { VERSICHERUNG_TYPEN, ANBIETER, FAQS } from "@/data/versicherung-data";
 
 const EMPFEHLUNG_STYLE = {
@@ -13,9 +103,11 @@ const EMPFEHLUNG_STYLE = {
 export default function VersicherungVergleich() {
   const [aktiv, setAktiv] = useState<string | null>(null);
   const [faqOffen, setFaqOffen] = useState<number | null>(null);
+  const [ervModal, setErvModal] = useState(false);
 
   return (
     <div className="space-y-16">
+      {ervModal && <ErvModal onClose={() => setErvModal(false)} />}
 
       {/* ── Versicherungstypen ─────────────────────────────────────── */}
       <section>
@@ -170,15 +262,13 @@ export default function VersicherungVergleich() {
             Wer mehr als zweimal im Jahr verreist, spart mit einer <strong>Jahres-Auslandskrankenversicherung</strong> bares Geld.
             Für oft unter 15 € pro Person bist du für alle Reisen des Jahres abgesichert — ohne jedes Mal neu abschließen zu müssen.
           </p>
-          <a
-            href="https://www.travialinks.de/link/A-30412-0/A/erv"
-            target="_blank"
-            rel="noopener noreferrer sponsored"
+          <button
+            onClick={() => setErvModal(true)}
             className="inline-flex items-center gap-1.5 mt-3 text-[#00838F] font-bold text-sm hover:underline"
           >
-            <ExternalLink className="w-3.5 h-3.5" />
-            Jetzt bei ERV abschließen
-          </a>
+            <Shield className="w-3.5 h-3.5" />
+            Jetzt bei ERV abschließen →
+          </button>
         </div>
       </section>
 

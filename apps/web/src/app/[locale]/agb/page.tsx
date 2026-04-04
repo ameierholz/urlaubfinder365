@@ -36,14 +36,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <section>
           <h2 className="text-base font-bold text-gray-900 mb-3">§ 2 Leistungsbeschreibung</h2>
           <p className="mb-3">
-            Urlaubfinder365.de ist ein Reisevergleichsportal. Wir stellen tagesaktuell Reiseangebote
+            Urlaubfinder365.de ist ein Reisevergleichsportal. Wir stellen tagesaktuell Urlaubsangebote
             von Drittanbietern dar und verlinken auf deren Buchungsseiten. <strong>Wir sind kein
             Reiseveranstalter</strong> – sämtliche Buchungen über externe Reiseveranstalter werden
             direkt beim jeweiligen Veranstalter abgeschlossen. Für den Vertragsinhalt, Preisänderungen
             und die Durchführung der Reise ist ausschließlich der jeweilige Veranstalter verantwortlich.
           </p>
           <p className="mb-3">
-            Die Reiseangebote für Pauschalreisen, Last Minute, All Inclusive und Frühbucher werden
+            Die Urlaubsangebote für Pauschalreisen, Last Minute, All Inclusive und Frühbucher werden
             über <strong>specials.de (Ypsilon.Net AG)</strong> bereitgestellt. Kreuzfahrtenangebote
             und das zugehörige Buchungssystem stammen von der <strong>travianet GmbH</strong>.
             Buchungen über diese Systeme erfolgen direkt mit dem jeweiligen Anbieter – es gelten

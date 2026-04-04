@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 const VORTEILE = [
   { icon: Euro,       titel: "Nur 15% Provision",      text: "Keine Fixkosten, kein Abo. Du zahlst nur bei erfolgreicher Buchung." },
-  { icon: Globe,      titel: "Millionen Reisende",      text: "Zugang zu deutschen Urlaubern — der kaufkräftigsten Reisegruppe weltweit." },
+  { icon: Globe,      titel: "Millionen Reisende",      text: "Zugang zu deutschen Urlaubern — der kaufkräftigsten Urlaubsgruppe weltweit." },
   { icon: ShieldCheck,titel: "Verifizierter Anbieter", text: "Dein Profil erhält das Verifizierungs-Badge für mehr Vertrauen & Buchungen." },
   { icon: Users,      titel: "Eigenes Profil",          text: "Profil mit Fotos, Bewertungen, Sprachen und deiner Geschichte." },
-  { icon: TrendingUp, titel: "Kostenlose Reichweite",   text: "Deine Angebote werden in Suchergebnissen und auf Reiseziel-Seiten angezeigt." },
+  { icon: TrendingUp, titel: "Kostenlose Reichweite",   text: "Deine Angebote werden in Suchergebnissen und auf Urlaubsziel-Seiten angezeigt." },
   { icon: Smartphone, titel: "Einfache Verwaltung",     text: "Buchungsanfragen direkt per E-Mail — kein kompliziertes Dashboard nötig." },
 ];
 

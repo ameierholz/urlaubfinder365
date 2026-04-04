@@ -66,7 +66,7 @@ export default function VisumChecker() {
             type="text"
             value={suche}
             onChange={(e) => setSuche(e.target.value)}
-            placeholder="Reiseziel suchen, z. B. Thailand, USA, Ägypten …"
+            placeholder="Urlaubsziel suchen, z. B. Thailand, USA, Ägypten …"
             className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#00838F] focus:ring-2 focus:ring-[#00838F]/10 transition-colors"
           />
         </div>
@@ -91,14 +91,14 @@ export default function VisumChecker() {
 
       {/* Ergebnis-Hinweis */}
       <p className="text-sm text-gray-500">
-        <span className="font-semibold text-gray-800">{ergebnisse.length}</span> Reiseziele gefunden · für deutsche Reisepässe
+        <span className="font-semibold text-gray-800">{ergebnisse.length}</span> Urlaubsziele gefunden · für deutsche Reisepässe
       </p>
 
       {/* Ergebnisliste */}
       {ergebnisse.length === 0 ? (
         <div className="text-center py-16 text-gray-400">
           <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
-          <p className="font-medium">Kein Reiseziel gefunden</p>
+          <p className="font-medium">Kein Urlaubsziel gefunden</p>
           <p className="text-sm mt-1">Versuche einen anderen Suchbegriff.</p>
         </div>
       ) : (

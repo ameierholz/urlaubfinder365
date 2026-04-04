@@ -64,7 +64,7 @@ export default function TripPlannerTab({ user }: Props) {
       getUserSavedActivities(user.uid),
     ])
       .then(([p, t, a]) => { setPlans(p); setTrips(t); setActivities(a); })
-      .catch(() => setError("Reisepläne konnten nicht geladen werden."))
+      .catch(() => setError("Urlaubspläne konnten nicht geladen werden."))
       .finally(() => setLoading(false));
   }, [user.uid]);
 
@@ -319,7 +319,7 @@ export default function TripPlannerTab({ user }: Props) {
       {plans.length === 0 && !showForm && (
         <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center">
           <Map className="w-12 h-12 text-gray-200 mx-auto mb-4" />
-          <h3 className="font-bold text-gray-700 mb-2">Noch keine Reisepläne</h3>
+          <h3 className="font-bold text-gray-700 mb-2">Noch keine Urlaubspläne</h3>
           <p className="text-gray-400 text-sm mb-6">Plane deinen nächsten Urlaub – mit Datum, Budget und deinen gespeicherten Angeboten.</p>
           <button onClick={() => setShowForm(true)}
             className="inline-block bg-[#00838F] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-[#006E7A] transition-colors">

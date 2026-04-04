@@ -51,7 +51,7 @@ export default function ReiseHub({ destination, country, data }: Props) {
         <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4">
           <div>
             <h2 className="text-4xl font-bold text-gray-900 mb-1">
-              Dein digitaler Reisebegleiter für{" "}
+              Dein digitaler Urlaubsbegleiter für{" "}
               <span className="text-sand-500">{destination}</span>
             </h2>
             <p className="text-gray-600">

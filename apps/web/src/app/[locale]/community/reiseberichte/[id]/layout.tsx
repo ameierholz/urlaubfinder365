@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function ReiseberichtDetailLayout({ children }: { children: React.ReactNode }) {
+export default function UrlaubsberichtDetailLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

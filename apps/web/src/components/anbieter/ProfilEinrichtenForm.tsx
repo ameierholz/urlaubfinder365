@@ -262,7 +262,7 @@ export default function ProfilEinrichtenForm({ profilId, initial }: Props) {
         {/* Titelbild / Hero */}
         <div>
           <p className="text-xs font-semibold text-gray-600 mb-1">Titelbild <span className="text-gray-400 font-normal">(Hero-Banner auf deinem Profil)</span></p>
-          <p className="text-[11px] text-gray-400 mb-3">Landschaftsformat empfohlen — z. B. ein schönes Foto deines Reiseziels oder einer deiner Touren · min. 1200 × 400 px</p>
+          <p className="text-[11px] text-gray-400 mb-3">Landschaftsformat empfohlen — z. B. ein schönes Foto deines Urlaubsziels oder einer deiner Touren · min. 1200 × 400 px</p>
           {titelbildUrl && (
             <div className="relative h-28 rounded-2xl overflow-hidden mb-3 bg-gray-100">
               <Image src={titelbildUrl} alt="Titelbild" fill className="object-cover" unoptimized />
@@ -412,10 +412,10 @@ export default function ProfilEinrichtenForm({ profilId, initial }: Props) {
 
       {/* ── 6. Dokumente ────────────────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
-        <SektionHeader icon={FileText} title="Dokumente & Lizenz" sub="Gewerbeschein, Reiseführer-Lizenz oder andere Nachweise" />
+        <SektionHeader icon={FileText} title="Dokumente & Lizenz" sub="Gewerbeschein, Urlaubsführer-Lizenz oder andere Nachweise" />
 
         <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-800">
-          📋 Lade deinen Gewerbeschein, deine Reiseführer-Lizenz oder einen anderen offiziellen Nachweis hoch.
+          📋 Lade deinen Gewerbeschein, deine Urlaubsführer-Lizenz oder einen anderen offiziellen Nachweis hoch.
           Das beschleunigt die Freischaltung erheblich.
         </div>
 

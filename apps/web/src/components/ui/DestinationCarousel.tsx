@@ -12,7 +12,7 @@ interface DestItem {
   image: string;
 }
 
-/** Kuratierte Top-Reiseziele – alle Slugs haben eigene Seiten unter /urlaubsziele/ */
+/** Kuratierte Top-Urlaubsziele – alle Slugs haben eigene Seiten unter /urlaubsziele/ */
 const DESTINATIONS: DestItem[] = [
   { slug: "antalya",   name: "Antalya",   country: "Türkei",       flagCode: "tr", image: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=400&q=75" },
   { slug: "mallorca",  name: "Mallorca",  country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=400&q=75" },
@@ -48,7 +48,7 @@ interface Props {
 }
 
 export default function DestinationCarousel({
-  title = "Beliebte Reiseziele",
+  title = "Beliebte Urlaubsziele",
   accentColor = "#00838F",
   items,
   allHref = "/urlaubsziele/",
@@ -69,7 +69,7 @@ export default function DestinationCarousel({
       <div className="flex items-center justify-between mb-5">
         <div>
           <h2 className="text-4xl font-bold text-gray-900">{title}</h2>
-          <p className="text-xs text-gray-400 mt-0.5">Direkt zum Reiseziel – Angebote & Reisetipps</p>
+          <p className="text-xs text-gray-400 mt-0.5">Direkt zum Urlaubsziel – Angebote & Urlaubstipps</p>
         </div>
         <div className="flex items-center gap-2">
           {/* Nav Arrows (Desktop) */}
@@ -102,14 +102,14 @@ export default function DestinationCarousel({
       {/* Scrollable Track */}
       <div
         ref={scrollRef}
-        className="flex gap-3 overflow-x-auto pb-2 scroll-smooth"
+        className="flex gap-3 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {list.map((d) => (
           <Link
             key={d.slug}
             href={`/urlaubsziele/${d.slug}/`}
-            className="group shrink-0 w-36 rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+            className="group shrink-0 w-36 snap-start rounded-2xl overflow-hidden relative shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
           >
             {/* Bild */}
             <div className="relative h-44 overflow-hidden bg-gray-100">

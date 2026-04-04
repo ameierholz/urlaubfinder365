@@ -275,7 +275,7 @@ export default function TiqetsMultiCityDiscovery({ destinations }: Props) {
               : "bg-white text-gray-600 border-gray-200 hover:border-[#00838F] hover:text-[#00838F]"
           }`}
         >
-          🌍 Alle Reiseziele
+          🌍 Alle Urlaubsziele
         </button>
         {destinations.map((dest) => (
           <button

@@ -262,7 +262,7 @@ const turkeyHubData: HubData = {
         <div>
           <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nach der Reise: Datensicherheit</h4>
           <ul class="list-disc pl-5 space-y-2 text-sm">
-            <li>Deutsche SIM wieder einlegen / Reiseprofil deaktivieren.</li>
+            <li>Deutsche SIM wieder einlegen / Urlaubsprofil deaktivieren.</li>
             <li>Ladebuchse von Sand/Salz reinigen.</li>
           </ul>
         </div>

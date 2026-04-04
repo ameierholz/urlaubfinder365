@@ -38,7 +38,7 @@ const faqData = [
       name: "Wie viel spare ich mit Last-Minute Urlaub?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Mit Last-Minute Reisen sind Ersparnisse von 20–60% gegenüber dem Normalpreis möglich. Je näher der Abflugtermin, desto höher der Rabatt, da Veranstalter freie Kapazitäten füllen wollen.",
+        text: "Mit Last-Minute Urlaube sind Ersparnisse von 20–60% gegenüber dem Normalpreis möglich. Je näher der Abflugtermin, desto höher der Rabatt, da Veranstalter freie Kapazitäten füllen wollen.",
       },
     },
     {
@@ -129,7 +129,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <p className="text-xs font-bold text-orange-700 uppercase tracking-wide mb-3">Inhaltsverzeichnis</p>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-orange-800">
               <a href="#angebote" className="hover:text-orange-600 transition-colors">① Aktuelle Angebote</a>
-              <a href="#was-ist" className="hover:text-orange-600 transition-colors">② Was sind Last-Minute Reisen?</a>
+              <a href="#was-ist" className="hover:text-orange-600 transition-colors">② Was sind Last-Minute Urlaube?</a>
               <a href="#wann-buchen" className="hover:text-orange-600 transition-colors">③ Wann am günstigsten buchen?</a>
               <a href="#top-ziele" className="hover:text-orange-600 transition-colors">④ Top Last-Minute Ziele</a>
               <a href="#checkliste" className="hover:text-orange-600 transition-colors">⑤ Checkliste vor der Buchung</a>
@@ -141,7 +141,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         {/* Angebote */}
         <div id="angebote" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Aktuelle Last-Minute Angebote</h2>
-          <p className="text-gray-500 mb-6">Heute verfügbare Reisen – täglich aktualisiert, direkt buchbar.</p>
+          <p className="text-gray-500 mb-6">Heute verfügbare Angebote – täglich aktualisiert, direkt buchbar.</p>
           <OffersGrid offers={offers} />
         </div>
 
@@ -150,9 +150,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Was sind Last-Minute Reisen?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Was sind Last-Minute Urlaube?</h2>
                 <p className="text-gray-600 mb-4 leading-relaxed">
-                  Last-Minute Reisen sind kurzfristig verfügbare Pauschalreisen, die Reiseveranstalter
+                  Last-Minute Urlaube sind kurzfristig verfügbare Pauschalreisen, die Reiseveranstalter
                   zu deutlich reduzierten Preisen anbieten – oft <strong>20 bis 60 % günstiger</strong> als
                   der Normalpreis. Der Grund: Flugzeuge, Hotels und Kreuzfahrtschiffe sollen voll
                   ausgelastet sein. Wer also flexibel ist und spontan buchen kann, profitiert enorm.
@@ -266,7 +266,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">Top Last-Minute Urlaubsziele 2026</h2>
             <p className="text-gray-600 mb-8 max-w-3xl leading-relaxed">
-              Diese Reiseziele sind besonders häufig in Last-Minute Angeboten vertreten – dank hoher
+              Diese Urlaubsziele sind besonders häufig in Last-Minute Angeboten vertreten – dank hoher
               Flugfrequenz und großem Hotelbettangebot entstehen regelmäßig attraktive Preisnachlässe:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -375,7 +375,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                       <a href="https://www.bzga.de/infomaterialien/reisemedizin/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium">
                         BZgA – Reisemedizin & Impfberatung ↗
                       </a>
-                      <p className="text-gray-500 text-xs mt-0.5">Impfempfehlungen nach Reiseziel</p>
+                      <p className="text-gray-500 text-xs mt-0.5">Impfempfehlungen nach Urlaubsziel</p>
                     </li>
                     <li>
                       <a href="https://www.bundesnetzagentur.de/DE/Vportal/TK/Roaming/start.html" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline font-medium">

@@ -50,7 +50,7 @@ function FlagImg({ emoji, name, size = "sm" }: { emoji: string; name: string; si
   );
 }
 
-export default function DestinationGrid({ destinations, accentColor = "#00838F", carouselLabel = "Weitere Reiseziele" }: Props) {
+export default function DestinationGrid({ destinations, accentColor = "#00838F", carouselLabel = "Weitere Urlaubsziele" }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const open = (url: string, name: string) => {

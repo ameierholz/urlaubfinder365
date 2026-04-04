@@ -7,21 +7,21 @@ import { setRequestLocale } from "next-intl/server";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 export const metadata: Metadata = {
-  title: "📖 Reiseführer – alle Urlaubsziele im Überblick",
-  description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
-  keywords: ["Reiseführer", "Urlaubsguide", "Reisetipps", "Reiseinformationen", "Reiseführer kostenlos"],
+  title: "📖 Urlaubsführer – alle Urlaubsziele im Überblick",
+  description: "Kostenlose Urlaubsführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
+  keywords: ["Urlaubsführer", "Urlaubsguide", "Urlaubstipps", "Urlaubsinformationen", "Urlaubsführer kostenlos"],
   alternates: { canonical: `${BASE_URL}/guide/` },
   openGraph: {
-    title: "📖 Reiseführer – alle Urlaubsziele | Urlaubfinder365",
-    description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
+    title: "📖 Urlaubsführer – alle Urlaubsziele | Urlaubfinder365",
+    description: "Kostenlose Urlaubsführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
     url: `${BASE_URL}/guide/`,
     type: "website",
     siteName: "Urlaubfinder365",
   },
   twitter: {
     card: "summary_large_image",
-    title: "📖 Reiseführer – alle Urlaubsziele | Urlaubfinder365",
-    description: "Kostenlose Reiseführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
+    title: "📖 Urlaubsführer – alle Urlaubsziele | Urlaubfinder365",
+    description: "Kostenlose Urlaubsführer für über 50 Urlaubsziele weltweit ✓ Sehenswürdigkeiten, Tipps & Insiderwissen ✓ Jetzt Guide lesen.",
   },
 };
 
@@ -30,7 +30,7 @@ const guides = [
   {
     slug: "reisefuehrer-antalya",
     destination: "Antalya",
-    title: "Antalya Reiseführer: Alles was du wissen musst",
+    title: "Antalya Urlaubsführer: Alles was du wissen musst",
     excerpt: "Von Einreisebestimmungen über die besten Strände bis zu Geheimtipps – dein kompletter Antalya Guide.",
     category: "vor-der-reise",
     categoryLabel: "Vor der Reise",
@@ -57,10 +57,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-sand-50 text-sand-600 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
           <BookOpen className="w-4 h-4" />
-          Kostenlose Reiseführer
+          Kostenlose Urlaubsführer
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-          Reiseführer & Reisetipps
+          Urlaubsführer & Urlaubstipps
         </h1>
         <p className="text-gray-500 max-w-xl mx-auto">
           Hilfreiche Guides für jede Phase deiner Reise – von der Planung bis zur Rückkehr.

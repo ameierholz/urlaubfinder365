@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "✨ Kostenlos registrieren – Urlaubfinder365",
-  description: "Kostenlos bei Urlaubfinder365 registrieren ✓ Preisalarme ✓ Reiseberichte schreiben ✓ Community beitreten ✓ Favoriten speichern.",
+  description: "Kostenlos bei Urlaubfinder365 registrieren ✓ Preisalarme ✓ Urlaubsberichte schreiben ✓ Community beitreten ✓ Favoriten speichern.",
   alternates: { canonical: "https://www.urlaubfinder365.de/register/" },
   robots: { index: false, follow: true },
 };

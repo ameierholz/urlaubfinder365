@@ -3,7 +3,7 @@ import Link from "next/link";
 import { destinations } from "@/lib/destinations";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import TiqetsCarousel from "@/components/tiqets/TiqetsCarousel";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
@@ -117,7 +117,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Last-Minute Urlaub – Was steckt dahinter?</h2>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Last-Minute Reisen sind Angebote, die kurzfristig – in der Regel 2 bis 4 Wochen vor Abreise –
+          Last-Minute Urlaube sind Angebote, die kurzfristig – in der Regel 2 bis 4 Wochen vor Abreise –
           zu reduzierten Preisen verfügbar sind. Hotels und Fluglinien geben freie Kapazitäten günstig ab,
           damit sie nicht leer bleiben. Für spontane Reisende bedeutet das: bis zu 60% Ersparnis gegenüber
           dem regulären Buchungspreis.
@@ -202,49 +202,32 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       </div>{/* end flex-1 */}
 
-      <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
-        <div className="sticky top-24 pt-8 space-y-3">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-              Anzeige
-            </p>
-            <AdBanner placementKey="86c5e79b5bd126e0b09685dad18c2682" height={600} />
-          </div>
-          <div className="bg-[#00838F]/8 rounded-2xl p-4 border border-[#00838F]/15 text-center">
-            <p className="text-xs font-bold text-[#00838F] mb-1">⚡ Spontan?</p>
-            <p className="text-[11px] text-gray-500 mb-3 leading-snug">
-              Super-Last-Minute – Abreise in 72h
-            </p>
-            <Link href="/urlaubsarten/super-last-minute-urlaub/" className="inline-block bg-[#00838F] text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-[#006d78] transition-colors">
-              Jetzt ansehen →
-            </Link>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-              🔗 Urlaubsarten
-            </p>
-            <ul className="space-y-1.5">
-              {[
-                { href: "/urlaubsarten/pauschalreisen/", label: "Pauschalreisen" },
-                { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive" },
-                { href: "/urlaubsarten/fruhbucher-urlaub/", label: "Frühbucher" },
-                { href: "/urlaubsarten/super-last-minute-urlaub/", label: "Super-Last-Minute" },
-                { href: "/urlaubsziele/", label: "Alle Reiseziele" },
-              ].map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                    <span className="text-gray-300 shrink-0">›</span>{label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <aside className="hidden xl:block w-64 shrink-0">
+        <div className="sticky top-24">
+          <RightSidebar
+            extrasBox={{
+              image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70',
+              eyebrow: 'Spontan weg?',
+              title: 'Super-Last-Minute',
+              description: 'Abreise in 72h – maximale Ersparnis für echte Spontanreisende.',
+              href: '/urlaubsarten/super-last-minute-urlaub/',
+              ctaLabel: 'Jetzt ansehen →',
+            }}
+            seoLinksTitle="✈️ Urlaubsarten"
+            seoLinks={[
+              { href: '/urlaubsarten/pauschalreisen/', label: 'Pauschalreisen' },
+              { href: '/urlaubsarten/all-inclusive-urlaub/', label: 'All-Inclusive' },
+              { href: '/urlaubsarten/fruhbucher-urlaub/', label: 'Frühbucher' },
+              { href: '/urlaubsarten/super-last-minute-urlaub/', label: 'Super-Last-Minute' },
+              { href: '/urlaubsziele/', label: 'Alle Urlaubsziele' },
+            ]}
+          />
         </div>
       </aside>
 
       </div>{/* end xl:flex */}
 
-      {/* Beliebte Reiseziele */}
+      {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Last-Minute nach diesen Zielen" accentColor="#b45309" />
 
     </div>

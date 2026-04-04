@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HurghadaGuide from "@/components/guides/HurghadaGuide";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -8,13 +8,13 @@ const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-hurghada/`;
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: `🤿 Hurghada Reiseführer ${YEAR} – Rotes Meer & Tipps`,
-  description: `Hurghada Reiseführer ${YEAR}: Schnorcheln, Tauchen, Wüstensafari & Geheimtipps ✓ Dein kompletter Ägypten-Urlaubs-Guide am Roten Meer.`,
-  keywords: ["Hurghada Reiseführer", "Hurghada Tipps", "Hurghada Tauchen", "Hurghada Sehenswürdigkeiten", "Ägypten Urlaub", "Rotes Meer", "Hurghada Geheimtipps", "Hurghada Guide"],
+  title: `🤿 Hurghada Urlaubsführer ${YEAR} – Rotes Meer & Tipps`,
+  description: `Hurghada Urlaubsführer ${YEAR}: Schnorcheln, Tauchen, Wüstensafari & Geheimtipps ✓ Dein kompletter Ägypten-Urlaubs-Guide am Roten Meer.`,
+  keywords: ["Hurghada Urlaubsführer", "Hurghada Tipps", "Hurghada Tauchen", "Hurghada Sehenswürdigkeiten", "Ägypten Urlaub", "Rotes Meer", "Hurghada Geheimtipps", "Hurghada Guide"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: `🤿 Hurghada Reiseführer ${YEAR} – Ägypten Guide | Urlaubfinder365`,
-    description: `Hurghada Reiseführer ${YEAR}: Schnorcheln, Tauchen, Wüstensafari & Geheimtipps ✓ Dein kompletter Ägypten-Urlaubs-Guide am Roten Meer.`,
+    title: `🤿 Hurghada Urlaubsführer ${YEAR} – Ägypten Guide | Urlaubfinder365`,
+    description: `Hurghada Urlaubsführer ${YEAR}: Schnorcheln, Tauchen, Wüstensafari & Geheimtipps ✓ Dein kompletter Ägypten-Urlaubs-Guide am Roten Meer.`,
     url: CANONICAL,
     type: "article",
     images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         url: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1200&h=630&fit=crop&q=80",
         width: 1200,
         height: 630,
-        alt: `Hurghada Ägypten – Reiseführer ${YEAR}`,
+        alt: `Hurghada Ägypten – Urlaubsführer ${YEAR}`,
       },
     ],
   },
@@ -36,13 +36,13 @@ const jsonLd = {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Startseite", item: `${BASE_URL}/` },
         { "@type": "ListItem", position: 2, name: "Urlaubsguides", item: `${BASE_URL}/urlaubsguides/` },
-        { "@type": "ListItem", position: 3, name: "Hurghada Reiseführer", item: CANONICAL },
+        { "@type": "ListItem", position: 3, name: "Hurghada Urlaubsführer", item: CANONICAL },
       ],
     },
     {
       "@type": "Article",
-      headline: "Hurghada Reiseführer – Tipps, Strände & praktische Infos",
-      description: "Dein umfassender Hurghada Reiseführer: Rotes Meer, Schnorcheln, Wüstensafaris, Hotels und praktische Infos.",
+      headline: "Hurghada Urlaubsführer – Tipps, Strände & praktische Infos",
+      description: "Dein umfassender Hurghada Urlaubsführer: Rotes Meer, Schnorcheln, Wüstensafaris, Hotels und praktische Infos.",
       url: CANONICAL,
       datePublished: "2026-04-01",
       dateModified: "2026-04-02",
@@ -76,8 +76,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="flex-1 min-w-0">
           <HurghadaGuide />
         </div>
-        <aside className="hidden xl:block w-46.5 shrink-0 sticky top-28">
-          <AdBanner placementKey="86c5e79b5bd126e0b09685dad18c2682" height={600} />
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&h=200&q=70&auto=format&fit=crop",
+                eyebrow: "Urlaub buchen",
+                title: "Hurghada – Günstig nach Ägypten",
+                description: "Pauschalreisen & All-Inclusive nach Hurghada zum Bestpreis vergleichen.",
+                href: "/urlaubsziele/hurghada/",
+                ctaLabel: "Angebote vergleichen →",
+              }}
+              seoLinksTitle="📚 Weitere Guides"
+              seoLinks={[
+                { href: "/urlaubsguides/reisefuehrer-antalya/",   label: "Antalya Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-mallorca/",  label: "Mallorca Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-kreta/",     label: "Kreta Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-barcelona/", label: "Barcelona Urlaubsführer" },
+                { href: "/urlaubsguides/",                        label: "Alle Guides →" },
+              ]}
+            />
+          </div>
         </aside>
       </div>
     </>

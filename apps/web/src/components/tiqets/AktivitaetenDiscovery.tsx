@@ -230,7 +230,7 @@ export default function AktivitaetenDiscovery() {
         </div>
         <p className="text-gray-500 text-sm mb-6">
           {active === "all"
-            ? "Top-bewertete Touren, Tickets & Erlebnisse an unseren beliebtesten Reisezielen."
+            ? "Top-bewertete Touren, Tickets & Erlebnisse an unseren beliebtesten Urlaubszielen."
             : `Sofort buchbare Touren, Eintrittskarten & Erlebnisse in ${activeLabel}.`}
         </p>
         {/* key={active} forces remount + fresh fetch when continent changes */}

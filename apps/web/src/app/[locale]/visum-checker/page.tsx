@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { Globe, ShieldCheck, Clock, Info } from "lucide-react";
 import VisumChecker from "@/components/visum/VisumChecker";
 import { setRequestLocale } from "next-intl/server";
@@ -6,7 +7,7 @@ import { setRequestLocale } from "next-intl/server";
 export const metadata: Metadata = {
   title: "Visum-Checker – Einreisebestimmungen für deutsche Reisepässe",
   description:
-    "Kostenloser Visum-Checker: Einreisebestimmungen, Visumpflicht & Kosten für 50+ Reiseziele weltweit – für deutsche Staatsangehörige. Jetzt prüfen!",
+    "Kostenloser Visum-Checker: Einreisebestimmungen, Visumpflicht & Kosten für 50+ Urlaubsziele weltweit – für deutsche Staatsangehörige. Jetzt prüfen!",
   alternates: { canonical: "https://www.urlaubfinder365.de/visum-checker/" },
   openGraph: {
     title: "Visum-Checker – Einreisebestimmungen für deutsche Reisepässe",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  { icon: Globe,       zahl: "50+",     text: "Reiseziele" },
+  { icon: Globe,       zahl: "50+",     text: "Urlaubsziele" },
   { icon: ShieldCheck, zahl: "Gratis",  text: "Kostenlos nutzen" },
   { icon: Clock,       zahl: "Sofort",  text: "Ergebnis in Sekunden" },
   { icon: Info,        zahl: "DE Pass", text: "Für deutsche Pässe" },
@@ -29,8 +30,17 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <section className="bg-linear-to-br from-[#00838F] to-[#006d78] text-white py-14 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative overflow-hidden text-white py-14 px-4" style={{ minHeight: "340px" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=1600&q=80"
+          alt="Visum-Checker"
+          className="absolute inset-0 w-full h-full object-cover"
+          // @ts-ignore
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-linear-to-br from-[#00838F]/90 via-[#006d78]/85 to-[#004d5a]/90" />
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-semibold mb-5">
             ✈️ Kostenloser Visum-Checker
           </div>
@@ -38,7 +48,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             Brauche ich ein Visum?
           </h1>
           <p className="text-lg text-white/85 max-w-xl mx-auto leading-relaxed">
-            Einreisebestimmungen, Visumkosten und Bearbeitungszeiten für über 50 Reiseziele weltweit —
+            Einreisebestimmungen, Visumkosten und Bearbeitungszeiten für über 50 Urlaubsziele weltweit —
             speziell für deutsche Reisepässe.
           </p>
 
@@ -55,13 +65,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* Checker */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <VisumChecker />
-      </section>
+      {/* Checker + Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          <div className="flex-1 min-w-0">
+            <VisumChecker />
 
       {/* Info-Box */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="mt-8 pb-8">
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Häufige Fragen zum Visum</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600 leading-relaxed">
@@ -83,7 +94,31 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+          </div>{/* end main */}
+          <aside className="hidden xl:block w-64 shrink-0">
+            <div className="sticky top-24">
+              <RightSidebar
+                extrasBox={{
+                  image: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=400&h=200&q=70",
+                  eyebrow: "Absicherung",
+                  title: "Auslandsschutz nicht vergessen",
+                  description: "Krankheit im Ausland kann teuer werden. Reiseversicherung jetzt vergleichen.",
+                  href: "/reiseversicherung/",
+                  ctaLabel: "Jetzt absichern →",
+                  accentColor: "bg-blue-700",
+                }}
+                seoLinksTitle="🛂 Einreise & Infos"
+                seoLinks={[
+                  { href: "/reisewarnungen/",   label: "Reisewarnungen" },
+                  { href: "/reiseversicherung/", label: "Reiseversicherung" },
+                  { href: "/urlaubsziele/",      label: "Urlaubsziele" },
+                ]}
+              />
+            </div>
+          </aside>
+        </div>
+      </div>
     </div>
   );
 }

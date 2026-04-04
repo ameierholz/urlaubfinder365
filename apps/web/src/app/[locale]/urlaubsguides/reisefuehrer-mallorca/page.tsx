@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import MallorcaGuide from "@/components/guides/MallorcaGuide";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -8,20 +8,20 @@ const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-mallorca/`;
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  title: `🏖 Mallorca Reiseführer ${YEAR} – Strände, Tipps & mehr`,
-  description: `Mallorca Reiseführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
-  keywords: ["Mallorca Reiseführer", "Mallorca Tipps", "Mallorca Strände", "Mallorca Sehenswürdigkeiten", "Mallorca Urlaub", "Palma de Mallorca", "Mallorca Geheimtipps", "Mallorca Guide"],
+  title: `🏖 Mallorca Urlaubsführer ${YEAR} – Strände, Tipps & mehr`,
+  description: `Mallorca Urlaubsführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
+  keywords: ["Mallorca Urlaubsführer", "Mallorca Tipps", "Mallorca Strände", "Mallorca Sehenswürdigkeiten", "Mallorca Urlaub", "Palma de Mallorca", "Mallorca Geheimtipps", "Mallorca Guide"],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: `🏖 Mallorca Reiseführer ${YEAR} – Balearen Guide | Urlaubfinder365`,
-    description: `Mallorca Reiseführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
+    title: `🏖 Mallorca Urlaubsführer ${YEAR} – Balearen Guide | Urlaubfinder365`,
+    description: `Mallorca Urlaubsführer ${YEAR}: Traumstrände, Serra de Tramuntana, Palma, Nightlife & Geheimtipps ✓ Dein kompletter Mallorca-Guide.`,
     url: CANONICAL,
     type: "article",
     images: [{
       url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1200&h=630&fit=crop&q=80",
       width: 1200,
       height: 630,
-      alt: `Mallorca Spanien – Reiseführer ${YEAR}`,
+      alt: `Mallorca Spanien – Urlaubsführer ${YEAR}`,
     }],
   },
 };
@@ -34,13 +34,13 @@ const jsonLd = {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Startseite", item: `${BASE_URL}/` },
         { "@type": "ListItem", position: 2, name: "Urlaubsguides", item: `${BASE_URL}/urlaubsguides/` },
-        { "@type": "ListItem", position: 3, name: "Mallorca Reiseführer", item: CANONICAL },
+        { "@type": "ListItem", position: 3, name: "Mallorca Urlaubsführer", item: CANONICAL },
       ],
     },
     {
       "@type": "Article",
-      headline: "Mallorca Reiseführer – Tipps, Sehenswürdigkeiten & praktische Infos",
-      description: "Dein umfassender Mallorca Reiseführer: Strände, Serra de Tramuntana, Palma, Essen & Trinken und praktische Infos.",
+      headline: "Mallorca Urlaubsführer – Tipps, Sehenswürdigkeiten & praktische Infos",
+      description: "Dein umfassender Mallorca Urlaubsführer: Strände, Serra de Tramuntana, Palma, Essen & Trinken und praktische Infos.",
       url: CANONICAL,
       datePublished: "2026-04-01",
       dateModified: "2026-04-02",
@@ -71,8 +71,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="flex-1 min-w-0">
           <MallorcaGuide />
         </div>
-        <aside className="hidden xl:block w-46.5 shrink-0 sticky top-28">
-          <AdBanner placementKey="86c5e79b5bd126e0b09685dad18c2682" height={600} />
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&h=200&q=70&auto=format&fit=crop",
+                eyebrow: "Urlaub buchen",
+                title: "Mallorca – Günstig auf die Insel",
+                description: "Pauschalreisen & All-Inclusive nach Mallorca zum Bestpreis vergleichen.",
+                href: "/urlaubsziele/mallorca/",
+                ctaLabel: "Angebote vergleichen →",
+              }}
+              seoLinksTitle="📚 Weitere Guides"
+              seoLinks={[
+                { href: "/urlaubsguides/reisefuehrer-antalya/",   label: "Antalya Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-kreta/",     label: "Kreta Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-hurghada/",  label: "Hurghada Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-barcelona/", label: "Barcelona Urlaubsführer" },
+                { href: "/urlaubsguides/",                        label: "Alle Guides →" },
+              ]}
+            />
+          </div>
         </aside>
       </div>
     </>

@@ -102,7 +102,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
 
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-4 px-0.5"
+          className="flex gap-4 overflow-x-auto pb-4 px-0.5 snap-x snap-mandatory"
           style={{ scrollBehavior: "smooth", scrollbarWidth: "none" }}
         >
           {products.map((p, i) => {
@@ -129,7 +129,7 @@ export default function TiqetsCarousel({ cityId, cityName, citySlug, hideBestsel
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group shrink-0 w-[285px] rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
+                className="group shrink-0 w-[285px] snap-start rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden flex flex-col no-underline"
               >
                 {/* ── Image ── */}
                 <div className="h-[170px] bg-gray-100 relative shrink-0 overflow-hidden">

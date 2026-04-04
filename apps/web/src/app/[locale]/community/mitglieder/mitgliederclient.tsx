@@ -10,7 +10,7 @@ import Link from "next/link";
 /* ── Demo-Daten (Fallback wenn DB leer) ──────────────────────────────────── */
 
 const DEMO_MEMBERS: CommunityProfile[] = [
-  { uid: "demo-1", displayName: "Sandra K.", bio: "Reisebloggerin & Mallorca-Fan. 15+ Länder bereist.", nationality: "Deutschland", visitedCountries: ["DE","ES","TR","GR","IT","PT","FR","HR","AT","CZ","NL","GB","TH","EG","MA"], followersCount: 42, followingCount: 18, reportsCount: 8, tipsCount: 12, groupsCount: 3 },
+  { uid: "demo-1", displayName: "Sandra K.", bio: "Urlaubsbloggerin & Mallorca-Fan. 15+ Länder bereist.", nationality: "Deutschland", visitedCountries: ["DE","ES","TR","GR","IT","PT","FR","HR","AT","CZ","NL","GB","TH","EG","MA"], followersCount: 42, followingCount: 18, reportsCount: 8, tipsCount: 12, groupsCount: 3 },
   { uid: "demo-2", displayName: "Marco T.", bio: "Taucher & Ägypten-Liebhaber. Unterwasserfotografie.", nationality: "Österreich", visitedCountries: ["AT","EG","TR","GR","TH","MV","ID","ES","IT"], followersCount: 35, followingCount: 22, reportsCount: 5, tipsCount: 9, groupsCount: 2 },
   { uid: "demo-3", displayName: "Julia & Max", bio: "Pärchen aus München. Griechenland-Liebhaber.", nationality: "Deutschland", visitedCountries: ["DE","GR","ES","IT","HR","ME","PT"], followersCount: 28, followingCount: 15, reportsCount: 3, tipsCount: 6, groupsCount: 2 },
   { uid: "demo-4", displayName: "Tim B.", bio: "Solo-Traveller. 30 Länder. Nächstes Ziel: Südostasien.", nationality: "Deutschland", visitedCountries: ["DE","ES","TR","TH","VN","KH","ID","JP","KR","MX","CO","PE","MA","EG","GR","IT","FR","PT","HR","CZ","AT","NL","GB","IE","SE","NO","US","CU","DO","IN"], followersCount: 67, followingCount: 31, reportsCount: 12, tipsCount: 24, groupsCount: 4 },

@@ -9,11 +9,11 @@ interface Props {
 }
 
 const PROFILE_FEATURES = [
-  { icon: Heart,        text: "Reiseangebote & Hotels merken und später buchen" },
+  { icon: Heart,        text: "Urlaubsangebote & Hotels merken und später buchen" },
   { icon: BookMarked,   text: "Aktivitäten & Ausflüge in der Wunschliste sammeln" },
   { icon: Bell,         text: "Preisalarme – werde benachrichtigt wenn ein Angebot günstiger wird" },
-  { icon: ListChecks,   text: "Persönliche Reise-Checkliste nie wieder vergessen" },
-  { icon: Map,          text: "Reisepläne erstellen und Trips verknüpfen" },
+  { icon: ListChecks,   text: "Persönliche Urlaubs-Checkliste nie wieder vergessen" },
+  { icon: Map,          text: "Urlaubspläne erstellen und Trips verknüpfen" },
   { icon: FileText,     text: "Reisedokumente (Pass, Versicherung) sicher hinterlegen" },
 ];
 
@@ -53,7 +53,7 @@ export default function SaveLoginModal({ onClose }: Props) {
         <div className="bg-linear-to-br from-[#00838F] to-[#005F6A] px-6 pt-6 pb-8 text-white text-center relative">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+            className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
             aria-label="Schließen"
           >
             <X className="w-4 h-4" />
@@ -65,17 +65,17 @@ export default function SaveLoginModal({ onClose }: Props) {
           </div>
 
           <h2 id="save-modal-title" className="text-xl font-extrabold mb-1">
-            Reiseangebot merken
+            Urlaubsangebot merken
           </h2>
           <p className="text-white/80 text-sm leading-relaxed">
-            Speichere Angebote in deinem kostenlosen Reiseprofil und buche sie in Ruhe – jederzeit und überall.
+            Speichere Angebote in deinem kostenlosen Urlaubsprofil und buche sie in Ruhe – jederzeit und überall.
           </p>
         </div>
 
         {/* Features */}
         <div className="px-6 py-5">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-            Dein Reiseprofil enthält außerdem
+            Dein Urlaubsprofil enthält außerdem
           </p>
           <ul className="space-y-2.5">
             {PROFILE_FEATURES.map(({ icon: Icon, text }) => (

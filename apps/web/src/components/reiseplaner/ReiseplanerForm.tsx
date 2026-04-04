@@ -58,7 +58,7 @@ export default function ReiseplanerForm({ onResult, onLoading, loading }: Props)
   };
 
   const weiter = () => {
-    if (schritt === 1 && !ziel.trim()) { setFehler("Bitte gib ein Reiseziel ein."); return; }
+    if (schritt === 1 && !ziel.trim()) { setFehler("Bitte gib ein Urlaubsziel ein."); return; }
     setFehler("");
     setSchritt((s) => s + 1);
   };
@@ -116,7 +116,7 @@ export default function ReiseplanerForm({ onResult, onLoading, loading }: Props)
 
       <div className="p-6 sm:p-8">
 
-        {/* ── Schritt 1: Reiseziel ── */}
+        {/* ── Schritt 1: Urlaubsziel ── */}
         {schritt === 1 && (
           <div className="space-y-5">
             <div>
@@ -296,7 +296,7 @@ export default function ReiseplanerForm({ onResult, onLoading, loading }: Props)
             </div>
             <div className="bg-gray-50 rounded-2xl p-5 space-y-3">
               {[
-                { label: "Reiseziel",  wert: ziel },
+                { label: "Urlaubsziel",  wert: ziel },
                 { label: "Dauer",      wert: `${tage} Tage` },
                 { label: "Reisende",   wert: `${reisende} Person(en)` },
                 { label: "Monat",      wert: monat || "flexibel" },

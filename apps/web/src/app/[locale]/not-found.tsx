@@ -4,7 +4,7 @@ import { Sun, Home, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Seite nicht gefunden (404) | Urlaubfinder365",
-  description: "Die gesuchte Seite existiert nicht mehr. Finde hier günstige Pauschalreisen, Last-Minute Angebote und Reiseinspirationen auf Urlaubfinder365.",
+  description: "Die gesuchte Seite existiert nicht mehr. Finde hier günstige Pauschalreisen, Last-Minute Angebote und Urlaubsinspirationen auf Urlaubfinder365.",
   robots: { index: false, follow: true },
 };
 
@@ -14,7 +14,7 @@ const popularLinks = [
   { href: "/urlaubsziele/mallorca/", label: "Mallorca Urlaub" },
   { href: "/urlaubsziele/kreta/", label: "Griechenland Urlaub" },
   { href: "/urlaubsarten/pauschalreisen/", label: "Pauschalreisen" },
-  { href: "/urlaubsguides/", label: "Reiseführer" },
+  { href: "/urlaubsguides/", label: "Urlaubsführer" },
 ];
 
 export default function NotFound() {
@@ -56,7 +56,7 @@ export default function NotFound() {
       {/* Popular Links */}
       <div className="max-w-lg w-full bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-          Beliebte Reiseziele & Themen
+          Beliebte Urlaubsziele & Themen
         </p>
         <ul className="space-y-2">
           {popularLinks.map((link) => (

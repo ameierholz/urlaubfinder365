@@ -8,7 +8,7 @@ import {
   Users, ChevronRight, Check, Compass, ArrowRight,
 } from "lucide-react";
 import CruiseWidget from "@/components/cruise/CruiseWidget";
-import AdBanner from "@/components/ui/AdBanner";
+import type React from "react";
 
 const PARTNER_ID = "30412";
 const DL = (params = "") =>
@@ -196,7 +196,7 @@ function WaveDivider({ flip = false, topColor = "#f9fafb", bottomColor = "#fffff
   );
 }
 
-export default function KreuzfahrtenContent() {
+export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.ReactNode }) {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────────── */}
@@ -333,83 +333,14 @@ export default function KreuzfahrtenContent() {
               <CruiseWidget />
             </div>
 
-            {/* Sidebar (nur XL+) */}
-            <aside className="hidden xl:block w-[160px] shrink-0">
-              <div className="space-y-3">
-
-                {/* Anzeige */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                  <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-                    Anzeige
-                  </p>
-                  <AdBanner
-                    placementKey="86c5e79b5bd126e0b09685dad18c2682"
-                    height={600}
-                  />
+            {/* Sidebar (nur XL+, via prop von Server-Page) */}
+            {sidebar && (
+              <aside className="hidden xl:block w-64 shrink-0">
+                <div className="sticky top-24">
+                  {sidebar}
                 </div>
-
-                {/* CTA */}
-                <div className="bg-cyan-50 rounded-2xl p-4 border border-cyan-200/50 text-center">
-                  <p className="text-xs font-bold text-cyan-800 mb-1">🚢 Kreuzfahrt?</p>
-                  <p className="text-[11px] text-cyan-700 mb-3 leading-snug">
-                    30+ Reedereien direkt vergleichen
-                  </p>
-                  <Link
-                    href="/kreuzfahrten/"
-                    className="inline-block bg-cyan-700 text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-cyan-800 transition-colors"
-                  >
-                    Jetzt buchen →
-                  </Link>
-                </div>
-
-                {/* SEO-Linkbox: Kreuzfahrt-Ziele */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                    🌊 Kreuzfahrt-Routen
-                  </p>
-                  <ul className="space-y-1.5">
-                    {([
-                      { href: "/urlaubsziele/griechenland/",    label: "Mittelmeer-Kreuzfahrt" },
-                      { href: "/urlaubsziele/kanaren/",         label: "Kanaren-Kreuzfahrt" },
-                      { href: "/urlaubsziele/skandinavien/",    label: "Norwegen & Fjorde" },
-                      { href: "/urlaubsziele/karibik/",         label: "Karibik-Kreuzfahrt" },
-                      { href: "/urlaubsziele/indischer-ozean/", label: "Indischer Ozean" },
-                      { href: "/urlaubsziele/dubai/",           label: "Dubai & VAE" },
-                    ] as const).map(({ href, label }) => (
-                      <li key={href}>
-                        <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                          <span className="text-gray-300 shrink-0">›</span>{label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* SEO-Linkbox: Verwandte Seiten */}
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                    🔗 Mehr entdecken
-                  </p>
-                  <ul className="space-y-1.5">
-                    {([
-                      { href: "/last-minute/",                       label: "Last-Minute Reisen" },
-                      { href: "/urlaubsarten/pauschalreisen/",       label: "Pauschalreisen" },
-                      { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive" },
-                      { href: "/hotelsuche/",                        label: "Hotels buchen" },
-                      { href: "/flugsuche/",                         label: "Flüge vergleichen" },
-                      { href: "/urlaubsziele/",                      label: "Alle Reiseziele" },
-                    ] as const).map(({ href, label }) => (
-                      <li key={href}>
-                        <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                          <span className="text-gray-300 shrink-0">›</span>{label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-              </div>
-            </aside>
+              </aside>
+            )}
 
           </div>
         </div>

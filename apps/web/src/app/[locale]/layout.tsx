@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Annie_Use_Your_Telescope } from "next/font/google";
 import "../globals.css";
 import { AuthProvider } from "@/context/AuthContext";
@@ -23,6 +23,13 @@ const annie = Annie_Use_Your_Telescope({
   subsets: ["latin"],
   variable: "--font-annie",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#00838F",
+};
 
 const YEAR = new Date().getFullYear();
 

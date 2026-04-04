@@ -157,7 +157,7 @@ export default function SavedActivitiesTab({ user }: Props) {
                 {/* Trash button */}
                 <button
                   onClick={() => removeActivity(saved.id)}
-                  className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-white/90 hover:bg-red-50 flex items-center justify-center shadow transition-colors group"
+                  className="absolute top-1 right-1 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-red-50 flex items-center justify-center shadow transition-colors group"
                   title="Entfernen"
                 >
                   <Trash2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-red-500 transition-colors" />

@@ -142,19 +142,19 @@ export default function MeineKartenTippsTab({ user }: Props) {
                       {/* Kategorie + Status */}
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <span
-                          className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                          className="text-xs sm:text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
                           style={{ background: cat.color }}
                         >
                           {cat.emoji} {cat.label}
                         </span>
-                        <span className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full border ${status.bg} ${status.border} ${status.color}`}>
+                        <span className={`flex items-center gap-1 text-xs sm:text-[10px] font-bold px-2 py-0.5 rounded-full border ${status.bg} ${status.border} ${status.color}`}>
                           <StatusIcon className="w-3 h-3" />
                           {status.label}
                         </span>
                       </div>
 
                       <h3 className="font-bold text-gray-800 text-sm leading-snug truncate">{tip.title}</h3>
-                      <div className="flex items-center gap-1 text-[11px] text-gray-400 mt-0.5">
+                      <div className="flex items-center gap-1 text-xs text-gray-400 mt-0.5">
                         <MapPin className="w-3 h-3 shrink-0" /> {tip.locationName}
                       </div>
                     </div>
@@ -163,7 +163,7 @@ export default function MeineKartenTippsTab({ user }: Props) {
                     <button
                       onClick={() => handleDelete(tip.id)}
                       disabled={isDeleting}
-                      className="shrink-0 p-1.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
+                      className="shrink-0 p-2.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
                       title="Tipp löschen"
                     >
                       {isDeleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
@@ -176,13 +176,13 @@ export default function MeineKartenTippsTab({ user }: Props) {
                   {/* Ablehnungsgrund */}
                   {statusKey === "rejected" && tip.adminNote && (
                     <div className="mt-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
-                      <p className="text-[11px] font-bold text-red-600 mb-0.5">Ablehnungsgrund:</p>
-                      <p className="text-[11px] text-red-700">{tip.adminNote}</p>
+                      <p className="text-xs font-bold text-red-600 mb-0.5">Ablehnungsgrund:</p>
+                      <p className="text-xs text-red-700">{tip.adminNote}</p>
                     </div>
                   )}
 
                   {/* Datum */}
-                  <div className="flex items-center gap-1 mt-2 text-[10px] text-gray-300">
+                  <div className="flex items-center gap-1 mt-2 text-xs sm:text-[10px] text-gray-300">
                     <Clock className="w-3 h-3" />
                     {typeof tip.createdAt === "string"
                       ? new Date(tip.createdAt).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })

@@ -194,9 +194,9 @@ export default function HomeDealCard({ offer, priority = false, featured = false
         {/* Preis + CTA */}
         <div className="px-4 pt-3 pb-4 mt-auto flex items-center justify-between gap-3">
           <div>
-            <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{t("perPerson")}</p>
+            <p className="text-xs sm:text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{t("perPerson")}</p>
             <p className="text-3xl font-black text-sand-400 leading-none">{formatPrice(offer.offer_price_adult)}</p>
-            <p className="text-[10px] text-gray-500 mt-1">{t("total")} {formatPrice(offer.offer_price_total)}</p>
+            <p className="text-xs sm:text-[10px] text-gray-500 mt-1">{t("total")} {formatPrice(offer.offer_price_total)}</p>
           </div>
           <span className="shrink-0 bg-linear-to-r from-sand-500 to-sand-600 group-hover:from-sand-400 group-hover:to-sand-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-sand-900/40 text-center leading-snug">
             {t("checkOfferLine1")}<br />{t("checkOfferLine2")}

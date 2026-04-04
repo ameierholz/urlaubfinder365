@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Car, ShieldCheck, Tag, MapPin, Clock } from "lucide-react";
 import IbeWidget from "@/components/widgets/IbeWidget";
 import PageNavBar from "@/components/ui/PageNavBar";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -60,7 +60,7 @@ const KLASSEN = [
   {
     emoji: "🚙",
     label: "Mittelklasse",
-    desc: "Komfort für 4–5 Personen, ausreichend Kofferraum – der Allrounder für jede Reise.",
+    desc: "Komfort für 4–5 Personen, ausreichend Kofferraum – der Allrounder für jeden Urlaub.",
     bg: "from-blue-600 to-indigo-700",
     badge: "Bestseller",
   },
@@ -371,7 +371,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 desc: "Unfallversicherung für Fahrer und Insassen. Sinnvoll wenn keine private Unfallversicherung vorhanden – bei vielen Tarifen optional.",
                 status: "Optional",
                 statusColor: "bg-gray-100 text-gray-600",
-                rec: "Prüfe deine Reiseversicherung",
+                rec: "Prüfe deinen Urlaubversicherung",
                 icon: "🏥",
               },
               {
@@ -571,80 +571,30 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
         </div>{/* ── Ende Hauptinhalt ── */}
 
-        {/* ── Sticky Sidebar Ad (nur XL+) ── */}
-        <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
-          <div className="sticky top-24 pt-8 space-y-3">
-
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-                Anzeige
-              </p>
-              <AdBanner
-                placementKey="86c5e79b5bd126e0b09685dad18c2682"
-                height={600}
-              />
-            </div>
-
-            <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-200/50 text-center">
-              <p className="text-xs font-bold text-emerald-800 mb-1">🚗 Pauschalreise?</p>
-              <p className="text-[11px] text-emerald-700 mb-3 leading-snug">
-                Flug + Hotel + Mietwagen im Paket
-              </p>
-              <Link
-                href="/guenstig-urlaub-buchen/"
-                className="inline-block bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-emerald-800 transition-colors"
-              >
-                Jetzt vergleichen →
-              </Link>
-            </div>
-
-            {/* SEO-Linkbox: Mietwagen-Ziele */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                🚗 Mietwagen-Ziele
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/urlaubsziele/mallorca/",  label: "Mietwagen Mallorca" },
-                  { href: "/urlaubsziele/kreta/",     label: "Mietwagen Kreta" },
-                  { href: "/urlaubsziele/teneriffa/", label: "Mietwagen Teneriffa" },
-                  { href: "/urlaubsziele/algarve/",   label: "Mietwagen Algarve" },
-                  { href: "/urlaubsziele/antalya/",   label: "Mietwagen Antalya" },
-                  { href: "/urlaubsziele/sardinien/", label: "Mietwagen Sardinien" },
-                  { href: "/urlaubsziele/sizilien/",  label: "Mietwagen Sizilien" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* SEO-Linkbox: Weitere Seiten */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                🔗 Mehr entdecken
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/flugsuche/",                         label: "Günstige Flüge" },
-                  { href: "/hotelsuche/",                        label: "Hotels vergleichen" },
-                  { href: "/last-minute/",                       label: "Last-Minute" },
-                  { href: "/urlaubsarten/pauschalreisen/",       label: "Pauschalreisen" },
-                  { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive" },
-                  { href: "/urlaubsziele/",                      label: "Alle Reiseziele" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+        {/* ── Sticky Sidebar (nur XL+) ── */}
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24 pt-8">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&h=200&q=70",
+                eyebrow: "Tipp",
+                title: "Flug + Hotel + Mietwagen im Paket",
+                description: "Als Pauschalreise buchst du alles günstiger aus einer Hand.",
+                href: "/guenstig-urlaub-buchen/",
+                ctaLabel: "Jetzt vergleichen →",
+                accentColor: "bg-emerald-700",
+              }}
+              seoLinksTitle="🚗 Mietwagen-Ziele"
+              seoLinks={[
+                { href: "/urlaubsziele/mallorca/",  label: "Mietwagen Mallorca" },
+                { href: "/urlaubsziele/kreta/",     label: "Mietwagen Kreta" },
+                { href: "/urlaubsziele/teneriffa/", label: "Mietwagen Teneriffa" },
+                { href: "/urlaubsziele/algarve/",   label: "Mietwagen Algarve" },
+                { href: "/urlaubsziele/antalya/",   label: "Mietwagen Antalya" },
+                { href: "/urlaubsziele/sardinien/", label: "Mietwagen Sardinien" },
+                { href: "/urlaubsziele/sizilien/",  label: "Mietwagen Sizilien" },
+              ]}
+            />
           </div>
         </aside>
 

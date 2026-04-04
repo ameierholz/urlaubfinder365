@@ -386,7 +386,7 @@ export default function TravelDocumentsTab({ user }: Props) {
           <FileText className="w-12 h-12 text-gray-200 mx-auto mb-4" />
           <h3 className="font-bold text-gray-700 mb-2">Keine Dokumente gespeichert</h3>
           <p className="text-gray-400 text-sm mb-6">
-            Speichere Pass, Versicherung & Notfallkontakte – alles griffbereit für deine Reise.
+            Speichere Pass, Versicherung & Notfallkontakte – alles griffbereit für deinen Urlaub.
           </p>
           <button onClick={openNew}
             className="inline-block bg-[#00838F] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-[#006E7A] transition-colors">
@@ -419,11 +419,11 @@ export default function TravelDocumentsTab({ user }: Props) {
                       </div>
                       <div className="flex gap-1 shrink-0">
                         <button onClick={() => openEdit(doc)}
-                          className="w-7 h-7 rounded-full bg-gray-50 hover:bg-[#00838F]/10 flex items-center justify-center group transition-colors">
+                          className="w-9 h-9 rounded-full bg-gray-50 hover:bg-[#00838F]/10 flex items-center justify-center group transition-colors">
                           <Edit2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#00838F] transition-colors" />
                         </button>
                         <button onClick={() => handleDelete(doc.id)}
-                          className="w-7 h-7 rounded-full bg-gray-50 hover:bg-red-50 flex items-center justify-center group transition-colors">
+                          className="w-9 h-9 rounded-full bg-gray-50 hover:bg-red-50 flex items-center justify-center group transition-colors">
                           <Trash2 className="w-3.5 h-3.5 text-gray-400 group-hover:text-red-500 transition-colors" />
                         </button>
                       </div>

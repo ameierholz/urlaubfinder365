@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
+import RightSidebar from "@/components/layout/RightSidebar";
 
 const YEAR = new Date().getFullYear();
 
@@ -227,8 +228,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </div>
 
-      {/* Themen Grid */}
+      {/* Content + Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="xl:flex xl:gap-8 xl:items-start">
+          <div className="flex-1 min-w-0">
+
+      {/* Themen Grid */}
+      <div>
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Beliebteste <span className="text-[#00838F]">Urlaubsthemen</span>
         </h2>
@@ -326,7 +332,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             { href: "/urlaubsarten/all-inclusive-urlaub/", label: "🍹 All-Inclusive" },
             { href: "/urlaubsarten/last-minute-urlaub/", label: "⚡ Last-Minute" },
             { href: "/urlaubsarten/fruhbucher-urlaub/", label: "🌅 Frühbucher" },
-            { href: "/urlaubsziele/", label: "🌍 Alle Reiseziele" },
+            { href: "/urlaubsziele/", label: "🌍 Alle Urlaubsziele" },
             { href: "/last-minute/", label: "🔥 Heutige Deals" },
           ].map(({ href, label }) => (
             <Link
@@ -339,6 +345,34 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           ))}
         </div>
       </div>
+          </div>{/* end main column */}
+
+          {/* Sidebar */}
+          <aside className="hidden xl:block w-64 shrink-0">
+            <div className="sticky top-24">
+              <RightSidebar
+                extrasBox={{
+                  image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=200&q=70",
+                  eyebrow: "Inspiration",
+                  title: "Dein perfektes Urlaubsziel",
+                  description: "Entdecke über 250 Urlaubsziele mit aktuellen Preisen, Guides und Insidertipps.",
+                  href: "/urlaubsziele/",
+                  ctaLabel: "Alle Ziele entdecken →",
+                }}
+                seoLinksTitle="🌴 Beliebte Themen"
+                seoLinks={[
+                  { href: "/urlaubsthemen/strandurlaub/",    label: "Strandurlaub" },
+                  { href: "/urlaubsthemen/familienurlaub/",  label: "Familienurlaub" },
+                  { href: "/urlaubsthemen/wellnessurlaub/",  label: "Wellnessurlaub" },
+                  { href: "/urlaubsthemen/adults-only/",     label: "Adults Only" },
+                  { href: "/urlaubsthemen/luxusurlaub/",     label: "Luxusurlaub" },
+                  { href: "/urlaubsthemen/abenteuerurlaub/", label: "Abenteuerurlaub" },
+                ]}
+              />
+            </div>
+          </aside>
+        </div>{/* end xl:flex */}
+      </div>{/* end max-w-7xl */}
     </div>
   );
 }

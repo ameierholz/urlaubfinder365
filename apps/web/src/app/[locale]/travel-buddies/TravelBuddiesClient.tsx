@@ -38,7 +38,7 @@ const DEMO_BUDDIES: Buddy[] = [
     id: "demo-1", userId: "demo-1", displayName: "Sandra K.", photoUrl: null,
     ageRange: "25-35", gender: "Weiblich", languages: ["Deutsch", "Englisch", "Spanisch"],
     destinations: ["Mallorca", "Barcelona", "Teneriffa"], travelStyle: ["strand", "stadt", "kultur"],
-    bio: "Reisebloggerin & Fotografin. Suche Reisepartnerin für Mallorca im September. Am liebsten Strand tagsüber und Tapas abends!",
+    bio: "Urlaubsbloggerin & Fotografin. Suche Urlaubspartnerin für Mallorca im September. Am liebsten Strand tagsüber und Tapas abends!",
     departureFrom: "München", travelMonths: ["Sep", "Okt", "Mai"],
   },
   {
@@ -66,7 +66,7 @@ const DEMO_BUDDIES: Buddy[] = [
     id: "demo-5", userId: "demo-5", displayName: "Lena M.", photoUrl: null,
     ageRange: "36-45", gender: "Weiblich", languages: ["Deutsch"],
     destinations: ["Antalya", "Side", "Bodrum"], travelStyle: ["wellness", "strand", "luxus"],
-    bio: "Spa-Liebhaberin sucht Reisepartnerin für Wellness-Woche in der Türkei. 5-Sterne All-Inclusive bevorzugt.",
+    bio: "Spa-Liebhaberin sucht Urlaubspartnerin für Wellness-Woche in der Türkei. 5-Sterne All-Inclusive bevorzugt.",
     departureFrom: "Zürich", travelMonths: ["Apr", "Mai", "Okt"],
   },
   {
@@ -265,9 +265,9 @@ export default function TravelBuddiesClient() {
         {filtered.length === 0 ? (
           <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
             <Users2 className="w-12 h-12 text-gray-200 mx-auto mb-4" />
-            <p className="font-bold text-gray-700 mb-2">Noch keine passenden Reisepartner</p>
+            <p className="font-bold text-gray-700 mb-2">Noch keine passenden Urlaubspartner</p>
             <p className="text-sm text-gray-400">
-              {userId ? "Erstelle dein Profil, um als erster sichtbar zu sein!" : "Melde dich an, um Reisepartner zu finden."}
+              {userId ? "Erstelle dein Profil, um als erster sichtbar zu sein!" : "Melde dich an, um Urlaubspartner zu finden."}
             </p>
           </div>
         ) : (
@@ -355,7 +355,7 @@ export default function TravelBuddiesClient() {
                 <textarea
                   value={editForm.bio}
                   onChange={(e) => setEditForm((f) => ({ ...f, bio: e.target.value }))}
-                  placeholder="Wer bist du als Reisender? Was suchst du in einem Reisepartner?"
+                  placeholder="Wer bist du als Reisender? Was suchst du in einem Urlaubspartner?"
                   rows={3}
                   className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00838F]/30 resize-none"
                 />

@@ -1,7 +1,8 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import Link from "next/link";
 import Image from "next/image";
-import { Star, BadgeCheck, Megaphone, MapPin } from "lucide-react";
+import { BadgeCheck, Megaphone, MapPin } from "lucide-react";
+import { DEMO_ANGEBOTE } from "@/data/demo-partners";
 
 type Context =
   | { type: "homepage" }
@@ -80,9 +81,9 @@ export default async function SponsoredAngebote({
     return false;
   });
 
-  const angebote = matched.map((b) => b.angebote!).filter(Boolean).slice(0, maxItems);
-
-  if (angebote.length === 0) return null;
+  const realAngebote = matched.map((b) => b.angebote!).filter(Boolean).slice(0, maxItems);
+  // Wenn keine echten Angebote → Demo-Daten zeigen (Social Proof für potenzielle Partner)
+  const angebote = realAngebote.length > 0 ? realAngebote : [...DEMO_ANGEBOTE].slice(0, maxItems) as typeof realAngebote;
 
   const PREISTYP_LABEL: Record<string, string> = {
     pro_person:  "/ Person",
@@ -99,11 +100,6 @@ export default async function SponsoredAngebote({
   if (variant === "sidebar") {
     return (
       <div className="space-y-3">
-        <div className="flex items-center gap-1.5 mb-1">
-          <Megaphone className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Gesponsert</span>
-        </div>
-
         {angebote.map((a) => (
           <Link
             key={a.id}

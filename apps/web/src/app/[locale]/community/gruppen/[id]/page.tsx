@@ -75,13 +75,13 @@ function makePosts(groupId: string): FeedPost[] {
   const sets: Record<string, FeedPost[]> = {
     default: [
       { id: "p1", userId: "u1", displayName: "Sandra K.", type: "news", pinned: true,
-        text: "Willkommen in unserer Gruppe! Bitte stellt euch kurz vor und teilt euer liebstes Reiseziel. Wir freuen uns auf euch!",
+        text: "Willkommen in unserer Gruppe! Bitte stellt euch kurz vor und teilt euer liebstes Urlaubsziel. Wir freuen uns auf euch!",
         imageUrl: undefined, likesCount: 24, commentsCount: 8, createdAt: "2025-09-01T10:00:00Z" },
       { id: "p2", userId: "u2", displayName: "Marco T.", type: "tipp",
         text: "Geheimtipp: Frühbucher-Angebote jetzt checken! Ich hab gerade All-Inclusive für Juni 2026 für 599€/Person gefunden – Flug inklusive. Link im Kommentar.",
         likesCount: 41, commentsCount: 12, createdAt: "2025-10-15T14:30:00Z" },
       { id: "p3", userId: "u3", displayName: "Julia & Max", type: "bericht",
-        text: "Gerade zurück von unserer Reise! 14 Tage waren einfach zu kurz. Das Hotel war top, das Essen grandios und das Wetter perfekt. Nächstes Jahr auf jeden Fall wieder!",
+        text: "Gerade zurück von unserem Urlaub! 14 Tage waren einfach zu kurz. Das Hotel war top, das Essen grandios und das Wetter perfekt. Nächstes Jahr auf jeden Fall wieder!",
         imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
         likesCount: 67, commentsCount: 21, createdAt: "2025-11-02T09:15:00Z" },
       { id: "p4", userId: "u4", displayName: "Tim B.", type: "frage",
@@ -98,15 +98,15 @@ function makePosts(groupId: string): FeedPost[] {
 
 function makeEvents(): GroupEvent[] {
   return [
-    { id: "e1", title: "Virtuelles Treffen: Reisetipps 2026 teilen", date: "2026-04-20T19:00:00Z",
+    { id: "e1", title: "Virtuelles Treffen: Urlaubstipps 2026 teilen", date: "2026-04-20T19:00:00Z",
       location: "Zoom (Link nach Anmeldung)", attendees: 18, maxAttendees: 30,
       description: "Gemeinsam die besten Deals und Tipps für den Sommer 2026 besprechen. Jeder bringt seinen Top-Tipp mit!", joined: false },
     { id: "e2", title: "Gruppenreise: Mallorca Mai 2026", date: "2026-05-15T07:00:00Z",
       location: "Abflug Frankfurt/Main", attendees: 9, maxAttendees: 20,
       description: "Gemeinsame Gruppenreise nach Mallorca! 7 Nächte AI im 4-Sterne-Hotel. Gruppenrabatt bei mind. 12 Teilnehmern.", joined: false },
-    { id: "e3", title: "Stammtisch Berlin: Reise-Community", date: "2026-05-08T18:30:00Z",
+    { id: "e3", title: "Stammtisch Berlin: Urlaubs-Community", date: "2026-05-08T18:30:00Z",
       location: "Café Central, Berlin Mitte", attendees: 12,
-      description: "Lokales Treffen für alle Berliner Community-Mitglieder. Quatschen, Pläne schmieden, neue Reisefreunde finden.", joined: true },
+      description: "Lokales Treffen für alle Berliner Community-Mitglieder. Quatschen, Pläne schmieden, neue Urlaubsfreunde finden.", joined: true },
   ];
 }
 
@@ -130,11 +130,11 @@ function makePolls(): Poll[] {
 
 function makeMembers(): GroupMember[] {
   return [
-    { id: "m1", name: "Sandra K.", country: "Deutschland", bio: "Reise-Enthusiastin seit 15 Jahren. Lieblingsland: Türkei.", reportsCount: 8, joinedAt: "2025-01-10T00:00:00Z" },
+    { id: "m1", name: "Sandra K.", country: "Deutschland", bio: "Urlaubs-Enthusiastin seit 15 Jahren. Lieblingsland: Türkei.", reportsCount: 8, joinedAt: "2025-01-10T00:00:00Z" },
     { id: "m2", name: "Marco T.", country: "Österreich", bio: "Tauchen, Schnorcheln, Strand – das Leben ist zu kurz für schlechtes Wetter!", reportsCount: 5, joinedAt: "2025-02-14T00:00:00Z" },
     { id: "m3", name: "Julia & Max", country: "Deutschland", bio: "Pärchen auf der Suche nach dem perfekten All-Inclusive-Hotel.", reportsCount: 12, joinedAt: "2025-01-22T00:00:00Z" },
     { id: "m4", name: "Tim B.", country: "Schweiz", bio: "Budget-Reisender der ersten Stunde. Nie mehr als 500€ für Flug+Hotel.", reportsCount: 3, joinedAt: "2025-03-05T00:00:00Z" },
-    { id: "m5", name: "Lena M.", country: "Deutschland", bio: "Fotografin und Reisebloggerin. Fange magische Momente ein.", reportsCount: 19, joinedAt: "2025-01-15T00:00:00Z" },
+    { id: "m5", name: "Lena M.", country: "Deutschland", bio: "Fotografin und Urlaubsbloggerin. Fange magische Momente ein.", reportsCount: 19, joinedAt: "2025-01-15T00:00:00Z" },
     { id: "m6", name: "Alex R.", country: "Deutschland", bio: "Gruppenreise-Organisator. Wer mit möchte: einfach melden!", reportsCount: 6, joinedAt: "2025-04-01T00:00:00Z" },
     { id: "m7", name: "Fam. Weber", country: "Deutschland", bio: "Familienurlaub mit 3 Kindern – wir kennen alle kinderfreundlichen Strände!", reportsCount: 4, joinedAt: "2025-05-10T00:00:00Z" },
     { id: "m8", name: "Sophie N.", country: "Österreich", bio: "Solo-Reisende und Yoga-Fan. Immer auf der Suche nach Wellness & Natur.", reportsCount: 7, joinedAt: "2025-06-01T00:00:00Z" },
@@ -364,7 +364,7 @@ function MitgliederTab({ membersCount }: { membersCount: number }) {
               </div>
               <p className="text-[10px] text-gray-400 mb-1">{m.country} · Mitglied seit {new Date(m.joinedAt).toLocaleDateString("de-DE", { month: "short", year: "numeric" })}</p>
               <p className="text-xs text-gray-500 line-clamp-2">{m.bio}</p>
-              <p className="text-[10px] text-teal-600 font-semibold mt-1">{m.reportsCount} Reiseberichte</p>
+              <p className="text-[10px] text-teal-600 font-semibold mt-1">{m.reportsCount} Urlaubsberichte</p>
             </div>
           </div>
         ))}
@@ -499,14 +499,14 @@ function UmfragenTab() {
   );
 }
 
-/* ── Tab: Reiserouten ───────────────────────────────────────────────────── */
+/* ── Tab: Urlaubsrouten ───────────────────────────────────────────────────── */
 function RoutesTab() {
   const [cloned, setCloned] = useState<Set<string>>(new Set());
   const routes = makeRoutes();
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-500">Von Gruppenmitgliedern geteilte Reiserouten – übernimm sie mit einem Klick in deine Planung.</p>
+      <p className="text-sm text-gray-500">Von Gruppenmitgliedern geteilte Urlaubsrouten – übernimm sie mit einem Klick in deine Planung.</p>
       <div className="grid sm:grid-cols-2 gap-4">
         {routes.map((r) => (
           <div key={r.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
@@ -540,7 +540,7 @@ function RoutesTab() {
       </div>
       <div className="text-center pt-2">
         <Link href="/reiserouten/" className="text-sm font-semibold text-teal-600 hover:underline flex items-center gap-1 justify-center">
-          Alle öffentlichen Reiserouten entdecken <ChevronRight className="w-4 h-4" />
+          Alle öffentlichen Urlaubsrouten entdecken <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
     </div>

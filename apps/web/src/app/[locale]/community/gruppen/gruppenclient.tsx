@@ -16,7 +16,7 @@ const DEMO_GROUPS: TravelGroup[] = [
     creatorId: "demo",
     creatorName: "Sandra K.",
     name: "Türkei-Fans",
-    description: "Alles rund um Urlaub in der Türkei: Antalya, Bodrum, Istanbul und mehr. Tipps, Erfahrungen und gemeinsame Reiseplanung.",
+    description: "Alles rund um Urlaub in der Türkei: Antalya, Bodrum, Istanbul und mehr. Tipps, Erfahrungen und gemeinsame Urlaubsplanung.",
     category: "destination" as GroupCategory,
     destination: "Türkei",
     country: "Türkei",
@@ -33,7 +33,7 @@ const DEMO_GROUPS: TravelGroup[] = [
     creatorId: "demo",
     creatorName: "Fam. Weber",
     name: "Familien-Reisende",
-    description: "Die Gruppe für alle Eltern! Kinderfreundliche Hotels, Tipps für Flugreisen mit Kids und familiengerechte Reiseziele.",
+    description: "Die Gruppe für alle Eltern! Kinderfreundliche Hotels, Tipps für Flugreisen mit Kids und familiengerechte Urlaubsziele.",
     category: "style" as GroupCategory,
     isPublic: true,
     membersCount: 89,
@@ -48,7 +48,7 @@ const DEMO_GROUPS: TravelGroup[] = [
     creatorId: "demo",
     creatorName: "Julia & Max",
     name: "Griechenland-Liebhaber",
-    description: "Kreta, Rhodos, Korfu, Santorini – wir lieben griechische Inseln! Geheimtipps, Tavernen-Empfehlungen und Reiseberichte.",
+    description: "Kreta, Rhodos, Korfu, Santorini – wir lieben griechische Inseln! Geheimtipps, Tavernen-Empfehlungen und Urlaubsberichte.",
     category: "destination" as GroupCategory,
     destination: "Griechenland",
     country: "Griechenland",
@@ -97,7 +97,7 @@ const DEMO_GROUPS: TravelGroup[] = [
     creatorId: "demo",
     creatorName: "Alex R.",
     name: "Sommer 2026 – wer kommt mit?",
-    description: "Gemeinsam den Sommer 2026 planen! Reisepartner finden, Gruppen-Deals teilen und zusammen buchen.",
+    description: "Gemeinsam den Sommer 2026 planen! Urlaubspartner finden, Gruppen-Deals teilen und zusammen buchen.",
     category: "date" as GroupCategory,
     travelMonth: "2026-07",
     isPublic: true,
@@ -130,7 +130,7 @@ const DEMO_GROUPS: TravelGroup[] = [
     creatorId: "demo",
     creatorName: "Lena M.",
     name: "Solo-Reisende",
-    description: "Allein unterwegs und stolz drauf! Tipps für Alleinreisende, sichere Reiseziele und Erfahrungsberichte von Solo-Travellern.",
+    description: "Allein unterwegs und stolz drauf! Tipps für Alleinreisende, sichere Urlaubsziele und Erfahrungsberichte von Solo-Travellern.",
     category: "style" as GroupCategory,
     isPublic: true,
     membersCount: 73,
@@ -180,10 +180,10 @@ export default function GruppenPage() {
         <div>
           <h1 className="text-2xl font-black text-gray-800 flex items-center gap-2">
             <Users2 className="w-6 h-6 text-teal-600" />
-            Reise-Gruppen
+            Urlaubs-Gruppen
           </h1>
           <p className="text-gray-500 text-sm mt-1">
-            Finde Gleichgesinnte, tausche Tipps aus und plane gemeinsam Reisen.
+            Finde Gleichgesinnte, tausche Tipps aus und plant gemeinsam Urlaube.
           </p>
         </div>
         {user && (

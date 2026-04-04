@@ -3,7 +3,7 @@ import Link from "next/link";
 import { destinations } from "@/lib/destinations";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import TiqetsCarousel from "@/components/tiqets/TiqetsCarousel";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from "@/components/layout/RightSidebar";
 import ExpertBanner from "@/components/ui/ExpertBanner";
 import { EXPERTS } from "@/lib/experts";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
@@ -52,7 +52,7 @@ const FAQ = [
     a: "Ja. Pauschalreisen können in der Regel gegen Stornogebühren storniert werden. Je näher der Abreisetermin, desto höher die Gebühr (meist 25–90%). Viele Veranstalter bieten zusätzlich eine Reiserücktrittsversicherung an.",
   },
   {
-    q: "Welche Reiseziele gibt es als Pauschalreise?",
+    q: "Welche Urlaubsziele gibt es als Pauschalreise?",
     a: "Die beliebtesten Pauschalreise-Ziele ab Deutschland sind Türkei (Antalya, Side), Spanien (Mallorca, Kanaren), Griechenland (Kreta, Rhodos) und Ägypten (Hurghada). Aber auch Fernziele wie Thailand oder die Malediven gibt es als Paket.",
   },
 ];
@@ -176,7 +176,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </p>
         <p className="text-gray-600 text-sm leading-relaxed">
           Über den IBE-Buchungsbutton gelangst du direkt zum Veranstalter und kannst sicher und
-          verschlüsselt buchen. Urlaubfinder365 ist ein unabhängiges Reiseportal – wir vergleichen
+          verschlüsselt buchen. Urlaubfinder365 ist ein unabhängiges Urlaubsportal – wir vergleichen
           täglich Hunderte Angebote, damit du den günstigsten Preis findest.
         </p>
       </div>
@@ -234,49 +234,32 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       </div>{/* end flex-1 */}
 
       {/* Sticky Sidebar Ad (nur XL+) */}
-      <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
-        <div className="sticky top-24 pt-8 space-y-3">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-              Anzeige
-            </p>
-            <AdBanner placementKey="86c5e79b5bd126e0b09685dad18c2682" height={600} />
-          </div>
-          <div className="bg-[#00838F]/8 rounded-2xl p-4 border border-[#00838F]/15 text-center">
-            <p className="text-xs font-bold text-[#00838F] mb-1">🔥 Last-Minute</p>
-            <p className="text-[11px] text-gray-500 mb-3 leading-snug">
-              Günstige Reisen – Abreise in 7–14 Tagen
-            </p>
-            <Link href="/last-minute/" className="inline-block bg-[#00838F] text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-[#006d78] transition-colors">
-              Deals ansehen →
-            </Link>
-          </div>
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-              🔗 Urlaubsarten
-            </p>
-            <ul className="space-y-1.5">
-              {[
-                { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive" },
-                { href: "/urlaubsarten/last-minute-urlaub/", label: "Last-Minute" },
-                { href: "/urlaubsarten/fruhbucher-urlaub/", label: "Frühbucher" },
-                { href: "/urlaubsarten/super-last-minute-urlaub/", label: "Super-Last-Minute" },
-                { href: "/urlaubsziele/", label: "Alle Reiseziele" },
-              ].map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                    <span className="text-gray-300 shrink-0">›</span>{label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <aside className="hidden xl:block w-64 shrink-0">
+        <div className="sticky top-24">
+          <RightSidebar
+            extrasBox={{
+              image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70',
+              eyebrow: 'Last-Minute',
+              title: 'Last-Minute Deals',
+              description: 'Günstige Reisen – Abreise in 7–14 Tagen.',
+              href: '/urlaubsarten/last-minute-urlaub/',
+              ctaLabel: 'Deals ansehen →',
+            }}
+            seoLinksTitle="✈️ Urlaubsarten"
+            seoLinks={[
+              { href: '/urlaubsarten/all-inclusive-urlaub/', label: 'All-Inclusive' },
+              { href: '/urlaubsarten/last-minute-urlaub/', label: 'Last-Minute' },
+              { href: '/urlaubsarten/fruhbucher-urlaub/', label: 'Frühbucher' },
+              { href: '/urlaubsarten/super-last-minute-urlaub/', label: 'Super-Last-Minute' },
+              { href: '/urlaubsziele/', label: 'Alle Urlaubsziele' },
+            ]}
+          />
         </div>
       </aside>
 
       </div>{/* end xl:flex */}
 
-      {/* Beliebte Reiseziele */}
+      {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Beliebte Pauschalreise-Ziele" accentColor="#0284c7" />
 
     </div>
