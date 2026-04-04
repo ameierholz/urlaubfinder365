@@ -46,12 +46,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://unpkg.com",
               "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://assets.specials.de data:",
-              "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://*.tiqets.com https://aws-tiqets-cdn.imgix.net https://*.supabase.co https://*.googleusercontent.com https://*.googleapis.com https://i.pravatar.cc https://*.ypsilon.net https://pics.avs.io https://*.trustpilot.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com",
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://*.googleapis.com https://api.specials.de https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.adup-tech.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://accounts.google.com https://*.ypsilon.net https://api.open-meteo.com https://*.trustpilot.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
-              "frame-src 'self' https://*.specials.de https://d.adup-tech.com https://s.adup-tech.com https://www.openstreetmap.org https://openstreetmap.org https://accounts.google.com https://*.ypsilon.net https://www.google.com https://maps.google.com https://www.travialinks.de https://kreuzfahrten.travelsystem.de https://*.trustpilot.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.safeframe.googlesyndication.com",
+              "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://*.tiqets.com https://aws-tiqets-cdn.imgix.net https://*.supabase.co https://*.googleusercontent.com https://*.googleapis.com https://i.pravatar.cc https://*.ypsilon.net https://pics.avs.io https://*.trustpilot.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://*.openstreetmap.org https://unpkg.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://*.googleapis.com https://api.specials.de https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.adup-tech.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://accounts.google.com https://*.ypsilon.net https://api.open-meteo.com https://*.trustpilot.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://csi.gstatic.com https://*.gstatic.com https://ep1.adtrafficquality.google",
+              "frame-src 'self' https://*.specials.de https://d.adup-tech.com https://s.adup-tech.com https://www.openstreetmap.org https://openstreetmap.org https://accounts.google.com https://*.ypsilon.net https://www.google.com https://maps.google.com https://www.travialinks.de https://kreuzfahrten.travelsystem.de https://*.trustpilot.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.safeframe.googlesyndication.com https://pagead2.googlesyndication.com",
               "media-src 'self'",
               "object-src 'none'",
               "base-uri 'self'",
@@ -213,6 +213,12 @@ const nextConfig: NextConfig = {
       // Reisenden-Karte
       { source: "/reisenden-karte/", destination: "/extras/reisenden-karte/", permanent: true },
       { source: "/reisenden-karte", destination: "/extras/reisenden-karte/", permanent: true },
+
+      // Erlebnisse → Aktivitäten (Seite nie angelegt, Tiqets-Content ist in /aktivitaeten/)
+      { source: "/erlebnisse/", destination: "/aktivitaeten/", permanent: false },
+      { source: "/erlebnisse", destination: "/aktivitaeten/", permanent: false },
+      { source: "/:locale/erlebnisse/", destination: "/:locale/aktivitaeten/", permanent: false },
+      { source: "/:locale/erlebnisse", destination: "/:locale/aktivitaeten/", permanent: false },
     ];
   },
 };

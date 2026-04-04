@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Heart, MapPin, CheckSquare,
   User, Settings, LogOut, Menu, X, Palmtree, Ticket,
-  Map, FileText, Bell, Globe, BookOpen, Users2, Flame,
+  Map, FileText, Bell, Globe, BookOpen, Users2, Flame, ShieldCheck, Navigation,
 } from "lucide-react";
 
 // Tabs
@@ -24,8 +24,10 @@ import LaenderKarteTab       from "@/components/dashboard/LaenderKarteTab";
 import MeineBerichteTab      from "@/components/dashboard/MeineBerichteTab";
 import MeineGruppenTab       from "@/components/dashboard/MeineGruppenTab";
 import CheckInTab            from "@/components/dashboard/CheckInTab";
+import AdminTravelTipsTab    from "@/components/dashboard/AdminTravelTipsTab";
+import MeineKartenTippsTab  from "@/components/dashboard/MeineKartenTippsTab";
 
-type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "profile" | "settings";
+type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "profile" | "settings" | "admin-traveltips" | "kartentipps";
 
 const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[] = [
   // Übersicht
@@ -43,11 +45,14 @@ const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[]
   { id: "laender",      label: "Meine Länder",             icon: Globe },
   { id: "berichte",     label: "Meine Urlaubsberichte",    icon: BookOpen },
   { id: "gruppen",      label: "Meine Urlaubs-Gruppen",    icon: Users2 },
+  { id: "kartentipps",  label: "Meine Karten-Tipps",       icon: Navigation },
   // Engagement
-  { id: "checkin",      label: "Daily Check-in",           icon: Flame },
+  { id: "checkin",           label: "Daily Check-in",           icon: Flame },
   // Account
-  { id: "profile",      label: "Mein Profil",             icon: User },
-  { id: "settings",     label: "Einstellungen",           icon: Settings },
+  { id: "profile",           label: "Mein Profil",              icon: User },
+  { id: "settings",          label: "Einstellungen",            icon: Settings },
+  // Admin (wird per Rolle gefiltert)
+  { id: "admin-traveltips",  label: "Karten-Tipps moderieren",  icon: ShieldCheck },
 ];
 
 export default function DashboardPage() {
@@ -78,6 +83,9 @@ export default function DashboardPage() {
       </div>
     );
   }
+
+  const isAdmin = userProfile?.role === "admin" || userProfile?.role === "moderator";
+  const visibleNav = NAV.filter((n) => n.id !== "admin-traveltips" || isAdmin);
 
   const initials = (user.displayName || user.email || "U")
     .split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
@@ -122,7 +130,7 @@ export default function DashboardPage() {
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          {NAV.map(({ id, label, icon: Icon, badge }) => (
+          {visibleNav.map(({ id, label, icon: Icon, badge }) => (
             <button
               key={id}
               onClick={() => { setTab(id); setSidebar(false); }}
@@ -189,9 +197,11 @@ export default function DashboardPage() {
           {tab === "laender"      && <LaenderKarteTab />}
           {tab === "berichte"     && <MeineBerichteTab    user={user} />}
           {tab === "gruppen"      && <MeineGruppenTab     user={user} />}
-          {tab === "checkin"      && <CheckInTab          user={user} />}
-          {tab === "profile"      && <ProfileTab          user={user} />}
-          {tab === "settings"     && <SettingsTab         user={user} userProfile={userProfile} />}
+          {tab === "checkin"           && <CheckInTab          user={user} />}
+          {tab === "profile"           && <ProfileTab          user={user} />}
+          {tab === "settings"          && <SettingsTab         user={user} userProfile={userProfile} />}
+          {tab === "kartentipps"       && <MeineKartenTippsTab  user={user} />}
+          {tab === "admin-traveltips"  && isAdmin && <AdminTravelTipsTab />}
         </div>
       </div>
     </div>

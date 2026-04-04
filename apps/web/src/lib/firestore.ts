@@ -94,7 +94,7 @@ export async function getUserSavedTrips(uid: string): Promise<SavedTrip[]> {
     .filter((t) => !(t as unknown as Record<string, unknown>).deleted);
 }
 
-// ---- Favoriten-Reiseziele ----
+// ---- Favoriten-Urlaubsziele ----
 
 export async function toggleFavoriteDestination(uid: string, slug: string, isFav: boolean) {
   await updateDoc(doc(db(), "users", uid), {
@@ -108,7 +108,7 @@ export async function updateTravelPreferences(uid: string, preferences: import("
   await updateDoc(doc(db(), "users", uid), { preferences });
 }
 
-// ---- Reise-Checkliste ----
+// ---- Urlaubs-Checkliste ----
 
 export async function updateChecklist(uid: string, checklist: import("@/types").ChecklistItem[]) {
   await updateDoc(doc(db(), "users", uid), { checklist });
@@ -181,7 +181,7 @@ export async function deletePriceAlert(uid: string, docId: string): Promise<void
   await deleteDoc(doc(db(), "priceAlerts", docId));
 }
 
-// ── Reisepläne ────────────────────────────────────────────────────────────────
+// ── Urlaubspläne ────────────────────────────────────────────────────────────────
 
 export async function createTripPlan(
   uid: string,
@@ -263,17 +263,20 @@ export async function deleteTravelDocument(uid: string, docId: string): Promise<
 
 export async function getTravelTips(): Promise<import("@/types").TravelTip[]> {
   const snap = await getDocs(collection(db(), "travelTips"));
-  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as import("@/types").TravelTip));
+  return snap.docs
+    .map((d) => ({ id: d.id, ...d.data() } as import("@/types").TravelTip))
+    .filter((t) => t.status === "approved");
 }
 
 export async function addTravelTip(
   uid: string,
-  tip: Omit<import("@/types").TravelTip, "id" | "userId" | "createdAt">
+  tip: Omit<import("@/types").TravelTip, "id" | "userId" | "createdAt" | "status">
 ): Promise<string> {
   const ref = collection(db(), "travelTips");
   const docRef = await addDoc(ref, {
     ...tip,
     userId: uid,
+    status: "pending",
     createdAt: serverTimestamp(),
   });
   return docRef.id;
@@ -323,7 +326,7 @@ export async function getPriceTrends(
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// COMMUNITY: Reiseberichte
+// COMMUNITY: Urlaubsberichte
 // ══════════════════════════════════════════════════════════════════════════════
 
 export async function getTravelReports(limitN = 20): Promise<import("@/types").TravelReport[]> {
@@ -458,7 +461,7 @@ export async function getCommunityProfiles(limitN = 24): Promise<import("@/types
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// COMMUNITY: Reise-Gruppen
+// COMMUNITY: Urlaubs-Gruppen
 // ══════════════════════════════════════════════════════════════════════════════
 
 export async function getTravelGroups(limitN = 20): Promise<import("@/types").TravelGroup[]> {

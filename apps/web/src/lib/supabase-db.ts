@@ -104,7 +104,7 @@ export async function getUserSavedTrips(uid: string): Promise<SavedTrip[]> {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Favoriten-Reiseziele
+// Favoriten-Urlaubsziele
 // ══════════════════════════════════════════════════════════════════════════════
 
 export async function toggleFavoriteDestination(uid: string, slug: string, isFav: boolean): Promise<void> {
@@ -237,7 +237,7 @@ export async function deletePriceAlert(uid: string, docId: string): Promise<void
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Reisepläne
+// Urlaubspläne
 // ══════════════════════════════════════════════════════════════════════════════
 
 export async function createTripPlan(
@@ -427,29 +427,33 @@ export async function deleteTravelDocument(uid: string, docId: string): Promise<
 // Travel Tips (Reisenden-Karte)
 // ══════════════════════════════════════════════════════════════════════════════
 
+// ── Bild-Upload für Travel Tips ───────────────────────────────────────────────
+export async function uploadTravelTipImage(uid: string, file: File): Promise<string> {
+  const ext = file.name.split(".").pop() ?? "jpg";
+  const path = `${uid}/${Date.now()}.${ext}`;
+  const { error } = await db().storage.from("travel-tip-images").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (error) throw error;
+  const { data } = db().storage.from("travel-tip-images").getPublicUrl(path);
+  return data.publicUrl;
+}
+
 export async function getTravelTips(): Promise<TravelTip[]> {
+  // RLS filtert bereits: nur approved + eigene Tipps sichtbar
   const { data, error } = await db()
     .from("travel_tips")
     .select("*")
+    .eq("status", "approved")
     .order("created_at", { ascending: false });
   if (error) throw error;
-  return (data ?? []).map((r) => ({
-    id: r.id,
-    userId: r.user_id,
-    displayName: r.display_name,
-    title: r.title,
-    description: r.description,
-    category: r.category as TravelTip["category"],
-    locationName: r.location_name,
-    lat: Number(r.lat),
-    lng: Number(r.lng),
-    createdAt: r.created_at,
-  }));
+  return (data ?? []).map(mapTip);
 }
 
 export async function addTravelTip(
   uid: string,
-  tip: Omit<TravelTip, "id" | "userId" | "createdAt">
+  tip: Omit<TravelTip, "id" | "userId" | "createdAt" | "status">
 ): Promise<string> {
   const { data, error } = await db()
     .from("travel_tips")
@@ -462,6 +466,8 @@ export async function addTravelTip(
       location_name: tip.locationName,
       lat: tip.lat,
       lng: tip.lng,
+      image_url: tip.imageUrl ?? null,
+      status: "pending",
     })
     .select("id")
     .single();
@@ -471,6 +477,74 @@ export async function addTravelTip(
 
 export async function deleteTravelTip(uid: string, tipId: string): Promise<void> {
   await db().from("travel_tips").delete().eq("id", tipId).eq("user_id", uid);
+}
+
+// ── Eigene Tipps (alle Status) ────────────────────────────────────────────────
+export async function getMyTravelTips(uid: string): Promise<TravelTip[]> {
+  const { data, error } = await db()
+    .from("travel_tips")
+    .select("*")
+    .eq("user_id", uid)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []).map(mapTip);
+}
+
+// ── Community Feed: neueste freigegebene Tipps ────────────────────────────────
+export async function getLatestApprovedTips(limit = 12): Promise<TravelTip[]> {
+  const { data, error } = await db()
+    .from("travel_tips")
+    .select("*")
+    .eq("status", "approved")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []).map(mapTip);
+}
+
+// ── Admin: Ausstehende Tipps ──────────────────────────────────────────────────
+export async function getPendingTravelTips(): Promise<TravelTip[]> {
+  const { data, error } = await db()
+    .from("travel_tips")
+    .select("*")
+    .eq("status", "pending")
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return (data ?? []).map(mapTip);
+}
+
+export async function approveTravelTip(tipId: string): Promise<void> {
+  const { error } = await db()
+    .from("travel_tips")
+    .update({ status: "approved", admin_note: null })
+    .eq("id", tipId);
+  if (error) throw error;
+}
+
+export async function rejectTravelTip(tipId: string, note: string): Promise<void> {
+  const { error } = await db()
+    .from("travel_tips")
+    .update({ status: "rejected", admin_note: note })
+    .eq("id", tipId);
+  if (error) throw error;
+}
+
+function mapTip(r: Record<string, unknown>): TravelTip {
+  return {
+    id: r.id as string,
+    userId: r.user_id as string,
+    displayName: r.display_name as string,
+    title: r.title as string,
+    description: r.description as string,
+    category: r.category as TravelTip["category"],
+    locationName: r.location_name as string,
+    lat: Number(r.lat),
+    lng: Number(r.lng),
+    createdAt: r.created_at,
+    imageUrl: (r.image_url as string) ?? undefined,
+    status: (r.status as TravelTip["status"]) ?? "pending",
+    adminNote: (r.admin_note as string) ?? undefined,
+  };
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -516,7 +590,7 @@ export async function getPriceTrends(slugs: string[]): Promise<Record<string, Pr
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// Community: Reiseberichte
+// Community: Urlaubsberichte
 // ══════════════════════════════════════════════════════════════════════════════
 
 function mapReport(r: Record<string, unknown>): TravelReport {

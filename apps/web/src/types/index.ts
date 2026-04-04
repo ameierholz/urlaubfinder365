@@ -282,7 +282,19 @@ export interface TravelDocument {
 
 // ---- Community Reisen-Tipps (Reisenden-Karte) ----
 
-export type TravelTipCategory = "geheimtipp" | "sehenswuerdigkeit" | "gastronomie" | "negativ";
+export type TravelTipCategory =
+  | "geheimtipp"
+  | "sehenswuerdigkeit"
+  | "gastronomie"
+  | "strand"
+  | "unterkunft"
+  | "shopping"
+  | "natur"
+  | "nachtleben"
+  | "transport"
+  | "negativ";
+
+export type TravelTipStatus = "pending" | "approved" | "rejected";
 
 export interface TravelTip {
   id: string;
@@ -295,6 +307,9 @@ export interface TravelTip {
   lat: number;
   lng: number;
   createdAt: unknown;     // Firestore Timestamp oder ISO-String (Demo)
+  imageUrl?: string;      // Supabase Storage URL (optional)
+  status?: TravelTipStatus; // undefined = Demo-Tipps (immer sichtbar)
+  adminNote?: string;     // Hinweis bei Ablehnung
 }
 
 // ---- Community: Urlaubsberichte ──────────────────────────────────────────────
