@@ -202,6 +202,7 @@ export interface PriceTrend {
   pauschal?: PriceProfileData;
   hotel?: PriceProfileData;
   ai?: PriceProfileData;
+  last_minute?: PriceProfileData;
 }
 
 // ---- Preisalarm ----
