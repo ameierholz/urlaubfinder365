@@ -56,7 +56,7 @@ const FAQ = [
   },
   {
     q: "Ist Solo-Reisen sicher?",
-    a: "Solo-Reisen ist heute sehr sicher, besonders in bekannten Tourismusdestinationen. Standardmäßige Vorsichtsmaßnahmen wie das Aufbewahren von Reisedokumenten im Hotelsafe, das Informieren von Bekannten über Reisepläne und das Vermeiden von abgelegenen Gegenden nachts sind ausreichend. Für Frauen allein reisend sind mediterrane Resorts und asiatische Touristenzentren besonders sicher.",
+    a: "Solo-Reisen ist heute sehr sicher, besonders in bekannten Tourismusdestinationen. Standardmäßige Vorsichtsmaßnahmen wie das Aufbewahren von Reisedokumenten im Hotelsafe, das Informieren von Bekannten über Urlaubspläne und das Vermeiden von abgelegenen Gegenden nachts sind ausreichend. Für Frauen allein reisend sind mediterrane Resorts und asiatische Touristenzentren besonders sicher.",
   },
   {
     q: "Welche Destinationen eignen sich am besten für Alleinreisende?",
@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,7 +134,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             🧳 Singlereisen
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Singlereisen – Die Welt alleine entdecken<br />
+            Singlereisen {YEAR} günstig buchen<br />
             <span className="text-teal-200">Neue Freundschaften &amp; maximale Freiheit</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
@@ -142,10 +153,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-violet-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Solo-Reiseziele weltweit</h2>
+        <p className="text-violet-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Solo-Urlaubsziele weltweit</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">Als Alleinreisender die Welt entdecken – entspannte Einzelzimmer und tolle Destinationen ohne Einzelzimmer-Zuschlag.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#7c3aed" carouselLabel="Weitere Single Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#7c3aed" carouselLabel="Weitere Single Urlaubsziele" />
       </div>
 
 
@@ -173,7 +184,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               Singlereisen Angebote
             </h2>
             <p className="text-gray-500 mt-2 text-sm max-w-xl">
-              Täglich aktualisierte Reiseangebote für Alleinreisende — inklusive Flug, Hotel und Transfer.
+              Täglich aktualisierte Urlaubsangebote für Alleinreisende — inklusive Flug, Hotel und Transfer.
             </p>
           </div>
           <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
@@ -209,7 +220,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           Solo reisen liegt im Trend: Immer mehr Menschen entscheiden sich bewusst
           dafür, alleine zu verreisen – sei es nach einer Trennung, weil Freunde
           keinen Urlaub haben, oder einfach weil man die maximale Freiheit genießen
-          möchte. Ohne Kompromisse beim Reiseziel, ohne Diskussionen über das
+          möchte. Ohne Kompromisse beim Urlaubsziel, ohne Diskussionen über das
           Abendrestaurant und ohne Rücksicht auf den Tagesplan anderer. Solo-Reisen
           ist eine der befreiendsten Erfahrungen, die man machen kann – und sie
           stärkt das Selbstvertrauen nachhaltig.
@@ -255,8 +266,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

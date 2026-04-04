@@ -15,14 +15,14 @@ const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
   title: `💎 Urlaub bis 1.500€ – Premium-Reisen ${YEAR}`,
-  description: `Urlaub bis 1.500€ pro Person ${YEAR}: Premium-Pauschalreisen ✓ 4-5 Sterne Hotels ✓ All Inclusive ✓ Top-Reiseziele ✓ Jetzt Premium buchen.`,
+  description: `Urlaub bis 1.500€ pro Person ${YEAR}: Premium-Pauschalreisen ✓ 4-5 Sterne Hotels ✓ All Inclusive ✓ Top-Urlaubsziele ✓ Jetzt Premium buchen.`,
   keywords: ["Urlaub bis 1500 Euro", "Premium Urlaub", "Gehobener Urlaub", "5 Sterne Urlaub", "Premium Pauschalreise", "Urlaub gehoben buchen"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-1500/",
   },
   openGraph: {
     title: `💎 Urlaub bis 1.500€ ${YEAR} – Premium-Reisen | Urlaubfinder365`,
-    description: `Urlaub bis 1.500€ pro Person ${YEAR}: Premium-Pauschalreisen ✓ 4-5 Sterne Hotels ✓ All Inclusive ✓ Top-Reiseziele ✓ Jetzt Premium buchen.`,
+    description: `Urlaub bis 1.500€ pro Person ${YEAR}: Premium-Pauschalreisen ✓ 4-5 Sterne Hotels ✓ All Inclusive ✓ Top-Urlaubsziele ✓ Jetzt Premium buchen.`,
     url: "https://www.urlaubfinder365.de/urlaubsthemen/budget-bis-1500/",
     type: "website",
     images: [
@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,7 +134,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             💳 Budget bis 1.500 €
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Urlaub bis 1.500 € – Premium &amp; Stil<br />
+            Urlaub bis 1.500 € günstig buchen {YEAR}<br />
             <span className="text-amber-200">Ausgezeichnete Hotels mit Bestpreisgarantie</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
@@ -143,10 +154,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-indigo-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-indigo-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Premiumurlaub bis 1.500 € pro Person</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">4- und 5-Sterne-Komfort weltweit – hervorragende Hotels mit Top-Bewertungen bis 1.500 € pro Person inklusive Flug.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#4f46e5" carouselLabel="Weitere Günstige Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#4f46e5" carouselLabel="Weitere Günstige Urlaubsziele" />
       </div>
 
 
@@ -256,8 +267,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

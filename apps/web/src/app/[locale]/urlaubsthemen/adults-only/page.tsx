@@ -62,7 +62,7 @@ const FAQ = [
     a: "Adults Only Urlaube sind ideal für Paare, die eine romantische Auszeit suchen, für Frischvermählte auf Flitterwochen, aber auch für Alleinreisende oder Freundesgruppen, die eine ruhige und gehobene Atmosphäre bevorzugen. Wer nach ungestörter Entspannung und exklusivem Service sucht, ist in Adults Only Hotels bestens aufgehoben.",
   },
   {
-    q: "In welchen Reisezielen gibt es die besten Adults Only Hotels?",
+    q: "In welchen Urlaubszielen gibt es die besten Adults Only Hotels?",
     a: "Adults Only Hotels finden sich in allen bekannten Urlaubsregionen: Mallorca, Ibiza und Menorca auf den Balearen, Lanzarote und Teneriffa auf den Kanaren, Kreta und Rhodos in Griechenland sowie Antalya und Bodrum in der Türkei bieten eine große Auswahl. Auch auf Mauritius, auf den Malediven und in der Karibik gibt es hervorragende Adults Only Resorts.",
   },
   {
@@ -93,12 +93,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -126,8 +137,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             💑 Adults Only
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Urlaub nur für Erwachsene<br />
-            <span className="text-rose-200">Romantik &amp; pure Entspannung</span>
+            Adults Only Urlaub {YEAR} günstig buchen<br />
+            <span className="text-rose-200">Romantik, Ruhe &amp; pure Entspannung</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
             Erleben Sie Urlaub ohne Kompromisse: ruhige Pools, romantische Abende und
@@ -145,10 +156,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-rose-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-rose-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Adults Only Urlaub weltweit</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">Exklusive Erwachsenenhotels in den beliebtesten Urlaubsregionen – ruhige Atmosphäre, romantischer Flair und erstklassiger Service.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#e11d48" carouselLabel="Weitere Adults Only Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#e11d48" carouselLabel="Weitere Adults Only Urlaubsziele" />
       </div>
 
       {/* EXPERT BANNER */}
@@ -261,8 +272,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

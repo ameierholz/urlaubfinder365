@@ -130,6 +130,28 @@ export default async function DestinationPage({ params }: Props) {
         "image": dest.heroImageFallback ?? dest.heroImage,
         "touristType": ["Strandurlaub", "Pauschalreise", "All-Inclusive"],
         "containedInPlace": { "@type": "Country", "name": dest.country },
+        ...(dest.iataCode ? {
+          "nearbyAmenity": [{
+            "@type": "Airport",
+            "name": `Flughafen ${dest.name}`,
+            "iataCode": dest.iataCode,
+          }],
+        } : {}),
+        ...(dest.climate && dest.climate.length > 0 ? {
+          "amenityFeature": dest.climate.slice(0, 4).map((m: { month: string; temp: number; sun?: number }) => ({
+            "@type": "LocationFeatureSpecification",
+            "name": `Durchschnittstemperatur ${m.month}`,
+            "value": `${m.temp}°C`,
+          })),
+        } : {}),
+        ...(topDeals.length > 0 && topDeals[0].offer_price_adult ? {
+          "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": Math.floor(Number(topDeals[0].offer_price_adult)),
+            "priceCurrency": "EUR",
+            "offerCount": topDeals.length,
+          },
+        } : {}),
       },
       {
         "@type": "TravelAction",
@@ -146,13 +168,23 @@ export default async function DestinationPage({ params }: Props) {
         },
         "agent": { "@type": "Organization", "name": "Urlaubfinder365" },
       },
-      ...(dest.faqs && dest.faqs.length > 0 ? [{
-        "@type": "Review",
-        "itemReviewed": { "@type": "TouristDestination", "name": dest.name },
-        "author": { "@type": "Organization", "name": "Urlaubfinder365 Community" },
-        "reviewBody": `Reisebewertungen und Erfahrungsberichte zu ${dest.name}, ${dest.country} von der Urlaubfinder365 Community.`,
-        "publisher": { "@type": "Organization", "name": "Urlaubfinder365" },
-      }] : []),
+      ...(dest.faqs && dest.faqs.length > 0 ? [
+        {
+          "@type": "Review",
+          "itemReviewed": { "@type": "TouristDestination", "name": dest.name },
+          "author": { "@type": "Organization", "name": "Urlaubfinder365 Community" },
+          "reviewBody": `Reisebewertungen und Erfahrungsberichte zu ${dest.name}, ${dest.country} von der Urlaubfinder365 Community.`,
+          "publisher": { "@type": "Organization", "name": "Urlaubfinder365" },
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": dest.faqs.map((f: { question: string; answer: string }) => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": { "@type": "Answer", "text": f.answer },
+          })),
+        },
+      ] : []),
     ],
   };
 
@@ -283,8 +315,78 @@ export default async function DestinationPage({ params }: Props) {
       })()}
 
 
+      {/* ── GEO Faktenblock – für KI-Suchmaschinen & Featured Snippets ──── */}
+      <section
+        aria-label={`Reisefakten ${dest.name}`}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"
+      >
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5">
+          <h2 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">
+            {dest.name} – Fakten auf einen Blick
+          </h2>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
+            <li className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 font-medium">Land</span>
+              <span className="font-semibold text-gray-800">{dest.country}</span>
+            </li>
+            {topDeals.length > 0 && topDeals[0].offer_price_adult && (
+              <li className="flex flex-col gap-0.5">
+                <span className="text-xs text-gray-400 font-medium">Pauschalreise ab</span>
+                <span className="font-semibold text-[#1db682]">
+                  ab {Math.floor(Number(topDeals[0].offer_price_adult)).toLocaleString("de-DE")} € / Person
+                </span>
+              </li>
+            )}
+            {dest.iataCode && (
+              <li className="flex flex-col gap-0.5">
+                <span className="text-xs text-gray-400 font-medium">Flughafen</span>
+                <span className="font-semibold text-gray-800">{dest.name} ({dest.iataCode})</span>
+              </li>
+            )}
+            {dest.climate && dest.climate.length > 0 && (() => {
+              const peak = dest.climate.reduce(
+                (best: { month: string; temp: number; sun?: number }, m: { month: string; temp: number; sun?: number }) =>
+                  m.temp > best.temp ? m : best,
+                dest.climate[0]
+              );
+              return (
+                <li className="flex flex-col gap-0.5">
+                  <span className="text-xs text-gray-400 font-medium">Wärmster Monat</span>
+                  <span className="font-semibold text-gray-800">{peak.month} ({peak.temp}°C)</span>
+                </li>
+              );
+            })()}
+            {dest.climate && dest.climate.length > 0 && (() => {
+              const cheap = dest.climate.reduce(
+                (best: { month: string; temp: number; sun?: number }, m: { month: string; temp: number; sun?: number }) =>
+                  m.temp < best.temp ? m : best,
+                dest.climate[0]
+              );
+              return (
+                <li className="flex flex-col gap-0.5">
+                  <span className="text-xs text-gray-400 font-medium">Günstigste Saison</span>
+                  <span className="font-semibold text-gray-800">{cheap.month} (Nebensaison)</span>
+                </li>
+              );
+            })()}
+            <li className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 font-medium">Urlaubsarten</span>
+              <span className="font-semibold text-gray-800">Pauschalreise, All-Inclusive, Last-Minute</span>
+            </li>
+            <li className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 font-medium">Reisedauer</span>
+              <span className="font-semibold text-gray-800">7–14 Tage empfohlen</span>
+            </li>
+            <li className="flex flex-col gap-0.5">
+              <span className="text-xs text-gray-400 font-medium">Buchung</span>
+              <span className="font-semibold text-gray-800">Frühbucher & Last-Minute verfügbar</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
       {/* Reisewarnung-Badge (nur wenn aktive Warnung vorliegt) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <Suspense fallback={null}>
           <TravelWarningBadge countryName={dest.country} />
         </Suspense>

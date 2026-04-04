@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Die Türkei gehört zu den besten Budget-Reisezielen der Welt: In Antalya und Belek bekommt man für unter 1.000 € pro Person eine Woche in einem 4- oder 5-Sterne-All-Inclusive-Resort mit uneingeschränktem Zugang zu Pools, Stränden und Buffets. Dank des starken Wettbewerbs und günstiger Wechselkurse sind Preise, die anderswo undenkbar wären, hier regelmäßig buchbar – ohne Abstriche beim Komfort.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724&maxPrice=1000" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Die Türkei gehört zu den besten Budget-Urlaubszielen der Welt: In Antalya und Belek bekommt man für unter 1.000 € pro Person eine Woche in einem 4- oder 5-Sterne-All-Inclusive-Resort mit uneingeschränktem Zugang zu Pools, Stränden und Buffets. Dank des starken Wettbewerbs und günstiger Wechselkurse sind Preise, die anderswo undenkbar wären, hier regelmäßig buchbar – ohne Abstriche beim Komfort.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724&maxPrice=1000" },
   { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Mallorca & Ibiza: komfortable Pauschalreisen bis 1.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100000&maxPrice=1000" },
   { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: Top-Hotels mit ausgezeichneten Bewertungen bis 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&countryId=GR&maxPrice=1000" },
   { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada & Sharm el-Sheikh: 5-Sterne-Luxus am Roten Meer für unter 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=651&maxPrice=1000" },
@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,7 +134,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             💰 Budget bis 1.000 €
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Urlaub bis 1.000 € – Mehr erleben<br />
+            Urlaub bis 1.000 € günstig buchen {YEAR}<br />
             <span className="text-sky-200">Traumurlaub für jedes Budget</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
@@ -142,10 +153,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-emerald-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-emerald-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Top-Urlaub bis 1.000 € pro Person</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">Mehr Komfort und Auswahl für bis zu 1.000 € – diese Destinationen bieten ausgezeichnete Hotels zu fairem Preis.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#059669" carouselLabel="Weitere Günstige Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#059669" carouselLabel="Weitere Günstige Urlaubsziele" />
       </div>
 
 
@@ -205,7 +216,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* SEO TEXT */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <h2 className="text-2xl font-extrabold text-gray-900 mb-5">Pauschalreisen bis 1.000 € – Mehr Qualität für Ihr Reisebudget</h2>
+        <h2 className="text-2xl font-extrabold text-gray-900 mb-5">Pauschalreisen bis 1.000 € – Mehr Qualität für Ihr Urlaubsbudget</h2>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
           Mit einem Urlaubsbudget von bis zu 1.000 € pro Person öffnet sich eine
           erheblich größere Auswahl an Destinationen, Hotelkategorien und
@@ -255,8 +266,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

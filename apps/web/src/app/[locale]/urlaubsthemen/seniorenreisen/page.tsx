@@ -55,7 +55,7 @@ const FAQ = [
     a: "Seniorengerechte Reisen zeichnen sich durch barrierefreie Hotels (Aufzüge, ebenerdige Duschen, Handläufe), ruhige Lage, komfortablen Transfer und ein entspanntes Tagesprogramm aus. Wichtig sind auch gute medizinische Erreichbarkeit, deutschsprachige Ansprechpartner und ein Service, der auf die Bedürfnisse älterer Gäste eingeht. Vollpension oder All-Inclusive erleichtert die Planung erheblich.",
   },
   {
-    q: "Welche Reiseziele eignen sich am besten für Senioren?",
+    q: "Welche Urlaubsziele eignen sich am besten für Senioren?",
     a: "Spanien (Costa del Sol, Teneriffa, Gran Canaria) ist bei deutschen Senioren sehr beliebt – gutes Klima, ausgezeichnete Infrastruktur und viele seniorengerechte Hotels. Portugal (Algarve) und Madeira sind ebenfalls sehr beliebt. In der Türkei bieten viele Resorts spezielle Senior-Programme an. Für kürzere Reisen eignen sich das Gardasee-Gebiet in Italien und die deutschen Kurortregionen.",
   },
   {
@@ -64,7 +64,7 @@ const FAQ = [
   },
   {
     q: "Können Senioren mit gesundheitlichen Einschränkungen reisen?",
-    a: "Ja, mit der richtigen Planung können auch Menschen mit gesundheitlichen Einschränkungen wunderbar reisen. Informieren Sie die Airline und das Hotel vorab über besondere Bedürfnisse. Wählen Sie Direktflüge wenn möglich. Viele Pauschalreiseanbieter haben Spezialisten für Reisen mit Behinderungen oder gesundheitlichen Einschränkungen. Besprechen Sie Ihre Reisepläne immer mit dem behandelnden Arzt.",
+    a: "Ja, mit der richtigen Planung können auch Menschen mit gesundheitlichen Einschränkungen wunderbar reisen. Informieren Sie die Airline und das Hotel vorab über besondere Bedürfnisse. Wählen Sie Direktflüge wenn möglich. Viele Pauschalreiseanbieter haben Spezialisten für Reisen mit Behinderungen oder gesundheitlichen Einschränkungen. Besprechen Sie Ihre Urlaubspläne immer mit dem behandelnden Arzt.",
   },
   {
     q: "Gibt es Gruppenreisen speziell für Senioren?",
@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,7 +134,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             🌟 Seniorenreisen
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Seniorenreisen – Entspannt genießen<br />
+            Seniorenreisen {YEAR} günstig buchen<br />
             <span className="text-blue-200">Komfort, Ruhe &amp; bester Service ab 60</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
@@ -142,10 +153,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-blue-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-blue-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Seniorenreisen weltweit</h2>
-        <p className="text-gray-500 text-sm mb-8 max-w-2xl">Entspannte Reisen mit besonderem Service – die besten Reiseziele für Senioren mit komfortablen Hotels und ruhiger Atmosphäre.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#2563eb" carouselLabel="Weitere Senioren Reiseziele" />
+        <p className="text-gray-500 text-sm mb-8 max-w-2xl">Entspannte Reisen mit besonderem Service – die besten Urlaubsziele für Senioren mit komfortablen Hotels und ruhiger Atmosphäre.</p>
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#2563eb" carouselLabel="Weitere Senioren Urlaubsziele" />
       </div>
 
 
@@ -173,7 +184,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               Seniorenreisen Angebote
             </h2>
             <p className="text-gray-500 mt-2 text-sm max-w-xl">
-              Täglich aktualisierte Reiseangebote für Senioren — inklusive Flug, Hotel und Transfer.
+              Täglich aktualisierte Urlaubsangebote für Senioren — inklusive Flug, Hotel und Transfer.
             </p>
           </div>
           <Link href="/urlaubsthemen/" className="hidden md:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
@@ -215,7 +226,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           klassischen Urlaubsregionen haben sich auf ältere Gäste spezialisiert.
         </p>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Beliebte Reiseziele für Senioren sind die Kanarischen Inseln (besonders
+          Beliebte Urlaubsziele für Senioren sind die Kanarischen Inseln (besonders
           Gran Canaria und Teneriffa) mit ihrem milden Klima ganzjährig, die Costa del
           Sol in Spanien und die Algarve in Portugal. Viele Senioren schätzen auch
           Österreich, die Schweiz und Südtirol für kultivierte Urlaubserlebnisse in
@@ -256,8 +267,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

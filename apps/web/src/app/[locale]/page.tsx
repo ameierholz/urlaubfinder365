@@ -20,7 +20,7 @@ const YEAR = new Date().getFullYear();
 export const metadata: Metadata = {
   title: `✈ Pauschalreisen & Last Minute günstig buchen ${YEAR}`,
   description: `Pauschalreisen, All Inclusive & Last Minute ${YEAR} günstig buchen ✓ Über 50 Veranstalter ✓ Türkei ab 199€ ✓ Mallorca ab 249€ ✓ Täglich neue Deals.`,
-  keywords: ["Pauschalreisen günstig buchen", "Urlaub günstig buchen", "Last Minute Urlaub", "All Inclusive Urlaub", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Pauschalreisen Ägypten", "Billig Urlaub buchen", "Urlaubsschnäppchen", "Reise buchen online"],
+  keywords: ["Pauschalreisen günstig buchen", "Urlaub günstig buchen", "Last Minute Urlaub", "All Inclusive Urlaub", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Pauschalreisen Ägypten", "Billig Urlaub buchen", "Urlaubsschnäppchen", "Urlaub buchen online"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/",
   },
@@ -302,7 +302,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       height: 512,
     },
     description:
-      "Urlaubfinder365 vergleicht täglich tausende Reiseangebote führender Veranstalter – Pauschalreisen, All Inclusive und Last Minute günstig buchen.",
+      "Urlaubfinder365 vergleicht täglich tausende Urlaubsangebote führender Veranstalter – Pauschalreisen, All Inclusive und Last Minute günstig buchen.",
     areaServed: "DE",
     inLanguage: "de",
   };
@@ -314,7 +314,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     name: "Urlaubfinder365",
     url: `${BASE}/`,
     description:
-      "Pauschalreisen, All-Inclusive und Last-Minute günstig buchen. Täglich aktualisierte Reiseangebote mit kostenlosen Reiseführern.",
+      "Pauschalreisen, All-Inclusive und Last-Minute günstig buchen. Täglich aktualisierte Urlaubsangebote mit kostenlosen Urlaubsführern.",
     publisher: { "@id": `${BASE}/#organization` },
     inLanguage: "de",
     potentialAction: {
@@ -325,6 +325,53 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       },
       "query-input": "required name=search_term_string",
     },
+  };
+
+  const schemaFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Wie funktioniert Urlaubfinder365?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Urlaubfinder365 vergleicht täglich tausende Urlaubsangebote von über 50 führenden Reiseveranstaltern wie TUI, Alltours, DERTOUR und ITS. Sie geben Ihr Wunschziel, Reisezeitraum und Budget ein – wir zeigen Ihnen die besten Pauschalreisen, All-Inclusive-Angebote und Last-Minute-Deals in Echtzeit.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Was ist der günstigste Zeitpunkt um eine Pauschalreise zu buchen?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Frühbucher-Angebote (6–9 Monate vor Abreise) bieten oft die besten Preise und die größte Hotelauswahl. Last-Minute-Deals (1–3 Wochen vor Abreise) können ebenfalls sehr günstig sein, wenn noch Kapazitäten frei sind. Die günstigsten Pauschalreisen gibt es in der Nebensaison (Mai, Oktober) – oft 30–40 % günstiger als in der Hochsaison.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Was ist der Unterschied zwischen Pauschalreise und All-Inclusive?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Eine Pauschalreise kombiniert Flug und Hotel zu einem Gesamtpreis – die Verpflegung ist dabei frei wählbar (z. B. nur Frühstück oder Halbpension). All-Inclusive bedeutet, dass alle Mahlzeiten, Snacks, Softdrinks und meist auch alkoholische Getränke im Hotelpreis enthalten sind. All-Inclusive ist besonders für Familien und Paare empfehlenswert, die volle Kostenkontrolle möchten.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Welche Urlaubsziele sind 2026 am günstigsten?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Die günstigsten Pauschalreise-Ziele 2026 sind die Türkei (ab 199 €/Person), Ägypten/Hurghada (ab 249 €/Person), Tunesien (ab 299 €/Person) und Bulgarien (ab 299 €/Person). Mallorca und die griechischen Inseln sind für den europäischen Sommerurlaub besonders beliebt und bereits ab 349 €/Person buchbar.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Gibt es Last-Minute Urlaub günstig zu buchen?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ja, Last-Minute-Reisen sind 1 bis 21 Tage vor Abreise häufig deutlich günstiger als reguläre Buchungen. Auf Urlaubfinder365 werden täglich neue Last-Minute-Angebote aus über 50 Veranstalter-Katalogen aggregiert. Besonders günstige Last-Minute-Deals gibt es für die Türkei, Ägypten und die Kanarischen Inseln.",
+        },
+      },
+    ],
   };
 
   const schemaItemList = {
@@ -344,8 +391,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
   return (
     <>
-      {/* JSON-LD – Organization, WebSite, ItemList */}
-      {[schemaOrganization, schemaWebSite, schemaItemList].map((schema, i) => (
+      {/* JSON-LD – Organization, WebSite, ItemList, FAQPage */}
+      {[schemaOrganization, schemaWebSite, schemaItemList, schemaFaq].map((schema, i) => (
         <script
           key={i}
           type="application/ld+json"

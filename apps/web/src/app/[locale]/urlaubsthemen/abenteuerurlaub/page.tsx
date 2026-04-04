@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,8 +134,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             🧗 Abenteuerurlaub
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Abenteuerurlaub – Grenzen überwinden<br />
-            <span className="text-orange-200">Action, Sport &amp; unvergessliche Momente</span>
+            Abenteuerurlaub {YEAR} günstig buchen<br />
+            <span className="text-orange-200">Action, Sport &amp; unvergessliche Erlebnisse</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
             Für alle, die Urlaub aktiv erleben wollen: Wandern, Tauchen, Surfen und
@@ -142,10 +153,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-orange-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-orange-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Abenteuer weltweit</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">Action, Natur und unvergessliche Erlebnisse – die besten Destinationen für Abenteuer und aktive Auszeiten.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#ea580c" carouselLabel="Weitere Abenteuer Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#ea580c" carouselLabel="Weitere Abenteuer Urlaubsziele" />
       </div>
 
 
@@ -255,8 +266,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

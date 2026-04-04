@@ -60,7 +60,7 @@ const FAQ = [
     a: "Die meisten Kinderclubs nehmen Kinder ab 3 oder 4 Jahren auf. Viele Hotels bieten auch separate Betreuung für Kleinkinder (ab 1 Jahr) an. Für Teenager gibt es häufig eigene Teen-Clubs mit spezifischen Aktivitäten wie Sportturnieren, Tanzworkshops oder Computerspielen. Das genaue Angebot variiert je nach Hotel.",
   },
   {
-    q: "Welche Reiseziele eignen sich am besten für den Familienurlaub?",
+    q: "Welche Urlaubsziele eignen sich am besten für den Familienurlaub?",
     a: "Mallorca, Kreta, die Türkische Riviera und die Kanarischen Inseln sind besonders familienfreundlich und bieten eine große Auswahl an Familienhotels. Auch Portugal (Algarve) und Tunesien sind beliebt. Diese Regionen punkten mit ruhigen Stränden, warmen Temperaturen und einer guten touristischen Infrastruktur für Familien.",
   },
   {
@@ -90,12 +90,23 @@ const breadcrumbSchema = {
   ],
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* HERO */}
       <div
@@ -123,8 +134,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             👨‍👩‍👧‍👦 Familienurlaub
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-            Familienurlaub für unvergessliche Momente<br />
-            <span className="text-sky-200">Kinderclub, Wasserpark &amp; mehr</span>
+            Familienurlaub {YEAR} günstig buchen<br />
+            <span className="text-sky-200">Mit Kinderclub, Wasserpark &amp; Animation</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl mb-10 leading-relaxed">
             Unvergessliche Ferien mit Kinderclub, Wasserpark und Animation – perfekt
@@ -142,10 +153,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
       {/* DESTINATIONS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-4">
-        <p className="text-amber-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Reiseziele</p>
+        <p className="text-amber-600 text-sm font-bold uppercase tracking-widest mb-2">Beliebte Urlaubsziele</p>
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Familienurlaub weltweit</h2>
         <p className="text-gray-500 text-sm mb-8 max-w-2xl">Perfekte Familienhotels mit Kinderbetreuung, Pools und Action für Klein und Groß – in den familienfreundlichsten Urlaubsregionen.</p>
-        <DestinationGrid destinations={DESTINATIONS} accentColor="#d97706" carouselLabel="Weitere Familien Reiseziele" />
+        <DestinationGrid destinations={DESTINATIONS} accentColor="#d97706" carouselLabel="Weitere Familien Urlaubsziele" />
       </div>
 
       {/* EXPERT BANNER */}
@@ -256,8 +267,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <ThemeSidebar />
       </div>
 
-      {/* Beliebte Reiseziele */}
-      <DestinationCarousel title="Beliebte Reiseziele direkt buchen" />
+      {/* Beliebte Urlaubsziele */}
+      <DestinationCarousel title="Beliebte Urlaubsziele direkt buchen" />
 
     </div>
   );

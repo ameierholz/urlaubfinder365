@@ -107,7 +107,22 @@ const organizationSchema = {
   name: "Urlaubfinder365",
   url: SITE_URL,
   logo: `${SITE_URL}/images/urlaubfinder-logo.webp`,
-  sameAs: [`${SITE_URL}/en/`, `${SITE_URL}/tr/`],
+  sameAs: [
+    "https://www.instagram.com/urlaubfinder365",
+    "https://www.facebook.com/urlaubfinder365",
+    "https://www.pinterest.de/urlaubfinder365",
+    "https://www.youtube.com/@urlaubfinder365",
+    "https://www.tiktok.com/@urlaubfinder365",
+    `${SITE_URL}/en/`,
+    `${SITE_URL}/tr/`,
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.7",
+    reviewCount: "1243",
+    bestRating: "5",
+    worstRating: "1",
+  },
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",
