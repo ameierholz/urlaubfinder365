@@ -74,11 +74,26 @@ export async function upsertPriceTrendProfile(
     ...topLevel,
   };
 
+  // 1. price_trends (JSONB-Cache, Rückwärtskompatibilität)
   if (existing) {
     await supabase.from("price_trends").update(row).eq("slug", slug);
   } else {
     await supabase.from("price_trends").insert(row);
   }
+
+  // 2. price_history (normalisiert, append-only, für Charts & Analyse)
+  await supabase.from("price_history").upsert(
+    {
+      destination_slug: slug,
+      destination_name: destinationName,
+      profile:          profileId,
+      date:             snapshot.date,
+      min_price:        snapshot.minPrice,
+      avg_price:        snapshot.avgPrice,
+      deal_count:       snapshot.dealCount,
+    },
+    { onConflict: "destination_slug,date,profile" }
+  );
 }
 
 // ── price_alerts ─────────────────────────────────────────────────────────────

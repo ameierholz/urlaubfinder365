@@ -187,7 +187,7 @@ export interface PriceProfileData {
   snapshots: PriceSnapshot[]; // bis zu 60 Tage, absteigend sortiert
 }
 
-export type PriceProfileId = "pauschal" | "hotel" | "ai";
+export type PriceProfileId = "pauschal" | "hotel" | "ai" | "last_minute";
 
 /** Aggregiertes Dokument in Firestore: priceTrends/{slug} */
 export interface PriceTrend {
@@ -222,7 +222,7 @@ export interface PriceAlert {
   matchedDealCount?: number;
 }
 
-// ---- Reiseplanung ----
+// ---- Urlaubsplanung ----
 
 export interface TripPlan {
   id: string;
@@ -296,7 +296,7 @@ export interface TravelTip {
   createdAt: unknown;     // Firestore Timestamp oder ISO-String (Demo)
 }
 
-// ---- Community: Reiseberichte ──────────────────────────────────────────────
+// ---- Community: Urlaubsberichte ──────────────────────────────────────────────
 
 export type PriceRange = "budget" | "mittel" | "premium" | "luxus";
 
@@ -361,7 +361,7 @@ export interface CommunityProfile {
   bannerURL?: string;           // Profilbanner (Cover-Bild)
 }
 
-// ---- Community: Reise-Gruppen ───────────────────────────────────────────────
+// ---- Community: Urlaubs-Gruppen ───────────────────────────────────────────────
 
 export type GroupCategory = "destination" | "style" | "date" | "interest";
 

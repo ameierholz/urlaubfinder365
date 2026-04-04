@@ -18,6 +18,10 @@
       "schedule": "0 5 * * *"
     },
     {
+      "path": "/api/cron/collect-prices?profile=last_minute",
+      "schedule": "0 6 * * *"
+    },
+    {
       "path": "/api/cron/anbieter-monatsbericht",
       "schedule": "0 8 1 * *"
     },
@@ -32,6 +36,10 @@
     {
       "path": "/api/cron/buchung-abschliessen",
       "schedule": "0 11 * * *"
+    },
+    {
+      "path": "/api/cron/sync-travel-warnings",
+      "schedule": "0 7 * * *"
     }
   ],
   "headers": [

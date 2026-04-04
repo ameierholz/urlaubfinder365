@@ -67,26 +67,39 @@ export default function IbeTeaser({
   if (!mounted) return null;
 
   return (
-    <div
-      ref={ref}
-      className="ibe-auto-teaser"
-      data-region={regionId}
-      data-city={cityId}
-      data-headline={headline}
-      data-board-code={boardCode}
-      data-from={from}
-      data-to={to}
-      data-duration={duration}
-      data-adults={adults}
-      data-children={children || undefined}
-      data-category={category}
-      data-minrecommrate={minRecommrate}
-      data-exclude-ai={excludeAi ? "true" : ""}
-      data-sort-by={sortBy || undefined}
-      data-diverse-results={diverseResults ? "true" : undefined}
-      data-keywords={keywords || undefined}
-      data-max-price={maxPrice || undefined}
-      data-no-heading={hideHeading ? "true" : undefined}
-    />
+    <div className="relative">
+      <div
+        ref={ref}
+        className="ibe-auto-teaser"
+        data-region={regionId}
+        data-city={cityId}
+        data-headline={headline}
+        data-board-code={boardCode}
+        data-from={from}
+        data-to={to}
+        data-duration={duration}
+        data-adults={adults}
+        data-children={children || undefined}
+        data-category={category}
+        data-minrecommrate={minRecommrate}
+        data-exclude-ai={excludeAi ? "true" : ""}
+        data-sort-by={sortBy || undefined}
+        data-diverse-results={diverseResults ? "true" : undefined}
+        data-keywords={keywords || undefined}
+        data-max-price={maxPrice || undefined}
+        data-no-heading={hideHeading ? "true" : undefined}
+      />
+
+      {/* Scroll-Indikator */}
+      <div className="flex items-center justify-center gap-2 mt-3 text-gray-400 select-none">
+        <div className="flex gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+          <span className="w-4 h-1.5 rounded-full bg-[#1db682]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+        </div>
+        <span className="text-[11px] font-medium text-gray-400">Weitere Angebote →</span>
+      </div>
+    </div>
   );
 }

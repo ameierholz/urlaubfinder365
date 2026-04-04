@@ -41,12 +41,12 @@
 .ibe-engine-instance .rating-sep{color:#cbd5e1}
 .ibe-engine-instance .rating-count{color:#64748b;font-weight:500;font-size:11px;margin-top:2px;display:block;width:100%}
 .ibe-engine-instance .rating-source{color:#64748b;font-size:10px;margin-top:2px;font-style:italic}
-.ibe-engine-instance .detail-list{display:flex;flex-direction:column;gap:0;margin-bottom:.25rem;border-left:2px solid #f1f5f9;padding-left:.75rem;margin-top:.25rem;width:100%}
+.ibe-engine-instance .detail-list{display:flex;flex-direction:column;gap:0;margin-bottom:.1rem;border-left:2px solid #f1f5f9;padding-left:.75rem;margin-top:.1rem;width:100%}
 .ibe-engine-instance .detail-item{font-size:12px;line-height:1.3;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;margin-bottom:1px}
 .ibe-engine-instance .detail-item i{margin-right:.5rem;color:#cbd5e1;width:.75rem;text-align:center}
 .ibe-engine-instance .detail-board{color:#334155}
 .ibe-engine-instance .detail-room{color:#64748b}
-.ibe-engine-instance .card-bottom{margin-top:auto;padding-top:.375rem;border-top:1px solid #f8fafc;display:flex;flex-direction:column;gap:.375rem;width:100%}
+.ibe-engine-instance .card-bottom{margin-top:auto;padding-top:.2rem;border-top:1px solid #f8fafc;display:flex;flex-direction:column;gap:.25rem;width:100%}
 .ibe-engine-instance .tag-row{display:flex;flex-wrap:nowrap;gap:.25rem;overflow:hidden}
 .ibe-engine-instance .tag{padding:3px 6px;border-radius:4px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:.25rem;white-space:nowrap}
 .ibe-engine-instance .tag-nights{background:#f1f5f9;color:#475569}
@@ -165,6 +165,10 @@
 .hw-widget-scope .hw-widget-container{max-width:1400px;margin:0 auto;padding:0 5px}
 .hw-widget-scope .hw-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));list-style:none;margin:0;padding:0}
 @media(min-width:1200px){.hw-widget-scope .hw-grid{grid-template-columns:repeat(6,1fr)}}
+/* Narrowed layout (e.g. destination page with sidebar): 3 columns, taller feel */
+@media(min-width:900px){.ibe-hw-narrowed .hw-widget-scope .hw-grid{grid-template-columns:repeat(3,1fr)!important}}
+.ibe-hw-narrowed .hw-widget-scope .hw-card-image-wrapper{height:160px!important}
+.ibe-hw-narrowed .hw-widget-scope .hw-subtitle{max-height:none!important;-webkit-line-clamp:unset!important}
 .hw-widget-scope .hw-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.04);transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer!important;display:flex;flex-direction:column;text-align:left;position:relative;height:100%;text-decoration:none}
 .hw-widget-scope .hw-card:hover{transform:translateY(-5px);box-shadow:0 20px 25px -5px rgba(0,0,0,.1);border-color:var(--hw-brand)}
 .hw-widget-scope .hw-card-image-wrapper{position:relative;width:100%;height:140px;overflow:hidden;background:var(--hw-brand);z-index:1}

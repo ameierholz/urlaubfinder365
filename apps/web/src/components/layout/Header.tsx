@@ -8,9 +8,9 @@ import { useAuth } from "@/context/AuthContext";
 import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 import {
   Menu, X, User, LogOut, LayoutDashboard,
-  ChevronDown, BookOpen, Calendar, Map,
+  ChevronDown, BookOpen, Calendar, Map, TrendingUp,
   Mail, Clock, Heart, Users, Sun, Leaf, Building2, Gem, Backpack, Star, Euro, UserCheck, Tent, Waves,
-  Users2, Globe, ShieldCheck, Sparkles, Compass,
+  Users2, Globe, ShieldCheck, ShieldAlert, Sparkles, Compass,
 } from "lucide-react";
 import { destinations } from "@/lib/destinations";
 
@@ -18,7 +18,7 @@ interface NavItem {
   id: string;
   label: string;
   href?: string;
-  children?: { label: string; href: string; icon?: React.ReactNode }[];
+  children?: { label: string; href: string; icon?: React.ReactNode; badge?: string }[];
 }
 
 // ─── Static data with translation keys ───────────────────────────────────────
@@ -58,10 +58,10 @@ const REISEBUDGET_DATA = [
 ];
 
 const COMMUNITY_SECTIONS = [
-  { label: "Reiseberichte",   href: "/community/reiseberichte/", icon: BookOpen, color: "text-teal-300",    desc: "Echte Erfahrungen von Reisenden" },
-  { label: "Reise-Gruppen",   href: "/community/gruppen/",       icon: Users2,   color: "text-cyan-300",    desc: "Finde Gleichgesinnte für dein Ziel" },
+  { label: "Urlaubsberichte",   href: "/community/reiseberichte/", icon: BookOpen, color: "text-teal-300",    desc: "Echte Erfahrungen von Reisenden" },
+  { label: "Urlaubs-Gruppen",   href: "/community/gruppen/",       icon: Users2,   color: "text-cyan-300",    desc: "Finde Gleichgesinnte für dein Ziel" },
   { label: "Mitglieder",      href: "/community/mitglieder/",    icon: Users,    color: "text-sky-300",     desc: "Entdecke aktive Reisende" },
-  { label: "Reisenden-Karte", href: "/extras/reisenden-karte/",  icon: Globe,    color: "text-emerald-300", desc: "Alle Reisenden auf der Weltkarte" },
+  { label: "Urlauber-Karte",  href: "/extras/reisenden-karte/",  icon: Globe,    color: "text-emerald-300", desc: "Alle Urlauber auf der Weltkarte" },
 ];
 
 const NEW_GROUPS = [
@@ -144,7 +144,12 @@ function DropdownMenu({ item, onClose }: { item: NavItem; onClose: () => void })
           className="flex items-center gap-2 px-4 py-2.5 text-sm text-white hover:bg-white/20"
         >
           {child.icon && <span className="opacity-80">{child.icon}</span>}
-          {child.label}
+          <span className="flex-1">{child.label}</span>
+          {child.badge && (
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-white leading-none">
+              {child.badge}
+            </span>
+          )}
         </Link>
       ))}
     </div>
@@ -211,6 +216,108 @@ function ThemenMegaMenu({ onClose }: { onClose: () => void }) {
   );
 }
 
+// ─── Mega-Menu: Extras ───────────────────────────────────────────────────────
+// Design: featured KI-strip oben + 3 kategorisierte Spalten + Footer-CTA
+// Bewusst anders als Community (Panel+Grid) und alle anderen Menus.
+const EXTRAS_GROUPS = [
+  {
+    label: "Planung",
+    items: [
+      { href: "/ki-reiseplaner/",         icon: Sparkles,  color: "text-purple-400",  label: "KI-Urlaubsplaner",  badge: "KI"  },
+      { href: "/urlaubsguides/",          icon: BookOpen,  color: "text-blue-400",    label: "Urlaubsguides",     badge: null  },
+      { href: "/extras/urlaubskalender/", icon: Calendar,  color: "text-pink-400",    label: "Urlaubskalender",   badge: null  },
+      { href: "/preisentwicklung/",       icon: TrendingUp,color: "text-emerald-400", label: "Preisentwicklung",  badge: "NEU" },
+    ],
+  },
+  {
+    label: "Einreise & Schutz",
+    items: [
+      { href: "/visum-checker/",     icon: ShieldCheck, color: "text-teal-400",  label: "Visum-Checker",     badge: null },
+      { href: "/reisewarnungen/",    icon: ShieldAlert, color: "text-red-400",   label: "Reisewarnungen",    badge: null },
+      { href: "/reiseversicherung/", icon: Star,        color: "text-indigo-400",label: "Reiseversicherung", badge: null },
+    ],
+  },
+  {
+    label: "Entdecken",
+    items: [
+      { href: "/erlebnisse/",             icon: Compass, color: "text-orange-400", label: "Erlebnisse",     badge: null },
+      { href: "/extras/reisenden-karte/", icon: Globe,   color: "text-cyan-400",   label: "Urlauber-Karte", badge: null },
+    ],
+  },
+] as const;
+
+function ExtrasMegaMenu({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="absolute top-full right-0 mt-1 rounded-xl shadow-xl border border-white/30 z-50 backdrop-blur-sm overflow-hidden"
+      style={{ backgroundColor: DROPDOWN_BG, width: "540px" }}
+    >
+      {/* Featured strip: KI-Urlaubsplaner */}
+      <Link
+        href="/ki-reiseplaner/"
+        onClick={onClose}
+        className="flex items-center gap-3 px-4 py-3 border-b border-white/15 bg-purple-500/15 hover:bg-purple-500/25 transition-colors group"
+      >
+        <div className="w-9 h-9 rounded-xl bg-purple-500/40 flex items-center justify-center shrink-0">
+          <Sparkles className="w-4.5 h-4.5 text-purple-300" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-bold text-white">KI-Urlaubsplaner</span>
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-purple-500/80 text-white leading-none">KI</span>
+          </div>
+          <p className="text-[11px] text-white/55 leading-snug truncate">Dein Reiseplan in Sekunden – Powered by Claude AI</p>
+        </div>
+        <span className="text-white/35 group-hover:text-white/70 text-sm shrink-0 group-hover:translate-x-0.5 transition-transform">→</span>
+      </Link>
+
+      {/* 3 kategorie-spalten */}
+      <div className="grid grid-cols-3 divide-x divide-white/10">
+        {EXTRAS_GROUPS.map((group) => (
+          <div key={group.label} className="p-4">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-white/35 mb-3 pb-2 border-b border-white/10">
+              {group.label}
+            </p>
+            <div className="space-y-0.5">
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onClose}
+                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white/15 transition-colors group/item"
+                  >
+                    <Icon className={`w-3.5 h-3.5 shrink-0 ${item.color}`} />
+                    <span className="text-[13px] text-white/80 group-hover/item:text-white flex-1 leading-tight">{item.label}</span>
+                    {item.badge && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/70 text-white leading-none shrink-0">
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-white/15 px-4 py-2.5 flex items-center justify-between bg-white/5">
+        <span className="text-[11px] text-white/40">9 kostenlose Tools für Urlauber</span>
+        <Link
+          href="/extras/"
+          onClick={onClose}
+          className="text-[12px] text-[#1db682] font-bold hover:text-[#25e09a] transition-colors"
+        >
+          Alle Extras ansehen →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 // ─── Mega-Menu: Community ─────────────────────────────────────────────────────
 function CommunityMegaMenu({ onClose }: { onClose: () => void }) {
   const tMega = useTranslations("megaMenu");
@@ -230,7 +337,7 @@ function CommunityMegaMenu({ onClose }: { onClose: () => void }) {
               {tMega("communityDesc")}
             </p>
             <ul className="space-y-1.5 mb-5">
-              {["✓ Reiseberichte schreiben", "✓ Gruppen beitreten", "✓ Länder sammeln", "✓ Reisende kennenlernen"].map((item) => (
+              {["✓ Urlaubsberichte schreiben", "✓ Gruppen beitreten", "✓ Länder sammeln", "✓ Reisende kennenlernen"].map((item) => (
                 <li key={item} className="text-[11px] text-white/65">{item}</li>
               ))}
             </ul>
@@ -408,8 +515,8 @@ function UrlaubsartenMegaMenu({ onClose }: { onClose: () => void }) {
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-4">
-            <p className="text-[10px] text-white/70 font-bold uppercase tracking-widest mb-1">Deine Reise</p>
-            <p className="text-sm font-extrabold text-white leading-tight">Finde deine Art zu reisen</p>
+            <p className="text-[10px] text-white/70 font-bold uppercase tracking-widest mb-1">Dein Urlaub</p>
+            <p className="text-sm font-extrabold text-white leading-tight">Finde deine Art zu verreisen</p>
           </div>
         </div>
 
@@ -523,23 +630,25 @@ export default function Header() {
       id: "community",
       label: t("community"),
       children: [
-        { label: "Reiseberichte",   href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" /> },
-        { label: "Reise-Gruppen",   href: "/community/gruppen/",       icon: <Users2   className="w-4 h-4" /> },
+        { label: "Urlaubsberichte",   href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" /> },
+        { label: "Urlaubs-Gruppen",   href: "/community/gruppen/",       icon: <Users2   className="w-4 h-4" /> },
         { label: "Mitglieder",      href: "/community/mitglieder/",    icon: <Users    className="w-4 h-4" /> },
-        { label: "Reisenden-Karte", href: "/extras/reisenden-karte/",  icon: <Globe    className="w-4 h-4" /> },
+        { label: "Urlauber-Karte",   href: "/extras/reisenden-karte/",  icon: <Globe    className="w-4 h-4" /> },
       ],
     },
     {
       id: "extras",
       label: t("extras"),
+      href: "/extras/",
       children: [
-        { label: t("reiseziele"),    href: "/urlaubsziele",           icon: <Map          className="w-4 h-4" /> },
-        { label: t("urlaubsguides"), href: "/urlaubsguides",          icon: <BookOpen     className="w-4 h-4" /> },
-        { label: "KI-Reiseplaner",        href: "/ki-reiseplaner/",   icon: <Sparkles     className="w-4 h-4" /> },
-        { label: "Aktivitäten & Tickets", href: "/erlebnisse/",      icon: <Compass      className="w-4 h-4" /> },
-        { label: "Visum-Checker",         href: "/visum-checker/",   icon: <ShieldCheck  className="w-4 h-4" /> },
-        { label: "Reiseversicherung",href: "/reiseversicherung/",     icon: <Star         className="w-4 h-4" /> },
-        { label: "Urlaubskalender",  href: "/extras/urlaubskalender", icon: <Calendar     className="w-4 h-4" /> },
+        { label: "Preisentwicklung",  href: "/preisentwicklung/",  icon: <TrendingUp   className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
+        { label: "Reisewarnungen",    href: "/reisewarnungen/",    icon: <ShieldAlert  className="w-4 h-4 text-red-400" /> },
+        { label: t("urlaubsguides"),    href: "/urlaubsguides",          icon: <BookOpen     className="w-4 h-4" /> },
+        { label: "KI-Urlaubsplaner",      href: "/ki-reiseplaner/",        icon: <Sparkles     className="w-4 h-4" /> },
+        { label: "Erlebnisse",             href: "/erlebnisse/",          icon: <Compass      className="w-4 h-4" /> },
+        { label: "Visum-Checker",       href: "/visum-checker/",         icon: <ShieldCheck  className="w-4 h-4" /> },
+        { label: "Reiseversicherung",   href: "/reiseversicherung/",     icon: <Star         className="w-4 h-4" /> },
+        { label: "Urlaubskalender",     href: "/extras/urlaubskalender", icon: <Calendar     className="w-4 h-4" /> },
       ],
     },
   ];
@@ -624,7 +733,9 @@ export default function Header() {
                           ? <UrlaubsartenMegaMenu onClose={() => setActiveDropdown(null)} />
                           : item.id === "community"
                             ? <CommunityMegaMenu onClose={() => setActiveDropdown(null)} />
-                            : <DropdownMenu item={item} onClose={() => setActiveDropdown(null)} />
+                            : item.id === "extras"
+                              ? <ExtrasMegaMenu onClose={() => setActiveDropdown(null)} />
+                              : <DropdownMenu item={item} onClose={() => setActiveDropdown(null)} />
                   )}
                 </div>
               ) : (
@@ -727,9 +838,11 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div
-          className="lg:hidden border-t border-white/20 max-h-[80vh] overflow-y-auto backdrop-blur-md"
+          className="lg:hidden border-t border-white/20 backdrop-blur-md flex flex-col max-h-[80vh]"
           style={{ backgroundColor: DROPDOWN_BG }}
         >
+          {/* Scrollbarer Nav-Bereich */}
+          <div className="overflow-y-auto flex-1">
           <div className="px-4 py-3 space-y-1">
             {navItems.map((item) => (
               <div key={item.id}>
@@ -795,7 +908,12 @@ export default function Header() {
                               className="flex items-center gap-2 py-1.5 text-sm text-white/90 hover:text-white"
                             >
                               {child.icon && <span className="opacity-70">{child.icon}</span>}
-                              {child.label}
+                              <span className="flex-1">{child.label}</span>
+                              {child.badge && (
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-white leading-none">
+                                  {child.badge}
+                                </span>
+                              )}
                             </Link>
                           ))}
                         </div>
@@ -806,7 +924,16 @@ export default function Header() {
               </div>
             ))}
           </div>
-          <div className="px-4 pb-4 pt-2 border-t border-white/20 flex gap-2">
+          </div>{/* end scrollable nav */}
+
+          {/* Sprache — mobile */}
+          <div className="px-4 pt-3 pb-2 border-t border-white/20 flex items-center gap-3">
+            <span className="text-xs text-white/50 font-medium">{t("sprache")}</span>
+            <LanguageSwitcher />
+          </div>
+
+          {/* Auth-Buttons — mobile */}
+          <div className="px-4 pb-4 pt-2 flex gap-2">
             {user ? (
               <>
                 <Link href="/dashboard" onClick={() => { setMobileOpen(false); window.scrollTo(0, 0); }} className="flex-1 text-center bg-white/20 text-white py-2 rounded-lg text-sm font-semibold">
