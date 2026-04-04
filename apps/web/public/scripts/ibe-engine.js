@@ -181,7 +181,7 @@
       <div class="rating-row">
         <span class="rating-score">
           <span style="color:#f59e0b">★</span> ${ratingDisp}
-          ${rec ? `<span class="rating-sep">|</span><span class="rating-rec">${rec}% empfehlen</span>` : ""}
+          ${rec ? `<span class="rating-sep">|</span><span class="rating-rec">${rec}% Empfehlung</span>` : ""}
         </span>
       </div>
       <span class="rating-source">HolidayCheck${ratingCt ? ` · ${ratingCt.toLocaleString("de-DE")} Bewertungen` : ""}</span>

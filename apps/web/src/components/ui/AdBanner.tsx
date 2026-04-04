@@ -13,7 +13,6 @@ declare global {
   }
 }
 
-let counter = 0;
 const JSAPI = "https://s.d.adup-tech.com/jsapi";
 
 /**
@@ -22,11 +21,8 @@ const JSAPI = "https://s.d.adup-tech.com/jsapi";
  * Container wird beim Unmount geleert damit Re-Embed sauber funktioniert.
  */
 export default function AdBanner({ placementKey, height = 200 }: Props) {
-  const idRef = useRef<string>("");
-  if (!idRef.current) {
-    idRef.current = `adup${++counter}`;
-  }
-  const adId = idRef.current;
+  // Deterministisch aus placementKey — identisch auf Server & Client
+  const adId = `adup_${placementKey.slice(0, 12)}`;
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +31,7 @@ export default function AdBanner({ placementKey, height = 200 }: Props) {
     const embed = () => {
       // Container leeren falls alter Inhalt vorhanden (SPA-Navigation)
       if (containerRef.current) containerRef.current.innerHTML = "";
-      window.uAd?.embed(adId, { placementkey: placementKey, responsive: false });
+      window.uAd?.embed(adId, { placementkey: placementKey, responsive: true });
     };
 
     // Immer uAd_init setzen – jsapi ruft es nach jedem Laden auf
