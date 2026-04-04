@@ -684,7 +684,7 @@ export default function Header() {
               </span>
             </div>
             <div className="flex items-center gap-3 text-white/70 text-[11px]">
-              <a href="/datenschutz/" className="hover:text-white transition-colors">{t("sprache")}</a>
+              <a href="/datenschutz/" className="hover:text-white transition-colors">Datenschutz</a>
               <span className="text-white/30">·</span>
               <a href="/impressum/" className="hover:text-white transition-colors">Impressum</a>
               <span className="text-white/30">·</span>
