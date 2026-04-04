@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink } from "lucide-react";
+import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink, Flame } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
 import { catalogToConfig, generateHeroFallback } from "@/lib/catalog-helpers";
 import { getHubDataByCountry } from "@/lib/reise-hub-data";
 import IbeHolidayWidget from "@/components/ibe/IbeHolidayWidget";
+import UrlaubsartenGrid from "@/components/destination/UrlaubsartenGrid";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
+import RightSidebar from "@/components/layout/RightSidebar";
 import { Suspense } from "react";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
@@ -14,10 +16,13 @@ import ReiseHub from "@/components/reise-hub/ReiseHub";
 import TiqetsActivitiesSection from "@/components/tiqets/TiqetsActivitiesSection";
 import DestinationCarousel, { type DestCarouselItem } from "@/components/ui/DestinationCarousel";
 import EntryInfoBox from "@/components/destination/EntryInfoBox";
+import TravelWarningBadge from "@/components/destination/TravelWarningBadge";
 import DestinationMap from "@/components/destination/DestinationMap";
 import ClimateChart from "@/components/destination/ClimateChart";
-import type { Metadata } from "next";
+import HomeDealCard from "@/components/home/HomeDealCard";
+import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
+import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 
 interface Props {
@@ -99,6 +104,12 @@ export default async function DestinationPage({ params }: Props) {
   const regionId = dest.ibeRegionId ?? dest.regionIds[0].toString();
   const cityId   = dest.ibeCityId ?? "";
   const hubData  = getHubDataByCountry(dest.country);
+
+  // Top-Deals: ibeRegionId hat Vorrang vor regionIds (Platzhalter-Werte vermeiden)
+  const dealRegionIds = dest.ibeRegionId
+    ? [Number(dest.ibeRegionId)]
+    : dest.regionIds;
+  const topDeals = await fetchTopDeals(dealRegionIds, 5);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -194,12 +205,15 @@ export default async function DestinationPage({ params }: Props) {
 
           {/* H1 + Beschreibung + Pills — vertikal zentriert im verbleibenden Platz */}
           <div className="flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-5">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-none drop-shadow-lg mb-1">
-              {dest.name}
-            </h1>
-            <p className="text-base md:text-lg font-semibold text-white/85 drop-shadow mb-2">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg mb-1">
               {isSuperRegion
-                ? <>Alle Reiseziele &amp; günstige Angebote im Überblick – {YEAR}</>
+                ? <>{dest.name} Urlaub <span className="text-white/70 font-extrabold">{YEAR}</span></>
+                : <>{dest.name} Urlaub – <span className="opacity-80">Pauschalreisen &amp; Angebote</span></>
+              }
+            </h1>
+            <p className="text-base md:text-lg font-semibold text-white/80 drop-shadow mb-2">
+              {isSuperRegion
+                ? <>Alle Urlaubsziele &amp; günstige Angebote im Überblick – {YEAR}</>
                 : <>Günstige Pauschalreisen, All Inclusive &amp; Last Minute – {YEAR}</>
               }
             </p>
@@ -219,6 +233,9 @@ export default async function DestinationPage({ params }: Props) {
               </Link>
               <Link href="#last-minute" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
                 <Zap className="w-3.5 h-3.5 shrink-0 text-[#00838F]" /> Last Minute
+              </Link>
+              <Link href="#top-deals" className="inline-flex items-center gap-1.5 bg-red-600/90 hover:bg-red-600 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
+                <Flame className="w-3.5 h-3.5 shrink-0" /> Top-Deals
               </Link>
               {dest.tiqetsCityId && (
                 <Link href="#aktivitaeten" className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-800 px-3.5 py-1.5 rounded-full text-xs font-bold shadow transition-all backdrop-blur-sm">
@@ -266,139 +283,254 @@ export default async function DestinationPage({ params }: Props) {
       })()}
 
 
-      {/* Gesponserte Angebote — Stadtseite oben */}
-      <Suspense fallback={null}>
-        <SponsoredAngebote
-          context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
-          position="oben"
-          maxItems={4}
-        />
-      </Suspense>
-
-      {/* Urlaubsarten-Widget */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-1">
-          Beliebte Urlaubsarten in <span className="text-sand-500">{dest.name}</span>
-        </h2>
-        <IbeHolidayWidget regionId={regionId} name={dest.name} />
+      {/* Reisewarnung-Badge (nur wenn aktive Warnung vorliegt) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <Suspense fallback={null}>
+          <TravelWarningBadge countryName={dest.country} />
+        </Suspense>
       </div>
 
-      {/* Pauschalreisen */}
-      <div id="pauschalreisen" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 scroll-mt-24">
-        <h2 className="text-4xl font-bold text-gray-900 mb-2">
-          Entspannt &amp; perfekt organisiert: Pauschalreisen nach <span className="text-sand-500">{dest.name}</span>
-        </h2>
-        <p className="text-gray-500 border-l-4 border-sand-300 pl-3 mb-6">
-          Entdecke perfekt geschnürte Pauschalangebote für {dest.name} inklusive Hotel und Flug zum Bestpreis!
-        </p>
-        <IbeTeaser
-          regionId={regionId}
-          cityId={cityId}
-          from="14"
-          to="42"
-          duration="7-7"
-          adults="2"
-          category="3"
-          minRecommrate="40"
-          excludeAi
-          hideHeading
-        />
-      </div>
+      {/* Two-Column Layout: Main Content + Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="xl:flex xl:gap-8 xl:items-start">
 
-      {/* All-Inclusive */}
-      <div id="all-inclusive" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 scroll-mt-24">
-        <h2 className="text-4xl font-bold text-gray-900 mb-2">
-          Rundum sorglos &amp; Luxus pur: All Inclusive Urlaub in <span className="text-sand-500">{dest.name}</span>
-        </h2>
-        <p className="text-gray-500 border-l-4 border-sand-300 pl-3 mb-6">
-          Genieße maximale Entspannung mit voller Kostenkontrolle bei deinem All Inclusive Urlaub in {dest.name}.
-        </p>
-        <IbeTeaser
-          regionId={regionId}
-          cityId={cityId}
-          boardCode="AI"
-          from="14"
-          to="42"
-          duration="7-7"
-          adults="2"
-          category="3"
-          minRecommrate="40"
-          hideHeading
-        />
-      </div>
+          {/* ── Main Column ──────────────────────────────────────────────── */}
+          <div className="xl:flex-1 xl:min-w-0">
 
-      {/* Last Minute */}
-      <div id="last-minute" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 scroll-mt-24">
-        <h2 className="text-4xl font-bold text-gray-900 mb-2">
-          Spontan in den Urlaub verreisen: Last Minute Deals für <span className="text-sand-500">{dest.name}</span>
-        </h2>
-        <p className="text-gray-500 border-l-4 border-sand-300 pl-3 mb-6">
-          Spontan weg und kräftig sparen! Entdecke unsere aktuellen Reiseschnäppchen für {dest.name} zum absoluten Vorteilspreis.
-        </p>
-        <IbeTeaser
-          regionId={regionId}
-          cityId={cityId}
-          from="3"
-          to="17"
-          duration="7-7"
-          adults="2"
-          category="3"
-          minRecommrate="40"
-          hideHeading
-        />
-      </div>
-
-      {/* Tiqets Aktivitäten */}
-      {dest.tiqetsCityId && (
-        <div id="aktivitaeten" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 scroll-mt-24">
-          <div className="mb-4">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Aktivitäten &amp; Tickets in <span className="text-sand-500">{dest.name}</span>
-            </h2>
-          </div>
-          {dest.tiqetsNiches && dest.tiqetsNiches.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {dest.tiqetsNiches.map((niche) => (
-                <Link
-                  key={niche.slug}
-                  href={`/aktivitaeten/${dest.slug}/${niche.slug}/`}
-                  className="inline-flex items-center gap-1.5 bg-teal-50 border border-teal-200 text-[#00838F] hover:bg-brand-teal hover:text-white hover:border-brand-teal text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
-                >
-                  🎟️ {niche.label}
-                </Link>
-              ))}
+            {/* Gesponserte Angebote oben — mobile only */}
+            <div className="xl:hidden">
+              <Suspense fallback={null}>
+                <SponsoredAngebote
+                  context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
+                  position="oben"
+                  maxItems={4}
+                />
+              </Suspense>
             </div>
-          )}
-          <TiqetsActivitiesSection cityId={dest.tiqetsCityId} cityName={dest.name} citySlug={dest.slug} />
+
+            {/* TOP-DEALS */}
+            {topDeals.length > 0 && (
+              <div id="top-deals" className="mt-12 scroll-mt-24">
+                <div className="relative rounded-2xl overflow-hidden mb-6">
+                  <div className="absolute inset-0 bg-linear-to-br from-red-800 via-red-600 to-orange-500" />
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                  <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                    <span className="text-5xl shrink-0 drop-shadow">🔥</span>
+                    <div>
+                      <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Täglich aktuell</p>
+                      <h2 className="text-xl font-black text-white leading-tight">
+                        Top-Deals: {dest.name} zum Bestpreis
+                      </h2>
+                      <p className="text-sm text-white/70 mt-0.5">Bestbewertete Hotels · günstigstes Angebot heute</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Reihe 1: 2 große Featured-Kacheln */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {topDeals.slice(0, 2).map((offer, i) => (
+                    <HomeDealCard key={offer.product_code} offer={offer} priority={i === 0} featured />
+                  ))}
+                </div>
+                {/* Reihe 2: 3 kleinere Kacheln */}
+                {topDeals.length > 2 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                    {topDeals.slice(2, 5).map((offer) => (
+                      <HomeDealCard key={offer.product_code} offer={offer} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Urlaubsarten-Navigation */}
+            <div className="mt-12">
+              <div className="relative rounded-2xl overflow-hidden mb-5">
+                <div className="absolute inset-0 bg-linear-to-br from-[#1db682] via-[#00838F] to-[#006d78]" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                  <span className="text-5xl shrink-0 drop-shadow">⭐</span>
+                  <div>
+                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Für jeden Geschmack</p>
+                    <h2 className="text-xl font-black text-white leading-tight">
+                      Beliebte Urlaubsarten in {dest.name}
+                    </h2>
+                    <p className="text-sm text-white/70 mt-0.5">Tagesaktuelle Preise · direkt buchbar</p>
+                  </div>
+                </div>
+              </div>
+              <UrlaubsartenGrid regionId={regionId} destName={dest.name} />
+            </div>
+
+            {/* Pauschalreisen */}
+            <div id="pauschalreisen" className="mt-12 scroll-mt-24">
+              <div className="relative rounded-2xl overflow-hidden mb-6">
+                <div className="absolute inset-0 bg-linear-to-br from-[#0f4c75] via-[#1b6ca8] to-[#00838F]" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                  <span className="text-5xl shrink-0 drop-shadow">✈️</span>
+                  <div>
+                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Pauschalreisen</p>
+                    <h2 className="text-xl font-black text-white leading-tight">
+                      Entspannt &amp; perfekt organisiert nach {dest.name}
+                    </h2>
+                    <p className="text-sm text-white/70 mt-0.5">Hotel + Flug zum Bestpreis – perfekt geschnürt</p>
+                  </div>
+                </div>
+              </div>
+              <IbeTeaser
+                regionId={regionId}
+                cityId={cityId}
+                from="14"
+                to="42"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                excludeAi
+                hideHeading
+              />
+            </div>
+
+            {/* All-Inclusive */}
+            <div id="all-inclusive" className="mt-12 scroll-mt-24">
+              <div className="relative rounded-2xl overflow-hidden mb-6">
+                <div className="absolute inset-0 bg-linear-to-br from-[#b06a00] via-[#c97d00] to-[#e8a000]" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                  <span className="text-5xl shrink-0 drop-shadow">🏖️</span>
+                  <div>
+                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">All Inclusive</p>
+                    <h2 className="text-xl font-black text-white leading-tight">
+                      Rundum sorglos &amp; Luxus pur in {dest.name}
+                    </h2>
+                    <p className="text-sm text-white/70 mt-0.5">Maximale Entspannung mit voller Kostenkontrolle</p>
+                  </div>
+                </div>
+              </div>
+              <IbeTeaser
+                regionId={regionId}
+                cityId={cityId}
+                boardCode="AI"
+                from="14"
+                to="42"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                hideHeading
+              />
+            </div>
+
+            {/* Last Minute */}
+            <div id="last-minute" className="mt-12 scroll-mt-24">
+              <div className="relative rounded-2xl overflow-hidden mb-6">
+                <div className="absolute inset-0 bg-linear-to-br from-[#c0392b] via-[#e74c3c] to-[#e67e22]" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                  <span className="text-5xl shrink-0 drop-shadow">⚡</span>
+                  <div>
+                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Last Minute</p>
+                    <h2 className="text-xl font-black text-white leading-tight">
+                      Spontan in den Urlaub: Last Minute Deals für {dest.name}
+                    </h2>
+                    <p className="text-sm text-white/70 mt-0.5">Spontan weg &amp; kräftig sparen – aktuelle Schnäppchen</p>
+                  </div>
+                </div>
+              </div>
+              <IbeTeaser
+                regionId={regionId}
+                cityId={cityId}
+                from="3"
+                to="17"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                hideHeading
+              />
+            </div>
+
+            {/* Tiqets Aktivitäten */}
+            {dest.tiqetsCityId && (
+              <div id="aktivitaeten" className="mt-12 scroll-mt-24">
+                <div className="mb-4">
+                  <h2 className="text-4xl font-bold text-gray-900">
+                    Aktivitäten &amp; Tickets in <span className="text-sand-500">{dest.name}</span>
+                  </h2>
+                </div>
+                {dest.tiqetsNiches && dest.tiqetsNiches.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {dest.tiqetsNiches.map((niche) => (
+                      <Link
+                        key={niche.slug}
+                        href={`/aktivitaeten/${dest.slug}/${niche.slug}/`}
+                        className="inline-flex items-center gap-1.5 bg-teal-50 border border-teal-200 text-[#00838F] hover:bg-brand-teal hover:text-white hover:border-brand-teal text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
+                      >
+                        🎟️ {niche.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                <TiqetsActivitiesSection cityId={dest.tiqetsCityId} cityName={dest.name} citySlug={dest.slug} />
+              </div>
+            )}
+
+            {/* Gesponserte Angebote unten — mobile only */}
+            <div className="xl:hidden">
+              <Suspense fallback={null}>
+                <SponsoredAngebote
+                  context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
+                  position="unten"
+                  maxItems={4}
+                />
+              </Suspense>
+            </div>
+
+          </div>{/* end main column */}
+
+          {/* ── Sidebar ──────────────────────────────────────────────────── */}
+          <aside className="hidden xl:block w-72 shrink-0 mt-12">
+            <div className="sticky top-24">
+              <RightSidebar
+                extrasBox={{
+                  image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=200&q=70&auto=format&fit=crop",
+                  eyebrow: "Jetzt buchen",
+                  title: `${dest.name} – Günstig in den Urlaub`,
+                  description: `Pauschalreisen, All-Inclusive & Last-Minute nach ${dest.name} zum Bestpreis.`,
+                  href: `/urlaubsziele/${dest.slug}/`,
+                  ctaLabel: "Angebote vergleichen →",
+                }}
+                seoLinksTitle="✈️ Beliebte Urlaubsziele"
+                seoLinks={[
+                  { href: "/urlaubsziele/tuerkei/",       label: "Türkei" },
+                  { href: "/urlaubsziele/mallorca/",       label: "Mallorca" },
+                  { href: "/urlaubsziele/griechenland/",   label: "Griechenland" },
+                  { href: "/urlaubsziele/kanaren/",        label: "Kanaren" },
+                  { href: "/urlaubsziele/dubai/",          label: "Dubai" },
+                  { href: "/urlaubsziele/",                label: "Alle Urlaubsziele →" },
+                ]}
+              />
+            </div>
+          </aside>
+
         </div>
-      )}
+      </div>{/* end two-column layout */}
 
-      {/* Gesponserte Angebote — Stadtseite unten + Region */}
-      <Suspense fallback={null}>
-        <SponsoredAngebote
-          context={{ type: "destination", cityName: dest.name, countryName: dest.country }}
-          position="unten"
-          maxItems={4}
-        />
-      </Suspense>
-
-      {/* Boarding Pass / Fluginfo */}
+      {/* Flugverbindungen – Vollbreite außerhalb Sidebar-Layout */}
       {dest.iataCode && (
-        <div id="fluginfo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-          <div className="flex items-center justify-between gap-4 mt-12 mb-0">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-900">
-                Deine Flugverbindungen nach <span className="text-sand-500">{dest.name}</span>
-              </h2>
-              <p className="text-gray-600 mt-1">
-                Wähle deinen Abflughafen für günstige Flüge nach {dest.name}.
-              </p>
-            </div>
-            <div className="hidden md:flex items-center gap-2 bg-white px-5 py-2 rounded-2xl border-2 border-teal-200/60 shadow-md shrink-0">
-              <span className="text-teal-500 text-lg">✈</span>
-              <span className="font-black text-gray-900 uppercase text-sm tracking-wide">
-                {dest.name} wartet!
-              </span>
+        <div id="fluginfo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-24">
+          <div className="relative rounded-2xl overflow-hidden mb-6">
+            <div className="absolute inset-0 bg-linear-to-br from-[#0f2027] via-[#1b3a4b] to-[#00838F]" />
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+            <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+              <span className="text-5xl shrink-0 drop-shadow">✈️</span>
+              <div>
+                <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Flugverbindungen</p>
+                <h2 className="text-xl font-black text-white leading-tight">
+                  Deine Flüge nach {dest.name}
+                </h2>
+                <p className="text-sm text-white/70 mt-0.5">Wähle deinen Abflughafen für günstige Direktflüge</p>
+              </div>
             </div>
           </div>
           <IbeBoardingPass
@@ -510,15 +642,15 @@ export default async function DestinationPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Alle Reiseziele – Carousel */}
+      {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
 
-      {/* Guide CTA unten – nur wenn Reiseführer vorhanden */}
+      {/* Guide CTA unten – nur wenn Urlaubsführer vorhanden */}
       {dest.guideSlug && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="mt-8 bg-linear-to-r from-blue-600 to-blue-500 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl font-bold mb-1">Dein digitaler Reisebegleiter für {dest.name}</h2>
+              <h2 className="text-xl font-bold mb-1">Dein digitaler Urlaubsbegleiter für {dest.name}</h2>
               <p className="text-blue-100 text-sm">
                 Einreiseinfos, Klima, Sehenswürdigkeiten, Gesundheitstipps und mehr.
               </p>
@@ -527,7 +659,7 @@ export default async function DestinationPage({ params }: Props) {
               href={`/urlaubsguides/${dest.guideSlug}/`}
               className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap"
             >
-              Zum Reiseführer →
+              Zum Urlaubsführer →
             </Link>
           </div>
         </div>
