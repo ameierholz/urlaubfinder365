@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createSupabaseServer } from "@/lib/supabase-server";
-import { createClient } from "@supabase/supabase-js";
+import { requireAdmin, supabaseAdmin as getAdmin } from "@/lib/api-helpers";
 import { stripe } from "@/lib/stripe";
 import { sendMail, FROM_DEFAULT } from "@/lib/email";
 import { EmailWerbeplatzFreigabe } from "@/emails/templates/EmailWerbeplatzFreigabe";
 import { EmailWerbeplatzAbgelehnt } from "@/emails/templates/EmailWerbeplatzAbgelehnt";
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabaseAdmin = getAdmin();
 
 const PAKET_LABEL: Record<string, string> = {
   starter:  "Starter (99 €/Monat)",
@@ -18,10 +14,9 @@ const PAKET_LABEL: Record<string, string> = {
 };
 
 export async function POST(req: NextRequest) {
-  // Admin-Auth prüfen
-  const supabase = await createSupabaseServer();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
+  // Admin-Auth + Rollen-Prüfung
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: "Nicht autorisiert" }, { status: 403 });
 
   const { id, aktion, grund } = await req.json() as {
     id: string;

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/dashboard/", "/login/", "/register/", "/api/"],
+        disallow: ["/dashboard/", "/login/", "/register/", "/api/", "/admin/", "/anbieter/", "/buchung/", "/auth/"],
       },
       // KI-Crawler explizit erlauben (GEO – Generative Engine Optimization)
       { userAgent: "GPTBot",        allow: "/" },

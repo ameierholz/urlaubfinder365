@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit } from "@/lib/api-helpers";
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY ?? "";
 const BREVO_LIST_ID = Number(process.env.BREVO_LIST_ID ?? "2"); // Default Liste ID 2
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, 5, 60_000);
+  if (limited) return limited;
+
   try {
     const { email, firstName, lastName, action } = await req.json();
 
@@ -30,20 +34,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: res.ok });
     }
 
-    // Anmelden / aktualisieren
+    // E-Mail-Format validieren
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: "Ungültige E-Mail-Adresse" }, { status: 400 });
+    }
+
+    // Double-Opt-In: Brevo sendet Bestaetigungsmail mit Template #1
     const body: Record<string, unknown> = {
       email,
-      listIds: [BREVO_LIST_ID],
-      updateEnabled: true, // existierende Kontakte updaten statt Fehler
+      includeListIds: [BREVO_LIST_ID],
+      templateId: 1,
+      redirectionUrl: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.urlaubfinder365.de"}/newsletter-bestaetigt/`,
       attributes: {
         VORNAME: firstName ?? "",
         NACHNAME: lastName ?? "",
-        OPT_IN: true,
-        OPT_IN_DATE: new Date().toISOString().split("T")[0],
       },
     };
 
-    const res = await fetch("https://api.brevo.com/v3/contacts", {
+    const res = await fetch("https://api.brevo.com/v3/contacts/doubleOptinConfirmation", {
       method: "POST",
       headers: {
         "api-key": BREVO_API_KEY,

@@ -12,7 +12,7 @@ const supabaseAdmin = createClient(
 
 interface Props {
   params: Promise<{ nummer: string }>;
-  searchParams: Promise<{ print?: string }>;
+  searchParams: Promise<{ print?: string; token?: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -25,7 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TicketPage({ params, searchParams }: Props) {
   const { nummer } = await params;
-  const { print } = await searchParams;
+  const { print, token } = await searchParams;
+
+  // Buchungs-Ticket nur mit gueltigem QR-Token zugaenglich
+  if (!token) notFound();
 
   const { data } = await supabaseAdmin
     .from("buchungen")
@@ -36,6 +39,7 @@ export default async function TicketPage({ params, searchParams }: Props) {
       anbieter_profile:anbieter_id (name, telefon, avatar_url, verifiziert)
     `)
     .eq("buchungs_nummer", nummer)
+    .eq("qr_token", token)
     .eq("status", "bestaetigt")
     .single();
 

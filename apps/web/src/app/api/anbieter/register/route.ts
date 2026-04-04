@@ -1,25 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-function adminClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { persistSession: false } }
-  );
-}
+import { rateLimit, isValidEmail, supabaseAdmin } from "@/lib/api-helpers";
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, 5, 300_000); // 5 Versuche pro 5 Min
+  if (limited) return limited;
+
   const { name, email, password } = await req.json();
 
   if (!name || !email || !password) {
     return NextResponse.json({ error: "Name, E-Mail und Passwort sind erforderlich." }, { status: 400 });
   }
+
+  if (typeof name !== "string" || name.trim().length < 2 || name.length > 100) {
+    return NextResponse.json({ error: "Name muss zwischen 2 und 100 Zeichen lang sein." }, { status: 400 });
+  }
+
+  if (!isValidEmail(email)) {
+    return NextResponse.json({ error: "Ungültige E-Mail-Adresse." }, { status: 400 });
+  }
+
   if (password.length < 8) {
     return NextResponse.json({ error: "Passwort muss mindestens 8 Zeichen haben." }, { status: 400 });
   }
 
-  const supabase = adminClient();
+  if (!/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+    return NextResponse.json({ error: "Passwort muss mindestens einen Großbuchstaben und eine Zahl enthalten." }, { status: 400 });
+  }
+
+  const supabase = supabaseAdmin();
 
   // 1. Auth-User anlegen
   const { data: authData, error: authError } = await supabase.auth.admin.createUser({

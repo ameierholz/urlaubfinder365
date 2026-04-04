@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, TravelPreferences } from "@/types";
 import { updateTravelPreferences } from "@/lib/supabase-db";
-import { Settings, Wallet, Users, Calendar, Heart, CheckCircle, Mail } from "lucide-react";
+import { Settings, Wallet, Users, Calendar, Heart, CheckCircle, Mail, Download, Trash2, AlertTriangle, Loader2 } from "lucide-react";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 interface Props {
@@ -224,7 +224,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
           Newsletter & Angebote
         </h3>
         <p className="text-xs text-gray-500 mb-4">
-          Erhalte wöchentlich die besten Reiseangebote, Deals und Urlaubsideen per E-Mail.
+          Erhalte wöchentlich die besten Urlaubsangebote, Deals und Urlaubsideen per E-Mail.
         </p>
         <NewsletterSignup
           variant="inline"
@@ -233,7 +233,121 @@ export default function SettingsTab({ user, userProfile }: Props) {
           lastName={user.displayName?.split(" ").slice(1).join(" ") ?? ""}
         />
       </div>
+
+      {/* Daten & Konto (DSGVO) */}
+      <DataPrivacySection />
     </div>
+    </div>
+  );
+}
+
+/** DSGVO: Datenexport + Konto loeschen */
+function DataPrivacySection() {
+  const [exporting, setExporting] = useState(false);
+  const [deleting, setDeleting]   = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+
+  async function handleExport() {
+    setExporting(true);
+    try {
+      const res = await fetch("/api/user/export");
+      if (!res.ok) throw new Error();
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "urlaubfinder365-meine-daten.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Fehler beim Exportieren. Bitte versuche es erneut.");
+    } finally {
+      setExporting(false);
+    }
+  }
+
+  async function handleDelete() {
+    setDeleting(true);
+    try {
+      const res = await fetch("/api/user/delete", { method: "DELETE" });
+      if (!res.ok) throw new Error();
+      window.location.href = "/";
+    } catch {
+      alert("Fehler beim Löschen. Bitte kontaktiere info@urlaubfinder365.de");
+      setDeleting(false);
+    }
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
+      <h3 className="font-bold text-gray-800 flex items-center gap-2">
+        <Settings className="w-4 h-4 text-gray-400" />
+        Daten & Datenschutz
+      </h3>
+
+      {/* Export */}
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-gray-700">Meine Daten exportieren</p>
+          <p className="text-xs text-gray-500">Lade alle deine gespeicherten Daten als JSON-Datei herunter (DSGVO Art. 20).</p>
+        </div>
+        <button
+          onClick={handleExport}
+          disabled={exporting}
+          className="shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
+        >
+          {exporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+          Exportieren
+        </button>
+      </div>
+
+      <hr className="border-gray-100" />
+
+      {/* Löschen */}
+      <div className="flex items-start gap-3">
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-red-600">Konto & Daten löschen</p>
+          <p className="text-xs text-gray-500">Alle deine Daten werden unwiderruflich gelöscht (DSGVO Art. 17).</p>
+        </div>
+        <button
+          onClick={() => setShowDelete(true)}
+          className="shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-red-600 border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
+        >
+          <Trash2 className="w-3.5 h-3.5" />
+          Konto löschen
+        </button>
+      </div>
+
+      {/* Bestätigungs-Dialog */}
+      {showDelete && (
+        <div className="mt-3 bg-red-50 border border-red-200 rounded-xl p-4 space-y-3">
+          <div className="flex items-start gap-2">
+            <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-bold text-red-700">Bist du sicher?</p>
+              <p className="text-xs text-red-600 mt-1">
+                Alle deine Daten (Profil, Favoriten, Preisalarme, Berichte, Tipps) werden unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowDelete(false)}
+              className="flex-1 py-2 text-xs font-semibold border border-gray-200 rounded-xl hover:bg-white transition-colors"
+            >
+              Abbrechen
+            </button>
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="flex-1 py-2 text-xs font-bold bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
+            >
+              {deleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
+              Endgültig löschen
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

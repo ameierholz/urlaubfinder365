@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { rateLimit } from "@/lib/api-helpers";
+
+export const maxDuration = 60;
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(req: NextRequest) {
+  // Strenges Rate-Limiting: max 3 Anfragen pro Minute (teurer KI-API-Call)
+  const limited = rateLimit(req, 3, 60_000);
+  if (limited) return limited;
+
   try {
     const { ziel, tage, budget, reisende, monat, interessen, unterkunft } = await req.json();
 
@@ -15,9 +22,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "KI nicht konfiguriert" }, { status: 503 });
     }
 
-    const prompt = `Du bist ein erfahrener Reiseplaner. Erstelle einen detaillierten Reiseplan für folgende Reise:
+    const prompt = `Du bist ein erfahrener Urlaubsplaner. Erstelle einen detaillierten Reiseplan für folgende Reise:
 
-**Reiseziel:** ${ziel}
+**Urlaubsziel:** ${ziel}
 **Reisedauer:** ${tage} Tage
 **Reisende:** ${reisende} Person(en)
 **Budget:** ${budget || "flexibel"} pro Person
@@ -76,7 +83,7 @@ Erstelle für jeden der ${tage} Tage mindestens 3 Aktivitäten (Vormittag, Nachm
     return NextResponse.json({ reiseplan });
 
   } catch (e) {
-    console.error("Reiseplaner API Error:", e);
+    console.error("Urlaubsplaner API Error:", e instanceof Error ? e.message : String(e));
     return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }

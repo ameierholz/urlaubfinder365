@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
-  } catch {
+  } catch (e) {
+    console.warn("[stripe-webhook] Signature verification failed:", e instanceof Error ? e.message : "unknown");
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
         const { data: buchung } = await supabaseAdmin
           .from("buchungen")
           .select(`
-            buchungs_nummer, kunden_name, kunden_email,
+            buchungs_nummer, qr_token, kunden_name, kunden_email,
             datum, personen, gesamtpreis,
             angebote:angebot_id (titel, ziel, treffpunkt),
             anbieter_profile:anbieter_id (name, email, telefon, sprache)
@@ -59,7 +60,7 @@ export async function POST(req: NextRequest) {
           const anbieter = buchung.anbieter_profile as unknown as { name: string; email: string; telefon?: string; sprache?: string } | null;
           const fmt = (n: number) => n.toFixed(2).replace(".", ",") + " €";
           const datumFormatiert = new Date(buchung.datum).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-          const ticketUrl = `https://urlaubfinder365.de/buchung/ticket/${buchung.buchungs_nummer}/`;
+          const ticketUrl = `https://urlaubfinder365.de/buchung/ticket/${buchung.buchungs_nummer}/?token=${encodeURIComponent((buchung as unknown as { qr_token: string }).qr_token)}`;
 
           // Email an Kunden
           await sendMail({

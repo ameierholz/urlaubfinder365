@@ -10,9 +10,7 @@ import CookieBanner from "@/components/ui/CookieBanner";
 import AccessibilityWidget from "@/components/ui/AccessibilityWidget";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import Script from "next/script";
+import ConsentScripts from "@/components/ui/ConsentScripts";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
@@ -94,9 +92,23 @@ export async function generateMetadata({
         },
       ],
     },
+    twitter: {
+      card: "summary_large_image",
+      site: "@urlaubfinder365",
+      creator: "@urlaubfinder365",
+      images: [
+        {
+          url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+          alt: `${t("homeTitle")} | ${YEAR}`,
+        },
+      ],
+    },
     alternates: {
       canonical: locale === "de" ? `${SITE_URL}/` : `${SITE_URL}/${locale}/`,
-      languages: alternateLanguages,
+      languages: {
+        ...alternateLanguages,
+        "x-default": `${SITE_URL}/`,
+      },
     },
   };
 }
@@ -172,8 +184,8 @@ export default async function LocaleLayout({
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://api.specials.de" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://assets.specials.de" />
         <link rel="dns-prefetch" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://flagcdn.com" />
@@ -205,14 +217,7 @@ export default async function LocaleLayout({
             <ScrollToTopButton />
           </AuthProvider>
         </NextIntlClientProvider>
-        {/* Drittanbieter-Scripts nach Hydration laden → kein Mismatch */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
-        <Analytics />
-        <SpeedInsights />
+        <ConsentScripts />
       </body>
     </html>
   );

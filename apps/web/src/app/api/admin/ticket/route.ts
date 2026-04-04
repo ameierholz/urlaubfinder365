@@ -1,22 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import { createSupabaseServer } from "@/lib/supabase-server";
-
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { requireAdmin, supabaseAdmin } from "@/lib/api-helpers";
 
 export async function GET(req: NextRequest) {
-  // Nur eingeloggte Admins dürfen diese Route nutzen
-  const supabase = await createSupabaseServer();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Nur eingeloggte Admins/Moderatoren duerfen diese Route nutzen
+  const user = await requireAdmin();
+  if (!user) return NextResponse.json({ error: "Nicht autorisiert" }, { status: 403 });
+
+  const supabaseAdminClient = supabaseAdmin();
 
   const nummer = req.nextUrl.searchParams.get("nummer");
   if (!nummer) return NextResponse.json({ error: "nummer fehlt" }, { status: 400 });
 
-  const { data, error } = await supabaseAdmin
+  const { data, error } = await supabaseAdminClient
     .from("buchungen")
     .select(`
       buchungs_nummer, qr_token, kunden_name,

@@ -82,7 +82,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <h3 className="font-semibold text-gray-800 mb-1">c) Newsletter (Brevo)</h3>
           <p className="mb-3">
             Mit deiner ausdrücklichen Einwilligung kannst du unseren kostenlosen Newsletter mit
-            Reiseangeboten, Preisalarmen und Reisetipps abonnieren. Für den Versand nutzen wir{" "}
+            Urlaubsangeboten, Preisalarmen und Urlaubstipps abonnieren. Für den Versand nutzen wir{" "}
             <strong>Brevo</strong> (ehemals Sendinblue), betrieben von der Sendinblue GmbH,
             Köpenicker Str. 126, 10179 Berlin.
           </p>
@@ -237,7 +237,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div>
               <span className="font-semibold text-gray-800">specials.de (Ypsilon.Net AG) – Pauschalreisen, Last Minute & All Inclusive</span>
               <p>
-                Reiseangebote für Pauschalreisen, Last Minute, All Inclusive und Frühbucher werden
+                Urlaubsangebote für Pauschalreisen, Last Minute, All Inclusive und Frühbucher werden
                 über die API von specials.de, einer Marke der <strong>Ypsilon.Net AG</strong>,
                 geladen. Dabei werden technische Anfragedaten (IP-Adresse, Anfrageparameter) an
                 deren Server übertragen. Buchungen erfolgen direkt beim jeweiligen
@@ -324,7 +324,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
             <div>
               <span className="font-semibold text-gray-800">Google Fonts / Schriftarten</span>
-              <p>Schriften werden lokal eingebettet (self-hosted) – keine Verbindung zu Google-Servern beim Seitenaufruf.</p>
+              <p>Die Hauptschrift (Inter) wird lokal eingebettet (self-hosted). Ergänzende Schriften (Plus Jakarta Sans, Font Awesome) werden asynchron von Google Fonts bzw. Cloudflare CDN geladen. Dabei kann deine IP an Google (USA) übertragen werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
             </div>
           </div>
         </section>

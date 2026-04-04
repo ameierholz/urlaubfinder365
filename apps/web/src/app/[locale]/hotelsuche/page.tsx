@@ -4,7 +4,7 @@ import { Hotel, Star, ShieldCheck, RefreshCcw, Tag, Wifi, CheckCircle } from "lu
 import CollapsibleIbeWidget from "@/components/widgets/CollapsibleIbeWidget";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import PageNavBar from "@/components/ui/PageNavBar";
-import AdBanner from "@/components/ui/AdBanner";
+import RightSidebar from '@/components/layout/RightSidebar';
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -64,7 +64,7 @@ const FAQS = [
   },
   {
     q: "Wie finde ich das günstigste Hotel?",
-    a: "Unser Suchrechner vergleicht täglich tausende Hotelangebote von über 200 Veranstaltern. Einfach Reiseziel, Zeitraum und Personen eingeben – die Ergebnisse sind nach Preis sortiert, Buchung direkt beim Anbieter ohne Aufpreis.",
+    a: "Unser Suchrechner vergleicht täglich tausende Hotelangebote von über 200 Veranstaltern. Einfach Urlaubsziel, Zeitraum und Personen eingeben – die Ergebnisse sind nach Preis sortiert, Buchung direkt beim Anbieter ohne Aufpreis.",
   },
   {
     q: "Was bedeutet 'direkte Strandlage'?",
@@ -200,7 +200,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <CollapsibleIbeWidget
           dataSrc="https://b2b.specials.de/index/jump/124/2818/993243/"
           label="Hotel suchen & buchen"
-          hint="Alle Reiseziele · Alle Kategorien · 200+ Veranstalter"
+          hint="Alle Urlaubsziele · Alle Kategorien · 200+ Veranstalter"
         />
       </div>
 
@@ -221,7 +221,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
           <section>
             <div className="flex items-center gap-2 mb-3">
-              <img src="https://flagcdn.com/48x36/tr.png" alt="Türkei" width={24} height={18} className="rounded shrink-0" />
+              <img src="https://flagcdn.com/48x36/tr.png" alt="Türkei" width={24} height={18} className="rounded shrink-0" loading="lazy" />
               <h3 className="text-lg font-bold text-gray-900">Türkei – Hotels & Resorts</h3>
               <Link href="/urlaubsziele/tuerkei/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
                 Alle Türkei-Angebote →
@@ -232,7 +232,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
           <section>
             <div className="flex items-center gap-2 mb-3">
-              <img src="https://flagcdn.com/48x36/es.png" alt="Spanien" width={24} height={18} className="rounded shrink-0" />
+              <img src="https://flagcdn.com/48x36/es.png" alt="Spanien" width={24} height={18} className="rounded shrink-0" loading="lazy" />
               <h3 className="text-lg font-bold text-gray-900">Spanien & Balearen – Hotels</h3>
               <Link href="/urlaubsziele/spanien/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
                 Alle Spanien-Angebote →
@@ -243,7 +243,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
           <section>
             <div className="flex items-center gap-2 mb-3">
-              <img src="https://flagcdn.com/48x36/gr.png" alt="Griechenland" width={24} height={18} className="rounded shrink-0" />
+              <img src="https://flagcdn.com/48x36/gr.png" alt="Griechenland" width={24} height={18} className="rounded shrink-0" loading="lazy" />
               <h3 className="text-lg font-bold text-gray-900">Griechenland – Hotels & Inseln</h3>
               <Link href="/urlaubsziele/griechenland/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
                 Alle Griechenland-Angebote →
@@ -254,7 +254,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
           <section>
             <div className="flex items-center gap-2 mb-3">
-              <img src="https://flagcdn.com/48x36/eg.png" alt="Ägypten" width={24} height={18} className="rounded shrink-0" />
+              <img src="https://flagcdn.com/48x36/eg.png" alt="Ägypten" width={24} height={18} className="rounded shrink-0" loading="lazy" />
               <h3 className="text-lg font-bold text-gray-900">Ägypten – Hotels am Roten Meer</h3>
               <Link href="/urlaubsziele/aegypten/" className="ml-auto text-xs text-[#00838F] font-semibold hover:underline">
                 Alle Ägypten-Angebote →
@@ -536,80 +536,30 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
         </div>{/* ── Ende Hauptinhalt ── */}
 
-        {/* ── Sticky Sidebar Ad (nur XL+) ── */}
-        <aside className="hidden xl:block w-[186px] shrink-0 pr-4">
-          <div className="sticky top-24 pt-8 space-y-3">
-
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-              <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-                Anzeige
-              </p>
-              <AdBanner
-                placementKey="86c5e79b5bd126e0b09685dad18c2682"
-                height={600}
-              />
-            </div>
-
-            <div className="bg-amber-50 rounded-2xl p-4 border border-amber-200/50 text-center">
-              <p className="text-xs font-bold text-amber-800 mb-1">🏨 Pauschalreise?</p>
-              <p className="text-[11px] text-amber-700 mb-3 leading-snug">
-                Hotel + Flug im Paket oft günstiger
-              </p>
-              <Link
-                href="/guenstig-urlaub-buchen/"
-                className="inline-block bg-amber-700 text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-amber-800 transition-colors"
-              >
-                Jetzt vergleichen →
-              </Link>
-            </div>
-
-            {/* SEO-Linkbox: Beliebte Hotelziele */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                🏨 Beliebte Hotelziele
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/urlaubsziele/antalya/",           label: "Hotels Antalya" },
-                  { href: "/urlaubsziele/mallorca/",          label: "Hotels Mallorca" },
-                  { href: "/urlaubsziele/kreta/",             label: "Hotels Kreta" },
-                  { href: "/urlaubsziele/teneriffa/",         label: "Hotels Teneriffa" },
-                  { href: "/urlaubsziele/hurghada/",          label: "Hotels Hurghada" },
-                  { href: "/urlaubsziele/griechische-inseln/",label: "Griechische Inseln" },
-                  { href: "/urlaubsziele/tuerkei/",           label: "Hotels Türkei" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* SEO-Linkbox: Urlaubsarten */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-2 pb-1.5 border-b border-gray-50">
-                🔗 Urlaubsarten
-              </p>
-              <ul className="space-y-1.5">
-                {([
-                  { href: "/urlaubsarten/all-inclusive-urlaub/", label: "All-Inclusive Hotel" },
-                  { href: "/urlaubsarten/pauschalreisen/",       label: "Pauschalreisen" },
-                  { href: "/last-minute/",                       label: "Last-Minute Hotels" },
-                  { href: "/urlaubsarten/fruhbucher-urlaub/",    label: "Frühbucher Hotels" },
-                  { href: "/flugsuche/",                         label: "Flug suchen" },
-                  { href: "/urlaubsziele/",                      label: "Alle Reiseziele" },
-                ] as const).map(({ href, label }) => (
-                  <li key={href}>
-                    <Link href={href} className="text-[11px] text-gray-600 hover:text-[#00838F] transition-colors flex items-center gap-1 leading-tight">
-                      <span className="text-gray-300 shrink-0">›</span>{label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
+        {/* ── Sticky Sidebar (nur XL+) ── */}
+        <aside className="hidden xl:block w-64 shrink-0">
+          <div className="sticky top-24 pt-8">
+            <RightSidebar
+              extrasBox={{
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&h=200&q=70",
+                eyebrow: "Tipp",
+                title: "Hotel + Flug als Paket",
+                description: "Pauschalreisen sind oft günstiger als Einzelbuchungen. Täglich aktuelle Angebote.",
+                href: "/guenstig-urlaub-buchen/",
+                ctaLabel: "Jetzt vergleichen →",
+                accentColor: "bg-amber-700",
+              }}
+              seoLinksTitle="🏨 Beliebte Hotelziele"
+              seoLinks={[
+                { href: "/urlaubsziele/antalya/",            label: "Hotels Antalya" },
+                { href: "/urlaubsziele/mallorca/",           label: "Hotels Mallorca" },
+                { href: "/urlaubsziele/kreta/",              label: "Hotels Kreta" },
+                { href: "/urlaubsziele/teneriffa/",          label: "Hotels Teneriffa" },
+                { href: "/urlaubsziele/hurghada/",           label: "Hotels Hurghada" },
+                { href: "/urlaubsziele/griechische-inseln/", label: "Griechische Inseln" },
+                { href: "/urlaubsziele/tuerkei/",            label: "Hotels Türkei" },
+              ]}
+            />
           </div>
         </aside>
 

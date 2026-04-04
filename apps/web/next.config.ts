@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
           },
           {
             key: "Content-Security-Policy",
@@ -75,10 +75,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/fonts/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         // IBE engine + CSS served from /public/scripts/ and /public/styles/
         source: "/(scripts|styles)/(.*)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+          { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" },
         ],
       },
     ];

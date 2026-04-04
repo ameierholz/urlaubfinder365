@@ -428,12 +428,31 @@ export async function deleteTravelDocument(uid: string, docId: string): Promise<
 // ══════════════════════════════════════════════════════════════════════════════
 
 // ── Bild-Upload für Travel Tips ───────────────────────────────────────────────
+const ALLOWED_IMAGE_TYPES: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
+
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
+
 export async function uploadTravelTipImage(uid: string, file: File): Promise<string> {
-  const ext = file.name.split(".").pop() ?? "jpg";
+  // Server-seitige Validierung: MIME-Typ und Groesse
+  if (!ALLOWED_IMAGE_TYPES[file.type]) {
+    throw new Error("Nur JPEG, PNG, WebP und GIF Bilder sind erlaubt.");
+  }
+  if (file.size > MAX_IMAGE_SIZE) {
+    throw new Error("Bild darf maximal 5 MB groß sein.");
+  }
+
+  // Extension aus MIME-Typ ableiten (nicht vom Dateinamen!)
+  const ext = ALLOWED_IMAGE_TYPES[file.type];
   const path = `${uid}/${Date.now()}.${ext}`;
   const { error } = await db().storage.from("travel-tip-images").upload(path, file, {
     cacheControl: "3600",
     upsert: false,
+    contentType: file.type,
   });
   if (error) throw error;
   const { data } = db().storage.from("travel-tip-images").getPublicUrl(path);

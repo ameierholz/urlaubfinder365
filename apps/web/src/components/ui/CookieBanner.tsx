@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { notifyConsentChange } from "@/hooks/use-consent";
 
 interface CookieConsent {
   necessary: true;
@@ -45,6 +46,7 @@ export default function CookieBanner() {
       timestamp: Date.now(),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+    notifyConsentChange();
     setStatus("hidden");
   };
 

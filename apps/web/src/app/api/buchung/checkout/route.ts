@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, calcApplicationFee } from "@/lib/stripe";
-import { createClient } from "@supabase/supabase-js";
+import { rateLimit, isValidEmail, supabaseAdmin as getAdmin } from "@/lib/api-helpers";
 import type Stripe from "stripe";
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabaseAdmin = getAdmin();
 
 function genBuchungsNummer(): string {
   const ts = Date.now().toString(36).toUpperCase();
@@ -15,11 +12,18 @@ function genBuchungsNummer(): string {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(req, 10, 60_000);
+  if (limited) return limited;
+
   const { angebot_slug, kunden_name, kunden_email, datum, personen, preis_pro_person, titel } =
     await req.json();
 
   if (!kunden_name || !kunden_email || !datum || !personen || !preis_pro_person) {
     return NextResponse.json({ error: "Pflichtfelder fehlen" }, { status: 400 });
+  }
+
+  if (!isValidEmail(kunden_email)) {
+    return NextResponse.json({ error: "Ungültige E-Mail-Adresse" }, { status: 400 });
   }
 
   // Angebot und Anbieter per Slug nachschlagen (optional — FK ist nullable)
@@ -115,7 +119,9 @@ export async function POST(req: NextRequest) {
     };
   }
 
-  const session = await stripe.checkout.sessions.create(sessionParams);
+  const session = await stripe.checkout.sessions.create(sessionParams, {
+    idempotencyKey: `checkout-${buchung.id}`,
+  });
 
   await supabaseAdmin
     .from("buchungen")
