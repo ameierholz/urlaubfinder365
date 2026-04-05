@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { Flame, Clock, Star, Utensils, Moon } from "lucide-react";
 import type { DealDesTages } from "@/data/deals-des-tages";
 
@@ -37,11 +36,21 @@ export default function DealDesTagesWidget({ deal }: Props) {
 
   const savings = deal.originalPrice - deal.price;
 
+  function handleBooking() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const openModal = (window as any).ibeOpenBooking;
+    if (typeof openModal === "function") {
+      openModal(deal.href, deal.hotelName);
+    } else {
+      window.open(deal.href, "_blank", "noopener,noreferrer");
+    }
+  }
+
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2.5 flex items-center justify-between">
+      <div className="bg-linear-to-r from-red-600 to-orange-500 px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <Flame className="w-4 h-4 text-white" />
           <span className="text-white text-xs font-black uppercase tracking-wide">Deal des Tages</span>
@@ -64,7 +73,7 @@ export default function DealDesTagesWidget({ deal }: Props) {
           className="w-full h-36 object-cover"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
         {/* Discount badge */}
         <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-lg shadow-sm">
@@ -121,19 +130,18 @@ export default function DealDesTagesWidget({ deal }: Props) {
         </div>
 
         {/* CTA */}
-        <Link
-          href={deal.href}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          className="block w-full text-center bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white text-xs font-black py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md"
+        <button
+          onClick={handleBooking}
+          className="block w-full text-center bg-linear-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white text-xs font-black py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md cursor-pointer"
         >
           Jetzt buchen — nur heute!
-        </Link>
+        </button>
 
         <p className="text-[9px] text-gray-400 text-center leading-snug">
           Preis p. P. inkl. Flug & Hotel · Angebot endet um Mitternacht
         </p>
       </div>
+
     </div>
   );
 }
