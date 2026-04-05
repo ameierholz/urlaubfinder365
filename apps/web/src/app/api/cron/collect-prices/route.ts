@@ -12,6 +12,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CATALOG } from "@/data/catalog-regions";
 import { upsertPriceTrendProfile, checkAndUpdateAlerts } from "@/lib/supabase-db-admin";
+import { sendPushToUsers } from "@/lib/web-push";
 import type { PriceSnapshot, PriceProfileId } from "@/types";
 
 // Vercel Hobby: 60 s, Pro: 300 s
@@ -197,12 +198,21 @@ export async function GET(req: NextRequest) {
 
           // Preisalarme nur beim Pauschalreise-Profil prüfen (generischster Preis)
           if (profileId === "pauschal") {
-            const matched = await checkAndUpdateAlerts(
+            const { count, userIds } = await checkAndUpdateAlerts(
               dest.slug,
               priceData.minPrice,
               priceData.dealCount
             );
-            results.alertsMatched += matched;
+            results.alertsMatched += count;
+
+            // Web Push an betroffene User senden (fire & forget)
+            if (userIds.length > 0) {
+              sendPushToUsers(userIds, {
+                title: `Preisalarm: ${dest.name}`,
+                body:  `Ab ${priceData.minPrice} €/Person – dein Wunschpreis ist erreicht!`,
+                url:   `/dashboard?tab=pricealerts`,
+              }).catch(() => {});
+            }
           }
 
           results.success++;

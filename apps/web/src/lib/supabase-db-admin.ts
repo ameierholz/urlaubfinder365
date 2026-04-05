@@ -107,27 +107,28 @@ export async function checkAndUpdateAlerts(
   slug: string,
   minPrice: number,
   dealCount: number
-): Promise<number> {
+): Promise<{ count: number; userIds: string[] }> {
   const supabase = adminDb();
 
-  // Aktive Alarme für diese Destination laden
+  // Aktive Alarme für diese Destination laden (inkl. user_id für Push-Notifications)
   const { data: alerts, error } = await supabase
     .from("price_alerts")
-    .select("id, max_price")
+    .select("id, user_id, max_price")
     .eq("destination", slug)
     .eq("enabled", true);
 
-  if (error || !alerts || alerts.length === 0) return 0;
+  if (error || !alerts || alerts.length === 0) return { count: 0, userIds: [] };
 
   // Alarme filtern die getroffen wurden
   const triggered = alerts.filter(
     (a) => minPrice <= (a as { max_price: number }).max_price
   );
 
-  if (triggered.length === 0) return 0;
+  if (triggered.length === 0) return { count: 0, userIds: [] };
 
-  const ids = triggered.map((a) => (a as { id: string }).id);
-  const now = new Date().toISOString();
+  const ids     = triggered.map((a) => (a as { id: string }).id);
+  const userIds = [...new Set(triggered.map((a) => (a as { user_id: string }).user_id))];
+  const now     = new Date().toISOString();
 
   await supabase
     .from("price_alerts")
@@ -138,5 +139,5 @@ export async function checkAndUpdateAlerts(
     })
     .in("id", ids);
 
-  return triggered.length;
+  return { count: triggered.length, userIds };
 }

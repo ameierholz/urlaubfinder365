@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import type { AppUser } from "@/context/AuthContext";
 import type { PriceAlert } from "@/types";
 import { getPriceAlerts, createPriceAlert, updatePriceAlert, deletePriceAlert } from "@/lib/supabase-db";
-import { Bell, Trash2, Plus, X } from "lucide-react";
+import { Bell, BellOff, BellRing, Trash2, Plus, X } from "lucide-react";
 import { CATALOG } from "@/data/catalog-regions";
+import { usePushNotifications } from "@/hooks/use-push-notifications";
 
 interface Props { user: AppUser }
 
@@ -36,6 +37,8 @@ export default function PriceAlertsTab({ user }: Props) {
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving]     = useState(false);
   const [saveError, setSaveError] = useState("");
+
+  const { state: pushState, subscribe: pushSubscribe, unsubscribe: pushUnsubscribe } = usePushNotifications();
 
   // Formular-State
   const [fDest, setFDest]     = useState(DEST_OPTIONS[0]?.slug ?? "");
@@ -158,12 +161,43 @@ export default function PriceAlertsTab({ user }: Props) {
           </h2>
           <p className="text-sm text-gray-500">Lege ein Urlaubsziel und dein maximales Budget fest – wir gleichen täglich aktuelle Angebote ab und zeigen dir Treffer direkt hier an.</p>
         </div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="shrink-0 inline-flex items-center gap-1.5 bg-[#00838F] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#006E7A] transition-colors"
-        >
-          <Plus className="w-4 h-4" /> Neuer Alarm
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Push-Toggle */}
+          {pushState !== "unsupported" && (
+            <button
+              onClick={pushState === "granted" ? pushUnsubscribe : pushSubscribe}
+              disabled={pushState === "loading" || pushState === "denied"}
+              title={
+                pushState === "granted" ? "Push-Benachrichtigungen deaktivieren"
+                : pushState === "denied" ? "Benachrichtigungen im Browser blockiert"
+                : "Push-Benachrichtigungen aktivieren"
+              }
+              className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-2 rounded-full border transition-colors disabled:opacity-50 ${
+                pushState === "granted"
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100"
+                  : pushState === "denied"
+                  ? "bg-red-50 border-red-200 text-red-500 cursor-not-allowed"
+                  : "bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              {pushState === "granted" ? <BellRing className="w-4 h-4" />
+               : pushState === "denied" ? <BellOff className="w-4 h-4" />
+               : <Bell className="w-4 h-4" />}
+              <span className="hidden sm:inline">
+                {pushState === "granted" ? "Push aktiv"
+                 : pushState === "denied" ? "Blockiert"
+                 : pushState === "loading" ? "…"
+                 : "Push aktivieren"}
+              </span>
+            </button>
+          )}
+          <button
+            onClick={() => setShowForm(true)}
+            className="shrink-0 inline-flex items-center gap-1.5 bg-[#00838F] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#006E7A] transition-colors"
+          >
+            <Plus className="w-4 h-4" /> Neuer Alarm
+          </button>
+        </div>
       </div>
 
       {/* Formular */}
