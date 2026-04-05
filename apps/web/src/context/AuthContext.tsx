@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const supabase = getSupabase();
     const { data, error } = await supabase
       .from("users")
-      .select("id, display_name, avatar_url, created_at, bio, xp, level, notification_prefs")
+      .select("id, display_name, avatar_url, created_at, bio, xp, level, notification_prefs, favorite_destinations")
       .eq("id", uid)
       .maybeSingle();
     if (error || !data) return null;
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       displayName: data.display_name ?? null,
       createdAt: data.created_at,
       savedTrips: [],     // stored in saved_trips table (Firestore legacy)
-      favoriteDestinations: [],
+      favoriteDestinations: (data.favorite_destinations as string[]) ?? [],
       preferences: data.notification_prefs ?? undefined,
       checklist: undefined,
       notes: data.bio ?? undefined,

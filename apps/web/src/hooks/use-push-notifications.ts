@@ -6,7 +6,11 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
   const rawData = window.atob(base64);
-  return Uint8Array.from([...rawData].map((c) => c.charCodeAt(0)));
+  const array = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; i++) {
+    array[i] = rawData.charCodeAt(i);
+  }
+  return array;
 }
 
 export type PushState = "unsupported" | "default" | "granted" | "denied" | "loading";
@@ -22,16 +26,13 @@ export function usePushNotifications() {
       return;
     }
 
-    navigator.serviceWorker.ready.then((reg) => {
-      reg.pushManager.getSubscription().then((sub) => {
+    navigator.serviceWorker.register("/sw.js")
+      .then((reg) => reg.pushManager.getSubscription())
+      .then((sub) => {
         setSubscription(sub);
-        if (sub) {
-          setState("granted");
-        } else {
-          setState(Notification.permission === "denied" ? "denied" : "default");
-        }
-      });
-    }).catch(() => setState("unsupported"));
+        setState(sub ? "granted" : Notification.permission === "denied" ? "denied" : "default");
+      })
+      .catch(() => setState("default"));
   }, []);
 
   /** Push-Notifications aktivieren */
@@ -46,7 +47,7 @@ export function usePushNotifications() {
 
       const sub = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey),
+        applicationServerKey: urlBase64ToUint8Array(publicKey).buffer as ArrayBuffer,
       });
 
       // Subscription an Server senden
