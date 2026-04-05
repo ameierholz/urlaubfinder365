@@ -9,7 +9,6 @@ import IbeHolidayWidget from "@/components/ibe/IbeHolidayWidget";
 import UrlaubsartenGrid from "@/components/destination/UrlaubsartenGrid";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
 import RightSidebar from "@/components/layout/RightSidebar";
-import { getDealDesTages } from "@/data/deals-des-tages";
 import { Suspense } from "react";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
@@ -582,7 +581,7 @@ export default async function DestinationPage({ params }: Props) {
           <aside className="hidden xl:block w-72 shrink-0 mt-12">
             <div className="sticky top-24">
               <RightSidebar
-                dealDesTages={getDealDesTages(dest.slug)}
+                dealRegionIds={dest.regionIds}
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=200&q=70&auto=format&fit=crop",
                   eyebrow: "Jetzt buchen",

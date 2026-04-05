@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Flame, Clock, Star, Utensils, Moon } from "lucide-react";
-import type { DealDesTages } from "@/data/deals-des-tages";
+import { Flame, Clock, Star, Utensils, Moon, Calendar, CheckCircle } from "lucide-react";
+import type { LiveDeal } from "@/app/api/deals/deal-des-tages/route";
 
 interface Props {
-  deal: DealDesTages;
+  regionIds: number[];
 }
 
 function pad(n: number) {
@@ -19,24 +19,47 @@ function getSecondsUntilMidnight(): number {
   return Math.floor((midnight.getTime() - now.getTime()) / 1000);
 }
 
-export default function DealDesTagesWidget({ deal }: Props) {
-  const [secs, setSecs] = useState<number | null>(null);
+function formatDate(dateStr: string): string {
+  if (!dateStr) return "";
+  try {
+    return new Intl.DateTimeFormat("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  } catch {
+    return "";
+  }
+}
 
+export default function DealDesTagesWidget({ regionIds }: Props) {
+  const [secs, setSecs]   = useState<number | null>(null);
+  const [deal, setDeal]   = useState<LiveDeal | null | "loading">("loading");
+
+  /* ── Countdown ── */
   useEffect(() => {
     setSecs(getSecondsUntilMidnight());
-    const id = setInterval(() => {
-      setSecs((s) => (s !== null && s > 0 ? s - 1 : 0));
-    }, 1000);
+    const id = setInterval(() => setSecs((s) => (s !== null && s > 0 ? s - 1 : 0)), 1000);
     return () => clearInterval(id);
   }, []);
+
+  /* ── Live-Verfügbarkeit ── */
+  useEffect(() => {
+    if (!regionIds.length) { setDeal(null); return; }
+    const ids = regionIds.join(",");
+    fetch(`/api/deals/deal-des-tages?regionId=${ids}`)
+      .then((r) => r.json())
+      .then((data) => setDeal((data as { deal: LiveDeal | null }).deal ?? null))
+      .catch(() => setDeal(null));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [regionIds.join(",")]);
 
   const h = secs !== null ? Math.floor(secs / 3600) : null;
   const m = secs !== null ? Math.floor((secs % 3600) / 60) : null;
   const s = secs !== null ? secs % 60 : null;
 
-  const savings = deal.originalPrice - deal.price;
-
   function handleBooking() {
+    if (!deal || deal === "loading") return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const openModal = (window as any).ibeOpenBooking;
     if (typeof openModal === "function") {
@@ -45,6 +68,29 @@ export default function DealDesTagesWidget({ deal }: Props) {
       window.open(deal.href, "_blank", "noopener,noreferrer");
     }
   }
+
+  /* ── Skeleton während des Ladens ── */
+  if (deal === "loading") {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-pulse">
+        <div className="h-9 bg-linear-to-r from-red-600 to-orange-500" />
+        <div className="h-36 bg-gray-200" />
+        <div className="p-3 space-y-2.5">
+          <div className="flex gap-3">
+            <div className="h-3 bg-gray-200 rounded w-20" />
+            <div className="h-3 bg-gray-200 rounded w-16" />
+          </div>
+          <div className="h-6 bg-gray-200 rounded w-32" />
+          <div className="h-9 bg-gray-200 rounded-xl" />
+        </div>
+      </div>
+    );
+  }
+
+  /* ── Kein Deal verfügbar ── */
+  if (!deal) return null;
+
+  const depDate = formatDate(deal.departureDate);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -55,7 +101,6 @@ export default function DealDesTagesWidget({ deal }: Props) {
           <Flame className="w-4 h-4 text-white" />
           <span className="text-white text-xs font-black uppercase tracking-wide">Deal des Tages</span>
         </div>
-        {/* Countdown */}
         <div className="flex items-center gap-1">
           <Clock className="w-3 h-3 text-white/80" />
           <span className="text-white/90 text-xs font-mono font-semibold tabular-nums">
@@ -75,10 +120,12 @@ export default function DealDesTagesWidget({ deal }: Props) {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
 
-        {/* Discount badge */}
-        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-lg shadow-sm">
-          -{deal.discount}%
-        </div>
+        {/* Recommendation badge */}
+        {deal.recommendation > 0 && (
+          <div className="absolute top-2 right-2 bg-emerald-500 text-white text-xs font-black px-2 py-1 rounded-lg shadow-sm leading-tight">
+            ★ {deal.recommendation}%
+          </div>
+        )}
 
         {/* Stars */}
         <div className="absolute top-2 left-2 flex gap-0.5">
@@ -99,8 +146,8 @@ export default function DealDesTagesWidget({ deal }: Props) {
       {/* Details */}
       <div className="px-3 pt-2.5 pb-3 space-y-2">
 
-        {/* Infos */}
-        <div className="flex items-center gap-3 text-[10px] text-gray-500">
+        {/* Meta-Infos */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-gray-500">
           <span className="flex items-center gap-1">
             <Moon className="w-3 h-3" />
             {deal.nights} Nächte
@@ -109,23 +156,28 @@ export default function DealDesTagesWidget({ deal }: Props) {
             <Utensils className="w-3 h-3" />
             {deal.board}
           </span>
+          {depDate && (
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              ab {depDate}
+            </span>
+          )}
         </div>
 
-        {/* Price row */}
+        {/* Preis + Verfügbarkeit */}
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-[10px] text-gray-400 line-through leading-none">
-              ab {deal.originalPrice} €
+            <p className="text-[10px] text-[#00838F] font-bold uppercase tracking-wider leading-none mb-0.5">
+              Live-Preis
             </p>
             <p className="text-lg font-black text-gray-900 leading-tight">
               ab {deal.price} €
               <span className="text-[11px] font-semibold text-gray-500 ml-0.5">/Person</span>
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-green-600 font-bold">
-              Du sparst {savings} €
-            </p>
+          <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">
+            <CheckCircle className="w-3 h-3" />
+            Verfügbar
           </div>
         </div>
 
@@ -138,7 +190,7 @@ export default function DealDesTagesWidget({ deal }: Props) {
         </button>
 
         <p className="text-[9px] text-gray-400 text-center leading-snug">
-          Preis p. P. inkl. Flug & Hotel · Angebot endet um Mitternacht
+          Preis p. P. inkl. Flug & Hotel · Echtzeit-Verfügbarkeit
         </p>
       </div>
 

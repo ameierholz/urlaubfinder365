@@ -11,7 +11,6 @@ import LocalPartnersWidget from "@/components/marktplatz/LocalPartnersWidget";
 import DealDesTagesWidget from "@/components/ui/DealDesTagesWidget";
 import { Suspense } from "react";
 import { Sparkles } from "lucide-react";
-import type { DealDesTages } from "@/data/deals-des-tages";
 
 export interface ExtrasBox {
   image: string;
@@ -28,19 +27,22 @@ interface Props {
   seoLinks?: { label: string; href: string }[];
   seoLinksTitle?: string;
   adPlacementKey?: string;
-  dealDesTages?: DealDesTages;
+  /** regionIds für Live-Verfügbarkeits-Check des Deal des Tages */
+  dealRegionIds?: number[];
 }
 
 const DEFAULT_AD_KEY = "6e805e1e43279dbf742fa3dca2efc442";
 
-export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealDesTages }: Props) {
+export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds }: Props) {
   const accent = extrasBox?.accentColor ?? "bg-[#1db682]";
 
   return (
     <div className="space-y-4">
 
-      {/* ── Deal des Tages ──────────────────────────────────────────── */}
-      {dealDesTages && <DealDesTagesWidget deal={dealDesTages} />}
+      {/* ── Deal des Tages (Live-Verfügbarkeit) ─────────────────────── */}
+      {dealRegionIds && dealRegionIds.length > 0 && (
+        <DealDesTagesWidget regionIds={dealRegionIds} />
+      )}
 
       {/* ── Hauptkarte ─────────────────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

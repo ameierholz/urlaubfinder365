@@ -51,8 +51,8 @@ export async function fetchTopDeals(regionIds: number[], maxResults = 8): Promis
     regionId:      regionIds.join(","),
     duration:      "7-7",
     adults:        "2",
-    from:          "14",
-    to:            "42",
+    from:          "7",
+    to:            "90",
     minRecommrate: "80",
     hSort:         "recomrate",
     sortType:      "down",
@@ -61,7 +61,7 @@ export async function fetchTopDeals(regionIds: number[], maxResults = 8): Promis
   });
   try {
     const res = await fetch(`${BASE_URL}?${params}`, {
-      next: { revalidate: 86400 },
+      next: { revalidate: 3600 }, // 1h – damit Preise und Verfügbarkeit aktuell bleiben
       headers: { Accept: "application/json" },
     });
     if (!res.ok) return [];
