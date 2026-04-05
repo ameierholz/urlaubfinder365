@@ -57,15 +57,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonical   = `${BASE_URL}/urlaubsziele/${dest.slug}/`;
   const ogImage     = dest.heroImageFallback ?? dest.heroImage;
 
-  // Sub-Regionen (type "region": Städte/Resorts wie Side, Playa de Palma)
-  // erhalten noindex: zu wenig Unique Content, kein Crawl-Budget verschwenden.
-  // Interne Links bleiben erreichbar (follow: true).
-  const isSubRegion = !richDest && catalogEntry?.type === "region";
-
   return {
     title,
     description,
-    ...(isSubRegion ? { robots: { index: false, follow: true } } : {}),
+    robots: { index: true, follow: true },
     alternates: { canonical },
     openGraph: {
       title,

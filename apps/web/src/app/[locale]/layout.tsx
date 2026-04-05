@@ -67,17 +67,22 @@ export async function generateMetadata({
       "Package Holidays",
       "Cheap Holidays",
     ],
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
+    // Nicht-deutsche Locale-Varianten: noindex bis echte Übersetzungen existieren.
+    // Verhindert "gecrawlt – nicht indexiert" durch dünnen Duplicate-Content.
+    // Seiten mit eigener robots-Angabe (login, dashboard, …) überschreiben dies.
+    robots: locale === "de"
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        }
+      : { index: false, follow: true },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },

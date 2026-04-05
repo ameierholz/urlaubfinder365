@@ -235,6 +235,56 @@ const nextConfig: NextConfig = {
       { source: "/erlebnisse", destination: "/aktivitaeten/", permanent: false },
       { source: "/:locale/erlebnisse/", destination: "/:locale/aktivitaeten/", permanent: false },
       { source: "/:locale/erlebnisse", destination: "/:locale/aktivitaeten/", permanent: false },
+
+      // WordPress-REST-API & JSON-Endpoints → Startseite
+      { source: "/wp-json/:path*", destination: "/", permanent: true },
+      { source: "/?rest_route=:path*", destination: "/", permanent: true },
+
+      // WordPress-Post-ID-Links (?p=123) → Startseite
+      { source: "/\\?p=:id*", destination: "/", permanent: true },
+
+      // WordPress-Suche → eigene Seite oder Startseite
+      { source: "/\\?s=:q*", destination: "/guenstig-urlaub-buchen/", permanent: true },
+
+      // WordPress cPanel/Scriptaculous-Reste
+      { source: "/cgi-bin/:path*", destination: "/", permanent: true },
+      { source: "/.well-known/security.txt", destination: "/", permanent: false },
+
+      // Sonstige häufige 404-Muster (Spam-Crawler)
+      { source: "/checkout/:path*", destination: "/", permanent: true },
+      { source: "/cart/:path*", destination: "/", permanent: true },
+      { source: "/shop/:path*", destination: "/", permanent: true },
+      { source: "/product/:path*", destination: "/", permanent: true },
+      { source: "/products/:path*", destination: "/", permanent: true },
+
+      // Alte Feeds ohne Slash
+      { source: "/feed", destination: "/", permanent: true },
+      { source: "/feed/", destination: "/", permanent: true },
+      { source: "/rss", destination: "/", permanent: true },
+      { source: "/rss/", destination: "/", permanent: true },
+
+      // Alte WordPress-Suchseiten
+      { source: "/search/:q*", destination: "/guenstig-urlaub-buchen/", permanent: true },
+
+      // Alte Reise-Infos-Seite
+      { source: "/reise-infos/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/reiseinfo/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/reisefuehrer/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/reisefuehrer", destination: "/urlaubsguides/", permanent: true },
+
+      // Urlaubs-Tipps alte Pfade
+      { source: "/urlaubs-tipps/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/urlaubstipps/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/reisetipps/:path*", destination: "/urlaubsguides/", permanent: true },
+      { source: "/reise-tipps/:path*", destination: "/urlaubsguides/", permanent: true },
+
+      // Häufige Alt-Pfade für Kontakt/Über uns
+      { source: "/kontakt/", destination: "/impressum/", permanent: true },
+      { source: "/kontakt", destination: "/impressum/", permanent: true },
+      { source: "/ueber-uns/", destination: "/impressum/", permanent: true },
+      { source: "/ueber-uns", destination: "/impressum/", permanent: true },
+      { source: "/about/", destination: "/", permanent: true },
+      { source: "/about", destination: "/", permanent: true },
     ];
   },
 };
