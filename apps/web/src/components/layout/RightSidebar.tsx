@@ -8,8 +8,10 @@ import AdBanner from "@/components/ui/AdBanner";
 import SponsoredAnbieter from "@/components/marktplatz/SponsoredAnbieter";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
 import LocalPartnersWidget from "@/components/marktplatz/LocalPartnersWidget";
+import DealDesTagesWidget from "@/components/ui/DealDesTagesWidget";
 import { Suspense } from "react";
 import { Sparkles } from "lucide-react";
+import type { DealDesTages } from "@/data/deals-des-tages";
 
 export interface ExtrasBox {
   image: string;
@@ -26,15 +28,19 @@ interface Props {
   seoLinks?: { label: string; href: string }[];
   seoLinksTitle?: string;
   adPlacementKey?: string;
+  dealDesTages?: DealDesTages;
 }
 
 const DEFAULT_AD_KEY = "6e805e1e43279dbf742fa3dca2efc442";
 
-export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey }: Props) {
+export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealDesTages }: Props) {
   const accent = extrasBox?.accentColor ?? "bg-[#1db682]";
 
   return (
     <div className="space-y-4">
+
+      {/* ── Deal des Tages ──────────────────────────────────────────── */}
+      {dealDesTages && <DealDesTagesWidget deal={dealDesTages} />}
 
       {/* ── Hauptkarte ─────────────────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

@@ -5,6 +5,7 @@ import { generateHeroFallback } from "@/lib/catalog-helpers";
 import CountryHoverCard from "@/components/destinations/CountryHoverCard";
 import { setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
+import { getDealDesTages } from "@/data/deals-des-tages";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const YEAR = new Date().getFullYear();
@@ -291,6 +292,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <aside className="hidden xl:block w-64 shrink-0">
             <div className="sticky top-24">
               <RightSidebar
+                dealDesTages={getDealDesTages()}
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&h=200&q=70",
                   eyebrow: "Jetzt buchen",
