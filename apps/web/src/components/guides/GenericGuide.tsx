@@ -487,7 +487,7 @@ export default function GenericGuide({ dest, content }: Props) {
         {activeTab === "activities" && dest.tiqetsCityId && (
           <div className="space-y-4">
             <h2 className="text-xl font-black text-gray-900">Aktivitäten in {dest.name}</h2>
-            <TiqetsCarousel cityId={dest.tiqetsCityId} heading={`Touren & Tickets in ${dest.name}`} />
+            <TiqetsCarousel cityId={dest.tiqetsCityId} />
           </div>
         )}
         {activeTab === "activities" && !dest.tiqetsCityId && (
