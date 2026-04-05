@@ -52,11 +52,26 @@ const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 /* ── Helper Components ──────────────────────────────────────────────────── */
 function StatCard({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
-    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center">
-      <span className="text-2xl">{icon}</span>
-      <p className="text-xs text-gray-500 mt-1">{label}</p>
+    <div className="bg-white rounded-xl border border-gray-100 p-4 text-center hover:shadow-sm transition-shadow">
+      <div className="text-2xl mb-1">{icon}</div>
+      <p className="text-xs text-gray-400 font-medium">{label}</p>
       <p className="text-sm font-bold text-gray-900 mt-0.5">{value}</p>
     </div>
+  );
+}
+
+function SectionBadge({ children, color = "blue" }: { children: React.ReactNode; color?: string }) {
+  const colors: Record<string, string> = {
+    blue:  "bg-blue-50 text-blue-700 ring-blue-200",
+    green: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    amber: "bg-amber-50 text-amber-700 ring-amber-200",
+    teal:  "bg-teal-50 text-teal-700 ring-teal-200",
+    red:   "bg-red-50 text-red-700 ring-red-200",
+  };
+  return (
+    <span className={`inline-flex items-center text-xs font-bold px-3 py-1 rounded-full ring-1 ${colors[color] ?? colors.blue}`}>
+      {children}
+    </span>
   );
 }
 
@@ -410,8 +425,11 @@ export default function GenericGuide({ dest, content }: Props) {
 
         {/* ── OVERVIEW ── */}
         {activeTab === "overview" && (
-          <div className="space-y-6">
-            <h2 className="text-xl font-black text-gray-900">{dest.name} auf einen Blick</h2>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">{dest.name} auf einen Blick</h2>
+              <p className="text-gray-400 text-sm">Alle wichtigen Fakten auf einen Blick</p>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <StatCard icon="🌍" label="Land" value={dest.country} />
               {dest.iataCode && <StatCard icon="✈️" label="Flughafen" value={dest.iataCode} />}
@@ -419,7 +437,7 @@ export default function GenericGuide({ dest, content }: Props) {
                 <StatCard icon="☀️" label="Sommer max." value={`${Math.max(...dest.climate.map(c => c.tempHigh))}°C`} />
               )}
               {dest.climate && dest.climate.length > 0 && (
-                <StatCard icon="🌊" label="Badesaison" value={`Mai–Okt.`} />
+                <StatCard icon="🌊" label="Badesaison" value="Mai–Okt." />
               )}
               <StatCard icon="💶" label="Währung" value={dest.entryInfo?.currency?.split(".")[0] ?? "EUR"} />
               <StatCard icon="🗣️" label="Sprache" value={dest.entryInfo?.language?.split(".")[0] ?? "Landessprache"} />
@@ -428,27 +446,27 @@ export default function GenericGuide({ dest, content }: Props) {
             {/* Klimatabelle */}
             {dest.climate && dest.climate.length > 0 && (
               <div>
-                <h3 className="text-base font-bold text-gray-900 mb-3">🌡️ Klimatabelle</h3>
-                <div className="overflow-x-auto">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">🌡️ Klimatabelle</h3>
+                <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
                   <table className="w-full text-xs text-center">
                     <thead>
-                      <tr className="text-gray-500">
-                        <th className="px-2 py-1 text-left font-semibold">Monat</th>
-                        {dest.climate.map(m => <th key={m.month} className="px-2 py-1 font-semibold">{m.month}</th>)}
+                      <tr className="bg-gray-50">
+                        <th className="px-3 py-3 text-left font-bold text-gray-700">Monat</th>
+                        {dest.climate.map(m => <th key={m.month} className="px-2 py-3 font-bold text-gray-700">{m.month}</th>)}
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td className="px-2 py-1 text-left text-gray-600">☀️ Max.</td>
-                        {dest.climate.map(m => <td key={m.month} className="px-2 py-1 font-bold text-orange-600">{m.tempHigh}°</td>)}
+                    <tbody className="divide-y divide-gray-50">
+                      <tr className="hover:bg-gray-50/80 transition-colors">
+                        <td className="px-3 py-2.5 text-left text-gray-600 font-medium">☀️ Max.</td>
+                        {dest.climate.map(m => <td key={m.month} className="px-2 py-2.5 font-bold text-orange-600">{m.tempHigh}°</td>)}
                       </tr>
-                      <tr>
-                        <td className="px-2 py-1 text-left text-gray-600">🌙 Min.</td>
-                        {dest.climate.map(m => <td key={m.month} className="px-2 py-1 text-blue-600">{m.tempLow}°</td>)}
+                      <tr className="hover:bg-gray-50/80 transition-colors">
+                        <td className="px-3 py-2.5 text-left text-gray-600 font-medium">🌙 Min.</td>
+                        {dest.climate.map(m => <td key={m.month} className="px-2 py-2.5 text-blue-600">{m.tempLow}°</td>)}
                       </tr>
-                      <tr>
-                        <td className="px-2 py-1 text-left text-gray-600">🌧️ mm</td>
-                        {dest.climate.map(m => <td key={m.month} className="px-2 py-1 text-gray-500">{m.rain}</td>)}
+                      <tr className="hover:bg-gray-50/80 transition-colors">
+                        <td className="px-3 py-2.5 text-left text-gray-600 font-medium">🌧️ mm</td>
+                        {dest.climate.map(m => <td key={m.month} className="px-2 py-2.5 text-gray-500">{m.rain}</td>)}
                       </tr>
                     </tbody>
                   </table>
@@ -456,17 +474,27 @@ export default function GenericGuide({ dest, content }: Props) {
               </div>
             )}
 
-            <div className="bg-[#00838F]/5 rounded-2xl p-4 border border-[#00838F]/20 text-center">
-              <IbeCta regionId={ibeRegionId} label={`Urlaub in ${dest.name} buchen`} />
+            <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 100%)` }}>
+              <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl shrink-0">✈️</div>
+                <div className="flex-1 text-white">
+                  <p className="font-bold mb-0.5">Jetzt {dest.name}-Pauschalreisen vergleichen</p>
+                  <p className="text-white/70 text-sm">Täglich aktualisierte Angebote – Flug + Hotel ab 299 € p.P.</p>
+                </div>
+                <IbeCta regionId={ibeRegionId} label={`${dest.name} buchen →`} />
+              </div>
             </div>
           </div>
         )}
 
         {/* ── HISTORY ── */}
         {activeTab === "history" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Geschichte von {dest.name}</h2>
-            <div className="mt-4">
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Geschichte von {dest.name}</h2>
+              <p className="text-gray-400 text-sm">Von der Antike bis heute</p>
+            </div>
+            <div>
               {content.history.map((e, i) => <TimelineItem key={i} {...e} />)}
             </div>
           </div>
@@ -474,116 +502,246 @@ export default function GenericGuide({ dest, content }: Props) {
 
         {/* ── SIGHTS ── */}
         {activeTab === "sights" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Sehenswürdigkeiten in {dest.name}</h2>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Sehenswürdigkeiten in {dest.name}</h2>
+              <p className="text-gray-400 text-sm">Die schönsten Orte und Highlights</p>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {content.sights.map((s, i) => <SightCard key={i} {...s} />)}
             </div>
-            <div className="text-center pt-2">
-              <IbeCta regionId={ibeRegionId} label={`${dest.name} Pauschalreisen`} />
+            <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 100%)` }}>
+              <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl shrink-0">✈️</div>
+                <div className="flex-1 text-white">
+                  <p className="font-bold mb-0.5">Jetzt {dest.name}-Pauschalreisen vergleichen</p>
+                  <p className="text-white/70 text-sm">Täglich aktualisierte Angebote – Flug + Hotel ab 299 € p.P.</p>
+                </div>
+                <IbeCta regionId={ibeRegionId} label={`${dest.name} buchen →`} />
+              </div>
             </div>
           </div>
         )}
 
         {/* ── BEACHES ── */}
-        {activeTab === "beaches" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Strände in {dest.name}</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {content.beaches.map((b, i) => (
-                <div key={i} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">{b.emoji}</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900">{b.name}</h3>
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 inline-block mb-1">{b.type}</span>
-                      <p className="text-sm text-gray-600 leading-relaxed">{b.desc}</p>
-                      {b.tip && <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-1.5 mt-2">💡 {b.tip}</p>}
+        {activeTab === "beaches" && (() => {
+          const beachColors = [
+            "border-blue-200 bg-blue-50/50",
+            "border-amber-200 bg-amber-50/50",
+            "border-rose-200 bg-rose-50/50",
+            "border-emerald-200 bg-emerald-50/50",
+            "border-cyan-200 bg-cyan-50/50",
+            "border-violet-200 bg-violet-50/50",
+          ];
+          const badgeColors = [
+            "bg-blue-100 text-blue-700",
+            "bg-amber-100 text-amber-700",
+            "bg-rose-100 text-rose-700",
+            "bg-emerald-100 text-emerald-700",
+            "bg-cyan-100 text-cyan-700",
+            "bg-violet-100 text-violet-700",
+          ];
+          return (
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Strände in {dest.name}</h2>
+                <p className="text-gray-400 text-sm">Die schönsten Strände und Badeorte</p>
+              </div>
+              <div className="space-y-5">
+                {content.beaches.map((b, i) => (
+                  <div key={i} className={`rounded-2xl border-2 p-6 transition-all hover:shadow-md ${beachColors[i % beachColors.length]}`}>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <span className="text-xl">{b.emoji}</span>
+                      <h3 className="text-xl font-extrabold text-gray-900">{b.name}</h3>
+                      <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${badgeColors[i % badgeColors.length]}`}>{b.type}</span>
                     </div>
+                    <p className="text-gray-700 text-sm mb-4 leading-relaxed">{b.desc}</p>
+                    {b.tip && (
+                      <div className="bg-white/80 rounded-xl p-3">
+                        <p className="text-xs text-amber-700">💡 {b.tip}</p>
+                      </div>
+                    )}
                   </div>
+                ))}
+              </div>
+              <div className="bg-sky-50 border-2 border-sky-100 rounded-2xl p-5 flex gap-3">
+                <span className="text-2xl shrink-0">🌊</span>
+                <div>
+                  <p className="font-bold text-gray-900 mb-0.5">Strand-Tipp für {dest.name}</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">Informiere dich vorab über Wasserqualität und Infrastruktur. Sonnenschutz, Wasser und Badelatschen gehören zur Grundausstattung.</p>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ── REGIONS ── */}
-        {activeTab === "regions" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Regionen & Gebiete</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {content.regions.map((r, i) => (
-                <div key={i} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl">{r.emoji}</span>
-                    <h3 className="font-bold text-gray-900">{r.name}</h3>
+        {activeTab === "regions" && (() => {
+          const regionColors = [
+            "border-amber-200",
+            "border-blue-200",
+            "border-rose-200",
+            "border-emerald-200",
+            "border-violet-200",
+            "border-orange-200",
+          ];
+          return (
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Regionen & Gebiete</h2>
+                <p className="text-gray-400 text-sm">Wo übernachten? Welcher Teil passt zu dir?</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {content.regions.map((r, i) => (
+                  <div key={i} className={`bg-white rounded-2xl border-2 p-6 transition-all hover:shadow-lg ${regionColors[i % regionColors.length]}`}>
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-2xl shrink-0">{r.emoji}</div>
+                      <div>
+                        <h3 className="font-extrabold text-gray-900 text-lg">{r.name}</h3>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{r.desc}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {r.highlights.map((h, j) => (
+                        <span key={j} className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">{h}</span>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">{r.desc}</p>
-                  <div className="flex flex-wrap gap-1">
-                    {r.highlights.map((h, j) => (
-                      <span key={j} className="text-xs bg-[#00838F]/10 text-[#00838F] font-semibold px-2 py-0.5 rounded-full">{h}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ── BUDGET ── */}
         {activeTab === "budget" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Budget-Guide für {dest.name}</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-2 text-gray-500 font-semibold">Kategorie</th>
-                    <th className="text-center py-2 text-green-700 font-semibold">💚 Budget</th>
-                    <th className="text-center py-2 text-blue-700 font-semibold">💙 Mittel</th>
-                    <th className="text-center py-2 text-purple-700 font-semibold">💜 Luxus</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {content.budget.map((row, i) => (
-                    <tr key={i} className={`border-b border-gray-100 ${i === content.budget.length - 1 ? "font-bold bg-gray-50" : ""}`}>
-                      <td className="py-2 text-gray-700">{row.label}</td>
-                      <td className="py-2 text-center text-green-700">{row.budget}</td>
-                      <td className="py-2 text-center text-blue-700">{row.mid}</td>
-                      <td className="py-2 text-center text-purple-700">{row.luxury}</td>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Budget & Kosten</h2>
+              <p className="text-gray-400 text-sm">Was kostet ein {dest.name}-Urlaub wirklich? Realistische Preise für alle Budgets.</p>
+            </div>
+
+            {/* 3-col budget level cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {[
+                { level: "Budget-Reisender", emoji: "🎒", color: "border-emerald-200 bg-emerald-50/50", badge: "bg-emerald-100 text-emerald-700" },
+                { level: "Mittleres Budget",  emoji: "🧳", color: "border-blue-200 bg-blue-50/50",     badge: "bg-blue-100 text-blue-700" },
+                { level: "Luxus-Reisender",   emoji: "👑", color: "border-amber-200 bg-amber-50/50",   badge: "bg-amber-100 text-amber-700" },
+              ].map((b, idx) => {
+                const rows = content.budget.filter((_, i) => i < content.budget.length - 1);
+                const lastRow = content.budget[content.budget.length - 1];
+                const val = idx === 0 ? "budget" : idx === 1 ? "mid" : "luxury";
+                return (
+                  <div key={b.level} className={`rounded-2xl border-2 p-6 ${b.color}`}>
+                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl mb-3 shadow-sm">{b.emoji}</div>
+                    <h3 className="font-extrabold text-gray-900 mb-1">{b.level}</h3>
+                    {lastRow && (
+                      <p className={`text-sm font-bold px-3 py-1 rounded-lg inline-block mb-4 ${b.badge}`}>{lastRow[val as keyof typeof lastRow]}</p>
+                    )}
+                    <ul className="space-y-1.5">
+                      {rows.slice(0, 4).map((row, i) => (
+                        <li key={i} className="text-xs text-gray-600 flex gap-2">
+                          <span className="text-gray-300">•</span>
+                          {row.label}: {row[val as keyof typeof row]}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Price table */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Typische Preise auf einen Blick</h3>
+              <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-gray-50">
+                      <th className="px-5 py-3.5 text-left font-bold text-gray-700">Leistung</th>
+                      <th className="px-5 py-3.5 text-left font-bold text-emerald-700">Budget</th>
+                      <th className="px-5 py-3.5 text-left font-bold text-blue-700">Mittel</th>
+                      <th className="px-5 py-3.5 text-left font-bold text-amber-700">Luxus</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {content.budget.map((row, i) => (
+                      <tr key={i} className="hover:bg-gray-50/80 transition-colors">
+                        <td className="px-5 py-3 font-medium text-gray-900">{row.label}</td>
+                        <td className="px-5 py-3 text-emerald-700">{row.budget}</td>
+                        <td className="px-5 py-3 text-blue-700">{row.mid}</td>
+                        <td className="px-5 py-3 text-amber-700">{row.luxury}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
-              💡 <strong>Spartipp:</strong> Frühbucher-Rabatte von bis zu 30 % findest du oft 4–6 Monate im Voraus. Vergleiche mehrere Anbieter für die besten Preise.
+
+            {/* Spar tips */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5 flex gap-3">
+                <span className="text-xl shrink-0">💡</span>
+                <div>
+                  <p className="font-bold text-gray-900 mb-0.5 text-sm">Spar-Tipp: Reisezeit</p>
+                  <p className="text-gray-600 text-xs leading-relaxed">Schulterseason (Mai, Sep–Okt) ist oft 20–40% günstiger als Hochsommer – bei meist gleichem Wetter.</p>
+                </div>
+              </div>
+              <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 flex gap-3">
+                <span className="text-xl shrink-0">💡</span>
+                <div>
+                  <p className="font-bold text-gray-900 mb-0.5 text-sm">Spar-Tipp: Frühbucher</p>
+                  <p className="text-gray-600 text-xs leading-relaxed">Frühbucher-Rabatte von bis zu 30% gibt es oft 4–6 Monate im Voraus. Mehrere Anbieter vergleichen!</p>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-              <IbeCta regionId={ibeRegionId} label={`Günstige ${dest.name}-Angebote`} />
+
+            <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 100%)` }}>
+              <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl shrink-0">✈️</div>
+                <div className="flex-1 text-white">
+                  <p className="font-bold mb-0.5">Jetzt {dest.name}-Pauschalreisen vergleichen</p>
+                  <p className="text-white/70 text-sm">Täglich aktualisierte Angebote – Flug + Hotel ab 299 € p.P.</p>
+                </div>
+                <IbeCta regionId={ibeRegionId} label={`Günstige ${dest.name}-Angebote`} />
+              </div>
             </div>
           </div>
         )}
 
         {/* ── ACTIVITIES ── */}
         {activeTab === "activities" && dest.tiqetsCityId && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Aktivitäten in {dest.name}</h2>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Aktivitäten in {dest.name}</h2>
+              <p className="text-gray-400 text-sm">Touren, Tickets & Erlebnisse vor Ort</p>
+            </div>
             <TiqetsCarousel cityId={dest.tiqetsCityId} cityName={dest.name} citySlug={dest.slug} />
           </div>
         )}
         {activeTab === "activities" && !dest.tiqetsCityId && (
-          <div className="space-y-4 text-center py-8">
-            <span className="text-5xl">🎟️</span>
-            <p className="text-gray-500">Aktivitäten werden bald verfügbar.</p>
-            <IbeCta regionId={ibeRegionId} label={`${dest.name} Pauschalreisen`} />
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Aktivitäten in {dest.name}</h2>
+              <p className="text-gray-400 text-sm">Touren, Tickets & Erlebnisse vor Ort</p>
+            </div>
+            <div className="text-center py-8">
+              <span className="text-5xl">🎟️</span>
+              <p className="text-gray-500 mt-3">Aktivitäten werden bald verfügbar.</p>
+              <div className="mt-4">
+                <IbeCta regionId={ibeRegionId} label={`${dest.name} Pauschalreisen`} />
+              </div>
+            </div>
           </div>
         )}
 
         {/* ── ROUTES ── */}
         {activeTab === "routes" && (
           <div className="space-y-5">
-            <h2 className="text-xl font-black text-gray-900">Tagesplanung für {dest.name}</h2>
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Tagesplanung für {dest.name}</h2>
+              <p className="text-gray-400 text-sm">Fertige Routen für jeden Reisetyp</p>
+            </div>
             <div className="flex gap-2">
               {(["couples", "families", "solo"] as const).map(m => (
                 <button key={m} onClick={() => setRouteMode(m)}
@@ -604,66 +762,86 @@ export default function GenericGuide({ dest, content }: Props) {
 
         {/* ── INSIDER ── */}
         {activeTab === "insider" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Geheimtipps für {dest.name}</h2>
-            <div className="grid gap-4">
-              {content.insider.map((tip, i) => (
-                <div key={i} className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 border border-amber-100">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">{tip.icon}</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900 mb-1">{tip.title}</h3>
-                      <p className="text-sm text-gray-700 leading-relaxed">{tip.text}</p>
-                    </div>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Geheimtipps & Ausflüge</h2>
+              <p className="text-gray-400 text-sm">Abseits der Touristenpfade – das echte {dest.name}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {content.insider.map((tip, i) => {
+                const badgeColors = ["green", "amber", "blue", "teal", "red", "green", "amber", "blue"];
+                return (
+                  <div key={i} className="bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-lg hover:border-[#00838F]/20 transition-all">
+                    <SectionBadge color={badgeColors[i % badgeColors.length]}>{tip.icon} Geheimtipp</SectionBadge>
+                    <h4 className="font-bold text-gray-900 mt-3 mb-1.5">{tip.title}</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed">{tip.text}</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* ── FOOD ── */}
         {activeTab === "food" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Essen & Trinken in {dest.name}</h2>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {content.food.map((f, i) => (
-                <div key={i} className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">{f.emoji ?? "🍽️"}</span>
-                    <div>
-                      <h3 className="font-bold text-gray-900">{f.name}</h3>
-                      {f.original && <p className="text-xs text-gray-400 italic mb-1">{f.original}</p>}
-                      {f.price && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 inline-block mb-1">💰 {f.price}</span>}
-                      <p className="text-sm text-gray-600 leading-relaxed">{f.desc}</p>
-                      {f.tip && <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-1.5 mt-2">💡 {f.tip}</p>}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Essen & Trinken</h2>
+              <p className="text-gray-400 text-sm">Kulinarische Highlights aus {dest.name}</p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Was du unbedingt probieren musst</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {content.food.map((f, i) => (
+                  <div key={i} className="flex gap-3 bg-gray-50 rounded-xl p-4 border border-gray-100 hover:shadow-sm transition-shadow">
+                    <span className="text-2xl shrink-0">{f.emoji ?? "🍽️"}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="font-bold text-gray-900 text-sm">{f.name}</h4>
+                        {f.price && (
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 shrink-0">{f.price}</span>
+                        )}
+                      </div>
+                      {f.original && <p className="text-[10px] text-gray-400 italic mt-0.5">{f.original}</p>}
+                      <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">{f.desc}</p>
+                      {f.tip && <p className="text-xs text-amber-700 mt-1">💡 {f.tip}</p>}
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 flex gap-3">
+              <span className="text-2xl shrink-0">💡</span>
+              <div>
+                <p className="font-bold text-gray-900 mb-0.5 text-sm">Tipp: Iss wie die Einheimischen</p>
+                <p className="text-gray-600 text-xs leading-relaxed">Meide touristische Restaurants in Hauptlagen. In Seitenstraßen findest du oft authentischeres Essen zu einem Bruchteil des Preises.</p>
+              </div>
             </div>
           </div>
         )}
 
         {/* ── PRACTICAL ── */}
         {activeTab === "practical" && dest.entryInfo && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Praktische Infos für {dest.name}</h2>
-            <div className="grid gap-3">
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Praktische Infos</h2>
+              <p className="text-gray-400 text-sm">Alles was du vor und während der Reise wissen musst</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { icon: "🛂", label: "Einreise & Visum", text: dest.entryInfo.visa },
-                { icon: "💰", label: "Währung & Zahlung", text: dest.entryInfo.currency },
-                { icon: "🗣️", label: "Sprache", text: dest.entryInfo.language },
-                { icon: "🕐", label: "Zeitzone", text: dest.entryInfo.timezone },
-                { icon: "🔌", label: "Strom & Stecker", text: dest.entryInfo.voltage },
-                { icon: "🏥", label: "Gesundheit & Versicherung", text: dest.entryInfo.health },
-              ].map(({ icon, label, text }) => (
-                <div key={label} className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex gap-3">
-                  <span className="text-xl shrink-0">{icon}</span>
-                  <div>
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-0.5">{label}</p>
-                    <p className="text-sm text-gray-700 leading-relaxed">{text}</p>
-                  </div>
+                { emoji: "🛂", title: "Einreise & Visum",          text: dest.entryInfo.visa },
+                { emoji: "💰", title: "Währung & Zahlung",          text: dest.entryInfo.currency },
+                { emoji: "🗣️", title: "Sprache",                   text: dest.entryInfo.language },
+                { emoji: "🕐", title: "Zeitzone",                   text: dest.entryInfo.timezone },
+                { emoji: "🔌", title: "Strom & Stecker",            text: dest.entryInfo.voltage },
+                { emoji: "🏥", title: "Gesundheit & Versicherung",  text: dest.entryInfo.health },
+              ].map(({ emoji, title, text }) => (
+                <div key={title} className="group bg-white rounded-2xl border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#00838F]/20">
+                  <div className="w-12 h-12 rounded-xl bg-[#00838F]/10 flex items-center justify-center text-2xl mb-4 group-hover:bg-[#00838F]/15 transition-colors">{emoji}</div>
+                  <h3 className="text-base font-bold text-gray-900 mb-2">{title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{text}</p>
                 </div>
               ))}
             </div>
@@ -672,59 +850,139 @@ export default function GenericGuide({ dest, content }: Props) {
 
         {/* ── LANGUAGE ── */}
         {activeTab === "language" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Sprachhilfe für {dest.name}</h2>
-            <p className="text-sm text-gray-500">Die wichtigsten Phrasen für deinen Urlaub in {dest.country}:</p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-200 text-gray-500">
-                    <th className="text-left py-2 font-semibold">Originalsprache</th>
-                    <th className="text-left py-2 font-semibold hidden sm:table-cell">Aussprache</th>
-                    <th className="text-left py-2 font-semibold">Deutsch</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {content.phrases.map((p, i) => (
-                    <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="py-2 font-semibold text-[#00838F]">{p.original}</td>
-                      <td className="py-2 text-gray-400 italic hidden sm:table-cell">[{p.pronunciation}]</td>
-                      <td className="py-2 text-gray-700">{p.translation}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Sprachhilfe</h2>
+              <p className="text-gray-400 text-sm">Ein paar Worte in der Landessprache öffnen dir Türen und Herzen</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {content.phrases.map((p, i) => (
+                <div key={i} className="flex items-center gap-3 bg-gray-50 p-3.5 rounded-xl border border-gray-100 hover:border-[#00838F]/20 transition-colors">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-gray-900 text-sm">{p.translation}</p>
+                    <p className="text-[#00838F] font-semibold text-sm">{p.original}</p>
+                  </div>
+                  <span className="text-[10px] text-gray-400 font-mono bg-gray-100 px-2 py-1 rounded shrink-0">{p.pronunciation}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-teal-50 border border-teal-100 rounded-2xl p-5 flex gap-3">
+              <span className="text-2xl shrink-0">💡</span>
+              <div>
+                <p className="font-bold text-gray-900 mb-0.5 text-sm">Aussprache-Tipp</p>
+                <p className="text-gray-600 text-xs leading-relaxed">
+                  Die Aussprache in eckigen Klammern zeigt dir, wie du die Wörter laut aussprechen kannst. Keine Sorge – Einheimische freuen sich über jeden Versuch!
+                </p>
+              </div>
             </div>
           </div>
         )}
 
         {/* ── HELP ── */}
         {activeTab === "help" && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-black text-gray-900">Hilfe & Notfall in {dest.name}</h2>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                { icon: "🚔", label: "Polizei", value: content.emergency.police },
-                { icon: "🚑", label: "Notarzt / Rettung", value: content.emergency.ambulance },
-                { icon: "🚒", label: "Feuerwehr", value: content.emergency.fire },
-                ...(content.emergency.embassy ? [{ icon: "🏛️", label: "Deutsche Botschaft/Konsulat", value: content.emergency.embassy }] : []),
-                ...(content.emergency.hospital ? [{ icon: "🏥", label: "Nächstes Krankenhaus", value: content.emergency.hospital }] : []),
-              ].map(({ icon, label, value }) => (
-                <div key={label} className="bg-red-50 rounded-xl p-4 border border-red-100 flex gap-3 items-start">
-                  <span className="text-2xl">{icon}</span>
-                  <div>
-                    <p className="text-xs font-bold text-red-600 uppercase tracking-wider">{label}</p>
-                    <p className="text-base font-black text-gray-900 mt-0.5">{value}</p>
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-1">Hilfe & Notfall</h2>
+              <p className="text-gray-400 text-sm">Wichtige Kontakte, Adressen und Anlaufstellen</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Emergency Numbers */}
+              <div className="rounded-2xl border-2 border-red-200 bg-red-50 p-6">
+                <h3 className="font-extrabold text-red-800 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-sm">🚨</span>
+                  Notrufnummern
+                </h3>
+                <div className="space-y-2.5 text-sm">
+                  <div className="flex justify-between items-center bg-white rounded-xl p-3 border border-red-100">
+                    <span className="font-bold text-red-800">🚨 Allgemeiner Notruf</span>
+                    <span className="font-extrabold text-red-700 text-lg">112</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white rounded-xl p-3 border border-red-100">
+                    <span className="font-medium text-gray-700">🚓 Polizei</span>
+                    <span className="font-bold text-gray-900">{content.emergency.police}</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white rounded-xl p-3 border border-red-100">
+                    <span className="font-medium text-gray-700">🚑 Rettungsdienst</span>
+                    <span className="font-bold text-gray-900">{content.emergency.ambulance}</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white rounded-xl p-3 border border-red-100">
+                    <span className="font-medium text-gray-700">🚒 Feuerwehr</span>
+                    <span className="font-bold text-gray-900">{content.emergency.fire}</span>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Consulate & Travel */}
+              <div className="rounded-2xl border-2 border-blue-200 bg-blue-50 p-6">
+                <h3 className="font-extrabold text-blue-800 mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center text-sm">🏛️</span>
+                  Konsulate & Hilfe
+                </h3>
+                <div className="space-y-2.5 text-sm">
+                  {content.emergency.embassy && (
+                    <div className="bg-white rounded-xl p-3 border border-blue-100">
+                      <p className="font-medium text-gray-700">🏛️ Deutsche Botschaft/Konsulat</p>
+                      <p className="font-bold text-gray-900 mt-0.5">{content.emergency.embassy}</p>
+                    </div>
+                  )}
+                  <div className="bg-white rounded-xl p-3 border border-blue-100">
+                    <p className="font-medium text-gray-700">🇪🇺 EU-Bürger-Notruf</p>
+                    <p className="font-bold text-gray-900 mt-0.5">+32 2 505 33 00 (Konsularschutz)</p>
+                  </div>
+                  <div className="bg-white rounded-xl p-3 border border-blue-100">
+                    <p className="font-medium text-gray-700">📞 ADAC-Auslandsnotruf</p>
+                    <p className="font-bold text-gray-900 mt-0.5">+49 89 22 22 22</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
-              <p className="font-bold mb-1">🇪🇺 Europäischer Notruf</p>
-              <p>Der einheitliche Notruf <strong>112</strong> funktioniert in den meisten Ländern. Kostenlos von jedem Handy, auch ohne SIM-Karte.</p>
+
+            {/* Medical */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-xl mb-3">🏥</div>
+                <h4 className="font-bold text-gray-900 mb-1 text-sm">Nächstes Krankenhaus</h4>
+                <p className="text-xs text-gray-600">{content.emergency.hospital ?? "Erfrage beim Hotel die nächste Notaufnahme. Auslandskrankenversicherung dringend empfohlen."}</p>
+              </div>
+              <div className="bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center text-xl mb-3">💊</div>
+                <h4 className="font-bold text-gray-900 mb-1 text-sm">Apotheke</h4>
+                <p className="text-xs text-gray-600">Apotheken sind i.d.R. gut ausgestattet. Im Notfall informiert dich dein Hotel über den Apotheken-Notdienst.</p>
+              </div>
+              <div className="bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-sm transition-shadow">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-xl mb-3">📋</div>
+                <h4 className="font-bold text-gray-900 mb-1 text-sm">Reiseversicherung</h4>
+                <p className="text-xs text-gray-600">Auslandskrankenversicherung ist Pflicht! Private Reisekrankenversicherung ab ~10 €/Reise abschließen.</p>
+              </div>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 flex gap-3">
+              <span className="text-2xl shrink-0">💡</span>
+              <div>
+                <p className="font-bold text-gray-900 mb-0.5 text-sm">Wichtig: Dokumentenkopien</p>
+                <p className="text-gray-600 text-xs leading-relaxed">Fotografiere Reisepass, Versicherungsnachweis und Buchungsbestätigung und speichere sie in der Cloud (Google Drive, iCloud). So hast du im Notfall immer Zugriff, selbst wenn das Original verloren geht.</p>
+              </div>
             </div>
           </div>
         )}
+
+        {/* ═══ FOOTER CTA ═══ */}
+        <div className="mt-12 rounded-2xl p-6 sm:p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-5"
+          style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 100%)` }}>
+          <div>
+            <h3 className="text-xl font-extrabold mb-1">Bereit für deinen {dest.name}-Urlaub?</h3>
+            <p className="text-white/70 text-sm">Jetzt tagesaktuelle Pauschalreisen, All-Inclusive & Last-Minute Deals vergleichen und günstig buchen.</p>
+          </div>
+          {dest.slug && (
+            <Link href={`/urlaubsziele/${dest.slug}/`}
+              className="bg-white text-[#00838F] font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap shrink-0 shadow-sm">
+              {dest.name} Angebote ansehen →
+            </Link>
+          )}
+        </div>
 
       </main>
     </div>
