@@ -4,8 +4,6 @@ import { ShieldCheck, RefreshCcw, BookOpen, HeartHandshake } from "lucide-react"
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import InlineExpandIbeWidget from "@/components/widgets/InlineExpandIbeWidget";
 import ReiseartenCards from "@/components/widgets/ReiseartenCards";
-import RightSidebar from "@/components/layout/RightSidebar";
-import { getDealDesTages } from "@/data/deals-des-tages";
 import { setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -168,47 +166,12 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </div>
 
-      {/* ── IBE + Sidebar ── */}
+      {/* ── IBE ── */}
       <div id="ibe-suche" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-10 scroll-mt-24">
-        <div className="xl:flex xl:gap-8 xl:items-start">
-
-          {/* IBE-Widget: 100px Vorschau, Klick öffnet vollständig */}
-          <div className="flex-1 min-w-0">
-            <InlineExpandIbeWidget
-              dataSrc="https://b2b.specials.de/index/jump/119/2780/993243/?from=0&to=180&duration=7-14&adults=2"
-              fullHeight={3750}
-            />
-          </div>
-
-          {/* Sidebar */}
-          <aside className="hidden xl:block w-72 shrink-0">
-            <div className="sticky top-24">
-              <RightSidebar
-                dealDesTages={getDealDesTages()}
-                extrasBox={{
-                  image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&h=200&q=70",
-                  eyebrow: "Günstig buchen",
-                  title: "Last-Minute Deals",
-                  description: "Kurzfristig frei gewordene Kapazitäten – oft bis zu 60 % günstiger als reguläre Preise.",
-                  href: "/last-minute/",
-                  ctaLabel: "Alle Last-Minute Deals →",
-                }}
-                seoLinksTitle="🌍 Beliebte Reiseziele"
-                seoLinks={[
-                  { href: "/urlaubsziele/tuerkei/",            label: "Türkei" },
-                  { href: "/urlaubsziele/mallorca/",           label: "Mallorca" },
-                  { href: "/urlaubsziele/griechische-inseln/", label: "Griechenland" },
-                  { href: "/urlaubsziele/aegypten/",           label: "Ägypten" },
-                  { href: "/urlaubsziele/spanien/",            label: "Spanien" },
-                  { href: "/urlaubsziele/italien/",            label: "Italien" },
-                  { href: "/urlaubsarten/last-minute-urlaub/", label: "Last-Minute" },
-                  { href: "/urlaubsziele/",                    label: "Alle Urlaubsziele" },
-                ]}
-              />
-            </div>
-          </aside>
-
-        </div>
+        <InlineExpandIbeWidget
+          dataSrc="https://b2b.specials.de/index/jump/119/2780/993243/?from=0&to=180&duration=7-14&adults=2"
+          fullHeight={3750}
+        />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
