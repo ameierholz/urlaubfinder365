@@ -49,6 +49,8 @@ const CONTINENTS: Continent[] = [
       // Spanien
       "spanien", "costa-del-sol", "andalusien", "barcelona", "costa-blanca", "costa-brava",
       "madrid", "valencia", "costa-dorada", "sevilla", "marbella", "granada", "katalonien",
+      "murcia", "aragonien", "navarra-la-rioja", "pyrenäen", "spanische-atlantikkueste",
+      "zentral-spanien", "costa-del-azahar", "costa-de-la-luz", "costa-de-almeria", "benidorm",
       // Griechenland
       "griechische-inseln", "kreta", "rhodos", "korfu", "santorin", "mykonos", "kos", "zakynthos",
       "kefalonia", "lefkas", "thassos", "griechenland", "athen", "chalkidiki",
@@ -57,6 +59,8 @@ const CONTINENTS: Continent[] = [
       "amalfikusste", "kalabrien", "ligurien",
       // Portugal
       "portugal", "algarve", "lissabon", "madeira", "porto", "azoren", "alentejo",
+      "nord-portugal", "zentral-portugal", "porto-santo",
+      "costa-da-caparica", "costa-de-prata", "costa-do-estoril", "costa-verde-portugal",
       // Rest Europa
       "kroatien", "dubrovnik", "split", "istrien", "insel-hvar",
       "zypern", "zypern-sued",
@@ -79,6 +83,7 @@ const CONTINENTS: Continent[] = [
       "tuerkei", "tuerkische-riviera", "antalya-stadt", "side", "alanya", "belek",
       "halbinsel-bodrum", "kusadasi", "marmaris", "fethiye", "dalyan", "cesme",
       "tuerkische-aegaeis", "istanbul", "kappadokien",
+      "marmara-meer", "tuerkische-schwarzmeerkueste", "tuerkei-inland",
       "vae", "dubai", "abu-dhabi", "ras-al-khaimah",
       "vorderer-orient", "jordanien", "oman", "katar",
     ],
