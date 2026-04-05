@@ -117,6 +117,10 @@ export async function generateMetadata({
         "x-default": `${SITE_URL}/`,
       },
     },
+    other: {
+      // Google AdSense – Domain-Verifizierung via Meta-Tag
+      "google-adsense-account": "ca-pub-9799640580685030",
+    },
   };
 }
 

@@ -26,10 +26,10 @@ export default function ConsentScripts() {
         und dem Consent-Signal gesteuert — DSGVO-konform laut Google-Richtlinien.
       */}
       <Script
+        async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
         strategy="afterInteractive"
         crossOrigin="anonymous"
-        data-npa-on-failure="yes"
       />
 
       {/* Personalisierte Werbung nur bei Marketing-Consent aktivieren */}
