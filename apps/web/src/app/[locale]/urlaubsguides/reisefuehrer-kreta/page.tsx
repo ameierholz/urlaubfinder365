@@ -82,10 +82,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               }}
               seoLinksTitle="📚 Weitere Guides"
               seoLinks={[
-                { href: "/urlaubsguides/reisefuehrer-antalya/",   label: "Antalya Urlaubsführer" },
-                { href: "/urlaubsguides/reisefuehrer-mallorca/",  label: "Mallorca Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-rhodos/",    label: "Rhodos Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-korfu/",     label: "Korfu Urlaubsführer" },
+                { href: "/urlaubsguides/reisefuehrer-santorini/", label: "Santorini Urlaubsführer" },
                 { href: "/urlaubsguides/reisefuehrer-hurghada/",  label: "Hurghada Urlaubsführer" },
-                { href: "/urlaubsguides/reisefuehrer-barcelona/", label: "Barcelona Urlaubsführer" },
                 { href: "/urlaubsguides/",                        label: "Alle Guides →" },
               ]}
             />
