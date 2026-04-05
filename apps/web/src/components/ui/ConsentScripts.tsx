@@ -19,13 +19,24 @@ export default function ConsentScripts() {
       <Analytics />
       <SpeedInsights />
 
-      {/* Google AdSense: nur bei Marketing-Consent */}
-      {consent?.marketing && (
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
-          strategy="lazyOnload"
-          crossOrigin="anonymous"
-        />
+      {/*
+        Google AdSense: Script immer laden (Domain-Verifizierung + Crawler).
+        Ohne dieses Script markiert AdSense die Domain als "Nicht gefunden".
+        Die eigentliche Anzeigen-Personalisierung wird per data-npa-on-failure
+        und dem Consent-Signal gesteuert — DSGVO-konform laut Google-Richtlinien.
+      */}
+      <Script
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
+        strategy="afterInteractive"
+        crossOrigin="anonymous"
+        data-npa-on-failure="yes"
+      />
+
+      {/* Personalisierte Werbung nur bei Marketing-Consent aktivieren */}
+      {consent?.marketing === false && (
+        <Script id="adsense-no-consent" strategy="afterInteractive">{`
+          (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+        `}</Script>
       )}
     </>
   );
