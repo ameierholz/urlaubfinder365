@@ -3,8 +3,6 @@ import { destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { locales, SITE_URL } from "@/i18n/routing";
 
-const GUIDE_SLUGS = ["reisefuehrer-antalya"];
-
 // Nicht-DE Locales für Alternate-URLs
 const NON_DEFAULT_LOCALES = locales.filter((l) => l !== "de");
 
@@ -84,10 +82,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       localizedEntries(`/urlaubsguides/${d.guideSlug}/`, { lastModified: content, changeFrequency: "monthly", priority: 0.7 })
     );
 
-  const staticGuidePages = GUIDE_SLUGS.flatMap((slug) =>
-    localizedEntries(`/guide/${slug}/`, { lastModified: content, changeFrequency: "monthly", priority: 0.72 })
-  );
-
   const aktivitaetenPages = destinations
     .filter((d) => d.tiqetsCityId)
     .flatMap((d) => [
@@ -102,7 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...richDestinationPages,
     ...catalogPages,
     ...guidePages,
-    ...staticGuidePages,
     ...aktivitaetenPages,
   ];
 }

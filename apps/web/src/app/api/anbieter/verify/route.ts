@@ -18,14 +18,27 @@ export async function POST(req: NextRequest) {
 
   const input = token.trim().toUpperCase();
 
+  // Anbieter-Profil des eingeloggten Users laden
+  const { data: anbieterProfile } = await supabaseAdmin
+    .from("anbieter_profile")
+    .select("id")
+    .eq("user_id", user.id)
+    .maybeSingle() as { data: { id: string } | null };
+
+  if (!anbieterProfile) {
+    return NextResponse.json({ valid: false, reason: "Kein Anbieter-Profil gefunden." }, { status: 403 });
+  }
+
   // Suche per Buchungsnummer (UF-2026-000111) ODER per qr_token (UUID)
+  // Direkt nach anbieter_id filtern → verhindert, dass ein Anbieter fremde Buchungen einsieht
   const { data: buchung } = await supabaseAdmin
     .from("buchungen")
-    .select("id, buchungs_nummer, kunden_name, personen, datum, status, qr_token, angebote:angebot_id(titel)")
+    .select("id, buchungs_nummer, kunden_name, personen, datum, status, qr_token, anbieter_id, angebote:angebot_id(titel)")
     .or(`buchungs_nummer.eq.${input},qr_token.eq.${token.trim()}`)
+    .eq("anbieter_id", anbieterProfile.id)
     .maybeSingle() as { data: {
       id: string; buchungs_nummer: string; kunden_name: string; personen: number;
-      datum: string; status: string; qr_token: string;
+      datum: string; status: string; qr_token: string; anbieter_id: string;
       angebote: { titel: string } | null;
     } | null };
 
