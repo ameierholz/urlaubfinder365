@@ -572,7 +572,9 @@ function UrlaubsartenMegaMenu({ onClose }: { onClose: () => void }) {
 // ─── Header ───────────────────────────────────────────────────────────────────
 export default function Header() {
   const { user, logout } = useAuth();
-  const t = useTranslations("nav");
+  const t          = useTranslations("nav");
+  const tCountries = useTranslations("countries");
+  const tThemes    = useTranslations("themes");
 
   const [mobileOpen, setMobileOpen]         = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -621,9 +623,10 @@ export default function Header() {
       id: "urlaubsthemen",
       label: t("urlaubsthemen"),
       href: "/urlaubsthemen",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       children: [
-        ...URLAUBSTHEMEN_DATA.map((item) => ({ label: item.tKey, href: item.href })),
-        ...REISEBUDGET_DATA.map((item)  => ({ label: item.tKey, href: item.href })),
+        ...URLAUBSTHEMEN_DATA.map((item) => ({ label: tThemes(item.tKey as any), href: item.href })),
+        ...REISEBUDGET_DATA.map((item)  => ({ label: tThemes(item.tKey as any), href: item.href })),
       ],
     },
     {
@@ -893,7 +896,8 @@ export default function Header() {
                                 />
                                 <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
                                 <span className="absolute bottom-0.5 left-1 text-white text-[9px] font-bold drop-shadow leading-none">
-                                  {d.tKey}
+                                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                  {tCountries(d.tKey as any)}
                                 </span>
                               </Link>
                             ))}

@@ -224,43 +224,51 @@ export default function TravelMapClient() {
     <div className="flex flex-col" style={{ height: "calc(100vh - 96px)", minHeight: "500px" }}>
 
       {/* ── Topbar ──────────────────────────────────────────────────────────── */}
-      <div className="bg-white border-b border-gray-200 px-4 py-2.5 flex items-center gap-3 flex-wrap z-10 shrink-0">
+      <div className="bg-white border-b border-gray-200 z-10 shrink-0">
+        <div className="flex items-center gap-2 px-3 py-2">
 
-        {/* Titel */}
-        <div className="flex items-center gap-2 mr-2">
-          <MapPin className="w-5 h-5 text-teal-600" />
-          <span className="font-bold text-gray-800 text-sm hidden sm:inline">Reisenden-Karte</span>
+          {/* Titel – nur Desktop */}
+          <div className="hidden sm:flex items-center gap-1.5 shrink-0 mr-1">
+            <MapPin className="w-4 h-4 text-teal-600" />
+            <span className="font-bold text-gray-800 text-sm">Reisenden-Karte</span>
+          </div>
+
+          {/* Kategorie-Filter – einzelne scrollbare Zeile */}
+          <div className="flex-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex items-center gap-1.5 py-0.5">
+              {FILTER_OPTIONS.map((f) => (
+                <button
+                  key={f.value}
+                  onClick={() => setActive(f.value)}
+                  className={`shrink-0 flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                    activeCategory === f.value
+                      ? "bg-teal-600 text-white border-teal-600 shadow-sm"
+                      : "bg-white text-gray-600 border-gray-200 hover:border-teal-400 hover:text-teal-700"
+                  }`}
+                >
+                  <span className="text-sm leading-none">{f.emoji}</span>
+                  <span className="hidden sm:inline">{f.label}</span>
+                  <span className={`rounded-full px-1.5 text-[10px] font-bold leading-none py-0.5 ${
+                    activeCategory === f.value ? "bg-white/25 text-white" : "bg-gray-100 text-gray-500"
+                  }`}>
+                    {counts[f.value] ?? 0}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Tipp hinzufügen – immer sichtbar */}
+          <button
+            onClick={() => user ? (setPendingLat(null), setPendingLng(null), setForm(EMPTY_FORM), setIsPicking(false), setShowModal(true)) : setError("Bitte anmelden.")}
+            className="shrink-0 flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm transition-colors"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Tipp hinzufügen</span>
+            <span className="sm:hidden">+ Tipp</span>
+          </button>
+
         </div>
-
-        {/* Kategorie-Filter */}
-        <div className="flex items-center gap-1.5 flex-wrap flex-1">
-          {FILTER_OPTIONS.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setActive(f.value)}
-              className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
-                activeCategory === f.value
-                  ? "bg-teal-600 text-white border-teal-600 shadow-sm"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-teal-400 hover:text-teal-700"
-              }`}
-            >
-              <span>{f.emoji}</span>
-              <span className="hidden sm:inline">{f.label}</span>
-              <span className="bg-white/20 text-inherit rounded-full px-1.5 py-0 text-[10px]">
-                {counts[f.value] ?? 0}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Tipp hinzufügen */}
-        <button
-          onClick={() => user ? (setPendingLat(null), setPendingLng(null), setForm(EMPTY_FORM), setIsPicking(false), setShowModal(true)) : setError("Bitte anmelden.")}
-          className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm transition-colors shrink-0"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          <span>Tipp hinzufügen</span>
-        </button>
       </div>
 
       {/* ── Picking-Banner ───────────────────────────────────────────────────── */}

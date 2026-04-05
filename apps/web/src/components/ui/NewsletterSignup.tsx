@@ -50,8 +50,8 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
 
   if (variant === "hero") {
     return (
-      <form onSubmit={submit} className="space-y-3">
-        <div className="flex gap-2">
+      <form onSubmit={submit} className="space-y-3 pr-14 sm:pr-0">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="email"
             value={email}
@@ -63,18 +63,18 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#00838F] hover:bg-[#006E7A] text-white font-bold px-5 py-3 rounded-xl transition-colors flex items-center gap-2 shrink-0"
+            className="bg-[#00838F] hover:bg-[#006E7A] text-white font-bold px-5 py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shrink-0"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
             Anmelden
           </button>
         </div>
-        <label className="flex items-start gap-2 text-white/80 text-xs cursor-pointer">
+        <label className="flex items-start gap-3 text-white/80 text-xs cursor-pointer select-none text-left">
           <input
             type="checkbox"
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
-            className="mt-0.5 accent-white"
+            className="mt-0.5 w-5 h-5 shrink-0 accent-white cursor-pointer"
           />
           <span>
             Ich stimme zu, Urlaubsangebote per E-Mail zu erhalten. Die{" "}
@@ -124,12 +124,12 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
           {userEmail}
         </div>
       )}
-      <label className="flex items-start gap-2 text-gray-500 text-xs cursor-pointer">
+      <label className="flex items-start gap-3 text-gray-500 text-xs cursor-pointer select-none">
         <input
           type="checkbox"
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-0.5 accent-[#00838F]"
+          className="mt-0.5 w-5 h-5 shrink-0 accent-[#00838F] cursor-pointer"
         />
         <span>
           Ich möchte Urlaubsangebote, Deals und Inspirationen per E-Mail erhalten.

@@ -66,10 +66,10 @@ export const AKTIVITAETEN: Aktivitaet[] = [
     kurzbeschreibung: "Entdecke die 2.000 Jahre alte Altstadt Antalyas mit einem lokalen Experten.",
     beschreibung: "Tauche ein in die Geschichte Antalyas: Vom römischen Hadriantor über die schmalen Gassen von Kaleiçi bis hin zu den osmanischen Karawansereien. Dein Guide lebt seit Geburt in Antalya und kennt jede Geschichte, jede Legende — und das beste Lokum der Stadt.",
     ziel: "Antalya, Türkei", land: "tr", kategorie: "stadtfuehrung",
-    foto: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=800&q=80",
+    foto: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
     fotos: [
-      "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=800&q=80",
       "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&q=80",
     ],
     preis: 29, dauer: "3 Stunden", maxTeilnehmer: 8,
     sprachen: ["Deutsch", "Englisch", "Türkisch"],

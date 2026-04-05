@@ -110,95 +110,110 @@ export default function MeineGruppenTab({ user }: Props) {
         </button>
       </div>
 
-      {/* Gruppe erstellen */}
+      {/* Gruppe erstellen – Modal-Overlay */}
       {showForm && (
-        <div className="bg-white rounded-2xl border border-teal-200 shadow-sm p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold text-gray-800">Neue Gruppe gründen</h3>
-            <button onClick={() => setShowForm(false)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors"><X className="w-5 h-5 text-gray-400" /></button>
-          </div>
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => { setShowForm(false); setError(null); }} />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-gray-600 mb-1">Gruppenname *</label>
-              <input type="text" placeholder="z.B. Türkei Fans 2026" value={form.name}
-                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} maxLength={60}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
+          {/* Panel */}
+          <div className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-2xl shadow-xl max-h-[85vh] overflow-y-auto">
+            {/* Handle bar (mobile) */}
+            <div className="sm:hidden flex justify-center pt-3 pb-1">
+              <div className="w-10 h-1 bg-gray-300 rounded-full" />
             </div>
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-gray-600 mb-1">Beschreibung</label>
-              <textarea placeholder="Worum geht es in dieser Gruppe?" value={form.description}
-                onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} maxLength={300}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-600 mb-1">Kategorie</label>
-              <div className="grid grid-cols-2 gap-1">
-                {CAT_OPTIONS.map((c) => (
-                  <button key={c.value} type="button" onClick={() => setForm((f) => ({ ...f, category: c.value }))}
-                    className={`text-xs py-1.5 px-2 rounded-lg border-2 font-semibold transition-all ${
-                      form.category === c.value ? "border-teal-500 bg-teal-50 text-teal-700" : "border-gray-200 text-gray-600"
-                    }`}
-                  >
-                    {c.emoji} {c.label}
-                  </button>
-                ))}
+
+            <div className="p-5 space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-gray-800">Neue Gruppe gründen</h3>
+                <button onClick={() => { setShowForm(false); setError(null); }} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                  <X className="w-5 h-5 text-gray-400" />
+                </button>
               </div>
-            </div>
-            <div>
-              <label className="block text-xs font-bold text-gray-600 mb-1">Destination (optional)</label>
-              <input type="text" placeholder="z.B. Antalya, Türkei" value={form.destination}
-                onChange={(e) => setForm((f) => ({ ...f, destination: e.target.value }))}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-            </div>
-            {form.category === "date" && (
-              <div>
-                <label className="block text-xs font-bold text-gray-600 mb-1">Reisemonat</label>
-                <div className="flex gap-2">
-                  <select onChange={(e) => {
-                    const mi = MONTHS.indexOf(e.target.value)+1;
-                    const y = form.travelMonth.split("-")[0] || "2026";
-                    setForm((f) => ({ ...f, travelMonth: `${y}-${String(mi).padStart(2,"0")}` }));
-                  }} className="flex-1 border border-gray-200 rounded-xl px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white">
-                    <option value="">Monat</option>
-                    {MONTHS.map((m) => <option key={m} value={m}>{m}</option>)}
-                  </select>
-                  <select onChange={(e) => {
-                    const m = form.travelMonth.split("-")[1] || "01";
-                    setForm((f) => ({ ...f, travelMonth: `${e.target.value}-${m}` }));
-                  }} className="flex-1 border border-gray-200 rounded-xl px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white">
-                    {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
-                  </select>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-bold text-gray-600 mb-1">Gruppenname *</label>
+                  <input type="text" placeholder="z.B. Türkei Fans 2026" value={form.name}
+                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} maxLength={60}
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-bold text-gray-600 mb-1">Beschreibung</label>
+                  <textarea placeholder="Worum geht es in dieser Gruppe?" value={form.description}
+                    onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} maxLength={300}
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1">Kategorie</label>
+                  <div className="grid grid-cols-2 gap-1">
+                    {CAT_OPTIONS.map((c) => (
+                      <button key={c.value} type="button" onClick={() => setForm((f) => ({ ...f, category: c.value }))}
+                        className={`text-xs py-1.5 px-2 rounded-lg border-2 font-semibold transition-all ${
+                          form.category === c.value ? "border-teal-500 bg-teal-50 text-teal-700" : "border-gray-200 text-gray-600"
+                        }`}
+                      >
+                        {c.emoji} {c.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1">Destination (optional)</label>
+                  <input type="text" placeholder="z.B. Antalya, Türkei" value={form.destination}
+                    onChange={(e) => setForm((f) => ({ ...f, destination: e.target.value }))}
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  />
+                </div>
+                {form.category === "date" && (
+                  <div>
+                    <label className="block text-xs font-bold text-gray-600 mb-1">Reisemonat</label>
+                    <div className="flex gap-2">
+                      <select onChange={(e) => {
+                        const mi = MONTHS.indexOf(e.target.value)+1;
+                        const y = form.travelMonth.split("-")[0] || "2026";
+                        setForm((f) => ({ ...f, travelMonth: `${y}-${String(mi).padStart(2,"0")}` }));
+                      }} className="flex-1 border border-gray-200 rounded-xl px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white">
+                        <option value="">Monat</option>
+                        {MONTHS.map((m) => <option key={m} value={m}>{m}</option>)}
+                      </select>
+                      <select onChange={(e) => {
+                        const m = form.travelMonth.split("-")[1] || "01";
+                        setForm((f) => ({ ...f, travelMonth: `${e.target.value}-${m}` }));
+                      }} className="flex-1 border border-gray-200 rounded-xl px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white">
+                        {YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                )}
+                <div>
+                  <label className="block text-xs font-bold text-gray-600 mb-1">Tags (kommagetrennt)</label>
+                  <input type="text" placeholder="strand, all-inclusive, familie" value={form.tags}
+                    onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  />
                 </div>
               </div>
-            )}
-            <div>
-              <label className="block text-xs font-bold text-gray-600 mb-1">Tags (kommagetrennt)</label>
-              <input type="text" placeholder="strand, all-inclusive, familie" value={form.tags}
-                onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
-              />
-            </div>
-          </div>
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-xs text-red-700">
-              <strong>Fehler:</strong> {error}
-            </div>
-          )}
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-xs text-red-700">
+                  <strong>Fehler:</strong> {error}
+                </div>
+              )}
 
-          <div className="flex gap-2 pt-1">
-            <button onClick={() => { setShowForm(false); setError(null); }}
-              className="flex-1 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 font-semibold"
-            >Abbrechen</button>
-            <button onClick={handleCreate} disabled={saving || !form.name.trim()}
-              className="flex-1 py-2 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-1.5"
-            >
-              {saving && <Loader2 className="w-4 h-4 animate-spin" />} Gruppe erstellen
-            </button>
+              <div className="flex gap-2 pt-1 pb-2">
+                <button onClick={() => { setShowForm(false); setError(null); }}
+                  className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 font-semibold"
+                >Abbrechen</button>
+                <button onClick={handleCreate} disabled={saving || !form.name.trim()}
+                  className="flex-1 py-2.5 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-1.5"
+                >
+                  {saving && <Loader2 className="w-4 h-4 animate-spin" />} Gruppe erstellen
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

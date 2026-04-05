@@ -111,7 +111,7 @@ export const DEMO_ANGEBOTE = [
     ziel: "Antalya, Türkei",
     preis: 49,
     preistyp: "pro_person",
-    foto_url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&q=70&fit=crop&auto=format",
+    foto_url: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=400&h=250&q=70&fit=crop&auto=format",
     kategorie: "tagesausflug",
     anbieter_profile: {
       name: "Antalya Sea Tours",

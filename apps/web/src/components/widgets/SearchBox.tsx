@@ -10,16 +10,16 @@ const WIDGET_SRC =
  *
  * Höhe wird dynamisch per postMessage angepasst sobald der Widget eine
  * resize-Nachricht schickt (z.B. beim Öffnen eines Dropdowns).
- * Startwert 450 px ist auf Mobile groß genug damit alle Felder sichtbar sind.
+ * Mobile: 480 px, Desktop: 500 px – groß genug damit alle Felder (inkl. Suchen-Button) sichtbar sind.
  */
 export default function SearchBox() {
   const [ready, setReady] = useState(false);
-  const [height, setHeight] = useState(320);
+  const [height, setHeight] = useState(480);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Lazy-load nach erstem Paint + Desktop-Höhe setzen
   useEffect(() => {
-    if (window.innerWidth >= 640) setHeight(450);
+    if (window.innerWidth >= 640) setHeight(500);
     const raf = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(raf);
   }, []);
@@ -46,7 +46,8 @@ export default function SearchBox() {
       }
 
       if (newH >= 150 && newH <= 1200) {
-        setHeight(newH);
+        // Mindesthöhe 480: alle Felder bleiben sichtbar
+        setHeight(Math.max(newH, 480));
       }
     }
 

@@ -204,7 +204,8 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
       {/* ── Kategorie-Navigation ───────────────────────────────────── */}
       <div className="sticky top-16 z-30 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2">
+          {/* Mobile: 2 Zeilen – Kategorien oben, Button unten. Desktop: 1 Zeile */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
             <div ref={katRef} className="flex gap-1 overflow-x-auto py-3 scrollbar-hide flex-1">
               {KATEGORIE_NAV.map((k) => (
                 <button
@@ -221,14 +222,16 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
                 </button>
               ))}
             </div>
-            {/* Anbieter-Button in Nav */}
-            <Link
-              href="/marktplatz/anbieter-werden/"
-              className="shrink-0 flex items-center gap-1.5 border-2 border-[#00838F] text-[#00838F] hover:bg-[#00838F] hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              Anbieter werden
-            </Link>
+            {/* Anbieter-Button: Mobile = eigene Zeile (rechts), Desktop = inline */}
+            <div className="flex justify-end pb-2 sm:pb-0">
+              <Link
+                href="/marktplatz/anbieter-werden/"
+                className="shrink-0 flex items-center gap-1.5 border-2 border-[#00838F] text-[#00838F] hover:bg-[#00838F] hover:text-white font-bold text-xs px-4 py-2 rounded-xl transition-all whitespace-nowrap"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Anbieter werden
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -298,7 +301,14 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
                   Selbst Anbieter werden →
                 </Link>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="
+                flex gap-4 overflow-x-auto pb-3
+                -mx-4 px-4 sm:mx-0 sm:px-0
+                snap-x snap-mandatory
+                sm:grid sm:grid-cols-2 lg:grid-cols-4
+                sm:overflow-visible sm:pb-0
+                [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+              ">
                 {(() => {
                   // Unique Anbieter aus Demo-Daten, sortiert nach Bewertung
                   const seen = new Set<string>();
@@ -307,7 +317,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
                     .sort((a, b) => b.anbieter.bewertung - a.anbieter.bewertung)
                     .slice(0, 4)
                     .map((a) => (
-                      <div key={a.anbieter.name} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all">
+                      <div key={a.anbieter.name} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all snap-start shrink-0 w-52 sm:w-auto sm:shrink">
                         <div className="relative mb-3">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img

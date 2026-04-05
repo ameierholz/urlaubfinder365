@@ -3800,7 +3800,7 @@ export const CATALOG: CatalogEntry[] = [
     superRegionName: "Portugal",
     type: "region",
     unsplashKeyword: "porto santo island madeira golden beach atlantic portugal",
-    climateZone: "subtropical",
+    climateZone: "tropical",
     iataCode: "PXO",
     coordinates: { lat: 33.1, lng: -16.4 },
     parentSlug: "portugal",

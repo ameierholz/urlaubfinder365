@@ -186,23 +186,39 @@ export default async function SponsoredAngebote({
     );
   }
 
-  // ── BANNER-Variante (Standard — horizontales Grid) ──────────────────────────
+  // ── BANNER-Variante — Carousel auf Mobile, Grid auf Desktop ────────────────
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center gap-2 mb-5">
+    <section className="max-w-7xl mx-auto py-8">
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-5 px-4 sm:px-6 lg:px-8">
         <Megaphone className="w-4 h-4 text-amber-500" />
         <h2 className="text-lg font-bold text-gray-900">Gesponserte Angebote</h2>
         <span className="text-[10px] font-semibold text-gray-400 border border-gray-200 px-2 py-0.5 rounded-full ml-1">Anzeige</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Carousel auf Mobile (overflow-x scroll + snap), Grid auf sm+ */}
+      <div
+        className="
+          flex gap-4 overflow-x-auto pb-3
+          px-4 sm:px-6 lg:px-8
+          snap-x snap-mandatory
+          sm:grid sm:grid-cols-2 lg:grid-cols-4
+          sm:overflow-visible sm:pb-0
+          [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+        "
+      >
         {angebote.map((a) => (
           <Link
             key={a.id}
             href={`/marktplatz/${a.slug}/`}
-            className="group bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden"
+            className="
+              group bg-white rounded-2xl border border-amber-100 shadow-sm
+              hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden
+              snap-start shrink-0 w-72
+              sm:w-auto sm:shrink
+            "
           >
-            <div className="relative h-36 bg-gray-100 overflow-hidden">
+            <div className="relative h-40 bg-gray-100 overflow-hidden">
               {a.foto_url ? (
                 <Image src={a.foto_url} alt={a.titel} fill className="object-cover group-hover:scale-105 transition-transform duration-300" unoptimized />
               ) : (
