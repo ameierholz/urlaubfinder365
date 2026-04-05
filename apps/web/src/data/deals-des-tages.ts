@@ -20,7 +20,7 @@ export interface DealDesTages {
 
 /** Direkt-Buchungslink mit GIATA-ID (identisch zu HomeDealCard) */
 const BOOK = (giataId: number, nights = "7-7") =>
-  `https://b2b.specials.de/index/jump/119/2780/993243/?giataId=${giataId}&from=14&to=42&duration=${nights}&adults=2&category=5&minRecommrate=80`;
+  `https://b2b.specials.de/index/jump/119/2780/993243/?giataId=${giataId}&from=7&to=180&duration=${nights}&adults=2&category=5&minRecommrate=80`;
 
 const DEALS_BY_SLUG: Record<string, DealDesTages[]> = {
 
@@ -100,15 +100,6 @@ const DEALS_BY_SLUG: Record<string, DealDesTages[]> = {
       price: 309, originalPrice: 459, discount: 33, nights: 7,
       board: "Halbpension", stars: 5,
       href: BOOK(31780),
-    },
-    {
-      id: "mallorca-4",
-      hotelName: "Hipotels Playa de Palma Palace ★★★★",
-      location: "Playa de Palma, Mallorca",
-      imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=380&fit=crop&q=75",
-      price: 259, originalPrice: 379, discount: 32, nights: 7,
-      board: "All Inclusive", stars: 4,
-      href: BOOK(18541),
     },
   ],
 
