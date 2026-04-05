@@ -32,6 +32,7 @@ interface Continent {
   gradient: string;
   desc: string;
   slugs: string[];
+  top5: string[]; // Die 5 beliebtesten Ziele – 2 groß + 3 mittel
 }
 
 const CONTINENTS: Continent[] = [
@@ -41,6 +42,7 @@ const CONTINENTS: Continent[] = [
     emoji: "🏰",
     gradient: "from-blue-900 via-[#1b6ca8] to-[#00838F]",
     desc: `Von den Stränden Mallorcas bis zu den Gassen Roms – Europa bietet für jeden Urlaubstyp das perfekte Reiseziel. Pauschalreisen ${YEAR} mit Flug & Hotel zum Bestpreis.`,
+    top5: ["mallorca", "teneriffa", "kreta", "griechische-inseln", "costa-del-sol"],
     slugs: [
       "amalfikusste", "andalusien", "aragonien", "athen", "azoren",
       "balearen", "barcelona", "baltikum", "benelux", "benidorm", "bulgarien",
@@ -75,6 +77,7 @@ const CONTINENTS: Continent[] = [
     emoji: "🌏",
     gradient: "from-pink-900 via-pink-700 to-rose-600",
     desc: "Türkei, Thailand, Malediven, Dubai und Japan – von modernen 5-Sterne-Resorts an der Türkischen Riviera bis zu tropischen Stränden im Indischen Ozean.",
+    top5: ["tuerkei", "dubai", "thailand", "malediven", "bali"],
     slugs: [
       "abu-dhabi", "alanya", "antalya-stadt", "asien",
       "bali", "bangkok", "belek",
@@ -102,6 +105,7 @@ const CONTINENTS: Continent[] = [
     emoji: "🌍",
     gradient: "from-amber-900 via-amber-700 to-yellow-600",
     desc: "Hurghada, Sharm el-Sheikh, Tunesien und Marokko – Nordafrika für Strand und Kultur, Kenia und Sansibar für Safari und Traumstrände im Indischen Ozean.",
+    top5: ["aegypten", "hurghada", "tunesien", "marokko", "kapverden"],
     slugs: [
       "aegypten", "agadir", "afrika", "afrika-sued",
       "djerba",
@@ -119,6 +123,7 @@ const CONTINENTS: Continent[] = [
     emoji: "🌴",
     gradient: "from-cyan-900 via-cyan-700 to-teal-600",
     desc: "Karibische All-Inclusive-Resorts in Punta Cana und Cancún, Städtereisen nach New York, Kubas Havanna und Naturwunder entlang Südamerikas.",
+    top5: ["dominikanische-republik", "cancun", "kuba", "punta-cana", "new-york"],
     slugs: [
       "aruba",
       "barbados",
@@ -143,6 +148,7 @@ const CONTINENTS: Continent[] = [
     emoji: "🦘",
     gradient: "from-emerald-900 via-emerald-700 to-teal-600",
     desc: "Das Great Barrier Reef, Sydney Opera House, Neuseelands Fjorde und die Inseln der Südsee – Australien und Ozeanien für unvergessliche Fernreisen.",
+    top5: ["australien", "neuseeland", "fiji", "hawaii", "sydney"],
     slugs: [
       "australien", "neuseeland", "sydney", "queensland", "fiji", "hawaii", "polynesien",
     ],
@@ -271,8 +277,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
             {/* ── Kontinent-Sektionen ─────────────────────────────────────── */}
             {CONTINENTS.map((continent) => {
-              const entries = getEntriesBySlugs(continent.slugs);
-              if (entries.length === 0) return null;
+              const allEntries = getEntriesBySlugs(continent.slugs);
+              if (allEntries.length === 0) return null;
+
+              // Top 5 in definierter Reihenfolge (nicht alphabetisch)
+              const top5 = continent.top5
+                .map((s) => allEntries.find((e) => e.slug === s))
+                .filter((e): e is CatalogEntry => !!e);
+              const top5Slugs = new Set(top5.map((e) => e.slug));
+              const rest = allEntries.filter((e) => !top5Slugs.has(e.slug));
 
               return (
                 <section key={continent.id} id={continent.id} className="scroll-mt-24">
@@ -291,16 +304,40 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     </div>
                   </div>
 
-                  {/* Destination-Kacheln */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                    {entries.map((entry, i) => (
-                      <CountryHoverCard
-                        key={entry.slug}
-                        dest={entryToCardProps(entry)}
-                        className={i < 2 ? "h-48" : "h-40"}
-                      />
-                    ))}
-                  </div>
+                  {/* Top 5 Highlight: 2 groß + 3 mittel */}
+                  {top5.length > 0 && (
+                    <div className="mb-5">
+                      <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
+                        ⭐ Beliebteste Reiseziele
+                      </p>
+                      <div className="grid grid-cols-2 gap-3 mb-3">
+                        {top5.slice(0, 2).map((entry) => (
+                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-56 sm:h-64" />
+                        ))}
+                      </div>
+                      {top5.length > 2 && (
+                        <div className="grid grid-cols-3 gap-3">
+                          {top5.slice(2, 5).map((entry) => (
+                            <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-44 sm:h-48" />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Restliche Destinations alphabetisch */}
+                  {rest.length > 0 && (
+                    <>
+                      <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 mt-6">
+                        Alle {continent.label}-Ziele
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                        {rest.map((entry) => (
+                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-40" />
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </section>
               );
             })}
