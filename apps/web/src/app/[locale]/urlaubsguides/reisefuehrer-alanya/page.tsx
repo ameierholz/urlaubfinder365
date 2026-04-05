@@ -8,7 +8,7 @@ import { guideData } from "@/lib/guide-data";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-alanya/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1589556264800-08ae9e129a8e?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1701855081405-546cb8753b5a?w=1200&h=630&fit=crop&q=80";
 
 export const metadata: Metadata = {
   title: `🏰 Alanya Urlaubsführer ${YEAR} – Roter Turm, Strände & Tipps`,
