@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Props {
   dataSrc: string;
@@ -52,7 +52,7 @@ export default function InlineExpandIbeWidget({ dataSrc, fullHeight = 3750 }: Pr
       {/* IBE iframe – immer im DOM, Container clippt auf 100px wenn eingeklappt */}
       <div
         className="relative transition-all duration-500 ease-in-out"
-        style={{ height: expanded ? iframeHeight : 100, overflow: "hidden" }}
+        style={{ height: expanded ? iframeHeight : 120, overflow: "hidden" }}
       >
         <iframe
           ref={iframeRef}
@@ -72,9 +72,21 @@ export default function InlineExpandIbeWidget({ dataSrc, fullHeight = 3750 }: Pr
             aria-label="Reisesuche öffnen"
           />
         )}
+
+        {/* Einklapp-Button oben rechts – nur wenn ausgeklappt */}
+        {expanded && (
+          <button
+            onClick={() => setExpanded(false)}
+            className="absolute top-2 right-2 z-10 flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 text-xs font-semibold text-gray-600 hover:bg-white hover:text-[#00838F] shadow-sm transition-colors"
+            aria-label="Reisesuche einklappen"
+          >
+            <ChevronUp className="w-3.5 h-3.5" />
+            Einklappen
+          </button>
+        )}
       </div>
 
-      {/* Ausklapp-Button unterhalb der 100px-Vorschau */}
+      {/* Ausklapp-Button unterhalb der 120px-Vorschau */}
       {!expanded && (
         <button
           onClick={expand}
