@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Sun, MapPin, Euro, Lightbulb, ChevronDown, ChevronUp,
-  RefreshCw, Download, Star,
+  RefreshCw, Printer, Star, BookmarkPlus, CheckCircle, LogIn,
 } from "lucide-react";
+import { createSupabaseBrowser } from "@/lib/supabase-browser";
 
 interface Aktivitaet {
   zeit: string;
@@ -48,10 +50,48 @@ interface Props {
   onNeu: () => void;
 }
 
+type SaveState = "idle" | "saving" | "saved" | "error";
+
 export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
-  const [offeneTag, setOffeneTag] = useState<number>(1);
+  const [offeneTag, setOffeneTag]     = useState<number>(1);
+  const [userId, setUserId]           = useState<string | null>(null);
+  const [saveState, setSaveState]     = useState<SaveState>("idle");
+  const [showLoginHint, setShowLoginHint] = useState(false);
+
+  // Einmalig beim Laden: Auth-Session prüfen
+  useEffect(() => {
+    const supabase = createSupabaseBrowser();
+    supabase.auth.getSession().then(({ data }) => {
+      setUserId(data.session?.user.id ?? null);
+    });
+  }, []);
 
   const drucken = () => window.print();
+
+  const speichern = async () => {
+    if (!userId) {
+      setShowLoginHint(true);
+      return;
+    }
+    setSaveState("saving");
+    try {
+      const supabase = createSupabaseBrowser();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { error } = await (supabase as any)
+        .from("itineraries")
+        .insert({
+          user_id:    userId,
+          title:      ziel,
+          plan_data:  plan,
+          created_at: new Date().toISOString(),
+        });
+      if (error) throw error;
+      setSaveState("saved");
+    } catch {
+      setSaveState("error");
+      setTimeout(() => setSaveState("idle"), 3000);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -67,16 +107,36 @@ export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
             <h2 className="text-3xl font-black mb-2">{ziel}</h2>
             <p className="text-white/80 text-sm leading-relaxed max-w-xl">{plan.zusammenfassung}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            {/* Drucken */}
             <button
               onClick={drucken}
-              className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-2 rounded-xl text-xs font-semibold transition-colors"
+              title="Reiseplan drucken / als PDF speichern"
+              className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-2 rounded-xl text-xs font-semibold transition-colors print:hidden"
             >
-              <Download className="w-3.5 h-3.5" /> PDF
+              <Printer className="w-3.5 h-3.5" /> Drucken
             </button>
+
+            {/* Speichern */}
+            {saveState === "saved" ? (
+              <span className="flex items-center gap-1.5 bg-emerald-400/30 px-3 py-2 rounded-xl text-xs font-semibold">
+                <CheckCircle className="w-3.5 h-3.5" /> Gespeichert
+              </span>
+            ) : (
+              <button
+                onClick={speichern}
+                disabled={saveState === "saving"}
+                title="Reiseplan im Profil speichern"
+                className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 disabled:opacity-60 px-3 py-2 rounded-xl text-xs font-semibold transition-colors print:hidden"
+              >
+                <BookmarkPlus className="w-3.5 h-3.5" />
+                {saveState === "saving" ? "Speichere…" : saveState === "error" ? "Fehler – erneut?" : "Speichern"}
+              </button>
+            )}
+
             <button
               onClick={onNeu}
-              className="flex items-center gap-1.5 bg-white text-[#00838F] hover:bg-blue-50 px-3 py-2 rounded-xl text-xs font-bold transition-colors"
+              className="flex items-center gap-1.5 bg-white text-[#00838F] hover:bg-blue-50 px-3 py-2 rounded-xl text-xs font-bold transition-colors print:hidden"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Neu planen
             </button>
@@ -117,6 +177,40 @@ export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
         </div>
       </div>
 
+      {/* Login-Hinweis (nur wenn nicht eingeloggt und Speichern geklickt) */}
+      {showLoginHint && !userId && (
+        <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl px-5 py-4 print:hidden">
+          <LogIn className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <p className="text-sm font-bold text-blue-900">Reiseplan speichern</p>
+            <p className="text-sm text-blue-700 mt-0.5">
+              Melde dich an oder erstelle ein kostenloses Konto, um deine Reisepläne dauerhaft zu speichern und von überall abzurufen.
+            </p>
+            <div className="flex gap-3 mt-3">
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors"
+              >
+                <LogIn className="w-3.5 h-3.5" /> Jetzt anmelden
+              </Link>
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-1.5 bg-white hover:bg-gray-50 text-blue-700 border border-blue-300 text-xs font-bold px-4 py-2 rounded-xl transition-colors"
+              >
+                Kostenlos registrieren
+              </Link>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowLoginHint(false)}
+            className="text-blue-400 hover:text-blue-600 text-lg leading-none"
+            aria-label="Schließen"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       {/* Tagespläne */}
       <div className="space-y-3">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -127,7 +221,7 @@ export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
           <div key={tag.tag} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <button
               onClick={() => setOffeneTag(offeneTag === tag.tag ? 0 : tag.tag)}
-              className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+              className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors print:hidden"
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-[#00838F] text-white flex items-center justify-center font-black text-sm shrink-0">
@@ -144,35 +238,44 @@ export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
               }
             </button>
 
-            {offeneTag === tag.tag && (
-              <div className="border-t border-gray-100 divide-y divide-gray-50">
-                {tag.aktivitaeten?.map((a, i) => (
-                  <div key={i} className="px-5 py-4">
-                    <div className="flex items-start gap-3">
-                      <span className={`shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold mt-0.5 ${ZEIT_FARBEN[a.zeit] ?? "bg-gray-100 text-gray-600"}`}>
-                        {a.zeit}
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-gray-900 text-sm">{a.titel}</p>
-                        <p className="text-xs text-gray-500 mt-1 leading-relaxed">{a.beschreibung}</p>
-                        <div className="flex flex-wrap gap-3 mt-2">
-                          {a.kosten && (
-                            <span className="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
-                              💰 {a.kosten}
-                            </span>
-                          )}
-                          {a.tipp && (
-                            <span className="text-[11px] text-amber-700 font-medium">
-                              💡 {a.tipp}
-                            </span>
-                          )}
-                        </div>
+            {/* Beim Drucken immer aufgeklappt; im Browser nur wenn aktiv */}
+            <div className={offeneTag === tag.tag ? "border-t border-gray-100 divide-y divide-gray-50" : "hidden print:block border-t border-gray-100 divide-y divide-gray-50"}>
+              {/* Tages-Header für Druck */}
+              <div className="hidden print:flex items-center gap-3 px-5 py-3 bg-gray-50">
+                <div className="w-8 h-8 rounded-full bg-[#00838F] text-white flex items-center justify-center font-black text-sm shrink-0">
+                  {tag.tag}
+                </div>
+                <div>
+                  <p className="font-bold text-gray-900 text-sm">Tag {tag.tag}</p>
+                  <p className="text-xs text-gray-500">{tag.titel}</p>
+                </div>
+              </div>
+              {tag.aktivitaeten?.map((a, i) => (
+                <div key={i} className="px-5 py-4">
+                  <div className="flex items-start gap-3">
+                    <span className={`shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold mt-0.5 ${ZEIT_FARBEN[a.zeit] ?? "bg-gray-100 text-gray-600"}`}>
+                      {a.zeit}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-gray-900 text-sm">{a.titel}</p>
+                      <p className="text-xs text-gray-500 mt-1 leading-relaxed">{a.beschreibung}</p>
+                      <div className="flex flex-wrap gap-3 mt-2">
+                        {a.kosten && (
+                          <span className="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
+                            💰 {a.kosten}
+                          </span>
+                        )}
+                        {a.tipp && (
+                          <span className="text-[11px] text-amber-700 font-medium">
+                            💡 {a.tipp}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -195,7 +298,7 @@ export default function ReiseplanerErgebnis({ plan, ziel, onNeu }: Props) {
       )}
 
       {/* Neu planen CTA */}
-      <div className="text-center pt-4">
+      <div className="text-center pt-4 print:hidden">
         <button
           onClick={onNeu}
           className="inline-flex items-center gap-2 bg-[#00838F] hover:bg-[#006d78] text-white font-bold px-8 py-3.5 rounded-2xl transition-colors"

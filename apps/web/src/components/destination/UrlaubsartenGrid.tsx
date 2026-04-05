@@ -463,12 +463,12 @@ export default function UrlaubsartenGrid({ regionId, destName }: Props) {
                       <span className="text-xs font-semibold text-emerald-700">ab {price}</span>
                       {trend === "up" && trendPct !== null && (
                         <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-red-500 bg-red-50 px-1 py-0.5 rounded" title="Preis gestiegen zum Vortag">
-                          ↑ +{trendPct}% zum Vortag
+                          ↑ +{trendPct}% Vortag
                         </span>
                       )}
                       {trend === "down" && trendPct !== null && (
                         <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1 py-0.5 rounded" title="Preis gesunken zum Vortag">
-                          ↓ -{trendPct}% zum Vortag
+                          ↓ -{trendPct}% Vortag
                         </span>
                       )}
                     </>
@@ -477,16 +477,6 @@ export default function UrlaubsartenGrid({ regionId, destName }: Props) {
                   )}
                 </div>
 
-                {/* Sparkline */}
-                {hasChart && (
-                  <div
-                    className="mt-1.5 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
-                    onClick={(e) => handleChartClick(e, kat)}
-                    title="Preisverlauf anzeigen"
-                  >
-                    <Sparkline history={history} />
-                  </div>
-                )}
               </div>
 
               <span className="text-gray-400 group-hover:text-gray-600 transition-colors text-lg shrink-0">›</span>

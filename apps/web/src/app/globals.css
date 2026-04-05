@@ -248,4 +248,20 @@ html.a11y-links a {
 
 @media print {
   .print\:hidden { display: none !important; }
+
+  /* KI-Reiseplaner Druckoptimierung */
+  body { font-size: 12pt; background: white !important; }
+  header, footer, nav, aside { display: none !important; }
+  .print\:block { display: block !important; }
+  .print\:flex { display: flex !important; }
+
+  /* Alle Tages-Akkordeons beim Drucken aufklappen */
+  .hidden.print\:block { display: block !important; }
+  .hidden.print\:flex { display: flex !important; }
+
+  /* Keine Schatten im Druck */
+  * { box-shadow: none !important; }
+
+  /* Seitenumbrüche zwischen Tagen vermeiden */
+  .space-y-3 > * { break-inside: avoid; }
 }
