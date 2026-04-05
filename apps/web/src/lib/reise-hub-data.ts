@@ -2157,6 +2157,1763 @@ const uaeHubData: HubData = {
   },
 };
 
+// ─── KROATIEN ───────────────────────────────────────────────────────────────
+const croatiaHubData: HubData = {
+  einreise: {
+    title: "Einreise",
+    iconFa: "fa-passport",
+    color: "bg-red-600",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Dokumente &amp; Formalitäten</h4>
+          <p class="mb-3 text-sm italic">Kroatien ist seit Januar 2023 Schengen-Mitglied und seit Januar 2023 auch im Euro-Raum. Das erleichtert die Reise erheblich.</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Reisedokumente:</strong> Als EU-Bürger reicht der gültige Personalausweis. Reisepass ebenfalls akzeptiert.</li>
+            <li><strong>Kein Visum:</strong> Kroatien ist Schengen-Land – volle EU-Freizügigkeit, keine Grenzkontrollen.</li>
+            <li><strong>Währung:</strong> Seit 1. Januar 2023 ist der Euro (EUR) offizielles Zahlungsmittel. Kein Wechseln nötig.</li>
+            <li><strong>Krankenversicherung:</strong> EHIC (Europäische Krankenversicherungskarte) ist gültig. Zusätzliche Auslandskrankenversicherung empfohlen.</li>
+            <li><strong>Einreise per Fähre/Schiff:</strong> Reisepass oder Personalausweis wird bei Ticketkauf und Einschiffung kontrolliert.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise: Alltag &amp; Besonderheiten</h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block text-gray-900 mb-1">Inseln &amp; Fährverkehr</strong>
+              Viele Top-Ziele (Hvar, Brač, Korčula) nur per Fähre erreichbar. Tickets über <em>Jadrolinija.hr</em> buchen. Im Sommer Wochen im Voraus!
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block text-gray-900 mb-1">Bezahlen</strong>
+              Euro überall akzeptiert. Kartenzahlung weit verbreitet. Auf kleinen Inseln und Märkten Bargeld sinnvoll.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nach der Reise: Zoll &amp; Mitnahme</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500 border rounded-lg">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr><th class="px-2 py-2">Kategorie</th><th class="px-2 py-2">Freimenge (DE)</th><th class="px-2 py-2">Hinweis</th></tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Warenwert</td><td class="px-2 py-2">EU-unbegrenzt</td><td class="px-2 py-2">Keine Zollgrenzen innerhalb EU</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Olivenöl</td><td class="px-2 py-2">unbegrenzt</td><td class="px-2 py-2">Top-Qualität aus Istrien mitbringen!</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Wein/Spirituosen</td><td class="px-2 py-2">unbegrenzt (privat)</td><td class="px-2 py-2">Nur keine kommerzielle Menge</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-3 bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-3 text-sm">
+            <p class="font-bold">Euro-Hinweis</p>
+            <p>Seit dem 1. Januar 2023 gilt der Euro in Kroatien. Kuna ist nicht mehr gültig. Restbestände können bei der Kroatischen Nationalbank in Zagreb noch eingetauscht werden.</p>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-lg text-indigo-900 mb-2">Einreise &amp; Fähren: Profi-Tipps</h4>
+          <ul class="space-y-3 text-sm">
+            <li class="bg-indigo-50 p-3 rounded-lg"><strong>Jadrolinija-Ticket-Hack:</strong> Für die beliebten Routen (Split–Hvar, Split–Brač) immer das Ticket mit Fahrzeug vorbuchen. Ohne Buchung droht stundenlange Wartezeit im Sommer.</li>
+            <li class="bg-indigo-50 p-3 rounded-lg"><strong>Schnellfähren vs. Ro-Ro-Fähren:</strong> Schnellfähren (Katamaran) sind 2–3x teurer aber deutlich schneller. Für Tagesausflüge ideal. Auto nur auf Ro-Ro-Fähren möglich.</li>
+            <li class="bg-indigo-50 p-3 rounded-lg"><strong>Schengen-Eintritt 2023:</strong> Keine Grenzkontrollen mehr an den Landgrenzen zu Slowenien und Ungarn. Autobahnvignette für Slowenien (falls Transitstrecke) nicht vergessen!</li>
+            <li class="bg-indigo-50 p-3 rounded-lg"><strong>Dubrovnik-Ausnahme:</strong> Für die Einreise nach Dubrovnik über Bosnien (Neum-Korridor) brauchen Non-EU-Bürger besondere Aufmerksamkeit. EU-Bürger: kein Problem.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-lg text-amber-900 mb-2">Kroatische Vignetten &amp; Maut</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div class="border p-3 rounded"><strong>Mautstraßen:</strong><br/>Kroatische Autobahnen (HAC) sind mautpflichtig. Bezahlung per Bargeld, Karte oder ETC-System. Keine Vignette wie in Slowenien/Österreich.</div>
+            <div class="border p-3 rounded"><strong>Küstenstraße D8:</strong><br/>Die Magistrale entlang der Küste ist mautfrei und malerisch schön. Deutlich langsamer, aber unvergesslich.</div>
+          </div>
+        </div>
+      </div>`,
+  },
+
+  gesundheit: {
+    title: "Gesundheit",
+    iconFa: "fa-briefcase-medical",
+    color: "bg-green-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Prävention</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Impfschutz:</strong> Keine Pflichtimpfungen. Empfohlen: Tetanus, Hepatitis A. Bei Naturaufenthalten: FSME (Frühsommer-Meningoenzephalitis) in manchen Regionen relevant.</li>
+            <li><strong>EHIC-Karte:</strong> Kroatien ist EU-Mitglied – EHIC wird anerkannt.</li>
+            <li><strong>Reiseapotheke:</strong> Sonnenschutz LSF 50+, Meerwasser-Nasenspray, Desinfektionsgel, Schmerzmittel, Pflaster.</li>
+            <li><strong>Seegeln/Tauchen:</strong> Wer segelt oder taucht: Dekompressionstabellen und Notfallnummer der Tauchrettung (Hyperbarische Kammer in Split und Rijeka) notieren.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Seeigel &amp; Quallen</strong>An felsigen Stränden Badeschuhe tragen. Im Spätsommer können Quallen (Meduse) auftreten. Ammoniak-Spray hilft bei Stichen.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Hitze &amp; Sonne</strong>Im Juli/August bis 38°C an der Küste. Zwischen 12–16 Uhr Schatten suchen, min. 2–3 Liter Wasser trinken.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Trinkwasser</strong>Leitungswasser in Kroatien ist trinkbar und von guter Qualität – eine der positiven Überraschungen!</div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nach der Reise</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li>Bei Zeckenbiss nach Waldwanderungen Arzt aufsuchen (FSME-Risiko in Kontinentalkroatien).</li>
+            <li>Auf Hautreizungen durch Quallen oder Korallen achten.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Gesundheits-Insider Kroatien</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Tauch-Notfall Split:</strong> Die Hyperbarische Kammer (Dekompressionskammer) befindet sich in der Klinik in Split. Notruf für Taucher: +385 21 340 323.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Seeigel-Notfallbehandlung:</strong> Kroatische Apotheker (Ljekarna) empfehlen: Wunde mit Öl tränken und Stacheln mit feiner Pinzette entfernen. Bei Entzündung zum Arzt.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Naturkosmetik:</strong> Lavendelöl von der Insel Hvar ist weltberühmt und hervorragend für Sonnenbrand geeignet. Als Souvenir mitbringen!</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Wasserqualität Kroatien:</strong> Kroatische Badeseen und Meeresküste haben EU-Blue-Flag-Standard. Das Adriatische Meer ist eines der saubersten Europas.</li>
+        </ul>
+      </div>`,
+  },
+
+  transfer: {
+    title: "Transfer",
+    iconFa: "fa-plane-arrival",
+    color: "bg-blue-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Flughäfen &amp; Anreise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Dubrovnik (DBV)</strong>
+              Taxi → Altstadt: ca. 25–35 €, 20 Min.<br/>
+              Bus Atlas: ca. 5 €, Haltestelle direkt am Airport.<br/>
+              Achtung: Im Sommer extrem hohe Touristendichte in der Altstadt.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Split (SPU)</strong>
+              Taxi → Zentrum: ca. 15–20 €, 10 Min.<br/>
+              Bus Linie 37: ca. 2 €, Fahrt ca. 30 Min.<br/>
+              Fähren nach Hvar, Brač, Korčula direkt vom Fährhafen Split.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Zagreb (ZAG)</strong>
+              Bus Airport Shuttle → Zentrum: ca. 4 €, 30 Min.<br/>
+              Taxi: ca. 20–30 €.<br/>
+              Für Küstenorte: Weiterreise per Bus (FlixBus/AutoTrans) oder Mietwagen.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Fähren: Das wichtigste Transportmittel</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Jadrolinija:</strong> Staatliche Fährgesellschaft, zuverlässig, günstig. App verfügbar.</li>
+            <li><strong>Krilo/Kapetan Luka:</strong> Private Schnellfähren (Katamarane) zwischen Split, Hvar, Korčula, Dubrovnik.</li>
+            <li><strong>Buchung:</strong> Im Sommer (Juli/August) unbedingt mindestens 2–3 Wochen im Voraus buchen!</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Transfer-Hacks Kroatien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Hvar ohne Auto:</strong> Hvar ist autofrei (Hauptort). Moped oder E-Bike mieten. Gepäck per Gepäcktransport-Service ins Hotel schicken lassen – dieser Service wird am Fährhafen angeboten.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Küstenstraße Tipp:</strong> Die Fahrt von Split nach Dubrovnik entlang der Magistrale (D8) dauert 4–5 Stunden (vs. 2,5 Std. Autobahn). Lohnt sich für den Panoramablick!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Taxi-App:</strong> "Bolt" ist in Kroatien aktiv (auch in Split und Dubrovnik). Deutlich günstiger als normale Taxis.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Dubrovnik-Kreuzfahrtfalle:</strong> Im Sommer dringen täglich bis zu 10.000 Kreuzfahrtpassagiere in die Altstadt. Altstadt früh morgens (vor 9 Uhr) oder abends besuchen.</li>
+        </ul>
+      </div>`,
+  },
+
+  finanzen: {
+    title: "Finanzen",
+    iconFa: "fa-wallet",
+    color: "bg-yellow-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Geld in Kroatien</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Währung:</strong> Euro (EUR) seit Januar 2023 – kein Wechseln nötig!</li>
+            <li><strong>Kartenzahlung:</strong> Weit verbreitet, auch in kleinen Restaurants. Kontaktlos Standard.</li>
+            <li><strong>Bargeld:</strong> Für Märkte, kleine Inseln und Fähranbieter empfohlen.</li>
+            <li><strong>ATMs:</strong> In Städten und auf den großen Inseln (Hvar, Brač, Korčula) ausreichend vorhanden. Auf sehr kleinen Inseln begrenzt.</li>
+            <li><strong>Trinkgeld:</strong> 10% sind üblich in Restaurants. Kleingeld aufrunden bei Cafés und Bars.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Preisniveau</h4>
+          <div class="bg-yellow-50 p-3 rounded text-sm">
+            Kroatien ist nach der Euro-Einführung teurer geworden. Dubrovnik und Hvar sind sehr teuer (ähnlich Westeuropa). Split und die Inseln der Mittelküste günstiger. Kontinentalkroatien (Zagreb) günstigstes Preisniveau.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Spar-Tipps Kroatien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Konoba statt Touristenrestaurant:</strong> Eine "Konoba" (traditionelle Taverne) ist der authentischste und günstigste Weg zu essen. Frischer Fisch, Grillgerichte, Hauswein direkt vom Erzeuger.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Dubrovnik Stadtmauer-Hack:</strong> Eintritt 35 € (2026). Frühmorgens (9 Uhr) ist es noch kühl und weniger voll. Die gleichen Postkarten-Fotos für viel weniger Stress.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Lokaler Wein (Plavac Mali):</strong> Kroatischer Wein direkt vom Winzer kaufen – Stari Grad auf Hvar oder Pelješac-Halbinsel. 1/4 des Restaurant-Preises.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Nationalpark-Tickets online:</strong> Plitvicer Seen und Krka: Online-Tickets sind PFLICHT und 10–20 % günstiger als an der Kasse. Im Sommer täglich ausgebucht!</li>
+        </ul>
+      </div>`,
+  },
+
+  technik: {
+    title: "Technik",
+    iconFa: "fa-wifi",
+    color: "bg-indigo-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Konnektivität</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>EU-Roaming:</strong> Gilt vollständig in Kroatien – deutsche SIM ohne Aufpreis nutzbar.</li>
+            <li><strong>WLAN:</strong> In Hotels, Restaurants und Cafés flächendeckend. Fähren und Boote oft ohne WLAN.</li>
+            <li><strong>Netzabdeckung:</strong> Auf kleinen Inseln und in Buchten kann das Netz schwach sein.</li>
+            <li><strong>Steckdosen:</strong> Typ C und F (Schuko) wie in Deutschland – kein Adapter nötig. 230 Volt.</li>
+            <li><strong>Offline-Karten:</strong> Für Inseltouren (Moped, Wandern) unbedingt Google Maps offline laden.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nützliche Apps</h4>
+          <div class="bg-gray-50 p-3 rounded text-sm">
+            <ul class="space-y-1">
+              <li><strong>Jadrolinija:</strong> Offizielle Fähr-App (Fahrpläne, Tickets).</li>
+              <li><strong>Bolt:</strong> Ride-Sharing, günstiger als Taxis.</li>
+              <li><strong>Croatia Maps (Maps.me):</strong> Offline-Karten für Wanderwege.</li>
+              <li><strong>Parkmate / EasyPark:</strong> Parken in Städten (Zagreb, Split, Dubrovnik).</li>
+            </ul>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Tech-Hacks für Kroatien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Fähre-App Trick:</strong> Jadrolinija-App zeigt Echtzeit-Auslastung. Grün = Platz frei, Gelb = fast voll. So spontan die richtige Fähre wählen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Drohnen-Regelung:</strong> In Kroatien gelten EU-Drohnenregeln (EASA). In Nationalparks (Plitvicer Seen, Krka) ist Fliegen verboten. Registrierung in DE reicht für EU-Länder.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Kein Adapter nötig:</strong> Typ F (Schuko) wie in Deutschland. 230 Volt, 50 Hz. Alle deutschen Geräte funktionieren direkt.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Maut-App HAC-ENC:</strong> Für häufige Autobahnnutzer lohnt sich das ENC-System (elektronische Mautzahlung). Geräte an Mautstationen ausleihbar.</li>
+        </ul>
+      </div>`,
+  },
+
+  sicherheit: {
+    title: "Sicherheit",
+    iconFa: "fa-shield-alt",
+    color: "bg-gray-700",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Sicherheitslage</h4>
+          <p class="mb-2">Kroatien ist eines der sichersten Reiseziele Europas. Gewaltkriminalität gegenüber Touristen ist extrem selten.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Hauptrisiko:</strong> Taschendiebstahl in Dubrovniks Altstadt und auf Fähren in der Hauptsaison.</li>
+            <li><strong>Verkehrssicherheit:</strong> Küstenstraßen (Magistrale) sind kurvenreich und steil. Vorsichtig fahren, keine Ablenkung.</li>
+            <li><strong>Badeunfälle:</strong> FKK-Strände und felsige Buchten ohne Rettungsschwimmer. Vorsicht bei Strömungen.</li>
+          </ul>
+        </div>
+        <div class="bg-gray-100 p-4 rounded">
+          <strong>Notrufnummern Kroatien:</strong><br/>
+          112 – Europäischer Notruf<br/>
+          192 – Polizei (Policija)<br/>
+          193 – Feuerwehr (Vatrogasci)<br/>
+          194 – Krankenwagen (Hitna pomoć)<br/>
+          195 – Seenotrettung (MRCC Split)
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-gray-100 p-4 rounded text-sm">
+        <strong class="block text-gray-900 mb-2">Sicherheits-Insider</strong>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>In Dubrovnik Wertsachen im Hotel lassen – in der Altstadt herrscht gedrängte Enge ideal für Taschendiebe.</li>
+          <li><strong>Seenotrettung MRCC Split:</strong> +385 51 195. Wer segelt oder mit einem kleinen Boot unterwegs ist, sollte diese Nummer kennen.</li>
+          <li><strong>Bergrettung:</strong> Bei Wanderunfällen im Velebit oder Biokovo-Gebirge: 112. Kroatische Bergrettung (HGSS) ist sehr professionell.</li>
+          <li><strong>Deutsche Botschaft Zagreb:</strong> +385 1 630 0100. Für Passverlust, Haftfälle und Notfälle.</li>
+        </ul>
+      </div>`,
+  },
+
+  kultur: {
+    title: "Kultur",
+    iconFa: "fa-landmark",
+    color: "bg-purple-600",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Kroatische Lebensart</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Fjaka:</strong> Das kroatische Lebensgefühl – Genuss der Ruhe, der Langsamkeit und des Moments. Nicht hetzen!</li>
+            <li><strong>Sprache:</strong> Kroatisch (Hrvatska). "Hvala" (Danke) und "Molim" (Bitte) werden sehr geschätzt. Englisch wird in Touristengebieten gut gesprochen.</li>
+            <li><strong>Kirchen &amp; Klöster:</strong> Schultern und Knie bedecken. Besonders auf den Inseln gibt es wunderschöne Klöster (Hvar, Korčula).</li>
+            <li><strong>UNESCO-Welterbe:</strong> Dubrovnik (Altstadt), Split (Diokletianspalast), Plitvicer Seen, Stari Grad (Hvar) – alle einzigartig.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-purple-50 p-4 rounded text-sm">
+        <strong class="block text-purple-900 mb-2">Kulturelles Know-how</strong>
+        <p><strong>Klapa-Gesang:</strong> Der mehrstimmige, unbegleitete Männergesang der Dalmatiner-Küste steht auf der UNESCO-Immateriellen-Kulturerbe-Liste. Im Sommer gibt es überall Konzerte – oft kostenlos auf Dorfplätzen.</p>
+        <p class="mt-2"><strong>Game of Thrones Drehorte:</strong> Dubrovnik = "King's Landing". Geführte Touren sehr populär – eigene Erkundung mit dem Buch/der Serie als Karte ist günstiger und persönlicher.</p>
+        <p class="mt-2"><strong>Krawatte:</strong> Die Krawatte wurde in Kroatien erfunden (von kroatischen Soldaten im 30-jährigen Krieg). Das Wort kommt von "Kroate" (franz. Cravate).</p>
+      </div>`,
+  },
+
+  kulinarik: {
+    title: "Kulinarik",
+    iconFa: "fa-utensils",
+    color: "bg-sand-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Kroatische Küche</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Frischer Fisch &amp; Meeresfrüchte:</strong> Tintenfisch (Hobotnica), Garnelen, frisch gegrillter Branzino. Auf Inseln direkt vom Fischer.</li>
+            <li><strong>Peka:</strong> Fleisch oder Oktopus unter der Peka-Glocke mit Glut gegart – das beste Gericht der dalmatinischen Küche. Muss 2–3 Stunden im Voraus bestellt werden.</li>
+            <li><strong>Istrien:</strong> Trüffel (Tartufi), Olive und Wein. Istrischer Weißwein (Malvazija) und Rotein (Teran) weltweit exportiert.</li>
+            <li><strong>Schwarzrisotto (Crni rižot):</strong> Mit Tintenfischtinte – sieht dramatisch aus, schmeckt sensationell.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-sand-50 p-4 rounded text-sm">
+        <strong class="block mb-2">Essen wie Einheimische</strong>
+        <p><strong>Konoba-Regel:</strong> Meidet Restaurants mit Speisekarte auf Englisch an der Tür und Plastikschildern mit Fotos. Die besten Konoben haben handgeschriebene Menüs auf Kroatisch und sind für Einheimische gemacht.</p>
+        <p class="mt-2"><strong>Peka-Geheimtipp:</strong> Peka mindestens 2 Stunden vor Besuch telefonisch bestellen. Das Restaurant bereitet es frisch vor und es ist die authentischste Erfahrung der dalmatinischen Küche.</p>
+        <p class="mt-2"><strong>Maraschino-Likör:</strong> Der kroatische Kirschlikör aus Zadar ist weltberühmt. Direkt in der Destillerie Luxardo in Zadar kaufen.</p>
+      </div>`,
+  },
+
+  mobilitaet: {
+    title: "Mobilität",
+    iconFa: "fa-bus",
+    color: "bg-teal-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Fortbewegung in Kroatien</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mietwagen:</strong> Ideal für die Küste und Inseln. EU-Führerschein ausreichend. Im Sommer unbedingt vorbuchen.</li>
+            <li><strong>Fähren:</strong> Zentrales Verkehrsmittel. Jadrolinija und private Anbieter. App oder jadrolinija.hr für Buchungen.</li>
+            <li><strong>Busse:</strong> FlixBus und AutoTrans verbinden Küstenstädte. Split–Dubrovnik: ca. 4 Stunden, 15–25 €.</li>
+            <li><strong>Moped/E-Bike:</strong> Auf autofreien Inseln (Hvar, Vis) perfektes Fortbewegungsmittel.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-teal-50 p-4 rounded text-sm">
+        <strong class="block text-teal-900 mb-2">Mobilitäts-Hacks</strong>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Insel Vis ohne Massen:</strong> Vis hat keine eigene Fähre von Dubrovnik – das hält Massen fern. Über Split anreisen für authentischstes Inselerlebnis Dalmatiens.</li>
+          <li><strong>Bolt Taxi:</strong> In Split und Dubrovnik verfügbar. Spart oft 30–50% gegenüber regulären Taxis.</li>
+          <li><strong>Plitvicer Seen ohne Auto:</strong> FlixBus hält auf Anfrage direkt vor dem Nationalpark-Eingang (Route Zagreb–Split). Günstigste und stressfreiste Option.</li>
+        </ul>
+      </div>`,
+  },
+
+  planung: {
+    title: "Planung",
+    iconFa: "fa-calendar-alt",
+    color: "bg-pink-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Beste Reisezeit</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mai–Juni:</strong> Ideal! Warm (25–28°C), weniger Touristen, alles geöffnet. Günstigste Preise der Saison.</li>
+            <li><strong>September–Oktober:</strong> Wasser noch warm (23–25°C), Trauben-Ernte, Herbststimmung, Preise sinken.</li>
+            <li><strong>Juli–August:</strong> Hauptsaison. Heiß, voll, teuer. Dubrovnik und Hvar besonders überlaufen.</li>
+            <li><strong>Winter:</strong> Küste ruhig und günstig. Zagreb mit Weihnachtsmarkt (einer der schönsten Europas!).</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-pink-50 p-4 rounded text-sm">
+        <strong class="block text-pink-900 mb-2">Planungs-Geheimtipps</strong>
+        <p><strong>Juni ist das neue August:</strong> Kroatien-Kenner reisen im Juni. 27°C, Meer perfekt zum Baden (22°C), keine Schlangen vor Sehenswürdigkeiten, 20–40% günstigere Unterkunftspreise.</p>
+        <p class="mt-2"><strong>Nationalpark-Tickets Pflicht:</strong> Plitvicer Seen und Krka NUR online buchbar (auf der offiziellen Website). Im Sommer täglich ausverkauft – mindestens 2 Wochen im Voraus buchen!</p>
+        <p class="mt-2"><strong>Dubrovnik-Tipp:</strong> Wer nur Dubrovnik besucht, kommt mit 4–5 Tagen aus. Mit Ausflügen zu Inseln (Lokrum, Kotor/Montenegro) mind. 7 Tage einplanen.</p>
+      </div>`,
+  },
+};
+
+// ─── MAROKKO ────────────────────────────────────────────────────────────────
+const moroccoHubData: HubData = {
+  einreise: {
+    title: "Einreise",
+    iconFa: "fa-passport",
+    color: "bg-red-600",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Dokumente &amp; Einreise</h4>
+          <p class="mb-3 text-sm italic">Marokko liegt außerhalb der EU – ein paar Formalitäten sollten vorab geklärt werden.</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Reisedokumente:</strong> Gültiger Reisepass erforderlich. Personalausweis reicht NICHT aus. Reisepass muss noch mindestens 6 Monate gültig sein.</li>
+            <li><strong>Visum:</strong> Deutsche Staatsbürger benötigen kein Visum für touristische Aufenthalte bis 90 Tage.</li>
+            <li><strong>Einreisekarte:</strong> An Bord des Flugzeugs oder am Flughafen wird eine Einreisekarte ausgefüllt. Aufbewahren bis zur Ausreise!</li>
+            <li><strong>Krankenversicherung:</strong> EHIC gilt NICHT. Private Auslandskrankenversicherung mit Rücktransport-Deckung ist Pflicht.</li>
+            <li><strong>Impfungen:</strong> Keine Pflichtimpfungen. Empfohlen: Hepatitis A und B, Tetanus, Typhus bei Individualreise.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Zoll: Mitnahme &amp; Verbote</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500 border rounded-lg">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr><th class="px-2 py-2">Kategorie</th><th class="px-2 py-2">Regelung</th><th class="px-2 py-2">Hinweis</th></tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Bargeld Einreise</td><td class="px-2 py-2">bis 10.000 MAD</td><td class="px-2 py-2">Darüber hinaus deklarieren</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Alkohol</td><td class="px-2 py-2">1 Flasche</td><td class="px-2 py-2">Für persönlichen Gebrauch</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Tabak</td><td class="px-2 py-2">200 Zigaretten</td><td class="px-2 py-2">Standard</td></tr>
+                <tr class="bg-red-50 border-b"><td class="px-2 py-2 font-bold text-red-700">Drogen</td><td class="px-2 py-2 text-red-700 font-bold">VERBOTEN</td><td class="px-2 py-2 text-red-700">Auch Cannabis – schwere Strafen!</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Dirham (MAD)</td><td class="px-2 py-2">max. 2.000 MAD</td><td class="px-2 py-2">Nicht ausführbar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Einreise-Insider Marokko</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Einreisekarte nicht verlieren:</strong> Die Einreisekarte (Fiche d'entrée) wird bei der Ausreise eingezogen. Ohne sie kann es Probleme geben. Direkt im Pass aufbewahren.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Dirham NICHT vorab kaufen:</strong> In Deutschland kaum erhältlich und schlechter Kurs. Direkt am Flughafen-ATM oder in Wechselstuben in Marokko tauschen.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Cannabis-Warnung:</strong> Trotz weit verbreiteter Verfügbarkeit im Land (Rif-Gebirge) ist Cannabis in Marokko illegal. Bei Festnahme drohen Gefängnisstrafen. Finger weg!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Fähre Spanien–Marokko:</strong> Von Algeciras/Tarifa nach Tanger: Reisepass obligatorisch (kein Personalausweis!). Fähre nimmt ca. 35–60 Min.</li>
+        </ul>
+      </div>`,
+  },
+
+  gesundheit: {
+    title: "Gesundheit",
+    iconFa: "fa-briefcase-medical",
+    color: "bg-green-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Vorsorge</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Impfungen:</strong> Hepatitis A dringend empfohlen, Typhus bei Individualreise. Tollwut bei Tierkontakt oder Abenteuerreisen.</li>
+            <li><strong>Reiseapotheke Marokko:</strong> Imodium (Durchfall), Elektrolytpulver, Antibiotika auf Reiserezept, Sonnenschutz LSF 50+, Mückenschutz, Desinfektion.</li>
+            <li><strong>Auslandskrankenversicherung:</strong> Mit Rücktransport-Klausel – medizinische Versorgung in ländlichen Regionen sehr begrenzt.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-red-50 p-3 rounded border border-red-100"><strong class="text-red-800 block mb-1">Montezumas Rache (Traveller's Diarrhea)</strong>Sehr häufig bei Ersttouristen. Niemals Leitungswasser trinken, Salate mit rohem Wasser waschen, ungeschältes Obst meiden. Nur Flaschenwasser!</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Hitze &amp; Wüste</strong>In der Sahara bis 50°C möglich. Mind. 4–5 Liter Wasser pro Tag. Heller, loser Kleidung tragen. Niemals allein ohne Führer in die Wüste!</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Sonnenbrand Atlantikküste</strong>Der Atlantikwind kühlt täuschend – Sonnenbrand merkt man erst abends. LSF 50+ auch bei bewölktem Himmel!</div>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Gesundheits-Tipps Marokko</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Arganöl als Erste Hilfe:</strong> Das marokkanische Arganöl ist ein bewährtes Hausmittel bei Sonnenbrand und Hautreizungen. In jedem Souk erhältlich – aber auf echter Herkunft achten!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Magen eingewöhnen:</strong> Die ersten 2 Tage sehr vorsichtig essen. Dann schrittweise Straßenessen probieren. Körper braucht Zeit sich einzugewöhnen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Tierarzt oder Krankenhaus bei Tierbiss:</strong> Marokko ist NICHT tollwutfrei. Bei Biss durch Hund, Katze oder Affe sofort Krankenhaus aufsuchen für Impf-Serie.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>Clinique du Coeur Marrakesch:</strong> Beste Privatklinik für Touristen. Für schwere Fälle: Casablanca hat die modernsten Krankenhäuser des Landes.</li>
+        </ul>
+      </div>`,
+  },
+
+  transfer: {
+    title: "Transfer",
+    iconFa: "fa-plane-arrival",
+    color: "bg-blue-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Flughäfen &amp; Hauptziele</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Marrakesch (RAK)</strong>
+              Taxi → Medina: ca. 10–20 €, 15 Min. (Preis vorab vereinbaren!)<br/>
+              Bus Linie 19: ca. 0,70 €, 45 Min.<br/>
+              Achtung: Taxi-Fahrer am Flughafen sind berühmt für Übervorteilung. Vorab vereinbaren!
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Agadir (AGA)</strong>
+              Taxi → Strand/Zentrum: ca. 10–15 €, 20 Min.<br/>
+              Resorthotels oft mit eigenem Transfer-Service.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Fes (FEZ) / Marrakesch ↔ Fes</strong>
+              Zug (ONCF): Marrakesch–Casablanca–Fes. Ca. 8 Stunden, komfortabel, ca. 15–20 €. Tickets online auf oncf.ma.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Innertransport</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Zug (ONCF):</strong> Modernes Netz zwischen Tanger, Rabat, Casablanca, Fes und Marrakesch. Empfohlen für Städtereisen.</li>
+            <li><strong>CTM-Busse:</strong> Komfortable Überlandbusse zwischen allen Städten. Buchen auf ctm.ma.</li>
+            <li><strong>Grands Taxis:</strong> Kollektiv-Taxis zwischen Städten. Sehr günstig, man wartet bis alle 6 Plätze belegt sind.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Transfer-Geheimtipps Marokko</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Taxi-Preis immer VOR der Fahrt:</strong> Marokkaner Taxis haben oft kein Taxameter oder es "funktioniert". IMMER vor der Fahrt einen Festpreis verhandeln!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Petit Taxi vs. Grand Taxi:</strong> Petit Taxi (Stadtfahrten, meistens rot/blau): Kurze Strecken, günstig. Grand Taxi (Überlandfahrten): Bis 6 Personen geteilt, sehr günstig.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Al Boraq Hochgeschwindigkeitszug:</strong> Tanger–Casablanca in 2,1 Stunden (320 km/h!). Modernster Zug Afrikas. Tickets: oncf.ma.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>"Falscher Guide"-Falle:</strong> Am Flughafen und in Medinas sprechen oft "Freundliche" an, die als inoffizielle Führer wirken. Nur offizielle, lizenzierte Guides (ONMT) engagieren.</li>
+        </ul>
+      </div>`,
+  },
+
+  finanzen: {
+    title: "Finanzen",
+    iconFa: "fa-wallet",
+    color: "bg-yellow-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Währung &amp; Bezahlen</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Währung:</strong> Marokkanischer Dirham (MAD). 1 € ≈ 10,8–11 MAD (2026).</li>
+            <li><strong>Dirham ist nicht konvertibel:</strong> Nur in Marokko tauschen, nicht im Ausland. Restbestände im Land ausgeben oder zurücktauschen (mit Quittung).</li>
+            <li><strong>Bargeld ist König:</strong> Auf Märkten (Souks), in kleinen Restaurants und Riad's fast immer Bargeld nötig.</li>
+            <li><strong>Kartenzahlung:</strong> In Hotels und größeren Restaurants akzeptiert. Weniger verbreitet als in Europa.</li>
+            <li><strong>ATMs:</strong> In Städten ausreichend vorhanden. Auf dem Land und in der Sahara vorher Bargeld abheben!</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Preise &amp; Trinkgeld</h4>
+          <div class="bg-yellow-50 p-3 rounded text-sm">
+            <strong>Trinkgeld-Kultur:</strong> 10% im Restaurant, 5–10 MAD für Gepäckträger, 20–50 MAD für Stadtführer pro Stunde.<br/>
+            <strong>Handeln auf Souks:</strong> Pflicht und Spaß zugleich! Erster Preis: immer zu hoch. Mit 30–50% des Startpreises beginnen.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Finanz-Hacks Marokko</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500">
+            <strong class="text-indigo-900 block mb-1">Der beste Wechselkurs:</strong>
+            Geldwechsel in offiziellen Wechselstuben (Bureau de Change) in der Medina. Niemals am Flughafen oder im Hotel – oft 10–15% schlechterer Kurs.
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Handeln richtig gemacht:</strong> Preisverhandlung ist ein gesellschaftliches Ritual. Mit Humor und Respekt handeln. Niemals einen Preis nennen, den man nicht zahlen will. "Inshallah" bedeutet "mal sehen" – das Gespräch läuft noch.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Mitnahme Dirham:</strong> Maximal 2.000 MAD dürfen bei Ausreise mitgenommen werden. Überschuss am Flughafen in Euro zurücktauschen (offizielle Quittung mitbringen!).</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Schwarzmarkt-Wechsel:</strong> Wird angeboten – nie annehmen! Falsches Geld oder Betrug sind häufige Folgen.</li>
+        </ul>
+      </div>`,
+  },
+
+  technik: {
+    title: "Technik",
+    iconFa: "fa-wifi",
+    color: "bg-indigo-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Konnektivität</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Roaming:</strong> EU-Roaming gilt NICHT in Marokko! Teures Roaming mit deutschem Anbieter. eSIM (Airalo, Holafly) oder lokale SIM empfohlen.</li>
+            <li><strong>Lokale SIM:</strong> Maroc Telecom, inwi, Orange Maroc. An Flughäfen und überall in Städten erhältlich. Reisepass mitbringen.</li>
+            <li><strong>WLAN:</strong> In Riads und Hotels gut. In Cafés und Restaurants oft verfügbar. In der Sahara und auf dem Land sehr begrenzt.</li>
+            <li><strong>Steckdosen:</strong> Typ C und Typ E. Typ C (wie in DE) funktioniert. 220 Volt. Kein Adapter nötig für deutsche Geräte mit Euro-Stecker.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nützliche Apps</h4>
+          <div class="bg-gray-50 p-3 rounded text-sm">
+            <ul class="space-y-1">
+              <li><strong>Google Maps Offline:</strong> Karte vor Reise herunterladen (Marrakesch Medina ist ein Labyrinth!).</li>
+              <li><strong>oncf.ma App:</strong> Zugtickets online kaufen (ONCF Bahn).</li>
+              <li><strong>Careem:</strong> Ride-Hailing App in Marokko (wie Uber). Festpreise, keine Verhandlung.</li>
+            </ul>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Tech-Tipps Marokko</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>eSIM Empfehlung:</strong> Airalo "Marokko Discover"-Paket: 10 GB für ca. 12 €. Vor Abflug aktivieren – spart lästige SIM-Suche am Flughafen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Offline-Karten Pflicht:</strong> Die Medinas von Fes und Marrakesch sind historische Labyrinthe ohne Straßenschilder. Google Maps Offline vorab laden!</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>VPN:</strong> Manche VoIP-Dienste (WhatsApp-Anrufe) können in Marokko gedrosselt sein. VPN vorab installieren.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Stecker-Info:</strong> Typ C (Euro-Stecker) funktioniert direkt. Nur UK-Stecker und US-Stecker brauchen Adapter.</li>
+        </ul>
+      </div>`,
+  },
+
+  sicherheit: {
+    title: "Sicherheit",
+    iconFa: "fa-shield-alt",
+    color: "bg-gray-700",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Sicherheitslage</h4>
+          <p class="mb-2">Marokko ist für nordafrikanische Verhältnisse sehr sicher. Das Tourismusministerium investiert stark in Sicherheit.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Hauptrisiko:</strong> Trickbetrug, falsche Guides, Übervorteilung bei Taxipreisen – kein physisches Sicherheitsrisiko.</li>
+            <li><strong>Frauen allein:</strong> Belästigung (verbale) kann in Medinas vorkommen. Souks tagsüber sicher, abends mit Gruppe.</li>
+            <li><strong>Atlantikküste:</strong> Starke Strömungen und Wellen. Nie an unmarkierten Stränden ohne Sicherheitshinweise schwimmen.</li>
+          </ul>
+        </div>
+        <div class="bg-gray-100 p-4 rounded">
+          <strong>Notrufnummern Marokko:</strong><br/>
+          19 – Polizei (Police)<br/>
+          15 – Krankenwagen (SAMU)<br/>
+          150 – Gendarmerie (ländliche Gebiete)<br/>
+          177 – Küstenwache (Protection Civile)
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-gray-100 p-4 rounded text-sm">
+        <strong class="block text-gray-900 mb-2">Sicherheits-Insider Marokko</strong>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Deutsche Botschaft Rabat:</strong> +212 537 21 0 900. Bei Passverlust, Notfall oder Inhaftierung.</li>
+          <li><strong>Brigade Touristique:</strong> Touristenpolizei gibt es in allen größeren Städten. Erkennbar an "Police Touristique"-Weste. Ansprechbar auf Französisch.</li>
+          <li><strong>Nacht-Medina:</strong> In der Nacht die engen Gassen der Fes-Medina nur mit ortskundiger Begleitung.</li>
+          <li><strong>Rucksack vorne tragen</strong> in Medinas und überfüllten Souks. Wertsachen am Körper, nicht im Rucksack.</li>
+        </ul>
+      </div>`,
+  },
+
+  kultur: {
+    title: "Kultur",
+    iconFa: "fa-landmark",
+    color: "bg-purple-600",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Islamische Kultur &amp; Respekt</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Kleidung:</strong> Schultern und Knie bedecken (besonders Frauen). In Moscheen: Kopftuch für Frauen, Schuhe ausziehen. Nicht-Muslime dürfen die meisten Moscheen NICHT betreten (Ausnahme: Hassan-II.-Moschee Casablanca).</li>
+            <li><strong>Ramadan:</strong> Kein Essen, Trinken oder Rauchen in der Öffentlichkeit tagsüber. Restaurants sind tagsüber geschlossen, abends (nach Iftar) lebhaft.</li>
+            <li><strong>Fotografieren:</strong> Immer vorher fragen! Frauen und Ältere mögen oft nicht fotografiert werden. Kleines Trinkgeld bei Portraitfotografie üblich.</li>
+            <li><strong>Sprachen:</strong> Arabisch (Darija-Dialekt), Tamazight (Berber), Französisch. "Shukran" (Danke) und "La Bès" (Wie geht's? / Alles gut) kommen sehr gut an.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-purple-50 p-4 rounded text-sm">
+        <strong class="block text-purple-900 mb-2">Kulturelles Know-how Marokko</strong>
+        <p><strong>Hammam-Erlebnis:</strong> Ein echtes marokkanisches Bad ist ein Muss. Öffentliche Hammams (in jedem Viertel) sind für 5–10 MAD zugänglich – ein authentisches Erlebnis, das Touristenhammams nicht bieten können.</p>
+        <p class="mt-2"><strong>Minaret-Ruf (Adhan):</strong> Der Gebetsruf fünfmal täglich ist Teil des marokkanischen Alltags. In der Medina von Fes kann man ihn von Dutzenden Minaretten gleichzeitig hören – unvergesslich.</p>
+        <p class="mt-2"><strong>Gastfreundschaft:</strong> Einladung zum Minztee (Atay) niemals ablehnen! Das drei-fache Einschenken hat eine Bedeutung: 1. mild wie Leben, 2. stark wie Liebe, 3. bitter wie Tod.</p>
+      </div>`,
+  },
+
+  kulinarik: {
+    title: "Kulinarik",
+    iconFa: "fa-utensils",
+    color: "bg-sand-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Marokkanische Küche</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Tajine:</strong> Das Nationalgericht – langsam geschmortes Fleisch/Gemüse in einem Tonkegel. Lamm mit Pflaumen und Mandeln ist Klassiker.</li>
+            <li><strong>Couscous:</strong> Freitags traditionell nach dem Gebet (Freitagscouscous). In Familien, nicht im Restaurant, am authentischsten.</li>
+            <li><strong>Pastilla:</strong> Süß-salzige Blätterteig-Pastete mit Tauben und Mandeln – kulinarisches Meisterwerk aus Fes.</li>
+            <li><strong>Straßenessen:</strong> Kefta-Spieße, Harira-Suppe, frische Orangen-Presssäfte auf dem Djemaa el-Fna in Marrakesch.</li>
+            <li><strong>Alkohol:</strong> Im islamischen Land eingeschränkt verfügbar. In lizenzierten Hotels und Restaurants erhältlich.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-sand-50 p-4 rounded text-sm">
+        <strong class="block mb-2">Essen wie Einheimische</strong>
+        <p><strong>Djemaa el-Fna Abend-Geheimnis:</strong> Der berühmte Platz in Marrakesch verwandelt sich abends in einen riesigen Freiluft-Markt mit Essensständen. Frische Meeresfrüchte, Tajines, Schneckensuppe (Ghoubouba). Preis vorab vereinbaren!</p>
+        <p class="mt-2"><strong>Frühstück wie Marokkaner:</strong> Msemen (gefüllte Pfannkuchen) mit Arganöl und Honig, dazu Atay (Minztee). In einer lokalen Boulangerie für unter 2 € – das beste Frühstück der Reise.</p>
+        <p class="mt-2"><strong>Ras el Hanout als Mitbringsel:</strong> Die Gewürzmischung (bis zu 30 Gewürze) direkt auf dem Gewürzmarkt kaufen. Vakuumverpackt problemlos im Handgepäck.</p>
+      </div>`,
+  },
+
+  mobilitaet: {
+    title: "Mobilität",
+    iconFa: "fa-bus",
+    color: "bg-teal-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Fortbewegung in Marokko</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Zug (ONCF):</strong> Modernes, pünktliches Netz. Hauptstrecken: Tanger–Casablanca–Marrakesch–Fes. Tickets auf oncf.ma oder App.</li>
+            <li><strong>CTM-Busse:</strong> Komfortabel, günstig, klimatisiert. Bestes Mittel für Strecken ohne Zugverbindung (Agadir, Sahara).</li>
+            <li><strong>Grands Taxis:</strong> Kollektiv-Taxis zwischen Städten. Wartet bis 6 Plätze besetzt sind. Sehr günstig.</li>
+            <li><strong>Mietwagen:</strong> Für Südmarokko und Atlasgebirge empfohlen. Linkverkehr gilt nicht – Rechtsverkehr wie in DE.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-teal-50 p-4 rounded text-sm">
+        <strong class="block text-teal-900 mb-2">Mobilitäts-Hacks Marokko</strong>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Al Boraq TGV:</strong> Tanger–Casablanca in 2 Stunden. Das schnellste und komfortabelste Verkehrsmittel. Vorab buchen!</li>
+          <li><strong>Careem App:</strong> Marokkos Uber-Alternative. Festpreise, keine Verhandlung mit Taxifahrern. In Marrakesch, Casablanca und Rabat verfügbar.</li>
+          <li><strong>Sahara-Expedition:</strong> Niemals alleine! Nur mit offiziellem Reiseveranstalter oder erfahrenem Beduinen-Guide. Kamel-Trekking über Nacht für 50–80 € inklusive Zelt.</li>
+        </ul>
+      </div>`,
+  },
+
+  planung: {
+    title: "Planung",
+    iconFa: "fa-calendar-alt",
+    color: "bg-pink-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Beste Reisezeit</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>März–Mai:</strong> Ideal! 20–28°C, Frühlingsblüte im Atlas, Rosenerntefest in Kelaât M'Gouna.</li>
+            <li><strong>September–November:</strong> Sehr schön. Sahara-Temperaturen angenehm für Expeditionen. Dattelernte.</li>
+            <li><strong>Dezember–Februar:</strong> Küste mild (18–22°C). Schnee im Atlasgebirge (Skifahren möglich!). Günstigste Preise.</li>
+            <li><strong>Ramadan:</strong> Familienreisen und Gastronomie eingeschränkt tagsüber. Abends besondere Atmosphäre.</li>
+            <li><strong>Juli–August:</strong> Küste und Sahara sehr heiß (40–50°C). Atlantikstädte (Essaouira, Agadir) durch Wind angenehmer.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-pink-50 p-4 rounded text-sm">
+        <strong class="block text-pink-900 mb-2">Planungs-Geheimtipps Marokko</strong>
+        <p><strong>Die magische Sahara-Route:</strong> Marrakesch → Draa-Tal → Zagora → Merzouga (Erg Chebbi). 4 Tage, 3 Nächte mit Kamel und Wüstenzelt. Die Erfahrung des Lebens – muss vorgeplant werden.</p>
+        <p class="mt-2"><strong>Fes Medina Tipp:</strong> Die Medina von Fes (Fes el-Bali) ist das größte autofreie Stadtgebiet der Welt. 2 Tage einplanen. Lieber ein Riad in der Medina buchen als von außen zu pendeln.</p>
+        <p class="mt-2"><strong>Essaouira als Geheimtipp:</strong> Küstenstadt mit Atlantikwind, Kitesurf-Paradies und entspannter Hippie-Atmosphäre. Weit weniger touristisch als Marrakesch, aber genauso wunderschön.</p>
+      </div>`,
+  },
+};
+
+// ─── TUNESIEN ───────────────────────────────────────────────────────────────
+const tunisiaHubData: HubData = {
+  einreise: {
+    title: "Einreise",
+    iconFa: "fa-passport",
+    color: "bg-red-600",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Einreisebestimmungen</h4>
+          <p class="mb-3 text-sm italic">Tunesien ist beliebt und unkompliziert einzureisen – aber ein paar Punkte sollten bekannt sein.</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Reisedokumente:</strong> Gültiger Reisepass erforderlich. Personalausweis reicht NICHT aus. Mindestgültigkeit: 6 Monate über das Reiseende hinaus.</li>
+            <li><strong>Visum:</strong> Deutsche Staatsbürger benötigen kein Visum für Aufenthalte bis 90 Tage.</li>
+            <li><strong>Einreisekarte:</strong> An Bord oder bei Einreise ausfüllen. Unbedingt aufbewahren – wird bei Ausreise kontrolliert!</li>
+            <li><strong>Krankenversicherung:</strong> EHIC gilt NICHT. Private Auslandskrankenversicherung mit Rücktransport ist Pflicht.</li>
+            <li><strong>Sicherheitshinweise:</strong> Auswärtiges Amt empfiehlt erhöhte Vorsicht in Grenzregionen zu Libyen und Algerien sowie im Landesinneren (Tataouine, Kasserine). Touristenzonen (Hammamet, Sousse, Djerba) sind sicher.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Zollvorschriften</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500 border rounded-lg">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr><th class="px-2 py-2">Kategorie</th><th class="px-2 py-2">Freimenge</th><th class="px-2 py-2">Hinweis</th></tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Alkohol</td><td class="px-2 py-2">1 Liter</td><td class="px-2 py-2">Für Nicht-Muslime erlaubt</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Tabak</td><td class="px-2 py-2">200 Zigaretten</td><td class="px-2 py-2">Standard</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Bargeld</td><td class="px-2 py-2">Ab 10.000 TND deklarieren</td><td class="px-2 py-2">Oder €-Äquivalent</td></tr>
+                <tr class="bg-red-50 border-b"><td class="px-2 py-2 font-bold text-red-700">Dinar (TND)</td><td class="px-2 py-2 text-red-700 font-bold">Nicht ausführbar</td><td class="px-2 py-2 text-red-700">Vor Ausreise verbrauchen!</td></tr>
+                <tr class="bg-red-50 border-b"><td class="px-2 py-2 font-bold text-red-700">Drogen</td><td class="px-2 py-2 text-red-700 font-bold">STRENG VERBOTEN</td><td class="px-2 py-2 text-red-700">Gefängnisstrafen</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Einreise-Insider Tunesien</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Einreisekarte in Reisetasche:</strong> Klingt banal, aber sehr wichtig. Aufbewahren im Pass oder Reisemappe. Fehlt sie bei Ausreise, gibt es lange Erklärungen am Schalter.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Tunesischen Dinar NICHT vorab kaufen:</strong> In Deutschland kaum erhältlich. Direkt am Flughafen-ATM oder lizenzierter Wechselstube in Tunesien tauschen. Kurs oft 5–10% besser.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Drogenpolitik:</strong> Tunesisches Drogengesetz (Art. 52) sieht selbst für geringe Mengen Cannabis Haftstrafen vor. Kein Risiko eingehen!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Touristenzonen Sicherheit:</strong> Die bekannten Tourismusregionen (Hammamet, Sousse, Monastir, Djerba) gelten als sicher mit starker Polizeipräsenz.</li>
+        </ul>
+      </div>`,
+  },
+
+  gesundheit: {
+    title: "Gesundheit",
+    iconFa: "fa-briefcase-medical",
+    color: "bg-green-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Vorsorge</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Impfungen:</strong> Hepatitis A empfohlen. Typhus bei Individualreise. Standardimpfungen (Tetanus, Diphtherie) auffrischen.</li>
+            <li><strong>Reiseapotheke:</strong> Durchfallmittel, Elektrolyte, Antibiotika (Reiserezept), Sonnenschutz LSF 50+, Mückenschutz, Desinfektionsgel.</li>
+            <li><strong>Auslandskrankenversicherung:</strong> Pflicht! EHIC gilt nicht. Ärzte in Privatkliniken arbeiten meist gegen Barzahlung – dann Rückerstattung von Versicherung.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-red-50 p-3 rounded border border-red-100"><strong class="text-red-800 block mb-1">Tunesische Diarrhée (Durchfall)</strong>Sehr häufig! Kein Leitungswasser trinken, kein Eis in kleinen Cafés, frisches Obst schälen. Nur Flaschenwasser!</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Hitze</strong>Im Juli/August bis 40–45°C im Landesinneren. An der Küste durch Meerwind angenehmer. Mindestens 3 Liter Wasser täglich.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Skorpione</strong>Im Süden (Sahara, Tataouine) kommen Skorpione vor. Schuhe vor dem Anziehen ausschütteln! Nachts Sandalen tragen in Zelten/einfachen Unterkünften.</div>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Gesundheits-Insider Tunesien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Apotheke (Pharmacie):</strong> Erkennbar am grünen Kreuz. Gut ausgestattet, oft Französisch gesprochen. Viele Medikamente ohne Rezept erhältlich. Öffnungszeiten: meist 8–20 Uhr, Nacht-Apotheken in Städten.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Clinique Hannibal Tunis:</strong> Beste Privatklinik des Landes. Für ernstere Fälle nach Tunis reisen oder direkten Rücktransport in Erwägung ziehen.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>Strandquallen:</strong> Im Spätsommer (August/September) können Quallen (Méduse) an der Küste auftreten. Badewarnungen beachten. Rote Flagge = Badeverboten.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Magen eingewöhnen:</strong> Gewürzte tunesische Küche (Harissa!) kann den europäischen Magen überraschen. Erste Tage vorsichtig essen. Joghurt hilft.</li>
+        </ul>
+      </div>`,
+  },
+
+  transfer: {
+    title: "Transfer",
+    iconFa: "fa-plane-arrival",
+    color: "bg-blue-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Flughäfen &amp; Transfers</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Hammamet / Enfidha (NBE)</strong>
+              Direktflüge aus Deutschland nach Enfidha (nahe Hammamet/Sousse).<br/>
+              Taxi → Hammamet: ca. 30–40 TND, 45 Min. Hotel-Shuttle oft günstiger.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Djerba (DJE)</strong>
+              Viele Direktflüge aus deutschen Städten. Insel, aber Flughafen direkt auf der Insel.<br/>
+              Taxi → Houmt Souk: ca. 10–15 TND, 10 Min.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Tunis-Carthage (TUN)</strong>
+              Taxi → Stadtzentrum: ca. 10–15 TND.<br/>
+              Metro Léger (Stadtbahn): ab Nordbahnhof, ca. 0,80 TND.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Innertransport</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Louage (Sammeltaxis):</strong> Günstigste und schnellste Option zwischen Städten. Wartet nicht auf volle Besetzung.</li>
+            <li><strong>SNCFT Bahn:</strong> Tunis–Sousse–Sfax. Günstig aber langsam. Für Städtereisen ausreichend.</li>
+            <li><strong>Mietwagen:</strong> Für Wüste (Tozeur, Douz) und Süden empfohlen. 4WD für Pisten nötig.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Transfer-Hacks Tunesien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Taxi-Preis vorab:</strong> Tunesische Taxis haben oft manipulierte Taxameter oder "kaputte" Anzeige. Immer VOR Fahrtantritt Preis vereinbaren oder auf Einschalten des Meters bestehen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Louage-Geheimtipp:</strong> Die weißen Sammeltaxis (Louage) sind das schnellste und günstigste Transportmittel zwischen Städten. Einfach auf den Louage-Bahnhof (Gare de Louage) gehen und nach dem Zielort fragen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Djerba-Fähre:</strong> Die kürzeste Überfahrt nach Djerba ist die Fähre El Jorf–Ajim (20 Minuten). Günstig und malerisch. Deutlich schneller als der Landweg über den Damm.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Pauschalreise-Shuttles:</strong> Wer über Reiseveranstalter gebucht hat, nutzt den organisierten Hotel-Transfer. Unabhängige Reisende: Preise für Taxis am Flughafen sind HÖHER als in der Stadt – normal.</li>
+        </ul>
+      </div>`,
+  },
+
+  finanzen: {
+    title: "Finanzen",
+    iconFa: "fa-wallet",
+    color: "bg-yellow-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Währung &amp; Bezahlen</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Währung:</strong> Tunesischer Dinar (TND). 1 € ≈ 3,3–3,5 TND (2026).</li>
+            <li><strong>Dinar nicht konvertibel:</strong> Ausschließlich in Tunesien tauschen. Nicht ausführbar – Restbestände vor Abreise ausgeben!</li>
+            <li><strong>Bargeld Pflicht:</strong> Souks, kleine Restaurants, Taxis, Märkte nur Bargeld. Karte kaum akzeptiert außerhalb von Hotels.</li>
+            <li><strong>ATMs:</strong> In Städten und Touristenzentren ausreichend. In Wüstenregionen (Douz, Tozeur) vorher genug Bargeld abheben!</li>
+            <li><strong>Trinkgeld:</strong> 5–10% im Restaurant, 0,50–1 TND pro Gepäckstück, 5–10 TND für einen guten Stadtführer/Stunde.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Preisniveau</h4>
+          <div class="bg-yellow-50 p-3 rounded text-sm">
+            Tunesien ist eines der günstigsten Reiseziele im Mittelmeerraum. Vollpension in gutem Hotel: 40–70 €/Nacht. Straßenessen: 1–3 TND. Taxi-Kurzfahrt: 2–5 TND.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Finanz-Hacks Tunesien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500">
+            <strong class="text-indigo-900 block mb-1">Bester Wechselkurs:</strong>
+            Offizielle Wechselstuben in Banken oder Post (La Poste) bieten gesetzlich festgelegten Kurs. Immer Quittung verlangen – nötig für eventuelle Rücktausch.
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Handeln auf Souks:</strong> In tunesischen Souks gilt dasselbe wie in Marokko: Erster Preis ist Verhandlungsstart. Mit 40–50% beginnen und auf maximal 60–70% des Anfangspreises einigen.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Dinar-Notversorgung:</strong> Keine Dinar vor Ort? Am Flughafen Hammamet/Enfidha und Djerba gibt es ATMs direkt nach der Einreise. Meist Visa und Mastercard akzeptiert.</li>
+          <li class="bg-red-50 p-3 rounded-lg border border-red-100"><strong>Dinar-Ausfuhr verboten:</strong> Das ist ernst gemeint. Bei Ausreise werden Taschen teils kontrolliert. Übrige Dinar am Flughafen in Euro zurücktauschen (Quittung des Hintausches mitbringen!).</li>
+        </ul>
+      </div>`,
+  },
+
+  technik: {
+    title: "Technik",
+    iconFa: "fa-wifi",
+    color: "bg-indigo-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Konnektivität</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Roaming:</strong> EU-Roaming gilt NICHT. Teures Drittland-Roaming mit deutschem Anbieter. eSIM oder lokale SIM empfohlen.</li>
+            <li><strong>Lokale SIM:</strong> Tunisie Telecom, Ooredoo oder Orange Tunisie. An Flughäfen erhältlich. Reisepass mitbringen. Günstige Datenpakete (10 GB = ca. 5–8 €).</li>
+            <li><strong>WLAN:</strong> In Hotels und Resorts gut. In einfachen Restaurants und Cafés begrenzt.</li>
+            <li><strong>Steckdosen:</strong> Typ C und E. Europäische Stecker passen direkt. 220 Volt – kein Adapter für deutsche Geräte nötig.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Tech-Hacks Tunesien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>eSIM Empfehlung:</strong> Airalo "Tunesien" Paket: 5 GB für ca. 8 €. Vor Abflug aktivieren für problemlosen Empfang ab Landung.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Offline-Karten:</strong> Maps.me für Tunesien vorab laden. Besonders für Wüstenausflüge (Tozeur, Douz, Matmata) ohne Netzempfang wichtig.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Kein Adapter:</strong> Typ C (Euro-Stecker) passt überall. 220 Volt wie in DE. Britische Stecker brauchen Adapter.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>WhatsApp zuverlässig:</strong> Anders als in manchen arabischen Ländern funktioniert WhatsApp in Tunesien problemlos. Kein VPN nötig.</li>
+        </ul>
+      </div>`,
+  },
+
+  sicherheit: {
+    title: "Sicherheit",
+    iconFa: "fa-shield-alt",
+    color: "bg-gray-700",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Sicherheitslage</h4>
+          <p class="mb-2">Touristenzonen in Tunesien sind mit erhöhter Polizei- und Militärpräsenz gut gesichert. Größte Risiken: Kleinkriminalität und Betrug.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Touristenzonen (Hammamet, Sousse, Djerba):</strong> Sicher, starke Polizeipräsenz.</li>
+            <li><strong>Grenzregionen:</strong> Zu Libyen und Algerien sowie südwestliche Wüstengebiete meiden (Terrorismusgefahr).</li>
+            <li><strong>Attentate 2015:</strong> Seit verstärkten Sicherheitsmaßnahmen keine Anschläge auf Touristen mehr. Vorsicht bleibt angebracht.</li>
+          </ul>
+        </div>
+        <div class="bg-gray-100 p-4 rounded">
+          <strong>Notrufnummern Tunesien:</strong><br/>
+          197 – Polizei (Police Nationale)<br/>
+          198 – Krankenwagen / Zivilschutz<br/>
+          190 – Feuerwehr<br/>
+          1491 – Gendarmerie Nationale (ländliche Gebiete)
+        </div>
+        <div class="mt-3 bg-orange-50 border-l-4 border-orange-400 text-orange-800 p-3 text-sm">
+          <p class="font-bold">Reisewarnung Auswärtiges Amt</p>
+          <p>Erhöhte Vorsicht im gesamten Land. Konkrete Reisewarnung für Grenzregionen zu Libyen und Algerien. Aktuelle Hinweise vor Reiseantritt prüfen: auswaertiges-amt.de</p>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-gray-100 p-4 rounded text-sm">
+        <strong class="block text-gray-900 mb-2">Sicherheits-Insider Tunesien</strong>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Deutsche Botschaft Tunis:</strong> +216 71 786 166. Für Notfälle, Passverlust und konsularische Hilfe.</li>
+          <li><strong>Touristenpolizei:</strong> In großen Touristenzentren präsent. Erkennbar an Uniform mit "Police Touristique". Auf Französisch oder Englisch ansprechen.</li>
+          <li>Abseits der bekannten Touristenzonen erhöhte Aufmerksamkeit walten lassen. Reiserouten im Süden vorab beim Reiseveranstalter absichern.</li>
+          <li>Rucksack mit Wertsachen niemals unbeaufsichtigt am Strand lassen. Diebstahl in belebten Strandabschnitten möglich.</li>
+        </ul>
+      </div>`,
+  },
+
+  kultur: {
+    title: "Kultur",
+    iconFa: "fa-landmark",
+    color: "bg-purple-600",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Arabisch-Berberische Kultur</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Islam:</strong> Mehrheitlich muslimisch. Kleidungsvorschriften beachten (Schultern und Knie bedecken). In Moscheen: nur mit ausdrücklicher Erlaubnis eintreten.</li>
+            <li><strong>Ramadan:</strong> Kein Essen/Trinken/Rauchen öffentlich tagsüber. Respektvolles Verhalten gegenüber Fastenden.</li>
+            <li><strong>Sprachen:</strong> Arabisch (Tunesischer Dialekt/Darija), Französisch als Zweitsprache. "Merci" und "Choukran" (Danke) gut ankommen. Englisch in Touristenzonen.</li>
+            <li><strong>Medina-Etikette:</strong> In den historischen Medinas (Tunis, Sousse, Sfax) ist Bescheidenheit in Kleidung ein Zeichen von Respekt.</li>
+            <li><strong>UNESCO-Welterbe:</strong> Amphitheater El Djem, Medina von Tunis, Karthago, Kerkouane – antike Geschichte hautnah.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-purple-50 p-4 rounded text-sm">
+        <strong class="block text-purple-900 mb-2">Kulturelles Know-how Tunesien</strong>
+        <p><strong>Sidi Bou Saïd:</strong> Das blau-weiße Künstlerdorf nahe Tunis ist eines der schönsten Dörfer der Welt. Früh morgens oder bei Sonnenuntergang besuchen – ohne die Touristenmassen.</p>
+        <p class="mt-2"><strong>Berber-Kultur im Süden:</strong> Im Matmata-Gebirge leben Berber noch in traditionellen Troglodyten-Häusern (Felshöhlen). Hier wurde Star Wars (Tatooine) gedreht. Echter kultureller Einblick – kein Themenpark.</p>
+        <p class="mt-2"><strong>Tunesischer Tee:</strong> Grüner Tee mit Pinienkernen und Minze. Die Einladung zum Tee ist eine Geste des Willkommens – nie ablehnen. In einem "Café Arabe" sitzen und das Leben beobachten.</p>
+      </div>`,
+  },
+
+  kulinarik: {
+    title: "Kulinarik",
+    iconFa: "fa-utensils",
+    color: "bg-sand-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Tunesische Küche</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Harissa:</strong> Die scharfe rote Chili-Paste ist die Seele der tunesischen Küche. In Deutschland kaum in dieser Originalqualität erhältlich – unbedingt mitbringen!</li>
+            <li><strong>Brik:</strong> Knuspriger Blätterteig gefüllt mit Ei, Thunfisch, Kapern. Das beliebteste Streetfood Tunesiens.</li>
+            <li><strong>Couscous:</strong> Das Nationalgericht, freitags traditionell zubereitet.</li>
+            <li><strong>Merguez:</strong> Würzige Lammwurst vom Grill – überall auf Souks und Straßenmärkten.</li>
+            <li><strong>Lablabi:</strong> Kichererbsensuppe mit Brot, Harissa und Ei. Frühstück der Arbeiter – günstig und sättigend.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-sand-50 p-4 rounded text-sm">
+        <strong class="block mb-2">Essen wie Einheimische</strong>
+        <p><strong>Brik am Strand:</strong> Am besten direkt am Strand in einem einfachen Straßenrestaurant. Frisch gemacht, mit Zitrone beträufeln – perfektes Mittelmeer-Erlebnis für 1–2 TND.</p>
+        <p class="mt-2"><strong>Loukma (tunesische Krapfen):</strong> Kleine frittierte Teigkugeln mit Honig oder Dattelsirup. Frühstück oder Snack am Marktstand für wenige Millimes.</p>
+        <p class="mt-2"><strong>Harissa als Mitbringsel:</strong> Originale tunesische Harissa (in Dosen oder Tuben) im Supermarkt kaufen – deutlich authentischer als im Deutschen Supermarkt. Vakuumverpackt problemlos im Koffer.</p>
+      </div>`,
+  },
+
+  mobilitaet: {
+    title: "Mobilität",
+    iconFa: "fa-bus",
+    color: "bg-teal-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Fortbewegung</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mietwagen:</strong> Empfohlen für Unabhängigkeit. EU-Führerschein ausreichend. Fahren im Stadtverkehr abenteuerlich – für Wüstentouren 4WD mieten.</li>
+            <li><strong>Louage (Sammeltaxis):</strong> Schnellstes und günstigstes Transportmittel zwischen Städten. Keine festen Abfahrtszeiten – fährt ab wenn voll.</li>
+            <li><strong>SNCFT Bahn:</strong> Tunis–Sousse–Sfax. Günstig, eher langsam. Klimatisiert auf modernen Strecken.</li>
+            <li><strong>Kleine Taxis (Taxi ville):</strong> Mit Taxameter. Im Stadtverkehr günstig.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-teal-50 p-4 rounded text-sm">
+        <strong class="block text-teal-900 mb-2">Mobilitäts-Hacks Tunesien</strong>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Louage-System meistern:</strong> Louage-Stationen (Gare de Louage) sind in jeder Stadt. Zum Zielort fragen – sofort wird man zum richtigen Fahrzeug geführt. Preis ist fest (non-negotiable).</li>
+          <li><strong>TGM-Vorortbahn Tunis:</strong> Die Vorortbahn Tunis–La Marsa–Sidi Bou Saïd für ca. 0,70 TND. Beste und günstigste Verbindung von Tunis an die Nordküste.</li>
+          <li><strong>Kamelreiten Sahara:</strong> In Douz oder Tozeur. Stundenpreise: ca. 15–25 TND. Ganztags-Karawane mit Übernachtung: ab 60–80 TND. Nur seriöse Anbieter über Hotel buchen.</li>
+        </ul>
+      </div>`,
+  },
+
+  planung: {
+    title: "Planung",
+    iconFa: "fa-calendar-alt",
+    color: "bg-pink-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Beste Reisezeit</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>März–Mai:</strong> Ideal! Küste 20–25°C, Wüste angenehm, Frühlingsblüte. Günstige Preise.</li>
+            <li><strong>September–November:</strong> Perfektes Badewetter (Meer noch warm), weniger voll, Herbststimmung.</li>
+            <li><strong>Dezember–Februar:</strong> Küste kühl aber mild (15–18°C). Wüste kalt nachts. Günstigstes Preisniveau. Wenige Touristen.</li>
+            <li><strong>Juni–August:</strong> Hauptsaison. Heiß (35–42°C im Inland), teurer und voller in Touristenzentren. Für Strandulaub trotzdem beliebt.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-pink-50 p-4 rounded text-sm">
+        <strong class="block text-pink-900 mb-2">Planungs-Geheimtipps Tunesien</strong>
+        <p><strong>Klassikreise in 8 Tagen:</strong> Tunis (2 Tage: Medina, Karthago, Sidi Bou Saïd) → Hammamet (2 Tage: Strand) → El Djem (1 Tag: Amphitheater) → Tozeur/Douz (2 Tage: Sahara und Kamel) → Djerba (1 Tag). Perfekte Mischung aus Kultur, Strand und Wüste.</p>
+        <p class="mt-2"><strong>Star Wars Drehorte:</strong> Matmata (Luke Skywalkers Heimat) und Tozeur/Chott el-Djerid sind für Fans ein Pflichtprogramm. Mit dem Mietwagen in 1–2 Tagen erreichbar.</p>
+        <p class="mt-2"><strong>Frühbucher Djerba:</strong> Direktflüge nach Djerba (DJE) ab deutschen Städten besonders günstig in der Vor- und Nachsaison (März/April und Oktober/November).</p>
+      </div>`,
+  },
+};
+
+// ─── ZYPERN ─────────────────────────────────────────────────────────────────
+const cyprusHubData: HubData = {
+  einreise: {
+    title: "Einreise",
+    iconFa: "fa-passport",
+    color: "bg-red-600",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Dokumente &amp; Besonderheiten</h4>
+          <p class="mb-3 text-sm italic">Zypern ist EU-Mitglied, aber kein Schengen-Staat. Das hat einige praktische Auswirkungen.</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Reisedokumente:</strong> Als EU-Bürger reicht der gültige Personalausweis. Reisepass ebenfalls akzeptiert.</li>
+            <li><strong>Kein Schengen:</strong> Zypern ist EU-Mitglied aber KEIN Schengen-Staat. Beim Flug nach Zypern gibt es Grenzkontrollen. EU-Roaming gilt trotzdem.</li>
+            <li><strong>Währung:</strong> Euro (EUR) – kein Wechseln nötig.</li>
+            <li><strong>Krankenversicherung:</strong> EHIC (Europäische Krankenversicherungskarte) gilt in der Republik Zypern. Private Auslandskrankenversicherung trotzdem empfohlen.</li>
+            <li><strong>Nordteil (Türkisch-Zypern):</strong> Völkerrechtlich komplizierte Situation. Der Nordteil ist von der Türkei anerkannt aber von der EU nicht. Grenzübergang nach Norden möglich (mit Ausweis), zurück ohne Probleme.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Grenzübergang Nord-/Südzypern</h4>
+          <div class="bg-blue-50 p-3 rounded text-sm">
+            <strong>Grüne Linie (Green Line):</strong> EU-Bürger können über mehrere Checkpoints in den türkischen Norden einreisen. Bei Rückkehr: Keine Probleme mit zypriotischen oder EU-Behörden. Souvenirs aus dem Norden: legal mitbringen.
+            <br/><strong>Hinweis:</strong> Im Norden wird türkische Lira (TRY) verwendet. Euro wird vielerorts akzeptiert, zu schlechterem Kurs.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Einreise-Insider Zypern</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>EHIC-Karte mitnehmen:</strong> Zypern ist EU-Mitglied – staatliche Krankenhäuser akzeptieren EHIC. Trotzdem: Private Kliniken (oft besser ausgestattet) verlangen Barzahlung, dann Erstattung durch Versicherung.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Linksverkehr!</strong> Zypern ist Linksverkehrsland (britisches Erbe). Mietwagenfahrer: Erste Stunden besondere Aufmerksamkeit. Im Kreisverkehr: Von rechts hat Vorfahrt.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Nord-Zypern-Ausflug:</strong> Nikosia ist die letzte geteilte Hauptstadt Europas. Ein Grenzübergang in der Altstadt führt in den türkischen Teil. Kostenloses, einzigartiges Erlebnis.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>Keine Stempelprobleme:</strong> Anders als bei der Türkei: Ein Nord-Zypern-Stempel im Pass bereitet keine Probleme bei Einreise in andere EU-Länder.</li>
+        </ul>
+      </div>`,
+  },
+
+  gesundheit: {
+    title: "Gesundheit",
+    iconFa: "fa-briefcase-medical",
+    color: "bg-green-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Impfschutz:</strong> Keine Pflichtimpfungen. Zypern ist EU-Standard. Routineimpfungen auffrischen.</li>
+            <li><strong>EHIC-Karte:</strong> Gilt in staatlichen Krankenhäusern des Südens.</li>
+            <li><strong>Reiseapotheke:</strong> Sonnenschutz LSF 50+, Insektenschutz (Mücken abends im Troodos-Gebirge), Hitzepflaster.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Hitze</strong>Im Juli/August bis 40°C an der Küste, im Troodos-Gebirge angenehmer (20–25°C). Mittagspause einhalten.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Trinkwasser</strong>Leitungswasser auf Zypern ist trinkbar aber hartes Wasser. Abgepacktes Wasser bevorzugt.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Seeigel &amp; Quallen</strong>An felsigen Küstenabschnitten Badeschuhe tragen. Im Hochsommer gelegentlich Quallenwarnung.</div>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Gesundheits-Insider Zypern</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Apothekar als Arzt:</strong> Zypriotische Apotheker (Farmakeío) sind sehr gut ausgebildet und beraten umfassend. Viele Medikamente rezeptfrei erhältlich, die in DE Rezept erfordern.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Limassol Privatspital:</strong> Bestes Privatspital für Touristen. Ärzte meist auf Englisch kommunizierend. Für ernstere Fälle deutlich besser als staatliche Krankenhäuser.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Sauberkeit Strände:</strong> Zypern hat viele EU-Blue-Flag-Strände – kristallklares Mittelmeer. Eines der saubersten Badegewässer Europas.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>Schlangen:</strong> Zypern hat Felsnatter und Blunt-nosed Viper (giftig). In Bergregionen Troodos nicht in Gebüsche greifen. Bei Schlangenbiss sofort Krankenhaus!</li>
+        </ul>
+      </div>`,
+  },
+
+  transfer: {
+    title: "Transfer",
+    iconFa: "fa-plane-arrival",
+    color: "bg-blue-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Flughäfen</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Larnaka (LCA) – Hauptflughafen</strong>
+              Taxi → Larnaka Zentrum: ca. 20 € (Festpreis-Taxis am Ausgang).<br/>
+              Bus 417: Flughafen → Larnaka Busbahnhof → weiter nach Limassol (ca. 1,50 €).<br/>
+              Mietwagen: Direkt am Flughafen, im Sommer vorbuchen!
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Paphos (PFO)</strong>
+              Taxi → Paphos Zentrum: ca. 15–20 €, 20 Min.<br/>
+              Bus 612: Paphos Flughafen → Stadtzentrum (ca. 1,50 €).<br/>
+              Limassol: Mit Bus ca. 2 Stunden, 10 €.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Mobilität auf der Insel</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Mietwagen ist Pflicht!</strong> Öffentlicher Transport sehr begrenzt. Ohne Auto ist die Insel nicht erkundbar.</li>
+            <li><strong>Linksverkehr:</strong> Fahren auf der linken Seite (britisches Erbe). Ungewohnt aber schnell adaptiert.</li>
+            <li><strong>Intercity-Busse:</strong> INTERCITY BUSES verbinden Larnaka, Limassol, Paphos, Nikosia. Ca. 3–7 € je Strecke.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Transfer-Hacks Zypern</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Mietwagen-Linksverkehr Trick:</strong> Die erste Stunde nach Abholung auf ruhigen Straßen üben. Im Kreisverkehr: rechts bleibt innen. Nach 30 Minuten ist der Linksverkehr meist verinnerlicht.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Taxi-Festpreise:</strong> Taxis in Zypern sind reguliert mit Festpreisen pro Zone. Am Flughafen immer das Taxi-Preisschild studieren – kein Taxameter nötig, Preis steht auf Liste.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Troodos-Gebirge mit Mietwagen:</strong> Serpentinenstraßen sind abenteuerlich aber perfekt asphaltiert. Kühlwasser-Check vor Bergfahrt empfohlen (hohe Temperaturen im Sommer).</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Bolt und Uber:</strong> In Larnaka und Limassol verfügbar. Deutlich günstiger als reguläre Taxis für Stadtfahrten.</li>
+        </ul>
+      </div>`,
+  },
+
+  finanzen: {
+    title: "Finanzen",
+    iconFa: "fa-wallet",
+    color: "bg-yellow-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Geld auf Zypern</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Währung:</strong> Euro (EUR) in der Republik Zypern. Kein Wechseln nötig.</li>
+            <li><strong>Nordteil:</strong> Türkische Lira (TRY). Euro oft akzeptiert zu schlechtem Kurs. ATMs im Norden vorhanden.</li>
+            <li><strong>Kartenzahlung:</strong> Weit verbreitet, überall akzeptiert inkl. kleiner Restaurants.</li>
+            <li><strong>Bargeld:</strong> Für ländliche Gebiete, Dorfrestaurants und Wochenmärkte hilfreich.</li>
+            <li><strong>Trinkgeld:</strong> 10% im Restaurant üblich. Service Charge oft bereits auf Rechnung enthalten – prüfen!</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Preisniveau</h4>
+          <div class="bg-yellow-50 p-3 rounded text-sm">
+            Zypern ist günstiger als Westeuropa, teurer als Griechenland. Limassol ist am teuersten (Finanzmetropole). Paphos und Larnaka günstiger. Troodos-Dörfer sehr preiswert.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Finanz-Tipps Zypern</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Meze-Abend als Spar-Tipp:</strong> Ein traditionelles Meze (10–15 kleine Gerichte) kostet in normalen Tavernen 18–25 € pro Person. Günstiger, mehr und authentischer als à-la-carte.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Lokaler Wein direkt vom Winzer:</strong> Zypern hat ausgezeichnete Weintraditionen (Commandaria ist der älteste Dessertwein der Welt). In Winzerdörfern rund um Limassol direktes Kaufen spart 50%.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Supermarkt-Tipp:</strong> Kiosks und lokale Supermärkte (Alphamega, Sklavenitis) sind 30–50% günstiger als Minimarkets in Strandnähe.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Freier Strand-Zugang:</strong> Zypern garantiert per Gesetz öffentlichen Zugang zu allen Stränden. Für Liegen etc. an privaten Strandabschnitten zahlen – der Strand selbst ist immer kostenlos.</li>
+        </ul>
+      </div>`,
+  },
+
+  technik: {
+    title: "Technik",
+    iconFa: "fa-wifi",
+    color: "bg-indigo-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Konnektivität</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>EU-Roaming:</strong> Gilt in Zypern (Republik) vollständig. Deutsche SIM ohne Aufpreis nutzbar.</li>
+            <li><strong>Nordteil:</strong> EU-Roaming gilt NICHT im türkisch kontrollierten Norden. Dort Roaming deaktivieren!</li>
+            <li><strong>WLAN:</strong> In Hotels und Resorts ausgezeichnet. In Restaurants und Cafés weit verbreitet.</li>
+            <li><strong>Steckdosen:</strong> Typ G (britischer 3-Pol-Stecker)! Adapter erforderlich für deutsche Geräte. 230 Volt.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Wichtig: Adapter!</h4>
+          <div class="bg-orange-50 border-l-4 border-orange-400 p-3 text-sm">
+            <strong class="text-orange-800">Britischer Stecker Typ G:</strong> Zypern hat britische Steckdosen (3-poliger quadratischer Stecker). Deutsche Geräte mit Typ C/F (Schuko) benötigen einen UK-Adapter! Im Urlaub oft im Hotel erhältlich, aber lieber vorab kaufen.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Tech-Hacks Zypern</h4>
+        <ul class="space-y-3">
+          <li class="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+            <strong class="text-red-900 block mb-1">Adapter nicht vergessen!</strong>
+            Typ-G-Adapter (UK) ist Pflicht. In Deutschland vor Abreise kaufen (2–5 €). Hotels haben oft Leih-Adapter, aber verlassen Sie sich nicht darauf.
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Nord-Zypern Roaming-Falle:</strong> Wer die Grüne Linie überquert, ist im Norden auf türkischem Netz. EU-Roaming gilt nicht – deutschen Anbieter vorab informieren oder Roaming dort ausschalten.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>GPS auf Zypern:</strong> Google Maps funktioniert gut. Für Troodos-Wanderwege: AllTrails App vorab laden. Offline-Karten für Bergregionen sinnvoll.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>EU-Roaming im Süden:</strong> Volle EU-Roaming-Abdeckung. Datensurfen, telefonieren und SMS wie in Deutschland – kein Aufpreis.</li>
+        </ul>
+      </div>`,
+  },
+
+  sicherheit: {
+    title: "Sicherheit",
+    iconFa: "fa-shield-alt",
+    color: "bg-gray-700",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Sicherheitslage</h4>
+          <p class="mb-2">Zypern gilt als eines der sichersten Reiseziele im Mittelmeer. Kriminalität gegenüber Touristen extrem selten.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Gewaltkriminalität:</strong> Nahezu nicht existent. Sicherheitslage sehr gut.</li>
+            <li><strong>Verkehr:</strong> Linksverkehr – größtes Unfallrisiko für unerfahrene Fahrer. Erste Stunden besonders vorsichtig.</li>
+            <li><strong>Pufferzone:</strong> Die UN-Pufferzone (Grüne Linie) zwischen Nord und Süd nicht ohne Grenzübergang betreten.</li>
+            <li><strong>Badeunfälle:</strong> Starke Strömungen an Westküste (Paphos). Fahnen beachten: Rot = Badeverboten.</li>
+          </ul>
+        </div>
+        <div class="bg-gray-100 p-4 rounded">
+          <strong>Notrufnummern Zypern:</strong><br/>
+          112 – Europäischer Notruf (Englisch möglich)<br/>
+          199 – Feuerwehr &amp; Krankenwagen<br/>
+          1460 – Polizei<br/>
+          1411 – Touristeninformation
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-gray-100 p-4 rounded text-sm">
+        <strong class="block text-gray-900 mb-2">Sicherheits-Insider Zypern</strong>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Deutsche Botschaft Nikosia:</strong> +357 22 45 1145. Für Notfälle, Passverlust und konsularische Hilfe.</li>
+          <li>Zypriotische Polizei (CYPOL) spricht ausgezeichnet Englisch. Sehr hilfsbereit gegenüber Touristen.</li>
+          <li><strong>Mietwagenunfälle:</strong> Im Linksverkehr häufigste Schadensursache. Vollkaskoversicherung beim Mietwagen empfohlen!</li>
+          <li>Zypern ist eine der wenigen Touristendestinationen, wo alleinreisende Frauen sich nachts in Städten sicher fühlen können.</li>
+        </ul>
+      </div>`,
+  },
+
+  kultur: {
+    title: "Kultur",
+    iconFa: "fa-landmark",
+    color: "bg-purple-600",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Zypriotische Kultur</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Griechisch-zypriotische Kultur:</strong> Südteil ist griechisch geprägt. Sprache: Griechisch. "Efcharistó" (Danke) wird sehr geschätzt.</li>
+            <li><strong>Orthodoxe Kirchen:</strong> Sehr präsent – Schultern und Knie bedecken. Schleier für Frauen in manchen Klöstern nötig.</li>
+            <li><strong>Aphrodite-Kult:</strong> Zypern gilt als Geburtsort der Göttin Aphrodite. Fels der Aphrodite (Petra tou Romiou) bei Paphos ist ein UNESCO-Welterbe.</li>
+            <li><strong>UNESCO-Welterbe:</strong> Paphos (Archäologischer Park), Choirokoitia (neolithische Siedlung), Bemalte Kirchen im Troodos-Gebirge.</li>
+            <li><strong>Britisches Erbe:</strong> Englisch als de-facto-Zweitsprache. Linksverkehr, britische Steckdosen, englische Ortsnamen und Menüs.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-purple-50 p-4 rounded text-sm">
+        <strong class="block text-purple-900 mb-2">Kulturelles Know-how Zypern</strong>
+        <p><strong>Panayia-Feste:</strong> Am 15. August (Mariä Himmelfahrt) feiern zypriotische Dörfer mit Prozessionen, Musik und Festmählern. Kostenlos, unvergesslich und touristisch noch wenig bekannt.</p>
+        <p class="mt-2"><strong>Geteilte Hauptstadt Nikosia:</strong> Die UN-Pufferzone mitten durch die Hauptstadt ist ein einzigartiges politisches und kulturelles Phänomen Europas. Der Grenzübergang Ledra Street ist fußläufig und kostenlos.</p>
+        <p class="mt-2"><strong>Commandaria-Wein:</strong> Der älteste Dessertwein der Welt (erwähnt seit 800 v. Chr.) kommt aus dem Troodos-Gebirge. In lokalen Tavernen immer probieren – süß, komplex, einzigartig.</p>
+      </div>`,
+  },
+
+  kulinarik: {
+    title: "Kulinarik",
+    iconFa: "fa-utensils",
+    color: "bg-sand-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Zypriotische Küche</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Meze:</strong> Das ultimative kulinarische Erlebnis – 15–20 kleine Gerichte, endlos nachgefüllt. Dips, Salate, Gegrilltes, Meeresfrüchte. Muss man erlebt haben!</li>
+            <li><strong>Halloumi:</strong> Der berühmte zypriotische Grillkäse, der nicht schmilzt. Frisch gegrillt oder in Salaten. Qualitativ besser als der exportierte Halloumi in deutschen Supermärkten.</li>
+            <li><strong>Souvlaki:</strong> Gegrillte Fleischspieße mit Pitabrot und Tzatziki. Das Fast Food Zyperns.</li>
+            <li><strong>Kleftiko:</strong> Im Lehmofen langsam gegartes Lammfleisch – zart, würzig, unvergesslich.</li>
+            <li><strong>Loukoumades:</strong> Kleine frittierte Honigkrapfen – perfektes Dessert oder Frühstück.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-sand-50 p-4 rounded text-sm">
+        <strong class="block mb-2">Essen wie Einheimische</strong>
+        <p><strong>Dorf-Taverne (Meze) Geheimtipp:</strong> In Troodos-Dörfern (Omodos, Lofou, Kakopetria) gibt es Tavernen mit hausgemachtem Meze für 18–22 € – frischer, günstiger und authentischer als in Touristenorten an der Küste.</p>
+        <p class="mt-2"><strong>Halloumi direkt vom Hersteller:</strong> Auf Wochenmärkten (z.B. Larnaka Markt samstags) kauft man frischen Halloumi direkt vom Produzenten. Der Unterschied zum Supermarkt-Halloumi ist dramatisch.</p>
+        <p class="mt-2"><strong>Kaffé Kypriakon (Zypriotischer Mokka):</strong> Kleiner, starker Kaffee in einem Kupferkännchen. Ungesüßt (skétos), mittelsüß (métrios) oder süß (glykos) bestellen. In einem traditionellen Kafenion (Dorfcafé) trinken.</p>
+      </div>`,
+  },
+
+  mobilitaet: {
+    title: "Mobilität",
+    iconFa: "fa-bus",
+    color: "bg-teal-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Fortbewegung auf Zypern</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mietwagen ist unverzichtbar:</strong> Öffentliche Busse sehr begrenzt. Ohne Auto bleiben viele Top-Spots unerreichbar (Troodos, Akamas, abgelegene Strände).</li>
+            <li><strong>Linksverkehr:</strong> Britisches Erbe. EU-Führerschein ausreichend. Schnell adaptiert.</li>
+            <li><strong>Intercity Buses (INTERCITY):</strong> Larnaka ↔ Limassol ↔ Paphos ↔ Nikosia. Bequem, klimatisiert, ca. 5–8 € pro Strecke.</li>
+            <li><strong>Stadtbusse (OSYPA/EMEL):</strong> In Nikosia, Limassol und Larnaka – günstig aber langsam.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-teal-50 p-4 rounded text-sm">
+        <strong class="block text-teal-900 mb-2">Mobilitäts-Hacks Zypern</strong>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Mietwagen-Trick:</strong> Bei lokalen Anbietern (nicht Hertz/Avis) bis zu 40% günstiger. Vollkasko trotzdem nehmen – Linksverkehr-Unfälle häufig.</li>
+          <li><strong>Akamas-Halbinsel:</strong> Für das Naturschutzgebiet (wildeste Landschaft Zyperns) ein 4WD mieten. Normale PKW kommen auf den Schotterpisten nicht weiter.</li>
+          <li><strong>Bolt App:</strong> In Larnaka und Limassol verfügbar. Für Stadtfahrten deutlich günstiger als reguläre Taxis.</li>
+          <li><strong>Fahrrad:</strong> Küstenpromenaden (Limassol, Paphos) haben gute Radwege. Leihräder für 10–15 € pro Tag.</li>
+        </ul>
+      </div>`,
+  },
+
+  planung: {
+    title: "Planung",
+    iconFa: "fa-calendar-alt",
+    color: "bg-pink-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Beste Reisezeit</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>April–Juni:</strong> Ideal! 25–30°C, Meer wird warm (ab Mai), Frühlingsblüte, niedrige Preise.</li>
+            <li><strong>September–Oktober:</strong> Perfekt! 28–32°C, Meer noch warm (28°C!), viel weniger Touristen als im August.</li>
+            <li><strong>November–März:</strong> Mild (15–18°C an Küste), günstig, Troodos mit Schnee (Skifahren möglich!). Gut für Wandern und Kultur.</li>
+            <li><strong>Juli–August:</strong> Hauptsaison. 35–40°C, sehr heiß aber Badewetter perfekt. Teurer und voller.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-pink-50 p-4 rounded text-sm">
+        <strong class="block text-pink-900 mb-2">Planungs-Geheimtipps Zypern</strong>
+        <p><strong>Oktober ist das beste Geheimnis:</strong> 30°C Luft, 28°C Meer, keine Überfüllung, günstigste Herbstpreise. Zypern-Kenner reisen im Oktober.</p>
+        <p class="mt-2"><strong>Ski auf Zypern:</strong> Das klingt verrückt, aber im Troodos-Gebirge gibt es im Winter Skigebiete (Mount Olympos, 1.952 m). Morgens Skifahren, nachmittags an den Strand nach Limassol (1 Stunde Fahrt).</p>
+        <p class="mt-2"><strong>7-Tage-Klassiker:</strong> Tag 1–2 Larnaka (Hala Sultan Tekke Moschee, Salzsee mit Flamingos im Winter). Tag 3–4 Paphos (Aphrodite-Felsen, archäologischer Park). Tag 5 Troodos (Klöster, Wandern). Tag 6 Nikosia (Grüne Linie). Tag 7 Limassol (Hafen, Wein).</p>
+      </div>`,
+  },
+};
+
+// ─── BULGARIEN ──────────────────────────────────────────────────────────────
+const bulgariaHubData: HubData = {
+  einreise: {
+    title: "Einreise",
+    iconFa: "fa-passport",
+    color: "bg-red-600",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise: Aktuelle Situation 2026</h4>
+          <p class="mb-3 text-sm italic">Bulgarien ist seit März 2024 vollständiges Schengen-Mitglied (Luft- und Seegrenzen). Landgrenzen folgen voraussichtlich bis Ende 2025.</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Reisedokumente:</strong> Als EU-Bürger reicht der gültige Personalausweis. Reisepass ebenfalls akzeptiert.</li>
+            <li><strong>Schengen:</strong> Seit März 2024 Schengen-Mitglied für Luft/Seewege. Keine Grenzkontrollen bei Flugreise aus Schengen-Land.</li>
+            <li><strong>Währung:</strong> Bulgarischer Lev (BGN). 1 € = 1,9558 BGN (fester Wechselkurs – Bulgarien in ERM II). Euro wird in touristischen Bereichen oft akzeptiert, aber Lev gibt besseren Kurs.</li>
+            <li><strong>Krankenversicherung:</strong> EHIC gilt in Bulgarien. Trotzdem: Private Auslandskrankenversicherung empfohlen für Rücktransport.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Zoll &amp; Mitnahme</h4>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-500 border rounded-lg">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr><th class="px-2 py-2">Kategorie</th><th class="px-2 py-2">Freimenge</th><th class="px-2 py-2">Hinweis</th></tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Zigaretten</td><td class="px-2 py-2">200 Stück</td><td class="px-2 py-2">In BG deutlich günstiger als in DE</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Alkohol</td><td class="px-2 py-2">EU-Mengen</td><td class="px-2 py-2">Für Eigengebrauch unbegrenzt</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Bargeld</td><td class="px-2 py-2">Ab 10.000 € deklarieren</td><td class="px-2 py-2">EU-Standard</td></tr>
+                <tr class="bg-white border-b"><td class="px-2 py-2 font-medium">Kosmetika/Souvenirs</td><td class="px-2 py-2">Unbegrenzt (EU)</td><td class="px-2 py-2">Keine Zollgrenzen innerhalb EU</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-6">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Einreise-Insider Bulgarien</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Schengen seit 2024:</strong> Seit März 2024 gilt Schengen für Flug- und Seewege. Direktflüge aus Deutschland landen ohne Grenzkontrolle. Landgrenze (Rumänien, Griechenland, Türkei): noch mit Kontrolle bis vollständige Integration.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Lev-Kurs ist fest:</strong> Der bulgarische Lev ist seit 1997 mit festem Kurs an den Euro gekoppelt (1 € = 1,9558 BGN). Kein Währungsrisiko. Euro wird akzeptiert, aber Lev gibt immer korrekten Kurs.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Vignettenpflicht:</strong> Wer mit dem Auto nach Bulgarien fährt, braucht eine elektronische Vignette (e-Vignette). Online unter bgtoll.bg kaufen. Wochenvignette: ca. 15 €.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>EHIC nutzen:</strong> Bulgarien akzeptiert EHIC in staatlichen Krankenhäusern. Für Qualitätsversorgung trotzdem private Auslandskrankenversicherung empfohlen.</li>
+        </ul>
+      </div>`,
+  },
+
+  gesundheit: {
+    title: "Gesundheit",
+    iconFa: "fa-briefcase-medical",
+    color: "bg-green-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Vor der Reise</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Impfschutz:</strong> Keine Pflichtimpfungen. FSME-Impfung bei Wanderungen/Natur empfohlen (Zecken in Bergregionen). Routineimpfungen auffrischen.</li>
+            <li><strong>EHIC-Karte:</strong> Gilt in staatlichen Krankenhäusern. Qualität variiert stark.</li>
+            <li><strong>Reiseapotheke:</strong> Sonnenschutz, Insektenschutz (Zecken und Mücken in Bergregionen!), Durchfallmittel, Schmerzmittel.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Während der Reise</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Trinkwasser</strong>In Sofia und größeren Städten ist Leitungswasser trinkbar. In ländlichen Regionen und Schwarzmeerküste Flaschenwasser bevorzugen.</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Zecken</strong>Im Gebirge (Vitosha, Rila, Pirin, Rhodopen) ist FSME-Risiko real. Langen Hosen tragen, nach Wanderungen auf Zecken absuchen. FSME-Impfung vorab!</div>
+            <div class="bg-gray-50 p-3 rounded"><strong class="block mb-1">Schwarzes Meer</strong>Sauber und sicher. Gelegentlich Quallen (Mlecznica). Rote Flagge = Badeverboten bei starken Strömungen.</div>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Gesundheits-Insider Bulgarien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Private Kliniken Varna/Sofia:</strong> "Acibadem City Clinic" oder "Medika" bieten westeuropäischen Standard. Für ernstere Fälle deutlich besser als staatliche Krankenhäuser. Zahlung per Karte oder Bar.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Apotheke (Apteka):</strong> Erkennbar am grünen Kreuz. Sehr gut ausgestattet, viele Medikamente ohne Rezept günstiger als in DE.</li>
+          <li class="bg-yellow-50 p-3 rounded-lg border border-yellow-200"><strong>FSME-Impfung Empfehlung:</strong> Bei Wanderungen im Rila oder Pirin Gebirge: FSME-Impfung mindestens 4 Wochen vor Reisebeginn abschließen. Zecken sind in diesen Regionen häufig.</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Bulgarischer Joghurt:</strong> Das Original Kiselo Mlyako (saures Milch-Bakterium Lactobacillus bulgaricus) ist weltweit einzigartig und gut für die Darmgesundheit. Im Supermarkt für 1–2 BGN kaufen.</li>
+        </ul>
+      </div>`,
+  },
+
+  transfer: {
+    title: "Transfer",
+    iconFa: "fa-plane-arrival",
+    color: "bg-blue-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Flughäfen</h4>
+          <div class="space-y-3 text-sm">
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Sofia (SOF)</strong>
+              Metro Linie 1: Direktverbindung Flughafen → Stadtzentrum, ca. 45 Min., 1,60 BGN (ca. 0,82 €).<br/>
+              Taxi: 15–25 BGN zum Zentrum. Nur offizielle Taxis (OK SuperTrans, Yellow Cab) nehmen.<br/>
+              Beware: Inoffizielle Taxis am Flughafen verlangen teils 10x den normalen Preis!
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Varna (VAR) – Schwarzmeerküste</strong>
+              Taxi → Goldener Sand / Albena: ca. 20–30 BGN, 30 Min.<br/>
+              Bus: Stadtbus nach Varna für ca. 2 BGN. Für Ferienorte: Transfer vorbuchen.
+            </div>
+            <div class="bg-gray-50 p-3 rounded">
+              <strong class="block mb-1">Burgas (BOJ) – Schwarzmeerküste Süd</strong>
+              Taxi → Sonnenstrand: ca. 40–50 BGN, 30 Min.<br/>
+              Bus 15: Flughafen → Busbahnhof Burgas für ca. 2 BGN.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Innertransport</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Bahn (BDŽ):</strong> Günstig aber langsam und veraltet. Sofia–Plovdiv: 2 Stunden, ca. 4–6 BGN.</li>
+            <li><strong>Fernbusse:</strong> Bester Komfort für Überlandfahrten. Biomet, Union Ivkoni, FlixBus. Sofia–Varna: ca. 30–40 BGN, 6–7 Stunden.</li>
+            <li><strong>Mietwagen:</strong> Für Gebirgsausflüge (Rila, Pirin) empfohlen. Gute Straßen zu den Hauptattraktionen.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Transfer-Hacks Bulgarien</h4>
+        <ul class="space-y-3">
+          <li class="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+            <strong class="text-red-900 block mb-1">Sofia-Flughafen Taxi-Falle</strong>
+            Inoffizielle Taxifahrer verlangen 50–100 € für eine 15 €-Fahrt. IMMER nur bei offiziellen Taxi-Schaltern im Ankunftsbereich (OK SuperTrans, Yellow Cab) buchen. Oder direkt Metro nehmen!
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Yandex.Taxi / Bolt:</strong> In Sofia und Varna verfügbar. Festpreise, seriös, deutlich günstiger als Straßentaxis. App vor Reise installieren!</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Sofia Metro:</strong> Direkte Verbindung Flughafen Terminal 2 → Stadtzentrum (Serdika). Schnell, günstig, klimatisiert. Beste Option für Individualreisende.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Pauschalreise Sonnenstrand/Albena:</strong> Transferbus vom Veranstalter nutzen – meist im Pauschalpreis inklusive. Günstiger und stressfreier als eigenständige Taxibuchung.</li>
+        </ul>
+      </div>`,
+  },
+
+  finanzen: {
+    title: "Finanzen",
+    iconFa: "fa-wallet",
+    color: "bg-yellow-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Währung &amp; Bezahlen</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Währung:</strong> Bulgarischer Lev (BGN). 1 € = 1,9558 BGN (fester Kurs, kaum Schwankung).</li>
+            <li><strong>Euro:</strong> Wird in Touristenzentren und größeren Restaurants oft akzeptiert. Wechselkurs der Händler meist schlechter – in Lev zahlen ist besser.</li>
+            <li><strong>Bargeld:</strong> Sehr wichtig. Lokale Märkte, Taxis, kleine Restaurants und ländliche Gebiete oft nur Bargeld.</li>
+            <li><strong>ATMs:</strong> In Städten und Touristenzentren ausreichend. Im Gebirge (Rila-Kloster, Bansko) vorab Bargeld abheben!</li>
+            <li><strong>Trinkgeld:</strong> 10% im Restaurant üblich. Für guten Service wird Trinkgeld in Lev sehr geschätzt.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Preisniveau</h4>
+          <div class="bg-yellow-50 p-3 rounded text-sm">
+            Bulgarien ist eines der günstigsten EU-Reiseziele. Mahlzeit in gutem Restaurant: 15–25 BGN (7–12 €). Bier: 3–5 BGN. Taxi-Kurzfahrt: 5–10 BGN. Im Vergleich zu Westeuropa 40–60% günstiger.
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Spar-Tipps Bulgarien</h4>
+        <ul class="space-y-3">
+          <li class="bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500">
+            <strong class="text-indigo-900 block mb-1">Günstiger als Sie denken:</strong>
+            Bulgarien ist EU-Mitglied mit EU-Qualitätsstandards aber Preisen wie vor 20 Jahren in Deutschland. Ein 3-Gänge-Menü im guten Restaurant für 25–30 BGN (13–15 €) ist normal.
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Sonnenstrand Preis-Tipp:</strong> Außerhalb des Hauptstrands (Fußweg nördlich oder südlich) sind Restaurant- und Barpreise 30–50% günstiger als direkt am Hauptstrand.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Lokaler Wein:</strong> Bulgarischer Wein (Mavrud, Melnik) ist weltweit unterschätzt aber exzellent. Im Supermarkt: guter Wein ab 5–8 BGN (2,50–4 €).</li>
+          <li class="bg-green-50 p-3 rounded-lg border border-green-200"><strong>Geldwechsel:</strong> Immer bei offiziellen Wechselstuben (Обмяна/Obmenya) tauschen – nicht am Flughafen oder Hotel. Kurs online vorab prüfen.</li>
+        </ul>
+      </div>`,
+  },
+
+  technik: {
+    title: "Technik",
+    iconFa: "fa-wifi",
+    color: "bg-indigo-500",
+    planningHtml: `
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Konnektivität</h4>
+          <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>EU-Roaming:</strong> Gilt vollständig in Bulgarien. Deutsche SIM ohne Aufpreis nutzbar.</li>
+            <li><strong>WLAN:</strong> In Hotels und Resorts ausgezeichnet. Bulgarien hat eines der schnellsten Breitband-Netzwerke der EU!</li>
+            <li><strong>Mobilfunk:</strong> Sehr gute Abdeckung. 4G/5G in Städten, 4G in Touristenzentren. Im Gebirge kann es dünn werden.</li>
+            <li><strong>Steckdosen:</strong> Typ C und F (Schuko) wie in Deutschland – kein Adapter nötig. 220–230 Volt.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-xl text-gray-900 mb-2 border-b pb-1">Nützliche Apps</h4>
+          <div class="bg-gray-50 p-3 rounded text-sm">
+            <ul class="space-y-1">
+              <li><strong>Yandex.Taxi / Bolt:</strong> Ride-Hailing in Sofia, Varna, Burgas, Plovdiv.</li>
+              <li><strong>bgtoll.bg:</strong> E-Vignette online kaufen für Autoreisende.</li>
+              <li><strong>Sofia Metro App:</strong> Fahrpläne und Netzplan der Sofioter Metro.</li>
+              <li><strong>Google Maps:</strong> Bulgarische Karten sehr detailliert, offline laden empfohlen.</li>
+            </ul>
+          </div>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="space-y-4 text-sm">
+        <h4 class="font-bold text-lg text-indigo-900 mb-2">Tech-Hacks Bulgarien</h4>
+        <ul class="space-y-3">
+          <li class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
+            <strong class="text-green-900 block mb-1">Internet-Geheimtipp Bulgarien:</strong>
+            Bulgarien hat eine der schnellsten Internetinfrastrukturen Europas. In Hotels und Cafés ist WLAN mit 100+ MBit/s keine Seltenheit – ideal für digitale Nomaden.
+          </li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>EU-Roaming ohne Bedenken:</strong> Volles EU-Roaming – telefonieren, surfen, SMS wie in Deutschland ohne Aufpreis. Seit Schengen-Beitritt 2024 noch reibungsloser.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Kein Adapter nötig:</strong> Typ C und F (Schuko) wie in DE/AT. 220–230 Volt. Alle deutschen Geräte funktionieren direkt ohne Adapter.</li>
+          <li class="bg-indigo-50 p-3 rounded-lg"><strong>Gebirge Offline-Karten:</strong> Im Rila- und Pirin-Gebirge kann Mobilempfang schwach sein. Wanderrouten (Maps.me oder AllTrails) offline vorab laden!</li>
+        </ul>
+      </div>`,
+  },
+
+  sicherheit: {
+    title: "Sicherheit",
+    iconFa: "fa-shield-alt",
+    color: "bg-gray-700",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Sicherheitslage</h4>
+          <p class="mb-2">Bulgarien ist grundsätzlich sicher für Touristen. Risiken sind hauptsächlich Kleinkriminalität und Verkehrsunfälle.</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Taschendiebstahl:</strong> In Sofia (Nationalmuseum-Umgebung, Öffis), auf überfüllten Stränden. Wachsamkeit angebracht.</li>
+            <li><strong>Verkehr:</strong> Bulgarien hat höhere Unfallrate als Westeuropa. Vorsicht auf Landstraßen (Schlaglöcher, schlechte Beleuchtung).</li>
+            <li><strong>Betrüger:</strong> Falsche Taxifahrer (Sofia), Kettenglücksspiel (illegal aber vorkommend). Nur seriöse Taxi-Apps nutzen.</li>
+            <li><strong>Wandern Gebirge:</strong> Im Rila und Pirin bei Wetterumschwung Vorsicht – Gewitter entstehen schnell. Auf markierten Wegen bleiben.</li>
+          </ul>
+        </div>
+        <div class="bg-gray-100 p-4 rounded">
+          <strong>Notrufnummern Bulgarien:</strong><br/>
+          112 – Europäischer Notruf<br/>
+          166 – Polizei (Politsiya)<br/>
+          150 – Krankenwagen<br/>
+          160 – Feuerwehr
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-gray-100 p-4 rounded text-sm">
+        <strong class="block text-gray-900 mb-2">Sicherheits-Insider Bulgarien</strong>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Deutsche Botschaft Sofia:</strong> +359 2 918 38 10. Für Notfälle, Passverlust und konsularische Hilfe.</li>
+          <li><strong>Sonnenstrand Nachtleben:</strong> Der Sonnenstrand ist für ausgedehntes Nachtleben bekannt. Übermäßiger Alkohol und unbekannte Getränke (Drugging) meiden. In Gruppen unterwegs sein.</li>
+          <li>Bergwanderungen im Rila/Pirin: Wettervorhersage prüfen, Bergrettung-Nummer notieren: 1410 (Berg- und Höhlenrettung).</li>
+          <li><strong>Korrektes Taxameter:</strong> Offizielle Taxis in Bulgarien haben Taxameter. Auf Tarif A1 (Tag) und A2 (Nacht) achten. Preis pro km sollte 0,80–1,20 BGN sein.</li>
+        </ul>
+      </div>`,
+  },
+
+  kultur: {
+    title: "Kultur",
+    iconFa: "fa-landmark",
+    color: "bg-purple-600",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Bulgarische Kultur &amp; Besonderheiten</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Kopfbewegungen!</strong> In Bulgarien bedeutet Kopfnicken "NEIN" und Kopfschütteln "JA" – das Gegenteil zu Deutschland! Wichtige Info für Kommunikation.</li>
+            <li><strong>Kyrillische Schrift:</strong> Schilda und Speisekarten auf Kyrillisch. Die Bulgaren haben das Kyrillische Alphabet im 9. Jahrhundert erfunden.</li>
+            <li><strong>Orthodoxe Kirche:</strong> Sehr wichtig im Alltag. In Kirchen angemessene Kleidung (Schultern, Knie bedecken). Fotografieren oft erlaubt.</li>
+            <li><strong>Sprache:</strong> Bulgarisch (Слатев). "Бlagodarya" (Благодаря – Danke) und "Zdravei" (Здравей – Hallo) kommen sehr gut an. Russisch-Kenntnisse helfen oft.</li>
+            <li><strong>UNESCO-Welterbe:</strong> Rila-Kloster, Thrakisches Grabmal Kasanlak, Felsgrabmäler Ivanovo, historische Stadt Nessebar.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-purple-50 p-4 rounded text-sm">
+        <strong class="block text-purple-900 mb-2">Kulturelles Know-how Bulgarien</strong>
+        <p><strong>Das Kopfnicken-Paradox:</strong> Das wichtigste Kulturwissen für Bulgarien-Reisende: Kopf NICKEN = "Nein". Kopf SCHÜTTELN = "Ja". Bei Verwirrung einfach verbal auf Englisch bestätigen!</p>
+        <p class="mt-2"><strong>Rila-Kloster:</strong> Das bedeutendste orthodoxe Kloster Bulgariens liegt in atemberaubender Berglandschaft. Übernachtung im Kloster möglich – einzigartiges Erlebnis für 25–30 BGN pro Nacht.</p>
+        <p class="mt-2"><strong>Rose Valley (Rozova Dolina):</strong> Bulgarien produziert 70% des weltweiten Rosenöls. Im Mai/Juni Rosenernte – Festivals in Kazanlak mit traditionellen Trachten und Rosenpflückungen. Unvergesslich!</p>
+      </div>`,
+  },
+
+  kulinarik: {
+    title: "Kulinarik",
+    iconFa: "fa-utensils",
+    color: "bg-sand-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Bulgarische Küche</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Shopska Salata:</strong> Der Klassiker – Tomaten, Gurken, Paprika, Zwiebeln mit geriebenem Sirene-Käse (bulgarischer Feta). Zu jeder Mahlzeit dabei.</li>
+            <li><strong>Banitsa:</strong> Blätterteig mit Feta-Käse oder Spinat. Das klassische Frühstück – morgens noch warm aus der Bäckerei.</li>
+            <li><strong>Tarator:</strong> Kalte Joghurtsuppe mit Gurken, Dill und Walnüssen – perfekte Sommersuppe.</li>
+            <li><strong>Kavarma:</strong> Langsam geschmortes Fleisch (Schwein oder Huhn) mit Gemüse im Tontopf gegart.</li>
+            <li><strong>Ayran:</strong> Dünnes Joghurtgetränk – erfrischend im Sommer und besser gegen Hitze als Wasser.</li>
+            <li><strong>Mastika (Rakia):</strong> Bulgarischer Obstbrand – wichtiger Bestandteil bulgarischer Geselligkeit.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-sand-50 p-4 rounded text-sm">
+        <strong class="block mb-2">Essen wie Einheimische</strong>
+        <p><strong>Mekhana (Механа) – die bulgarische Taverne:</strong> Traditionelles Restaurant mit Holzdekoration, Live-Folkloremusik und rustikaler Küche. Preise 30–50% günstiger als auf Touristenmeile. In jeder Kleinstadt zu finden.</p>
+        <p class="mt-2"><strong>Pazar (Markt):</strong> Auf dem lokalen Wochenmarkt frisches Gemüse, Honig, hausgemachter Joghurt und lokaler Käse kaufen. Preis: Bruchteil des Supermarkts. Sprachkenntnisse: Finger zeigen funktioniert immer!</p>
+        <p class="mt-2"><strong>Bulgarischer Joghurt als Reise-Souvenir:</strong> Den echten Lactobacillus bulgaricus Joghurt-Starter als Pulver kaufen (in Apotheken) und Zuhause selbst ansetzen. Das einzige Souvenir, das sich vermehrt!</p>
+      </div>`,
+  },
+
+  mobilitaet: {
+    title: "Mobilität",
+    iconFa: "fa-bus",
+    color: "bg-teal-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Fortbewegung in Bulgarien</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mietwagen:</strong> Für Gebirgsausflüge (Rila, Pirin, Rhodopen) und Erkundung des Landesinneren empfohlen. EU-Führerschein ausreichend.</li>
+            <li><strong>Fernbusse:</strong> Bequemster und schnellster Innertransport. Biomet, Union Ivkoni und FlixBus verbinden alle wichtigen Städte.</li>
+            <li><strong>Bahn (BDŽ):</strong> Günstig (2–5 €) aber langsam und Züge oft veraltet. Für Kurzstrecken und Gebirgsrouten (Rila) romantisch.</li>
+            <li><strong>Taxis/Apps:</strong> Bolt und Yandex.Taxi in allen größeren Städten. Günstig und sicher.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-teal-50 p-4 rounded text-sm">
+        <strong class="block text-teal-900 mb-2">Mobilitäts-Hacks Bulgarien</strong>
+        <ul class="space-y-2 list-disc pl-5">
+          <li><strong>Sofia Metro:</strong> Schnell, günstig, sicher. Einzelticket: 1,60 BGN. Tageskarte: 8 BGN. Direkte Verbindung Flughafen–Zentrum.</li>
+          <li><strong>Rila-Kloster per Bus:</strong> Von Sofia mehrere tägliche Busverbindungen. Rückfahrt nachmittags. Günstigste Option – kein Mietwagen nötig.</li>
+          <li><strong>Sonnenstrand-Shuttle:</strong> Im Sommer fahren Minibusse zwischen Sonnenstrand, Nessebar (UNESCO) und Burgas im 20-Minuten-Takt. Ca. 5–8 BGN – bequemer als Taxi.</li>
+          <li><strong>E-Vignette:</strong> Bei Anreise per Auto: e-Vignette vorab online kaufen (bgtoll.bg). Wochenvignette: ca. 15 €. Ohne Vignette droht Strafe von 300 BGN!</li>
+        </ul>
+      </div>`,
+  },
+
+  planung: {
+    title: "Planung",
+    iconFa: "fa-calendar-alt",
+    color: "bg-pink-500",
+    planningHtml: `
+      <div class="space-y-4 text-sm">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-bold text-gray-900 mb-2">Beste Reisezeit</h4>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Mai–Juni:</strong> Ideal für Wandern (Rila, Pirin) und Kultur. Rosenfest in Kazanlak (Mai). Mild, 22–26°C, wenige Touristen.</li>
+            <li><strong>Juli–August:</strong> Hauptsaison Schwarzmeer. 28–32°C, Sonnenstrand und Albena sehr voll. Günstige Pauschalreisen.</li>
+            <li><strong>September–Oktober:</strong> Angenehme Herbsttemperaturen, Meer noch warm (24°C), Weinlese-Saison. Viel weniger Touristen.</li>
+            <li><strong>Dezember–März:</strong> Ski in Bansko, Borovets oder Pamporovo. Günstiger Wintersport mit EU-Standard zu halben Preisen.</li>
+          </ul>
+        </div>
+      </div>`,
+    insiderHtml: `
+      <div class="bg-pink-50 p-4 rounded text-sm">
+        <strong class="block text-pink-900 mb-2">Planungs-Geheimtipps Bulgarien</strong>
+        <p><strong>Bansko als Ski-Geheimtipp:</strong> Modernes Skigebiet im Pirin-Gebirge mit Gondelbahn. Skipässe 30–40 € pro Tag (Hälfte der Alpenpreise). Après-Ski in Bansko-Altstadt für 3–5 € pro Bier. Direktflüge nach Sofia, 2 Stunden Transfer.</p>
+        <p class="mt-2"><strong>Nessebar UNESCO-Trick:</strong> Die Altstadt Nessebar (UNESCO-Welterbe) auf der Halbinsel ist tagsüber voller Touristen vom Sonnenstrand. Früh morgens (vor 9 Uhr) oder beim Sonnenuntergang besuchen – dann gehört die Altstadt fast einem alleine.</p>
+        <p class="mt-2"><strong>Budget-Champion EU:</strong> Bulgarien ist das günstigste EU-Reiseziel. 2 Wochen mit gutem Hotel, gutes Essen und Ausflügen für 800–1.200 € pro Person (All Inclusive Pauschalreise bereits ab 400 € buchbar).</p>
+      </div>`,
+  },
+};
+
 // ─── REGISTRY ──────────────────────────────────────────────────────────────
 const hubRegistry: Record<string, HubData> = {
   Türkei: turkeyHubData,
@@ -2167,6 +3924,11 @@ const hubRegistry: Record<string, HubData> = {
   Portugal: portugalHubData,
   Thailand: thailandHubData,
   VAE: uaeHubData,
+  Kroatien: croatiaHubData,
+  Marokko: moroccoHubData,
+  Tunesien: tunisiaHubData,
+  Zypern: cyprusHubData,
+  Bulgarien: bulgariaHubData,
 };
 
 export function getHubDataByCountry(country: string): HubData | null {
