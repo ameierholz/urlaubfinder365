@@ -81,23 +81,25 @@ function SightCard({ title, desc, mapHref, address, duration, cost, tip }: {
   duration?: string; cost?: string; tip?: string;
 }) {
   return (
-    <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
-      <h3 className="text-base font-bold text-gray-900 mb-1">{title}</h3>
+    <div className="group relative bg-white rounded-2xl border border-gray-100 p-5 transition-all duration-300 hover:shadow-lg hover:border-[#00838F]/20 hover:-translate-y-0.5">
+      <div className="absolute top-0 left-0 w-1 h-full rounded-l-2xl bg-[#00838F]/60 group-hover:bg-[#00838F] transition-colors" />
+      <h3 className="text-base font-bold text-gray-900 mb-1 pl-3">{title}</h3>
       {(duration || cost) && (
-        <div className="flex flex-wrap gap-2 mb-2">
+        <div className="pl-3 flex flex-wrap gap-2 mb-2">
           {duration && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">⏱ {duration}</span>}
           {cost && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">💰 {cost}</span>}
         </div>
       )}
-      <p className="text-sm text-gray-600 leading-relaxed mb-2">{desc}</p>
-      {tip && <p className="text-xs text-amber-700 bg-amber-50 rounded-lg px-3 py-1.5 mb-2">💡 {tip}</p>}
+      <p className="text-sm text-gray-600 leading-relaxed pl-3 mb-2">{desc}</p>
+      {tip && <p className="text-xs text-amber-600 font-medium pl-3 mb-2">💡 {tip}</p>}
       <a href={mapHref} target="_blank" rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 text-xs text-[#00838F] font-semibold hover:underline">
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        className="pl-3 inline-flex items-center gap-1.5 text-sm font-medium text-[#00838F] hover:text-[#006670] transition-colors">
+        <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
-        {address}
+        Auf Karte anzeigen
+        {address && <span className="text-xs text-gray-400">· {address}</span>}
       </a>
     </div>
   );
@@ -203,55 +205,72 @@ export default function GenericGuide({ dest, content }: Props) {
   const ibeRegionId = dest.ibeRegionId ?? dest.regionIds[0]?.toString() ?? "1";
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      {/* Hero */}
-      <div className="relative h-48 sm:h-64 overflow-hidden">
-        <img
-          src={dest.heroImageFallback ?? dest.heroImage}
-          alt={`${dest.name} Urlaubsführer`}
-          className="w-full h-full object-cover"
+    <div className="bg-white rounded-2xl shadow-xl border border-gray-100">
+
+      {/* ═══════ HERO ═══════ */}
+      <div className="relative overflow-hidden rounded-t-2xl" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 50%, #26c6da 100%)` }}>
+        {/* Dezentes Foto-Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay"
+          style={{ backgroundImage: `url(${dest.heroImageFallback ?? dest.heroImage})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-5">
-          <div className="flex items-end justify-between">
+        {/* Subtiles Muster */}
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
+
+        <div className="relative px-6 md:px-10 pt-6 pb-8">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-sm text-white/70 mb-5 flex-wrap">
+            <Link href="/" className="hover:text-white transition-colors">Startseite</Link>
+            <span className="text-white/40">›</span>
+            <Link href="/urlaubsguides/" className="hover:text-white transition-colors">Urlaubsguides</Link>
+            <span className="text-white/40">›</span>
+            <span className="text-white font-medium">{dest.name}</span>
+          </nav>
+
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
-              <p className="text-white/70 text-xs font-semibold uppercase tracking-wider">{dest.country}</p>
-              <h1 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+              <p className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-1">{dest.country}</p>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
                 {dest.name} Urlaubsführer
+                <span className="block sm:inline sm:ml-2 text-white/80 font-bold">{new Date().getFullYear()}</span>
               </h1>
-              <p className="text-white/80 text-sm mt-1">{dest.description?.slice(0, 120)}…</p>
+              <p className="text-white/80 mt-2 text-sm sm:text-base max-w-xl leading-relaxed">
+                {dest.description?.slice(0, 140)}…
+              </p>
             </div>
             {weather && (
-              <div className="bg-white/20 backdrop-blur-sm rounded-xl px-3 py-2 text-center shrink-0 ml-3">
-                <span className="text-2xl">{weather.icon}</span>
-                <p className="text-white font-bold text-lg">{weather.temp}°C</p>
-                <p className="text-white/80 text-[10px]">Jetzt</p>
+              <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-4 py-3 text-center shrink-0 self-start sm:self-auto border border-white/20">
+                <span className="text-3xl">{weather.icon}</span>
+                <p className="text-white font-extrabold text-xl">{weather.temp}°C</p>
+                <p className="text-white/70 text-[10px] font-medium">Jetzt</p>
               </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex overflow-x-auto scrollbar-hide border-b border-gray-100 bg-white sticky top-0 z-10">
-        {TABS.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-1.5 px-3 py-3 text-xs font-semibold whitespace-nowrap transition-colors border-b-2 -mb-px ${
-              activeTab === tab.id
-                ? "border-[#00838F] text-[#00838F]"
-                : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            <span>{tab.icon}</span>
-            <span className="hidden sm:inline">{tab.label}</span>
-          </button>
-        ))}
-      </div>
+      {/* ═══════ TABS ═══════ */}
+      <nav className="sticky top-20 lg:top-28 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 print:hidden">
+        <div className="flex flex-wrap items-center gap-1.5 px-4 sm:px-6 py-3">
+          {TABS.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-1.5 py-2 px-3.5 text-sm rounded-full whitespace-nowrap transition-all duration-200 font-medium ${
+                activeTab === tab.id
+                  ? "bg-[#00838F] text-white shadow-md shadow-[#00838F]/25"
+                  : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+              }`}
+            >
+              <span className="text-sm">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </nav>
 
-      {/* Content */}
-      <div className="p-5 sm:p-6">
+      {/* ═══════ CONTENT ═══════ */}
+      <main className="p-5 sm:p-8 md:p-10">
 
         {/* ── HOME ── */}
         {activeTab === "home" && (
@@ -644,7 +663,7 @@ export default function GenericGuide({ dest, content }: Props) {
           </div>
         )}
 
-      </div>
+      </main>
     </div>
   );
 }
