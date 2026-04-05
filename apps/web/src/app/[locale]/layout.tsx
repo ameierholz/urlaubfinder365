@@ -193,6 +193,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
+        {/* Google AdSense – Domain-Verifizierung (statisch im HTML, kein JS nötig) */}
+        <meta name="google-adsense-account" content="ca-pub-9799640580685030" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://api.specials.de" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

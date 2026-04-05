@@ -7,7 +7,7 @@ import { routing } from "@/i18n/routing";
 const handleI18n = createIntlMiddleware(routing);
 
 // Paths that skip i18n entirely (API, static files, auth/admin areas)
-const SKIP_I18N = /^\/(api|_next|auth|admin|anbieter|buchung|scripts|styles|images|favicon|apple-icon|icon|robots|sitemap)/;
+const SKIP_I18N = /^\/(api|_next|auth|admin|anbieter|buchung|scripts|styles|images|favicon|apple-icon|icon|robots|sitemap|ads\.txt)/;
 
 // Protected routes that need Supabase session refresh (within [locale])
 const NEEDS_AUTH = /^\/(dashboard|community|profil|travel-buddies)/;
@@ -69,6 +69,6 @@ async function refreshSupabaseSession(
 export const config = {
   matcher: [
     // Match all paths except static Next.js files and public folder files
-    "/((?!_next/static|_next/image|favicon.ico|apple-icon.png|icon.png|robots.txt|sitemap.xml|scripts/|styles/|images/).*)",
+    "/((?!_next/static|_next/image|favicon.ico|apple-icon.png|icon.png|robots.txt|sitemap.xml|ads.txt|scripts/|styles/|images/).*)",
   ],
 };
