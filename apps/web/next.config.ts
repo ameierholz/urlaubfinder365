@@ -90,6 +90,16 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // ─── Rewrites: ads.txt via Route Handler (umgeht trailingSlash + Middleware) ──
+  async rewrites() {
+    return [
+      {
+        source: "/ads.txt",
+        destination: "/api/ads-txt",
+      },
+    ];
+  },
+
   // ─── 301-Redirects: alte WordPress-URLs → neue Next.js-Struktur ───
   async redirects() {
     return [
