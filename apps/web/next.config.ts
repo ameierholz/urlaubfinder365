@@ -238,13 +238,6 @@ const nextConfig: NextConfig = {
 
       // WordPress-REST-API & JSON-Endpoints → Startseite
       { source: "/wp-json/:path*", destination: "/", permanent: true },
-      { source: "/?rest_route=:path*", destination: "/", permanent: true },
-
-      // WordPress-Post-ID-Links (?p=123) → Startseite
-      { source: "/\\?p=:id*", destination: "/", permanent: true },
-
-      // WordPress-Suche → eigene Seite oder Startseite
-      { source: "/\\?s=:q*", destination: "/guenstig-urlaub-buchen/", permanent: true },
 
       // WordPress cPanel/Scriptaculous-Reste
       { source: "/cgi-bin/:path*", destination: "/", permanent: true },
