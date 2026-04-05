@@ -143,7 +143,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: name } },
+      options: {
+        data: { full_name: name },
+        // Nach Bestätigung → auth/callback (sendet Willkommens-E-Mail + leitet zum Dashboard)
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+      },
     });
     if (error) throw error;
     // session is null when email confirmation is required

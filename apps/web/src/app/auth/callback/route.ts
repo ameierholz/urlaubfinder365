@@ -32,15 +32,25 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error && data.user) {
-      // Welcome-Email senden (fire & forget)
       const user = data.user;
-      const name = user.user_metadata?.full_name ?? user.email?.split("@")[0] ?? "dort";
-      const typ = user.user_metadata?.typ ?? "kunde";
-      fetch(`${origin}/api/email/welcome`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email, name, typ }),
-      }).catch(() => {});
+
+      // Willkommens-E-Mail nur beim ersten Login senden:
+      // created_at ≈ last_sign_in_at → frisch registriert (max. 3 Minuten Toleranz)
+      const createdAt      = user.created_at ? new Date(user.created_at).getTime()      : 0;
+      const lastSignIn     = user.last_sign_in_at ? new Date(user.last_sign_in_at).getTime() : 0;
+      const isFirstSignIn  = Math.abs(lastSignIn - createdAt) < 3 * 60 * 1000; // 3 min
+
+      if (isFirstSignIn && user.email) {
+        const name = (user.user_metadata?.full_name as string | undefined)
+          ?? user.email.split("@")[0]
+          ?? "dort";
+        const typ  = (user.user_metadata?.typ as string | undefined) === "anbieter" ? "anbieter" : "kunde";
+        fetch(`${origin}/api/email/welcome`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: user.email, name, typ }),
+        }).catch(() => {});
+      }
 
       return NextResponse.redirect(`${origin}${next}`);
     }
