@@ -42,15 +42,31 @@ const CONTINENTS: Continent[] = [
     gradient: "from-blue-900 via-[#1b6ca8] to-[#00838F]",
     desc: `Von den Stränden Mallorcas bis zu den Fjorden Norwegens – Europa bietet für jeden Urlaubstyp das perfekte Reiseziel. Pauschalreisen ${YEAR} mit Flug & Hotel zum Bestpreis.`,
     slugs: [
-      "balearen", "kanaren", "spanien",
-      "griechische-inseln", "griechenland",
-      "italien",
-      "portugal",
-      "kroatien", "zypern", "malta", "frankreich",
-      "deutschland-nord", "deutschland-ost", "deutschland-sued", "deutschland-west",
-      "oesterreich", "schweiz", "benelux", "grossbritannien",
-      "skandinavien", "daenemark", "baltikum", "europa-ost", "island-nordatlantik",
-      "bulgarien", "europa-sued-ost", "europaeische-zwergstaaten",
+      // Balearen
+      "balearen", "mallorca", "ibiza", "menorca", "formentera",
+      // Kanaren
+      "kanaren", "teneriffa", "gran-canaria", "fuerteventura", "lanzarote", "la-palma", "la-gomera", "el-hierro",
+      // Spanien
+      "spanien", "costa-del-sol", "andalusien", "barcelona", "costa-blanca", "costa-brava",
+      "madrid", "valencia", "costa-dorada", "sevilla", "marbella", "granada", "katalonien",
+      // Griechenland
+      "griechische-inseln", "kreta", "rhodos", "korfu", "santorin", "mykonos", "kos", "zakynthos",
+      "kefalonia", "lefkas", "thassos", "griechenland", "athen", "chalkidiki",
+      // Italien
+      "italien", "sizilien", "sardinien", "toskana", "gardasee", "apulien", "venedig", "rom",
+      "amalfikusste", "kalabrien", "ligurien",
+      // Portugal
+      "portugal", "algarve", "lissabon", "madeira", "porto", "azoren", "alentejo",
+      // Rest Europa
+      "kroatien", "dubrovnik", "split", "istrien", "insel-hvar",
+      "zypern", "zypern-sued",
+      "malta", "malta-insel", "gozo",
+      "frankreich", "cote-dazur", "paris", "provence", "korsika",
+      "bulgarien", "goldstrand", "sonnenstrand",
+      "deutschland-nord", "deutschland-sued", "oesterreich", "schweiz",
+      "grossbritannien", "london", "dublin",
+      "skandinavien", "daenemark", "benelux",
+      "baltikum", "europa-ost", "island-nordatlantik", "europa-sued-ost",
     ],
   },
   {
@@ -59,7 +75,13 @@ const CONTINENTS: Continent[] = [
     emoji: "🕌",
     gradient: "from-red-900 via-red-700 to-orange-600",
     desc: "Die Türkei ist das Nummer-1-Urlaubsziel der Deutschen – Antalya, Bodrum, Side und Alanya mit modernen 5-Sterne-Resorts. Die VAE und Dubai für Luxusreisen das ganze Jahr.",
-    slugs: ["tuerkei", "vae", "vorderer-orient"],
+    slugs: [
+      "tuerkei", "tuerkische-riviera", "antalya-stadt", "side", "alanya", "belek",
+      "halbinsel-bodrum", "kusadasi", "marmaris", "fethiye", "dalyan", "cesme",
+      "tuerkische-aegaeis", "istanbul", "kappadokien",
+      "vae", "dubai", "abu-dhabi", "ras-al-khaimah",
+      "vorderer-orient", "jordanien", "oman", "katar",
+    ],
   },
   {
     id: "afrika",
@@ -67,7 +89,13 @@ const CONTINENTS: Continent[] = [
     emoji: "🌍",
     gradient: "from-amber-900 via-amber-700 to-yellow-600",
     desc: "Hurghada und Sharm el-Sheikh für Taucher und Schnorchler, Tunesien und Marokko für Kulturreisende – Nordafrika und Sub-Sahara als unvergessliche Reiseziele.",
-    slugs: ["aegypten", "tunesien", "marokko", "afrika", "afrika-sued", "afrika-west"],
+    slugs: [
+      "aegypten", "hurghada", "sharm-el-sheikh", "marsa-alam", "el-gouna",
+      "tunesien", "djerba", "hammamet", "monastir",
+      "marokko", "agadir", "marrakesch",
+      "kapverden",
+      "afrika", "kenia-kueste", "sansibar", "afrika-sued", "kapstadt",
+    ],
   },
   {
     id: "asien",
@@ -75,7 +103,13 @@ const CONTINENTS: Continent[] = [
     emoji: "🌏",
     gradient: "from-pink-900 via-pink-700 to-rose-600",
     desc: "Thailand, Malediven, Bali und Vietnam – exotisches Flair, buddhistische Tempel und traumhafte Strände im Indischen Ozean. Fernreisen für besondere Anlässe.",
-    slugs: ["thailand", "asien", "indien", "indischer-ozean"],
+    slugs: [
+      "thailand", "phuket", "ko-samui", "bangkok", "khao-lak", "krabi",
+      "indischer-ozean", "malediven", "mauritius", "seychellen", "sri-lanka",
+      "asien", "bali", "vietnam", "singapur", "malaysia", "philippinen",
+      "indien", "goa",
+      "japan", "tokyo",
+    ],
   },
   {
     id: "amerika",
@@ -83,7 +117,15 @@ const CONTINENTS: Continent[] = [
     emoji: "🌴",
     gradient: "from-cyan-900 via-cyan-700 to-teal-600",
     desc: "Punta Cana, Cancún, New York, Havanna – All-Inclusive-Strandresorts in der Karibik bis zur Ostküsten-Städtereise. Mexikos Riviera Maya als Top-Fernziel der Deutschen.",
-    slugs: ["dominikanische-republik", "kuba", "mexiko", "karibik", "usa-ostkueste"],
+    slugs: [
+      "dominikanische-republik", "punta-cana", "puerto-plata",
+      "mexiko", "cancun", "riviera-maya", "yucatan",
+      "kuba", "havanna",
+      "karibik", "jamaika", "aruba", "curacao", "barbados",
+      "usa-ostkueste", "new-york", "florida-ostkueste", "florida-orlando",
+      "usa-westkueste", "kalifornien",
+      "kanada", "suedamerika",
+    ],
   },
 ];
 
