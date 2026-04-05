@@ -12,6 +12,30 @@ const SKIP_I18N = /^\/(api|_next|auth|admin|anbieter|buchung|scripts|styles|imag
 // Protected routes that need Supabase session refresh (within [locale])
 const NEEDS_AUTH = /^\/(dashboard|community|profil|travel-buddies)/;
 
+// HTML-Seiten, die keine CSP brauchen (statische Assets, API-Routes)
+const SKIP_CSP = /^\/(api|_next\/static|_next\/image|favicon|apple-icon|icon|robots|sitemap|ads\.txt|scripts|styles|images)/;
+
+/** Baut den dynamischen CSP-Header mit Per-Request-Nonce.
+ *  unsafe-inline für script-src ist entfernt — nur Nonce-tragende Inline-Scripts laufen.
+ *  unsafe-eval bleibt (benötigt für IBE-Widget & AdSense).
+ */
+function buildCsp(nonce: string): string {
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'unsafe-eval' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://unpkg.com",
+    "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://assets.specials.de data:",
+    "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://*.tiqets.com https://aws-tiqets-cdn.imgix.net https://*.supabase.co https://*.googleusercontent.com https://*.googleapis.com https://i.pravatar.cc https://*.ypsilon.net https://pics.avs.io https://*.trustpilot.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://*.openstreetmap.org https://unpkg.com",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://*.googleapis.com https://api.specials.de https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.adup-tech.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://accounts.google.com https://*.ypsilon.net https://api.open-meteo.com https://*.trustpilot.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://csi.gstatic.com https://*.gstatic.com https://ep1.adtrafficquality.google",
+    "frame-src 'self' https://*.specials.de https://d.adup-tech.com https://s.adup-tech.com https://www.openstreetmap.org https://openstreetmap.org https://accounts.google.com https://*.ypsilon.net https://www.google.com https://maps.google.com https://www.travialinks.de https://kreuzfahrten.travelsystem.de https://*.trustpilot.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.safeframe.googlesyndication.com https://pagead2.googlesyndication.com",
+    "media-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self' https://accounts.google.com",
+    "frame-ancestors 'none'",
+  ].join("; ");
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -24,14 +48,32 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // ── 2. i18n routing for all public routes ────────────────────────────────────
-  const response = handleI18n(request);
+  // ── 2. Nonce generieren (per Request, kryptografisch sicher) ─────────────────
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
 
-  // ── 3. Additionally refresh Supabase session for protected locale routes ─────
+  // ── 3. i18n routing für alle öffentlichen Routen ────────────────────────────
+  const i18nResponse = handleI18n(request);
+
+  // ── 4. Response mit Nonce + CSP vorbereiten ──────────────────────────────────
+  let response: NextResponse;
+
   // Strip potential locale prefix to check base path
   const basePath = pathname.replace(/^\/(en|tr|es|fr|it|pl|ru|ar|zh)\//, "/");
+
   if (NEEDS_AUTH.test(basePath)) {
-    return refreshSupabaseSession(request, response);
+    // Supabase-Session für geschützte Routen refreshen
+    response = await refreshSupabaseSession(request, i18nResponse);
+  } else {
+    response = NextResponse.next({ request, headers: i18nResponse.headers });
+  }
+
+  // Nonce als Request-Header setzen → Next.js nutzt ihn für eigene Inline-Scripts
+  // und layout.tsx liest ihn für JSON-LD <script>-Tags
+  response.headers.set("x-nonce", nonce);
+
+  // CSP nur für HTML-Seiten setzen (nicht für statische Assets / API)
+  if (!SKIP_CSP.test(pathname)) {
+    response.headers.set("Content-Security-Policy", buildCsp(nonce));
   }
 
   return response;
