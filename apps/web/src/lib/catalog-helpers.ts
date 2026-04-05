@@ -102,7 +102,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   // VAE
   "dubai skyline burj khalifa":     "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
   "abu dhabi uae modern":           "https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=1600&q=80",
-  "ras al khaimah uae mountains":   "https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=1600&q=80",
+  "ras al khaimah uae mountains":   "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
   // Thailand
   "bangkok thailand temple":        "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=80",
   "phuket thailand beach":          "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=80",
@@ -132,7 +132,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   "riviera maya mexico beach":      "https://images.unsplash.com/photo-1573548842355-73bb50e50b83?w=1600&q=80",
   "yucatan mexico ruins":           "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1600&q=80",
   // Italien
-  "tuscany rolling hills italy":    "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1600&q=80",
+  "tuscany rolling hills italy":    "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1600&q=80",
   "venice italy canal gondola":     "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1600&q=80",
   "rome italy colosseum":           "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&q=80",
   "sicily italy coast":             "https://images.unsplash.com/photo-1523289917096-b640e6e64f58?w=1600&q=80",
@@ -168,7 +168,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   "ticino switzerland mediterranean":"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80",
   // Malta/Zypern/Bulgarien
   "malta ancient temples sea":      "https://images.unsplash.com/photo-1582531579313-b68e5b7bcab7?w=1600&q=80",
-  "gozo malta cliffs":              "https://images.unsplash.com/photo-1567461170924-8de6bf80adcb?w=1600&q=80",
+  "gozo malta cliffs":              "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
   "cyprus beach mediterranean":     "https://images.unsplash.com/photo-1710106793368-82f483165c7f?w=1600&q=80",
   "cyprus north coast":             "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=80",
   "golden sands bulgaria beach":    "https://images.unsplash.com/photo-1581093806997-124204d9fa9d?w=1600&q=80",
@@ -304,28 +304,28 @@ const HERO_FALLBACKS: Record<string, string> = {
   "halkidiki beach turquoise water pine trees":"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600&q=80",
   "mount olympus greece coastline beach":     "https://images.unsplash.com/photo-1531693251400-ed5e00dc2b9e?w=1600&q=80",
   "peloponnese greece ancient ruins nafplio": "https://images.unsplash.com/photo-1531693251400-ed5e00dc2b9e?w=1600&q=80",
-  "corfu greece emerald sea beach old town":  "https://images.unsplash.com/photo-1601924638867-3a6de6b7a500?w=1600&q=80",
+  "corfu greece emerald sea beach old town":  "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600&q=80",
   "kos greece beach clear water palm trees":  "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
   "crete balos lagoon turquoise beach":       "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600&q=80",
   "mykonos windmill white architecture cyclades":"https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=1600&q=80",
   "rhodes greece medieval old town acropolis":"https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=1600&q=80",
   "santorini blue dome white buildings caldera":"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1600&q=80",
   "zakynthos navagio shipwreck beach greece": "https://images.unsplash.com/photo-1562016600-ece13e8ba570?w=1600&q=80",
-  "kefalonia myrtos beach turquoise greece":  "https://images.unsplash.com/photo-1555624435-d57b87c836b8?w=1600&q=80",
+  "kefalonia myrtos beach turquoise greece":  "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600&q=80",
   "lefkada porto katsiki beach turquoise cliffs":"https://images.unsplash.com/photo-1669411397081-808c2c8f5acf?w=1600&q=80",
-  "thassos greece marble beach turquoise water":"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=80",
+  "thassos greece marble beach turquoise water":"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1600&q=80",
   // Ägypten
   "hurghada red sea beach resort coral":      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1600&q=80",
   "sharm el sheikh sinai coral reef diving":  "https://images.unsplash.com/photo-1544014400-73d4059e6cc4?w=1600&q=80",
-  "marsa alam red sea pristine diving turtle":"https://images.unsplash.com/photo-1562714137-7cfe8b0e5e08?w=1600&q=80",
+  "marsa alam red sea pristine diving turtle":"https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1600&q=80",
   "cairo giza pyramids sphinx egypt ancient": "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1600&q=80",
   // Tunesien
   "djerba tunisia beach palm trees mediterranean":"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
-  "hammamet tunisia medina beach resort":     "https://images.unsplash.com/photo-1548813831-f8e7e974d3aa?w=1600&q=80",
+  "hammamet tunisia medina beach resort":     "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1600&q=80",
   "monastir tunisia ribat fortress coastline":"https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=1600&q=80",
   // Marokko
   "agadir morocco beach atlantic sunset":     "https://images.unsplash.com/photo-1489493585363-d69421e0edd3?w=1600&q=80",
-  "marrakech souks djemaa el fna square":     "https://images.unsplash.com/photo-1597212720450-2c4f49f50040?w=1600&q=80",
+  "marrakech souks djemaa el fna square":     "https://images.unsplash.com/photo-1489493585363-d69421e0edd3?w=1600&q=80",
   // Zypern/Bulgarien
   "cyprus south limassol beach blue sea":     "https://images.unsplash.com/photo-1710106793368-82f483165c7f?w=1600&q=80",
   "north cyprus kyrenia harbor castle":       "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=80",
@@ -343,8 +343,8 @@ const HERO_FALLBACKS: Record<string, string> = {
   "allgaeu alps meadow flowers mountains germany":"https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=1600&q=80",
   "cologne cathedral rhine germany":          "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?w=1600&q=80",
   // Frankreich
-  "cote d azur nice french riviera beach":    "https://images.unsplash.com/photo-1534970028765-91e34f8b5e1b?w=1600&q=80",
-  "corsica turquoise beach mountains france": "https://images.unsplash.com/photo-1574887427561-d3d5d58c9273?w=1600&q=80",
+  "cote d azur nice french riviera beach":    "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=1600&q=80",
+  "corsica turquoise beach mountains france": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80",
   "paris eiffel tower seine river sunset":    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80",
   "provence lavender field village france":   "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=1600&q=80",
   "brittany france coastal cliffs lighthouse":"https://images.unsplash.com/photo-1555581680-7d7d1e87c00e?w=1600&q=80",
@@ -354,11 +354,11 @@ const HERO_FALLBACKS: Record<string, string> = {
   "dublin ireland colorful pub street":       "https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=1600&q=80",
   "iceland geysir waterfall northern lights": "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=1600&q=80",
   // Italien
-  "puglia trulli alberobello italy":          "https://images.unsplash.com/photo-1545659069-2de5e3e99c24?w=1600&q=80",
+  "puglia trulli alberobello italy":          "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1600&q=80",
   "lake garda italy mountain reflection village":"https://images.unsplash.com/photo-1499678329028-101435549a4e?w=1600&q=80",
   "sardinia costa smeralda turquoise sea beach":"https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=1600&q=80",
   "sicily agrigento temples valley sunset":   "https://images.unsplash.com/photo-1562016600-ece13e8ba570?w=1600&q=80",
-  "tuscany rolling hills cypress trees vineyards":"https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1600&q=80",
+  "tuscany rolling hills cypress trees vineyards":"https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1600&q=80",
   "venice canal gondola italy romantic":      "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1600&q=80",
   "rome colosseum ancient italy golden hour": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&q=80",
   "amalfi coast positano italy colorful cliffs sea":"https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=1600&q=80",
@@ -366,7 +366,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   "calabria italy tropea cliff village sea":  "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?w=1600&q=80",
   // Malta/Kroatien
   "malta valletta golden harbor baroque architecture":"https://images.unsplash.com/photo-1571166985066-81d97975f4e7?w=1600&q=80",
-  "gozo malta blue lagoon comino sea":        "https://images.unsplash.com/photo-1567461170924-8de6bf80adcb?w=1600&q=80",
+  "gozo malta blue lagoon comino sea":        "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
   "dubrovnik old town walls adriatic sea":    "https://images.unsplash.com/photo-1555993539-1732b0258235?w=1600&q=80",
   "split croatia diocletian palace harbor":   "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80",
   "zadar croatia sea organ sunset adriatic":  "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1600&q=80",
@@ -391,9 +391,9 @@ const HERO_FALLBACKS: Record<string, string> = {
   // VAE/Orient
   "dubai burj khalifa skyline desert":        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
   "abu dhabi sheikh zayed mosque grand":      "https://images.unsplash.com/photo-1578895101408-1a36b834405b?w=1600&q=80",
-  "ras al khaimah uae mountains desert beach":"https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=1600&q=80",
+  "ras al khaimah uae mountains desert beach":"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
   "petra jordan rose city ancient treasury":  "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=1600&q=80",
-  "oman muscat grand mosque sultan":          "https://images.unsplash.com/photo-1586118502404-7e50f6c44cd4?w=1600&q=80",
+  "oman muscat grand mosque sultan":          "https://images.unsplash.com/photo-1544084944-15269ec7b5a0?w=1600&q=80",
   "qatar doha skyline corniche modern":       "https://images.unsplash.com/photo-1544084944-15269ec7b5a0?w=1600&q=80",
   // Afrika
   "kenya mombasa beach ocean palms safari":   "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&q=80",
@@ -404,7 +404,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   // Thailand
   "bangkok temple wat grand palace thailand": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1600&q=80",
   "phuket beach thailand limestone cliffs sea":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1600&q=80",
-  "koh samui coconut palm beach thailand":    "https://images.unsplash.com/photo-1518379370532-52d984c3aafd?w=1600&q=80",
+  "koh samui coconut palm beach thailand":    "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1600&q=80",
   "khao lak thailand jungle beach pristine":  "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?w=1600&q=80",
   "pattaya thailand beach resort waterfront": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
   // Asien
@@ -421,12 +421,12 @@ const HERO_FALLBACKS: Record<string, string> = {
   "seychelles granite boulders beach turquoise":"https://images.unsplash.com/photo-1573997868729-b7019f95cfb2?w=1600&q=80",
   // Karibik/Amerika
   "jamaica beach palm reggae caribbean sea":  "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
-  "curacao willemstad colorful houses caribbean":"https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1600&q=80",
+  "curacao willemstad colorful houses caribbean":"https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600&q=80",
   "punta cana beach palm resort dominican":   "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
   "puerto plata dominican republic north coast beach":"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1600&q=80",
   "havana cuba classic cars malecon colorful":"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
   "cancun mexico turquoise beach resort luxury":"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1600&q=80",
-  "riviera maya tulum ruins beach mexico cenote":"https://images.unsplash.com/photo-1573548842355-73bb50e50b83?w=1600&q=80",
+  "riviera maya tulum ruins beach mexico cenote":"https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1600&q=80",
   "yucatan chichen itza maya pyramid mexico":  "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1600&q=80",
   "orlando florida theme park sunshine":      "https://images.unsplash.com/photo-1544198365-f5d60b6d8190?w=1600&q=80",
   "new york city manhattan skyline sunset":   "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=1600&q=80",
@@ -462,7 +462,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   "rimini italy adriatic beach umbrella pier":    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
   // Spanien – neue
   "seville spain flamenco plaza alcazar cathedral":"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
-  "granada spain alhambra palace sierra nevada":  "https://images.unsplash.com/photo-1565878838-0c38aa3ec9e1?w=1600&q=80",
+  "granada spain alhambra palace sierra nevada":  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
   "marbella spain marina luxury yachts old town": "https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=1600&q=80",
   "benidorm spain skyline beach nightlife":       "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=1600&q=80",
   "palma mallorca cathedral gothic harbor old town":"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=1600&q=80",
@@ -495,7 +495,7 @@ const HERO_FALLBACKS: Record<string, string> = {
   "kuala lumpur malaysia petronas towers skyline": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80",
   // ── Neu hinzugefügte Regionen (Spanien/Portugal/Türkei/Japan) ─────────────
   // Spanien
-  "aragon spain zaragoza pyrenees mountains":           "https://images.unsplash.com/photo-1564608843775-97c5c7bc74c6?w=1600&q=80",
+  "aragon spain zaragoza pyrenees mountains":           "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?w=1600&q=80",
   "murcia spain cathedral beach mar menor":             "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
   "navarra spain pamplona rioja wine vineyards":        "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80",
   "pyrenees mountains spain france snow hiking":        "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&q=80",
@@ -503,16 +503,16 @@ const HERO_FALLBACKS: Record<string, string> = {
   "toledo spain castille meseta historic old town":     "https://images.unsplash.com/photo-1549877452-9c387954fbc2?w=1600&q=80",
   "costa azahar valencia orange blossom beach spain":   "https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?w=1600&q=80",
   // Portugal
-  "coimbra portugal university historic city green hills": "https://images.unsplash.com/photo-1577808948924-b8ab7b6b8ac9?w=1600&q=80",
-  "northern portugal vinho verde douro valley vineyards braga": "https://images.unsplash.com/photo-1569242840510-5d7a38edecdf?w=1600&q=80",
+  "coimbra portugal university historic city green hills": "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=1600&q=80",
+  "northern portugal vinho verde douro valley vineyards braga": "https://images.unsplash.com/photo-1555881400-69a2384edcd4?w=1600&q=80",
   "costa caparica portugal long sandy beach atlantic waves": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
   "costa prata portugal silver coast beach waves nazare": "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?w=1600&q=80",
   "estoril portugal coast casino sintra palace beach":  "https://images.unsplash.com/photo-1596526316965-17c5b8c8c9b0?w=1600&q=80",
   "minho portugal green coast viana castelo beach":     "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=1600&q=80",
   "porto santo island madeira golden beach atlantic portugal": "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=1600&q=80",
   // Türkei
-  "istanbul sea marmara bosphorus turkish coast":       "https://images.unsplash.com/photo-1541969329-a01d36c23a1b?w=1600&q=80",
-  "black sea coast turkey trabzon green mountains":     "https://images.unsplash.com/photo-1566023923149-43e2d3a9bc10?w=1600&q=80",
+  "istanbul sea marmara bosphorus turkish coast":       "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=1600&q=80",
+  "black sea coast turkey trabzon green mountains":     "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1600&q=80",
   "turkey interior anatolia pamukkale salt lake landscape": "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=1600&q=80",
   // Japan
   "japan cherry blossom sakura temple kyoto":           "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1600&q=80",
