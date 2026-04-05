@@ -274,64 +274,127 @@ export default function GenericGuide({ dest, content }: Props) {
 
         {/* ── HOME ── */}
         {activeTab === "home" && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-gray-900 mb-1">{dest.name} – Dein kompletter Reiseführer</h2>
-              <p className="text-gray-600 text-sm leading-relaxed">{dest.description}</p>
-            </div>
+          <div className="space-y-8">
 
-            {/* Wetter */}
-            {weather && (
-              <div className="bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl p-4 border border-blue-100">
-                <p className="text-xs font-bold text-blue-700 mb-2">🌤️ Aktuelles Wetter in {dest.name}</p>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-4xl">{weather.icon}</span>
-                    <div>
-                      <p className="text-3xl font-black text-gray-900">{weather.temp}°C</p>
-                      <p className="text-sm text-gray-600">{weather.desc}</p>
+            {/* 3-Karten-Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+              {/* Wetter-Karte */}
+              <div className="rounded-2xl text-white shadow-lg p-6 bg-linear-to-br from-sky-500 to-cyan-600 relative overflow-hidden">
+                <div className="absolute -top-6 -right-6 w-24 h-24 bg-white/10 rounded-full" />
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/5 rounded-full" />
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 relative">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                  Wetter in {dest.name}
+                </h3>
+                <div className="relative">
+                  {weather ? (
+                    <div className="text-center mb-4">
+                      <div className="text-5xl font-extrabold tracking-tight">{weather.temp}°C</div>
+                      <div className="text-base mt-1 text-white/90">{weather.icon} {weather.desc}</div>
                     </div>
-                  </div>
-                  {forecast.length > 0 && (
-                    <div className="flex gap-3 ml-auto">
-                      {forecast.map((f, i) => (
-                        <div key={i} className="text-center">
-                          <p className="text-[10px] text-gray-500">{f.day}</p>
-                          <span className="text-lg">{f.icon}</span>
-                          <p className="text-xs font-bold text-gray-800">{f.maxTemp}°</p>
-                        </div>
-                      ))}
+                  ) : (
+                    <div className="text-center py-4">
+                      <div className="inline-block w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <p className="text-white/70 text-sm mt-2">Wird geladen…</p>
                     </div>
                   )}
                 </div>
-              </div>
-            )}
-
-            {/* Monatskalender */}
-            <div>
-              <h3 className="text-base font-bold text-gray-900 mb-3">📅 Wann am besten reisen?</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {content.monthlyNotes.map((m, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
-                    <p className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
-                      <span>{m.emoji}</span>{m.label}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1 leading-relaxed">{m.text}</p>
+                {forecast.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-white/20">
+                    <div className="grid grid-cols-4 gap-1 text-center text-xs">
+                      {forecast.map((d, i) => (
+                        <div key={i} className="p-1.5 rounded-lg bg-white/10 backdrop-blur-sm">
+                          <div className="font-bold text-white/90">{d.day}</div>
+                          <div className="text-lg my-0.5">{d.icon}</div>
+                          <div className="font-semibold">{d.maxTemp}°</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
+              </div>
+
+              {/* Beste Reisezeit-Karte */}
+              <div className="rounded-2xl text-white shadow-lg p-6 bg-linear-to-br from-emerald-500 to-teal-600 relative overflow-hidden">
+                <div className="absolute -top-8 -right-8 w-28 h-28 bg-white/10 rounded-full" />
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 relative">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  Beste Reisezeit
+                </h3>
+                <div className="space-y-3 relative">
+                  {[
+                    { icon: content.monthlyNotes[2]?.emoji ?? "🌸", season: "Frühling (Mär–Mai)", desc: content.monthlyNotes[3]?.text ?? "" },
+                    { icon: content.monthlyNotes[6]?.emoji ?? "☀️", season: "Sommer (Jun–Aug)",   desc: content.monthlyNotes[6]?.text ?? "" },
+                    { icon: content.monthlyNotes[9]?.emoji ?? "🍂", season: "Herbst (Sep–Nov)",   desc: content.monthlyNotes[9]?.text ?? "" },
+                    { icon: content.monthlyNotes[0]?.emoji ?? "❄️", season: "Winter (Dez–Feb)",   desc: content.monthlyNotes[0]?.text ?? "" },
+                  ].map((s) => (
+                    <div key={s.season} className="flex gap-3">
+                      <span className="text-xl shrink-0">{s.icon}</span>
+                      <div>
+                        <p className="font-bold text-sm">{s.season}</p>
+                        <p className="text-xs text-white/75 line-clamp-2">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Highlights-Karte */}
+              <div className="rounded-2xl text-white shadow-lg p-6 bg-linear-to-br from-rose-500 to-red-600 relative overflow-hidden">
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white/10 rounded-full" />
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 relative">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  Top-Tipps
+                </h3>
+                <div className="space-y-3 text-sm relative">
+                  {content.insider.slice(0, 4).map((tip, i) => (
+                    <p key={i}>
+                      <span className="mr-1.5">{tip.icon}</span>
+                      <strong>{tip.title}:</strong>{" "}
+                      <span className="text-white/80">{tip.text.slice(0, 70)}{tip.text.length > 70 ? "…" : ""}</span>
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* IBE CTA */}
-            <div className="bg-[#00838F]/5 rounded-2xl p-4 border border-[#00838F]/20 text-center">
-              <p className="font-bold text-gray-900 mb-3">✈️ Pauschalreisen nach {dest.name} vergleichen</p>
-              <IbeCta regionId={ibeRegionId} label={`${dest.name} buchen`} />
+            {/* IBE Booking CTA */}
+            <div className="rounded-2xl overflow-hidden" style={{ background: `linear-gradient(135deg, ${TEAL} 0%, #1db682 100%)` }}>
+              <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-3xl shrink-0">✈️</div>
+                <div className="flex-1 text-white">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-1">Jetzt günstig buchen</p>
+                  <h3 className="text-xl font-extrabold mb-1">Pauschalreisen nach {dest.name}</h3>
+                  <p className="text-white/75 text-sm">Täglich aktualisierte Angebote – Flug + Hotel ab 299 € p.P. Direkt beim Veranstalter buchen.</p>
+                </div>
+                <IbeCta regionId={ibeRegionId} label={`${dest.name} buchen →`} />
+              </div>
+            </div>
+
+            {/* Monatskalender */}
+            <div>
+              <h2 className="text-2xl font-extrabold text-gray-900 mb-5">{dest.name} nach Monaten</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                {content.monthlyNotes.map((m, i) => {
+                  const isCurrentMonth = i === new Date().getMonth();
+                  return (
+                    <div key={i} className={`rounded-2xl p-4 border-2 transition-all duration-300 ${isCurrentMonth ? "border-[#00838F] bg-[#00838F]/5 scale-[1.03] shadow-lg shadow-[#00838F]/15" : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"}`}>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-lg">{m.emoji}</span>
+                        <h3 className="text-xs font-extrabold text-gray-900">{m.label}</h3>
+                      </div>
+                      <p className="text-xs text-gray-500 leading-relaxed">{m.text}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* FAQs */}
             {dest.faqs && dest.faqs.length > 0 && (
               <div>
-                <h3 className="text-base font-bold text-gray-900 mb-3">❓ Häufige Fragen</h3>
+                <h2 className="text-2xl font-extrabold text-gray-900 mb-5">Häufige Fragen</h2>
                 <div className="space-y-3">
                   {dest.faqs.map((faq, i) => (
                     <div key={i} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
