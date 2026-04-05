@@ -481,61 +481,61 @@ BEGIN
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'info@suntours.de' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_l','antalya',6,149,894,'aktiv','Klaus Mayer','SunTours GmbH','info@suntours.de','✈️ Türkei All-Inclusive ab 599€! Bestpreisgarantie & kostenlose Umbuchung.',now()-interval '60 days',now()+interval '120 days',now()-interval '59 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'region','antalya',6,149,894,'aktiv','Klaus Mayer','SunTours GmbH','info@suntours.de','✈️ Türkei All-Inclusive ab 599€! Bestpreisgarantie & kostenlose Umbuchung.',now()-interval '60 days',now()+interval '120 days',now()-interval '59 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'info@islanddreams.de' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_m','kreta',3,89,267,'aktiv','Sandra Müller','IslandDreams','info@islanddreams.de','🇬🇷 Kreta Traumurlaub! Top-Hotels, Deutsche Reiseleitung, Beste Strände.',now()-interval '30 days',now()+interval '60 days',now()-interval '29 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'kategorie','kreta',3,99,297,'aktiv','Sandra Müller','IslandDreams','info@islanddreams.de','🇬🇷 Kreta Traumurlaub! Top-Hotels, Deutsche Reiseleitung, Beste Strände.',now()-interval '30 days',now()+interval '60 days',now()-interval '29 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'info@exotik-reisen.de' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'featured','bali',12,299,3588,'aktiv','Thomas Berg','Exotik Reisen GmbH','info@exotik-reisen.de','🌴 Bali & Asien Traumreisen! Individuelle Fernreisen ab 1299€. 20 Jahre Expertise.',now()-interval '90 days',now()+interval '275 days',now()-interval '89 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'rundum','bali',12,299,3588,'aktiv','Thomas Berg','Exotik Reisen GmbH','info@exotik-reisen.de','🌴 Bali & Asien Traumreisen! Individuelle Fernreisen ab 1299€. 20 Jahre Expertise.',now()-interval '90 days',now()+interval '275 days',now()-interval '89 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'info@maldiveslux.com' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_l','malediven',6,149,894,'aktiv','Julia Weber','MaldivesLux','info@maldiveslux.com','🏝️ Malediven Exklusiv! Overwater-Bungalows, Privatstrand, All-Inclusive Luxury.',now()-interval '20 days',now()+interval '160 days',now()-interval '19 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'region','malediven',6,149,894,'aktiv','Julia Weber','MaldivesLux','info@maldiveslux.com','🏝️ Malediven Exklusiv! Overwater-Bungalows, Privatstrand, All-Inclusive Luxury.',now()-interval '20 days',now()+interval '160 days',now()-interval '19 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'info@reise-meer.de' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_m','mallorca',3,89,267,'aktiv','Peter Schmidt','Reise & Meer','info@reise-meer.de','🚢 Kreuzfahrten ab 499€! MSC, AIDA, Costa. Beste Kabinen, Bestpreisgarantie.',now()-interval '45 days',now()+interval '45 days',now()-interval '44 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'kategorie','mallorca',3,99,297,'aktiv','Peter Schmidt','Reise & Meer','info@reise-meer.de','🚢 Kreuzfahrten ab 499€! MSC, AIDA, Costa. Beste Kabinen, Bestpreisgarantie.',now()-interval '45 days',now()+interval '45 days',now()-interval '44 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'tours@antalya-expert.tr' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_s','antalya',3,59,177,'aktiv','Mehmet Demir','Antalya Expert Tours','tours@antalya-expert.tr','🏛️ Ausflüge ab Antalya! Pamukkale, Kappadokien, Ephesus. Deutsche Reiseleitung.',now()-interval '15 days',now()+interval '75 days',now()-interval '14 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'stadt_unten','antalya',3,49,147,'aktiv','Mehmet Demir','Antalya Expert Tours','tours@antalya-expert.tr','🏛️ Ausflüge ab Antalya! Pamukkale, Kappadokien, Ephesus. Deutsche Reiseleitung.',now()-interval '15 days',now()+interval '75 days',now()-interval '14 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'safari@safariafrica.ke' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_m','kapstadt',6,89,534,'aktiv','David Okonkwo','SafariAfrica Tours','safari@safariafrica.ke','🦁 Safari Kenia & Tansania! Masai Mara, kleine Gruppen, ethischer Tourismus.',now()-interval '10 days',now()+interval '170 days',now()-interval '9 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'kategorie','kapstadt',6,99,594,'aktiv','David Okonkwo','SafariAfrica Tours','safari@safariafrica.ke','🦁 Safari Kenia & Tansania! Masai Mara, kleine Gruppen, ethischer Tourismus.',now()-interval '10 days',now()+interval '170 days',now()-interval '9 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'dive@divepro-hurghada.eg' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_s','hurghada',3,59,177,'aktiv','Ahmed Hassan','DivePro Hurghada','dive@divepro-hurghada.eg','🤿 PADI Tauchkurse ab 89€! Bestes Riff Hurghadas, moderne Ausrüstung, sichere Guides.',now()-interval '5 days',now()+interval '85 days',now()-interval '4 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'stadt_unten','hurghada',3,49,147,'aktiv','Ahmed Hassan','DivePro Hurghada','dive@divepro-hurghada.eg','🤿 PADI Tauchkurse ab 89€! Bestes Riff Hurghadas, moderne Ausrüstung, sichere Guides.',now()-interval '5 days',now()+interval '85 days',now()-interval '4 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'relax@volcano-spa.es' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_s','teneriffa',3,59,177,'aktiv','Carmen López','Volcano Spa Teneriffa','relax@volcano-spa.es','🧖 Vulkan-Wellness auf Teneriffa! Tagestickets ab 59€. Lava-Massagen & Thalasso-Pool.',now()-interval '8 days',now()+interval '82 days',now()-interval '7 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'stadt_unten','teneriffa',3,49,147,'aktiv','Carmen López','Volcano Spa Teneriffa','relax@volcano-spa.es','🧖 Vulkan-Wellness auf Teneriffa! Tagestickets ab 59€. Lava-Massagen & Thalasso-Pool.',now()-interval '8 days',now()+interval '82 days',now()-interval '7 days') ON CONFLICT DO NOTHING;
   END IF;
 
   SELECT id INTO v_id FROM anbieter_profile WHERE email = 'hola@lapasionflamenca.es' LIMIT 1;
   IF v_id IS NOT NULL THEN
     INSERT INTO werbeplaetze_buchungen (anbieter_id,paket,zielseite,laufzeit_monate,preis_monatlich,preis_gesamt,status,kontakt_name,kontakt_firma,kontakt_email,werbeinhalt_text,starts_at,ends_at,bezahlt_at)
-    VALUES (v_id,'banner_s','barcelona',3,59,177,'aktiv','Rosa García','La Pasión Flamenca','hola@lapasionflamenca.es','💃 Echter Flamenco in Barcelona! Abendliche Shows & Tanzworkshops im El Born.',now()-interval '25 days',now()+interval '65 days',now()-interval '24 days') ON CONFLICT DO NOTHING;
+    VALUES (v_id,'stadt_unten','barcelona',3,49,147,'aktiv','Rosa García','La Pasión Flamenca','hola@lapasionflamenca.es','💃 Echter Flamenco in Barcelona! Abendliche Shows & Tanzworkshops im El Born.',now()-interval '25 days',now()+interval '65 days',now()-interval '24 days') ON CONFLICT DO NOTHING;
   END IF;
 END $$;
 
