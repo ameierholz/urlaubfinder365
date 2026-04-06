@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  try {
   switch (event.type) {
 
     // ── Buchung bezahlt ──────────────────────────────────────────
@@ -252,6 +253,10 @@ export async function POST(req: NextRequest) {
       }
       break;
     }
+  }
+  } catch (err) {
+    // Fehler loggen, aber trotzdem 200 zurückgeben — sonst wiederholt Stripe endlos
+    console.error("[stripe-webhook] Handler error for event", event.type, err);
   }
 
   return NextResponse.json({ received: true });
