@@ -3,17 +3,23 @@ import AnbieterStatusButton from "@/components/admin/AnbieterStatusButton";
 import { BadgeCheck, ChevronRight, Clock, Users } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = { title: "Anbieter verwalten | Admin" };
-
-const STATUS_INFO: Record<string, { label: string; cls: string }> = {
-  ausstehend: { label: "⏳ Ausstehend", cls: "bg-amber-900/40 text-amber-400" },
-  aktiv:      { label: "✅ Aktiv",      cls: "bg-emerald-900/40 text-emerald-400" },
-  gesperrt:   { label: "🚫 Gesperrt",  cls: "bg-red-900/40 text-red-400" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("adminPage.providers");
+  return { title: t("title") };
+}
 
 export default async function AdminAnbieterPage() {
+  const t = await getTranslations("adminPage.providers");
   const supabase = await createSupabaseServer();
+
+  const STATUS_INFO: Record<string, { label: string; cls: string }> = {
+    ausstehend: { label: t("statusPending"), cls: "bg-amber-900/40 text-amber-400" },
+    aktiv:      { label: t("statusActive"),  cls: "bg-emerald-900/40 text-emerald-400" },
+    gesperrt:   { label: t("statusBlocked"), cls: "bg-red-900/40 text-red-400" },
+  };
+
   const { data: anbieter } = await supabase
     .from("anbieter_profile")
     .select("id, name, email, standort, kategorie, status, verifiziert, created_at")
@@ -25,17 +31,17 @@ export default async function AdminAnbieterPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-black text-white">Anbieter verwalten</h1>
+        <h1 className="text-2xl font-black text-white">{t("heading")}</h1>
         <div className="flex gap-4 text-sm">
           <div className="flex items-center gap-1.5 text-emerald-400">
             <Users className="w-4 h-4" />
             <span className="font-bold">{aktiv}</span>
-            <span className="text-gray-500">aktiv</span>
+            <span className="text-gray-500">{t("countActive")}</span>
           </div>
           <div className="flex items-center gap-1.5 text-amber-400">
             <Clock className="w-4 h-4" />
             <span className="font-bold">{ausstehend}</span>
-            <span className="text-gray-500">ausstehend</span>
+            <span className="text-gray-500">{t("countPending")}</span>
           </div>
         </div>
       </div>
@@ -70,7 +76,7 @@ export default async function AdminAnbieterPage() {
             );
           })}
           {(anbieter ?? []).length === 0 && (
-            <p className="px-6 py-10 text-center text-gray-500 text-sm">Noch keine Anbieter registriert.</p>
+            <p className="px-6 py-10 text-center text-gray-500 text-sm">{t("noProviders")}</p>
           )}
         </div>
       </div>

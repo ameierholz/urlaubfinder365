@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import {
   getUserStreak, performDailyCheckin,
@@ -28,6 +29,7 @@ function buildCalendar(history: string[]) {
 }
 
 export default function CheckInTab({ user }: Props) {
+  const t = useTranslations("dashboardCheckIn");
   const [streak, setStreak] = useState<UserStreak | null>(null);
   const [history, setHistory] = useState<CoinTransaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,10 +53,10 @@ export default function CheckInTab({ user }: Props) {
     setChecking(true);
     const result = await performDailyCheckin(user.uid);
     if (result.alreadyDone) {
-      setToast({ msg: "Heute schon eingecheckt!", coins: 0 });
+      setToast({ msg: t("alreadyDoneToast"), coins: 0 });
     } else {
       setStreak(result.streak);
-      setToast({ msg: `+${result.coinsEarned} Travel Coins verdient!`, coins: result.coinsEarned });
+      setToast({ msg: t("coinsEarnedToast", { coins: result.coinsEarned }), coins: result.coinsEarned });
       // reload history
       const h = await getCoinHistory(user.uid);
       setHistory(h);
@@ -81,13 +83,13 @@ export default function CheckInTab({ user }: Props) {
     {/* Erklärung rechts */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-3">Travel Coins</h3>
+        <h3 className="text-xs font-bold text-amber-700 uppercase tracking-wide mb-3">{t("infoTitle")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">🔥</span><span>Jeden Tag einchecken = <strong>10 Travel Coins</strong> + Streak aufrechterhalten</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🎁</span><span>7 Tage ohne Unterbrechung = <strong>+50 Bonus-Coins</strong></span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span>Coins und Streaks werden in deinem <strong>öffentlichen Profil</strong> angezeigt</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">💎</span><span>Coins können zukünftig für <strong>Premium-Features</strong> und Partner-Rabatte eingelöst werden</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>Dein Rang und Streak-Rekord sind für andere Mitglieder sichtbar</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔥</span><span>{t("info1")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🎁</span><span>{t("info2")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span>{t("info3")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💎</span><span>{t("info4")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>{t("info5")}</span></li>
         </ul>
       </div>
     </div>
@@ -108,7 +110,7 @@ export default function CheckInTab({ user }: Props) {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
           <Flame className="w-5 h-5 text-orange-500" />
-          Daily Check-in
+          {t("title")}
         </h2>
       </div>
 
@@ -117,17 +119,17 @@ export default function CheckInTab({ user }: Props) {
         <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-2xl p-4 text-center border border-orange-200">
           <Flame className="w-6 h-6 text-orange-500 mx-auto mb-1" />
           <div className="text-3xl font-black text-orange-600">{streak?.currentStreak ?? 0}</div>
-          <div className="text-xs text-orange-500 font-medium mt-0.5">Streak (Tage)</div>
+          <div className="text-xs text-orange-500 font-medium mt-0.5">{t("streakDays")}</div>
         </div>
         <div className="bg-linear-to-br from-amber-50 to-amber-100 rounded-2xl p-4 text-center border border-amber-200">
           <Coins className="w-6 h-6 text-amber-500 mx-auto mb-1" />
           <div className="text-3xl font-black text-amber-600">{streak?.totalCoins ?? 0}</div>
-          <div className="text-xs text-amber-500 font-medium mt-0.5">Travel Coins</div>
+          <div className="text-xs text-amber-500 font-medium mt-0.5">{t("travelCoins")}</div>
         </div>
         <div className="bg-linear-to-br from-purple-50 to-purple-100 rounded-2xl p-4 text-center border border-purple-200">
           <Trophy className="w-6 h-6 text-purple-500 mx-auto mb-1" />
           <div className="text-3xl font-black text-purple-600">{streak?.longestStreak ?? 0}</div>
-          <div className="text-xs text-purple-500 font-medium mt-0.5">Bester Streak</div>
+          <div className="text-xs text-purple-500 font-medium mt-0.5">{t("bestStreak")}</div>
         </div>
       </div>
 
@@ -138,11 +140,11 @@ export default function CheckInTab({ user }: Props) {
             <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto">
               <CalendarCheck className="w-8 h-8 text-emerald-500" />
             </div>
-            <p className="font-bold text-gray-800 text-lg">Heute bereits eingecheckt!</p>
+            <p className="font-bold text-gray-800 text-lg">{t("alreadyCheckedIn")}</p>
             <p className="text-sm text-gray-500">
-              Komm morgen wieder, um deinen Streak fortzuführen.
+              {t("comeBackTomorrow")}
               {(streak?.currentStreak ?? 0) > 0 && (
-                <> Noch <strong>{7 - ((streak?.currentStreak ?? 0) % 7)} Tage</strong> bis zum nächsten Bonus!</>
+                <> {t("daysUntilBonus", { days: 7 - ((streak?.currentStreak ?? 0) % 7) })}</>
               )}
             </p>
           </div>
@@ -152,14 +154,14 @@ export default function CheckInTab({ user }: Props) {
               <Zap className="w-8 h-8 text-white" />
             </div>
             <div>
-              <p className="font-bold text-gray-900 text-lg mb-1">Jetzt einchecken</p>
+              <p className="font-bold text-gray-900 text-lg mb-1">{t("checkInNow")}</p>
               <p className="text-sm text-gray-500">
-                Verdiene <strong>10 Travel Coins</strong> für heute.
+                {t("earn10Coins")}
                 {(streak?.currentStreak ?? 0) > 0 && (
-                  <> Streak läuft seit <strong>{streak!.currentStreak} Tagen</strong>!</>
+                  <> {t("streakRunning", { days: streak!.currentStreak })}</>
                 )}
                 {(streak?.currentStreak ?? 0) > 0 && (7 - ((streak?.currentStreak ?? 0) % 7)) <= 3 && (
-                  <> Nur noch <strong>{7 - ((streak?.currentStreak ?? 0) % 7)} Tage</strong> bis zum 50-Coin-Bonus!</>
+                  <> {t("onlyDaysLeft", { days: 7 - ((streak?.currentStreak ?? 0) % 7) })}</>
                 )}
               </p>
             </div>
@@ -168,7 +170,7 @@ export default function CheckInTab({ user }: Props) {
               disabled={checking}
               className="bg-linear-to-r from-amber-400 to-orange-500 text-white font-bold px-8 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all disabled:opacity-50 text-sm"
             >
-              {checking ? "Wird gespeichert…" : "✅ Einchecken & Coins kassieren"}
+              {checking ? t("saving") : `✅ ${t("checkInButton")}`}
             </button>
           </div>
         )}
@@ -178,11 +180,11 @@ export default function CheckInTab({ user }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <CalendarCheck className="w-4 h-4 text-gray-400" />
-          Letzte 28 Tage
+          {t("last28Days")}
         </h3>
         <div className="grid grid-cols-7 gap-1.5">
-          {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((d) => (
-            <div key={d} className="text-center text-[10px] text-gray-400 font-semibold pb-1">{d}</div>
+          {(["daysMo", "daysDi", "daysMi", "daysDo", "daysFr", "daysSa", "daysSo"] as const).map((key) => (
+            <div key={key} className="text-center text-[10px] text-gray-400 font-semibold pb-1">{t(key)}</div>
           ))}
           {/* pad to weekday offset of first day */}
           {(() => {
@@ -207,7 +209,7 @@ export default function CheckInTab({ user }: Props) {
           ))}
         </div>
         <p className="text-[10px] text-gray-400 mt-3 text-center">
-          Orangene Tage = eingecheckt · Jede Woche ohne Lücke → +50 Bonus-Coins
+          {t("calendarHint")}
         </p>
       </div>
 
@@ -216,7 +218,7 @@ export default function CheckInTab({ user }: Props) {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
           <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
             <Coins className="w-4 h-4 text-gray-400" />
-            Coin-Verlauf
+            {t("coinHistory")}
           </h3>
           <ul className="space-y-2">
             {history.map((tx) => (

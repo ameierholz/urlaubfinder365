@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, PriceAlert, PriceTrend, PriceProfileId, PriceProfileData } from "@/types";
 import {
@@ -23,14 +24,14 @@ interface Props {
   userProfile: UserProfile | null;
 }
 
-const CONTINENTS = [
-  { id: "all",      label: "Alle" },
-  { id: "eu",       label: "Europa" },
-  { id: "turkey",   label: "Türkei" },
-  { id: "africa",   label: "Afrika & Naher Osten" },
-  { id: "asia",     label: "Asien" },
-  { id: "americas", label: "Amerika & Karibik" },
-];
+const CONTINENT_IDS = [
+  { id: "all",      key: "continents.all" },
+  { id: "eu",       key: "continents.europe" },
+  { id: "turkey",   key: "continents.turkey" },
+  { id: "africa",   key: "continents.afrikaMiddleEast" },
+  { id: "asia",     key: "continents.asia" },
+  { id: "americas", key: "continents.americas" },
+] as const;
 
 const FALLBACK_DESTINATIONS = [
   { slug: "mallorca",               name: "Mallorca",               country: "Spanien",       ibeBpRegion: "eu",       unsplashKeyword: "mallorca beach" },
@@ -82,10 +83,10 @@ interface AlertFormState {
   nights: string;
 }
 
-const PRICE_PROFILES: { id: PriceProfileId; label: string; emoji: string; hint: string }[] = [
-  { id: "pauschal", label: "Pauschalreise", emoji: "✈️", hint: "Flug + Hotel, alle Verpflegungsarten, min. 3★, ≥50% Empfehlung" },
-  { id: "hotel",    label: "Nur Hotel",     emoji: "🏨", hint: "Ohne All-Inclusive – Frühstück, Halbpension oder mehr, min. 3★, ≥50% Empfehlung" },
-  { id: "ai",       label: "All-Inclusive", emoji: "🍹", hint: "Nur All-Inclusive Angebote, min. 3★, ≥50% Empfehlung" },
+const PRICE_PROFILE_IDS = [
+  { id: "pauschal" as PriceProfileId, labelKey: "packageTypes.package", emoji: "✈️", hintKey: "packageTypes.packageDesc" },
+  { id: "hotel" as PriceProfileId,    labelKey: "packageTypes.hotelOnly", emoji: "🏨", hintKey: "packageTypes.hotelOnlyDesc" },
+  { id: "ai" as PriceProfileId,       labelKey: "packageTypes.allInclusive", emoji: "🍹", hintKey: "packageTypes.allInclusiveDesc" },
 ];
 
 // ── Sparkline (SVG, keine externe Library) ─────────────────────────────────
@@ -117,6 +118,7 @@ function Sparkline({ data }: { data: number[] }) {
 }
 
 export default function WishlistTab({ user, userProfile }: Props) {
+  const t = useTranslations("dashboardWishlist");
   const [favs, setFavs]               = useState<string[]>(userProfile?.favoriteDestinations ?? []);
   const [search, setSearch]           = useState("");
   const [continent, setContinent]     = useState("all");
@@ -255,14 +257,14 @@ export default function WishlistTab({ user, userProfile }: Props) {
     {/* Rechte Erklärungsspalte */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("howItWorks")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>Scrolle durch die Liste und klicke das <strong>Herz-Icon</strong> auf einer Karte – das Ziel landet in deinen Wunschzielen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🔔</span><span>Klicke bei einem Ziel auf das <strong>Glocken-Icon</strong> um einen Preisalarm zu setzen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">✈️</span><span>Wähle zwischen <strong>Pauschalreise</strong>, <strong>Nur Hotel</strong> oder <strong>All-Inclusive</strong> für den Preisvergleich</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Nutze die <strong>Suchleiste</strong> oder <strong>Kontinent-Filter</strong> um Ziele zu finden</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🔗</span><span>Hover über eine Karte und klicke den <strong>Pfeil-Link</strong> zur Zielseite</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">✏️</span><span>Preisalarm bearbeiten: erneut auf das Glocken-Icon klicken</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">❤️</span><span>{t.rich("hint1", { strong: (c) => <strong>{c}</strong> })}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔔</span><span>{t.rich("hint2", { strong: (c) => <strong>{c}</strong> })}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✈️</span><span>{t.rich("hint3", { strong: (c) => <strong>{c}</strong> })}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>{t.rich("hint4", { strong: (c) => <strong>{c}</strong> })}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔗</span><span>{t.rich("hint5", { strong: (c) => <strong>{c}</strong> })}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✏️</span><span>{t("hint6")}</span></li>
         </ul>
       </div>
     </div>
@@ -274,9 +276,9 @@ export default function WishlistTab({ user, userProfile }: Props) {
       <div>
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-1">
           <MapPin className="w-5 h-5 text-rose-500" />
-          Meine Wunschliste
+          {t("title")}
           {favs.length > 0 && (
-            <span className="text-sm font-normal text-gray-500">({favs.length} gespeichert)</span>
+            <span className="text-sm font-normal text-gray-500">({favs.length} {t("saved")})</span>
           )}
         </h2>
       </div>
@@ -284,13 +286,13 @@ export default function WishlistTab({ user, userProfile }: Props) {
       {/* ── Preis-Profil Selector ───────────────────────────────────── */}
       {favs.length > 0 && (
         <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
-          <p className="text-xs font-semibold text-gray-500 mb-2">Preisvergleich anzeigen für:</p>
+          <p className="text-xs font-semibold text-gray-500 mb-2">{t("priceCompare")}</p>
           <div className="flex flex-wrap gap-2">
-            {PRICE_PROFILES.map((p) => (
+            {PRICE_PROFILE_IDS.map((p) => (
               <button
                 key={p.id}
                 onClick={() => { setProfileId(p.id); localStorage.setItem("wl_profileId", p.id); }}
-                title={p.hint}
+                title={t(p.hintKey)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                   profileId === p.id
                     ? "bg-[#00838F] text-white shadow-sm"
@@ -298,12 +300,12 @@ export default function WishlistTab({ user, userProfile }: Props) {
                 }`}
               >
                 <span>{p.emoji}</span>
-                {p.label}
+                {t(p.labelKey)}
               </button>
             ))}
           </div>
           <p className="text-xs text-gray-400 mt-2">
-            {PRICE_PROFILES.find((p) => p.id === profileId)?.hint}
+            {t(PRICE_PROFILE_IDS.find((p) => p.id === profileId)?.hintKey ?? "packageTypes.packageDesc")}
           </p>
         </div>
       )}
@@ -313,7 +315,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
         <div className="bg-blue-50 rounded-2xl p-4">
           <h3 className="text-sm font-bold text-blue-700 mb-3 flex items-center gap-1.5">
             <Heart className="w-4 h-4 fill-blue-500 text-blue-500" />
-            Meine Wunschziele
+            {t("myDestinations")}
             {(alertsLoading || trendsLoading) && (
               <Loader2 className="w-3 h-3 animate-spin text-blue-400 ml-1" />
             )}
@@ -367,34 +369,34 @@ export default function WishlistTab({ user, userProfile }: Props) {
                         <div className="flex items-center gap-2 mt-1">
                           <Sparkline data={sparkData} />
                           <span className="text-xs font-semibold text-gray-700 shrink-0">
-                            ab {profileData.currentMinPrice} €
+                            {t("from")} {profileData.currentMinPrice} €
                           </span>
                           {sparkData.length >= 2 && (() => {
                             const half = Math.floor(sparkData.length / 2);
                             const fAvg = sparkData.slice(0, half).reduce((a,b)=>a+b,0)/half;
                             const sAvg = sparkData.slice(half).reduce((a,b)=>a+b,0)/(sparkData.length-half);
                             return sAvg < fAvg
-                              ? <span className="text-xs text-emerald-600 font-medium">📉 fällt</span>
-                              : <span className="text-xs text-amber-500 font-medium">📈 steigt</span>;
+                              ? <span className="text-xs text-emerald-600 font-medium">📉 {t("trendFalling")}</span>
+                              : <span className="text-xs text-amber-500 font-medium">📈 {t("trendRising")}</span>;
                           })()}
                         </div>
                       ) : (
                         <p className="text-xs text-gray-300 mt-1">
-                          {trendsLoading ? "wird geladen…" : "Noch keine Preisdaten"}
+                          {trendsLoading ? t("loading") : t("noPrice")}
                         </p>
                       )}
 
                       {/* Alert-Einstellung */}
                       {alert && !isMatch && (
                         <p className="text-xs text-emerald-600 font-medium mt-0.5">
-                          🔔 Alarm bis {alert.maxPrice} €
+                          {t("alarmUntil", { price: alert.maxPrice })}
                         </p>
                       )}
 
                       {/* 🎯 Match-Badge */}
                       {isMatch && (
                         <div className="mt-1 inline-flex items-center gap-1 bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
-                          🎯 Jetzt ab {alert.matchedPrice} € verfügbar!
+                          {t("alarmMatch", { price: alert.matchedPrice! })}
                         </div>
                       )}
                     </div>
@@ -404,7 +406,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                       {/* Bell: set / edit alert */}
                       <button
                         onClick={() => handleOpenAlertForm(slug)}
-                        title={alert ? "Preisalarm bearbeiten" : "Preisalarm setzen"}
+                        title={alert ? t("editAlarm") : t("setAlarm")}
                         className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
                           alert
                             ? "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
@@ -419,7 +421,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                       <button
                         onClick={() => toggle(slug)}
                         disabled={isPending}
-                        title="Aus Wunschliste entfernen"
+                        title={t("removeFromList")}
                         className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 text-gray-400 hover:bg-red-50 hover:text-red-400 transition-colors"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -431,22 +433,22 @@ export default function WishlistTab({ user, userProfile }: Props) {
                   {isOpen && (
                     <div className="border-t border-blue-100 bg-blue-50/70 p-3 space-y-3">
                       <p className="text-xs font-semibold text-blue-700">
-                        {alert ? "Preisalarm bearbeiten" : "Neuen Preisalarm setzen"}
+                        {alert ? t("editAlarmTitle") : t("newAlarmTitle")}
                       </p>
                       <div className="grid grid-cols-3 gap-2">
                         <div>
-                          <label className="text-xs text-gray-500 block mb-1">Max. €&thinsp;/&thinsp;Person</label>
+                          <label className="text-xs text-gray-500 block mb-1">{t("maxPrice")}</label>
                           <input
                             type="number"
                             min={1}
                             value={alertForm.maxPrice}
                             onChange={(e) => setAlertForm((f) => ({ ...f, maxPrice: e.target.value }))}
-                            placeholder="z.B. 600"
+                            placeholder={t("maxPricePlaceholder")}
                             className="w-full text-sm border border-gray-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#00838F] bg-white"
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-gray-500 block mb-1">Erwachsene</label>
+                          <label className="text-xs text-gray-500 block mb-1">{t("adults")}</label>
                           <select
                             value={alertForm.adults}
                             onChange={(e) => setAlertForm((f) => ({ ...f, adults: e.target.value }))}
@@ -458,7 +460,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                           </select>
                         </div>
                         <div>
-                          <label className="text-xs text-gray-500 block mb-1">Nächte</label>
+                          <label className="text-xs text-gray-500 block mb-1">{t("nights")}</label>
                           <select
                             value={alertForm.nights}
                             onChange={(e) => setAlertForm((f) => ({ ...f, nights: e.target.value }))}
@@ -481,21 +483,21 @@ export default function WishlistTab({ user, userProfile }: Props) {
                             ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
                             : <Bell className="w-3.5 h-3.5" />
                           }
-                          Alarm speichern
+                          {t("saveAlarm")}
                         </button>
                         {alert && (
                           <button
                             onClick={() => handleDeleteAlert(slug)}
                             className="px-3 py-2 text-xs text-red-500 hover:bg-red-50 rounded-lg font-medium transition-colors"
                           >
-                            Löschen
+                            {t("deleteAlarm")}
                           </button>
                         )}
                         <button
                           onClick={() => setOpenAlertForm(null)}
                           className="px-3 py-2 text-xs text-gray-500 hover:bg-gray-100 rounded-lg font-medium transition-colors"
                         >
-                          Abbrechen
+                          {t("cancel")}
                         </button>
                       </div>
                     </div>
@@ -514,12 +516,12 @@ export default function WishlistTab({ user, userProfile }: Props) {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Urlaubsziel suchen…"
+            placeholder={t("searchPlaceholder")}
             className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#00838F] bg-white"
           />
         </div>
         <div className="flex gap-1.5 flex-wrap">
-          {CONTINENTS.map((c) => (
+          {CONTINENT_IDS.map((c) => (
             <button
               key={c.id}
               onClick={() => setContinent(c.id)}
@@ -529,7 +531,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                   : "bg-white border border-gray-200 text-gray-600 hover:border-[#00838F] hover:text-[#00838F]"
               }`}
             >
-              {c.label}
+              {t(c.key)}
             </button>
           ))}
         </div>
@@ -562,7 +564,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                   const pd = getProfileData(trends[dest.slug]);
                   return pd ? (
                     <p className="text-white/90 text-xs font-semibold mt-0.5">
-                      ab {pd.currentMinPrice} €
+                      {t("from")} {pd.currentMinPrice} €
                     </p>
                   ) : null;
                 })()}
@@ -605,7 +607,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
       {filtered.length === 0 && (
         <div className="text-center py-12 text-gray-400">
           <MapPin className="w-10 h-10 mx-auto mb-3 opacity-30" />
-          <p className="font-medium">Keine Urlaubsziele gefunden</p>
+          <p className="font-medium">{t("noResults")}</p>
         </div>
       )}
     </div>

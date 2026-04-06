@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { getMyTravelTips, deleteTravelTip } from "@/lib/supabase-db";
 import { TravelTip } from "@/types";
 import { CATEGORY_CONFIG } from "@/components/reisenden-karte/travelMapConfig";
@@ -12,13 +13,16 @@ import type { AppUser } from "@/context/AuthContext";
 
 interface Props { user: AppUser }
 
-const STATUS_CONFIG = {
-  approved: { label: "Freigegeben",    icon: CheckCircle2, color: "text-teal-600",  bg: "bg-teal-50",  border: "border-teal-200" },
-  pending:  { label: "Wird geprüft",   icon: Hourglass,    color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
-  rejected: { label: "Abgelehnt",      icon: XCircle,      color: "text-red-600",   bg: "bg-red-50",   border: "border-red-200" },
+type StatusKey = "approved" | "pending" | "rejected";
+
+const STATUS_ICONS: Record<StatusKey, { icon: typeof CheckCircle2; color: string; bg: string; border: string }> = {
+  approved: { icon: CheckCircle2, color: "text-teal-600",  bg: "bg-teal-50",  border: "border-teal-200" },
+  pending:  { icon: Hourglass,    color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
+  rejected: { icon: XCircle,      color: "text-red-600",   bg: "bg-red-50",   border: "border-red-200" },
 };
 
 export default function MeineKartenTippsTab({ user }: Props) {
+  const t = useTranslations("dashboardMapTips");
   const [tips, setTips]       = useState<TravelTip[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
@@ -27,18 +31,18 @@ export default function MeineKartenTippsTab({ user }: Props) {
   useEffect(() => {
     getMyTravelTips(user.uid)
       .then(setTips)
-      .catch(() => setError("Fehler beim Laden deiner Tipps."))
+      .catch(() => setError(t("loadError")))
       .finally(() => setLoading(false));
-  }, [user.uid]);
+  }, [user.uid, t]);
 
   async function handleDelete(tipId: string) {
-    if (!confirm("Tipp wirklich löschen?")) return;
+    if (!confirm(t("deleteConfirm"))) return;
     setDeleting(tipId);
     try {
       await deleteTravelTip(user.uid, tipId);
-      setTips((prev) => prev.filter((t) => t.id !== tipId));
+      setTips((prev) => prev.filter((ti) => ti.id !== tipId));
     } catch {
-      setError("Fehler beim Löschen.");
+      setError(t("deleteError"));
     } finally {
       setDeleting(null);
     }
@@ -56,11 +60,11 @@ export default function MeineKartenTippsTab({ user }: Props) {
     <div className="space-y-5">
       {/* Header */}
       <div>
-        <h2 className="text-lg font-bold text-gray-800">Meine Karten-Tipps</h2>
+        <h2 className="text-lg font-bold text-gray-800">{t("title")}</h2>
         <p className="text-sm text-gray-500 mt-0.5">
           {tips.length === 0
-            ? "Du hast noch keine Tipps eingereicht."
-            : `${tips.length} Tipp${tips.length !== 1 ? "s" : ""} eingereicht`}
+            ? t("noTips")
+            : t("tipsCount", { count: tips.length, plural: tips.length !== 1 ? "s" : "" })}
         </p>
       </div>
 
@@ -75,13 +79,13 @@ export default function MeineKartenTippsTab({ user }: Props) {
       {tips.length === 0 && !error && (
         <div className="text-center py-16 text-gray-400">
           <Map className="w-12 h-12 mx-auto mb-3 text-gray-200" />
-          <p className="font-semibold text-gray-500">Noch keine Tipps</p>
+          <p className="font-semibold text-gray-500">{t("emptyTitle")}</p>
           <p className="text-sm mt-1">
             Besuche die{" "}
             <a href="/extras/reisenden-karte/" className="text-teal-600 hover:underline font-medium">
-              Reisenden-Karte
+              {t("emptyLink")}
             </a>{" "}
-            und teile deinen ersten Geheimtipp!
+            {t("emptyDesc")}
           </p>
         </div>
       )}
@@ -89,14 +93,14 @@ export default function MeineKartenTippsTab({ user }: Props) {
       {/* Status-Legende */}
       {tips.length > 0 && (
         <div className="flex flex-wrap gap-3">
-          {(Object.entries(STATUS_CONFIG) as [keyof typeof STATUS_CONFIG, typeof STATUS_CONFIG[keyof typeof STATUS_CONFIG]][]).map(
-            ([key, { label, icon: Icon, color, bg, border }]) => {
-              const count = tips.filter((t) => (t.status ?? "pending") === key).length;
+          {(Object.entries(STATUS_ICONS) as [StatusKey, typeof STATUS_ICONS[StatusKey]][]).map(
+            ([key, { icon: Icon, color, bg, border }]) => {
+              const count = tips.filter((ti) => (ti.status ?? "pending") === key).length;
               if (count === 0) return null;
               return (
                 <div key={key} className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${bg} ${border} ${color}`}>
                   <Icon className="w-3.5 h-3.5" />
-                  {label}: {count}
+                  {t(`status.${key}`)}: {count}
                 </div>
               );
             }
@@ -108,9 +112,9 @@ export default function MeineKartenTippsTab({ user }: Props) {
       <div className="space-y-3">
         {tips.map((tip) => {
           const cat = CATEGORY_CONFIG[tip.category];
-          const statusKey = (tip.status ?? "pending") as keyof typeof STATUS_CONFIG;
-          const status = STATUS_CONFIG[statusKey];
-          const StatusIcon = status.icon;
+          const statusKey = (tip.status ?? "pending") as StatusKey;
+          const statusStyle = STATUS_ICONS[statusKey];
+          const StatusIcon = statusStyle.icon;
           const isDeleting = deleting === tip.id;
 
           return (
@@ -147,9 +151,9 @@ export default function MeineKartenTippsTab({ user }: Props) {
                         >
                           {cat.emoji} {cat.label}
                         </span>
-                        <span className={`flex items-center gap-1 text-xs sm:text-[10px] font-bold px-2 py-0.5 rounded-full border ${status.bg} ${status.border} ${status.color}`}>
+                        <span className={`flex items-center gap-1 text-xs sm:text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusStyle.bg} ${statusStyle.border} ${statusStyle.color}`}>
                           <StatusIcon className="w-3 h-3" />
-                          {status.label}
+                          {t(`status.${statusKey}`)}
                         </span>
                       </div>
 
@@ -164,7 +168,7 @@ export default function MeineKartenTippsTab({ user }: Props) {
                       onClick={() => handleDelete(tip.id)}
                       disabled={isDeleting}
                       className="shrink-0 p-2.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
-                      title="Tipp löschen"
+                      title={t("deleteConfirm")}
                     >
                       {isDeleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
                     </button>
@@ -176,7 +180,7 @@ export default function MeineKartenTippsTab({ user }: Props) {
                   {/* Ablehnungsgrund */}
                   {statusKey === "rejected" && tip.adminNote && (
                     <div className="mt-2 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
-                      <p className="text-xs font-bold text-red-600 mb-0.5">Ablehnungsgrund:</p>
+                      <p className="text-xs font-bold text-red-600 mb-0.5">{t("rejectionReason")}</p>
                       <p className="text-xs text-red-700">{tip.adminNote}</p>
                     </div>
                   )}

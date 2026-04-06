@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CommunityPageClient from "./CommunityPageClient";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import RightSidebar from "@/components/layout/RightSidebar";
 import Link from "next/link";
@@ -56,6 +56,7 @@ const jsonLd = [
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("communityPage");
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -73,20 +74,20 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/50 to-black/70" />
         <div className="relative max-w-7xl mx-auto px-4 py-16 sm:py-24 text-center flex flex-col items-center">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-            🌍 Community
+            🌍 {t("community")}
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-4 leading-tight drop-shadow-lg">
-            Urlaubs-Community –<br /><span className="text-teal-300">Berichte, Gruppen & Tipps</span>
+            {t("heroTitle").split(" – ")[0]} –<br /><span className="text-teal-300">{t("heroTitle").split(" – ")[1]}</span>
           </h1>
           <p className="text-white/85 text-lg mb-8 max-w-xl mx-auto drop-shadow">
-            Lies echte Urlaubsberichte, tausche dich in Gruppen aus und entdecke Geheimtipps von Reisenden wie dir.
+            {t("heroSubtitle")}
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/community/reiseberichte/" className="bg-white text-teal-700 font-bold px-6 py-3 rounded-full text-sm hover:bg-teal-50 transition-colors shadow-lg">
-              Urlaubsberichte entdecken
+              {t("discoverReports")}
             </Link>
             <Link href="/community/gruppen/" className="bg-white/20 backdrop-blur-sm text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-white/30 transition-colors border border-white/30">
-              Gruppen beitreten
+              {t("joinGroups")}
             </Link>
           </div>
         </div>
@@ -103,19 +104,19 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <RightSidebar
                   extrasBox={{
                     image: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=400&h=200&q=70",
-                    eyebrow: "Community",
-                    title: "Urlaubserfahrungen teilen",
-                    description: "Schreibe einen Urlaubsbericht und hilf anderen Urlaubern bei ihrer Planung.",
+                    eyebrow: t("sidebarEyebrow"),
+                    title: t("sidebarTitle"),
+                    description: t("sidebarDesc"),
                     href: "/community/reiseberichte/",
-                    ctaLabel: "Bericht schreiben →",
+                    ctaLabel: t("sidebarCta"),
                     accentColor: "bg-[#6991d8]",
                   }}
-                  seoLinksTitle="🌍 Community"
+                  seoLinksTitle={`🌍 ${t("sidebarSeoTitle")}`}
                   seoLinks={[
-                    { href: "/community/reiseberichte/", label: "Urlaubsberichte" },
-                    { href: "/community/gruppen/",        label: "Urlaubs-Gruppen" },
-                    { href: "/community/mitglieder/",     label: "Mitglieder" },
-                    { href: "/travel-buddies/",           label: "Urlaubspartner finden" },
+                    { href: "/community/reiseberichte/", label: t("sidebarReports") },
+                    { href: "/community/gruppen/",        label: t("sidebarGroups") },
+                    { href: "/community/mitglieder/",     label: t("sidebarMembers") },
+                    { href: "/travel-buddies/",           label: t("sidebarBuddies") },
                   ]}
                 />
               </Suspense>

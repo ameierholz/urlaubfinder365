@@ -1,17 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import { getUserGroups, createGroup, leaveGroup } from "@/lib/supabase-db";
 import { TravelGroup, GroupCategory } from "@/types";
 import { Users2, Plus, LogOut, Loader2, X, Globe, Lock, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
-const CAT_OPTIONS: { value: GroupCategory; label: string; emoji: string; desc: string }[] = [
-  { value: "destination", label: "Destination",   emoji: "🗺️", desc: "Reiseziel-Gruppe" },
-  { value: "style",       label: "Reisestil",     emoji: "🎒", desc: "Art des Reisens" },
-  { value: "date",        label: "Reisezeitraum", emoji: "📅", desc: "Wann ihr reist" },
-  { value: "interest",    label: "Interesse",     emoji: "💡", desc: "Gemeinsames Hobby" },
+const CAT_OPTIONS: { value: GroupCategory; labelKey: string; emoji: string; descKey: string }[] = [
+  { value: "destination", labelKey: "categories.destination",   emoji: "🗺️", descKey: "categories.destinationDesc" },
+  { value: "style",       labelKey: "categories.style",        emoji: "🎒", descKey: "categories.styleDesc" },
+  { value: "date",        labelKey: "categories.date",         emoji: "📅", descKey: "categories.dateDesc" },
+  { value: "interest",    labelKey: "categories.interest",     emoji: "💡", descKey: "categories.interestDesc" },
 ];
 
 const TRAVEL_ICONS = [
@@ -20,18 +21,18 @@ const TRAVEL_ICONS = [
 ];
 
 const COVER_THEMES = [
-  { id: "teal",   label: "Ozean",    from: "from-teal-400",   to: "to-cyan-500" },
-  { id: "sunset", label: "Sunset",   from: "from-orange-400", to: "to-rose-500" },
-  { id: "jungle", label: "Jungle",   from: "from-green-400",  to: "to-emerald-600" },
-  { id: "night",  label: "Nacht",    from: "from-indigo-500", to: "to-purple-700" },
-  { id: "sand",   label: "Sand",     from: "from-yellow-400", to: "to-amber-500" },
-  { id: "sky",    label: "Himmel",   from: "from-sky-400",    to: "to-blue-600" },
+  { id: "teal",   labelKey: "coverThemes.ocean",  from: "from-teal-400",   to: "to-cyan-500" },
+  { id: "sunset", labelKey: "coverThemes.sunset", from: "from-orange-400", to: "to-rose-500" },
+  { id: "jungle", labelKey: "coverThemes.jungle", from: "from-green-400",  to: "to-emerald-600" },
+  { id: "night",  labelKey: "coverThemes.night",  from: "from-indigo-500", to: "to-purple-700" },
+  { id: "sand",   labelKey: "coverThemes.sand",   from: "from-yellow-400", to: "to-amber-500" },
+  { id: "sky",    labelKey: "coverThemes.sky",     from: "from-sky-400",    to: "to-blue-600" },
 ];
 
 const BUDGET_OPTIONS = [
-  { value: "budget", label: "Budget",  emoji: "🟢", desc: "Bis 500 €/P" },
-  { value: "mittel", label: "Mittel",  emoji: "🟡", desc: "500–1.500 €/P" },
-  { value: "luxus",  label: "Luxus",   emoji: "🔴", desc: "Ab 1.500 €/P" },
+  { value: "budget", labelKey: "budgetOptions.budget",  emoji: "🟢", descKey: "budgetOptions.budgetDesc" },
+  { value: "mittel", labelKey: "budgetOptions.medium",  emoji: "🟡", descKey: "budgetOptions.mediumDesc" },
+  { value: "luxus",  labelKey: "budgetOptions.luxury",  emoji: "🔴", descKey: "budgetOptions.luxuryDesc" },
 ];
 
 const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
@@ -59,6 +60,7 @@ const EMPTY_FORM = {
 interface Props { user: AppUser }
 
 export default function MeineGruppenTab({ user }: Props) {
+  const t = useTranslations("dashboardGroups");
   const [groups, setGroups]         = useState<TravelGroup[]>([]);
   const [loading, setLoading]       = useState(true);
   const [showForm, setShowForm]     = useState(false);
@@ -77,7 +79,7 @@ export default function MeineGruppenTab({ user }: Props) {
     if (!form.name.trim()) return;
     setSaving(true);
     setError(null);
-    const displayName = user.displayName ?? user.email?.split("@")[0] ?? "Anonym";
+    const displayName = user.displayName ?? user.email?.split("@")[0] ?? t("anonymous");
 
     // Encode icon + theme into coverImageUrl field as a marker (no real upload yet)
     const metaUrl = `theme:${form.coverTheme}|icon:${form.iconEmoji}`;
@@ -89,7 +91,7 @@ export default function MeineGruppenTab({ user }: Props) {
         travelMonth: form.travelMonth || undefined, isPublic: form.isPublic,
         coverImageUrl: form.coverImageUrl || metaUrl,
         tags: [
-          ...form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+          ...form.tags.split(",").map((tg) => tg.trim()).filter(Boolean),
           ...(form.budget ? [`budget:${form.budget}`] : []),
           ...(form.maxMembers ? [`max:${form.maxMembers}`] : []),
         ],
@@ -101,7 +103,7 @@ export default function MeineGruppenTab({ user }: Props) {
         country: form.country || undefined, travelMonth: form.travelMonth || undefined,
         isPublic: form.isPublic, membersCount: 1, memberIds: [user.uid],
         postsCount: 0, coverImageUrl: form.coverImageUrl || metaUrl,
-        tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        tags: form.tags.split(",").map((tg) => tg.trim()).filter(Boolean),
         createdAt: new Date().toISOString(),
       };
       setGroups((prev) => [newGroup, ...prev]);
@@ -115,7 +117,7 @@ export default function MeineGruppenTab({ user }: Props) {
   }
 
   async function handleLeave(id: string) {
-    if (!confirm("Gruppe verlassen?")) return;
+    if (!confirm(t("leaveConfirm"))) return;
     await leaveGroup(user.uid, id);
     setGroups((prev) => prev.filter((g) => g.id !== id));
   }
@@ -143,13 +145,13 @@ export default function MeineGruppenTab({ user }: Props) {
       {/* Erklärung rechts */}
       <div className="order-first lg:order-last lg:w-64 shrink-0">
         <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-          <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+          <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("howItWorks")}</h3>
           <ul className="space-y-2.5 text-xs text-gray-600">
-            <li className="flex items-start gap-2"><span className="shrink-0">👥</span><span>Klicke <strong>„Gruppe gründen"</strong> um eine neue Urlaubs-Gruppe zu erstellen</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0">🗺️</span><span>Gib ein Ziel, Beschreibung und <strong>Tags</strong> an – Tags helfen anderen, deine Gruppe zu finden</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Entdecke Gruppen anderer Urlauber unter <a href="/community/gruppen/" className="text-blue-600 underline">Community → Gruppen</a></span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0">💬</span><span>Tritt einer Gruppe bei und schreibe Beiträge, teile Tipps und plane gemeinsam</span></li>
-            <li className="flex items-start gap-2"><span className="shrink-0">🚪</span><span>Gruppe verlassen: LogOut-Icon klicken (nur bei fremden Gruppen)</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">👥</span><span>{t("hint1")}</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">🗺️</span><span>{t.rich("hint2", { strong: (c) => <strong>{c}</strong> })}</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>{t("hint3")}</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">💬</span><span>{t("hint4")}</span></li>
+            <li className="flex items-start gap-2"><span className="shrink-0">🚪</span><span>{t("hint5")}</span></li>
           </ul>
         </div>
       </div>
@@ -159,14 +161,14 @@ export default function MeineGruppenTab({ user }: Props) {
           <div>
             <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
               <Users2 className="w-6 h-6 text-teal-600" />
-              Meine Urlaubs-Gruppen
+              {t("title")}
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">{groups.length} Gruppen beigetreten</p>
+            <p className="text-sm text-gray-500 mt-0.5">{groups.length} {t("joinedCount")}</p>
           </div>
           <button onClick={() => setShowForm(true)}
             className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors"
           >
-            <Plus className="w-4 h-4" /> Gruppe gründen
+            <Plus className="w-4 h-4" /> {t("createGroup")}
           </button>
         </div>
 
@@ -190,10 +192,10 @@ export default function MeineGruppenTab({ user }: Props) {
                 </div>
                 <div className="absolute bottom-4 left-5 right-16">
                   <p className="text-white font-bold text-base drop-shadow line-clamp-1">
-                    {form.name || "Gruppenname…"}
+                    {form.name || t("searchPlaceholder")}
                   </p>
                   <p className="text-white/70 text-xs mt-0.5">
-                    {form.isPublic ? "Öffentliche Gruppe" : "Private Gruppe"} · 1 Mitglied
+                    {form.isPublic ? t("publicGroup") : t("privateGroup")} · 1 {t("membersCount")}
                   </p>
                 </div>
                 <button onClick={closeForm} className="absolute top-3 right-3 p-1.5 bg-black/30 hover:bg-black/50 rounded-full transition-colors">
@@ -202,7 +204,7 @@ export default function MeineGruppenTab({ user }: Props) {
               </div>
 
               <div className="p-5 space-y-5">
-                <h3 className="font-bold text-gray-800 text-base">Neue Gruppe gründen</h3>
+                <h3 className="font-bold text-gray-800 text-base">{t("createTitle")}</h3>
 
                 {/* ── Icon + Name ── */}
                 <div className="flex gap-3 items-start">
@@ -211,14 +213,14 @@ export default function MeineGruppenTab({ user }: Props) {
                     <button type="button"
                       onClick={() => setShowIconPicker((v) => !v)}
                       className="w-14 h-14 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-2xl border-2 border-dashed border-gray-300 transition-colors relative"
-                      title="Icon wählen"
+                      title={t("chooseIcon")}
                     >
                       {form.iconEmoji}
                       <span className="absolute -bottom-1 -right-1 bg-teal-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">+</span>
                     </button>
                     {showIconPicker && (
                       <div className="absolute top-16 left-0 z-10 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 grid grid-cols-5 gap-1.5 w-52">
-                        <p className="col-span-5 text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1">Gruppen-Icon</p>
+                        <p className="col-span-5 text-[10px] font-bold text-gray-400 uppercase tracking-wide mb-1">{t("groupIcon")}</p>
                         {TRAVEL_ICONS.map((icon) => (
                           <button key={icon} type="button"
                             onClick={() => { setForm((f) => ({ ...f, iconEmoji: icon })); setShowIconPicker(false); }}
@@ -231,8 +233,8 @@ export default function MeineGruppenTab({ user }: Props) {
                     )}
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs font-bold text-gray-600 mb-1">Gruppenname *</label>
-                    <input type="text" placeholder="z.B. Türkei Strand-Gang 2026" value={form.name}
+                    <label className="block text-xs font-bold text-gray-600 mb-1">{t("nameLabel")}</label>
+                    <input type="text" placeholder={t("namePlaceholder")} value={form.name}
                       onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} maxLength={60}
                       className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
                     />
@@ -242,24 +244,24 @@ export default function MeineGruppenTab({ user }: Props) {
 
                 {/* ── Cover Theme ── */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 mb-2">Titelbild-Farbschema</label>
+                  <label className="block text-xs font-bold text-gray-600 mb-2">{t("coverTheme")}</label>
                   <div className="grid grid-cols-6 gap-2">
-                    {COVER_THEMES.map((t) => (
-                      <button key={t.id} type="button"
-                        onClick={() => setForm((f) => ({ ...f, coverTheme: t.id }))}
-                        className={`h-10 rounded-xl bg-linear-to-br ${t.from} ${t.to} transition-all ${
-                          form.coverTheme === t.id ? "ring-3 ring-offset-2 ring-teal-500 scale-105" : "opacity-70 hover:opacity-100"
+                    {COVER_THEMES.map((ct) => (
+                      <button key={ct.id} type="button"
+                        onClick={() => setForm((f) => ({ ...f, coverTheme: ct.id }))}
+                        className={`h-10 rounded-xl bg-linear-to-br ${ct.from} ${ct.to} transition-all ${
+                          form.coverTheme === ct.id ? "ring-3 ring-offset-2 ring-teal-500 scale-105" : "opacity-70 hover:opacity-100"
                         }`}
-                        title={t.label}
+                        title={t(ct.labelKey)}
                       />
                     ))}
                   </div>
                   <p className="text-[10px] text-gray-400 mt-1.5">
-                    Gewählt: <strong>{COVER_THEMES.find(t => t.id === form.coverTheme)?.label}</strong>
+                    {t("themeSelected")} <strong>{t(COVER_THEMES.find(ct => ct.id === form.coverTheme)?.labelKey ?? "coverThemes.ocean")}</strong>
                     {" · "}
-                    <span className="text-gray-400">Eigenes Bild (URL) optional:</span>
+                    <span className="text-gray-400">{t("coverUrl")}</span>
                   </p>
-                  <input type="url" placeholder="https://… (optional, überschreibt Farbschema)" value={form.coverImageUrl}
+                  <input type="url" placeholder={t("coverUrlPlaceholder")} value={form.coverImageUrl}
                     onChange={(e) => setForm((f) => ({ ...f, coverImageUrl: e.target.value }))}
                     className="w-full mt-1.5 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400"
                   />
@@ -267,8 +269,8 @@ export default function MeineGruppenTab({ user }: Props) {
 
                 {/* ── Beschreibung ── */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 mb-1">Beschreibung</label>
-                  <textarea placeholder="Worum geht es? Wen sucht ihr? Was plant ihr?" value={form.description}
+                  <label className="block text-xs font-bold text-gray-600 mb-1">{t("descriptionLabel")}</label>
+                  <textarea placeholder={t("descriptionPlaceholder")} value={form.description}
                     onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={3} maxLength={500}
                     className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
                   />
@@ -277,7 +279,7 @@ export default function MeineGruppenTab({ user }: Props) {
 
                 {/* ── Kategorie ── */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 mb-2">Kategorie</label>
+                  <label className="block text-xs font-bold text-gray-600 mb-2">{t("categoryLabel")}</label>
                   <div className="grid grid-cols-2 gap-2">
                     {CAT_OPTIONS.map((c) => (
                       <button key={c.value} type="button" onClick={() => setForm((f) => ({ ...f, category: c.value }))}
@@ -289,8 +291,8 @@ export default function MeineGruppenTab({ user }: Props) {
                       >
                         <span className="text-lg">{c.emoji}</span>
                         <span>
-                          <span className="block text-xs font-bold">{c.label}</span>
-                          <span className="block text-[10px] font-normal text-gray-400">{c.desc}</span>
+                          <span className="block text-xs font-bold">{t(c.labelKey)}</span>
+                          <span className="block text-[10px] font-normal text-gray-400">{t(c.descKey)}</span>
                         </span>
                       </button>
                     ))}
@@ -300,14 +302,14 @@ export default function MeineGruppenTab({ user }: Props) {
                 {/* ── Destination + Reisemonat ── */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 mb-1">Destination</label>
-                    <input type="text" placeholder="z.B. Antalya, Türkei" value={form.destination}
+                    <label className="block text-xs font-bold text-gray-600 mb-1">{t("destinationLabel")}</label>
+                    <input type="text" placeholder={t("destinationPlaceholder")} value={form.destination}
                       onChange={(e) => setForm((f) => ({ ...f, destination: e.target.value }))}
                       className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 mb-1">Reisemonat</label>
+                    <label className="block text-xs font-bold text-gray-600 mb-1">{t("monthLabel")}</label>
                     <div className="flex gap-1.5">
                       <div className="relative flex-1">
                         <select onChange={(e) => {
@@ -315,7 +317,7 @@ export default function MeineGruppenTab({ user }: Props) {
                           const y = form.travelMonth.split("-")[0] || "2026";
                           setForm((f) => ({ ...f, travelMonth: `${y}-${String(mi).padStart(2, "0")}` }));
                         }} className="w-full appearance-none border border-gray-200 rounded-xl pl-2.5 pr-6 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white">
-                          <option value="">Monat</option>
+                          <option value="">{t("monthDefault")}</option>
                           {MONTHS.map((m) => <option key={m} value={m}>{m}</option>)}
                         </select>
                         <ChevronDown className="absolute right-1.5 top-2.5 w-3 h-3 text-gray-400 pointer-events-none" />
@@ -335,7 +337,7 @@ export default function MeineGruppenTab({ user }: Props) {
 
                 {/* ── Budget ── */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-600 mb-2">Budget-Rahmen <span className="font-normal text-gray-400">(optional)</span></label>
+                  <label className="block text-xs font-bold text-gray-600 mb-2">{t("budgetLabel")}</label>
                   <div className="grid grid-cols-3 gap-2">
                     {BUDGET_OPTIONS.map((b) => (
                       <button key={b.value} type="button"
@@ -347,8 +349,8 @@ export default function MeineGruppenTab({ user }: Props) {
                         }`}
                       >
                         <span className="text-lg">{b.emoji}</span>
-                        <span className="text-xs font-bold mt-0.5">{b.label}</span>
-                        <span className="text-[10px] text-gray-400">{b.desc}</span>
+                        <span className="text-xs font-bold mt-0.5">{t(b.labelKey)}</span>
+                        <span className="text-[10px] text-gray-400">{t(b.descKey)}</span>
                       </button>
                     ))}
                   </div>
@@ -357,24 +359,24 @@ export default function MeineGruppenTab({ user }: Props) {
                 {/* ── Tags + Max Members ── */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 mb-1">Tags</label>
-                    <input type="text" placeholder="strand, all-inclusive…" value={form.tags}
+                    <label className="block text-xs font-bold text-gray-600 mb-1">{t("tagsLabel")}</label>
+                    <input type="text" placeholder={t("tagsPlaceholder")} value={form.tags}
                       onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
                       className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-gray-600 mb-1">Max. Mitglieder</label>
+                    <label className="block text-xs font-bold text-gray-600 mb-1">{t("maxMembers")}</label>
                     <div className="relative">
                       <select value={form.maxMembers}
                         onChange={(e) => setForm((f) => ({ ...f, maxMembers: e.target.value }))}
                         className="w-full appearance-none border border-gray-200 rounded-xl pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 bg-white"
                       >
-                        <option value="">Unbegrenzt</option>
-                        <option value="5">5 Personen</option>
-                        <option value="10">10 Personen</option>
-                        <option value="20">20 Personen</option>
-                        <option value="50">50 Personen</option>
+                        <option value="">{t("maxUnlimited")}</option>
+                        <option value="5">{t("maxFive")}</option>
+                        <option value="10">{t("maxTen")}</option>
+                        <option value="20">{t("maxTwenty")}</option>
+                        <option value="50">{t("maxFifty")}</option>
                       </select>
                       <ChevronDown className="absolute right-2.5 top-3 w-4 h-4 text-gray-400 pointer-events-none" />
                     </div>
@@ -386,12 +388,12 @@ export default function MeineGruppenTab({ user }: Props) {
                   <div className="flex-1">
                     <p className="text-sm font-bold text-gray-700 flex items-center gap-1.5">
                       {form.isPublic ? <Globe className="w-4 h-4 text-teal-600" /> : <Lock className="w-4 h-4 text-gray-500" />}
-                      {form.isPublic ? "Öffentliche Gruppe" : "Private Gruppe"}
+                      {form.isPublic ? t("publicGroup") : t("privateGroup")}
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">
                       {form.isPublic
-                        ? "Jeder kann die Gruppe finden und beitreten"
-                        : "Nur eingeladene Personen können beitreten"}
+                        ? t("publicDesc")
+                        : t("privateDesc")}
                     </p>
                   </div>
                   <button type="button"
@@ -404,7 +406,7 @@ export default function MeineGruppenTab({ user }: Props) {
 
                 {error && (
                   <div className="bg-red-50 border border-red-200 rounded-xl px-3 py-2 text-xs text-red-700">
-                    <strong>Fehler:</strong> {error}
+                    <strong>{t("error")}</strong> {error}
                   </div>
                 )}
 
@@ -412,12 +414,12 @@ export default function MeineGruppenTab({ user }: Props) {
                 <div className="flex gap-2 pb-2">
                   <button onClick={closeForm}
                     className="flex-1 py-3 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 font-semibold transition-colors"
-                  >Abbrechen</button>
+                  >{t("cancelBtn")}</button>
                   <button onClick={handleCreate} disabled={saving || !form.name.trim()}
                     className="flex-1 py-3 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 transition-colors"
                   >
                     {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : form.iconEmoji}
-                    {saving ? "Erstellen…" : "Gruppe erstellen"}
+                    {saving ? t("creating") : t("createBtn")}
                   </button>
                 </div>
               </div>
@@ -429,10 +431,10 @@ export default function MeineGruppenTab({ user }: Props) {
         {groups.length === 0 && !showForm ? (
           <div className="text-center py-16 text-gray-400">
             <Users2 className="w-12 h-12 mx-auto mb-3 opacity-30" />
-            <p className="font-semibold">Noch keiner Gruppe beigetreten</p>
-            <p className="text-sm mt-1">Entdecke Urlaubs-Gruppen oder gründe deine eigene</p>
+            <p className="font-semibold">{t("emptyTitle")}</p>
+            <p className="text-sm mt-1">{t("emptyDesc")}</p>
             <Link href="/community/gruppen/" className="mt-4 inline-block bg-teal-600 hover:bg-teal-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-colors">
-              Gruppen entdecken
+              {t("discoverGroups")}
             </Link>
           </div>
         ) : (
@@ -452,24 +454,24 @@ export default function MeineGruppenTab({ user }: Props) {
                   <div className="absolute bottom-2 left-14 right-8">
                     <p className="font-bold text-white text-sm drop-shadow line-clamp-1">{g.name}</p>
                     <p className="text-white/70 text-[10px]">
-                      {g.isPublic ? "🌍 Öffentlich" : "🔒 Privat"} · {g.membersCount} Mitgl.
+                      {g.isPublic ? t("isPublic") : t("isPrivate")} · {g.membersCount} {t("membersCount")}
                     </p>
                   </div>
                   {g.creatorId !== user.uid && (
-                    <button onClick={() => handleLeave(g.id)} className="absolute top-2 right-2 text-white/70 hover:text-red-300 transition-colors" title="Verlassen">
+                    <button onClick={() => handleLeave(g.id)} className="absolute top-2 right-2 text-white/70 hover:text-red-300 transition-colors" title={t("leaveConfirm")}>
                       <LogOut className="w-4 h-4" />
                     </button>
                   )}
                 </div>
                 <div className="p-3">
                   <Link href={`/community/gruppen/${g.id}/`} className="text-xs font-semibold text-teal-700 hover:underline">
-                    Zur Gruppe →
+                    {t("toGroup")}
                   </Link>
                   <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{g.description}</p>
-                  <p className="text-[10px] text-gray-400 mt-1">{g.postsCount} Beiträge</p>
+                  <p className="text-[10px] text-gray-400 mt-1">{g.postsCount} {t("postsCount")}</p>
                   {g.tags && g.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
-                      {g.tags.filter(t => !t.startsWith("budget:") && !t.startsWith("max:")).map((tag) => (
+                      {g.tags.filter(tg => !tg.startsWith("budget:") && !tg.startsWith("max:")).map((tag) => (
                         <span key={tag} className="inline-block bg-teal-50 text-teal-700 text-[10px] font-medium px-2 py-0.5 rounded-full border border-teal-100">
                           #{tag}
                         </span>

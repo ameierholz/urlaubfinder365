@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import type { TripPlan, SavedTrip, SavedActivity } from "@/types";
 import {
@@ -16,10 +17,10 @@ const DEST_OPTIONS = CATALOG
   .filter((e) => e.ibeRegionId)
   .sort((a, b) => a.name.localeCompare(b.name, "de"));
 
-const STATUS_LABELS: Record<TripPlan["status"], { label: string; color: string }> = {
-  planning:  { label: "In Planung",   color: "bg-gray-100 text-gray-600" },
-  confirmed: { label: "Gebucht",      color: "bg-[#00838F]/10 text-[#00838F]" },
-  completed: { label: "Abgeschlossen",color: "bg-blue-50 text-blue-600" },
+const STATUS_COLORS: Record<TripPlan["status"], string> = {
+  planning:  "bg-gray-100 text-gray-600",
+  confirmed: "bg-[#00838F]/10 text-[#00838F]",
+  completed: "bg-blue-50 text-blue-600",
 };
 
 function daysUntil(dateStr: string): number | null {
@@ -33,7 +34,14 @@ function fmtDate(d: string) {
   return new Date(d).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
+const STATUS_KEYS: Record<TripPlan["status"], string> = {
+  planning:  "statusPlanning",
+  confirmed: "statusConfirmed",
+  completed: "statusCompleted",
+};
+
 export default function TripPlannerTab({ user }: Props) {
+  const t = useTranslations("dashboardTripPlanner");
   const [plans, setPlans]         = useState<TripPlan[]>([]);
   const [trips, setTrips]         = useState<SavedTrip[]>([]);
   const [activities, setActivities] = useState<SavedActivity[]>([]);
@@ -64,7 +72,7 @@ export default function TripPlannerTab({ user }: Props) {
       getUserSavedActivities(user.uid),
     ])
       .then(([p, t, a]) => { setPlans(p); setTrips(t); setActivities(a); })
-      .catch(() => setError("Urlaubspläne konnten nicht geladen werden."))
+      .catch(() => setError(t("loadError")))
       .finally(() => setLoading(false));
   }, [user.uid]);
 
@@ -79,7 +87,7 @@ export default function TripPlannerTab({ user }: Props) {
     const entry = DEST_OPTIONS.find((d) => d.slug === fDest);
     if (!entry) return;
     setSaving(true);
-    const title = fTitle || `Urlaub in ${entry.name}`;
+    const title = fTitle || t("defaultTitle", { name: entry.name });
     try {
       const id = await createTripPlan(user.uid, {
         title,
@@ -136,7 +144,7 @@ export default function TripPlannerTab({ user }: Props) {
   if (loading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-gray-900">Meine Urlaubsplanung</h2>
+        <h2 className="text-xl font-bold text-gray-900">{t("title")}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => <div key={i} className="h-40 bg-gray-100 rounded-2xl animate-pulse" />)}
         </div>
@@ -148,11 +156,11 @@ export default function TripPlannerTab({ user }: Props) {
     return (
       <div className="space-y-4">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <Map className="w-5 h-5 text-[#00838F]" /> Meine Urlaubsplanung
+          <Map className="w-5 h-5 text-[#00838F]" /> {t("title")}
         </h2>
         <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
           <p className="text-red-600 text-sm font-semibold">{error}</p>
-          <button onClick={() => window.location.reload()} className="mt-3 text-xs bg-red-500 text-white px-4 py-2 rounded-full">Neu laden</button>
+          <button onClick={() => window.location.reload()} className="mt-3 text-xs bg-red-500 text-white px-4 py-2 rounded-full">{t("reload")}</button>
         </div>
       </div>
     );
@@ -164,13 +172,13 @@ export default function TripPlannerTab({ user }: Props) {
     {/* Erklärung rechts */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("infoTitle")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>Klicke <strong>„Neuer Plan"</strong> – wähle Urlaubsziel, Datum, Personen und Budget</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🏨</span><span>Verknüpfe gespeicherte <strong>Hotels</strong> und Aktivitäten – alles an einem Ort</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">📝</span><span>Notizen und To-Dos direkt im Plan erfassen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">📊</span><span>Status: <strong>In Planung → Gebucht → Abgeschlossen</strong></span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">⏳</span><span>Countdown zeigt wie viele Tage noch bis zum Urlaub</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>{t("info1")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏨</span><span>{t("info2")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📝</span><span>{t("info3")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📊</span><span>{t("info4")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">⏳</span><span>{t("info5")}</span></li>
         </ul>
       </div>
     </div>
@@ -181,7 +189,7 @@ export default function TripPlannerTab({ user }: Props) {
         <div>
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-1">
             <Map className="w-5 h-5 text-[#00838F]" />
-            Meine Urlaubsplanung
+            {t("title")}
             {plans.length > 0 && <span className="text-sm font-normal text-gray-400">({plans.length})</span>}
           </h2>
         </div>
@@ -189,7 +197,7 @@ export default function TripPlannerTab({ user }: Props) {
           onClick={() => setShowForm(true)}
           className="shrink-0 inline-flex items-center gap-1.5 bg-[#00838F] text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-[#006E7A] transition-colors"
         >
-          <Plus className="w-4 h-4" /> Neuer Plan
+          <Plus className="w-4 h-4" /> {t("newPlan")}
         </button>
       </div>
 
@@ -197,22 +205,22 @@ export default function TripPlannerTab({ user }: Props) {
       {showForm && (
         <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-900">Neuen Urlaubsplan erstellen</h3>
+            <h3 className="font-bold text-gray-900">{t("formTitle")}</h3>
             <button onClick={() => { setShowForm(false); resetForm(); }}><X className="w-5 h-5 text-gray-400" /></button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Titel */}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Titel (optional)</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelTitle")}</label>
               <input type="text" value={fTitle} onChange={(e) => setFTitle(e.target.value)}
-                placeholder="z.B. Sommerurlaub 2026"
+                placeholder={t("placeholderTitle")}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F]"
               />
             </div>
             {/* Destination */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Urlaubsziel</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelDestination")}</label>
               <select value={fDest} onChange={(e) => setFDest(e.target.value)}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] bg-white">
                 {DEST_OPTIONS.map((d) => <option key={d.slug} value={d.slug}>{d.name}</option>)}
@@ -220,35 +228,35 @@ export default function TripPlannerTab({ user }: Props) {
             </div>
             {/* Status */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Status</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelStatus")}</label>
               <select value={fStatus} onChange={(e) => setFStatus(e.target.value as TripPlan["status"])}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] bg-white">
-                <option value="planning">In Planung</option>
-                <option value="confirmed">Gebucht</option>
-                <option value="completed">Abgeschlossen</option>
+                <option value="planning">{t("statusPlanning")}</option>
+                <option value="confirmed">{t("statusConfirmed")}</option>
+                <option value="completed">{t("statusCompleted")}</option>
               </select>
             </div>
             {/* Datum */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Abreise</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelDeparture")}</label>
               <input type="date" value={fStart} onChange={(e) => setFStart(e.target.value)}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F]" />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Rückreise</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelReturn")}</label>
               <input type="date" value={fEnd} onChange={(e) => setFEnd(e.target.value)}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F]" />
             </div>
             {/* Personen */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Erwachsene</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelAdults")}</label>
               <select value={fAdults} onChange={(e) => setFAdults(Number(e.target.value))}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] bg-white">
                 {[1,2,3,4,5,6].map((n) => <option key={n} value={n}>{n}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Kinder</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelChildren")}</label>
               <select value={fChildren} onChange={(e) => setFChildren(Number(e.target.value))}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] bg-white">
                 {[0,1,2,3,4].map((n) => <option key={n} value={n}>{n}</option>)}
@@ -256,23 +264,23 @@ export default function TripPlannerTab({ user }: Props) {
             </div>
             {/* Budget */}
             <div>
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Gesamtbudget (€)</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelBudget")}</label>
               <input type="number" value={fBudget} onChange={(e) => setFBudget(e.target.value === "" ? "" : Number(e.target.value))}
                 placeholder="z.B. 2000" min={0}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F]" />
             </div>
             {/* Notizen */}
             <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-gray-500 mb-1.5">Notizen</label>
+              <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelNotes")}</label>
               <textarea value={fNotes} onChange={(e) => setFNotes(e.target.value)}
-                rows={2} placeholder="Hotel-Wünsche, Ausflüge, Tipps…"
+                rows={2} placeholder={t("placeholderNotes")}
                 className="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#00838F] resize-none" />
             </div>
 
             {/* Gespeicherte Reisen verknüpfen */}
             {trips.length > 0 && (
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-gray-500 mb-1.5">Gespeicherte Reise verknüpfen (optional)</label>
+                <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelLinkTrips")}</label>
                 <div className="space-y-1.5 max-h-32 overflow-y-auto border border-gray-200 rounded-xl p-2">
                   {trips.map((t) => (
                     <label key={t.id} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 rounded-lg px-2 py-1">
@@ -288,7 +296,7 @@ export default function TripPlannerTab({ user }: Props) {
             {/* Aktivitäten verknüpfen */}
             {activities.length > 0 && (
               <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-gray-500 mb-1.5">Aktivitäten verknüpfen (optional)</label>
+                <label className="block text-xs font-semibold text-gray-500 mb-1.5">{t("labelLinkActivities")}</label>
                 <div className="space-y-1.5 max-h-32 overflow-y-auto border border-gray-200 rounded-xl p-2">
                   {activities.map((a) => (
                     <label key={a.id} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 rounded-lg px-2 py-1">
@@ -305,11 +313,11 @@ export default function TripPlannerTab({ user }: Props) {
           <div className="flex gap-3 mt-5">
             <button onClick={handleCreate} disabled={saving || !fDest || !fStart || !fEnd}
               className="flex-1 bg-[#00838F] hover:bg-[#006E7A] text-white text-sm font-semibold py-2.5 rounded-xl transition-colors disabled:opacity-50">
-              {saving ? "Wird gespeichert…" : "Reiseplan erstellen"}
+              {saving ? t("saving") : t("createPlan")}
             </button>
             <button onClick={() => { setShowForm(false); resetForm(); }}
               className="px-5 py-2.5 border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors">
-              Abbrechen
+              {t("cancel")}
             </button>
           </div>
         </div>
@@ -319,11 +327,11 @@ export default function TripPlannerTab({ user }: Props) {
       {plans.length === 0 && !showForm && (
         <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center">
           <Map className="w-12 h-12 text-gray-200 mx-auto mb-4" />
-          <h3 className="font-bold text-gray-700 mb-2">Noch keine Urlaubspläne</h3>
-          <p className="text-gray-400 text-sm mb-6">Plane deinen nächsten Urlaub – mit Datum, Budget und deinen gespeicherten Angeboten.</p>
+          <h3 className="font-bold text-gray-700 mb-2">{t("emptyTitle")}</h3>
+          <p className="text-gray-400 text-sm mb-6">{t("emptyDesc")}</p>
           <button onClick={() => setShowForm(true)}
             className="inline-block bg-[#00838F] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-[#006E7A] transition-colors">
-            Ersten Reiseplan erstellen
+            {t("createFirst")}
           </button>
         </div>
       )}
@@ -334,9 +342,9 @@ export default function TripPlannerTab({ user }: Props) {
           {plans.sort((a, b) => (a.startDate > b.startDate ? 1 : -1)).map((plan) => {
             const days = daysUntil(plan.startDate);
             const isExpanded = expanded === plan.id;
-            const linkedTrips = trips.filter((t) => (plan.linkedTripIds ?? []).includes(t.id));
+            const linkedTrips = trips.filter((tr) => (plan.linkedTripIds ?? []).includes(tr.id));
             const linkedActs  = activities.filter((a) => (plan.linkedActivityIds ?? []).includes(a.id));
-            const status = STATUS_LABELS[plan.status];
+            const statusColor = STATUS_COLORS[plan.status];
 
             return (
               <div key={plan.id} className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
@@ -346,8 +354,8 @@ export default function TripPlannerTab({ user }: Props) {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="font-bold text-gray-900 text-base">{plan.title}</h3>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${status.color}`}>
-                          {status.label}
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${statusColor}`}>
+                          {t(STATUS_KEYS[plan.status])}
                         </span>
                       </div>
                       <p className="text-xs text-[#00838F] font-semibold mt-0.5">📍 {plan.destinationName}</p>
@@ -361,7 +369,7 @@ export default function TripPlannerTab({ user }: Props) {
                       </button>
                       <button
                         onClick={() => handleTogglePublic(plan)}
-                        title={(plan as unknown as Record<string, unknown>).isPublic ? "Öffentlich – klicken zum Verbergen" : "Privat – klicken zum Teilen"}
+                        title={(plan as unknown as Record<string, unknown>).isPublic ? t("publicTitle") : t("privateTitle")}
                         className="w-7 h-7 rounded-full bg-gray-50 hover:bg-blue-50 flex items-center justify-center group transition-colors"
                       >
                         {(plan as unknown as Record<string, unknown>).isPublic
@@ -381,7 +389,7 @@ export default function TripPlannerTab({ user }: Props) {
                       <CalendarDays className="w-3 h-3" /> {fmtDate(plan.startDate)} – {fmtDate(plan.endDate)}
                     </span>
                     <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full">
-                      <Users className="w-3 h-3" /> {plan.adults + plan.children} {plan.adults + plan.children === 1 ? "Person" : "Personen"}
+                      <Users className="w-3 h-3" /> {(plan.adults + plan.children) === 1 ? t("person", { n: 1 }) : t("persons", { n: plan.adults + plan.children })}
                     </span>
                     {plan.budget > 0 && (
                       <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full">
@@ -390,7 +398,7 @@ export default function TripPlannerTab({ user }: Props) {
                     )}
                     {days !== null && days >= 0 && plan.status !== "completed" && (
                       <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${days <= 7 ? "bg-amber-50 text-amber-700" : "bg-[#00838F]/8 text-[#00838F]"}`}>
-                        🗓 {days === 0 ? "Heute!" : `in ${days} Tagen`}
+                        🗓 {days === 0 ? t("today") : t("inDays", { days })}
                       </span>
                     )}
                   </div>
@@ -401,12 +409,12 @@ export default function TripPlannerTab({ user }: Props) {
                   <div className="border-t border-gray-50 px-4 pb-4 pt-3 space-y-3">
                     {/* Status ändern */}
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-500 font-semibold shrink-0">Status:</span>
+                      <span className="text-xs text-gray-500 font-semibold shrink-0">{t("statusLabel")}</span>
                       <div className="flex gap-1.5">
                         {(["planning", "confirmed", "completed"] as TripPlan["status"][]).map((s) => (
                           <button key={s} onClick={() => handleStatusChange(plan, s)}
-                            className={`text-xs px-2.5 py-1 rounded-full font-semibold transition-colors ${plan.status === s ? STATUS_LABELS[s].color : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>
-                            {STATUS_LABELS[s].label}
+                            className={`text-xs px-2.5 py-1 rounded-full font-semibold transition-colors ${plan.status === s ? STATUS_COLORS[s] : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}>
+                            {t(STATUS_KEYS[s])}
                           </button>
                         ))}
                       </div>
@@ -415,7 +423,7 @@ export default function TripPlannerTab({ user }: Props) {
                     {/* Notizen */}
                     {plan.notes && (
                       <div>
-                        <p className="text-xs font-semibold text-gray-500 mb-1">Notizen</p>
+                        <p className="text-xs font-semibold text-gray-500 mb-1">{t("notesLabel")}</p>
                         <p className="text-sm text-gray-700 whitespace-pre-wrap">{plan.notes}</p>
                       </div>
                     )}
@@ -423,7 +431,7 @@ export default function TripPlannerTab({ user }: Props) {
                     {/* Verlinkte Reisen */}
                     {linkedTrips.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-gray-500 mb-1.5">🏨 Verlinkte Reisen</p>
+                        <p className="text-xs font-semibold text-gray-500 mb-1.5">🏨 {t("linkedTrips")}</p>
                         <div className="space-y-1">
                           {linkedTrips.map((t) => (
                             <div key={t.id} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">
@@ -438,7 +446,7 @@ export default function TripPlannerTab({ user }: Props) {
                     {/* Verlinkte Aktivitäten */}
                     {linkedActs.length > 0 && (
                       <div>
-                        <p className="text-xs font-semibold text-gray-500 mb-1.5">🎟 Verlinkte Aktivitäten</p>
+                        <p className="text-xs font-semibold text-gray-500 mb-1.5">🎟 {t("linkedActivities")}</p>
                         <div className="space-y-1">
                           {linkedActs.map((a) => (
                             <div key={a.id} className="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2">

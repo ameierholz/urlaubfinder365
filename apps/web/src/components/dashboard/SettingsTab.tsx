@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, TravelPreferences } from "@/types";
 import { updateTravelPreferences } from "@/lib/supabase-db";
@@ -22,26 +23,28 @@ const DEFAULT_PREFS: TravelPreferences = {
 };
 
 const BUDGETS = [
-  { id: "budget",  label: "Budget",  sub: "bis 500 €/Person",  color: "border-green-200 bg-green-50 text-green-700" },
-  { id: "mittel",  label: "Mittel",  sub: "500–1.000 €/Person", color: "border-blue-200 bg-blue-50 text-blue-700" },
-  { id: "premium", label: "Premium", sub: "1.000–2.000 €/Person", color: "border-purple-200 bg-purple-50 text-purple-700" },
-  { id: "luxus",   label: "Luxus",   sub: "2.000+ €/Person",   color: "border-amber-200 bg-amber-50 text-amber-700" },
+  { id: "budget",  labelKey: "budgetOptions.budget",  subKey: "budgetOptions.budgetDesc",  color: "border-green-200 bg-green-50 text-green-700" },
+  { id: "mittel",  labelKey: "budgetOptions.medium",  subKey: "budgetOptions.mediumDesc",  color: "border-blue-200 bg-blue-50 text-blue-700" },
+  { id: "premium", labelKey: "budgetOptions.premium", subKey: "budgetOptions.premiumDesc", color: "border-purple-200 bg-purple-50 text-purple-700" },
+  { id: "luxus",   labelKey: "budgetOptions.luxury",  subKey: "budgetOptions.luxuryDesc",  color: "border-amber-200 bg-amber-50 text-amber-700" },
 ];
 
 const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
 
 const TRIP_TYPES = [
-  { id: "strand",   emoji: "🏖️", label: "Strand & Meer" },
-  { id: "stadt",    emoji: "🏙️", label: "Städtereise" },
-  { id: "natur",    emoji: "🌿", label: "Natur & Wandern" },
-  { id: "kultur",   emoji: "🏛️", label: "Kultur & Geschichte" },
-  { id: "abenteuer",emoji: "🧗", label: "Abenteuer & Sport" },
-  { id: "wellness", emoji: "🧘", label: "Wellness & Entspannung" },
-  { id: "kreuzfahrt",emoji: "🚢", label: "Kreuzfahrt" },
-  { id: "familie",  emoji: "👨‍👩‍👧", label: "Familienurlaub" },
+  { id: "strand",    emoji: "🏖️", labelKey: "travelTypes.beach" },
+  { id: "stadt",     emoji: "🏙️", labelKey: "travelTypes.city" },
+  { id: "natur",     emoji: "🌿", labelKey: "travelTypes.nature" },
+  { id: "kultur",    emoji: "🏛️", labelKey: "travelTypes.culture" },
+  { id: "abenteuer", emoji: "🧗", labelKey: "travelTypes.adventure" },
+  { id: "wellness",  emoji: "🧘", labelKey: "travelTypes.wellness" },
+  { id: "kreuzfahrt",emoji: "🚢", labelKey: "travelTypes.cruise" },
+  { id: "familie",   emoji: "👨‍👩‍👧", labelKey: "travelTypes.family" },
 ];
 
 export default function SettingsTab({ user, userProfile }: Props) {
+  const t = useTranslations("dashboardSettings");
+
   const [prefs, setPrefs] = useState<TravelPreferences>({
     ...DEFAULT_PREFS,
     ...(userProfile?.preferences ?? {}),
@@ -81,13 +84,13 @@ export default function SettingsTab({ user, userProfile }: Props) {
     {/* Erklärung rechts */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("howItWorks")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">💰</span><span>Wähle dein <strong>Urlaubsbudget</strong> – wir filtern Angebote passend für dich</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">👨‍👩‍👧</span><span>Gib Anzahl <strong>Erwachsene und Kinder</strong> an für passende Angebote</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">📅</span><span>Wähle bevorzugte <strong>Reisemonate</strong> für personalisierte Empfehlungen</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🏖️</span><span>Wähle deinen <strong>Urlaubstyp</strong> (Strand, Stadt, Abenteuer …)</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Klicke <strong>„Speichern"</strong> oben rechts um alle Einstellungen zu sichern</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💰</span><span>{t("hint1")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👨‍👩‍👧</span><span>{t("hint2")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📅</span><span>{t("hint3")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏖️</span><span>{t("hint4")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>{t("hint5")}</span></li>
         </ul>
       </div>
     </div>
@@ -96,7 +99,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
           <Settings className="w-5 h-5 text-[#00838F]" />
-          Einstellungen
+          {t("title")}
         </h2>
         <button
           onClick={save}
@@ -107,7 +110,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
               : "bg-[#00838F] text-white hover:bg-[#006E7A]"
           } disabled:opacity-50`}
         >
-          {saved ? <><CheckCircle className="w-4 h-4" /> Gespeichert!</> : saving ? "Speichert…" : "Speichern"}
+          {saved ? <><CheckCircle className="w-4 h-4" /> {t("saved")}</> : saving ? t("saving") : t("save")}
         </button>
       </div>
 
@@ -115,10 +118,10 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <Wallet className="w-4 h-4 text-gray-400" />
-          Mein Urlaubsbudget
+          {t("budget")}
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {BUDGETS.map(({ id, label, sub, color }) => (
+          {BUDGETS.map(({ id, labelKey, subKey, color }) => (
             <button
               key={id}
               onClick={() => set("budget", id as TravelPreferences["budget"])}
@@ -128,8 +131,8 @@ export default function SettingsTab({ user, userProfile }: Props) {
                   : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
               }`}
             >
-              <p className="font-bold text-sm">{label}</p>
-              <p className="text-xs opacity-75 mt-0.5">{sub}</p>
+              <p className="font-bold text-sm">{t(labelKey)}</p>
+              <p className="text-xs opacity-75 mt-0.5">{t(subKey)}</p>
             </button>
           ))}
         </div>
@@ -139,16 +142,16 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <Users className="w-4 h-4 text-gray-400" />
-          Reisende
+          {t("travelers")}
         </h3>
         <div className="grid grid-cols-2 gap-4">
           {[
-            { label: "Erwachsene", key: "adults" as const, min: 1, max: 8 },
-            { label: "Kinder (bis 17)", key: "children" as const, min: 0, max: 6 },
-          ].map(({ label, key, min, max }) => (
+            { labelKey: "adults", key: "adults" as const, min: 1, max: 8 },
+            { labelKey: "children", key: "children" as const, min: 0, max: 6 },
+          ].map(({ labelKey, key, min, max }) => (
             <div key={key}>
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-2">
-                {label}
+                {t(labelKey)}
               </label>
               <div className="flex items-center gap-3">
                 <button
@@ -174,7 +177,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <Calendar className="w-4 h-4 text-gray-400" />
-          Bevorzugte Reisemonate
+          {t("preferredMonths")}
         </h3>
         <div className="grid grid-cols-6 gap-2">
           {MONTHS.map((m) => (
@@ -197,10 +200,10 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-4">
           <Heart className="w-4 h-4 text-gray-400" />
-          Mein Urlaubstyp (Mehrfachauswahl)
+          {t("travelType")}
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {TRIP_TYPES.map(({ id, emoji, label }) => (
+          {TRIP_TYPES.map(({ id, emoji, labelKey }) => (
             <button
               key={id}
               onClick={() => toggleType(id)}
@@ -211,7 +214,7 @@ export default function SettingsTab({ user, userProfile }: Props) {
               }`}
             >
               <span className="text-base">{emoji}</span>
-              {label}
+              {t(labelKey)}
             </button>
           ))}
         </div>
@@ -221,10 +224,10 @@ export default function SettingsTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
         <h3 className="font-bold text-gray-800 flex items-center gap-2 mb-2">
           <Mail className="w-4 h-4 text-gray-400" />
-          Newsletter & Angebote
+          {t("newsletter")}
         </h3>
         <p className="text-xs text-gray-500 mb-4">
-          Erhalte wöchentlich die besten Urlaubsangebote, Deals und Urlaubsideen per E-Mail.
+          {t("newsletterDesc")}
         </p>
         <NewsletterSignup
           variant="inline"
@@ -243,6 +246,8 @@ export default function SettingsTab({ user, userProfile }: Props) {
 
 /** DSGVO: Datenexport + Konto loeschen */
 function DataPrivacySection() {
+  const t = useTranslations("dashboardSettings");
+
   const [exporting, setExporting] = useState(false);
   const [deleting, setDeleting]   = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -260,7 +265,7 @@ function DataPrivacySection() {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert("Fehler beim Exportieren. Bitte versuche es erneut.");
+      alert(t("exportError"));
     } finally {
       setExporting(false);
     }
@@ -273,7 +278,7 @@ function DataPrivacySection() {
       if (!res.ok) throw new Error();
       window.location.href = "/";
     } catch {
-      alert("Fehler beim Löschen. Bitte kontaktiere info@urlaubfinder365.de");
+      alert(t("deleteError"));
       setDeleting(false);
     }
   }
@@ -282,14 +287,14 @@ function DataPrivacySection() {
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
       <h3 className="font-bold text-gray-800 flex items-center gap-2">
         <Settings className="w-4 h-4 text-gray-400" />
-        Daten & Datenschutz
+        {t("dataPrivacy")}
       </h3>
 
       {/* Export */}
       <div className="flex items-start gap-3">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-gray-700">Meine Daten exportieren</p>
-          <p className="text-xs text-gray-500">Lade alle deine gespeicherten Daten als JSON-Datei herunter (DSGVO Art. 20).</p>
+          <p className="text-sm font-semibold text-gray-700">{t("exportData")}</p>
+          <p className="text-xs text-gray-500">{t("exportDataDesc")}</p>
         </div>
         <button
           onClick={handleExport}
@@ -297,7 +302,7 @@ function DataPrivacySection() {
           className="shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-50"
         >
           {exporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
-          Exportieren
+          {t("exportBtn")}
         </button>
       </div>
 
@@ -306,15 +311,15 @@ function DataPrivacySection() {
       {/* Löschen */}
       <div className="flex items-start gap-3">
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-red-600">Konto & Daten löschen</p>
-          <p className="text-xs text-gray-500">Alle deine Daten werden unwiderruflich gelöscht (DSGVO Art. 17).</p>
+          <p className="text-sm font-semibold text-red-600">{t("deleteAccount")}</p>
+          <p className="text-xs text-gray-500">{t("deleteAccountDesc")}</p>
         </div>
         <button
           onClick={() => setShowDelete(true)}
           className="shrink-0 flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-red-600 border border-red-200 rounded-xl hover:bg-red-50 transition-colors"
         >
           <Trash2 className="w-3.5 h-3.5" />
-          Konto löschen
+          {t("deleteBtn")}
         </button>
       </div>
 
@@ -324,9 +329,9 @@ function DataPrivacySection() {
           <div className="flex items-start gap-2">
             <AlertTriangle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-bold text-red-700">Bist du sicher?</p>
+              <p className="text-sm font-bold text-red-700">{t("deleteConfirmTitle")}</p>
               <p className="text-xs text-red-600 mt-1">
-                Alle deine Daten (Profil, Favoriten, Preisalarme, Berichte, Tipps) werden unwiderruflich gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.
+                {t("deleteConfirmDesc")}
               </p>
             </div>
           </div>
@@ -335,7 +340,7 @@ function DataPrivacySection() {
               onClick={() => setShowDelete(false)}
               className="flex-1 py-2 text-xs font-semibold border border-gray-200 rounded-xl hover:bg-white transition-colors"
             >
-              Abbrechen
+              {t("deleteCancel")}
             </button>
             <button
               onClick={handleDelete}
@@ -343,7 +348,7 @@ function DataPrivacySection() {
               className="flex-1 py-2 text-xs font-bold bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
             >
               {deleting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-              Endgültig löschen
+              {t("deleteConfirm")}
             </button>
           </div>
         </div>

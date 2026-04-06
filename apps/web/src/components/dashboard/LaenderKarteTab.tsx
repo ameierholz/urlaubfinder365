@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import { getCommunityProfile, updateCommunityProfile } from "@/lib/supabase-db";
 import { Globe, Save, Loader2, Check, Trophy, MapPin, TrendingUp, Star } from "lucide-react";
@@ -273,6 +274,7 @@ function ProgressBar({ value, max, color = "bg-teal-500", height = "h-2" }: { va
 // ─── Hauptkomponente ──────────────────────────────────────────────────────────
 
 export default function LaenderKarteTab() {
+  const t = useTranslations("dashboardCountries");
   const { user } = useAuth();
   const [visited, setVisited] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
@@ -332,13 +334,13 @@ export default function LaenderKarteTab() {
     {/* Erklärung rechts */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("infoTitle")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">🌍</span><span>Klicke ein Land an um es als besucht zu markieren – die Statistik aktualisiert sich sofort</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Klicke <strong>„Speichern"</strong> um deine besuchten Länder zu sichern</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span><strong>Achievements</strong> werden automatisch freigeschaltet wenn du Meilensteine erreichst</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>Freigeschaltete Achievements sind in deinem <strong>öffentlichen Profil</strong> sichtbar</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>Nutze die <strong>Suche</strong> um ein bestimmtes Land schnell zu finden</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🌍</span><span>{t("info1")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>{t("info2")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🏆</span><span>{t("info3")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">👤</span><span>{t("info4")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔍</span><span>{t("info5")}</span></li>
         </ul>
       </div>
     </div>
@@ -348,10 +350,10 @@ export default function LaenderKarteTab() {
       {/* ── Gesamt-Statistik ──────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { icon: Globe,      label: "Länder besucht", value: visited.size,         sub: `von ${TOTAL}`,          color: "text-teal-600", bg: "bg-teal-50" },
-          { icon: TrendingUp, label: "Weltabdeckung",  value: `${Math.round(visited.size/TOTAL*100)} %`, sub: "der Welt", color: "text-blue-600", bg: "bg-blue-50" },
-          { icon: MapPin,     label: "Kontinente",     value: continentsUnlocked,   sub: `von ${CONTINENTS.length}`, color: "text-amber-600", bg: "bg-amber-50" },
-          { icon: Trophy,     label: "Achievements",   value: ACHIEVEMENTS.filter(a=>a.check(visited)).length, sub: `von ${ACHIEVEMENTS.length}`, color: "text-rose-600", bg: "bg-rose-50" },
+          { icon: Globe,      label: t("countriesVisited"), value: visited.size,         sub: `${t("of")} ${TOTAL}`,          color: "text-teal-600", bg: "bg-teal-50" },
+          { icon: TrendingUp, label: t("worldCoverage"),  value: `${Math.round(visited.size/TOTAL*100)} %`, sub: t("ofWorld"), color: "text-blue-600", bg: "bg-blue-50" },
+          { icon: MapPin,     label: t("continents"),     value: continentsUnlocked,   sub: `${t("of")} ${CONTINENTS.length}`, color: "text-amber-600", bg: "bg-amber-50" },
+          { icon: Trophy,     label: t("achievements"),   value: ACHIEVEMENTS.filter(a=>a.check(visited)).length, sub: `${t("of")} ${ACHIEVEMENTS.length}`, color: "text-rose-600", bg: "bg-rose-50" },
         ].map(({ icon: Icon, label, value, sub, color, bg }) => (
           <div key={label} className={`${bg} rounded-2xl p-4 flex items-center gap-3`}>
             <Icon className={`w-8 h-8 shrink-0 ${color}`} />
@@ -366,14 +368,14 @@ export default function LaenderKarteTab() {
       {/* ── Gesamt-Fortschrittsbalken ─────────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-bold text-gray-700">Gesamt-Fortschritt</span>
+          <span className="text-sm font-bold text-gray-700">{t("totalProgress")}</span>
           <div className="flex items-center gap-2">
             <span className="text-sm font-bold text-teal-600">{visited.size} / {TOTAL}</span>
             <button onClick={save} disabled={saving}
               className="flex items-center gap-1.5 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
             >
               {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : saved ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
-              {saved ? "Gespeichert!" : "Speichern"}
+              {saved ? t("saved") : t("save")}
             </button>
           </div>
         </div>
@@ -458,11 +460,11 @@ export default function LaenderKarteTab() {
               height="h-2"
             />
             <div className="text-[11px] text-gray-400 mt-1">
-              {continentVisited} von {currentContinent.countries.length} Ländern in {currentContinent.label} besucht
+              {t("countriesIn", { count: continentVisited, total: currentContinent.countries.length, continent: currentContinent.label })}
             </div>
           </div>
           <input
-            type="text" placeholder="Suchen…" value={search}
+            type="text" placeholder={t("search")} value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-teal-400 w-32 shrink-0"
           />
@@ -487,7 +489,7 @@ export default function LaenderKarteTab() {
             );
           })}
           {filtered.length === 0 && (
-            <p className="col-span-full text-center text-sm text-gray-400 py-4">Kein Land gefunden.</p>
+            <p className="col-span-full text-center text-sm text-gray-400 py-4">{t("noCountryFound")}</p>
           )}
         </div>
       </div>
@@ -496,7 +498,7 @@ export default function LaenderKarteTab() {
       {visited.size > 0 && (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
           <h3 className="text-sm font-bold text-gray-700 mb-3">
-            Meine {visited.size} bereisten Länder
+            {t("myVisitedCountries", { count: visited.size })}
           </h3>
           <div className="flex flex-wrap gap-1.5">
             {CONTINENTS.flatMap((cont) =>

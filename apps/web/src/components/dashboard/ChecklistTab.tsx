@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { AppUser } from "@/context/AuthContext";
 import type { UserProfile, ChecklistItem } from "@/types";
 import { updateChecklist } from "@/lib/supabase-db";
@@ -13,13 +14,13 @@ interface Props {
 
 type Category = ChecklistItem["category"];
 
-const CATEGORY_LABELS: Record<Category, { label: string; emoji: string }> = {
-  dokumente:  { label: "Dokumente",   emoji: "📄" },
-  kleidung:   { label: "Kleidung",    emoji: "👕" },
-  toilette:   { label: "Toilette",    emoji: "🧴" },
-  elektronik: { label: "Elektronik",  emoji: "📱" },
-  gesundheit: { label: "Gesundheit",  emoji: "💊" },
-  sonstiges:  { label: "Sonstiges",   emoji: "🎒" },
+const CATEGORY_I18N: Record<Category, { key: string; emoji: string }> = {
+  dokumente:  { key: "categories.documents",    emoji: "📄" },
+  kleidung:   { key: "categories.clothing",     emoji: "👕" },
+  toilette:   { key: "categories.toiletries",   emoji: "🧴" },
+  elektronik: { key: "categories.electronics",  emoji: "📱" },
+  gesundheit: { key: "categories.health",       emoji: "💊" },
+  sonstiges:  { key: "categories.other",        emoji: "🎒" },
 };
 
 const DEFAULT_ITEMS: ChecklistItem[] = [
@@ -62,6 +63,8 @@ const DEFAULT_ITEMS: ChecklistItem[] = [
 ];
 
 export default function ChecklistTab({ user, userProfile }: Props) {
+  const t = useTranslations("dashboardChecklist");
+
   const [items, setItems] = useState<ChecklistItem[]>(
     userProfile?.checklist?.length ? userProfile.checklist : DEFAULT_ITEMS
   );
@@ -72,12 +75,12 @@ export default function ChecklistTab({ user, userProfile }: Props) {
 
   // Autosave mit Debounce
   useEffect(() => {
-    const t = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       setSaving(true);
       await updateChecklist(user.uid, items).catch(() => {});
       setSaving(false);
     }, 1500);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [items, user.uid]);
 
   const toggle = (id: string) => {
@@ -104,12 +107,12 @@ export default function ChecklistTab({ user, userProfile }: Props) {
   };
 
   const resetAll = () => {
-    if (confirm("Alle Häkchen zurücksetzen?")) {
+    if (confirm(t("resetConfirm"))) {
       setItems((prev) => prev.map((i) => ({ ...i, checked: false })));
     }
   };
 
-  const categories = Object.keys(CATEGORY_LABELS) as Category[];
+  const categories = Object.keys(CATEGORY_I18N) as Category[];
   const visibleItems = activeCategory === "all"
     ? items
     : items.filter((i) => i.category === activeCategory);
@@ -124,13 +127,13 @@ export default function ChecklistTab({ user, userProfile }: Props) {
     {/* Erklärung rechts */}
     <div className="order-first lg:order-last lg:w-64 shrink-0">
       <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100 lg:sticky lg:top-28">
-        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">So funktioniert&apos;s</h3>
+        <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wide mb-3">{t("howItWorks")}</h3>
         <ul className="space-y-2.5 text-xs text-gray-600">
-          <li className="flex items-start gap-2"><span className="shrink-0">✅</span><span>Hake Punkte ab – der Fortschrittsbalken zeigt deinen Stand</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>Eigene Punkte hinzufügen: Beschreibung + Kategorie wählen und auf <strong>„+"</strong> klicken</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">📂</span><span>Filtere nach Kategorien (Dokumente, Kleidung, Elektronik …) für mehr Übersicht</span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>Alle Änderungen werden <strong>automatisch gespeichert</strong></span></li>
-          <li className="flex items-start gap-2"><span className="shrink-0">🔄</span><span><strong>„Zurücksetzen"</strong> setzt alle Häkchen zurück – praktisch für den nächsten Urlaub</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">✅</span><span>{t("hint1")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">➕</span><span>{t("hint2")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">📂</span><span>{t("hint3")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">💾</span><span>{t("hint4")}</span></li>
+          <li className="flex items-start gap-2"><span className="shrink-0">🔄</span><span>{t("hint5")}</span></li>
         </ul>
       </div>
     </div>
@@ -141,16 +144,16 @@ export default function ChecklistTab({ user, userProfile }: Props) {
         <div className="flex items-center justify-between mb-1">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <CheckSquare className="w-5 h-5 text-emerald-500" />
-            Urlaubs-Checkliste
+            {t("title")}
           </h2>
           <div className="flex items-center gap-3">
-            {saving && <span className="text-xs text-gray-400">Speichert…</span>}
+            {saving && <span className="text-xs text-gray-400">{t("saving")}</span>}
             <button
               onClick={resetAll}
               className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              Zurücksetzen
+              {t("reset")}
             </button>
           </div>
         </div>
@@ -159,8 +162,8 @@ export default function ChecklistTab({ user, userProfile }: Props) {
       {/* Fortschrittsbalken */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-gray-700">Fortschritt</span>
-          <span className="text-sm font-bold text-emerald-600">{checkedCount}/{totalCount} erledigt</span>
+          <span className="text-sm font-semibold text-gray-700">{t("progress")}</span>
+          <span className="text-sm font-bold text-emerald-600">{t("progressCount", { checked: checkedCount, total: totalCount })}</span>
         </div>
         <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
           <div
@@ -170,7 +173,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
         </div>
         {percent === 100 && (
           <p className="text-sm text-emerald-600 font-semibold mt-2">
-            🎉 Alles gepackt – viel Spaß im Urlaub!
+            {t("allDone")}
           </p>
         )}
       </div>
@@ -185,11 +188,11 @@ export default function ChecklistTab({ user, userProfile }: Props) {
               : "bg-white border border-gray-200 text-gray-600 hover:border-[#00838F]"
           }`}
         >
-          Alle ({totalCount})
+          {t("filterAll", { count: totalCount })}
         </button>
         {categories.map((cat) => {
           const count = items.filter((i) => i.category === cat).length;
-          const { label, emoji } = CATEGORY_LABELS[cat];
+          const { key, emoji } = CATEGORY_I18N[cat];
           return (
             <button
               key={cat}
@@ -200,7 +203,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
                   : "bg-white border border-gray-200 text-gray-600 hover:border-[#00838F]"
               }`}
             >
-              {emoji} {label} ({count})
+              {emoji} {t(key)} ({count})
             </button>
           );
         })}
@@ -222,7 +225,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
               className="w-4 h-4 rounded accent-emerald-500 cursor-pointer"
             />
             <span className={`flex-1 text-sm ${item.checked ? "line-through text-gray-400" : "text-gray-700"}`}>
-              {CATEGORY_LABELS[item.category].emoji} {item.label}
+              {CATEGORY_I18N[item.category].emoji} {item.label}
             </span>
             {item.custom && (
               <button
@@ -237,7 +240,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
 
         {visibleItems.length === 0 && (
           <div className="px-5 py-8 text-center text-gray-400 text-sm">
-            Keine Einträge in dieser Kategorie.
+            {t("noItems")}
           </div>
         )}
       </div>
@@ -246,14 +249,14 @@ export default function ChecklistTab({ user, userProfile }: Props) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
         <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
           <Plus className="w-4 h-4 text-[#00838F]" />
-          Eigenen Eintrag hinzufügen
+          {t("addCustom")}
         </h3>
         <div className="flex gap-2">
           <input
             value={newLabel}
             onChange={(e) => setNewLabel(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && addItem()}
-            placeholder="z.B. Tauchausrüstung…"
+            placeholder={t("addPlaceholder")}
             className="flex-1 text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-[#00838F]"
           />
           <select
@@ -263,7 +266,7 @@ export default function ChecklistTab({ user, userProfile }: Props) {
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {CATEGORY_LABELS[cat].emoji} {CATEGORY_LABELS[cat].label}
+                {CATEGORY_I18N[cat].emoji} {t(CATEGORY_I18N[cat].key)}
               </option>
             ))}
           </select>

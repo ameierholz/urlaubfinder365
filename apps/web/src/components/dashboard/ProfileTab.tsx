@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { AppUser } from "@/context/AuthContext";
 import {
@@ -91,6 +92,7 @@ function Toast({ msg }: { msg: { type: "success" | "error"; text: string } }) {
 // ─── Haupt-Komponente ─────────────────────────────────────────────────────────
 
 export default function ProfileTab({ user }: Props) {
+  const t = useTranslations("dashboardProfile");
   const [activeTab, setActiveTab] = useState<"profil" | "konto">("profil");
 
   // ── Konto-Daten ──
@@ -163,7 +165,7 @@ export default function ProfileTab({ user }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 3 * 1024 * 1024) {
-      setCommMsg({ type: "error", text: "Bild zu groß – max. 3 MB erlaubt." });
+      setCommMsg({ type: "error", text: t("imageTooBig") });
       return;
     }
     const reader = new FileReader();
@@ -183,9 +185,9 @@ export default function ProfileTab({ user }: Props) {
       setPhotoURL(url);
       setPhotoPreview(null);
       await updateCommunityProfile(user.uid, { photoURL: url });
-      setCommMsg({ type: "success", text: "Profilbild gespeichert!" });
+      setCommMsg({ type: "success", text: t("imageSaved") });
     } catch {
-      setCommMsg({ type: "error", text: "Upload fehlgeschlagen. Bitte erneut versuchen." });
+      setCommMsg({ type: "error", text: t("imageUploadFailed") });
       setPhotoPreview(null);
     } finally {
       setUploading(false);
@@ -198,7 +200,7 @@ export default function ProfileTab({ user }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      setCommMsg({ type: "error", text: "Banner zu groß – max. 5 MB erlaubt." });
+      setCommMsg({ type: "error", text: t("bannerTooBig") });
       return;
     }
     const reader = new FileReader();
@@ -218,9 +220,9 @@ export default function ProfileTab({ user }: Props) {
       setBannerURL(url);
       setBannerPreview(null);
       await updateCommunityProfile(user.uid, { bannerURL: url });
-      setCommMsg({ type: "success", text: "Profilbanner gespeichert!" });
+      setCommMsg({ type: "success", text: t("bannerSaved") });
     } catch {
-      setCommMsg({ type: "error", text: "Banner-Upload fehlgeschlagen." });
+      setCommMsg({ type: "error", text: t("bannerUploadFailed") });
       setBannerPreview(null);
     } finally {
       setBannerUploading(false);
@@ -246,10 +248,10 @@ export default function ProfileTab({ user }: Props) {
         websiteUrl: websiteUrl.trim(),
         isPublic,
       });
-      setCommMsg({ type: "success", text: "Öffentliches Profil gespeichert!" });
+      setCommMsg({ type: "success", text: t("profileSaved") });
       setTimeout(() => setCommMsg(null), 4000);
     } catch {
-      setCommMsg({ type: "error", text: "Fehler beim Speichern." });
+      setCommMsg({ type: "error", text: t("profileSaveError") });
     } finally {
       setCommSaving(false);
     }
@@ -271,10 +273,10 @@ export default function ProfileTab({ user }: Props) {
       );
       await supabase.auth.updateUser({ data: { full_name: displayName.trim() } });
       await updateUserProfile(user.uid, { displayName: displayName.trim() });
-      setNameMsg({ type: "success", text: "Name gespeichert!" });
+      setNameMsg({ type: "success", text: t("nameSaved") });
       setTimeout(() => setNameMsg(null), 3000);
     } catch {
-      setNameMsg({ type: "error", text: "Fehler beim Speichern." });
+      setNameMsg({ type: "error", text: t("nameSaveError") });
     } finally {
       setNameSaving(false);
     }
@@ -283,11 +285,11 @@ export default function ProfileTab({ user }: Props) {
   // ── Passwort ändern ──
   const changePassword = async () => {
     if (pwNew !== pwConfirm) {
-      setPwMsg({ type: "error", text: "Passwörter stimmen nicht überein." });
+      setPwMsg({ type: "error", text: t("passwordMismatch") });
       return;
     }
     if (pwNew.length < 6) {
-      setPwMsg({ type: "error", text: "Passwort muss mindestens 6 Zeichen haben." });
+      setPwMsg({ type: "error", text: t("passwordTooShort") });
       return;
     }
     setPwSaving(true);
@@ -303,10 +305,10 @@ export default function ProfileTab({ user }: Props) {
       if (signInErr) throw signInErr;
       const { error: updateErr } = await supabase.auth.updateUser({ password: pwNew });
       if (updateErr) throw updateErr;
-      setPwMsg({ type: "success", text: "Passwort erfolgreich geändert!" });
+      setPwMsg({ type: "success", text: t("passwordSuccess") });
       setPwCurrent(""); setPwNew(""); setPwConfirm("");
     } catch {
-      setPwMsg({ type: "error", text: "Aktuelles Passwort ist falsch." });
+      setPwMsg({ type: "error", text: t("passwordWrong") });
     } finally {
       setPwSaving(false);
     }
@@ -415,7 +417,7 @@ export default function ProfileTab({ user }: Props) {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="font-bold text-xl truncate">{user.displayName || "Reisender"}</h2>
+              <h2 className="font-bold text-xl truncate">{user.displayName || t("defaultName")}</h2>
               {travelerType && (
                 <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-semibold">
                   {TRAVELER_TYPES.find((t) => t.id === travelerType)?.emoji}{" "}
@@ -435,7 +437,7 @@ export default function ProfileTab({ user }: Props) {
             className="shrink-0 bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-2 rounded-xl flex items-center gap-1.5 transition-colors"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Profil ansehen
+            {t("viewProfile")}
           </Link>
         </div>
         {/* ── Foto-Aktionsleiste ── */}
@@ -446,8 +448,8 @@ export default function ProfileTab({ user }: Props) {
             className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
           >
             {uploading
-              ? <><Loader2 className="w-3 h-3 animate-spin" /> Wird hochgeladen…</>
-              : <><Camera className="w-3 h-3" /> Bild ändern</>}
+              ? <><Loader2 className="w-3 h-3 animate-spin" /> {t("uploading")}</>
+              : <><Camera className="w-3 h-3" /> {t("changeImage")}</>}
           </button>
           {photoURL && !photoPreview && !uploading && (
             <button
@@ -455,14 +457,14 @@ export default function ProfileTab({ user }: Props) {
                 const { updateCommunityProfile } = await import("@/lib/supabase-db");
                 await updateCommunityProfile(user.uid, { photoURL: "" });
                 setPhotoURL(user.photoURL ?? null);
-                setCommMsg({ type: "success", text: "Profilbild entfernt." });
+                setCommMsg({ type: "success", text: t("imageRemoved") });
               }}
               className="text-white/50 hover:text-red-300 text-xs font-medium transition-colors"
             >
-              Bild entfernen
+              {t("removeImage")}
             </button>
           )}
-          <span className="text-white/30 text-xs ml-auto">JPG · PNG · WEBP · max. 3 MB</span>
+          <span className="text-white/30 text-xs ml-auto">{t("imageHint")}</span>
         </div>
         {commMsg && commMsg.type === "success" && (
           <div className="relative mt-3 bg-white/20 text-white text-xs px-3 py-2 rounded-xl flex items-center gap-2">
@@ -475,8 +477,8 @@ export default function ProfileTab({ user }: Props) {
       {/* ── Tab-Navigation ── */}
       <div className="flex gap-2 mb-4 bg-gray-100 rounded-xl p-1">
         {([
-          { id: "profil", label: "Öffentliches Profil", icon: Globe },
-          { id: "konto",  label: "Konto & Sicherheit",  icon: Shield },
+          { id: "profil", label: t("tabPublicProfile"), icon: Globe },
+          { id: "konto",  label: t("tabAccountSecurity"),  icon: Shield },
         ] as const).map(({ id, label, icon: Icon }) => (
           <button
             key={id}
@@ -501,7 +503,7 @@ export default function ProfileTab({ user }: Props) {
           {!profileLoaded && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex items-center justify-center gap-3 text-gray-400">
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span className="text-sm">Profil wird geladen…</span>
+              <span className="text-sm">{t("profileLoading")}</span>
             </div>
           )}
 
@@ -515,12 +517,12 @@ export default function ProfileTab({ user }: Props) {
                   </div>
                   <div>
                     <p className="font-bold text-gray-800 text-sm">
-                      {isPublic ? "Profil ist öffentlich sichtbar" : "Profil ist privat"}
+                      {isPublic ? t("profilePublic") : t("profilePrivate")}
                     </p>
                     <p className="text-xs text-gray-400">
                       {isPublic
-                        ? "Alle Community-Mitglieder können dein Profil sehen"
-                        : "Nur du selbst kannst dein Profil sehen"}
+                        ? t("profilePublicDesc")
+                        : t("profilePrivateDesc")}
                     </p>
                   </div>
                 </div>
@@ -535,11 +537,11 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Grunddaten ── */}
             <SectionCard>
-              <SectionTitle icon={UserIcon} title="Grunddaten" subtitle="Wie stellst du dich der Community vor?" />
+              <SectionTitle icon={UserIcon} title={t("basicData")} subtitle={t("basicDataSub")} />
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5">
-                    Anzeigename <span className="text-red-400">*</span>
+                    {t("displayName")} <span className="text-red-400">*</span>
                   </label>
                   <div className="flex gap-2">
                     <input
@@ -547,14 +549,14 @@ export default function ProfileTab({ user }: Props) {
                       onChange={(e) => setDisplayName(e.target.value)}
                       maxLength={50}
                       className="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#00838F]"
-                      placeholder="Dein Name in der Community"
+                      placeholder={t("displayNamePlaceholder")}
                     />
                     <button
                       onClick={saveName}
                       disabled={nameSaving || !displayName.trim()}
                       className="bg-[#00838F] text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-[#006E7A] transition-colors disabled:opacity-40 whitespace-nowrap"
                     >
-                      {nameSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Speichern"}
+                      {nameSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : t("save")}
                     </button>
                   </div>
                   {nameMsg && <div className="mt-2"><Toast msg={nameMsg} /></div>}
@@ -563,26 +565,26 @@ export default function ProfileTab({ user }: Props) {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5">
-                      <MapPin className="w-3 h-3 inline mr-1" />Wohnort
+                      <MapPin className="w-3 h-3 inline mr-1" />{t("residence")}
                     </label>
                     <input
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       maxLength={60}
                       className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#00838F]"
-                      placeholder="z.B. München, Deutschland"
+                      placeholder={t("residencePlaceholder")}
                     />
                   </div>
                   <div>
                     <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5">
-                      <Globe className="w-3 h-3 inline mr-1" />Herkunftsland
+                      <Globe className="w-3 h-3 inline mr-1" />{t("origin")}
                     </label>
                     <input
                       value={nationality}
                       onChange={(e) => setNationality(e.target.value)}
                       maxLength={40}
                       className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#00838F]"
-                      placeholder="z.B. Deutschland"
+                      placeholder={t("originPlaceholder")}
                     />
                   </div>
                 </div>
@@ -591,21 +593,21 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Bio ── */}
             <SectionCard>
-              <SectionTitle icon={Plane} title="Über mich" subtitle="Erzähl der Community deinen Urlaubgeschichte" />
+              <SectionTitle icon={Plane} title={t("aboutMe")} subtitle={t("aboutMeSub")} />
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 maxLength={400}
                 rows={4}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#00838F] resize-none"
-                placeholder="Erzähl uns von deiner Leidenschaft fürs Reisen, deinen schönsten Erlebnissen oder Urlaubszielen, die du noch entdecken möchtest…"
+                placeholder={t("bioPlaceholder")}
               />
               <p className="text-xs text-gray-400 text-right mt-1">{bio.length}/400</p>
             </SectionCard>
 
             {/* ── Reisetyp ── */}
             <SectionCard>
-              <SectionTitle icon={Compass} title="Mein Reisetyp" subtitle="Wähle den Badge, der am besten zu dir passt" />
+              <SectionTitle icon={Compass} title={t("travelType")} subtitle={t("travelTypeSub")} />
               <div className="grid grid-cols-1 gap-2">
                 {TRAVELER_TYPES.map((t) => (
                   <button
@@ -634,7 +636,7 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Urlaubs-Interessen ── */}
             <SectionCard>
-              <SectionTitle icon={Heart} title="Urlaubs-Interessen" subtitle="Was begeistert dich beim Reisen? (Mehrfachauswahl)" />
+              <SectionTitle icon={Heart} title={t("interests")} subtitle={t("interestsSub")} />
               <div className="grid grid-cols-2 gap-2">
                 {TRAVEL_INTERESTS.map(({ id, label, icon: Icon }) => {
                   const active = travelInterests.includes(id);
@@ -660,7 +662,7 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Reisehäufigkeit ── */}
             <SectionCard>
-              <SectionTitle icon={Plane} title="Wie oft reist du?" subtitle="Deine Reisehäufigkeit pro Jahr" />
+              <SectionTitle icon={Plane} title={t("frequency")} subtitle={t("frequencySub")} />
               <div className="space-y-2">
                 {FREQUENCIES.map(({ id, label }) => (
                   <button
@@ -683,7 +685,7 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Sprachen ── */}
             <SectionCard>
-              <SectionTitle icon={Globe} title="Gesprochene Sprachen" subtitle="Welche Sprachen sprichst du? (Mehrfachauswahl)" />
+              <SectionTitle icon={Globe} title={t("languages")} subtitle={t("languagesSub")} />
               <div className="flex flex-wrap gap-2">
                 {LANGUAGES_OPTIONS.map((lang) => {
                   const active = languages.includes(lang);
@@ -706,7 +708,7 @@ export default function ProfileTab({ user }: Props) {
 
             {/* ── Social Links ── */}
             <SectionCard>
-              <SectionTitle icon={Link2} title="Social Media & Website" subtitle="Optional: Verlinke deinen Urlaub-Accounts" />
+              <SectionTitle icon={Link2} title={t("socialMedia")} subtitle={t("socialMediaSub")} />
               <div className="space-y-3">
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
@@ -727,7 +729,7 @@ export default function ProfileTab({ user }: Props) {
                 </div>
                 <div>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5 flex items-center gap-1">
-                    <Link2 className="w-3 h-3" /> Website / Blog
+                    <Link2 className="w-3 h-3" /> {t("websiteLabel")}
                   </label>
                   <input
                     value={websiteUrl}
@@ -749,14 +751,14 @@ export default function ProfileTab({ user }: Props) {
                 href={`/community/profil/${user.uid}/`}
                 className="text-sm text-teal-600 hover:text-teal-700 font-semibold flex items-center gap-1.5"
               >
-                Öffentliches Profil ansehen <ChevronRight className="w-4 h-4" />
+                {t("viewPublicProfile")} <ChevronRight className="w-4 h-4" />
               </Link>
               <button
                 onClick={saveCommunityProfile}
                 disabled={commSaving}
                 className="bg-[#00838F] text-white text-sm font-bold px-8 py-3 rounded-xl hover:bg-[#006E7A] transition-colors disabled:opacity-50 flex items-center gap-2"
               >
-                {commSaving ? <><Loader2 className="w-4 h-4 animate-spin" /> Speichert…</> : "Profil speichern"}
+                {commSaving ? <><Loader2 className="w-4 h-4 animate-spin" /> {t("saving")}</> : t("saveProfile")}
               </button>
             </div>
           </>}
@@ -770,28 +772,27 @@ export default function ProfileTab({ user }: Props) {
         <div className="space-y-4">
           {/* E-Mail */}
           <SectionCard>
-            <SectionTitle icon={Mail} title="E-Mail-Adresse" />
+            <SectionTitle icon={Mail} title={t("emailTitle")} />
             <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3">
               <Mail className="w-4 h-4 text-gray-400" />
               <span className="text-sm text-gray-700">{user.email}</span>
               <span className="ml-auto text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">
-                Verifiziert
+                {t("emailVerified")}
               </span>
             </div>
             <p className="text-xs text-gray-400 mt-2">
-              E-Mail-Änderungen sind aus Sicherheitsgründen nicht im Profil möglich.
-              Bitte wende dich an unseren Support.
+              {t("emailChangeNote")}
             </p>
           </SectionCard>
 
           {/* Passwort */}
           <SectionCard>
-            <SectionTitle icon={Lock} title="Passwort ändern" subtitle="Mindestens 6 Zeichen" />
+            <SectionTitle icon={Lock} title={t("passwordTitle")} subtitle={t("passwordSub")} />
             <div className="space-y-3">
               {[
-                { label: "Aktuelles Passwort",        value: pwCurrent, set: setPwCurrent },
-                { label: "Neues Passwort",             value: pwNew,     set: setPwNew },
-                { label: "Neues Passwort wiederholen", value: pwConfirm, set: setPwConfirm },
+                { label: t("currentPassword"),        value: pwCurrent, set: setPwCurrent },
+                { label: t("newPassword"),             value: pwNew,     set: setPwNew },
+                { label: t("confirmPassword"), value: pwConfirm, set: setPwConfirm },
               ].map(({ label, value, set }) => (
                 <div key={label}>
                   <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide block mb-1.5">
@@ -821,7 +822,7 @@ export default function ProfileTab({ user }: Props) {
               disabled={pwSaving || !pwCurrent || !pwNew || !pwConfirm}
               className="mt-4 bg-gray-800 text-white text-sm font-semibold px-6 py-2.5 rounded-xl hover:bg-gray-900 transition-colors disabled:opacity-40 flex items-center gap-2"
             >
-              {pwSaving ? <><Loader2 className="w-4 h-4 animate-spin" /> Ändert…</> : <><Lock className="w-4 h-4" /> Passwort ändern</>}
+              {pwSaving ? <><Loader2 className="w-4 h-4 animate-spin" /> {t("changingPassword")}</> : <><Lock className="w-4 h-4" /> {t("changePassword")}</>}
             </button>
           </SectionCard>
 

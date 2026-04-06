@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Heart, MapPin, CheckSquare,
@@ -29,35 +30,36 @@ import MeineKartenTippsTab  from "@/components/dashboard/MeineKartenTippsTab";
 
 type Tab = "overview" | "trips" | "activities" | "wishlist" | "checklist" | "pricealerts" | "tripplanner" | "documents" | "laender" | "berichte" | "gruppen" | "checkin" | "profile" | "settings" | "admin-traveltips" | "kartentipps";
 
-const NAV: { id: Tab; label: string; icon: React.ElementType; badge?: number }[] = [
+const NAV_ITEMS: { id: Tab; labelKey: string; icon: React.ElementType; badge?: number }[] = [
   // Übersicht
-  { id: "overview",     label: "Übersicht",              icon: LayoutDashboard },
+  { id: "overview",     labelKey: "overview",        icon: LayoutDashboard },
   // Planung
-  { id: "tripplanner",  label: "Urlaubsplanung",          icon: Map },
-  { id: "checklist",    label: "Urlaubs-Checkliste",      icon: CheckSquare },
-  { id: "documents",    label: "Urlaubsdokumente",        icon: FileText },
+  { id: "tripplanner",  labelKey: "tripPlanner",     icon: Map },
+  { id: "checklist",    labelKey: "checklist",       icon: CheckSquare },
+  { id: "documents",    labelKey: "documents",       icon: FileText },
   // Gespeichertes
-  { id: "trips",        label: "Meine Hotels",            icon: Heart },
-  { id: "activities",   label: "Meine Aktivitäten",       icon: Ticket },
-  { id: "wishlist",     label: "Wunschliste",              icon: MapPin },
-  { id: "pricealerts",  label: "Preisalarme",              icon: Bell },
+  { id: "trips",        labelKey: "myHotels",        icon: Heart },
+  { id: "activities",   labelKey: "myActivities",    icon: Ticket },
+  { id: "wishlist",     labelKey: "wishlist",        icon: MapPin },
+  { id: "pricealerts",  labelKey: "priceAlerts",     icon: Bell },
   // Community
-  { id: "laender",      label: "Meine Länder",             icon: Globe },
-  { id: "berichte",     label: "Meine Urlaubsberichte",    icon: BookOpen },
-  { id: "gruppen",      label: "Meine Urlaubs-Gruppen",    icon: Users2 },
-  { id: "kartentipps",  label: "Meine Karten-Tipps",       icon: Navigation },
+  { id: "laender",      labelKey: "myCountries",     icon: Globe },
+  { id: "berichte",     labelKey: "myReports",       icon: BookOpen },
+  { id: "gruppen",      labelKey: "myGroups",        icon: Users2 },
+  { id: "kartentipps",  labelKey: "myMapTips",       icon: Navigation },
   // Engagement
-  { id: "checkin",           label: "Daily Check-in",           icon: Flame },
+  { id: "checkin",           labelKey: "dailyCheckIn",     icon: Flame },
   // Account
-  { id: "profile",           label: "Mein Profil",              icon: User },
-  { id: "settings",          label: "Einstellungen",            icon: Settings },
+  { id: "profile",           labelKey: "myProfile",        icon: User },
+  { id: "settings",          labelKey: "settings",         icon: Settings },
   // Admin (wird per Rolle gefiltert)
-  { id: "admin-traveltips",  label: "Karten-Tipps moderieren",  icon: ShieldCheck },
+  { id: "admin-traveltips",  labelKey: "moderateTips",     icon: ShieldCheck },
 ];
 
 export default function DashboardPage() {
   const { user, userProfile, logout, loading, refreshProfile } = useAuth();
   const router = useRouter();
+  const t = useTranslations("dashboardPage");
   const [tab, setTab]             = useState<Tab>("overview");
   const [sidebarOpen, setSidebar] = useState(false);
 
@@ -85,7 +87,7 @@ export default function DashboardPage() {
   }
 
   const isAdmin = userProfile?.role === "admin" || userProfile?.role === "moderator";
-  const visibleNav = NAV.filter((n) => n.id !== "admin-traveltips" || isAdmin);
+  const visibleNav = NAV_ITEMS.filter((n) => n.id !== "admin-traveltips" || isAdmin);
 
   const initials = (user.displayName || user.email || "U")
     .split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
@@ -115,7 +117,7 @@ export default function DashboardPage() {
             </div>
             <div className="min-w-0">
               <p className="font-bold text-gray-900 truncate">
-                {user.displayName || "Urlauber"}
+                {user.displayName || t("traveler")}
               </p>
               <p className="text-xs text-gray-500 truncate">{user.email}</p>
             </div>
@@ -130,7 +132,7 @@ export default function DashboardPage() {
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          {visibleNav.map(({ id, label, icon: Icon, badge }) => (
+          {visibleNav.map(({ id, labelKey, icon: Icon, badge }) => (
             <button
               key={id}
               onClick={() => { setTab(id); setSidebar(false); }}
@@ -141,7 +143,7 @@ export default function DashboardPage() {
               }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
-              <span className="flex-1 text-left">{label}</span>
+              <span className="flex-1 text-left">{t(labelKey)}</span>
               {badge !== undefined && badge > 0 && (
                 <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                   tab === id ? "bg-white/20 text-white" : "bg-[#00838F]/10 text-[#00838F]"
@@ -160,7 +162,7 @@ export default function DashboardPage() {
             className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-colors"
           >
             <LogOut className="w-4 h-4 shrink-0" />
-            Abmelden
+            {t("signOut")}
           </button>
         </div>
       </aside>
@@ -179,7 +181,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2">
             <Palmtree className="w-5 h-5 text-[#00838F]" />
             <span className="font-bold text-gray-900 text-sm">
-              {NAV.find((n) => n.id === tab)?.label}
+              {t(NAV_ITEMS.find((n) => n.id === tab)?.labelKey ?? "overview")}
             </span>
           </div>
         </div>

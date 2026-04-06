@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { getTravelReports, getCommunityProfiles, getLatestApprovedTips } from "@/lib/supabase-db";
 import { TravelReport, CommunityProfile, TravelTip } from "@/types";
 import TravelReportCard from "@/components/community/TravelReportCard";
@@ -157,6 +158,7 @@ const DEMO_TIPS: TravelTip[] = [
 ];
 
 export default function CommunityPageClient() {
+  const t = useTranslations("communityPage");
   const [reports, setReports] = useState<TravelReport[]>([]);
   const [members, setMembers] = useState<CommunityProfile[]>([]);
   const [tips, setTips]       = useState<TravelTip[]>([]);
@@ -164,10 +166,10 @@ export default function CommunityPageClient() {
 
   useEffect(() => {
     Promise.all([getTravelReports(6), getCommunityProfiles(6), getLatestApprovedTips(8)])
-      .then(([r, m, t]) => {
+      .then(([r, m, tp]) => {
         setReports(r.length > 0 ? r : DEMO_REPORTS);
         setMembers(m.length > 0 ? m : DEMO_MEMBERS);
-        setTips(t.length > 0 ? t : DEMO_TIPS);
+        setTips(tp.length > 0 ? tp : DEMO_TIPS);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -180,13 +182,13 @@ export default function CommunityPageClient() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide py-0.5">
             {[
-              { href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" />, label: "Urlaubsberichte" },
-              { href: "/community/gruppen/",       icon: <Users2 className="w-4 h-4" />,   label: "Gruppen" },
-              { href: "/community/mitglieder/",    icon: <Users className="w-4 h-4" />,    label: "Mitglieder" },
-              { href: "/feed/",                    icon: <Play className="w-4 h-4" />,      label: "Urlaubs-Feed" },
-              { href: "/travel-buddies/",          icon: <UserSearch className="w-4 h-4" />,label: "Travel Buddies" },
-              { href: "/reiserouten/",             icon: <Route className="w-4 h-4" />,     label: "Urlaubsrouten" },
-              { href: "/extras/reisenden-karte/",  icon: <Map className="w-4 h-4" />,      label: "Reisenden-Karte" },
+              { href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" />, label: t("navReports") },
+              { href: "/community/gruppen/",       icon: <Users2 className="w-4 h-4" />,   label: t("navGroups") },
+              { href: "/community/mitglieder/",    icon: <Users className="w-4 h-4" />,    label: t("navMembers") },
+              { href: "/feed/",                    icon: <Play className="w-4 h-4" />,      label: t("navFeed") },
+              { href: "/travel-buddies/",          icon: <UserSearch className="w-4 h-4" />,label: t("navTravelBuddies") },
+              { href: "/reiserouten/",             icon: <Route className="w-4 h-4" />,     label: t("navRoutes") },
+              { href: "/extras/reisenden-karte/",  icon: <Map className="w-4 h-4" />,      label: t("navTravelerMap") },
             ].map((n) => (
               <Link key={n.href} href={n.href}
                 className="flex items-center gap-1.5 px-4 py-3 text-sm font-semibold text-gray-600 hover:text-teal-700 hover:bg-teal-50 rounded-lg whitespace-nowrap transition-colors"
@@ -204,10 +206,10 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-              Neueste Urlaubsberichte
+              {t("latestReports")}
             </h2>
             <Link href="/community/reiseberichte/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Alle <ArrowRight className="w-3.5 h-3.5" />
+              {t("allReports")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           {loading ? (
@@ -219,9 +221,9 @@ export default function CommunityPageClient() {
           ) : reports.length === 0 ? (
             <div className="text-center py-12 text-gray-400">
               <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-30" />
-              <p>Noch keine Berichte – sei der Erste!</p>
+              <p>{t("noReports")}</p>
               <Link href="/dashboard/" className="mt-3 inline-block text-teal-600 font-semibold hover:underline">
-                Bericht schreiben →
+                {t("writeReport")}
               </Link>
             </div>
           ) : (
@@ -236,16 +238,16 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Users className="w-5 h-5 text-teal-600" />
-              Aktive Mitglieder
+              {t("activeMembers")}
             </h2>
             <Link href="/community/mitglieder/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Alle <ArrowRight className="w-3.5 h-3.5" />
+              {t("allMembers")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {members.slice(0, 3).map((m) => <UserProfileCard key={m.uid} profile={m} />)}
             {members.length === 0 && !loading && (
-              <p className="text-gray-400 col-span-3 text-center py-8">Noch keine Mitglieder registriert.</p>
+              <p className="text-gray-400 col-span-3 text-center py-8">{t("noMembers")}</p>
             )}
           </div>
         </section>
@@ -255,10 +257,10 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Navigation className="w-5 h-5 text-teal-600" />
-              Geheimtipps & Orte der Community
+              {t("tipsSection")}
             </h2>
             <Link href="/extras/reisenden-karte/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Alle auf der Karte <ArrowRight className="w-3.5 h-3.5" />
+              {t("tipsAll")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -313,7 +315,7 @@ export default function CommunityPageClient() {
                         {tip.description}
                       </p>
 
-                      <p className="text-[10px] text-gray-400 mt-2 font-medium">von {tip.displayName}</p>
+                      <p className="text-[10px] text-gray-400 mt-2 font-medium">{t("tipBy", { name: tip.displayName })}</p>
                     </div>
                   </Link>
                 );
@@ -327,8 +329,8 @@ export default function CommunityPageClient() {
                 <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
                   <MapPin className="w-6 h-6 text-teal-600" />
                 </div>
-                <p className="font-bold text-teal-700 text-sm group-hover:text-teal-800">Eigenen Tipp teilen</p>
-                <p className="text-[11px] text-teal-500">Markiere deinen Lieblingsort auf der Karte</p>
+                <p className="font-bold text-teal-700 text-sm group-hover:text-teal-800">{t("tipShare")}</p>
+                <p className="text-[11px] text-teal-500">{t("tipShareDesc")}</p>
               </Link>
             </div>
           )}
@@ -339,17 +341,17 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Play className="w-5 h-5 text-rose-500 fill-rose-500" />
-              Urlaubs-Feed
+              {t("feedSection")}
             </h2>
             <Link href="/feed/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Zum Feed <ArrowRight className="w-3.5 h-3.5" />
+              {t("toFeed")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           <div className="relative rounded-3xl overflow-hidden h-64 bg-linear-to-br from-rose-500 to-orange-400 flex items-center justify-center shadow-lg group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80"
-              alt="Urlaubs-Feed"
+              alt={t("feedSection")}
               className="absolute inset-0 w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
@@ -357,10 +359,10 @@ export default function CommunityPageClient() {
               <div className="w-14 h-14 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center mx-auto">
                 <Play className="w-7 h-7 text-white fill-white ml-1" />
               </div>
-              <p className="font-bold text-lg drop-shadow">Tägliche Urlaubsinspiration</p>
-              <p className="text-sm text-white/80 drop-shadow">Fotos & Videos aus aller Welt – scrolle, like & teile</p>
+              <p className="font-bold text-lg drop-shadow">{t("feedTitle")}</p>
+              <p className="text-sm text-white/80 drop-shadow">{t("feedDesc")}</p>
               <Link href="/feed/" className="inline-block bg-white text-rose-600 font-bold text-sm px-6 py-2.5 rounded-full hover:bg-rose-50 transition-colors shadow-md">
-                Feed öffnen →
+                {t("openFeed")}
               </Link>
             </div>
           </div>
@@ -371,10 +373,10 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <UserSearch className="w-5 h-5 text-teal-600" />
-              Travel Buddies
+              {t("travelBuddies")}
             </h2>
             <Link href="/travel-buddies/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Alle anzeigen <ArrowRight className="w-3.5 h-3.5" />
+              {t("showAll")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
@@ -394,7 +396,7 @@ export default function CommunityPageClient() {
           </div>
           <p className="text-center mt-4">
             <Link href="/travel-buddies/" className="text-sm text-teal-600 font-semibold hover:underline">
-              Jetzt Urlaubspartner finden →
+              {t("findPartner")}
             </Link>
           </p>
         </section>
@@ -404,10 +406,10 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Route className="w-5 h-5 text-indigo-500" />
-              Urlaubsrouten – teilen &amp; klonen
+              {t("routesSection")}
             </h2>
             <Link href="/reiserouten/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
-              Alle Routen <ArrowRight className="w-3.5 h-3.5" />
+              {t("allRoutes")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
           <div className="bg-linear-to-br from-indigo-50 to-purple-50 rounded-3xl border border-indigo-100 p-8 flex flex-col sm:flex-row items-center gap-6">
@@ -415,17 +417,16 @@ export default function CommunityPageClient() {
               <Route className="w-10 h-10 text-indigo-500" />
             </div>
             <div className="flex-1 text-center sm:text-left">
-              <h3 className="font-bold text-gray-900 text-lg mb-1">Lass dich von anderen Reisenden inspirieren</h3>
+              <h3 className="font-bold text-gray-900 text-lg mb-1">{t("routesTitle")}</h3>
               <p className="text-gray-600 text-sm mb-4">
-                Andere Nutzer teilen ihre kompletten Urlaubspläne – Ziel, Daten, Reisende, Budget und Notizen.
-                Du kannst jede Route mit einem Klick in deine eigene Planung übernehmen.
+                {t("routesDesc")}
               </p>
               <div className="flex gap-3 justify-center sm:justify-start flex-wrap">
                 <Link href="/reiserouten/" className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-5 py-2 rounded-full text-sm transition-colors">
-                  Routen entdecken
+                  {t("discoverRoutes")}
                 </Link>
                 <Link href="/dashboard/" className="border border-indigo-300 text-indigo-700 font-bold px-5 py-2 rounded-full text-sm hover:bg-indigo-50 transition-colors">
-                  Eigene Route teilen
+                  {t("shareRoute")}
                 </Link>
               </div>
             </div>
@@ -437,15 +438,15 @@ export default function CommunityPageClient() {
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-xl font-black text-gray-800 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-amber-500" />
-              Entdecke mehr mit Urlaubfinder365
+              {t("discoverMore")}
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: Sparkles, color: "bg-amber-50 text-amber-600 border-amber-100", title: "KI-Empfehlungen", desc: "Personalisierte Urlaubsvorschläge basierend auf deinem Stil", href: "/dashboard/" },
-              { icon: Brain, color: "bg-indigo-50 text-indigo-600 border-indigo-100", title: "Daily Quiz", desc: "Teste täglich dein Geographiewissen und sammle Punkte", href: "/dashboard/" },
-              { icon: Flame, color: "bg-orange-50 text-orange-600 border-orange-100", title: "Streak & Coins", desc: "Check-in jeden Tag und verdiene Travel Coins", href: "/dashboard/" },
-              { icon: Map, color: "bg-teal-50 text-teal-600 border-teal-100", title: "Reisenden-Karte", desc: "Markiere bereiste Länder und sammle Achievements", href: "/extras/reisenden-karte/" },
+              { icon: Sparkles, color: "bg-amber-50 text-amber-600 border-amber-100", title: t("featureAi"), desc: t("featureAiDesc"), href: "/dashboard/" },
+              { icon: Brain, color: "bg-indigo-50 text-indigo-600 border-indigo-100", title: t("featureQuiz"), desc: t("featureQuizDesc"), href: "/dashboard/" },
+              { icon: Flame, color: "bg-orange-50 text-orange-600 border-orange-100", title: t("featureStreak"), desc: t("featureStreakDesc"), href: "/dashboard/" },
+              { icon: Map, color: "bg-teal-50 text-teal-600 border-teal-100", title: t("featureMap"), desc: t("featureMapDesc"), href: "/extras/reisenden-karte/" },
             ].map(({ icon: Icon, color, title, desc, href }) => (
               <Link key={href + title} href={href}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all group"
@@ -463,16 +464,16 @@ export default function CommunityPageClient() {
         {/* CTA */}
         <section className="bg-linear-to-r from-teal-50 to-cyan-50 rounded-3xl p-8 text-center border border-teal-100">
           <MessageCircle className="w-10 h-10 text-teal-500 mx-auto mb-3" />
-          <h2 className="text-2xl font-black text-gray-800 mb-2">Mach mit!</h2>
+          <h2 className="text-2xl font-black text-gray-800 mb-2">{t("ctaTitle")}</h2>
           <p className="text-gray-600 mb-5 max-w-md mx-auto">
-            Teile deine Urlaubserfahrungen, hilf anderen Reisenden und werde Teil der Urlaubfinder365 Community.
+            {t("ctaDesc")}
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link href="/register/" className="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2.5 rounded-full text-sm transition-colors">
-              Jetzt kostenlos registrieren
+              {t("registerFree")}
             </Link>
             <Link href="/login/" className="border border-teal-300 text-teal-700 font-bold px-6 py-2.5 rounded-full text-sm hover:bg-teal-50 transition-colors">
-              Anmelden
+              {t("signIn")}
             </Link>
           </div>
         </section>

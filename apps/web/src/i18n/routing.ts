@@ -1,6 +1,6 @@
 import { defineRouting } from "next-intl/routing";
 
-export const locales = ["de", "en", "tr", "es", "fr", "it", "pl", "ru", "ar", "zh"] as const;
+export const locales = ["de", "en", "tr", "es", "fr", "it", "pl", "ru", "ar", "zh", "ko", "vi"] as const;
 export type Locale = (typeof locales)[number];
 
 export const routing = defineRouting({
@@ -21,6 +21,8 @@ export const localeNames: Record<Locale, string> = {
   ru: "Русский",
   ar: "العربية",
   zh: "中文",
+  ko: "한국어",
+  vi: "Tiếng Việt",
 };
 
 export const localeFlagCodes: Record<Locale, string> = {
@@ -34,6 +36,8 @@ export const localeFlagCodes: Record<Locale, string> = {
   ru: "ru",
   ar: "sa",
   zh: "cn",
+  ko: "kr",
+  vi: "vn",
 };
 
 /** Basis-URL für hreflang-Tags */

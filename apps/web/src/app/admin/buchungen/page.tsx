@@ -1,18 +1,24 @@
 import { createSupabaseServer } from "@/lib/supabase-server";
 import type { Metadata } from "next";
 import AdminTicketModal from "@/components/admin/AdminTicketModal";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = { title: "Buchungen | Admin" };
-
-const STATUS_INFO: Record<string, { label: string; cls: string }> = {
-  ausstehend:    { label: "⏳ Ausstehend",   cls: "bg-amber-900/40 text-amber-400" },
-  bestaetigt:    { label: "✓ Bestätigt",     cls: "bg-blue-900/40 text-blue-400" },
-  abgeschlossen: { label: "✅ Abgeschlossen", cls: "bg-emerald-900/40 text-emerald-400" },
-  storniert:     { label: "✗ Storniert",     cls: "bg-red-900/40 text-red-400" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("adminPage.bookings");
+  return { title: t("title") };
+}
 
 export default async function AdminBuchungenPage() {
+  const t = await getTranslations("adminPage.bookings");
   const supabase = await createSupabaseServer();
+
+  const STATUS_INFO: Record<string, { label: string; cls: string }> = {
+    ausstehend:    { label: t("statusPending"),   cls: "bg-amber-900/40 text-amber-400" },
+    bestaetigt:    { label: t("statusConfirmed"),  cls: "bg-blue-900/40 text-blue-400" },
+    abgeschlossen: { label: t("statusCompleted"),  cls: "bg-emerald-900/40 text-emerald-400" },
+    storniert:     { label: t("statusCancelled"),  cls: "bg-red-900/40 text-red-400" },
+  };
+
   const { data: buchungen } = await supabase
     .from("buchungen")
     .select("id, buchungs_nummer, kunden_name, kunden_email, datum, personen, gesamtpreis, provision_betrag, auszahlungs_betrag, status, created_at, anbieter_id")
@@ -31,14 +37,14 @@ export default async function AdminBuchungenPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-black text-white">Buchungen</h1>
+        <h1 className="text-2xl font-black text-white">{t("heading")}</h1>
         <div className="flex gap-4 text-sm">
           <div className="text-right">
-            <p className="text-gray-500 text-xs">Gesamtumsatz</p>
+            <p className="text-gray-500 text-xs">{t("statRevenue")}</p>
             <p className="font-black text-white">{gesamt.toFixed(2)} €</p>
           </div>
           <div className="text-right">
-            <p className="text-gray-500 text-xs">Unsere Provision</p>
+            <p className="text-gray-500 text-xs">{t("statProvision")}</p>
             <p className="font-black text-[#00838F]">{provision.toFixed(2)} €</p>
           </div>
         </div>
@@ -49,15 +55,15 @@ export default async function AdminBuchungenPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-800 text-xs text-gray-500 uppercase">
-                <th className="px-4 py-3 text-left">Buchung</th>
-                <th className="px-4 py-3 text-left">Kunde</th>
-                <th className="px-4 py-3 text-left">Anbieter</th>
-                <th className="px-4 py-3 text-left">Datum</th>
-                <th className="px-4 py-3 text-right">Betrag</th>
-                <th className="px-4 py-3 text-right">Provision</th>
-                <th className="px-4 py-3 text-right">An Anbieter</th>
-                <th className="px-4 py-3 text-center">Status</th>
-                <th className="px-4 py-3 text-center">Ticket</th>
+                <th className="px-4 py-3 text-left">{t("colBooking")}</th>
+                <th className="px-4 py-3 text-left">{t("colCustomer")}</th>
+                <th className="px-4 py-3 text-left">{t("colProvider")}</th>
+                <th className="px-4 py-3 text-left">{t("colDate")}</th>
+                <th className="px-4 py-3 text-right">{t("colAmount")}</th>
+                <th className="px-4 py-3 text-right">{t("colProvision")}</th>
+                <th className="px-4 py-3 text-right">{t("colToProvider")}</th>
+                <th className="px-4 py-3 text-center">{t("colStatus")}</th>
+                <th className="px-4 py-3 text-center">{t("colTicket")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-800">
@@ -98,7 +104,7 @@ export default async function AdminBuchungenPage() {
             </tbody>
           </table>
           {(buchungen ?? []).length === 0 && (
-            <p className="py-10 text-center text-gray-500 text-sm">Noch keine Buchungen.</p>
+            <p className="py-10 text-center text-gray-500 text-sm">{t("noBookings")}</p>
           )}
         </div>
       </div>
