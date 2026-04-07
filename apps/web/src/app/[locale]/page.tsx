@@ -417,7 +417,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
 
         {/* ── Haupt-Content ── */}
-        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-32 pb-6" style={{ overflow: "visible" }}>
+        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-32" style={{ overflow: "visible" }}>
 
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4">
@@ -449,17 +449,19 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
 
           {/* ── Trustpilot ── */}
-          <div className="mb-4">
+          <div className="mb-3">
             <TrustpilotWidget theme="dark" />
           </div>
 
-          {/* ── SearchBox (nativer Embed – überträgt Auswahl auf Zielseite) ── */}
-          <div style={{ overflow: "visible", position: "relative", zIndex: 20 }}>
-            <HomeSuchbox />
+          {/* ── SearchBox – gleiche Kante wie Trustpilot ── */}
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8" style={{ overflow: "visible", position: "relative", zIndex: 20 }}>
+            <div className="px-4 sm:px-6 lg:px-8">
+              <HomeSuchbox />
+            </div>
           </div>
 
-          {/* ── QuickCategories – transparent, Headerbild dahinter ── */}
-          <div className="-mx-4 sm:-mx-6 lg:-mx-8" style={{ position: "relative", zIndex: 1 }}>
+          {/* ── QuickCategories – volle Breite ── */}
+          <div className="-mx-4 sm:-mx-6 lg:-mx-8" style={{ zIndex: 1 }}>
             <QuickCategories transparent />
           </div>
 

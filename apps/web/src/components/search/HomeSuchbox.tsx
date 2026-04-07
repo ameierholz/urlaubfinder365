@@ -3,11 +3,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Search, MapPin, Plane, Calendar, Users, ChevronDown, X, Check } from "lucide-react";
+import { DESTINATION_REGION_MAP } from "@/lib/search-params";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type TabKey = "urlaub" | "lastminute" | "hotel" | "flug" | "mietwagen" | "kreuzfahrt";
-type OverlayKey = "destination" | "airport" | "date" | "travelers" | "flugVon" | "flugNach" | "cruiseArea" | "mietAbhol" | "mietRueck" | null;
+type OverlayKey = "destination" | "airport" | "date" | "travelers" | "flugVon" | "flugNach" | "cruiseArea" | "cruiseLine" | "mietAbhol" | "mietRueck" | null;
 
 interface Tab {
   key: TabKey;
@@ -300,6 +301,7 @@ export default function HomeSuchbox() {
 
   // Cruise
   const [cruiseArea, setCruiseArea] = useState("Alle Gebiete");
+  const [cruiseLine, setCruiseLine] = useState("Alle Reedereien");
 
   // Mietwagen
   const [mietAbhol, setMietAbhol] = useState("");
@@ -385,7 +387,9 @@ export default function HomeSuchbox() {
         const fromDays = departure ? daysBetween(today, departure) : 1;
         const toDays = returnDate ? daysBetween(today, returnDate) : fromDays + duration;
         const params = new URLSearchParams();
-        if (destination) params.set("destination", destination);
+        const regionId = destination ? DESTINATION_REGION_MAP[destination] : undefined;
+        if (regionId) params.set("regionId", regionId);
+        else if (destination) params.set("destination", destination);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("from", String(fromDays));
         params.set("to", String(toDays));
@@ -397,7 +401,9 @@ export default function HomeSuchbox() {
       }
       case "lastminute": {
         const params = new URLSearchParams();
-        if (destination) params.set("destination", destination);
+        const regionId = destination ? DESTINATION_REGION_MAP[destination] : undefined;
+        if (regionId) params.set("regionId", regionId);
+        else if (destination) params.set("destination", destination);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("duration", `${duration}-${duration}`);
         params.set("adults", String(adults));
@@ -578,7 +584,7 @@ export default function HomeSuchbox() {
                   return (
                     <label
                       key={ap.code}
-                      className="flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
                     >
                       <span className={`w-4.5 h-4.5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${checked ? "bg-[#1db682] border-[#1db682]" : "border-gray-300"}`}>
                         {checked && <Check className="w-3 h-3 text-white" />}
@@ -589,8 +595,8 @@ export default function HomeSuchbox() {
                         checked={checked}
                         onChange={() => toggleAirport(ap.code)}
                       />
-                      <span className="text-sm text-[#1a2e4a] font-medium">{ap.name}</span>
-                      <span className="text-xs text-gray-400 ml-auto">{ap.code}</span>
+                      <span className="flex-1 text-sm text-[#1a2e4a] font-medium">{ap.name}</span>
+                      <span className="text-xs font-mono text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">{ap.code}</span>
                     </label>
                   );
                 })}
@@ -724,65 +730,58 @@ export default function HomeSuchbox() {
       case "urlaub":
       case "lastminute":
         return (
-          <>
-            {/* Row 1 */}
-            <div className="flex flex-col md:flex-row">
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Reiseziel"
-                  value={destination || "Wohin soll es gehen?"}
-                  onClick={() => setOpenOverlay(openOverlay === "destination" ? null : "destination")}
-                  active={openOverlay === "destination"}
-                />
-                {renderDestinationOverlay()}
-              </div>
-
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Abflughafen"
-                  value={airportDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "airport" ? null : "airport")}
-                  active={openOverlay === "airport"}
-                />
-                {renderAirportOverlay()}
-              </div>
-
-              {/* Submit – desktop only inline */}
-              <div className="hidden md:flex items-center px-3">
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20"
-                >
-                  <Search className="w-5 h-5" />
-                  Angebote finden
-                </button>
-              </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Reiseziel"
+                value={destination || "Wohin soll es gehen?"}
+                onClick={() => setOpenOverlay(openOverlay === "destination" ? null : "destination")}
+                active={openOverlay === "destination"}
+              />
+              {renderDestinationOverlay()}
             </div>
 
-            {/* Row 2 */}
-            <div className="flex flex-col md:flex-row border-t border-gray-200">
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Reisezeitraum"
-                  value={activeTab === "lastminute" ? `Nächste 14 Tage, ${duration > 0 ? `${duration} Nächte` : "Beliebig"}` : dateDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
-                  active={openOverlay === "date"}
-                />
-                {renderDateOverlay()}
-              </div>
-
-              <div className="relative flex-3/2">
-                <FieldBox
-                  label="Reisende"
-                  value={travelerDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
-                  active={openOverlay === "travelers"}
-                />
-                {renderTravelersOverlay()}
-              </div>
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Abflughafen"
+                value={airportDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "airport" ? null : "airport")}
+                active={openOverlay === "airport"}
+              />
+              {renderAirportOverlay()}
             </div>
-          </>
+
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Reisezeitraum"
+                value={activeTab === "lastminute" ? `Nächste 14 Tage, ${duration > 0 ? `${duration} Nächte` : "Beliebig"}` : dateDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
+                active={openOverlay === "date"}
+              />
+              {renderDateOverlay()}
+            </div>
+
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Reisende"
+                value={travelerDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
+                active={openOverlay === "travelers"}
+              />
+              {renderTravelersOverlay()}
+            </div>
+
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20 whitespace-nowrap"
+              >
+                <Search className="w-4 h-4" />
+                Angebote finden
+              </button>
+            </div>
+          </div>
         );
 
       case "hotel":
@@ -819,9 +818,9 @@ export default function HomeSuchbox() {
                 {renderTravelersOverlay()}
               </div>
 
-              <div className="hidden md:flex items-center px-3">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20">
-                  <Search className="w-5 h-5" />
+              <div className="hidden md:flex items-center px-4 shrink-0">
+                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                  <Search className="w-4 h-4" />
                   Hotels finden
                 </button>
               </div>
@@ -831,223 +830,163 @@ export default function HomeSuchbox() {
 
       case "flug":
         return (
-          <>
-            <div className="flex flex-col md:flex-row">
-              {/* Von */}
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Von"
-                  value={flugVon || "Abflughafen"}
-                  onClick={() => setOpenOverlay(openOverlay === "flugVon" ? null : "flugVon")}
-                  active={openOverlay === "flugVon"}
-                />
-                {openOverlay === "flugVon" && (
-                  <Overlay>
-                    <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Abflughafen wählen</div>
-                    <div className="max-h-75 overflow-y-auto space-y-0.5">
-                      {AIRPORT_GROUPS.flatMap((g) => g.airports).map((ap) => (
-                        <button
-                          key={ap.code}
-                          type="button"
-                          onClick={() => { setFlugVon(`${ap.name} (${ap.code})`); closeOverlay(); }}
-                          className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${flugVon.includes(ap.code) ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}
-                        >
-                          <span className="font-medium">{ap.name}</span> <span className="text-gray-400">{ap.code}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </Overlay>
-                )}
-              </div>
-
-              {/* Nach */}
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Nach"
-                  value={flugNach || "Zielflughafen"}
-                  onClick={() => setOpenOverlay(openOverlay === "flugNach" ? null : "flugNach")}
-                  active={openOverlay === "flugNach"}
-                />
-                {openOverlay === "flugNach" && (
-                  <Overlay>
-                    <input
-                      type="text"
-                      placeholder="Zielflughafen eingeben..."
-                      value={flugNach}
-                      onChange={(e) => setFlugNach(e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/30"
-                      autoFocus
-                    />
-                  </Overlay>
-                )}
-              </div>
-
-              {/* Datum */}
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label={flugRoundtrip ? "Hin- & Rückflug" : "Hinflug"}
-                  value={departure ? (flugRoundtrip && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : formatDate(departure)) : "Datum wählen"}
-                  onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
-                  active={openOverlay === "date"}
-                />
-                {renderDateOverlay()}
-              </div>
-
-              <div className="hidden md:flex items-center px-3">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20">
-                  <Search className="w-5 h-5" />
-                  Flüge finden
-                </button>
-              </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Von"
+                value={flugVon || "Abflughafen"}
+                onClick={() => setOpenOverlay(openOverlay === "flugVon" ? null : "flugVon")}
+                active={openOverlay === "flugVon"}
+              />
+              {openOverlay === "flugVon" && (
+                <Overlay>
+                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Abflughafen wählen</div>
+                  <div className="max-h-75 overflow-y-auto space-y-0.5">
+                    {AIRPORT_GROUPS.flatMap((g) => g.airports).map((ap) => (
+                      <button key={ap.code} type="button"
+                        onClick={() => { setFlugVon(`${ap.name} (${ap.code})`); closeOverlay(); }}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${flugVon.includes(ap.code) ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}>
+                        <span className="font-medium">{ap.name}</span> <span className="text-gray-400">{ap.code}</span>
+                      </button>
+                    ))}
+                  </div>
+                </Overlay>
+              )}
             </div>
-
-            {/* Row 2: toggles + travelers */}
-            <div className="flex flex-col md:flex-row border-t border-gray-200">
-              <div className="flex-2 flex items-center px-4 py-3 gap-4 border-b md:border-b-0 md:border-r border-gray-200">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="flugType" checked={flugRoundtrip} onChange={() => setFlugRoundtrip(true)} className="accent-[#1db682]" />
-                  <span className="text-sm text-[#1a2e4a] font-medium">Hin & Rück</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="flugType" checked={!flugRoundtrip} onChange={() => setFlugRoundtrip(false)} className="accent-[#1db682]" />
-                  <span className="text-sm text-[#1a2e4a] font-medium">Nur Hinflug</span>
-                </label>
-              </div>
-              <div className="relative flex-3/2">
-                <FieldBox
-                  label="Reisende"
-                  value={travelerDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
-                  active={openOverlay === "travelers"}
-                />
-                {renderTravelersOverlay()}
-              </div>
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label="Nach"
+                value={flugNach || "Zielflughafen"}
+                onClick={() => setOpenOverlay(openOverlay === "flugNach" ? null : "flugNach")}
+                active={openOverlay === "flugNach"}
+              />
+              {openOverlay === "flugNach" && (
+                <Overlay>
+                  <input type="text" placeholder="Zielflughafen eingeben..." value={flugNach}
+                    onChange={(e) => setFlugNach(e.target.value)}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682]" autoFocus />
+                </Overlay>
+              )}
             </div>
-          </>
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox
+                label={flugRoundtrip ? "Hin- & Rückflug" : "Hinflug"}
+                value={departure ? (flugRoundtrip && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : formatDate(departure)) : "Datum wählen"}
+                onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
+                active={openOverlay === "date"}
+              />
+              {renderDateOverlay()}
+            </div>
+            {/* Hin&Rück toggle inline */}
+            <div className="flex-1 border-b md:border-b-0 md:border-r border-gray-200 flex items-center px-4 gap-3">
+              <label className="flex items-center gap-1.5 cursor-pointer">
+                <input type="radio" name="flugType" checked={flugRoundtrip} onChange={() => setFlugRoundtrip(true)} className="accent-[#1db682]" />
+                <span className="text-xs text-[#1a2e4a] font-medium whitespace-nowrap">Hin & Rück</span>
+              </label>
+              <label className="flex items-center gap-1.5 cursor-pointer">
+                <input type="radio" name="flugType" checked={!flugRoundtrip} onChange={() => setFlugRoundtrip(false)} className="accent-[#1db682]" />
+                <span className="text-xs text-[#1a2e4a] font-medium whitespace-nowrap">Nur Hin</span>
+              </label>
+            </div>
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Reisende" value={travelerDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
+                active={openOverlay === "travelers"} />
+              {renderTravelersOverlay()}
+            </div>
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                <Search className="w-4 h-4" /> Flüge finden
+              </button>
+            </div>
+          </div>
         );
 
       case "mietwagen":
         return (
-          <>
-            <div className="flex flex-col md:flex-row">
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Abholort"
-                  value={mietAbhol || "Ort oder Flughafen"}
-                  onClick={() => setOpenOverlay(openOverlay === "mietAbhol" ? null : "mietAbhol")}
-                  active={openOverlay === "mietAbhol"}
-                />
-                {openOverlay === "mietAbhol" && (
-                  <Overlay>
-                    <input
-                      type="text"
-                      placeholder="Abholort eingeben..."
-                      value={mietAbhol}
-                      onChange={(e) => { setMietAbhol(e.target.value); if (mietSameLocation) setMietRueck(e.target.value); }}
-                      className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/30"
-                      autoFocus
-                    />
-                  </Overlay>
-                )}
-              </div>
-
-              {!mietSameLocation && (
-                <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                  <FieldBox
-                    label="Rückgabeort"
-                    value={mietRueck || "Rückgabeort"}
-                    onClick={() => setOpenOverlay(openOverlay === "mietRueck" ? null : "mietRueck")}
-                    active={openOverlay === "mietRueck"}
-                  />
-                  {openOverlay === "mietRueck" && (
-                    <Overlay>
-                      <input
-                        type="text"
-                        placeholder="Rückgabeort eingeben..."
-                        value={mietRueck}
-                        onChange={(e) => setMietRueck(e.target.value)}
-                        className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/30"
-                        autoFocus
-                      />
-                    </Overlay>
-                  )}
-                </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Abholort" value={mietAbhol || "Ort oder Flughafen"}
+                onClick={() => setOpenOverlay(openOverlay === "mietAbhol" ? null : "mietAbhol")}
+                active={openOverlay === "mietAbhol"} />
+              {openOverlay === "mietAbhol" && (
+                <Overlay>
+                  <input type="text" placeholder="Abholort eingeben..." value={mietAbhol}
+                    onChange={(e) => { setMietAbhol(e.target.value); if (mietSameLocation) setMietRueck(e.target.value); }}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682]" autoFocus />
+                </Overlay>
               )}
-
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Zeitraum"
-                  value={departure && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : "Datum wählen"}
-                  onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
-                  active={openOverlay === "date"}
-                />
-                {renderDateOverlay()}
-              </div>
-
-              <div className="hidden md:flex items-center px-3">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20">
-                  <Search className="w-5 h-5" />
-                  Mietwagen finden
-                </button>
-              </div>
             </div>
-
-            <div className="flex items-center px-4 py-3 border-t border-gray-200">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Zeitraum"
+                value={departure && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : "Datum wählen"}
+                onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
+                active={openOverlay === "date"} />
+              {renderDateOverlay()}
+            </div>
+            {/* Gleicher Ort Toggle inline */}
+            <div className="flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200 flex items-center px-4">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={mietSameLocation}
+                <input type="checkbox" checked={mietSameLocation}
                   onChange={(e) => { setMietSameLocation(e.target.checked); if (e.target.checked) setMietRueck(mietAbhol); }}
-                  className="accent-[#1db682] w-4 h-4"
-                />
-                <span className="text-sm text-[#1a2e4a] font-medium">Rückgabe am gleichen Ort</span>
+                  className="accent-[#1db682] w-4 h-4" />
+                <span className="text-xs text-[#1a2e4a] font-medium">Gleicher Rückgabeort</span>
               </label>
             </div>
-          </>
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                <Search className="w-4 h-4" /> Mietwagen finden
+              </button>
+            </div>
+          </div>
         );
 
       case "kreuzfahrt":
         return (
-          <>
-            <div className="flex flex-col md:flex-row">
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Fahrtgebiet"
-                  value={cruiseArea}
-                  onClick={() => setOpenOverlay(openOverlay === "cruiseArea" ? null : "cruiseArea")}
-                  active={openOverlay === "cruiseArea"}
-                />
-                {renderCruiseAreaOverlay()}
-              </div>
-
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Reisezeitraum"
-                  value={dateDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
-                  active={openOverlay === "date"}
-                />
-                {renderDateOverlay()}
-              </div>
-
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
-                <FieldBox
-                  label="Reisende"
-                  value={travelerDisplay}
-                  onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
-                  active={openOverlay === "travelers"}
-                />
-                {renderTravelersOverlay()}
-              </div>
-
-              <div className="hidden md:flex items-center px-3">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-6 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20">
-                  <Search className="w-5 h-5" />
-                  Kreuzfahrten finden
-                </button>
-              </div>
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Fahrtgebiet" value={cruiseArea}
+                onClick={() => setOpenOverlay(openOverlay === "cruiseArea" ? null : "cruiseArea")}
+                active={openOverlay === "cruiseArea"} />
+              {renderCruiseAreaOverlay()}
             </div>
-          </>
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Reederei" value={cruiseLine}
+                onClick={() => setOpenOverlay(openOverlay === "cruiseLine" ? null : "cruiseLine")}
+                active={openOverlay === "cruiseLine"} />
+              {openOverlay === "cruiseLine" && (
+                <Overlay>
+                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Reederei wählen</div>
+                  <div className="space-y-0.5 max-h-64 overflow-y-auto">
+                    {["Alle Reedereien","AIDA Cruises","Costa Cruises","MSC Cruises","Norwegian Cruise Line","Princess Cruises","Royal Caribbean","TUI Cruises","Viking Ocean Cruises","Hapag-Lloyd Cruises"].map((line) => (
+                      <button key={line} type="button"
+                        onClick={() => { setCruiseLine(line); closeOverlay(); }}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${cruiseLine === line ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}>
+                        {line}
+                      </button>
+                    ))}
+                  </div>
+                </Overlay>
+              )}
+            </div>
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Reisezeitraum" value={dateDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
+                active={openOverlay === "date"} />
+              {renderDateOverlay()}
+            </div>
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+              <FieldBox label="Reisende" value={travelerDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
+                active={openOverlay === "travelers"} />
+              {renderTravelersOverlay()}
+            </div>
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                <Search className="w-4 h-4" /> Kreuzfahrten finden
+              </button>
+            </div>
+          </div>
         );
     }
   }
@@ -1064,9 +1003,9 @@ export default function HomeSuchbox() {
   };
 
   return (
-    <div ref={containerRef} className="w-full max-w-240 mx-auto">
+    <div ref={containerRef} className="w-full">
       {/* Card */}
-      <div className="bg-white rounded-2xl shadow-xl shadow-black/8 border border-gray-100 overflow-visible">
+      <div className="bg-white/92 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/20 border border-white/60 overflow-visible">
         {/* Tab row */}
         <div className="flex overflow-x-auto border-b border-gray-100 px-1 pt-1 gap-0.5 scrollbar-none">
           {TABS.map((tab) => {
