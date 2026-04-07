@@ -66,6 +66,7 @@ async function fetchTopDeal(regionIds: number[]): Promise<TravelOffer | null> {
     const res = await fetch(`${API_BASE}?${params}`, {
       next: { revalidate: 86400 },
       headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(6000),
     });
     if (!res.ok) return null;
     const text = await res.text();
@@ -109,6 +110,7 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
     const res = await fetch(`${API_BASE}?${params}`, {
       next: { revalidate: 86400 },
       headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(6000),
     });
     if (!res.ok) return null;
     const text = await res.text();
