@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, CheckCircle, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   variant?: "hero" | "inline" | "footer";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function NewsletterSignup({ variant = "inline", firstName, lastName, userEmail }: Props) {
+  const t = useTranslations("newsletter");
   const [email, setEmail]         = useState(userEmail ?? "");
   const [vorname, setVorname]     = useState(firstName ?? "");
   const [nachname, setNachname]   = useState(lastName ?? "");
@@ -21,8 +23,8 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consent) { setError("Bitte stimme der Datenschutzerklärung zu."); return; }
-    if (!email.includes("@")) { setError("Bitte gib eine gültige E-Mail ein."); return; }
+    if (!consent) { setError(t("errorConsent")); return; }
+    if (!email.includes("@")) { setError(t("errorEmail")); return; }
     setError("");
     setLoading(true);
     try {
@@ -31,8 +33,8 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, firstName: vorname, lastName: nachname, action: "subscribe" }),
       });
-      if (res.ok) { setDone(true); } else { setError("Anmeldung fehlgeschlagen. Bitte erneut versuchen."); }
-    } catch { setError("Netzwerkfehler. Bitte erneut versuchen."); }
+      if (res.ok) { setDone(true); } else { setError(t("errorFailed")); }
+    } catch { setError(t("errorNetwork")); }
     finally { setLoading(false); }
   };
 
@@ -41,8 +43,8 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
       <div className={`flex items-center gap-3 ${variant === "hero" ? "text-white" : "text-emerald-700 bg-emerald-50 rounded-2xl p-4"}`}>
         <CheckCircle className="w-6 h-6 text-emerald-500 shrink-0" />
         <div>
-          <p className="font-bold">Erfolgreich angemeldet! 🎉</p>
-          <p className="text-sm opacity-75">Du erhältst jetzt die besten Urlaubsangebote per E-Mail.</p>
+          <p className="font-bold">{t("successTitle")}</p>
+          <p className="text-sm opacity-75">{t("successText")}</p>
         </div>
       </div>
     );
@@ -56,7 +58,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Deine E-Mail-Adresse"
+            placeholder={t("emailPlaceholder")}
             required
             className="flex-1 px-4 py-3 rounded-xl text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50"
           />
@@ -66,7 +68,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
             className="bg-[#00838F] hover:bg-[#006E7A] text-white font-bold px-5 py-3 rounded-xl transition-colors flex items-center justify-center gap-2 shrink-0"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
-            Anmelden
+            {t("subscribe")}
           </button>
         </div>
         <label className="flex items-start gap-3 text-white/80 text-xs cursor-pointer select-none text-left">
@@ -77,9 +79,9 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
             className="mt-0.5 w-5 h-5 shrink-0 accent-white cursor-pointer"
           />
           <span>
-            Ich stimme zu, Urlaubsangebote per E-Mail zu erhalten. Die{" "}
-            <a href="/datenschutz/" className="underline hover:text-white">Datenschutzerklärung</a>{" "}
-            habe ich gelesen. Abmeldung jederzeit möglich.
+            {t.rich("consentHero", {
+              privacyLink: (chunks) => <a href="/datenschutz/" className="underline hover:text-white">{chunks}</a>,
+            })}
           </span>
         </label>
         {error && <p className="text-red-300 text-xs">{error}</p>}
@@ -97,14 +99,14 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
               type="text"
               value={vorname}
               onChange={(e) => setVorname(e.target.value)}
-              placeholder="Vorname (optional)"
+              placeholder={t("firstNamePlaceholder")}
               className="px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#00838F]"
             />
             <input
               type="text"
               value={nachname}
               onChange={(e) => setNachname(e.target.value)}
-              placeholder="Nachname (optional)"
+              placeholder={t("lastNamePlaceholder")}
               className="px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#00838F]"
             />
           </div>
@@ -112,7 +114,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-Mail-Adresse *"
+            placeholder={t("emailRequiredPlaceholder")}
             required
             className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#00838F]"
           />
@@ -132,10 +134,9 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
           className="mt-0.5 w-5 h-5 shrink-0 accent-[#00838F] cursor-pointer"
         />
         <span>
-          Ich möchte Urlaubsangebote, Deals und Inspirationen per E-Mail erhalten.
-          Die{" "}
-          <a href="/datenschutz/" className="text-[#00838F] hover:underline">Datenschutzerklärung</a>{" "}
-          habe ich gelesen. Abmeldung jederzeit möglich.
+          {t.rich("consentInline", {
+            privacyLink: (chunks) => <a href="/datenschutz/" className="text-[#00838F] hover:underline">{chunks}</a>,
+          })}
         </span>
       </label>
       {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
@@ -145,7 +146,7 @@ export default function NewsletterSignup({ variant = "inline", firstName, lastNa
         className="w-full bg-[#00838F] hover:bg-[#006E7A] disabled:opacity-40 text-white font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
       >
         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
-        Jetzt kostenlos anmelden
+        {t("submitFree")}
       </button>
     </form>
   );

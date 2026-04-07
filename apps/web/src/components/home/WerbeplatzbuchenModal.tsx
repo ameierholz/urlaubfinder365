@@ -1,54 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { X, Check, Zap, Eye, BarChart2, Star, Crown } from "lucide-react";
+import { X, Check, Zap, Crown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
-const PAKETE = [
-  {
-    id: "starter",
-    name: "Starter",
-    preis: "99",
-    highlight: false,
-    features: [
-      "Listing im Marktplatz (oben)",
-      "\"Empfohlen\"-Badge",
-      "Sichtbar für alle Besucher",
-    ],
-  },
-  {
-    id: "featured",
-    name: "Featured",
-    preis: "199",
-    highlight: true,
-    badge: "Beliebt",
-    features: [
-      "Alles aus Starter",
-      "Platz auf der Startseite",
-      "\"Sponsored\"-Badge",
-      "Monatliche Reichweiten-Auswertung",
-    ],
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    preis: "349",
-    highlight: false,
-    features: [
-      "Alles aus Featured",
-      "Top-Platzierung + Newsletter-Erwähnung",
-      "Eigene Landingpage-Verlinkung",
-      "Persönlicher Account-Manager",
-    ],
-  },
-];
+const PAKET_IDS = ["starter", "featured", "premium"] as const;
+const PAKET_PREISE: Record<string, string> = { starter: "99", featured: "199", premium: "349" };
+const FEATURE_COUNTS: Record<string, number> = { starter: 3, featured: 4, premium: 4 };
 
 export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
-  const [selectedPaket, setSelectedPaket] = useState("featured");
+  const t = useTranslations("werbeplatz");
+  const [selectedPaket, setSelectedPaket] = useState<string>("featured");
   const [form, setForm] = useState({ name: "", firma: "", email: "", angebotUrl: "", nachricht: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -56,7 +23,7 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
 
   if (!open) return null;
 
-  const paket = PAKETE.find((p) => p.id === selectedPaket)!;
+  const preis = PAKET_PREISE[selectedPaket];
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,9 +46,18 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
       const { url } = await res.json() as { url: string };
       window.location.href = url; // → Stripe Checkout
     } catch {
-      setError("Fehler beim Weiterleiten zu Stripe. Bitte versuche es erneut.");
+      setError(t("errorStripe"));
       setLoading(false);
     }
+  }
+
+  function getFeatures(paketId: string): string[] {
+    const count = FEATURE_COUNTS[paketId];
+    const features: string[] = [];
+    for (let i = 1; i <= count; i++) {
+      features.push(t(`packages.${paketId}Feature${i}`));
+    }
+    return features;
   }
 
   return (
@@ -106,15 +82,15 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
             <div className="w-16 h-16 rounded-full bg-teal-100 flex items-center justify-center">
               <Check className="w-8 h-8 text-teal-600" />
             </div>
-            <h2 className="text-2xl font-black text-gray-900">Anfrage gesendet!</h2>
+            <h2 className="text-2xl font-black text-gray-900">{t("successTitle")}</h2>
             <p className="text-gray-500 max-w-sm">
-              Wir melden uns innerhalb von 24 Stunden bei dir mit allen Details zum Werbeplatz.
+              {t("successText")}
             </p>
             <button
               onClick={onClose}
               className="mt-2 bg-teal-600 hover:bg-teal-700 text-white font-bold px-8 py-3 rounded-2xl transition-colors"
             >
-              Schließen
+              {t("close")}
             </button>
           </div>
         ) : (
@@ -126,44 +102,45 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
             >
               <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2" />
               <span className="inline-flex items-center gap-1.5 bg-white/20 border border-white/30 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
-                <Zap className="w-3 h-3" /> Werbeplätze
+                <Zap className="w-3 h-3" /> {t("tagline")}
               </span>
-              <h2 className="text-2xl font-black text-white mb-1">Werbeplatz buchen</h2>
-              <p className="text-white/80 text-sm">Mehr Sichtbarkeit für dein Angebot – monatlich kündbar</p>
+              <h2 className="text-2xl font-black text-white mb-1">{t("title")}</h2>
+              <p className="text-white/80 text-sm">{t("subtitle")}</p>
             </div>
 
             {/* Paket-Auswahl */}
             <div className="px-6 pt-5 pb-4 grid grid-cols-3 gap-3 border-b border-gray-100">
-              {PAKETE.map((p) => {
-                const active = selectedPaket === p.id;
+              {PAKET_IDS.map((id) => {
+                const active = selectedPaket === id;
+                const paketPreis = PAKET_PREISE[id];
                 return (
                   <button
-                    key={p.id}
+                    key={id}
                     type="button"
-                    onClick={() => setSelectedPaket(p.id)}
+                    onClick={() => setSelectedPaket(id)}
                     className={`relative flex flex-col rounded-2xl border-2 p-3 text-left transition-all ${
                       active
                         ? "border-teal-500 bg-teal-50"
                         : "border-gray-100 bg-gray-50 hover:border-gray-200"
                     }`}
                   >
-                    {p.badge && (
+                    {id === "featured" && (
                       <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-sand-400 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest whitespace-nowrap">
-                        {p.badge}
+                        {t("popularBadge")}
                       </span>
                     )}
-                    {p.id === "premium" && (
+                    {id === "premium" && (
                       <Crown className="w-3.5 h-3.5 text-sand-500 mb-1" />
                     )}
                     <span className={`text-xs font-black mb-1 ${active ? "text-teal-700" : "text-gray-700"}`}>
-                      {p.name}
+                      {t(`packages.${id}Name`)}
                     </span>
                     <span className={`text-lg font-black leading-none ${active ? "text-teal-600" : "text-gray-800"}`}>
-                      {p.preis} €
+                      {paketPreis} €
                     </span>
-                    <span className="text-[10px] text-gray-400">/ Monat</span>
+                    <span className="text-[10px] text-gray-400">{t("perMonth")}</span>
                     <ul className="mt-2 space-y-1">
-                      {p.features.map((f) => (
+                      {getFeatures(id).map((f) => (
                         <li key={f} className="flex items-start gap-1">
                           <Check className={`w-3 h-3 mt-0.5 shrink-0 ${active ? "text-teal-500" : "text-gray-400"}`} />
                           <span className="text-[10px] text-gray-600 leading-snug">{f}</span>
@@ -179,7 +156,7 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
             <form onSubmit={handleSubmit} className="px-8 py-6 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">Ansprechpartner *</label>
+                  <label className="block text-xs font-bold text-gray-700 mb-1.5">{t("contactPerson")}</label>
                   <input
                     required
                     value={form.name}
@@ -189,7 +166,7 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1.5">Firma / Unternehmen *</label>
+                  <label className="block text-xs font-bold text-gray-700 mb-1.5">{t("company")}</label>
                   <input
                     required
                     value={form.firma}
@@ -201,7 +178,7 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1.5">E-Mail-Adresse *</label>
+                <label className="block text-xs font-bold text-gray-700 mb-1.5">{t("emailLabel")}</label>
                 <input
                   required
                   type="email"
@@ -213,7 +190,7 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1.5">Angebot / URL (optional)</label>
+                <label className="block text-xs font-bold text-gray-700 mb-1.5">{t("offerUrl")}</label>
                 <input
                   type="url"
                   value={form.angebotUrl}
@@ -224,12 +201,12 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1.5">Nachricht (optional)</label>
+                <label className="block text-xs font-bold text-gray-700 mb-1.5">{t("message")}</label>
                 <textarea
                   rows={3}
                   value={form.nachricht}
                   onChange={(e) => setForm((f) => ({ ...f, nachricht: e.target.value }))}
-                  placeholder="Gewünschtes Startdatum, besondere Wünsche…"
+                  placeholder={t("messagePlaceholder")}
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none"
                 />
               </div>
@@ -243,11 +220,11 @@ export default function WerbeplatzbuchenModal({ open, onClose }: Props) {
                 disabled={loading}
                 className="w-full bg-teal-600 hover:bg-teal-700 disabled:opacity-60 text-white font-black py-3.5 rounded-2xl transition-colors text-sm"
               >
-                {loading ? "Weiterleitung zu Stripe…" : `Jetzt buchen · ${paket.preis} €/Monat`}
+                {loading ? t("submitLoading") : t("submitButton", { price: preis })}
               </button>
 
               <p className="text-[11px] text-gray-400 text-center">
-                Sichere Zahlung via Stripe · Monatlich kündbar · Aktivierung nach Inhaltsprüfung (max. 24 h)
+                {t("paymentNote")}
               </p>
             </form>
           </>

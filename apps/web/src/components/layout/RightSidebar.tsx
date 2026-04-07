@@ -11,6 +11,7 @@ import LocalPartnersWidget from "@/components/marktplatz/LocalPartnersWidget";
 import DealDesTagesWidget from "@/components/ui/DealDesTagesWidget";
 import { Suspense } from "react";
 import { Sparkles } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 export interface ExtrasBox {
   image: string;
@@ -33,7 +34,8 @@ interface Props {
 
 const DEFAULT_AD_KEY = "6e805e1e43279dbf742fa3dca2efc442";
 
-export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds }: Props) {
+export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds }: Props) {
+  const t = await getTranslations("ui.sidebar");
   const accent = extrasBox?.accentColor ?? "bg-[#1db682]";
 
   return (
@@ -84,7 +86,7 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         {seoLinks && seoLinks.length > 0 && (
           <div className="px-4 py-4 border-b border-gray-100">
             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">
-              {seoLinksTitle ?? "Weitere Links"}
+              {seoLinksTitle ?? t("moreLinks")}
             </p>
             <ul className="space-y-2">
               {seoLinks.map((l) => (
@@ -105,15 +107,15 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         {/* 3 · Empfohlene Anbieter */}
         <div className="border-b border-gray-100">
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Empfohlene Anbieter</p>
-            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">Anzeige</span>
+            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{t("recommendedProviders")}</p>
+            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">{t("adLabel")}</span>
           </div>
           <Suspense fallback={null}>
             <SponsoredAnbieter compact />
           </Suspense>
           <div className="px-4 py-2.5">
             <Link href="/werbepartner/" className="block text-center text-[11px] text-[#6991d8] font-semibold hover:underline">
-              Spotlight buchen →
+              {t("spotlightBook")}
             </Link>
           </div>
         </div>
@@ -121,8 +123,8 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         {/* 4 · Empfohlene Angebote */}
         <div className="border-b border-gray-100">
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Empfohlene Angebote</p>
-            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">Anzeige</span>
+            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{t("recommendedOffers")}</p>
+            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">{t("adLabel")}</span>
           </div>
           <div className="px-4 pb-3">
             <Suspense fallback={null}>
@@ -134,16 +136,16 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         {/* 5 · Lokale Partner */}
         <div>
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Lokale Partner</p>
-            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">Anzeige</span>
+            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{t("localPartners")}</p>
+            <span className="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">{t("adLabel")}</span>
           </div>
           <Suspense fallback={null}>
             <LocalPartnersWidget compact />
           </Suspense>
           <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-            <p className="text-[11px] text-gray-400">Werbeplatz frei · ab 49 €/Mo.</p>
+            <p className="text-[11px] text-gray-400">{t("adSpotFree")}</p>
             <Link href="/werbepartner/" className="text-[11px] text-[#1db682] font-semibold hover:underline whitespace-nowrap">
-              Hier werben →
+              {t("advertiseHere")}
             </Link>
           </div>
         </div>
@@ -155,7 +157,7 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=300&q=75&fit=crop&auto=format"
-          alt="KI Reiseplaner"
+          alt={t("aiPlannerAlt")}
           className="w-full h-36 object-cover"
           loading="lazy"
         />
@@ -163,16 +165,16 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-5">
           <Sparkles className="w-5 h-5 text-white/80 mb-2" />
           <p className="text-sm font-black text-white leading-tight mb-1">
-            KI-Urlaubsplaner
+            {t("aiPlanner")}
           </p>
           <p className="text-[11px] text-white/75 leading-snug mb-3">
-            Dein perfekter Reiseplan in Sekunden – kostenlos & personalisiert.
+            {t("aiPlannerDesc")}
           </p>
           <Link
             href="/ki-reiseplaner/"
             className="bg-white text-[#1db682] text-xs font-black px-4 py-1.5 rounded-full hover:bg-white/90 transition-colors"
           >
-            Jetzt ausprobieren →
+            {t("aiPlannerCta")}
           </Link>
         </div>
       </div>
@@ -180,7 +182,7 @@ export default function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPla
       {/* ── AdBanner ────────────────────────────────────────────────── */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-          Anzeige
+          {t("adLabel")}
         </p>
         <AdBanner
           placementKey={adPlacementKey ?? DEFAULT_AD_KEY}

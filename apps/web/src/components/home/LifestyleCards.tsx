@@ -1,30 +1,33 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const CARDS = [
   {
-    title: "Strand & Meer",
-    subtitle: "Entspannung pur",
+    titleKey: "card1Title" as const,
+    subtitleKey: "card1Subtitle" as const,
     href: "/urlaubsarten/",
     img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     color: "from-cyan-600/70",
   },
   {
-    title: "Familie & Kinder",
-    subtitle: "Unvergessliche Momente",
+    titleKey: "card2Title" as const,
+    subtitleKey: "card2Subtitle" as const,
     href: "/urlaubsarten/",
     img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
     color: "from-sand-600/70",
   },
   {
-    title: "Kultur & Städte",
-    subtitle: "Geschichte erleben",
+    titleKey: "card3Title" as const,
+    subtitleKey: "card3Subtitle" as const,
     href: "/urlaubsarten/",
     img: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80",
     color: "from-purple-700/70",
   },
   {
-    title: "Abenteuer & Natur",
-    subtitle: "Die Welt entdecken",
+    titleKey: "card4Title" as const,
+    subtitleKey: "card4Subtitle" as const,
     href: "/urlaubsarten/",
     img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=80",
     color: "from-green-700/70",
@@ -32,18 +35,20 @@ const CARDS = [
 ];
 
 export default function LifestyleCards() {
+  const t = useTranslations("lifestyleCards");
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {CARDS.map((card) => (
         <Link
-          key={card.title}
+          key={card.titleKey}
           href={card.href}
           className="group relative rounded-2xl overflow-hidden h-52 sm:h-64 shadow-sm hover:shadow-xl transition-all duration-300"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={card.img}
-            alt={card.title}
+            alt={t(card.titleKey)}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
           <div
@@ -54,10 +59,10 @@ export default function LifestyleCards() {
 
           <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
             <p className="text-xs font-medium text-white/75 uppercase tracking-widest mb-1">
-              {card.subtitle}
+              {t(card.subtitleKey)}
             </p>
             <h3 className="text-xl font-bold leading-tight drop-shadow-sm">
-              {card.title}
+              {t(card.titleKey)}
             </h3>
             <div className="mt-2 h-0.5 w-0 bg-white group-hover:w-12 transition-all duration-300 rounded-full" />
           </div>

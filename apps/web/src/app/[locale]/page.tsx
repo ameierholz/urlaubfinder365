@@ -555,7 +555,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             {/* Label-Zeile über den Karten */}
             <div className="flex items-center gap-3 mb-5">
               <div className="flex items-center gap-2 bg-linear-to-r from-red-700 to-sand-600 text-white text-xs font-black px-3 py-1.5 rounded-full shadow-md shadow-sand-500/20 uppercase tracking-wider">
-                <Flame className="w-3 h-3" /> Top Deal
+                <Flame className="w-3 h-3" /> {t("topDealBadge")}
               </div>
               <p className="text-xs text-gray-500 font-medium">
                 {t("dealsLabel")}
@@ -1149,12 +1149,12 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* Header */}
           <div className="flex items-end justify-between gap-4 mb-6">
             <div>
-              <p className="text-[#1db682] text-sm font-bold uppercase tracking-widest mb-1.5">Kostenlose Tools</p>
-              <h2 className="text-2xl sm:text-3xl font-black text-gray-900">Dein Reise-Cockpit</h2>
-              <p className="text-gray-500 text-sm mt-1">9 Tools für die perfekte Urlaubsplanung – alle kostenlos</p>
+              <p className="text-[#1db682] text-sm font-bold uppercase tracking-widest mb-1.5">{t("cockpitEyebrow")}</p>
+              <h2 className="text-2xl sm:text-3xl font-black text-gray-900">{t("cockpitTitle")}</h2>
+              <p className="text-gray-500 text-sm mt-1">{t("cockpitSubtitle")}</p>
             </div>
             <Link href="/extras/" className="hidden sm:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
-              Alle Extras →
+              {t("cockpitAllExtras")}
             </Link>
           </div>
 
@@ -1169,10 +1169,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-white font-black text-lg">KI-Urlaubsplaner</span>
+                <span className="text-white font-black text-lg">{t("cockpitAiLabel")}</span>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 text-purple-100">KI</span>
               </div>
-              <p className="text-purple-200/80 text-sm leading-snug">Dein persönlicher Reiseplan in Sekunden – Powered by Claude AI</p>
+              <p className="text-purple-200/80 text-sm leading-snug">{t("cockpitAiDesc")}</p>
             </div>
             <span className="text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all text-xl shrink-0">→</span>
           </Link>
@@ -1180,15 +1180,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* 8 Tools Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {([
-              { href: "/urlaubsguides/",           icon: BookOpen,    bg: "bg-blue-50",    iconColor: "text-blue-500",    label: "Urlaubsguides",     desc: "Tipps & Infos zu 250+ Zielen",          badge: null },
-              { href: "/preisentwicklung/",        icon: TrendingUp,  bg: "bg-emerald-50", iconColor: "text-emerald-500", label: "Preisentwicklung",   desc: "Wann buchen am günstigsten?",           badge: "NEU" },
-              { href: "/extras/urlaubskalender/",  icon: Calendar,    bg: "bg-pink-50",    iconColor: "text-pink-500",    label: "Urlaubskalender",    desc: "Ferientermine & Brückentage",           badge: null },
-              { href: "/visum-checker/",           icon: ShieldCheck, bg: "bg-teal-50",    iconColor: "text-teal-500",    label: "Visum-Checker",      desc: "Einreisebestimmungen prüfen",           badge: null },
-              { href: "/reisewarnungen/",          icon: ShieldAlert, bg: "bg-red-50",     iconColor: "text-red-500",     label: "Reisewarnungen",     desc: "Aktuelle Sicherheitshinweise",          badge: null },
-              { href: "/reiseversicherung/",       icon: Star,        bg: "bg-indigo-50",  iconColor: "text-indigo-500",  label: "Reiseversicherung",  desc: "Kranken-, Gepäck & Storno",             badge: null },
-              { href: "/erlebnisse/",              icon: Compass,     bg: "bg-orange-50",  iconColor: "text-orange-500",  label: "Erlebnisse",         desc: "Tickets & Aktivitäten weltweit",        badge: null },
-              { href: "/extras/reisenden-karte/",  icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    label: "Urlauber-Karte",     desc: "Alle Urlauber auf der Weltkarte",       badge: null },
-            ] as const).map(({ href, icon: Icon, bg, iconColor, label, desc, badge }) => (
+              { href: "/urlaubsguides/",           icon: BookOpen,    bg: "bg-blue-50",    iconColor: "text-blue-500",    labelKey: "cockpitTool1Label", descKey: "cockpitTool1Desc", badge: null },
+              { href: "/preisentwicklung/",        icon: TrendingUp,  bg: "bg-emerald-50", iconColor: "text-emerald-500", labelKey: "cockpitTool2Label", descKey: "cockpitTool2Desc", badge: t("cockpitBadgeNeu") },
+              { href: "/extras/urlaubskalender/",  icon: Calendar,    bg: "bg-pink-50",    iconColor: "text-pink-500",    labelKey: "cockpitTool3Label", descKey: "cockpitTool3Desc", badge: null },
+              { href: "/visum-checker/",           icon: ShieldCheck, bg: "bg-teal-50",    iconColor: "text-teal-500",    labelKey: "cockpitTool4Label", descKey: "cockpitTool4Desc", badge: null },
+              { href: "/reisewarnungen/",          icon: ShieldAlert, bg: "bg-red-50",     iconColor: "text-red-500",     labelKey: "cockpitTool5Label", descKey: "cockpitTool5Desc", badge: null },
+              { href: "/reiseversicherung/",       icon: Star,        bg: "bg-indigo-50",  iconColor: "text-indigo-500",  labelKey: "cockpitTool6Label", descKey: "cockpitTool6Desc", badge: null },
+              { href: "/erlebnisse/",              icon: Compass,     bg: "bg-orange-50",  iconColor: "text-orange-500",  labelKey: "cockpitTool7Label", descKey: "cockpitTool7Desc", badge: null },
+              { href: "/extras/reisenden-karte/",  icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    labelKey: "cockpitTool8Label", descKey: "cockpitTool8Desc", badge: null },
+            ] as const).map(({ href, icon: Icon, bg, iconColor, labelKey, descKey, badge }) => (
               <Link
                 key={href}
                 href={href}
@@ -1199,12 +1199,12 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 mb-0.5">
-                    <span className="text-sm font-bold text-gray-800 truncate">{label}</span>
+                    <span className="text-sm font-bold text-gray-800 truncate">{t(labelKey)}</span>
                     {badge && (
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-600 shrink-0">{badge}</span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 leading-snug">{desc}</p>
+                  <p className="text-xs text-gray-500 leading-snug">{t(descKey)}</p>
                 </div>
               </Link>
             ))}
@@ -1213,7 +1213,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* Mobile CTA */}
           <div className="sm:hidden mt-4 text-center">
             <Link href="/extras/" className="text-sm font-semibold text-[#00838F] hover:underline">
-              Alle Extras ansehen →
+              {t("cockpitAllExtrasMobile")}
             </Link>
           </div>
 

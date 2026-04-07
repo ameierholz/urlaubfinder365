@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, BadgeCheck, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 import WerbeplatzbuchenModal from "./WerbeplatzbuchenModal";
 
 const DEMO_ANGEBOTE = [
@@ -93,6 +94,7 @@ const PER_PAGE = 4; // 2 Spalten × 2 Zeilen
 export default function FeaturedAngebotsCarousel() {
   const [page, setPage] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const t = useTranslations("featuredCarousel");
   const totalPages = Math.ceil(DEMO_ANGEBOTE.length / PER_PAGE);
   const visible = DEMO_ANGEBOTE.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
 
@@ -104,13 +106,13 @@ export default function FeaturedAngebotsCarousel() {
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-black text-gray-800">Featured Angebote</span>
+          <span className="text-sm font-black text-gray-800">{t("title")}</span>
           <span className="bg-sand-400 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest">
-            Sponsored
+            {t("sponsored")}
           </span>
         </div>
         <a href="/marktplatz/" className="text-xs text-teal-600 font-semibold hover:underline flex items-center gap-0.5">
-          Alle <ArrowRight className="w-3 h-3" />
+          {t("allLink")} <ArrowRight className="w-3 h-3" />
         </a>
       </div>
 
@@ -122,7 +124,7 @@ export default function FeaturedAngebotsCarousel() {
           <button
             onClick={() => setPage((p) => p - 1)}
             className="absolute left-1 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center hover:bg-gray-50 transition-colors"
-            aria-label="Zurück"
+            aria-label={t("prev")}
           >
             <ChevronLeft className="w-4 h-4 text-gray-600" />
           </button>
@@ -133,7 +135,7 @@ export default function FeaturedAngebotsCarousel() {
           <button
             onClick={() => setPage((p) => p + 1)}
             className="absolute right-1 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-md border border-gray-100 flex items-center justify-center hover:bg-gray-50 transition-colors"
-            aria-label="Weiter"
+            aria-label={t("next")}
           >
             <ChevronRight className="w-4 h-4 text-gray-600" />
           </button>
@@ -178,7 +180,7 @@ export default function FeaturedAngebotsCarousel() {
                 </div>
                 <p className="text-xs font-black text-gray-800 leading-tight truncate">{item.titel}</p>
                 <p className="text-[10px] text-gray-400 truncate">{item.ort}</p>
-                <p className="text-xs font-black text-teal-600 mt-1">ab {item.preis} €</p>
+                <p className="text-xs font-black text-teal-600 mt-1">{t("from")} {item.preis} {t("currency")}</p>
               </div>
             </a>
           ))}
@@ -193,7 +195,7 @@ export default function FeaturedAngebotsCarousel() {
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i === page ? "bg-teal-500 w-4" : "bg-gray-300 w-1.5"
               }`}
-              aria-label={`Seite ${i + 1}`}
+              aria-label={t("page", { number: i + 1 })}
             />
           ))}
         </div>
@@ -206,8 +208,8 @@ export default function FeaturedAngebotsCarousel() {
           className="w-full flex items-center justify-between gap-2 bg-teal-50 hover:bg-teal-100 border border-teal-100 rounded-2xl px-4 py-2.5 transition-colors group"
         >
           <div className="text-left">
-            <p className="text-xs font-black text-teal-800">Werbeplatz buchen</p>
-            <p className="text-[10px] text-teal-600">Mehr Sichtbarkeit für dein Angebot</p>
+            <p className="text-xs font-black text-teal-800">{t("bookAdSpace")}</p>
+            <p className="text-[10px] text-teal-600">{t("bookAdSpaceDesc")}</p>
           </div>
           <div className="w-7 h-7 rounded-full bg-teal-600 group-hover:bg-teal-700 flex items-center justify-center shrink-0 transition-colors">
             <Zap className="w-3.5 h-3.5 text-white" />

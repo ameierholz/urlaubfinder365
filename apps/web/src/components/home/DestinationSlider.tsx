@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export interface SliderDestination {
   name: string;
@@ -13,94 +14,29 @@ export interface SliderDestination {
   label?: string;
 }
 
-const DESTINATIONS: SliderDestination[] = [
-  {
-    name: "Türkei",
-    slug: "tuerkei",
-    flagCode: "tr",
-    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80",
-    priceFrom: "ab 299 €",
-    label: "Bestseller",
-  },
-  {
-    name: "Mallorca",
-    slug: "balearen",
-    flagCode: "es",
-    img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80",
-    priceFrom: "ab 349 €",
-    label: "Beliebt",
-  },
-  {
-    name: "Griechenland",
-    slug: "griechische-inseln",
-    flagCode: "gr",
-    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80",
-    priceFrom: "ab 389 €",
-  },
-  {
-    name: "Ägypten",
-    slug: "aegypten",
-    flagCode: "eg",
-    img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=80",
-    priceFrom: "ab 449 €",
-    label: "Top Deal",
-  },
-  {
-    name: "Kreta",
-    slug: "kreta",
-    flagCode: "gr",
-    img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80",
-    priceFrom: "ab 379 €",
-  },
-  {
-    name: "Portugal",
-    slug: "portugal",
-    flagCode: "pt",
-    img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80",
-    priceFrom: "ab 419 €",
-  },
-  {
-    name: "Italien",
-    slug: "italien",
-    flagCode: "it",
-    img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80",
-    priceFrom: "ab 359 €",
-  },
-  {
-    name: "Tunesien",
-    slug: "tunesien",
-    flagCode: "tn",
-    img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80",
-    priceFrom: "ab 329 €",
-    label: "Last Minute",
-  },
-  {
-    name: "USA",
-    slug: "usa-ostkueste",
-    flagCode: "us",
-    img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80",
-    priceFrom: "ab 799 €",
-  },
-  {
-    name: "Malediven",
-    slug: "indischer-ozean",
-    flagCode: "mv",
-    img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80",
-    priceFrom: "ab 1.299 €",
-    label: "Traumurlaub",
-  },
+const DESTINATIONS_STATIC = [
+  { key: "tuerkei",       slug: "tuerkei",           flagCode: "tr", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", labelColor: "bg-sand-500" },
+  { key: "mallorca",      slug: "balearen",          flagCode: "es", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", labelColor: "bg-blue-500" },
+  { key: "griechenland",  slug: "griechische-inseln", flagCode: "gr", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", labelColor: "" },
+  { key: "aegypten",      slug: "aegypten",          flagCode: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=80", labelColor: "bg-green-500" },
+  { key: "kreta",         slug: "kreta",             flagCode: "gr", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80", labelColor: "" },
+  { key: "portugal",      slug: "portugal",          flagCode: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", labelColor: "" },
+  { key: "italien",       slug: "italien",           flagCode: "it", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80", labelColor: "" },
+  { key: "tunesien",      slug: "tunesien",          flagCode: "tn", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80", labelColor: "bg-red-500" },
+  { key: "usa",           slug: "usa-ostkueste",     flagCode: "us", img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80", labelColor: "" },
+  { key: "malediven",     slug: "indischer-ozean",   flagCode: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80", labelColor: "bg-purple-500" },
 ];
-
-const LABEL_COLORS: Record<string, string> = {
-  Bestseller: "bg-sand-500",
-  Beliebt: "bg-blue-500",
-  "Top Deal": "bg-green-500",
-  "Last Minute": "bg-red-500",
-  Traumurlaub: "bg-purple-500",
-};
 
 export default function DestinationSlider() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("destinationSlider");
+
+  const DESTINATIONS = DESTINATIONS_STATIC.map((d) => ({
+    ...d,
+    name: t(`${d.key}Name` as Parameters<typeof t>[0]),
+    priceFrom: t(`${d.key}Price` as Parameters<typeof t>[0]),
+    label: d.labelColor ? t(`${d.key}Label` as Parameters<typeof t>[0]) : undefined,
+  }));
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -119,7 +55,7 @@ export default function DestinationSlider() {
           flex items-center justify-center
           opacity-0 group-hover:opacity-100 transition-opacity duration-200
           hover:bg-sand-50 hover:border-sand-200"
-        aria-label="Nach links"
+        aria-label={t("scrollLeft")}
       >
         <ChevronLeft className="w-5 h-5 text-gray-700" />
       </button>
@@ -150,7 +86,7 @@ export default function DestinationSlider() {
               {/* Label Badge */}
               {dest.label && (
                 <span
-                  className={`absolute top-3 left-3 text-white text-[10px] font-bold px-2 py-1 rounded-full ${LABEL_COLORS[dest.label] || "bg-sand-500"}`}
+                  className={`absolute top-3 left-3 text-white text-[10px] font-bold px-2 py-1 rounded-full ${dest.labelColor || "bg-sand-500"}`}
                 >
                   {dest.label}
                 </span>
@@ -168,7 +104,7 @@ export default function DestinationSlider() {
               {/* Text */}
               <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                 <p className="font-bold text-base leading-tight">{dest.name}</p>
-                <p className="text-xs text-white/80 mt-0.5">Pauschalreise</p>
+                <p className="text-xs text-white/80 mt-0.5">{t("packageHoliday")}</p>
                 <p className="text-sm font-semibold text-sand-300 mt-1">{dest.priceFrom}</p>
               </div>
             </div>
@@ -184,7 +120,7 @@ export default function DestinationSlider() {
           flex items-center justify-center
           opacity-0 group-hover:opacity-100 transition-opacity duration-200
           hover:bg-sand-50 hover:border-sand-200"
-        aria-label="Nach rechts"
+        aria-label={t("scrollRight")}
       >
         <ChevronRight className="w-5 h-5 text-gray-700" />
       </button>

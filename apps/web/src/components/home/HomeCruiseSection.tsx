@@ -23,69 +23,58 @@ function openModal(url: string, title: string) {
 // ─── Kreuzfahrt-Destinationen ─────────────────────────────────────────────────
 // region-IDs: bitte im CruiseCompass Partner-Dashboard verifizieren
 // und ggf. &region=X an die jeweilige DL()-URL anhängen
-const CRUISE_DEALS = [
+const CRUISE_DEAL_KEYS = ["mittelmeer", "karibik", "nordeuropa", "fluss"] as const;
+
+const CRUISE_DEALS_STATIC = [
   {
     id: "mittelmeer",
-    title: "Mittelmeer",
-    sub: "Barcelona · Rom · Athen · Istanbul",
-    price: "ab 599 €",
-    duration: "7–14 Nächte",
-    badge: "Bestseller",
     badgeColor: "bg-sand-500",
     img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=10"),  // region=10 → Mittelmeer
-    label: "Mittelmeer-Kreuzfahrt",
+    url: DL("&type=K&sort=pauf&region=10"),
   },
   {
     id: "karibik",
-    title: "Karibik",
-    sub: "Bahamas · Jamaika · St. Maarten",
-    price: "ab 1.299 €",
-    duration: "7–21 Nächte",
-    badge: "Traumziel",
     badgeColor: "bg-emerald-500",
     img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=8"),   // region=8 → Karibik
-    label: "Karibik-Kreuzfahrt",
+    url: DL("&type=K&sort=pauf&region=8"),
   },
   {
     id: "nordeuropa",
-    title: "Nordeuropa & Fjorde",
-    sub: "Norwegen · Island · Spitzbergen",
-    price: "ab 799 €",
-    duration: "7–14 Nächte",
-    badge: "Erlebnis",
     badgeColor: "bg-sky-600",
     img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
-    url: DL("&type=K&sort=pauf&region=12"),  // region=12 → Nordeuropa
-    label: "Nordeuropa-Kreuzfahrt",
+    url: DL("&type=K&sort=pauf&region=12"),
   },
   {
     id: "fluss",
-    title: "Flusskreuzfahrten",
-    sub: "Rhein · Donau · Elbe · Nil",
-    price: "ab 699 €",
-    duration: "7–15 Nächte",
-    badge: "Gemütlich",
     badgeColor: "bg-teal-600",
     img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80",
-    url: DL("&type=R&sort=pauf"),            // Fluss: kein region-Filter nötig
-    label: "Flusskreuzfahrt",
+    url: DL("&type=R&sort=pauf"),
   },
 ];
 
 // ─── Kreuzfahrt-Typen (Schnellauswahl) ────────────────────────────────────────
-const QUICK_TYPES = [
-  { icon: Ship,    label: "Hochsee",        url: DL("&type=NS&sort=pauf"),    title: "Hochseekreuzfahrten" },
-  { icon: Plane,   label: "Inkl. Flug",     url: DL("&type=S&sort=pauf"),     title: "Kreuzfahrt + Flug" },
-  { icon: Waves,   label: "Fluss",          url: DL("&type=R&sort=pauf"),     title: "Flusskreuzfahrten" },
-  { icon: Compass, label: "Kombi",          url: DL("&type=KOMBI&sort=pauf"), title: "Kreuzfahrt + Hotel" },
-  { icon: Zap,     label: "Last-Minute",    url: DL("&sort=pauf&sdt=1"),        title: "Last-Minute Kreuzfahrten" },
-  { icon: Anchor,  label: "Alle Angebote",  url: DL("&sort=pauf"),            title: "Alle Kreuzfahrten" },
+const QUICK_TYPES_STATIC = [
+  { icon: Ship,    labelKey: "quickHighSea" as const,    titleKey: "quickHighSeaTitle" as const,    url: DL("&type=NS&sort=pauf") },
+  { icon: Plane,   labelKey: "quickInclFlight" as const, titleKey: "quickInclFlightTitle" as const, url: DL("&type=S&sort=pauf") },
+  { icon: Waves,   labelKey: "quickRiver" as const,      titleKey: "quickRiverTitle" as const,      url: DL("&type=R&sort=pauf") },
+  { icon: Compass, labelKey: "quickCombi" as const,      titleKey: "quickCombiTitle" as const,      url: DL("&type=KOMBI&sort=pauf") },
+  { icon: Zap,     labelKey: "quickLastMinute" as const, titleKey: "quickLastMinuteTitle" as const, url: DL("&sort=pauf&sdt=1") },
+  { icon: Anchor,  labelKey: "quickAll" as const,        titleKey: "quickAllTitle" as const,        url: DL("&sort=pauf") },
 ];
 
 export default function HomeCruiseSection() {
   const t = useTranslations("cruisePage");
+  const tc = useTranslations("homeCruise");
+
+  const CRUISE_DEALS = CRUISE_DEALS_STATIC.map((d) => ({
+    ...d,
+    title: tc(`${d.id}Title` as Parameters<typeof tc>[0]),
+    sub: tc(`${d.id}Sub` as Parameters<typeof tc>[0]),
+    price: tc(`${d.id}Price` as Parameters<typeof tc>[0]),
+    duration: tc(`${d.id}Duration` as Parameters<typeof tc>[0]),
+    badge: tc(`${d.id}Badge` as Parameters<typeof tc>[0]),
+    label: tc(`${d.id}Label` as Parameters<typeof tc>[0]),
+  }));
   return (
     <section className="py-0 overflow-hidden">
 
@@ -123,7 +112,7 @@ export default function HomeCruiseSection() {
               <div>
                 <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-2">
                   <span className="text-xs font-bold text-cyan-300 uppercase tracking-widest">
-                    {`⚓ Kreuzfahrten ${new Date().getFullYear()}/${new Date().getFullYear() + 1}`}
+                    {`${tc("eyebrow")} ${new Date().getFullYear()}/${new Date().getFullYear() + 1}`}
                   </span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight whitespace-nowrap">
@@ -137,14 +126,14 @@ export default function HomeCruiseSection() {
 
             {/* MIDDLE – Quick-Type Chips */}
             <div className="flex-1 flex flex-wrap gap-2 justify-center">
-              {QUICK_TYPES.map(({ icon: Icon, label, url, title }) => (
+              {QUICK_TYPES_STATIC.map(({ icon: Icon, labelKey, titleKey, url }) => (
                 <button
-                  key={label}
-                  onClick={() => openModal(url, title)}
+                  key={labelKey}
+                  onClick={() => openModal(url, tc(titleKey))}
                   className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 active:bg-white/25 border border-white/15 rounded-full px-3 py-1.5 transition-colors cursor-pointer"
                 >
                   <Icon className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
-                  <span className="text-xs font-medium text-white/85">{label}</span>
+                  <span className="text-xs font-medium text-white/85">{tc(labelKey)}</span>
                 </button>
               ))}
             </div>
@@ -196,7 +185,7 @@ export default function HomeCruiseSection() {
                 <div className="relative overflow-hidden" style={{ height: "185px" }}>
                   <Image
                     src={deal.img}
-                    alt={`${deal.title} Kreuzfahrt`}
+                    alt={`${deal.title} ${tc("cruiseAlt")}`}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -259,7 +248,7 @@ export default function HomeCruiseSection() {
               href="/kreuzfahrten/"
               className="text-sm font-semibold text-cyan-600 flex items-center gap-1 justify-center"
             >
-              Alle Kreuzfahrten entdecken <ArrowRight className="w-4 h-4" />
+              {tc("mobileCta")} <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
