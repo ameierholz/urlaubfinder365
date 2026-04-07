@@ -1005,7 +1005,7 @@ export default function HomeSuchbox() {
   return (
     <div ref={containerRef} className="w-full">
       {/* Card */}
-      <div className="bg-white rounded-2xl shadow-2xl shadow-black/20 overflow-visible">
+      <div className="bg-white/70 rounded-2xl shadow-xl shadow-black/15 overflow-visible">
         {/* Tab row */}
         <div className="flex overflow-x-auto border-b border-gray-100 px-2 gap-0 scrollbar-none">
           {TABS.map((tab) => {
