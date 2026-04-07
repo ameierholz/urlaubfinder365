@@ -11,21 +11,33 @@ export function buildB2bUrl(
   // Datum & Dauer
   if (searchParams.from) url.searchParams.set("from", String(searchParams.from));
   if (searchParams.to) url.searchParams.set("to", String(searchParams.to));
-  if (searchParams.duration) url.searchParams.set("duration", String(searchParams.duration));
+  // duration kann "7-7" oder "7" sein → wir übergeben beides: dur (Zahl) und duration (Range)
+  if (searchParams.duration) {
+    const dur = String(searchParams.duration);
+    url.searchParams.set("duration", dur);
+    // Extrahiere den Min-Wert für den dur-Parameter (z.B. "7-7" → "7")
+    const durMin = dur.split("-")[0];
+    if (durMin) url.searchParams.set("dur", durMin);
+  }
 
   // Reisende
   if (searchParams.adults) url.searchParams.set("adults", String(searchParams.adults));
   if (searchParams.children) url.searchParams.set("children", String(searchParams.children));
 
-  // Abflughafen (IATA-Code → direkt als dep)
-  if (searchParams.airport) url.searchParams.set("dep", String(searchParams.airport));
+  // Abflughafen (IATA-Code(s) → depapt1 für Traveltainment b2b)
+  if (searchParams.airport) {
+    const codes = String(searchParams.airport).split(",");
+    codes.forEach((code, i) => {
+      url.searchParams.set(`depapt${i + 1}`, code.trim());
+    });
+  }
 
-  // Reiseziel: numerische Region-ID hat Vorrang, Freitext als Fallback
+  // Reiseziel: regionId ist der korrekte Traveltainment-Parameter
   if (searchParams.regionId) {
-    url.searchParams.set("region", String(searchParams.regionId));
+    url.searchParams.set("regionId", String(searchParams.regionId));
   } else if (searchParams.destination) {
     const regionId = DESTINATION_REGION_MAP[String(searchParams.destination)];
-    if (regionId) url.searchParams.set("region", regionId);
+    if (regionId) url.searchParams.set("regionId", regionId);
   }
 
   // Hotel params

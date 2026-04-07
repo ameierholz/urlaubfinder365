@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, RefreshCcw, BookOpen, HeartHandshake } from "lucide-react";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
-import InlineExpandIbeWidget from "@/components/widgets/InlineExpandIbeWidget";
 import ReiseartenCards from "@/components/widgets/ReiseartenCards";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildB2bUrl } from "@/lib/search-params";
@@ -136,10 +135,15 @@ export default async function ({ params, searchParams }: {
 
       {/* ── IBE ── */}
       <div id="ibe-suche" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-10 scroll-mt-24">
-        <InlineExpandIbeWidget
-          dataSrc={ibeUrl}
-          fullHeight={3750}
-        />
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <iframe
+            src={ibeUrl}
+            title="Reisesuche & Buchung"
+            className="w-full border-0 block"
+            style={{ width: "100%", height: 3750, border: "none" }}
+            loading="eager"
+          />
+        </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════

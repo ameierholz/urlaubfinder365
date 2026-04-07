@@ -179,22 +179,22 @@ function Counter({ label, value, min = 0, max, onChange }: {
 }) {
   return (
     <div className="flex items-center justify-between py-3">
-      <span className="text-[#1a2e4a] font-medium">{label}</span>
+      <span className="text-white/85 font-medium">{label}</span>
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={() => onChange(Math.max(min, value - 1))}
           disabled={value <= min}
-          className="w-9 h-9 rounded-full border-2 border-gray-300 text-gray-500 flex items-center justify-center text-lg font-bold hover:border-[#1db682] hover:text-[#1db682] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="w-9 h-9 rounded-full border-2 border-white/25 text-white/60 flex items-center justify-center text-lg font-bold hover:border-[#1db682] hover:text-[#1db682] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           −
         </button>
-        <span className="w-6 text-center text-lg font-semibold text-[#1a2e4a]">{value}</span>
+        <span className="w-6 text-center text-lg font-semibold text-white">{value}</span>
         <button
           type="button"
           onClick={() => onChange(Math.min(max, value + 1))}
           disabled={value >= max}
-          className="w-9 h-9 rounded-full border-2 border-gray-300 text-gray-500 flex items-center justify-center text-lg font-bold hover:border-[#1db682] hover:text-[#1db682] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="w-9 h-9 rounded-full border-2 border-white/25 text-white/60 flex items-center justify-center text-lg font-bold hover:border-[#1db682] hover:text-[#1db682] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           +
         </button>
@@ -218,10 +218,10 @@ function CalendarMonth({ year, month, departure, returnDate, onSelect }: {
 
   return (
     <div className="flex-1 min-w-65">
-      <div className="text-center font-semibold text-[#1a2e4a] mb-2">
+      <div className="text-center font-semibold text-white mb-2">
         {MONTH_NAMES[month]} {year}
       </div>
-      <div className="grid grid-cols-7 gap-0.5 text-center text-xs text-gray-400 mb-1">
+      <div className="grid grid-cols-7 gap-0.5 text-center text-xs text-white/40 mb-1">
         {DAY_NAMES.map((d) => <div key={d} className="py-1">{d}</div>)}
       </div>
       <div className="grid grid-cols-7 gap-0.5 text-center text-sm">
@@ -235,13 +235,13 @@ function CalendarMonth({ year, month, departure, returnDate, onSelect }: {
 
           let cls = "py-1.5 rounded-lg cursor-pointer transition-colors ";
           if (isPast) {
-            cls += "text-gray-300 cursor-not-allowed";
+            cls += "text-white/20 cursor-not-allowed";
           } else if (isDep || isRet) {
             cls += "bg-[#1db682] text-white font-bold";
           } else if (inRange) {
-            cls += "bg-[#1db682]/15 text-[#1a2e4a]";
+            cls += "bg-[#1db682]/20 text-white";
           } else {
-            cls += "hover:bg-gray-100 text-[#1a2e4a]";
+            cls += "hover:bg-white/15 text-white/80";
           }
 
           return (
@@ -464,10 +464,10 @@ export default function HomeSuchbox() {
       <button
         type="button"
         onClick={onClick}
-        className={`text-left px-3 py-2 flex flex-col justify-center min-h-12 transition-colors hover:bg-gray-50/80 ${active ? "bg-gray-50/80" : ""} ${className}`}
+        className={`text-left px-4 py-3 flex flex-col justify-center min-h-14 transition-colors hover:bg-white/10 ${active ? "bg-white/15" : ""} ${className}`}
       >
-        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-0.5">{label}</span>
-        <span className="text-sm text-[#1a2e4a] font-medium truncate">{value}</span>
+        <span className="text-[10px] font-bold text-white/60 uppercase tracking-wider leading-none mb-1">{label}</span>
+        <span className="text-sm text-white font-semibold truncate">{value}</span>
       </button>
     );
   }
@@ -476,7 +476,7 @@ export default function HomeSuchbox() {
 
   function Overlay({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) {
     return (
-      <div className={`absolute top-full left-0 z-50 bg-white/85 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/50 mt-1 p-5 ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
+      <div className={`absolute top-full left-0 z-50 bg-[#0d1f35] rounded-2xl shadow-2xl border border-white/15 mt-1 p-5 max-h-[75vh] overflow-y-auto ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
         {children}
       </div>
     );
@@ -500,18 +500,18 @@ export default function HomeSuchbox() {
       <Overlay wide>
         <div className="mb-3">
           <div className="relative">
-            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
             <input
               type="text"
               placeholder="Reiseziel eingeben..."
               value={destSearch}
               onChange={(e) => setDestSearch(e.target.value)}
-              className="w-full pl-10 pr-8 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/30"
+              className="w-full pl-10 pr-8 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/40"
               autoFocus
             />
             {destSearch && (
               <button type="button" onClick={() => setDestSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2">
-                <X className="w-4 h-4 text-gray-400" />
+                <X className="w-4 h-4 text-white/40" />
               </button>
             )}
           </div>
@@ -519,14 +519,14 @@ export default function HomeSuchbox() {
 
         {filteredBeliebte.length > 0 && (
           <>
-            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Beliebte Reiseziele</div>
+            <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Beliebte Reiseziele</div>
             <div className="flex flex-wrap gap-2 mb-4">
               {filteredBeliebte.map((z) => (
                 <button
                   key={z}
                   type="button"
                   onClick={() => { setDestination(z); setDestSearch(""); closeOverlay(); }}
-                  className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${destination === z ? "bg-[#1db682] text-white border-[#1db682]" : "border-gray-200 text-[#1a2e4a] hover:border-[#1db682] hover:text-[#1db682]"}`}
+                  className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${destination === z ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/80 hover:border-[#1db682] hover:text-[#1db682]"}`}
                 >
                   {z}
                 </button>
@@ -537,14 +537,14 @@ export default function HomeSuchbox() {
 
         {filteredAlle.length > 0 && (
           <>
-            <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Alle Reiseziele A–Z</div>
+            <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Alle Reiseziele A–Z</div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 max-h-60 overflow-y-auto">
               {filteredAlle.map((z) => (
                 <button
                   key={z}
                   type="button"
                   onClick={() => { setDestination(z); setDestSearch(""); closeOverlay(); }}
-                  className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${destination === z ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}
+                  className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${destination === z ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
                 >
                   {z}
                 </button>
@@ -554,7 +554,7 @@ export default function HomeSuchbox() {
         )}
 
         {filteredBeliebte.length === 0 && filteredAlle.length === 0 && (
-          <div className="text-gray-400 text-sm text-center py-6">Kein Reiseziel gefunden.</div>
+          <div className="text-white/40 text-sm text-center py-6">Kein Reiseziel gefunden.</div>
         )}
       </Overlay>
     );
@@ -565,11 +565,11 @@ export default function HomeSuchbox() {
     return (
       <Overlay wide>
         <div className="flex items-center justify-between mb-3">
-          <div className="text-xs font-bold text-gray-400 uppercase tracking-wider">Abflughafen wählen</div>
+          <div className="text-xs font-bold text-white/40 uppercase tracking-wider">Abflughafen wählen</div>
           <button
             type="button"
             onClick={() => setSelectedAirports([])}
-            className={`text-sm px-3 py-1 rounded-full border transition-colors ${selectedAirports.length === 0 ? "bg-[#1db682] text-white border-[#1db682]" : "border-gray-200 text-gray-500 hover:border-[#1db682]"}`}
+            className={`text-sm px-3 py-1 rounded-full border transition-colors ${selectedAirports.length === 0 ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/60 hover:border-[#1db682]"}`}
           >
             Beliebig
           </button>
@@ -584,19 +584,14 @@ export default function HomeSuchbox() {
                   return (
                     <label
                       key={ap.code}
-                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
                     >
-                      <span className={`w-4.5 h-4.5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${checked ? "bg-[#1db682] border-[#1db682]" : "border-gray-300"}`}>
+                      <span className={`w-4.5 h-4.5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${checked ? "bg-[#1db682] border-[#1db682]" : "border-white/30"}`}>
                         {checked && <Check className="w-3 h-3 text-white" />}
                       </span>
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={checked}
-                        onChange={() => toggleAirport(ap.code)}
-                      />
-                      <span className="flex-1 text-sm text-[#1a2e4a] font-medium">{ap.name}</span>
-                      <span className="text-xs font-mono text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">{ap.code}</span>
+                      <input type="checkbox" className="sr-only" checked={checked} onChange={() => toggleAirport(ap.code)} />
+                      <span className="text-sm text-white/85 font-medium">{ap.name}</span>
+                      <span className="text-xs font-mono text-white/40 ml-0.5">{ap.code}</span>
                     </label>
                   );
                 })}
@@ -617,32 +612,32 @@ export default function HomeSuchbox() {
     return (
       <Overlay wide>
         {isLastMinute ? (
-          <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-semibold">
+          <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-amber-500/20 text-amber-300 rounded-full text-sm font-semibold border border-amber-400/30">
             <span>⚡</span> Nächste 14 Tage
           </div>
         ) : (
           <div className="flex gap-4 mb-4">
-            <div className="flex-1 px-3 py-2 bg-gray-50 rounded-xl">
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Früheste Anreise</div>
-              <div className="text-sm text-[#1a2e4a] font-medium">{departure ? formatDate(departure) : "—"}</div>
+            <div className="flex-1 px-3 py-2 bg-white/10 rounded-xl border border-white/15">
+              <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Früheste Anreise</div>
+              <div className="text-sm text-white font-medium">{departure ? formatDate(departure) : "—"}</div>
             </div>
-            <div className="flex-1 px-3 py-2 bg-gray-50 rounded-xl">
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Späteste Rückreise</div>
-              <div className="text-sm text-[#1a2e4a] font-medium">{returnDate ? formatDate(returnDate) : "—"}</div>
+            <div className="flex-1 px-3 py-2 bg-white/10 rounded-xl border border-white/15">
+              <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Späteste Rückreise</div>
+              <div className="text-sm text-white font-medium">{returnDate ? formatDate(returnDate) : "—"}</div>
             </div>
           </div>
         )}
 
         {/* Duration */}
         <div className="mb-4">
-          <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-1.5">Reisedauer</div>
+          <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mb-1.5">Reisedauer</div>
           <div className="flex flex-wrap gap-1.5">
             {DURATION_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
                 type="button"
                 onClick={() => setDuration(opt.value)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-gray-200 text-[#1a2e4a] hover:border-[#1db682]"}`}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
               >
                 {opt.label}
               </button>
@@ -654,11 +649,11 @@ export default function HomeSuchbox() {
         {!isLastMinute && (
           <div>
             <div className="flex items-center justify-between mb-2">
-              <button type="button" onClick={prevMonth} className="p-1 rounded-lg hover:bg-gray-100">
-                <ChevronDown className="w-5 h-5 rotate-90 text-gray-500" />
+              <button type="button" onClick={prevMonth} className="p-1 rounded-lg hover:bg-white/10">
+                <ChevronDown className="w-5 h-5 rotate-90 text-white/60" />
               </button>
-              <button type="button" onClick={nextMonth} className="p-1 rounded-lg hover:bg-gray-100">
-                <ChevronDown className="w-5 h-5 -rotate-90 text-gray-500" />
+              <button type="button" onClick={nextMonth} className="p-1 rounded-lg hover:bg-white/10">
+                <ChevronDown className="w-5 h-5 -rotate-90 text-white/60" />
               </button>
             </div>
             <div className="flex gap-6 flex-col sm:flex-row">
@@ -676,22 +671,22 @@ export default function HomeSuchbox() {
     return (
       <Overlay>
         <Counter label="Erwachsene" value={adults} min={1} max={8} onChange={setAdults} />
-        <div className="border-t border-gray-100" />
+        <div className="border-t border-white/15" />
         <Counter label="Kinder (0–17)" value={children} min={0} max={6} onChange={handleChildrenChange} />
 
         {children > 0 && (
           <div className="mt-3 space-y-2">
-            <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Alter der Kinder</div>
+            <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Alter der Kinder</div>
             <div className="flex flex-wrap gap-2">
               {childAges.map((age, i) => (
                 <select
                   key={i}
                   value={age}
                   onChange={(e) => handleChildAge(i, Number(e.target.value))}
-                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm bg-white text-[#1a2e4a] focus:outline-none focus:border-[#1db682]"
+                  className="px-3 py-1.5 border border-white/20 rounded-lg text-sm bg-white/10 text-white focus:outline-none focus:border-[#1db682]"
                 >
                   {Array.from({ length: 18 }, (_, a) => (
-                    <option key={a} value={a}>{a} {a === 1 ? "Jahr" : "Jahre"}</option>
+                    <option key={a} value={a} className="bg-gray-900 text-white">{a} {a === 1 ? "Jahr" : "Jahre"}</option>
                   ))}
                 </select>
               ))}
@@ -706,14 +701,14 @@ export default function HomeSuchbox() {
     if (openOverlay !== "cruiseArea") return null;
     return (
       <Overlay>
-        <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Fahrtgebiet wählen</div>
+        <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Fahrtgebiet wählen</div>
         <div className="space-y-0.5">
           {CRUISE_AREAS.map((area) => (
             <button
               key={area}
               type="button"
               onClick={() => { setCruiseArea(area); closeOverlay(); }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${cruiseArea === area ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${cruiseArea === area ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
             >
               {area}
             </button>
@@ -731,7 +726,7 @@ export default function HomeSuchbox() {
       case "lastminute":
         return (
           <div className="flex flex-col md:flex-row">
-            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Reiseziel"
                 value={destination || "Wohin soll es gehen?"}
@@ -741,7 +736,7 @@ export default function HomeSuchbox() {
               {renderDestinationOverlay()}
             </div>
 
-            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Abflughafen"
                 value={airportDisplay}
@@ -751,7 +746,7 @@ export default function HomeSuchbox() {
               {renderAirportOverlay()}
             </div>
 
-            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Reisezeitraum"
                 value={activeTab === "lastminute" ? `Nächste 14 Tage, ${duration > 0 ? `${duration} Nächte` : "Beliebig"}` : dateDisplay}
@@ -761,7 +756,7 @@ export default function HomeSuchbox() {
               {renderDateOverlay()}
             </div>
 
-            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Reisende"
                 value={travelerDisplay}
@@ -775,10 +770,10 @@ export default function HomeSuchbox() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20 whitespace-nowrap"
+                className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
               >
-                <Search className="w-4 h-4" />
-                Angebote finden
+                <Search className="w-3.5 h-3.5" />
+                Suchen
               </button>
             </div>
           </div>
@@ -788,7 +783,7 @@ export default function HomeSuchbox() {
         return (
           <>
             <div className="flex flex-col md:flex-row">
-              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+              <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
                 <FieldBox
                   label="Reiseziel"
                   value={destination || "Wohin soll es gehen?"}
@@ -798,7 +793,7 @@ export default function HomeSuchbox() {
                 {renderDestinationOverlay()}
               </div>
 
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
+              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-white/15">
                 <FieldBox
                   label="Reisezeitraum"
                   value={dateDisplay}
@@ -808,7 +803,7 @@ export default function HomeSuchbox() {
                 {renderDateOverlay()}
               </div>
 
-              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-gray-200">
+              <div className="relative flex-3/2 border-b md:border-b-0 md:border-r border-white/15">
                 <FieldBox
                   label="Reisende"
                   value={travelerDisplay}
@@ -819,9 +814,9 @@ export default function HomeSuchbox() {
               </div>
 
               <div className="hidden md:flex items-center px-4 shrink-0">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
-                  <Search className="w-4 h-4" />
-                  Hotels finden
+                <button type="button" onClick={handleSubmit} className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+                  <Search className="w-3.5 h-3.5" />
+                  Suchen
                 </button>
               </div>
             </div>
@@ -831,7 +826,7 @@ export default function HomeSuchbox() {
       case "flug":
         return (
           <div className="flex flex-col md:flex-row">
-            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Von"
                 value={flugVon || "Abflughafen"}
@@ -840,20 +835,20 @@ export default function HomeSuchbox() {
               />
               {openOverlay === "flugVon" && (
                 <Overlay>
-                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Abflughafen wählen</div>
+                  <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Abflughafen wählen</div>
                   <div className="max-h-75 overflow-y-auto space-y-0.5">
                     {AIRPORT_GROUPS.flatMap((g) => g.airports).map((ap) => (
                       <button key={ap.code} type="button"
                         onClick={() => { setFlugVon(`${ap.name} (${ap.code})`); closeOverlay(); }}
-                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${flugVon.includes(ap.code) ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}>
-                        <span className="font-medium">{ap.name}</span> <span className="text-gray-400">{ap.code}</span>
+                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${flugVon.includes(ap.code) ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
+                        <span className="font-medium">{ap.name}</span> <span className="text-white/40 ml-0.5">{ap.code}</span>
                       </button>
                     ))}
                   </div>
                 </Overlay>
               )}
             </div>
-            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Nach"
                 value={flugNach || "Zielflughafen"}
@@ -864,11 +859,11 @@ export default function HomeSuchbox() {
                 <Overlay>
                   <input type="text" placeholder="Zielflughafen eingeben..." value={flugNach}
                     onChange={(e) => setFlugNach(e.target.value)}
-                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682]" autoFocus />
+                    className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]" autoFocus />
                 </Overlay>
               )}
             </div>
-            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label={flugRoundtrip ? "Hin- & Rückflug" : "Hinflug"}
                 value={departure ? (flugRoundtrip && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : formatDate(departure)) : "Datum wählen"}
@@ -878,25 +873,25 @@ export default function HomeSuchbox() {
               {renderDateOverlay()}
             </div>
             {/* Hin&Rück toggle inline */}
-            <div className="flex-1 border-b md:border-b-0 md:border-r border-gray-200 flex items-center px-4 gap-3">
+            <div className="flex-1 border-b md:border-b-0 md:border-r border-white/15 flex items-center px-4 gap-3">
               <label className="flex items-center gap-1.5 cursor-pointer">
                 <input type="radio" name="flugType" checked={flugRoundtrip} onChange={() => setFlugRoundtrip(true)} className="accent-[#1db682]" />
-                <span className="text-xs text-[#1a2e4a] font-medium whitespace-nowrap">Hin & Rück</span>
+                <span className="text-xs text-white/80 font-medium whitespace-nowrap">Hin & Rück</span>
               </label>
               <label className="flex items-center gap-1.5 cursor-pointer">
                 <input type="radio" name="flugType" checked={!flugRoundtrip} onChange={() => setFlugRoundtrip(false)} className="accent-[#1db682]" />
-                <span className="text-xs text-[#1a2e4a] font-medium whitespace-nowrap">Nur Hin</span>
+                <span className="text-xs text-white/80 font-medium whitespace-nowrap">Nur Hin</span>
               </label>
             </div>
-            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Reisende" value={travelerDisplay}
                 onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
                 active={openOverlay === "travelers"} />
               {renderTravelersOverlay()}
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
-                <Search className="w-4 h-4" /> Flüge finden
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+                <Search className="w-3.5 h-3.5" /> Suchen
               </button>
             </div>
           </div>
@@ -905,7 +900,7 @@ export default function HomeSuchbox() {
       case "mietwagen":
         return (
           <div className="flex flex-col md:flex-row">
-            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Abholort" value={mietAbhol || "Ort oder Flughafen"}
                 onClick={() => setOpenOverlay(openOverlay === "mietAbhol" ? null : "mietAbhol")}
                 active={openOverlay === "mietAbhol"} />
@@ -913,11 +908,11 @@ export default function HomeSuchbox() {
                 <Overlay>
                   <input type="text" placeholder="Abholort eingeben..." value={mietAbhol}
                     onChange={(e) => { setMietAbhol(e.target.value); if (mietSameLocation) setMietRueck(e.target.value); }}
-                    className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#1db682]" autoFocus />
+                    className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]" autoFocus />
                 </Overlay>
               )}
             </div>
-            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Zeitraum"
                 value={departure && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : "Datum wählen"}
                 onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
@@ -925,17 +920,17 @@ export default function HomeSuchbox() {
               {renderDateOverlay()}
             </div>
             {/* Gleicher Ort Toggle inline */}
-            <div className="flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200 flex items-center px-4">
+            <div className="flex-[1.2] border-b md:border-b-0 md:border-r border-white/15 flex items-center px-4">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={mietSameLocation}
                   onChange={(e) => { setMietSameLocation(e.target.checked); if (e.target.checked) setMietRueck(mietAbhol); }}
                   className="accent-[#1db682] w-4 h-4" />
-                <span className="text-xs text-[#1a2e4a] font-medium">Gleicher Rückgabeort</span>
+                <span className="text-xs text-white/80 font-medium">Gleicher Rückgabeort</span>
               </label>
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
-                <Search className="w-4 h-4" /> Mietwagen finden
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+                <Search className="w-3.5 h-3.5" /> Suchen
               </button>
             </div>
           </div>
@@ -944,24 +939,24 @@ export default function HomeSuchbox() {
       case "kreuzfahrt":
         return (
           <div className="flex flex-col md:flex-row">
-            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Fahrtgebiet" value={cruiseArea}
                 onClick={() => setOpenOverlay(openOverlay === "cruiseArea" ? null : "cruiseArea")}
                 active={openOverlay === "cruiseArea"} />
               {renderCruiseAreaOverlay()}
             </div>
-            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Reederei" value={cruiseLine}
                 onClick={() => setOpenOverlay(openOverlay === "cruiseLine" ? null : "cruiseLine")}
                 active={openOverlay === "cruiseLine"} />
               {openOverlay === "cruiseLine" && (
                 <Overlay>
-                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Reederei wählen</div>
+                  <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Reederei wählen</div>
                   <div className="space-y-0.5 max-h-64 overflow-y-auto">
                     {["Alle Reedereien","AIDA Cruises","Costa Cruises","MSC Cruises","Norwegian Cruise Line","Princess Cruises","Royal Caribbean","TUI Cruises","Viking Ocean Cruises","Hapag-Lloyd Cruises"].map((line) => (
                       <button key={line} type="button"
                         onClick={() => { setCruiseLine(line); closeOverlay(); }}
-                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${cruiseLine === line ? "bg-[#1db682]/10 text-[#1db682] font-semibold" : "text-[#1a2e4a] hover:bg-gray-50"}`}>
+                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${cruiseLine === line ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
                         {line}
                       </button>
                     ))}
@@ -969,21 +964,21 @@ export default function HomeSuchbox() {
                 </Overlay>
               )}
             </div>
-            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Reisezeitraum" value={dateDisplay}
                 onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
                 active={openOverlay === "date"} />
               {renderDateOverlay()}
             </div>
-            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-gray-200">
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox label="Reisende" value={travelerDisplay}
                 onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
                 active={openOverlay === "travelers"} />
               {renderTravelersOverlay()}
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
-                <Search className="w-4 h-4" /> Kreuzfahrten finden
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+                <Search className="w-3.5 h-3.5" /> Suchen
               </button>
             </div>
           </div>
@@ -1005,9 +1000,9 @@ export default function HomeSuchbox() {
   return (
     <div ref={containerRef} className="w-full">
       {/* Card */}
-      <div className="bg-white/70 rounded-2xl shadow-xl shadow-black/15 overflow-visible">
+      <div className="bg-black/40 backdrop-blur-md rounded-2xl overflow-visible border border-white/15">
         {/* Tab row */}
-        <div className="flex overflow-x-auto border-b border-gray-100 px-2 gap-0 scrollbar-none">
+        <div className="flex overflow-x-auto border-b border-white/15 px-2 gap-0 scrollbar-none">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.key;
             return (
@@ -1015,16 +1010,16 @@ export default function HomeSuchbox() {
                 key={tab.key}
                 type="button"
                 onClick={() => { setActiveTab(tab.key); closeOverlay(); }}
-                className={`relative flex items-center gap-1.5 px-3 py-2 text-xs whitespace-nowrap transition-colors ${
+                className={`relative flex items-center gap-2 px-4 py-3 text-sm whitespace-nowrap transition-colors ${
                   isActive
-                    ? "text-[#1a2e4a] font-bold"
-                    : "text-gray-400 font-medium hover:text-gray-600"
+                    ? "text-white font-bold"
+                    : "text-white/55 font-medium hover:text-white/80"
                 }`}
               >
-                <span>{tab.icon}</span>
+                <span className="text-base">{tab.icon}</span>
                 <span>{tab.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#1db682] rounded-full" />
+                  <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#1db682] rounded-full" />
                 )}
               </button>
             );
@@ -1037,11 +1032,11 @@ export default function HomeSuchbox() {
         </div>
 
         {/* Mobile submit */}
-        <div className="md:hidden p-3 border-t border-gray-100">
+        <div className="md:hidden p-3 border-t border-white/15">
           <button
             type="button"
             onClick={handleSubmit}
-            className="w-full flex items-center justify-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-[#1db682]/20 text-base"
+            className="w-full flex items-center justify-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-semibold py-3 rounded-xl transition-colors text-sm"
           >
             <Search className="w-5 h-5" />
             {submitLabels[activeTab]}
