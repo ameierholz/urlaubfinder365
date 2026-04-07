@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "next-intl";
+import { getIbeLanguage } from "@/lib/ibe-locale";
 
 interface IbeTeaserProps {
   regionId?: string;
@@ -48,7 +50,8 @@ export default function IbeTeaser({
   keywords = "",
   maxPrice = "",
 }: IbeTeaserProps) {
-  // hideHeading wird als data-Attribut an ibe-engine.js übergeben
+  const locale = useLocale();
+  const ibeLang = getIbeLanguage(locale);
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -88,6 +91,7 @@ export default function IbeTeaser({
         data-keywords={keywords || undefined}
         data-max-price={maxPrice || undefined}
         data-no-heading={hideHeading ? "true" : undefined}
+        data-language={ibeLang}
       />
 
       {/* Scroll-Indikator */}

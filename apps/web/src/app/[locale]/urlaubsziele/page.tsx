@@ -36,8 +36,8 @@ interface Continent {
 
 // ─── Helper: CatalogEntry → CountryHoverCard props ───────────────────────────
 
-function entryToCardProps(entry: CatalogEntry) {
-  const bookingBase = "https://ibe.specials.de/?action=offer&agent=993243&product=package&language=de&duration=7-7&adults=2&minRecommrate=30&hSort=recomrate&sortType=down";
+function entryToCardProps(entry: CatalogEntry, ibeLang = "de") {
+  const bookingBase = `https://ibe.specials.de/?action=offer&agent=993243&product=package&language=${ibeLang}&duration=7-7&adults=2&minRecommrate=30&hSort=recomrate&sortType=down`;
   const bookingUrl = entry.ibeRegionId
     ? `${bookingBase}&regionId=${entry.ibeRegionId}`
     : `${bookingBase}&regionId=0`;
@@ -64,6 +64,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("urlaubszielePage");
+  const ibeLang = locale === "es" ? "sp" : locale === "ar" ? "en" : locale;
 
   const CONTINENTS: Continent[] = [
     {
@@ -292,13 +293,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                       </p>
                       <div className="grid grid-cols-2 gap-3 mb-3">
                         {top5.slice(0, 2).map((entry) => (
-                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-56 sm:h-64" />
+                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry, ibeLang)} className="h-56 sm:h-64" />
                         ))}
                       </div>
                       {top5.length > 2 && (
                         <div className="grid grid-cols-3 gap-3">
                           {top5.slice(2, 5).map((entry) => (
-                            <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-44 sm:h-48" />
+                            <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry, ibeLang)} className="h-44 sm:h-48" />
                           ))}
                         </div>
                       )}
@@ -313,7 +314,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                       </p>
                       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                         {rest.map((entry) => (
-                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry)} className="h-40" />
+                          <CountryHoverCard key={entry.slug} dest={entryToCardProps(entry, ibeLang)} className="h-40" />
                         ))}
                       </div>
                     </>

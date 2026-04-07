@@ -100,16 +100,20 @@
 
   // ── Booking-URL ─────────────────────────────────────────────────────────────
 
+  // Aktuelle IBE-Sprache (wird aus data-language gelesen)
+  let _ibeLang = "de";
+
   function buildBookingUrl(offer) {
     // Nutze offer.href falls vorhanden (enthält alle nötigen Parameter)
     if (offer.href) {
-      return `https://ibe.specials.de/?${offer.href}`;
+      return `https://ibe.specials.de/?${offer.href}&_language=${_ibeLang}`;
     }
     // Fallback: productCode
     const params = new URLSearchParams({
       agent: AGENT,
       product: "package",
       hotelCode: offer.product_code || "",
+      _language: _ibeLang,
     });
     return `https://ibe.specials.de/?${params}`;
   }
@@ -221,6 +225,7 @@
     const regionId   = el.dataset.region     || "";
     const cityId     = el.dataset.city        || "";
     const headline   = el.dataset.headline    || "";
+    if (el.dataset.language) _ibeLang = el.dataset.language;
     const boardCode  = el.dataset.boardCode   || "";
     const from       = el.dataset.from        || "14";
     const to         = el.dataset.to          || "42";
@@ -378,6 +383,7 @@
     el.dataset.hwLoaded = "1";
 
     const regionId = el.dataset.region || "";
+    if (el.dataset.language) _ibeLang = el.dataset.language;
 
     // Scope div
     const scope = document.createElement("div");
@@ -411,7 +417,7 @@
     grid.innerHTML = "";
     HOLIDAY_CATEGORIES.forEach((cat, idx) => {
       // Build IBE search URL for this category + region
-      const ibeParams = new URLSearchParams({ agent: AGENT, adults: "2", duration: "7-7" });
+      const ibeParams = new URLSearchParams({ agent: AGENT, adults: "2", duration: "7-7", _language: _ibeLang });
       if (regionId) ibeParams.set("regionId", regionId);
       if (cat.params.boardCode) ibeParams.set("boardCode", cat.params.boardCode);
       if (cat.params.children)  ibeParams.set("children", cat.params.children);
@@ -501,6 +507,7 @@
         depapt1: ap.code,
         dstapt1: code,
         action: "search",
+        _language: _ibeLang,
       });
       const ibeUrl    = `https://b2b.specials.de/index/jump/15/1450/${AGENT}/?${ibeParams}`;
       const cardTitle = `Flüge ab ${ap.city} nach ${city}`.replace(/'/g, "\\'");

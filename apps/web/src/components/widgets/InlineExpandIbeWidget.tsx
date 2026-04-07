@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useLocale } from "next-intl";
+import { appendIbeLang } from "@/lib/ibe-locale";
 
 interface Props {
   dataSrc: string;
@@ -14,6 +16,8 @@ interface Props {
  * Nutzt postMessage um dynamische Höhenänderungen zu übernehmen.
  */
 export default function InlineExpandIbeWidget({ dataSrc, fullHeight = 3750 }: Props) {
+  const locale = useLocale();
+  dataSrc = appendIbeLang(dataSrc, locale);
   const [expanded, setExpanded] = useState(false);
   const [iframeHeight, setIframeHeight] = useState(fullHeight);
   const iframeRef = useRef<HTMLIFrameElement>(null);

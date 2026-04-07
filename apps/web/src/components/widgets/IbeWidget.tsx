@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useLocale } from "next-intl";
+import { appendIbeLang } from "@/lib/ibe-locale";
 
 interface IbeWidgetProps {
   dataSrc: string;
@@ -8,6 +10,8 @@ interface IbeWidgetProps {
 }
 
 export default function IbeWidget({ dataSrc, height = 1200 }: IbeWidgetProps) {
+  const locale = useLocale();
+  dataSrc = appendIbeLang(dataSrc, locale);
   const [loaded, setLoaded] = useState(false);
   const [iframeHeight, setIframeHeight] = useState(height);
   const iframeRef = useRef<HTMLIFrameElement>(null);
