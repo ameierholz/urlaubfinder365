@@ -464,10 +464,10 @@ export default function HomeSuchbox() {
       <button
         type="button"
         onClick={onClick}
-        className={`text-left px-4 py-2.5 flex flex-col justify-center min-h-14 transition-colors hover:bg-gray-50 ${active ? "bg-gray-50" : ""} ${className}`}
+        className={`text-left px-3 py-2 flex flex-col justify-center min-h-12 transition-colors hover:bg-gray-50/80 ${active ? "bg-gray-50/80" : ""} ${className}`}
       >
-        <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide leading-none mb-1">{label}</span>
-        <span className="text-[15px] text-[#1a2e4a] font-medium truncate">{value}</span>
+        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider leading-none mb-0.5">{label}</span>
+        <span className="text-sm text-[#1a2e4a] font-medium truncate">{value}</span>
       </button>
     );
   }
@@ -819,7 +819,7 @@ export default function HomeSuchbox() {
               </div>
 
               <div className="hidden md:flex items-center px-4 shrink-0">
-                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+                <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
                   <Search className="w-4 h-4" />
                   Hotels finden
                 </button>
@@ -895,7 +895,7 @@ export default function HomeSuchbox() {
               {renderTravelersOverlay()}
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
                 <Search className="w-4 h-4" /> Flüge finden
               </button>
             </div>
@@ -934,7 +934,7 @@ export default function HomeSuchbox() {
               </label>
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
                 <Search className="w-4 h-4" /> Mietwagen finden
               </button>
             </div>
@@ -982,7 +982,7 @@ export default function HomeSuchbox() {
               {renderTravelersOverlay()}
             </div>
             <div className="hidden md:flex items-center px-4 shrink-0">
-              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-5 py-3 rounded-xl transition-colors shadow-lg whitespace-nowrap">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-2 bg-[#1db682] hover:bg-[#18a070] text-white font-bold px-4 py-2.5 rounded-xl transition-colors shadow-lg whitespace-nowrap">
                 <Search className="w-4 h-4" /> Kreuzfahrten finden
               </button>
             </div>
@@ -1005,9 +1005,9 @@ export default function HomeSuchbox() {
   return (
     <div ref={containerRef} className="w-full">
       {/* Card */}
-      <div className="bg-white rounded-xl shadow-2xl shadow-black/30 overflow-visible">
+      <div className="bg-white rounded-2xl shadow-2xl shadow-black/20 overflow-visible">
         {/* Tab row */}
-        <div className="flex overflow-x-auto border-b border-gray-100 px-1 pt-0.5 gap-0.5 scrollbar-none">
+        <div className="flex overflow-x-auto border-b border-gray-100 px-2 gap-0 scrollbar-none">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.key;
             return (
@@ -1015,16 +1015,16 @@ export default function HomeSuchbox() {
                 key={tab.key}
                 type="button"
                 onClick={() => { setActiveTab(tab.key); closeOverlay(); }}
-                className={`relative flex items-center gap-1.5 px-4 py-3 text-sm whitespace-nowrap transition-colors rounded-t-xl ${
+                className={`relative flex items-center gap-1.5 px-3 py-2 text-xs whitespace-nowrap transition-colors ${
                   isActive
                     ? "text-[#1a2e4a] font-bold"
                     : "text-gray-400 font-medium hover:text-gray-600"
                 }`}
               >
-                <span className="text-base">{tab.icon}</span>
+                <span>{tab.icon}</span>
                 <span>{tab.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-3 right-3 h-0.75 bg-[#1db682] rounded-full" />
+                  <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#1db682] rounded-full" />
                 )}
               </button>
             );
