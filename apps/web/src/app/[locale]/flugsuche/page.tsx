@@ -7,7 +7,7 @@ import FlugzieleGrid from "@/components/flug/FlugzieleGrid";
 import AirlineInfoSection from "@/components/flug/AirlineInfoSection";
 import FlugNavBar from "@/components/flug/FlugNavBar";
 import EinreiseSchnellcheck from "@/components/flug/EinreiseSchnellcheck";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -26,67 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-// ── Statische Inhalte ────────────────────────────────────────────────────────
-
-const SPAR_TIPPS = [
-  {
-    num: "01",
-    title: "Flexibel beim Reisetag",
-    text: "Dienstag und Mittwoch sind oft die günstigsten Abflugtage. Freitag und Sonntag sind regelmäßig am teuersten.",
-  },
-  {
-    num: "02",
-    title: "Mehrere Abflughäfen vergleichen",
-    text: "Frankfurt, München, Düsseldorf, Hamburg, Köln – oft ist ein Nachbarflughafen 50–100 € günstiger.",
-  },
-  {
-    num: "03",
-    title: "Frühzeitig buchen",
-    text: "Für beliebte Sommerziele lohnt sich eine Buchung 3–6 Monate im Voraus. Flugpreise steigen mit der Nachfrage.",
-  },
-  {
-    num: "04",
-    title: "Preisalarm nutzen",
-    text: "Setze einen Preisalarm und buche, sobald dein Wunschpreis erreicht ist – Preise schwanken täglich.",
-  },
-  {
-    num: "05",
-    title: "Stopovers als Schnäppchen",
-    text: "Flüge mit einem Zwischenstopp sind oft deutlich günstiger als Direktflüge – ideal für Fernreisende.",
-  },
-  {
-    num: "06",
-    title: "Handgepäck vs. Aufgabegepäck",
-    text: "Nur-Handgepäck-Tarife sind günstiger – aber Aufgabegepäck kann nachträglich teuer werden. Immer vergleichen.",
-  },
-];
-
-const FAQS = [
-  {
-    q: "Wann sind Flüge am günstigsten?",
-    a: "Flüge sind in der Regel dienstags und mittwochs am günstigsten, da die Nachfrage geringer ist. Außerhalb der Schulferien und an Feiertagen sind Preise deutlich niedriger. Für Sommerflüge lohnt sich eine Buchung 3–6 Monate im Voraus.",
-  },
-  {
-    q: "Wie finde ich den günstigsten Flug?",
-    a: "Unser Flugsuchrechner vergleicht täglich tausende Angebote verschiedener Airlines. Einfach Abflughafen, Ziel, Datum und Passagierzahl eingeben – die Ergebnisse sind sofort nach Preis sortiert und du buchst direkt beim Anbieter.",
-  },
-  {
-    q: "Was ist der Unterschied zwischen One-Way und Hin- & Rückflug?",
-    a: "Ein One-Way-Ticket ist nur für eine Richtung. Bei manchen Airlines und Routen ist es günstiger, zwei Einzeltickets zu buchen statt ein Hin- & Rückflugticket. Unser Vergleich zeigt dir automatisch die günstigste Kombination.",
-  },
-  {
-    q: "Wie viel Gepäck darf ich mitnehmen?",
-    a: "Das hängt vom Tarif und der Airline ab. Viele Billigfluggesellschaften erlauben kostenlos nur kleines Handgepäck (ca. 40×20×25 cm). Größeres Kabinengepäck und aufzugebendes Gepäck kosten extra – oft 20–50 € pro Strecke.",
-  },
-  {
-    q: "Kann ich ein Pauschalreise-Flugticket einzeln umbuchen?",
-    a: "Bei Pauschalreisen ist der Flug fest an das Hotelpaket gekoppelt und kann meist nicht einzeln umgebucht werden. Einzeln gebuchte Flüge lassen sich hingegen je nach Tarif umbuchen oder erstatten – oft gegen eine Umbuchungsgebühr.",
-  },
-  {
-    q: "Welche Zahlungsmethoden sind beim Flugbuchen üblich?",
-    a: "Kreditkarte (Visa/Mastercard), PayPal und Lastschrift sind die gängigsten Zahlungsmethoden. Achtung: Manche Airlines erheben Kreditkartengebühren. Vergleiche vor dem Abschluss die Gesamtkosten inklusive aller Gebühren.",
-  },
-];
+// Statische Inhalte werden jetzt über getTranslations("flugsuchePage") geladen
 
 // ── JSON-LD ──────────────────────────────────────────────────────────────────
 const breadcrumbSchema = {
@@ -102,6 +42,26 @@ const breadcrumbSchema = {
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("flugsuchePage");
+
+  const SPAR_TIPPS = [
+    { num: "01", title: t("sparTipp1Title"), text: t("sparTipp1Text") },
+    { num: "02", title: t("sparTipp2Title"), text: t("sparTipp2Text") },
+    { num: "03", title: t("sparTipp3Title"), text: t("sparTipp3Text") },
+    { num: "04", title: t("sparTipp4Title"), text: t("sparTipp4Text") },
+    { num: "05", title: t("sparTipp5Title"), text: t("sparTipp5Text") },
+    { num: "06", title: t("sparTipp6Title"), text: t("sparTipp6Text") },
+  ];
+
+  const FAQS = [
+    { q: t("faq1q"), a: t("faq1a") },
+    { q: t("faq2q"), a: t("faq2a") },
+    { q: t("faq3q"), a: t("faq3a") },
+    { q: t("faq4q"), a: t("faq4a") },
+    { q: t("faq5q"), a: t("faq5a") },
+    { q: t("faq6q"), a: t("faq6a") },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -123,7 +83,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-sm font-medium px-3.5 py-1.5 rounded-full mb-5">
             <Plane className="w-4 h-4" />
-            Flugvergleich &amp; Direktbuchung
+            {t("heroBadge")}
           </div>
 
           {/* Headline + Trust-Chips */}
@@ -131,16 +91,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
             <div className="flex-1 min-w-0">
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Günstige Flüge finden –<br />
-                <span className="text-sky-400">Direkt beim Anbieter buchen</span>
+                {t("heroTitle1")}<br />
+                <span className="text-sky-400">{t("heroTitle2")}</span>
               </h1>
               <p className="text-white/75 text-lg leading-relaxed mb-4">
-                Flugpreise vergleichen von über 200 Airlines – täglich aktualisiert,
-                direkt beim Veranstalter.
+                {t("heroSubtitle")}
               </p>
               {/* Abflughafen-Pills – rein informativ */}
               <p className="text-white/50 text-xs uppercase tracking-wide mb-2">
-                Häufig gebuchte Abflughäfen
+                {t("airportsLabel")}
               </p>
               <div className="flex flex-wrap gap-2 mb-2">
                 {[
@@ -164,10 +123,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             {/* Trust-Chips */}
             <div className="flex flex-col gap-2 mt-6 lg:mt-0 lg:shrink-0">
               {([
-                { Icon: Tag,        label: "Bestpreis-Garantie",     color: "#38bdf8" },
-                { Icon: RefreshCcw, label: "Täglich aktuell",         color: "#f59e0b" },
-                { Icon: ShieldCheck,label: "Sicher buchen",           color: "#34d399" },
-                { Icon: Zap,        label: "Sofortbuchung",           color: "#a78bfa" },
+                { Icon: Tag,        label: t("trustBestpreis"),     color: "#38bdf8" },
+                { Icon: RefreshCcw, label: t("trustAktuell"),         color: "#f59e0b" },
+                { Icon: ShieldCheck,label: t("trustSicher"),           color: "#34d399" },
+                { Icon: Zap,        label: t("trustSofort"),           color: "#a78bfa" },
               ] as const).map(({ Icon, label, color }) => (
                 <div key={label} className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl">
                   <Icon className="w-4 h-4 shrink-0" style={{ color }} />
@@ -205,13 +164,13 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div id="top-flugziele" className="bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
           <div className="inline-flex items-center gap-1.5 bg-[#00838F]/10 text-[#00838F] text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-            ✈️ Top Destinationen
+            {t("topDestBadge")}
           </div>
           <h2 className="text-2xl font-extrabold text-gray-900 mb-1">
-            Beliebte Flugziele
+            {t("topDestTitle")}
           </h2>
           <p className="text-gray-500 text-sm mb-6">
-            Top-Destinationen mit Preisen ab Deutschland – täglich aktualisiert.
+            {t("topDestSubtitle")}
           </p>
           <FlugzieleGrid />
         </div>
@@ -223,18 +182,18 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div id="gepaeck-vergleich" className="bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="inline-flex items-center gap-1.5 bg-[#00838F]/10 text-[#00838F] text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
-            🧳 Gepäck-Info
+            {t("baggageBadge")}
           </div>
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-1">Gepäck-Vergleich der Airlines</h2>
-          <p className="text-gray-500 text-sm mb-6">Handgepäck-Maße, Freigepäck und Zusatzkosten auf einen Blick.</p>
+          <h2 className="text-2xl font-extrabold text-gray-900 mb-1">{t("baggageTitle")}</h2>
+          <p className="text-gray-500 text-sm mb-6">{t("baggageSubtitle")}</p>
           <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm bg-white">
             <table className="w-full text-sm min-w-[640px]">
               <thead>
                 <tr className="bg-[#00838F] text-left">
-                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">Airline</th>
-                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">Handgepäck (kostenlos)</th>
-                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">Freigepäck inkl.?</th>
-                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">Extra-Gepäck (ca.)</th>
+                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">{t("baggageColAirline")}</th>
+                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">{t("baggageColCarry")}</th>
+                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">{t("baggageColFree")}</th>
+                  <th className="px-4 py-3 font-bold text-white border-b border-[#007a85]">{t("baggageColExtra")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -255,7 +214,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     <td className="px-4 py-3 text-gray-600 border-b border-gray-50">{row.carry}</td>
                     <td className="px-4 py-3 border-b border-gray-50">
                       <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${row.ok ? "bg-green-100 text-green-700" : "bg-red-50 text-red-600"}`}>
-                        {row.ok ? "✓ Ja" : "✗ Nein"}
+                        {row.ok ? t("baggageYes") : t("baggageNo")}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-600 border-b border-gray-50">{row.extra}</td>
@@ -264,7 +223,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-gray-400 mt-3">* Angaben ohne Gewähr – Tarife ändern sich regelmäßig. Bitte vor der Buchung beim Anbieter prüfen.</p>
+          <p className="text-xs text-gray-400 mt-3">{t("baggageDisclaimer")}</p>
         </div>
       </div>
 
@@ -278,19 +237,19 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,131,143,0.88) 0%, rgba(0,95,107,0.75) 60%, rgba(15,23,42,0.70) 100%)" }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-white/70 text-sm font-medium uppercase tracking-widest mb-1">Täglich aktuell</p>
+            <p className="text-white/70 text-sm font-medium uppercase tracking-widest mb-1">{t("midBannerLabel")}</p>
             <h2 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
-              Über 200 Airlines im direkten Vergleich
+              {t("midBannerTitle")}
             </h2>
             <p className="text-white/75 text-sm mt-2">
-              Günstige Flüge finden, direkt beim Anbieter buchen — ohne Umwege.
+              {t("midBannerSubtitle")}
             </p>
           </div>
           <a
             href="#flugsuche-widget"
             className="shrink-0 inline-flex items-center gap-2 bg-white text-[#00838F] font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-sm whitespace-nowrap"
           >
-            ✈️ Jetzt Flüge vergleichen →
+            {t("midBannerCta")}
           </a>
         </div>
       </div>

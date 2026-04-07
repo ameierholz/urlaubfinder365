@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CATALOG, type CatalogEntry } from "@/data/catalog-regions";
 import { generateHeroFallback } from "@/lib/catalog-helpers";
 import CountryHoverCard from "@/components/destinations/CountryHoverCard";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -34,155 +34,6 @@ interface Continent {
   top5: string[]; // Die 5 beliebtesten Ziele – 2 groß + 3 mittel
 }
 
-const CONTINENTS: Continent[] = [
-  {
-    id: "europa",
-    label: "Europa",
-    emoji: "🏰",
-    gradient: "from-blue-900 via-[#1b6ca8] to-[#00838F]",
-    desc: `Von den Stränden Mallorcas bis zu den Gassen Roms – Europa bietet für jeden Urlaubstyp das perfekte Reiseziel. Pauschalreisen ${YEAR} mit Flug & Hotel zum Bestpreis.`,
-    top5: ["mallorca", "teneriffa", "kreta", "griechische-inseln", "costa-del-sol"],
-    slugs: [
-      "amalfikusste", "andalusien", "aragonien", "athen", "azoren",
-      "balearen", "barcelona", "baltikum", "benelux", "benidorm", "bulgarien",
-      "chalkidiki", "costa-blanca", "costa-brava", "costa-da-caparica", "costa-de-almeria",
-      "costa-de-la-luz", "costa-de-prata", "costa-del-azahar", "costa-del-sol",
-      "costa-do-estoril", "costa-dorada", "costa-verde-portugal", "cote-dazur",
-      "daenemark", "deutschland-nord", "deutschland-sued", "dublin", "dubrovnik",
-      "el-hierro", "europa-ost", "europa-sued-ost",
-      "formentera", "frankreich", "fuerteventura",
-      "gardasee", "goldstrand", "gozo", "gran-canaria", "granada", "griechenland",
-      "griechische-inseln", "grossbritannien",
-      "ibiza", "insel-hvar", "island-nordatlantik", "istrien", "italien",
-      "kalabrien", "kanaren", "katalonien", "kefalonia", "korfu", "korsika",
-      "kos", "kroatien", "kreta",
-      "la-gomera", "la-palma", "lanzarote", "lefkas", "ligurien", "lissabon", "london",
-      "madrid", "mallorca", "malta", "malta-insel", "marbella", "menorca", "mykonos",
-      "navarra-la-rioja", "nord-portugal",
-      "oesterreich",
-      "paris", "porto", "porto-santo", "portugal", "provence", "pyrenäen",
-      "rhodos", "rom",
-      "santorin", "sardinien", "schweiz", "sevilla", "sizilien", "skandinavien",
-      "sonnenstrand", "spanien", "spanische-atlantikkueste", "split",
-      "teneriffa", "thassos", "toskana",
-      "valencia", "venedig",
-      "zakynthos", "zentral-portugal", "zentral-spanien", "zypern", "zypern-sued",
-      "alentejo", "algarve", "apulien", "murcia",
-    ],
-  },
-  {
-    id: "asien",
-    label: "Asien",
-    emoji: "🌏",
-    gradient: "from-pink-900 via-pink-700 to-rose-600",
-    desc: "Türkei, Thailand, Malediven, Dubai und Japan – von modernen 5-Sterne-Resorts an der Türkischen Riviera bis zu tropischen Stränden im Indischen Ozean.",
-    top5: ["tuerkei", "dubai", "thailand", "malediven", "bali"],
-    slugs: [
-      "abu-dhabi", "alanya", "antalya-stadt", "asien",
-      "bali", "bangkok", "belek",
-      "cesme",
-      "dalyan", "dubai",
-      "fethiye",
-      "goa",
-      "halbinsel-bodrum",
-      "indien", "indischer-ozean", "istanbul",
-      "japan", "jordanien",
-      "kappadokien", "katar", "khao-lak", "ko-samui", "krabi", "kusadasi",
-      "malaysia", "malediven", "marmara-meer", "marmaris", "mauritius",
-      "oman",
-      "philippinen", "phuket",
-      "ras-al-khaimah",
-      "seychellen", "side", "singapur", "sri-lanka",
-      "thailand", "tokyo", "tuerkei", "tuerkei-inland", "tuerkische-aegaeis",
-      "tuerkische-riviera", "tuerkische-schwarzmeerkueste",
-      "vae", "vietnam", "vorderer-orient",
-    ],
-  },
-  {
-    id: "afrika",
-    label: "Afrika",
-    emoji: "🌍",
-    gradient: "from-amber-900 via-amber-700 to-yellow-600",
-    desc: "Hurghada, Sharm el-Sheikh, Tunesien und Marokko – Nordafrika für Strand und Kultur, Kenia und Sansibar für Safari und Traumstrände im Indischen Ozean.",
-    top5: ["aegypten", "hurghada", "tunesien", "marokko", "kapverden"],
-    slugs: [
-      "aegypten", "agadir", "afrika", "afrika-sued",
-      "djerba",
-      "el-gouna",
-      "hammamet", "hurghada",
-      "kapstadt", "kapverden", "kenia-kueste",
-      "marokko", "marrakesch", "marsa-alam", "monastir",
-      "sansibar", "sharm-el-sheikh",
-      "tunesien",
-    ],
-  },
-  {
-    id: "amerika",
-    label: "Amerika",
-    emoji: "🌴",
-    gradient: "from-cyan-900 via-cyan-700 to-teal-600",
-    desc: "Karibische All-Inclusive-Resorts in Punta Cana und Cancún, Städtereisen nach New York, Kubas Havanna und Naturwunder entlang Südamerikas.",
-    top5: ["dominikanische-republik", "cancun", "kuba", "punta-cana", "new-york"],
-    slugs: [
-      "aruba",
-      "barbados",
-      "california", "cancun", "curacao",
-      "dominikanische-republik",
-      "florida-orlando", "florida-ostkueste",
-      "havanna",
-      "jamaika",
-      "kalifornien", "kanada", "karibik", "kuba",
-      "mexiko",
-      "new-york",
-      "puerto-plata", "punta-cana",
-      "riviera-maya",
-      "suedamerika",
-      "usa-ostkueste", "usa-westkueste",
-      "yucatan",
-    ],
-  },
-  {
-    id: "australien",
-    label: "Australien & Ozeanien",
-    emoji: "🦘",
-    gradient: "from-emerald-900 via-emerald-700 to-teal-600",
-    desc: "Das Great Barrier Reef, Sydney Opera House, Neuseelands Fjorde und die Inseln der Südsee – Australien und Ozeanien für unvergessliche Fernreisen.",
-    top5: ["australien", "neuseeland", "fiji", "hawaii", "sydney"],
-    slugs: [
-      "australien", "neuseeland", "sydney", "queensland", "fiji", "hawaii", "polynesien",
-    ],
-  },
-];
-
-// ─── FAQ ──────────────────────────────────────────────────────────────────────
-
-const FAQS = [
-  {
-    q: "Wann buche ich eine Pauschalreise am günstigsten?",
-    a: "Die günstigsten Pauschalreisen gibt es oft bei Frühbucher-Angeboten (8–12 Monate vor Reiseantritt) oder als Last-Minute-Deal (0–14 Tage vor Abflug). Reisen in der Nebensaison – z. B. Mai/Juni oder September/Oktober – sind meist deutlich günstiger als im Hochsommer.",
-  },
-  {
-    q: "Was ist der Unterschied zwischen Pauschalreise und All-Inclusive?",
-    a: "Eine Pauschalreise kombiniert Flug und Hotel zu einem Gesamtpreis. All-Inclusive ist eine Verpflegungsform, bei der Mahlzeiten und Getränke inklusive sind. Man kann eine Pauschalreise also mit verschiedenen Verpflegungsarten buchen: Nur Übernachtung, Frühstück, Halbpension oder All-Inclusive.",
-  },
-  {
-    q: "Welche Urlaubsziele eignen sich für Familien mit Kindern?",
-    a: "Für Familien besonders beliebt sind die Türkei (Antalya, Side), die Balearen (Mallorca), Ägypten (Hurghada) und Griechenland (Kreta, Korfu). Diese Ziele bieten flache Strände, kinderfreundliche Hotels mit Animation und kurze Flugzeiten.",
-  },
-  {
-    q: "Wie finde ich die günstigsten Last-Minute-Deals?",
-    a: "Last-Minute-Angebote entstehen, wenn Reiseveranstalter kurzfristig freie Kapazitäten günstig anbieten. Auf Urlaubfinder365 findest du täglich aktualisierte Deals. Die besten Angebote gibt es oft 1–3 Wochen vor Abflug – Flexibilität beim Ziel und Abflughafen erhöht die Auswahl.",
-  },
-  {
-    q: "Welche Urlaubsziele sind ganzjährig empfehlenswert?",
-    a: "Ganzjährig bereisbar sind die Kanarischen Inseln, Dubai/VAE, Thailand (außerhalb Regenzeit) und die Kapverdischen Inseln. Für Kulturreisen eignen sich Städte wie Rom, Barcelona oder Istanbul zu jeder Jahreszeit.",
-  },
-  {
-    q: "Für welche Ziele brauche ich als Deutscher ein Visum?",
-    a: "Für Reisen in die EU sowie Türkei, Ägypten, Tunesien und Thailand benötigen Deutsche in der Regel kein Visum. Für USA/Kanada/Australien ist eine elektronische Reisegenehmigung (ESTA/ETA) nötig. Für Indien und Vietnam ist ein Visum erforderlich.",
-  },
-];
-
 // ─── Helper: CatalogEntry → CountryHoverCard props ───────────────────────────
 
 function entryToCardProps(entry: CatalogEntry) {
@@ -212,6 +63,136 @@ function getEntriesBySlugs(slugs: string[]): CatalogEntry[] {
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("urlaubszielePage");
+
+  const CONTINENTS: Continent[] = [
+    {
+      id: "europa",
+      label: t("continentEuropa"),
+      emoji: "🏰",
+      gradient: "from-blue-900 via-[#1b6ca8] to-[#00838F]",
+      desc: t("continentEuropaDesc", { year: YEAR }),
+      top5: ["mallorca", "teneriffa", "kreta", "griechische-inseln", "costa-del-sol"],
+      slugs: [
+        "amalfikusste", "andalusien", "aragonien", "athen", "azoren",
+        "balearen", "barcelona", "baltikum", "benelux", "benidorm", "bulgarien",
+        "chalkidiki", "costa-blanca", "costa-brava", "costa-da-caparica", "costa-de-almeria",
+        "costa-de-la-luz", "costa-de-prata", "costa-del-azahar", "costa-del-sol",
+        "costa-do-estoril", "costa-dorada", "costa-verde-portugal", "cote-dazur",
+        "daenemark", "deutschland-nord", "deutschland-sued", "dublin", "dubrovnik",
+        "el-hierro", "europa-ost", "europa-sued-ost",
+        "formentera", "frankreich", "fuerteventura",
+        "gardasee", "goldstrand", "gozo", "gran-canaria", "granada", "griechenland",
+        "griechische-inseln", "grossbritannien",
+        "ibiza", "insel-hvar", "island-nordatlantik", "istrien", "italien",
+        "kalabrien", "kanaren", "katalonien", "kefalonia", "korfu", "korsika",
+        "kos", "kroatien", "kreta",
+        "la-gomera", "la-palma", "lanzarote", "lefkas", "ligurien", "lissabon", "london",
+        "madrid", "mallorca", "malta", "malta-insel", "marbella", "menorca", "mykonos",
+        "navarra-la-rioja", "nord-portugal",
+        "oesterreich",
+        "paris", "porto", "porto-santo", "portugal", "provence", "pyrenäen",
+        "rhodos", "rom",
+        "santorin", "sardinien", "schweiz", "sevilla", "sizilien", "skandinavien",
+        "sonnenstrand", "spanien", "spanische-atlantikkueste", "split",
+        "teneriffa", "thassos", "toskana",
+        "valencia", "venedig",
+        "zakynthos", "zentral-portugal", "zentral-spanien", "zypern", "zypern-sued",
+        "alentejo", "algarve", "apulien", "murcia",
+      ],
+    },
+    {
+      id: "asien",
+      label: t("continentAsien"),
+      emoji: "🌏",
+      gradient: "from-pink-900 via-pink-700 to-rose-600",
+      desc: t("continentAsienDesc"),
+      top5: ["tuerkei", "dubai", "thailand", "malediven", "bali"],
+      slugs: [
+        "abu-dhabi", "alanya", "antalya-stadt", "asien",
+        "bali", "bangkok", "belek",
+        "cesme",
+        "dalyan", "dubai",
+        "fethiye",
+        "goa",
+        "halbinsel-bodrum",
+        "indien", "indischer-ozean", "istanbul",
+        "japan", "jordanien",
+        "kappadokien", "katar", "khao-lak", "ko-samui", "krabi", "kusadasi",
+        "malaysia", "malediven", "marmara-meer", "marmaris", "mauritius",
+        "oman",
+        "philippinen", "phuket",
+        "ras-al-khaimah",
+        "seychellen", "side", "singapur", "sri-lanka",
+        "thailand", "tokyo", "tuerkei", "tuerkei-inland", "tuerkische-aegaeis",
+        "tuerkische-riviera", "tuerkische-schwarzmeerkueste",
+        "vae", "vietnam", "vorderer-orient",
+      ],
+    },
+    {
+      id: "afrika",
+      label: t("continentAfrika"),
+      emoji: "🌍",
+      gradient: "from-amber-900 via-amber-700 to-yellow-600",
+      desc: t("continentAfrikaDesc"),
+      top5: ["aegypten", "hurghada", "tunesien", "marokko", "kapverden"],
+      slugs: [
+        "aegypten", "agadir", "afrika", "afrika-sued",
+        "djerba",
+        "el-gouna",
+        "hammamet", "hurghada",
+        "kapstadt", "kapverden", "kenia-kueste",
+        "marokko", "marrakesch", "marsa-alam", "monastir",
+        "sansibar", "sharm-el-sheikh",
+        "tunesien",
+      ],
+    },
+    {
+      id: "amerika",
+      label: t("continentAmerika"),
+      emoji: "🌴",
+      gradient: "from-cyan-900 via-cyan-700 to-teal-600",
+      desc: t("continentAmerikaDesc"),
+      top5: ["dominikanische-republik", "cancun", "kuba", "punta-cana", "new-york"],
+      slugs: [
+        "aruba",
+        "barbados",
+        "california", "cancun", "curacao",
+        "dominikanische-republik",
+        "florida-orlando", "florida-ostkueste",
+        "havanna",
+        "jamaika",
+        "kalifornien", "kanada", "karibik", "kuba",
+        "mexiko",
+        "new-york",
+        "puerto-plata", "punta-cana",
+        "riviera-maya",
+        "suedamerika",
+        "usa-ostkueste", "usa-westkueste",
+        "yucatan",
+      ],
+    },
+    {
+      id: "australien",
+      label: t("continentAustralien"),
+      emoji: "🦘",
+      gradient: "from-emerald-900 via-emerald-700 to-teal-600",
+      desc: t("continentAustralienDesc"),
+      top5: ["australien", "neuseeland", "fiji", "hawaii", "sydney"],
+      slugs: [
+        "australien", "neuseeland", "sydney", "queensland", "fiji", "hawaii", "polynesien",
+      ],
+    },
+  ];
+
+  const FAQS = [
+    { q: t("faq1q"), a: t("faq1a") },
+    { q: t("faq2q"), a: t("faq2a") },
+    { q: t("faq3q"), a: t("faq3a") },
+    { q: t("faq4q"), a: t("faq4a") },
+    { q: t("faq5q"), a: t("faq5a") },
+    { q: t("faq6q"), a: t("faq6a") },
+  ];
 
   const collectionPageSchema = {
     "@context": "https://schema.org",
@@ -242,15 +223,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0 bg-linear-to-b from-[#003d47]/65 via-[#003d47]/45 to-[#003d47]/75" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 py-14 text-center">
           <nav className="flex items-center justify-center gap-1.5 text-white/55 text-xs mb-5">
-            <Link href="/" className="hover:text-white transition-colors">Startseite</Link>
+            <Link href="/" className="hover:text-white transition-colors">{t("breadcrumbHome")}</Link>
             <span>›</span>
-            <span className="text-white/90">Urlaubsziele</span>
+            <span className="text-white/90">{t("breadcrumbCurrent")}</span>
           </nav>
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3 leading-tight drop-shadow-lg">
-            Urlaubsziele weltweit – Pauschalreisen günstig buchen
+            {t("heroTitle")}
           </h1>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-7">
-            Vergleiche günstige Pauschalreisen, All-Inclusive &amp; Last-Minute für über 200 Urlaubsziele weltweit.
+            {t("heroSubtitle")}
           </p>
           {/* Kontinent-Schnellnavigation */}
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -296,7 +277,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     <div className="relative z-10 px-6 py-5 flex items-center gap-5">
                       <span className="text-5xl shrink-0 drop-shadow">{continent.emoji}</span>
                       <div>
-                        <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Urlaubsziele</p>
+                        <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">{t("continentDestinationsLabel")}</p>
                         <h2 className="text-xl font-black text-white leading-tight">{continent.label}</h2>
                         <p className="text-sm text-white/70 mt-0.5 line-clamp-1">{continent.desc}</p>
                       </div>
@@ -307,7 +288,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   {top5.length > 0 && (
                     <div className="mb-5">
                       <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">
-                        ⭐ Beliebteste Reiseziele
+                        {t("topDestinations")}
                       </p>
                       <div className="grid grid-cols-2 gap-3 mb-3">
                         {top5.slice(0, 2).map((entry) => (
@@ -328,7 +309,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   {rest.length > 0 && (
                     <>
                       <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3 mt-6">
-                        Alle {continent.label}-Ziele
+                        {t("allDestinationsLabel", { continent: continent.label })}
                       </p>
                       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                         {rest.map((entry) => (
@@ -346,8 +327,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <div className="flex items-center gap-2 mb-6">
                 <span className="text-2xl">❓</span>
                 <div>
-                  <h2 className="text-xl font-extrabold text-gray-900">Häufige Fragen rund ums Reisen</h2>
-                  <p className="text-xs text-gray-400 mt-0.5">Tipps zum Buchen, Reisezeitplanung &amp; mehr</p>
+                  <h2 className="text-xl font-extrabold text-gray-900">{t("faqTitle")}</h2>
+                  <p className="text-xs text-gray-400 mt-0.5">{t("faqSubtitle")}</p>
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -367,20 +348,20 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="relative rounded-3xl overflow-hidden">
               <img
                 src={generateHeroFallback("tropical beach sunset golden hour paradise")}
-                alt="Günstige Pauschalreisen buchen"
+                alt={t("ctaTitle")}
                 className="w-full h-52 object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-r from-[#003d47]/90 to-[#00838F]/70" />
               <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-between px-8 py-6 gap-4">
                 <div className="text-white text-center sm:text-left">
-                  <p className="text-sm text-white/70 mb-1">Dein Traumurlaub wartet</p>
-                  <h3 className="text-2xl font-extrabold">Pauschalreisen günstig buchen &amp; sparen</h3>
+                  <p className="text-sm text-white/70 mb-1">{t("ctaEyebrow")}</p>
+                  <h3 className="text-2xl font-extrabold">{t("ctaTitle")}</h3>
                 </div>
                 <Link
                   href="/guenstig-urlaub-buchen/"
                   className="shrink-0 bg-sand-500 hover:bg-sand-400 text-white font-bold px-8 py-3 rounded-full text-sm shadow-lg transition-all hover:-translate-y-0.5 whitespace-nowrap"
                 >
-                  Alle Angebote vergleichen →
+                  {t("ctaButton")}
                 </Link>
               </div>
             </div>
@@ -394,21 +375,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 dealRegionIds={[141, 149, 128, 171, 130, 4]}
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&h=200&q=70",
-                  eyebrow: "Jetzt buchen",
-                  title: "Günstige Pauschalreisen",
-                  description: "Täglich tausende Angebote vergleichen – All-Inclusive, Last-Minute & mehr.",
+                  eyebrow: t("sidebarEyebrow"),
+                  title: t("sidebarTitle"),
+                  description: t("sidebarDescription"),
                   href: "/guenstig-urlaub-buchen/",
-                  ctaLabel: "Angebote vergleichen →",
+                  ctaLabel: t("sidebarCta"),
                 }}
-                seoLinksTitle="🌍 Beliebte Ziele"
+                seoLinksTitle={t("sidebarLinksTitle")}
                 seoLinks={[
-                  { href: "/urlaubsziele/tuerkei/",            label: "Türkei" },
-                  { href: "/urlaubsziele/balearen/",           label: "Mallorca & Balearen" },
-                  { href: "/urlaubsziele/griechische-inseln/", label: "Griechenland" },
-                  { href: "/urlaubsziele/aegypten/",           label: "Ägypten" },
-                  { href: "/urlaubsziele/italien/",            label: "Italien" },
-                  { href: "/urlaubsthemen/",                   label: "Urlaubsthemen" },
-                  { href: "/urlaubsarten/last-minute-urlaub/", label: "Last-Minute Urlaub" },
+                  { href: "/urlaubsziele/tuerkei/",            label: t("sidebarLinkTuerkei") },
+                  { href: "/urlaubsziele/balearen/",           label: t("sidebarLinkBalearen") },
+                  { href: "/urlaubsziele/griechische-inseln/", label: t("sidebarLinkGriechenland") },
+                  { href: "/urlaubsziele/aegypten/",           label: t("sidebarLinkAegypten") },
+                  { href: "/urlaubsziele/italien/",            label: t("sidebarLinkItalien") },
+                  { href: "/urlaubsthemen/",                   label: t("sidebarLinkUrlaubsthemen") },
+                  { href: "/urlaubsarten/last-minute-urlaub/", label: t("sidebarLinkLastMinute") },
                 ]}
               />
             </div>

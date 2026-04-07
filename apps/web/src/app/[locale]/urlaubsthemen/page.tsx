@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
 const YEAR = new Date().getFullYear();
@@ -27,173 +27,175 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-const THEMEN = [
-  {
-    href: "/urlaubsthemen/adults-only/",
-    emoji: "💑",
-    label: "Adults Only",
-    desc: "Paare & Erwachsene – ruhig, romantisch, exklusiv",
-    color: "from-rose-500/80 to-pink-700/80",
-    img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/familienurlaub/",
-    emoji: "👨‍👩‍👧‍👦",
-    label: "Familienurlaub",
-    desc: "Kinderclub, Wasserpark & Animation für die ganze Familie",
-    color: "from-sky-500/80 to-blue-700/80",
-    img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/strandurlaub/",
-    emoji: "🏖️",
-    label: "Strandurlaub",
-    desc: "Traumhotels in bester Strandlage am Meer",
-    color: "from-teal-500/80 to-cyan-700/80",
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/wellnessurlaub/",
-    emoji: "🧖",
-    label: "Wellnessurlaub",
-    desc: "Spa, Sauna & pure Entspannung für Körper und Geist",
-    color: "from-emerald-500/80 to-green-700/80",
-    img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/staedtereisen/",
-    emoji: "🏙️",
-    label: "Städtereisen",
-    desc: "Metropolen, Kultur und Gastronomie entdecken",
-    color: "from-violet-500/80 to-purple-700/80",
-    img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/hochzeitsreise/",
-    emoji: "💒",
-    label: "Hochzeitsreise",
-    desc: "Flitterwochen in 5-Sterne All-Inclusive Resorts",
-    color: "from-pink-500/80 to-rose-700/80",
-    img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/abenteuerurlaub/",
-    emoji: "🧗",
-    label: "Abenteuerurlaub",
-    desc: "Action, Sport & Outdoor – Tauchen, Wandern, Surfen",
-    color: "from-orange-500/80 to-red-700/80",
-    img: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/luxusurlaub/",
-    emoji: "👑",
-    label: "Luxusurlaub",
-    desc: "5-Sterne Hotels & Resorts – exklusiv und unvergesslich",
-    color: "from-amber-500/80 to-yellow-700/80",
-    img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/singlereisen/",
-    emoji: "🧳",
-    label: "Singlereisen",
-    desc: "Solo reisen – neue Menschen kennenlernen",
-    color: "from-teal-500/80 to-cyan-700/80",
-    img: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/aktivurlaub/",
-    emoji: "🏃",
-    label: "Aktivurlaub",
-    desc: "Golf, Tauchen, Surfen & Wandern – Sport pur",
-    color: "from-lime-500/80 to-green-700/80",
-    img: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/kurreisen/",
-    emoji: "💧",
-    label: "Kurreisen",
-    desc: "Heilbäder, Thermalquellen & Naturheilkunde",
-    color: "from-cyan-500/80 to-blue-700/80",
-    img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=70",
-  },
-  {
-    href: "/urlaubsthemen/seniorenreisen/",
-    emoji: "🌟",
-    label: "Seniorenreisen",
-    desc: "Entspannter Urlaub ab 60 – barrierefrei & komfortabel",
-    color: "from-blue-500/80 to-indigo-700/80",
-    img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=600&q=70",
-  },
-];
-
-const BUDGET = [
-  {
-    href: "/urlaubsthemen/budget-bis-500/",
-    badge: "🤑",
-    label: "Bis 500 €",
-    desc: "Günstige Pauschalreisen mit Flug & Hotel",
-    color: "bg-green-50 border-green-200 hover:border-green-400",
-    textColor: "text-green-800",
-  },
-  {
-    href: "/urlaubsthemen/budget-bis-1000/",
-    badge: "💰",
-    label: "Bis 1.000 €",
-    desc: "Mehr Urlaub für dein Budget",
-    color: "bg-sky-50 border-sky-200 hover:border-sky-400",
-    textColor: "text-sky-800",
-  },
-  {
-    href: "/urlaubsthemen/budget-bis-1500/",
-    badge: "💳",
-    label: "Bis 1.500 €",
-    desc: "Premium Reisen mit Stil",
-    color: "bg-amber-50 border-amber-200 hover:border-amber-400",
-    textColor: "text-amber-800",
-  },
-  {
-    href: "/urlaubsthemen/budget-bis-2000/",
-    badge: "✨",
-    label: "Bis 2.000 €",
-    desc: "Luxus zum fairen Preis",
-    color: "bg-purple-50 border-purple-200 hover:border-purple-400",
-    textColor: "text-purple-800",
-  },
-];
-
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Urlaubsthemen – Alle Reiseideen auf einen Blick",
-    description: "Alle Urlaubsthemen entdecken: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Hochzeitsreise, Luxusurlaub und mehr.",
-    url: "https://www.urlaubfinder365.de/urlaubsthemen/",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Startseite",     item: "https://www.urlaubfinder365.de/" },
-      { "@type": "ListItem", position: 2, name: "Urlaubsthemen",  item: "https://www.urlaubfinder365.de/urlaubsthemen/" },
-    ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Urlaubsthemen",
-    itemListElement: THEMEN.map((t, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: t.label,
-      description: t.desc,
-      url: `https://www.urlaubfinder365.de${t.href}`,
-    })),
-  },
-];
-
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("urlaubsthemenPage");
+
+  const THEMEN = [
+    {
+      href: "/urlaubsthemen/adults-only/",
+      emoji: "💑",
+      label: t("thema1Label"),
+      desc: t("thema1Desc"),
+      color: "from-rose-500/80 to-pink-700/80",
+      img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/familienurlaub/",
+      emoji: "👨‍👩‍👧‍👦",
+      label: t("thema2Label"),
+      desc: t("thema2Desc"),
+      color: "from-sky-500/80 to-blue-700/80",
+      img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/strandurlaub/",
+      emoji: "🏖️",
+      label: t("thema3Label"),
+      desc: t("thema3Desc"),
+      color: "from-teal-500/80 to-cyan-700/80",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/wellnessurlaub/",
+      emoji: "🧖",
+      label: t("thema4Label"),
+      desc: t("thema4Desc"),
+      color: "from-emerald-500/80 to-green-700/80",
+      img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/staedtereisen/",
+      emoji: "🏙️",
+      label: t("thema5Label"),
+      desc: t("thema5Desc"),
+      color: "from-violet-500/80 to-purple-700/80",
+      img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/hochzeitsreise/",
+      emoji: "💒",
+      label: t("thema6Label"),
+      desc: t("thema6Desc"),
+      color: "from-pink-500/80 to-rose-700/80",
+      img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/abenteuerurlaub/",
+      emoji: "🧗",
+      label: t("thema7Label"),
+      desc: t("thema7Desc"),
+      color: "from-orange-500/80 to-red-700/80",
+      img: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/luxusurlaub/",
+      emoji: "👑",
+      label: t("thema8Label"),
+      desc: t("thema8Desc"),
+      color: "from-amber-500/80 to-yellow-700/80",
+      img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/singlereisen/",
+      emoji: "🧳",
+      label: t("thema9Label"),
+      desc: t("thema9Desc"),
+      color: "from-teal-500/80 to-cyan-700/80",
+      img: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/aktivurlaub/",
+      emoji: "🏃",
+      label: t("thema10Label"),
+      desc: t("thema10Desc"),
+      color: "from-lime-500/80 to-green-700/80",
+      img: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/kurreisen/",
+      emoji: "💧",
+      label: t("thema11Label"),
+      desc: t("thema11Desc"),
+      color: "from-cyan-500/80 to-blue-700/80",
+      img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=70",
+    },
+    {
+      href: "/urlaubsthemen/seniorenreisen/",
+      emoji: "🌟",
+      label: t("thema12Label"),
+      desc: t("thema12Desc"),
+      color: "from-blue-500/80 to-indigo-700/80",
+      img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=600&q=70",
+    },
+  ];
+
+  const BUDGET = [
+    {
+      href: "/urlaubsthemen/budget-bis-500/",
+      badge: "🤑",
+      label: t("budget1Label"),
+      desc: t("budget1Desc"),
+      color: "bg-green-50 border-green-200 hover:border-green-400",
+      textColor: "text-green-800",
+    },
+    {
+      href: "/urlaubsthemen/budget-bis-1000/",
+      badge: "💰",
+      label: t("budget2Label"),
+      desc: t("budget2Desc"),
+      color: "bg-sky-50 border-sky-200 hover:border-sky-400",
+      textColor: "text-sky-800",
+    },
+    {
+      href: "/urlaubsthemen/budget-bis-1500/",
+      badge: "💳",
+      label: t("budget3Label"),
+      desc: t("budget3Desc"),
+      color: "bg-amber-50 border-amber-200 hover:border-amber-400",
+      textColor: "text-amber-800",
+    },
+    {
+      href: "/urlaubsthemen/budget-bis-2000/",
+      badge: "✨",
+      label: t("budget4Label"),
+      desc: t("budget4Desc"),
+      color: "bg-purple-50 border-purple-200 hover:border-purple-400",
+      textColor: "text-purple-800",
+    },
+  ];
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Urlaubsthemen – Alle Reiseideen auf einen Blick",
+      description: "Alle Urlaubsthemen entdecken: Adults Only, Familienurlaub, Strandurlaub, Wellness, Städtereisen, Hochzeitsreise, Luxusurlaub und mehr.",
+      url: "https://www.urlaubfinder365.de/urlaubsthemen/",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Startseite",     item: "https://www.urlaubfinder365.de/" },
+        { "@type": "ListItem", position: 2, name: "Urlaubsthemen",  item: "https://www.urlaubfinder365.de/urlaubsthemen/" },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "Urlaubsthemen",
+      itemListElement: THEMEN.map((th, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: th.label,
+        description: th.desc,
+        url: `https://www.urlaubfinder365.de${th.href}`,
+      })),
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -214,16 +216,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-sm font-medium px-3.5 py-1.5 rounded-full mb-5">
-            🎯 Urlaubsthemen
+            {t("heroBadge")}
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-3 leading-tight">
-            Alle Urlaubsthemen –<br />
-            <span className="text-[#6CC4BA]">Finde deinen Traumurlaub</span>
+            {t("heroTitle")}<br />
+            <span className="text-[#6CC4BA]">{t("heroTitleHighlight")}</span>
           </h1>
           <p className="text-white/80 text-lg max-w-2xl">
-            Ob romantischer Adults Only Urlaub, Familienferien mit Kinderclub oder
-            Luxusreise im 5-Sterne Resort – hier findest du täglich aktuelle Angebote
-            für jedes Urlaubsthema.
+            {t("heroSubtitle")}
           </p>
         </div>
       </div>
@@ -236,35 +236,35 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Themen Grid */}
       <div>
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Beliebteste <span className="text-[#00838F]">Urlaubsthemen</span>
+          {t("themenGridTitle")} <span className="text-[#00838F]">{t("themenGridTitleHighlight")}</span>
         </h2>
         <p className="text-gray-500 mb-8">
-          Täglich aktualisierte Pauschalreisen mit Flug, Hotel und Transfer – für jeden Urlaubstyp.
+          {t("themenGridSubtitle")}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {THEMEN.map((t) => (
+          {THEMEN.map((th) => (
             <Link
-              key={t.href}
-              href={t.href}
+              key={th.href}
+              href={th.href}
               className="group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-all"
             >
               <div className="relative h-44">
                 <img
-                  src={t.img}
-                  alt={t.label}
+                  src={th.img}
+                  alt={th.label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-400"
                   loading="lazy"
                 />
-                <div className={`absolute inset-0 bg-linear-to-t ${t.color}`} />
+                <div className={`absolute inset-0 bg-linear-to-t ${th.color}`} />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xl">{t.emoji}</span>
-                  <span className="text-white font-bold text-base leading-tight">{t.label}</span>
+                  <span className="text-xl">{th.emoji}</span>
+                  <span className="text-white font-bold text-base leading-tight">{th.label}</span>
                 </div>
-                <p className="text-white/80 text-xs leading-snug">{t.desc}</p>
+                <p className="text-white/80 text-xs leading-snug">{th.desc}</p>
               </div>
             </Link>
           ))}
@@ -275,10 +275,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            💶 Urlaub nach <span className="text-[#00838F]">Budget</span>
+            {t("budgetTitle")} <span className="text-[#00838F]">{t("budgetTitleHighlight")}</span>
           </h2>
           <p className="text-gray-500 mb-6 text-sm">
-            Reisen nach deinem Preisrahmen – inklusive Flug und Hotel.
+            {t("budgetSubtitle")}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {BUDGET.map((b) => (
@@ -299,41 +299,30 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* SEO Text */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Urlaubsthemen – Der richtige Urlaub für jeden Reisetyp
+          {t("seoTitle")}
         </h2>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Jeder Mensch reist anders – und genau das spiegeln unsere Urlaubsthemen wider.
-          Ob du als Paar eine ruhige Auszeit in einem Adults Only Resort suchst, mit der
-          Familie in ein Hotel mit Kinderclub fahren möchtest oder einfach den günstigsten
-          Strandurlaub innerhalb deines Budgets planst: Bei Urlaubfinder365 findest du
-          täglich aktualisierte Pauschalreiseangebote, die perfekt zu deinen Wünschen passen.
+          {t("seoText1")}
         </p>
         <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Alle angezeigten Hotels haben mindestens eine Mindest-Empfehlungsrate von
-          50 % auf HolidayCheck und wurden nach Preis-Leistungs-Verhältnis kuratiert.
-          Für Luxusreisen und Hochzeitsreisen liegt die Hürde noch höher – hier zeigen
-          wir nur 5-Sterne Hotels mit mindestens 90 % Empfehlungsrate. So kannst du
-          sicher sein, dass dein Traumurlaub auch wirklich unvergesslich wird.
+          {t("seoText2")}
         </p>
         <p className="text-gray-600 text-sm leading-relaxed">
-          Nutze unsere Budget-Filter, um sofort die günstigsten Reisen innerhalb deines
-          Preisrahmens zu finden – von günstigen Pauschalreisen unter 500 € bis hin zu
-          Premiumreisen bis 2.000 € pro Person inklusive Flug und Hotel. Alle Angebote
-          können direkt beim Reiseveranstalter sicher gebucht werden.
+          {t("seoText3")}
         </p>
       </div>
 
       {/* Internal Links */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 border-t border-gray-100 pt-8">
-        <p className="text-sm font-semibold text-gray-500 mb-4">Mehr entdecken</p>
+        <p className="text-sm font-semibold text-gray-500 mb-4">{t("internalLinksTitle")}</p>
         <div className="flex flex-wrap gap-2">
           {[
-            { href: "/urlaubsarten/pauschalreisen/", label: "✈️ Pauschalreisen" },
-            { href: "/urlaubsarten/all-inclusive-urlaub/", label: "🍹 All-Inclusive" },
-            { href: "/urlaubsarten/last-minute-urlaub/", label: "⚡ Last-Minute" },
-            { href: "/urlaubsarten/fruhbucher-urlaub/", label: "🌅 Frühbucher" },
-            { href: "/urlaubsziele/", label: "🌍 Alle Urlaubsziele" },
-            { href: "/last-minute/", label: "🔥 Heutige Deals" },
+            { href: "/urlaubsarten/pauschalreisen/",       label: t("internalLinkPauschalreisen") },
+            { href: "/urlaubsarten/all-inclusive-urlaub/", label: t("internalLinkAllInclusive") },
+            { href: "/urlaubsarten/last-minute-urlaub/",   label: t("internalLinkLastMinute") },
+            { href: "/urlaubsarten/fruhbucher-urlaub/",    label: t("internalLinkFruhbucher") },
+            { href: "/urlaubsziele/",                      label: t("internalLinkAlleZiele") },
+            { href: "/last-minute/",                       label: t("internalLinkHeutigeDeals") },
           ].map(({ href, label }) => (
             <Link
               key={href}
@@ -353,20 +342,20 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <RightSidebar
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=200&q=70",
-                  eyebrow: "Inspiration",
-                  title: "Dein perfektes Urlaubsziel",
-                  description: "Entdecke über 250 Urlaubsziele mit aktuellen Preisen, Guides und Insidertipps.",
+                  eyebrow: t("sidebarEyebrow"),
+                  title: t("sidebarTitle"),
+                  description: t("sidebarDescription"),
                   href: "/urlaubsziele/",
-                  ctaLabel: "Alle Ziele entdecken →",
+                  ctaLabel: t("sidebarCta"),
                 }}
-                seoLinksTitle="🌴 Beliebte Themen"
+                seoLinksTitle={t("sidebarLinksTitle")}
                 seoLinks={[
-                  { href: "/urlaubsthemen/strandurlaub/",    label: "Strandurlaub" },
-                  { href: "/urlaubsthemen/familienurlaub/",  label: "Familienurlaub" },
-                  { href: "/urlaubsthemen/wellnessurlaub/",  label: "Wellnessurlaub" },
-                  { href: "/urlaubsthemen/adults-only/",     label: "Adults Only" },
-                  { href: "/urlaubsthemen/luxusurlaub/",     label: "Luxusurlaub" },
-                  { href: "/urlaubsthemen/abenteuerurlaub/", label: "Abenteuerurlaub" },
+                  { href: "/urlaubsthemen/strandurlaub/",    label: t("sidebarLinkStrandurlaub") },
+                  { href: "/urlaubsthemen/familienurlaub/",  label: t("sidebarLinkFamilienurlaub") },
+                  { href: "/urlaubsthemen/wellnessurlaub/",  label: t("sidebarLinkWellnessurlaub") },
+                  { href: "/urlaubsthemen/adults-only/",     label: t("sidebarLinkAdultsOnly") },
+                  { href: "/urlaubsthemen/luxusurlaub/",     label: t("sidebarLinkLuxusurlaub") },
+                  { href: "/urlaubsthemen/abenteuerurlaub/", label: t("sidebarLinkAbenteuerurlaub") },
                 ]}
               />
             </div>

@@ -8,6 +8,7 @@ import {
   Users, ChevronRight, Check, Compass, ArrowRight,
 } from "lucide-react";
 import CruiseWidget from "@/components/cruise/CruiseWidget";
+import { useTranslations } from "next-intl";
 import type React from "react";
 
 const PARTNER_ID = "30412";
@@ -25,156 +26,20 @@ function openModal(url: string, title = "Kreuzfahrten buchen") {
   }
 }
 
-// ─── Reisetypen ────────────────────────────────────────────────────────────────
-const CRUISE_TYPES = [
-  {
-    icon: Ship,
-    title: "Hochseekreuzfahrten",
-    desc: "Das Meer als Bühne – von Mittelmeer bis Karibik.",
-    gradient: "from-blue-900 to-blue-700",
-    href: DL("&type=NS"),
-    label: "Hochseekreuzfahrten vergleichen",
-  },
-  {
-    icon: Plane,
-    title: "Kreuzfahrt + Flug",
-    desc: "Rundum-sorglos: Flug, Schiff & Kabine aus einer Hand.",
-    gradient: "from-sky-800 to-cyan-600",
-    href: DL("&type=S"),
-    label: "Kreuzfahrt + Flug buchen",
-  },
-  {
-    icon: Waves,
-    title: "Flusskreuzfahrten",
-    desc: "Rhein, Donau, Nil & mehr – malerische Flussrouten.",
-    gradient: "from-teal-800 to-emerald-600",
-    href: DL("&type=R"),
-    label: "Flusskreuzfahrten entdecken",
-  },
-  {
-    icon: Compass,
-    title: "Kreuzfahrt + Hotel",
-    desc: "Kombi-Urlaub: Schiff kombiniert mit Hotelaufenthalt.",
-    gradient: "from-indigo-800 to-purple-600",
-    href: DL("&type=KOMBI"),
-    label: "Kreuzfahrt + Hotel",
-  },
-  {
-    icon: Zap,
-    title: "Last-Minute Deals",
-    desc: "Spontan auf große Fahrt – zu unschlagbaren Preisen.",
-    gradient: "from-sand-700 to-red-600",
-    href: DL("&sort=pauf&sdt=1"),
-    label: "Last-Minute Kreuzfahrten",
-  },
-  {
-    icon: Star,
-    title: "Luxuskreuzfahrten",
-    desc: "5-Sterne-Komfort auf See: Suiten, Butler & Gourmet.",
-    gradient: "from-amber-700 to-yellow-600",
-    href: DL("&cab=4"),
-    label: "Luxuskreuzfahrten",
-  },
-];
-
-// ─── Beliebte Reedereien ───────────────────────────────────────────────────────
+// ─── Beliebte Reedereien (Markennamen nicht übersetzen) ───────────────────────
 const REEDEREIEN = [
-  { id: 1,  name: "AIDA Cruises",          color: "bg-red-600",    flag: "🇩🇪", tag: "Beliebt" },
-  { id: 7,  name: "TUI Cruises",           color: "bg-blue-600",   flag: "🇩🇪", tag: "Deutsch" },
-  { id: 15, name: "MSC Cruises",           color: "bg-sky-700",    flag: "🌍", tag: "" },
-  { id: 11, name: "Royal Caribbean",       color: "bg-indigo-700", flag: "🌍", tag: "Größte Schiffe" },
-  { id: 10, name: "Norwegian Cruise Line", color: "bg-teal-700",   flag: "🌍", tag: "" },
-  { id: 18, name: "Celebrity Cruises",     color: "bg-slate-700",  flag: "🌍", tag: "Premium" },
-  { id: 14, name: "Costa Kreuzfahrten",    color: "bg-green-700",  flag: "🇮🇹", tag: "" },
-  { id: 17, name: "Hapag-Lloyd Cruises",   color: "bg-amber-700",  flag: "🇩🇪", tag: "Luxus" },
-  { id: 2,  name: "A-ROSA",               color: "bg-pink-700",   flag: "🇩🇪", tag: "Fluss" },
-  { id: 26, name: "Phoenix Seereisen",     color: "bg-sand-700", flag: "🇩🇪", tag: "" },
-  { id: 30, name: "Silversea",             color: "bg-gray-700",   flag: "🌍", tag: "Ultra-Luxus" },
-  { id: 27, name: "Princess Cruises",      color: "bg-violet-700", flag: "🌍", tag: "" },
-];
-
-// ─── Kabinen-Kategorien ────────────────────────────────────────────────────────
-const KABINEN = [
-  {
-    cab: 1,
-    title: "Innenkabine",
-    price: "ab 499 €",
-    desc: "Günstigste Option – perfekt für Aktiv-Urlauber, die kaum Zeit in der Kabine verbringen.",
-    perks: ["Vollwertige Ausstattung", "Ruhiger Schlaf (kein Tageslicht)", "Bestes Preis-Leistungs-Verhältnis"],
-    color: "border-gray-200",
-    badge: "Günstigste",
-    badgeColor: "bg-gray-100 text-gray-700",
-  },
-  {
-    cab: 2,
-    title: "Außenkabine",
-    price: "ab 649 €",
-    desc: "Mit Fenster oder Bullauge – Tageslicht und Ausblick aufs Meer inklusive.",
-    perks: ["Natürliches Tageslicht", "Meerblick durch Fenster", "Gutes Preis-Leistungs-Verhältnis"],
-    color: "border-blue-200",
-    badge: "Beliebt",
-    badgeColor: "bg-blue-100 text-blue-700",
-  },
-  {
-    cab: 3,
-    title: "Balkonkabine",
-    price: "ab 899 €",
-    desc: "Eigener Balkon mit Meerblick – Morgenkaffe mit Sonnenaufgang über dem Ozean.",
-    perks: ["Privater Balkon", "Frische Seeluft", "Bester Meerblick"],
-    color: "border-sky-300",
-    badge: "Empfohlen",
-    badgeColor: "bg-sky-100 text-sky-700",
-  },
-  {
-    cab: 4,
-    title: "Suite",
-    price: "ab 1.499 €",
-    desc: "Das Feinste an Bord – großzügige Suiten mit Butler-Service und exklusiven Extras.",
-    perks: ["Separater Wohn- & Schlafbereich", "Butler-Service", "Exklusive Vorteile"],
-    color: "border-amber-300",
-    badge: "Premium",
-    badgeColor: "bg-amber-100 text-amber-700",
-  },
-];
-
-// ─── Destinationen ─────────────────────────────────────────────────────────────
-const DESTINATIONEN = [
-  {
-    title: "Mittelmeer",
-    sub: "Spanien · Italien · Griechenland · Türkei",
-    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
-    href: DL("&type=NS"),
-    label: "Mittelmeer-Kreuzfahrt buchen",
-  },
-  {
-    title: "Karibik",
-    sub: "Bahamas · Jamaika · Barbados · Mexiko",
-    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-    href: DL("&type=NS"),
-    label: "Karibik-Kreuzfahrt buchen",
-  },
-  {
-    title: "Nordeuropa & Fjorde",
-    sub: "Norwegen · Island · Spitzbergen",
-    img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
-    href: DL("&type=NS"),
-    label: "Nordeuropa-Kreuzfahrt buchen",
-  },
-  {
-    title: "Flusskreuzfahrten",
-    sub: "Rhein · Donau · Elbe · Nil",
-    img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80",
-    href: DL("&type=R"),
-    label: "Flusskreuzfahrt buchen",
-  },
-];
-
-// ─── USPs ──────────────────────────────────────────────────────────────────────
-const USPS = [
-  { icon: Ship,   text: "30+ Reedereien im Vergleich" },
-  { icon: Star,   text: "Top-Bewertungen & Empfehlungen" },
-  { icon: Users,  text: "Für Paare, Familien & Gruppen" },
-  { icon: Anchor, text: "Hochsee & Fluss aus einer Hand" },
+  { id: 1,  name: "AIDA Cruises",          color: "bg-red-600",    flag: "🇩🇪", tagKey: "reedereienTagBeliebt" },
+  { id: 7,  name: "TUI Cruises",           color: "bg-blue-600",   flag: "🇩🇪", tagKey: "reedereienTagDeutsch" },
+  { id: 15, name: "MSC Cruises",           color: "bg-sky-700",    flag: "🌍", tagKey: "" },
+  { id: 11, name: "Royal Caribbean",       color: "bg-indigo-700", flag: "🌍", tagKey: "reedereienTagGroesteSchiffe" },
+  { id: 10, name: "Norwegian Cruise Line", color: "bg-teal-700",   flag: "🌍", tagKey: "" },
+  { id: 18, name: "Celebrity Cruises",     color: "bg-slate-700",  flag: "🌍", tagKey: "reedereienTagPremium" },
+  { id: 14, name: "Costa Kreuzfahrten",    color: "bg-green-700",  flag: "🇮🇹", tagKey: "" },
+  { id: 17, name: "Hapag-Lloyd Cruises",   color: "bg-amber-700",  flag: "🇩🇪", tagKey: "reedereienTagLuxus" },
+  { id: 2,  name: "A-ROSA",               color: "bg-pink-700",   flag: "🇩🇪", tagKey: "reedereienTagFluss" },
+  { id: 26, name: "Phoenix Seereisen",     color: "bg-sand-700",   flag: "🇩🇪", tagKey: "" },
+  { id: 30, name: "Silversea",             color: "bg-gray-700",   flag: "🌍", tagKey: "reedereienTagUltraLuxus" },
+  { id: 27, name: "Princess Cruises",      color: "bg-violet-700", flag: "🌍", tagKey: "" },
 ];
 
 // ─── Wave SVG Divider ──────────────────────────────────────────────────────────
@@ -197,6 +62,158 @@ function WaveDivider({ flip = false, topColor = "#f9fafb", bottomColor = "#fffff
 }
 
 export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.ReactNode }) {
+  const t = useTranslations("kreuzfahrtenPage");
+  const year = new Date().getFullYear();
+  const next = year + 1;
+
+  const CRUISE_TYPES = [
+    {
+      icon: Ship,
+      title: t("typeHochseeTitle"),
+      desc: t("typeHochseeDesc"),
+      gradient: "from-blue-900 to-blue-700",
+      href: DL("&type=NS"),
+      label: t("typeHochseeLabel"),
+    },
+    {
+      icon: Plane,
+      title: t("typeFlugTitle"),
+      desc: t("typeFlugDesc"),
+      gradient: "from-sky-800 to-cyan-600",
+      href: DL("&type=S"),
+      label: t("typeFlugLabel"),
+    },
+    {
+      icon: Waves,
+      title: t("typeFlussTitle"),
+      desc: t("typeFlussDesc"),
+      gradient: "from-teal-800 to-emerald-600",
+      href: DL("&type=R"),
+      label: t("typeFlussLabel"),
+    },
+    {
+      icon: Compass,
+      title: t("typeHotelTitle"),
+      desc: t("typeHotelDesc"),
+      gradient: "from-indigo-800 to-purple-600",
+      href: DL("&type=KOMBI"),
+      label: t("typeHotelLabel"),
+    },
+    {
+      icon: Zap,
+      title: t("typeLastMinuteTitle"),
+      desc: t("typeLastMinuteDesc"),
+      gradient: "from-sand-700 to-red-600",
+      href: DL("&sort=pauf&sdt=1"),
+      label: t("typeLastMinuteLabel"),
+    },
+    {
+      icon: Star,
+      title: t("typeLuxusTitle"),
+      desc: t("typeLuxusDesc"),
+      gradient: "from-amber-700 to-yellow-600",
+      href: DL("&cab=4"),
+      label: t("typeLuxusLabel"),
+    },
+  ];
+
+  const KABINEN = [
+    {
+      cab: 1,
+      title: t("kabineInnenTitel"),
+      price: t("kabineInnenPreis"),
+      desc: t("kabineInnenDesc"),
+      perks: [t("kabineInnenPerk1"), t("kabineInnenPerk2"), t("kabineInnenPerk3")],
+      color: "border-gray-200",
+      badge: t("kabineInnenBadge"),
+      badgeColor: "bg-gray-100 text-gray-700",
+    },
+    {
+      cab: 2,
+      title: t("kabineAussenTitel"),
+      price: t("kabineAussenPreis"),
+      desc: t("kabineAussenDesc"),
+      perks: [t("kabineAussenPerk1"), t("kabineAussenPerk2"), t("kabineAussenPerk3")],
+      color: "border-blue-200",
+      badge: t("kabineAussenBadge"),
+      badgeColor: "bg-blue-100 text-blue-700",
+    },
+    {
+      cab: 3,
+      title: t("kabineBalkonTitel"),
+      price: t("kabineBalkonPreis"),
+      desc: t("kabineBalkonDesc"),
+      perks: [t("kabineBalkonPerk1"), t("kabineBalkonPerk2"), t("kabineBalkonPerk3")],
+      color: "border-sky-300",
+      badge: t("kabineBalkonBadge"),
+      badgeColor: "bg-sky-100 text-sky-700",
+    },
+    {
+      cab: 4,
+      title: t("kabineSuiteTitel"),
+      price: t("kabineSuitePreis"),
+      desc: t("kabineSuiteDesc"),
+      perks: [t("kabineSuitePerk1"), t("kabineSuitePerk2"), t("kabineSuitePerk3")],
+      color: "border-amber-300",
+      badge: t("kabineSuiteBadge"),
+      badgeColor: "bg-amber-100 text-amber-700",
+    },
+  ];
+
+  const DESTINATIONEN = [
+    {
+      title: t("destMittelmeerTitle"),
+      sub: t("destMittelmeerSub"),
+      img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
+      href: DL("&type=NS"),
+      label: t("destMittelmeerLabel"),
+    },
+    {
+      title: t("destKaribikTitle"),
+      sub: t("destKaribikSub"),
+      img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+      href: DL("&type=NS"),
+      label: t("destKaribikLabel"),
+    },
+    {
+      title: t("destNordeuropaTitle"),
+      sub: t("destNordeuropaSub"),
+      img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
+      href: DL("&type=NS"),
+      label: t("destNordeuropaLabel"),
+    },
+    {
+      title: t("destFlussTitle"),
+      sub: t("destFlussSub"),
+      img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80",
+      href: DL("&type=R"),
+      label: t("destFlussLabel"),
+    },
+  ];
+
+  const SEO_TIPPS = [
+    t("seoTipp1"),
+    t("seoTipp2"),
+    t("seoTipp3"),
+    t("seoTipp4"),
+    t("seoTipp5"),
+  ];
+
+  const SEO_FUER_WEN = [
+    t("seoFuerWen1"),
+    t("seoFuerWen2"),
+    t("seoFuerWen3"),
+    t("seoFuerWen4"),
+    t("seoFuerWen5"),
+  ];
+
+  const FAQ = [
+    { q: t("faqQ1"), a: t("faqA1") },
+    { q: t("faqQ2"), a: t("faqA2") },
+    { q: t("faqQ3"), a: t("faqA3") },
+    { q: t("faqQ4"), a: t("faqA4") },
+  ];
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────────── */}
@@ -227,19 +244,17 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
                 <Ship className="w-4 h-4 text-cyan-300" />
                 <span className="text-xs font-bold text-cyan-200 uppercase tracking-widest">
-                  {`Kreuzfahrten ${new Date().getFullYear()}/${new Date().getFullYear() + 1}`}
+                  {t("heroEyebrow", { year, next })}
                 </span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
-                Traumkreuzfahrten
+                {t("heroTitle")}
                 <br />
-                <span className="text-cyan-300">günstig buchen</span>
+                <span className="text-cyan-300">{t("heroTitleAccent")}</span>
               </h1>
               <p className="text-blue-100 text-lg mb-8 max-w-xl drop-shadow">
-                Über 30 Reedereien vergleichen – Hochsee, Flusskreuzfahrten,
-                Karibik, Mittelmeer und mehr. Jetzt die perfekte Kreuzfahrt zum
-                besten Preis finden.
+                {t("heroDesc")}
               </p>
 
             </div>
@@ -247,10 +262,10 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
             {/* Rechte Spalte: Trust-Chips */}
             <div className="hidden lg:flex flex-col gap-2.5 shrink-0 mt-6 lg:mt-0">
               {[
-                { icon: Ship,    text: "30+ Reedereien im Vergleich" },
-                { icon: Star,    text: "Top-Bewertungen & Empfehlungen" },
-                { icon: Users,   text: "Für Paare, Familien & Gruppen" },
-                { icon: Waves,   text: "Hochsee & Fluss aus einer Hand" },
+                { icon: Ship,  text: t("trustChip1") },
+                { icon: Star,  text: t("trustChip2") },
+                { icon: Users, text: t("trustChip3") },
+                { icon: Waves, text: t("trustChip4") },
               ].map(({ icon: Icon, text }) => (
                 <div
                   key={text}
@@ -268,11 +283,11 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
 
       {/* ── Schnellnavigation ────────────────────────────────────────────────── */}
       <PageNavBar items={[
-        { id: "kreuzfahrt-typen",     label: "Kreuzfahrttypen",   emoji: "🚢" },
-        { id: "kreuzfahrt-buchen",    label: "Jetzt buchen",      emoji: "🔍" },
-        { id: "kreuzfahrt-routen",    label: "Routen & Regionen", emoji: "🌍" },
-        { id: "kreuzfahrt-kabinen",   label: "Kabinen",           emoji: "🛏️" },
-        { id: "kreuzfahrt-reedereien",label: "Reedereien",        emoji: "⚓" },
+        { id: "kreuzfahrt-typen",      label: t("navTypen"),      emoji: "🚢" },
+        { id: "kreuzfahrt-buchen",     label: t("navBuchen"),     emoji: "🔍" },
+        { id: "kreuzfahrt-routen",     label: t("navRouten"),     emoji: "🌍" },
+        { id: "kreuzfahrt-kabinen",    label: t("navKabinen"),    emoji: "🛏️" },
+        { id: "kreuzfahrt-reedereien", label: t("navReedereien"), emoji: "⚓" },
       ]} />
 
       {/* ── Reisetypen ───────────────────────────────────────────────────────── */}
@@ -280,10 +295,10 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="text-cyan-600 text-xs font-bold uppercase tracking-widest mb-2">
-              Für jeden das Richtige
+              {t("typenEyebrow")}
             </p>
             <h2 className="text-3xl font-black text-gray-900">
-              Welche Kreuzfahrt passt zu dir?
+              {t("typenTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -299,7 +314,7 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
                 <h3 className="font-black text-sm leading-tight mb-1">{title}</h3>
                 <p className="text-white/70 text-[11px] leading-snug">{desc}</p>
                 <div className="mt-3 flex items-center gap-1 text-white/80 text-[11px] font-semibold">
-                  Jetzt suchen <ChevronRight className="w-3 h-3" />
+                  {t("typeJetztSuchen")} <ChevronRight className="w-3 h-3" />
                 </div>
               </button>
             ))}
@@ -315,13 +330,13 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <p className="text-cyan-600 text-xs font-bold uppercase tracking-widest mb-2">
-              Live-Suche
+              {t("widgetEyebrow")}
             </p>
             <h2 className="text-3xl font-black text-gray-900 mb-2">
-              Kreuzfahrten vergleichen & buchen
+              {t("widgetTitle")}
             </h2>
             <p className="text-gray-500 text-sm">
-              Tausende Angebote von über 30 Reedereien – direkt buchbar
+              {t("widgetDesc")}
             </p>
           </div>
 
@@ -354,10 +369,10 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="text-cyan-600 text-xs font-bold uppercase tracking-widest mb-2">
-              Routen & Regionen
+              {t("destinationenEyebrow")}
             </p>
             <h2 className="text-3xl font-black text-gray-900">
-              Beliebte Kreuzfahrt-Destinationen
+              {t("destinationenTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -380,7 +395,7 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
                   <h3 className="font-black text-lg leading-tight">{title}</h3>
                   <p className="text-white/70 text-xs mt-0.5">{sub}</p>
                   <div className="mt-2 inline-flex items-center gap-1 text-cyan-300 text-xs font-bold">
-                    Routen entdecken <ArrowRight className="w-3 h-3" />
+                    {t("destinationRoutenEntdecken")} <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
               </button>
@@ -397,13 +412,13 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="text-cyan-600 text-xs font-bold uppercase tracking-widest mb-2">
-              Kabinen-Ratgeber
+              {t("kabinenEyebrow")}
             </p>
             <h2 className="text-3xl font-black text-gray-900 mb-2">
-              Welche Kabine passt zu dir?
+              {t("kabinenTitle")}
             </h2>
             <p className="text-gray-500 text-sm">
-              Von günstig bis Luxus – finde deine ideale Kabinenkategorie
+              {t("kabinenDesc")}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -432,7 +447,7 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
                   </ul>
                 </div>
                 <div className="px-5 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs font-bold text-gray-600">Angebote ansehen</span>
+                  <span className="text-xs font-bold text-gray-600">{t("kabinenAngebotenAnsehen")}</span>
                   <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-cyan-600 transition-colors" />
                 </div>
               </button>
@@ -449,14 +464,14 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="text-cyan-600 text-xs font-bold uppercase tracking-widest mb-2">
-              Reedereien
+              {t("reedereienEyebrow")}
             </p>
             <h2 className="text-3xl font-black text-gray-900">
-              Alle großen Reedereien im Vergleich
+              {t("reedereienTitle")}
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {REEDEREIEN.map(({ id, name, color, flag, tag }) => (
+            {REEDEREIEN.map(({ id, name, color, flag, tagKey }) => (
               <button
                 key={id}
                 onClick={() => openModal(DL(`&red=${id}`), `${name} – Kreuzfahrten`)}
@@ -468,9 +483,9 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
                   {flag}
                 </div>
                 <span className="text-xs font-bold text-gray-800 leading-tight">{name}</span>
-                {tag && (
+                {tagKey && (
                   <span className="mt-1 text-[9px] font-semibold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded-full">
-                    {tag}
+                    {t(tagKey as Parameters<typeof t>[0])}
                   </span>
                 )}
               </button>
@@ -478,11 +493,11 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
           </div>
           <div className="text-center mt-8">
             <button
-              onClick={() => openModal(DL(), "Alle Kreuzfahrten vergleichen")}
+              onClick={() => openModal(DL(), t("reedereienTitle"))}
               className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold px-6 py-3 rounded-xl transition-colors cursor-pointer"
             >
               <Anchor className="w-4 h-4" />
-              Alle Reedereien & Angebote vergleichen
+              {t("reedereienVergleichenBtn")}
             </button>
           </div>
         </div>
@@ -496,13 +511,13 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-gray max-w-none">
             <h2 className="text-2xl font-black text-gray-900 mb-6">
-              Kreuzfahrten günstig buchen – Dein Ratgeber
+              {t("seoRatgeberTitle")}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8 mb-10">
               <div>
                 <h3 className="text-lg font-black text-gray-800 mb-3 flex items-center gap-2">
-                  <Ship className="w-5 h-5 text-cyan-500" /> Hochsee vs. Flusskreuzfahrt
+                  <Ship className="w-5 h-5 text-cyan-500" /> {t("seoHochseeFlussTitle")}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   <strong>Hochseekreuzfahrten</strong> bringen dich zu fernen Küsten – von der Karibik
@@ -514,7 +529,7 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
               </div>
               <div>
                 <h3 className="text-lg font-black text-gray-800 mb-3 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-cyan-500" /> Die beliebtesten Routen
+                  <MapPin className="w-5 h-5 text-cyan-500" /> {t("seoRoutenTitle")}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   Das <strong>Mittelmeer</strong> ist die meistgebuchte Kreuzfahrtregion: Barcelona, Rom,
@@ -525,38 +540,26 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
               </div>
               <div>
                 <h3 className="text-lg font-black text-gray-800 mb-3 flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-cyan-500" /> Tipps für günstige Kreuzfahrten
+                  <Zap className="w-5 h-5 text-cyan-500" /> {t("seoTippsTitle")}
                 </h3>
                 <ul className="text-gray-600 text-sm space-y-1.5">
-                  {[
-                    "Frühbucher-Rabatte: bis zu 30% sparen bei Buchung 6–12 Monate vorher",
-                    "Last-Minute: kurzfristige Schnäppchen ab 4 Wochen vor Abfahrt",
-                    "Innenkabinen wählen für maximales Ersparnis",
-                    "Repositionierungsfahrten für ungewöhnliche Routen zum Tiefpreis",
-                    "Kreuzfahrt + Flug-Pakete oft günstiger als Einzelbuchung",
-                  ].map((t) => (
-                    <li key={t} className="flex items-start gap-2">
+                  {SEO_TIPPS.map((tip) => (
+                    <li key={tip} className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      {t}
+                      {tip}
                     </li>
                   ))}
                 </ul>
               </div>
               <div>
                 <h3 className="text-lg font-black text-gray-800 mb-3 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-cyan-500" /> Für wen eignet sich eine Kreuzfahrt?
+                  <Star className="w-5 h-5 text-cyan-500" /> {t("seoFuerWenTitle")}
                 </h3>
                 <ul className="text-gray-600 text-sm space-y-1.5">
-                  {[
-                    "Paare: Romantische Abendsonne auf dem Balkon",
-                    "Familien: Kinderclubs & Action für jedes Alter",
-                    "Senioren: Komfort & gepflegte Atmosphäre an Bord",
-                    "Alleinreisende: Viele Reedereien mit Single-Kabinen",
-                    "Genießer: Gourmet-Restaurants & Wellnessbereiche",
-                  ].map((t) => (
-                    <li key={t} className="flex items-start gap-2">
+                  {SEO_FUER_WEN.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                      {t}
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -565,27 +568,10 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
 
             {/* FAQ */}
             <h3 className="text-xl font-black text-gray-900 mb-5">
-              Häufige Fragen zu Kreuzfahrten
+              {t("faqTitle")}
             </h3>
             <div className="space-y-4">
-              {[
-                {
-                  q: "Was ist im Kreuzfahrtpreis enthalten?",
-                  a: "Im Grundpreis sind Kabine, Vollpension (alle Hauptmahlzeiten), Entertainment und Nutzung der Schiffseinrichtungen enthalten. Nicht inklusive: Getränke, Ausflüge, Spa-Behandlungen und Trinkgelder (je nach Reederei).",
-                },
-                {
-                  q: "Wie lange dauern Kreuzfahrten?",
-                  a: "Kurzreisen starten bereits ab 3–4 Nächten. Klassische Kreuzfahrten dauern 7–14 Nächte. Weltreisen können bis zu 100 Tage dauern. Flusskreuzfahrten sind meist 7–15 Nächte lang.",
-                },
-                {
-                  q: "Welche Reederei ist die beste für Einsteiger?",
-                  a: "AIDA und TUI Cruises sind besonders bei deutschen Gästen beliebt – deutschsprachige Atmosphäre, breites Unterhaltungsprogramm. MSC bietet ein internationales Flair zu günstigen Preisen.",
-                },
-                {
-                  q: "Wann sollte man eine Kreuzfahrt buchen?",
-                  a: "Frühbucher sichern sich die besten Kabinen und bis zu 30% Rabatt bei Buchung 6–12 Monate im Voraus. Last-Minute-Deals lohnen sich für flexible Reisende, die kurzfristig buchen können.",
-                },
-              ].map(({ q, a }) => (
+              {FAQ.map(({ q, a }) => (
                 <div key={q} className="border border-gray-200 rounded-xl p-5">
                   <h4 className="font-bold text-gray-900 mb-2 flex items-start gap-2">
                     <Compass className="w-4 h-4 text-cyan-500 shrink-0 mt-0.5" />
@@ -626,26 +612,25 @@ export default function KreuzfahrtenContent({ sidebar }: { sidebar?: React.React
             <Anchor className="w-8 h-8 text-cyan-400" />
           </div>
           <h2 className="text-3xl font-black text-white mb-3">
-            Bereit für deine Traumkreuzfahrt?
+            {t("ctaTitle")}
           </h2>
           <p className="text-blue-200 mb-8 text-lg">
-            Über 30 Reedereien, tausende Routen – jetzt kostenlos vergleichen
-            und die beste Kreuzfahrt zum besten Preis buchen.
+            {t("ctaDesc")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
-              onClick={() => openModal(DL("&sort=pauf"), "Günstigste Kreuzfahrten")}
+              onClick={() => openModal(DL("&sort=pauf"), t("ctaBtnGuenstig"))}
               className="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-white font-bold px-8 py-3.5 rounded-xl transition-colors shadow-lg shadow-cyan-500/30 cursor-pointer"
             >
               <Zap className="w-4 h-4" />
-              Günstigste Kreuzfahrten
+              {t("ctaBtnGuenstig")}
             </button>
             <button
-              onClick={() => openModal(DL(), "Alle Kreuzfahrten")}
+              onClick={() => openModal(DL(), t("ctaBtnAlle"))}
               className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 active:bg-white/30 text-white font-bold px-8 py-3.5 rounded-xl border border-white/30 transition-colors cursor-pointer"
             >
               <Ship className="w-4 h-4" />
-              Alle Angebote ansehen
+              {t("ctaBtnAlle")}
             </button>
           </div>
         </div>

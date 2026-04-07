@@ -4,7 +4,7 @@ import { ShieldCheck, RefreshCcw, BookOpen, HeartHandshake } from "lucide-react"
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import InlineExpandIbeWidget from "@/components/widgets/InlineExpandIbeWidget";
 import ReiseartenCards from "@/components/widgets/ReiseartenCards";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -32,67 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-// ── Statische Inhalte ───────────────────────────────────────────────────────────
-
-const SPAR_TIPPS = [
-  {
-    num: "01",
-    title: "Flexibel beim Abflughafen",
-    text: "Mehrere Abflughäfen vergleichen zahlt sich aus – oft ist ein nahegelegener Airport deutlich günstiger.",
-  },
-  {
-    num: "02",
-    title: "Außerhalb der Schulferien reisen",
-    text: "Wer nicht an Ferienzeiten gebunden ist, spart regelmäßig 30–50 % gegenüber dem Ferienpreis.",
-  },
-  {
-    num: "03",
-    title: "Frühbucher-Rabatte mitnehmen",
-    text: "Beliebte Ziele wie Mallorca, Kreta oder Antalya sind 6–12 Monate im Voraus oft 20–30 % günstiger.",
-  },
-  {
-    num: "04",
-    title: "Last-Minute für Spontane",
-    text: "Kurzfristig gebuchte Reisen (7–14 Tage vorher) werden oft stark rabattiert, da Veranstalter Plätze füllen müssen.",
-  },
-  {
-    num: "05",
-    title: "All-Inclusive rechnet sich oft",
-    text: "Beim Rechnen mit Speisen, Snacks und Getränken ist All-Inclusive häufig günstiger als Halbpension + Extras.",
-  },
-  {
-    num: "06",
-    title: "Pauschal statt Einzelbuchung",
-    text: "Veranstalter haben bessere Einkaufspreise als du als Einzelreisender – Pauschal ist daher oft günstiger.",
-  },
-];
-
-const FAQS = [
-  {
-    q: "Warum sind Pauschalreisen oft günstiger als Einzelbuchungen?",
-    a: "Reiseveranstalter buchen Flugplätze und Hotelzimmer in großen Kontingenten zu Großhandelspreisen ein. Diese Ersparnis geben sie an Kunden weiter – das Ergebnis ist ein Paket, das günstiger ist als Flug + Hotel einzeln gebucht. Hinzu kommt der gesetzliche Reiseschutz (Insolvenzschutz), den du bei Einzelbuchungen nicht automatisch hast.",
-  },
-  {
-    q: "Wann sind Last-Minute Urlaube am günstigsten?",
-    a: "Die besten Last-Minute Preise findest du typischerweise 7 bis 14 Tage vor Abflug, wenn Veranstalter noch freie Plätze füllen müssen. Besonders attraktiv sind dabei Reisen ab Donnerstag bis Samstag. Wichtig: Du brauchst Flexibilität beim Ziel, Abflughafen und Hotelkategorie.",
-  },
-  {
-    q: "Wie finde ich den günstigsten Preis für meinen Urlaub?",
-    a: "Unser Vergleichsrechner oben durchsucht täglich Tausende Angebote von über 200 Reiseveranstaltern. Einfach Abflughafen, Reisezeitraum, Reisedauer und Reiseteilnehmer eingeben – die Ergebnisse sind sofort nach Preis sortiert. Es fallen keine Buchungsgebühren an, du buchst direkt beim Veranstalter.",
-  },
-  {
-    q: "Wann sollte ich eine Frühbucher-Urlaub buchen?",
-    a: "Frühbucher-Angebote gibt es typischerweise 8 bis 12 Monate vor Abflug. Die besten Preise für den Sommer findest du demnach ab Oktober/November des Vorjahres. Besonders lohnt sich Frühbuchen bei beliebten Zielen (Mallorca, Kreta, Türkei) und in der Hauptreisezeit Juli/August.",
-  },
-  {
-    q: "Gibt es versteckte Kosten bei Pauschalreisen?",
-    a: "Bei seriösen Veranstaltern sind keine versteckten Kosten vorgesehen. Der angezeigte Preis enthält Flug, Transfer und Hotel. Optionale Extras wie Mietwagen, Ausflüge oder Strandliegen werden transparent ausgewiesen. Beim Buchungsprozess siehst du alle Kosten zusammengefasst, bevor du zahlst.",
-  },
-  {
-    q: "Was ist der Unterschied zwischen All-Inclusive und Halbpension?",
-    a: "Bei Halbpension (HP) sind Frühstück und Abendessen im Hotelpreis enthalten. All-Inclusive (AI) umfasst zusätzlich Mittagessen, Snacks, Softdrinks und je nach Hotel auch Alkohol rund um die Uhr. Für Familien oder Strandurlaubs-Typen, die wenig außerhalb essen, lohnt sich AI fast immer.",
-  },
-];
+// Statische Inhalte werden jetzt über getTranslations("guenstigUrlaubPage") geladen
 
 // ── JSON-LD ────────────────────────────────────────────────────────────────────
 const breadcrumbSchema = {
@@ -108,6 +48,26 @@ const breadcrumbSchema = {
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("guenstigUrlaubPage");
+
+  const SPAR_TIPPS = [
+    { num: "01", title: t("sparTipp1Title"), text: t("sparTipp1Text") },
+    { num: "02", title: t("sparTipp2Title"), text: t("sparTipp2Text") },
+    { num: "03", title: t("sparTipp3Title"), text: t("sparTipp3Text") },
+    { num: "04", title: t("sparTipp4Title"), text: t("sparTipp4Text") },
+    { num: "05", title: t("sparTipp5Title"), text: t("sparTipp5Text") },
+    { num: "06", title: t("sparTipp6Title"), text: t("sparTipp6Text") },
+  ];
+
+  const FAQS = [
+    { q: t("faq1q"), a: t("faq1a") },
+    { q: t("faq2q"), a: t("faq2a") },
+    { q: t("faq3q"), a: t("faq3a") },
+    { q: t("faq4q"), a: t("faq4a") },
+    { q: t("faq5q"), a: t("faq5a") },
+    { q: t("faq6q"), a: t("faq6a") },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -128,7 +88,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-0">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-sm font-medium px-3.5 py-1.5 rounded-full mb-5">
-            🔍 Reisevergleich &amp; Direktbuchung
+            {t("heroBadge")}
           </div>
 
           {/* Headline + Trust-Chips nebeneinander */}
@@ -137,22 +97,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             {/* Links: Headline, Beschreibung, Bullet-USPs */}
             <div className="flex-1 min-w-0">
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Günstig Urlaub buchen –<br />
-                <span className="text-[#6CC4BA]">Bestpreis-Vergleich</span>
+                {t("heroTitle1")}<br />
+                <span className="text-[#6CC4BA]">{t("heroTitle2")}</span>
               </h1>
               <p className="text-white/75 text-lg leading-relaxed mb-5">
-                Täglich aktualisierte Pauschalreisen, All-Inclusive &amp; Last-Minute Deals –
-                direkt beim Veranstalter, ohne Aufpreise.
+                {t("heroSubtitle")}
               </p>
             </div>
 
             {/* Rechts: Trust-Chips vertikal */}
             <div className="flex flex-col gap-2 mt-6 lg:mt-0 lg:shrink-0">
               {([
-                { Icon: ShieldCheck,    label: "Günstigster Preis",       color: "#6CC4BA" },
-                { Icon: RefreshCcw,     label: "Täglich aktuell",          color: "#f59e0b" },
-                { Icon: BookOpen,       label: "Kostenlose Urlaubsführer",   color: "#a78bfa" },
-                { Icon: HeartHandshake, label: "Sicher & einfach",         color: "#34d399" },
+                { Icon: ShieldCheck,    label: t("trustBestpreis"),       color: "#6CC4BA" },
+                { Icon: RefreshCcw,     label: t("trustAktuell"),          color: "#f59e0b" },
+                { Icon: BookOpen,       label: t("trustGuides"),   color: "#a78bfa" },
+                { Icon: HeartHandshake, label: t("trustSicher"),         color: "#34d399" },
               ] as const).map(({ Icon, label, color }) => (
                 <div key={label} className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl">
                   <Icon className="w-4 h-4 shrink-0" style={{ color }} />
@@ -190,21 +149,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-widest text-green-600">Live-Preise</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-green-600">{t("liveBadge")}</span>
               </div>
               <h2 className="text-2xl font-extrabold text-gray-900 leading-tight">
-                Aktuelle Angebote – täglich aktualisiert
+                {t("dealsTitle")}
               </h2>
               <p className="text-gray-500 text-sm mt-1">
-                Direkt von über 200 Reiseveranstaltern – klick auf ein Angebot zur Sofortbuchung.
+                {t("dealsSubtitle")}
               </p>
             </div>
             {/* Stat-Chips */}
             <div className="flex flex-wrap gap-2 shrink-0">
               {[
-                { label: "200+ Veranstalter" },
-                { label: "5 Top-Länder" },
-                { label: "Täglich aktuell" },
+                { label: t("stat1") },
+                { label: t("stat2") },
+                { label: t("stat3") },
               ].map(({ label }) => (
                 <span key={label} className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
                   {label}
@@ -224,16 +183,16 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <div className="flex-1 p-7 sm:p-10">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-red-500">Spontan &amp; günstig</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-red-500">{t("lmBadge")}</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-3">
-                    ⚡ Last-Minute Urlaub
+                    {t("lmTitle")}
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-5 max-w-md">
-                    Abflug in den nächsten 14 Tagen: Veranstalter räumen freie Plätze mit bis zu 60 % Rabatt. Ideal für alle, die flexibel sind und spontan verreisen wollen.
+                    {t("lmDesc")}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {["✈️ Abflug in <14 Tagen", "💸 Bis zu 60 % günstiger", "🔥 Täglich neue Angebote", "⏱️ Sofortbuchung"].map(f => (
+                    {[t("lmFeature1"), t("lmFeature2"), t("lmFeature3"), t("lmFeature4")].map(f => (
                       <span key={f} className="bg-red-50 border border-red-200 text-red-700 text-xs font-semibold px-3 py-1.5 rounded-full">{f}</span>
                     ))}
                   </div>
@@ -241,21 +200,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     href="/last-minute/"
                     className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold px-6 py-3 rounded-full transition-colors shadow"
                   >
-                    Alle Last-Minute Deals →
+                    {t("lmCta")}
                   </Link>
                 </div>
 
                 {/* Rechte Seite: Ziel-Grid auf hellgrauem BG */}
                 <div className="lg:w-96 shrink-0 bg-gray-50 border-t lg:border-t-0 lg:border-l border-red-100 p-6">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Beliebte Ziele</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">{t("lmPopular")}</p>
                   <div className="grid grid-cols-2 gap-2">
                     {[
-                      { flag: "tr", name: "Türkei",      href: "/urlaubsziele/tuerkei/" },
-                      { flag: "es", name: "Mallorca",     href: "/urlaubsziele/mallorca/" },
-                      { flag: "gr", name: "Griechenland", href: "/urlaubsziele/griechenland/" },
-                      { flag: "eg", name: "Ägypten",      href: "/urlaubsziele/aegypten/" },
-                      { flag: "pt", name: "Portugal",     href: "/urlaubsziele/portugal/" },
-                      { flag: "cy", name: "Zypern",       href: "/urlaubsziele/zypern/" },
+                      { flag: "tr", name: t("countryTuerkei"),      href: "/urlaubsziele/tuerkei/" },
+                      { flag: "es", name: t("countryMallorca"),     href: "/urlaubsziele/mallorca/" },
+                      { flag: "gr", name: t("countryGriechenland"), href: "/urlaubsziele/griechenland/" },
+                      { flag: "eg", name: t("countryAegypten"),      href: "/urlaubsziele/aegypten/" },
+                      { flag: "pt", name: t("countryPortugal"),     href: "/urlaubsziele/portugal/" },
+                      { flag: "cy", name: t("countryZypern"),       href: "/urlaubsziele/zypern/" },
                     ].map(({ flag, name, href }) => (
                       <Link
                         key={name}
@@ -283,7 +242,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1400&q=85" alt="Türkei" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
               <Link href="/urlaubsziele/tuerkei/" className="absolute top-4 right-4 bg-white/90 hover:bg-white text-[#00838F] text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors">
-                Alle Türkei-Angebote →
+                {t("tuerkeiAllAngebote")}
               </Link>
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <div className="flex items-center gap-2 mb-2">
@@ -293,14 +252,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 </div>
                 <h3 className="text-3xl sm:text-4xl font-extrabold text-white drop-shadow mb-3">Türkei</h3>
                 <div className="flex flex-wrap gap-2">
-                  {["☀️ 300+ Sonnentage", "✈️ ~3,5h Flugzeit", "🏨 AI ab 399 €"].map(f => (
+                  {[t("tuerkeiSun"), t("tuerkeiFlug"), t("tuerkeiAI")].map(f => (
                     <span key={f} className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full">{f}</span>
                   ))}
                 </div>
               </div>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed mb-6 max-w-3xl">
-              Die Türkei zählt zu den beliebtesten Urlaubszielen der Deutschen – Traumstrände, jahrhundertealte Geschichte und großzügige All-Inclusive-Resorts machen das Land zum Preis-Leistungs-Champion.
+              {t("tuerkeiDesc")}
             </p>
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">

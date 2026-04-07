@@ -5,18 +5,11 @@ import { Car, ShieldCheck, Tag, MapPin, Clock } from "lucide-react";
 import IbeWidget from "@/components/widgets/IbeWidget";
 import PageNavBar from "@/components/ui/PageNavBar";
 import RightSidebar from "@/components/layout/RightSidebar";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
-const MIETWAGEN_NAV_ITEMS = [
-  { id: "mietwagen-widget",    label: "Mietwagen suchen",  emoji: "🚗" },
-  { id: "mietwagen-ziele",     label: "Ziele",             emoji: "🌍" },
-  { id: "fahrzeugklassen",     label: "Fahrzeugklassen",   emoji: "🚙" },
-  { id: "versicherungs-guide", label: "Versicherung",      emoji: "🛡️" },
-  { id: "spar-tipps",          label: "Spar-Tipps",        emoji: "💰" },
-  { id: "faq",                 label: "FAQ",               emoji: "❓" },
-];
+// Nav items, Tipps & FAQs werden in der async-Funktion mit t() aufgebaut
 
 const YEAR = new Date().getFullYear();
 
@@ -156,6 +149,35 @@ const breadcrumbSchema = {
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("mietwagenPage");
+
+  const MIETWAGEN_NAV_ITEMS = [
+    { id: "mietwagen-widget",    label: t("navMietwagensuche"), emoji: "🚗" },
+    { id: "mietwagen-ziele",     label: t("navZiele"),          emoji: "🌍" },
+    { id: "fahrzeugklassen",     label: t("navFahrzeugklassen"),emoji: "🚙" },
+    { id: "versicherungs-guide", label: t("navVersicherung"),   emoji: "🛡️" },
+    { id: "spar-tipps",          label: t("navSparTipps"),      emoji: "💰" },
+    { id: "faq",                 label: t("navFaq"),            emoji: "❓" },
+  ];
+
+  const TIPPS = [
+    { num: "01", title: t("tip1Title"), text: t("tip1Text") },
+    { num: "02", title: t("tip2Title"), text: t("tip2Text") },
+    { num: "03", title: t("tip3Title"), text: t("tip3Text") },
+    { num: "04", title: t("tip4Title"), text: t("tip4Text") },
+    { num: "05", title: t("tip5Title"), text: t("tip5Text") },
+    { num: "06", title: t("tip6Title"), text: t("tip6Text") },
+  ];
+
+  const FAQS = [
+    { q: t("faq1Q"), a: t("faq1A") },
+    { q: t("faq2Q"), a: t("faq2A") },
+    { q: t("faq3Q"), a: t("faq3A") },
+    { q: t("faq4Q"), a: t("faq4A") },
+    { q: t("faq5Q"), a: t("faq5A") },
+    { q: t("faq6Q"), a: t("faq6A") },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -177,24 +199,23 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-sm font-medium px-3.5 py-1.5 rounded-full mb-5">
             <Car className="w-4 h-4" />
-            Mietwagenvergleich &amp; Direktbuchung
+            {t("heroBadge")}
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-start lg:gap-12 mb-6">
 
             <div className="flex-1 min-w-0">
               <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Günstige Mietwagen –<br />
-                <span className="text-emerald-300">Weltweit direkt buchen</span>
+                {t("heroTitle")}<br />
+                <span className="text-emerald-300">{t("heroTitleHighlight")}</span>
               </h1>
               <p className="text-white/75 text-lg leading-relaxed mb-4">
-                Alle Fahrzeugklassen vergleichen von über 100 Anbietern –
-                täglich aktuell, direkt beim Veranstalter.
+                {t("heroSubtitle")}
               </p>
 
               {/* Infopills – beliebte Abholorte */}
               <p className="text-white/50 text-xs uppercase tracking-wide mb-2">
-                Beliebte Abhol-Standorte
+                {t("popularPickupLocations")}
               </p>
               <div className="flex flex-wrap gap-2 mb-2">
                 {[
@@ -216,10 +237,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             {/* Trust-Chips */}
             <div className="flex flex-col gap-2 mt-6 lg:mt-0 lg:shrink-0">
               {([
-                { Icon: Tag,         label: "Bestpreis-Garantie",    color: "#34d399" },
-                { Icon: ShieldCheck, label: "Vollkasko verfügbar",   color: "#38bdf8" },
-                { Icon: Clock,       label: "Kostenlose Stornierung",color: "#f59e0b" },
-                { Icon: MapPin,      label: "200+ Länder & Inseln",  color: "#a78bfa" },
+                { Icon: Tag,         label: t("trustBestprice"),    color: "#34d399" },
+                { Icon: ShieldCheck, label: t("trustFullCover"),   color: "#38bdf8" },
+                { Icon: Clock,       label: t("trustFreeCancellation"),color: "#f59e0b" },
+                { Icon: MapPin,      label: t("trustCountries"),  color: "#a78bfa" },
               ] as const).map(({ Icon, label, color }) => (
                 <div key={label} className="flex items-center gap-2.5 bg-white/10 backdrop-blur-sm text-white/90 text-sm font-medium px-4 py-2.5 rounded-xl">
                   <Icon className="w-4 h-4 shrink-0" style={{ color }} />
@@ -257,10 +278,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       ═══════════════════════════════════════════════════════════════════ */}
       <div id="mietwagen-ziele" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
         <h2 className="text-2xl font-extrabold text-gray-900 mb-1">
-          Beliebte Mietwagen-Ziele
+          {t("popularDestinationsTitle")}
         </h2>
         <p className="text-gray-500 text-sm mb-6">
-          Mietwagen in über 200 Ländern – einfach Abholort im Suchfeld eingeben.
+          {t("popularDestinationsSubtitle")}
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -292,7 +313,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div id="fahrzeugklassen" className="bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <h2 className="text-2xl font-extrabold text-gray-900 mb-6">
-            Welches Fahrzeug passt zu dir?
+            {t("vehicleTypesTitle")}
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

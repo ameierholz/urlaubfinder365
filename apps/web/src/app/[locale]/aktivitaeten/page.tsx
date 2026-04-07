@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import MarktplatzHome from "@/components/marktplatz/MarktplatzHome";
 import RightSidebar from "@/components/layout/RightSidebar";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Aktivitäten, Touren & Erlebnisse buchen | Urlaubfinder365",
@@ -29,6 +29,7 @@ const breadcrumbSchema = {
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("aktivitaetenPage");
   return (
     <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -38,19 +39,19 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <RightSidebar
             extrasBox={{
               image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=400&h=200&q=70",
-              eyebrow: "Aktivitäten",
-              title: "Erlebnisse vor Ort buchen",
-              description: "Touren, Tickets & Aktivitäten – direkt bei lokalen Guides buchen.",
+              eyebrow: t("sidebarEyebrow"),
+              title: t("sidebarTitle"),
+              description: t("sidebarDesc"),
               href: "/erlebnisse/",
-              ctaLabel: "Erlebnisse entdecken →",
+              ctaLabel: t("sidebarCta"),
             }}
-            seoLinksTitle="🎯 Mehr entdecken"
+            seoLinksTitle={t("seoLinksTitle")}
             seoLinks={[
-              { href: "/urlaubsziele/",                  label: "Alle Urlaubsziele" },
-              { href: "/urlaubsthemen/",                 label: "Urlaubsthemen" },
-              { href: "/urlaubsarten/pauschalreisen/",   label: "Pauschalreisen" },
-              { href: "/reiseversicherung/",             label: "Reiseversicherung" },
-              { href: "/ki-reiseplaner/",                label: "KI-Urlaubsplaner" },
+              { href: "/urlaubsziele/",                  label: t("seoLinkZiele") },
+              { href: "/urlaubsthemen/",                 label: t("seoLinkThemen") },
+              { href: "/urlaubsarten/pauschalreisen/",   label: t("seoLinkPauschal") },
+              { href: "/reiseversicherung/",             label: t("seoLinkVersicherung") },
+              { href: "/ki-reiseplaner/",                label: t("seoLinkKiPlaner") },
             ]}
           />
         </Suspense>
