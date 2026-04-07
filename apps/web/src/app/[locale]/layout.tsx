@@ -16,7 +16,6 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 import { routing, locales, SITE_URL, type Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const annie = Annie_Use_Your_Telescope({
@@ -196,10 +195,6 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const dir = RTL_LOCALES.includes(locale as Locale) ? "rtl" : "ltr";
 
-  // CSP-Nonce aus Middleware-Header lesen (für JSON-LD Inline-Scripts)
-  const headersList = await headers();
-  const nonce = headersList.get("x-nonce") ?? undefined;
-
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
@@ -216,12 +211,10 @@ export default async function LocaleLayout({
         <link rel="dns-prefetch" href="https://widget.trustpilot.com" />
         <script
           type="application/ld+json"
-          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
       </head>

@@ -6,6 +6,7 @@ import IbeTeaser from "@/components/ibe/IbeTeaser";
 import PageNavBar from "@/components/ui/PageNavBar";
 import RightSidebar from '@/components/layout/RightSidebar';
 import { setRequestLocale } from "next-intl/server";
+import { buildB2bUrl } from "@/lib/search-params";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -106,9 +107,17 @@ export const metadata: Metadata = {
 };
 
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default async function ({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ({ params, searchParams }: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const sp = (await searchParams) ?? {};
+  const ibeUrl = buildB2bUrl(
+    "https://b2b.specials.de/index/jump/124/2818/993243/",
+    { adults: "2", ...sp }
+  );
   return (
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
@@ -198,7 +207,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* ── IBE Hotelsuche – ein-/ausklappbar ── */}
       <div id="hotel-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
         <CollapsibleIbeWidget
-          dataSrc="https://b2b.specials.de/index/jump/124/2818/993243/"
+          dataSrc={ibeUrl}
           label="Hotel suchen & buchen"
           hint="Alle Urlaubsziele · Alle Kategorien · 200+ Veranstalter"
         />

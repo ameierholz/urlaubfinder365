@@ -6,6 +6,7 @@ import IbeWidget from "@/components/widgets/IbeWidget";
 import PageNavBar from "@/components/ui/PageNavBar";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { buildB2bUrl } from "@/lib/search-params";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -146,10 +147,18 @@ const breadcrumbSchema = {
 };
 
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default async function ({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ({ params, searchParams }: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("mietwagenPage");
+  const sp = (await searchParams) ?? {};
+  const ibeUrl = buildB2bUrl(
+    "https://b2b.specials.de/index/jump/2/2776/993243/",
+    sp
+  );
 
   const MIETWAGEN_NAV_ITEMS = [
     { id: "mietwagen-widget",    label: t("navMietwagensuche"), emoji: "🚗" },
@@ -269,7 +278,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* ── IBE Mietwagen – immer sichtbar ── */}
       <div id="mietwagen-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <IbeWidget dataSrc="https://b2b.specials.de/index/jump/2/2776/993243/" height={580} />
+          <IbeWidget dataSrc={ibeUrl} height={580} />
         </div>
       </div>
 

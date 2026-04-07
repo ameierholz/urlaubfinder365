@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useLocale } from "next-intl";
+import { appendIbeLang } from "@/lib/ibe-locale";
 
-const WIDGET_SRC =
+const BASE_SRC =
   "https://api.specials.de/component/searchBoxMix.html?access=7bb55d1b6095e63fb7c09e46579c4120";
 
 /**
@@ -13,6 +15,8 @@ const WIDGET_SRC =
  * Mobile: 480 px, Desktop: 500 px – groß genug damit alle Felder (inkl. Suchen-Button) sichtbar sind.
  */
 export default function SearchBox() {
+  const locale = useLocale();
+  const WIDGET_SRC = appendIbeLang(BASE_SRC, locale);
   const [ready, setReady] = useState(false);
   const [height, setHeight] = useState(480);
   const iframeRef = useRef<HTMLIFrameElement>(null);

@@ -5,6 +5,7 @@ import IbeTeaser from "@/components/ibe/IbeTeaser";
 import InlineExpandIbeWidget from "@/components/widgets/InlineExpandIbeWidget";
 import ReiseartenCards from "@/components/widgets/ReiseartenCards";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { buildB2bUrl } from "@/lib/search-params";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -45,10 +46,18 @@ const breadcrumbSchema = {
 };
 
 // ── Page ────────────────────────────────────────────────────────────────────────
-export default async function ({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ({ params, searchParams }: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("guenstigUrlaubPage");
+  const sp = (await searchParams) ?? {};
+  const ibeUrl = buildB2bUrl(
+    "https://b2b.specials.de/index/jump/119/2780/993243/",
+    { from: "0", to: "180", duration: "7-14", adults: "2", ...sp }
+  );
 
   const SPAR_TIPPS = [
     { num: "01", title: t("sparTipp1Title"), text: t("sparTipp1Text") },
@@ -128,7 +137,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* ── IBE ── */}
       <div id="ibe-suche" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-10 scroll-mt-24">
         <InlineExpandIbeWidget
-          dataSrc="https://b2b.specials.de/index/jump/119/2780/993243/?from=0&to=180&duration=7-14&adults=2"
+          dataSrc={ibeUrl}
           fullHeight={3750}
         />
       </div>

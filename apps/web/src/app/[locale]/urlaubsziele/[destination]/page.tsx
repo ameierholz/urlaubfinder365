@@ -96,7 +96,7 @@ export default async function DestinationPage({ params }: Props) {
   const subDestinations = isSuperRegion ? getCatalogByParent(catalogEntry!.slug) : [];
   const YEAR = new Date().getFullYear();
 
-  const regionId = dest.ibeRegionId ?? dest.regionIds[0].toString();
+  const regionId = dest.ibeRegionId ?? dest.regionIds?.[0]?.toString() ?? "";
   const cityId   = dest.ibeCityId ?? "";
   const hubData  = getHubDataByCountry(dest.country);
 

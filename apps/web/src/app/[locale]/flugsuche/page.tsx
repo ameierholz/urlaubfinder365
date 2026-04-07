@@ -8,6 +8,7 @@ import AirlineInfoSection from "@/components/flug/AirlineInfoSection";
 import FlugNavBar from "@/components/flug/FlugNavBar";
 import EinreiseSchnellcheck from "@/components/flug/EinreiseSchnellcheck";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { buildB2bUrl } from "@/lib/search-params";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -39,10 +40,18 @@ const breadcrumbSchema = {
 };
 
 // ── Page ─────────────────────────────────────────────────────────────────────
-export default async function ({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ({ params, searchParams }: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("flugsuchePage");
+  const sp = (await searchParams) ?? {};
+  const ibeUrl = buildB2bUrl(
+    "https://b2b.specials.de/index/jump/15/1450/993243/",
+    { adults: "1", ...sp }
+  );
 
   const SPAR_TIPPS = [
     { num: "01", title: t("sparTipp1Title"), text: t("sparTipp1Text") },
@@ -154,7 +163,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           {/* ── IBE Flugsuche – immer sichtbar ── */}
           <div id="flugsuche-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-              <IbeWidget dataSrc="https://b2b.specials.de/index/jump/15/1450/993243/" height={510} />
+              <IbeWidget dataSrc={ibeUrl} height={510} />
             </div>
           </div>
 
