@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Plane, ShieldCheck, RefreshCcw, Tag, Zap } from "lucide-react";
-import IbeWidget from "@/components/widgets/IbeWidget";
 import RightSidebar from "@/components/layout/RightSidebar";
+import IbeWidget from "@/components/widgets/IbeWidget";
+import AutoScrollToWidget from "@/components/widgets/AutoScrollToWidget";
 import FlugzieleGrid from "@/components/flug/FlugzieleGrid";
 import AirlineInfoSection from "@/components/flug/AirlineInfoSection";
 import FlugNavBar from "@/components/flug/FlugNavBar";
 import EinreiseSchnellcheck from "@/components/flug/EinreiseSchnellcheck";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { buildB2bUrl } from "@/lib/search-params";
+import { buildFlugUrl } from "@/lib/search-params";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -48,10 +49,10 @@ export default async function ({ params, searchParams }: {
   setRequestLocale(locale);
   const t = await getTranslations("flugsuchePage");
   const sp = (await searchParams) ?? {};
-  const ibeUrl = buildB2bUrl(
-    "https://b2b.specials.de/index/jump/15/1450/993243/",
-    { adults: "1", ...sp }
-  );
+  const hasFlugParams = !!(sp.von || sp.nach);
+  const flugBaseUrl =
+    "https://flr.ypsilon.net/?deptime=0_24&rettime=0_24&flexible_date=0&depshift=0&retshift=0&pax_type=ADT&direct_only=0&fba=0&st=p&aid=mwaffiliate15&afid=993243&lang=de_DE&conso=reisena";
+  const ibeUrl = buildFlugUrl(flugBaseUrl, { adults: "2", ...sp });
 
   const SPAR_TIPPS = [
     { num: "01", title: t("sparTipp1Title"), text: t("sparTipp1Text") },
@@ -153,15 +154,17 @@ export default async function ({ params, searchParams }: {
       <FlugNavBar />
 
       {/* ═══════════════════════════════════════════════════════════════════
-          ZWEISPALTEN-LAYOUT: Hauptinhalt + Sticky Sidebar Ad
+          ZWEISPALTEN-LAYOUT: Hauptinhalt + Sticky Sidebar
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="xl:flex xl:items-start xl:gap-8 xl:max-w-7xl xl:mx-auto">
 
         {/* ── Hauptinhalt (linke Spalte) ── */}
         <div className="flex-1 min-w-0">
 
-          {/* ── IBE Flugsuche – immer sichtbar ── */}
-          <div id="flugsuche-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
+          {hasFlugParams && <AutoScrollToWidget targetId="flugsuche-widget" />}
+
+          {/* ── IBE Flugsuche ── */}
+          <div id="flugsuche-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0.5 mt-8 mb-2 scroll-mt-24">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               <IbeWidget dataSrc={ibeUrl} height={510} />
             </div>
