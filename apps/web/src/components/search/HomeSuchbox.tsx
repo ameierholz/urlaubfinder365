@@ -476,7 +476,7 @@ export default function HomeSuchbox() {
 
   function Overlay({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) {
     return (
-      <div className={`absolute top-full left-0 z-50 bg-gray-50 rounded-2xl shadow-2xl border border-gray-200 mt-1 p-5 ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
+      <div className={`absolute top-full left-0 z-50 bg-white/85 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/50 mt-1 p-5 ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
         {children}
       </div>
     );
