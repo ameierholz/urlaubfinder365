@@ -464,7 +464,7 @@ export default function HomeSuchbox() {
       <button
         type="button"
         onClick={onClick}
-        className={`text-left px-4 py-3 flex flex-col justify-center min-h-15.5 transition-colors hover:bg-gray-50 ${active ? "bg-gray-50" : ""} ${className}`}
+        className={`text-left px-4 py-2.5 flex flex-col justify-center min-h-14 transition-colors hover:bg-gray-50 ${active ? "bg-gray-50" : ""} ${className}`}
       >
         <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide leading-none mb-1">{label}</span>
         <span className="text-[15px] text-[#1a2e4a] font-medium truncate">{value}</span>
@@ -476,7 +476,7 @@ export default function HomeSuchbox() {
 
   function Overlay({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) {
     return (
-      <div className={`absolute top-full left-0 z-50 bg-white rounded-2xl shadow-2xl border border-gray-100 mt-1 p-5 ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
+      <div className={`absolute top-full left-0 z-50 bg-gray-50 rounded-2xl shadow-2xl border border-gray-200 mt-1 p-5 ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
         {children}
       </div>
     );
@@ -1005,9 +1005,9 @@ export default function HomeSuchbox() {
   return (
     <div ref={containerRef} className="w-full">
       {/* Card */}
-      <div className="bg-white/88 backdrop-blur-sm rounded-2xl shadow-2xl shadow-black/30 border border-white/40 overflow-visible">
+      <div className="bg-white rounded-xl shadow-2xl shadow-black/30 overflow-visible">
         {/* Tab row */}
-        <div className="flex overflow-x-auto border-b border-gray-100 px-1 pt-1 gap-0.5 scrollbar-none">
+        <div className="flex overflow-x-auto border-b border-gray-100 px-1 pt-0.5 gap-0.5 scrollbar-none">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.key;
             return (
