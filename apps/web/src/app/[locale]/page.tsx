@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map, Sparkles, Calendar, TrendingUp, ShieldAlert, Star, Compass } from "lucide-react";
 import { TravelOffer } from "@/types";
-import SearchBox from "@/components/widgets/SearchBox";
+import YpsnetSearchBox from "@/components/ibe/YpsnetSearchBox";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import QuickCategories from "@/components/home/QuickCategories";
 import LifestyleSection from "@/components/home/LifestyleSection";
@@ -453,9 +453,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <TrustpilotWidget theme="dark" />
           </div>
 
-          {/* ── SearchBox ── */}
-          <div style={{ overflow: "visible", position: "relative", zIndex: 20 }} className="-ml-4">
-            <SearchBox />
+          {/* ── SearchBox (nativer Embed – überträgt Auswahl auf Zielseite) ── */}
+          <div style={{ overflow: "visible", position: "relative", zIndex: 20 }}>
+            <YpsnetSearchBox />
           </div>
 
           {/* ── QuickCategories – transparent, Headerbild dahinter ── */}
