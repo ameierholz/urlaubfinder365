@@ -786,59 +786,32 @@ export default function HomeSuchbox() {
           </div>
         )}
 
-        {/* Duration */}
-        <div className="mb-4">
-          <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mb-1.5">Reisedauer</div>
-          {/* Beliebig */}
-          <div className="mb-2">
-            <button
-              type="button"
-              onClick={() => setDuration("1-28")}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
-            >
-              Beliebig
-            </button>
-          </div>
-          {/* Wochen */}
-          <div className="flex flex-wrap gap-1.5 mb-2">
+        {/* Duration – kompakt */}
+        <div className="mb-3">
+          <div className="flex flex-wrap gap-1 items-center">
+            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mr-1">Dauer</span>
+            <button type="button" onClick={() => setDuration("1-28")}
+              className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+              Beliebig</button>
             {DURATION_WEEKS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setDuration(opt.value)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
-              >
-                {opt.label}
-              </button>
+              <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
+                className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                {opt.label}</button>
             ))}
-          </div>
-          {/* Nächte-Bereiche */}
-          <div className="flex flex-wrap gap-1.5 mb-2">
             {DURATION_RANGES.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setDuration(opt.value)}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
-              >
-                {opt.label}
-              </button>
+              <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
+                className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                {opt.label}</button>
             ))}
           </div>
-          {/* Exakte Tage */}
-          <div className="text-[10px] text-white/30 uppercase tracking-wider font-semibold mb-1">Exakte Reisedauer (Tage)</div>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-0.5 mt-1.5">
+            <span className="text-[10px] text-white/30 mr-1 self-center">Exakt</span>
             {DURATION_EXACT.map((n) => {
               const val = `${n}-${n}`;
               return (
-                <button
-                  key={n}
-                  type="button"
-                  onClick={() => setDuration(val)}
-                  className={`w-8 h-7 rounded-lg text-[11px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/15 text-white/60 hover:border-[#1db682]"}`}
-                >
-                  {n}
-                </button>
+                <button key={n} type="button" onClick={() => setDuration(val)}
+                  className={`w-7 h-6 rounded text-[10px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/10 text-white/50 hover:border-[#1db682]"}`}>
+                  {n}</button>
               );
             })}
           </div>
