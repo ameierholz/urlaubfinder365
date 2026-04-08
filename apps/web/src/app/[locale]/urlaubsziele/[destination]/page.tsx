@@ -24,6 +24,32 @@ import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { createClient } from "@supabase/supabase-js";
+
+interface SeoTexts {
+  seo_intro: string | null;
+  seo_middle: string | null;
+  seo_bottom: string | null;
+  seo_h2_middle: string | null;
+  seo_h2_bottom: string | null;
+}
+
+async function fetchSeoTexts(slug: string): Promise<SeoTexts | null> {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data } = await supabase
+      .from("destination_seo_texts")
+      .select("seo_intro, seo_middle, seo_bottom, seo_h2_middle, seo_h2_bottom")
+      .eq("slug", slug)
+      .maybeSingle();
+    return data;
+  } catch {
+    return null;
+  }
+}
 
 interface Props {
   params: Promise<{ destination: string; locale: string }>;
@@ -104,7 +130,10 @@ export default async function DestinationPage({ params }: Props) {
   const dealRegionIds = dest.ibeRegionId
     ? [Number(dest.ibeRegionId)]
     : dest.regionIds;
-  const topDeals = await fetchTopDeals(dealRegionIds, 5);
+  const [topDeals, seoTexts] = await Promise.all([
+    fetchTopDeals(dealRegionIds, 5),
+    fetchSeoTexts(dest.slug),
+  ]);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -379,6 +408,15 @@ export default async function DestinationPage({ params }: Props) {
         </Suspense>
       </div>
 
+      {/* SEO Intro */}
+      {seoTexts?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+          <p className="text-lg text-gray-700 leading-relaxed font-medium">
+            {seoTexts.seo_intro}
+          </p>
+        </div>
+      )}
+
       {/* Two-Column Layout: Main Content + Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="xl:flex xl:gap-8 xl:items-start">
@@ -449,6 +487,22 @@ export default async function DestinationPage({ params }: Props) {
               </div>
               <UrlaubsartenGrid regionId={regionId} destName={dest.name} />
             </div>
+
+            {/* SEO Middle – Reiseinfos */}
+            {seoTexts?.seo_middle && (
+              <div className="mt-12 scroll-mt-24">
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                    {seoTexts.seo_h2_middle ?? `${dest.name} – Wissenswertes für deinen Urlaub`}
+                  </h2>
+                  <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed">
+                    {seoTexts.seo_middle.split("\n\n").map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Pauschalreisen */}
             <div id="pauschalreisen" className="mt-12 scroll-mt-24">
@@ -734,6 +788,30 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
+
+      {/* SEO Bottom – Buchungs-CTA */}
+      {seoTexts?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-gradient-to-br from-[#0d1f35] to-[#1a3a5c] rounded-2xl p-6 sm:p-8 text-white">
+            <h2 className="text-2xl font-bold mb-4">
+              {seoTexts.seo_h2_bottom ?? `${dest.name} Urlaub günstig buchen`}
+            </h2>
+            <div className="text-white/80 leading-relaxed space-y-3">
+              {seoTexts.seo_bottom.split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/guenstig-urlaub-buchen/" className="bg-[#1db682] hover:bg-[#18a070] text-white font-semibold px-6 py-3 rounded-full transition-colors">
+                Jetzt Angebote vergleichen →
+              </Link>
+              <Link href="/last-minute/" className="bg-white/15 hover:bg-white/25 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+                Last-Minute Deals
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Guide CTA unten – nur wenn Urlaubsführer vorhanden */}
       {dest.guideSlug && (
