@@ -788,7 +788,7 @@ export default function HomeSuchbox() {
 
         {/* Duration – kompakt, horizontal scrollbar */}
         <div className="mb-3 space-y-1.5">
-          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-0.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide pb-0.5">
             <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold shrink-0">Dauer</span>
             <button type="button" onClick={() => setDuration("1-28")}
               className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
@@ -804,7 +804,7 @@ export default function HomeSuchbox() {
                 {opt.label}</button>
             ))}
           </div>
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-none pb-0.5">
+          <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide pb-0.5">
             <span className="text-[10px] text-white/30 shrink-0">Exakt</span>
             {DURATION_EXACT.map((n) => {
               const val = `${n}-${n}`;
