@@ -745,7 +745,7 @@ export default function HomeSuchbox() {
             Beliebig
           </button>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 max-h-80 overflow-y-auto pr-1">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2">
           {AIRPORT_GROUPS.map((group) => (
             <div key={group.label}>
               <div className="text-[10px] font-bold text-[#6991d8] uppercase tracking-wider mb-1">{group.label}</div>
