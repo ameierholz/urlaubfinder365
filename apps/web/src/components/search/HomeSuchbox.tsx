@@ -308,7 +308,7 @@ export default function HomeSuchbox() {
   const [destination, setDestination] = useState("");
   const [destRegionCode, setDestRegionCode] = useState("");
   const [destSearch, setDestSearch] = useState("");
-  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; parent: string }[]>([]);
+  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; parent: string; type?: string }[]>([]);
   const [destLoading, setDestLoading] = useState(false);
 
   // Airports (multi-select)
@@ -594,27 +594,36 @@ export default function HomeSuchbox() {
             {destLoading && <div className="text-white/40 text-sm py-3 text-center">Suche…</div>}
             {!destLoading && destResults.length > 0 && (
               <div className="max-h-64 overflow-y-auto space-y-0.5">
-                {destResults.map((d, i) => (
-                  <button
-                    key={`${d.regionCode}-${d.name}-${i}`}
-                    type="button"
-                    onClick={() => selectDest(d.city ? `${d.name} (${d.parent})` : d.name, d.regionCode)}
-                    className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
-                      destination === (d.city ? `${d.name} (${d.parent})` : d.name)
-                        ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
-                        : "text-white/80 hover:bg-white/10"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      {d.city && <MapPin className="w-3 h-3 text-white/30 shrink-0" />}
-                      <span className="font-medium">{d.name}</span>
-                      <span className="text-white/40 text-xs">
-                        {d.city ? `· ${d.parent}` : d.parent !== d.name ? d.parent : ""}
-                      </span>
-                    </div>
-                    {destination === (d.city ? `${d.name} (${d.parent})` : d.name) && <Check className="w-4 h-4 text-[#1db682]" />}
-                  </button>
-                ))}
+                {destResults.map((d, i) => {
+                  const isCity = d.type === "city";
+                  const label = isCity ? `${d.name} (${d.parent})` : d.name;
+                  return (
+                    <button
+                      key={`${d.regionCode}-${d.name}-${i}`}
+                      type="button"
+                      onClick={() => selectDest(label, d.regionCode)}
+                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
+                        destination === label
+                          ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
+                          : "text-white/80 hover:bg-white/10"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        {isCity && <MapPin className="w-3 h-3 text-white/30 shrink-0" />}
+                        <span className="font-medium truncate">{d.name}</span>
+                        {d.parent && (
+                          <span className="text-white/40 text-xs shrink-0">
+                            {isCity ? `· ${d.parent}` : d.parent !== d.name ? d.parent : ""}
+                          </span>
+                        )}
+                        {d.type === "country" && (
+                          <span className="text-[10px] text-white/30 border border-white/15 px-1.5 py-0.5 rounded-full shrink-0">Land</span>
+                        )}
+                      </div>
+                      {destination === label && <Check className="w-4 h-4 text-[#1db682] shrink-0" />}
+                    </button>
+                  );
+                })}
               </div>
             )}
             {!destLoading && destResults.length === 0 && destSearch.length >= 2 && (
