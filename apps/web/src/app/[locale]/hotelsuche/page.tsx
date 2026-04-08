@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Hotel, Star, ShieldCheck, RefreshCcw, Tag, Wifi, CheckCircle } from "lucide-react";
-import CollapsibleIbeWidget from "@/components/widgets/CollapsibleIbeWidget";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import PageNavBar from "@/components/ui/PageNavBar";
-import RightSidebar from '@/components/layout/RightSidebar';
 import { setRequestLocale } from "next-intl/server";
 import { buildB2bUrl } from "@/lib/search-params";
 
@@ -196,22 +194,20 @@ export default async function ({ params, searchParams }: {
       {/* ── Sticky Schnellnavigation ── */}
       <PageNavBar items={HOTEL_NAV_ITEMS} />
 
-      {/* ═══════════════════════════════════════════════════════════════════
-          ZWEISPALTEN-LAYOUT: Hauptinhalt + Sticky Sidebar Ad
-      ═══════════════════════════════════════════════════════════════════ */}
-      <div className="xl:flex xl:items-start xl:gap-8 xl:max-w-7xl xl:mx-auto">
-
-        {/* ── Hauptinhalt (linke Spalte) ── */}
-        <div className="flex-1 min-w-0">
-
-      {/* ── IBE Hotelsuche – ein-/ausklappbar ── */}
-      <div id="hotel-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-[2px] mt-8 mb-2">
-        <CollapsibleIbeWidget
-          dataSrc={ibeUrl}
-          label="Hotel suchen & buchen"
-          hint="Alle Urlaubsziele · Alle Kategorien · 200+ Veranstalter"
-        />
+      {/* ── IBE Hotelsuche ── */}
+      <div id="hotel-widget" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-2">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <iframe
+            src={ibeUrl}
+            title="Hotelsuche & Buchung"
+            className="w-full border-0 block"
+            style={{ width: "100%", height: 3750, border: "none" }}
+            loading="eager"
+          />
+        </div>
       </div>
+
+      <div>
 
       {/* ═══════════════════════════════════════════════════════════════════
           AKTUELLE HOTELANGEBOTE – IbeTeaser
@@ -543,36 +539,7 @@ export default async function ({ params, searchParams }: {
         </div>
       </div>
 
-        </div>{/* ── Ende Hauptinhalt ── */}
-
-        {/* ── Sticky Sidebar (nur XL+) ── */}
-        <aside className="hidden xl:block w-64 shrink-0">
-          <div className="sticky top-24 pt-8">
-            <RightSidebar
-              extrasBox={{
-                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&h=200&q=70",
-                eyebrow: "Tipp",
-                title: "Hotel + Flug als Paket",
-                description: "Pauschalreisen sind oft günstiger als Einzelbuchungen. Täglich aktuelle Angebote.",
-                href: "/guenstig-urlaub-buchen/",
-                ctaLabel: "Jetzt vergleichen →",
-                accentColor: "bg-amber-700",
-              }}
-              seoLinksTitle="🏨 Beliebte Hotelziele"
-              seoLinks={[
-                { href: "/urlaubsziele/antalya/",            label: "Hotels Antalya" },
-                { href: "/urlaubsziele/mallorca/",           label: "Hotels Mallorca" },
-                { href: "/urlaubsziele/kreta/",              label: "Hotels Kreta" },
-                { href: "/urlaubsziele/teneriffa/",          label: "Hotels Teneriffa" },
-                { href: "/urlaubsziele/hurghada/",           label: "Hotels Hurghada" },
-                { href: "/urlaubsziele/griechische-inseln/", label: "Griechische Inseln" },
-                { href: "/urlaubsziele/tuerkei/",            label: "Hotels Türkei" },
-              ]}
-            />
-          </div>
-        </aside>
-
-      </div>{/* ── Ende Zweispalten-Layout ── */}
+      </div>
 
     </div>
   );

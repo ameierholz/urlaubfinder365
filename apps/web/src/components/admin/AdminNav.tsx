@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, PackageSearch, CalendarCheck, Banknote, LogOut, ShieldCheck, Megaphone } from "lucide-react";
+import { LayoutDashboard, Users, PackageSearch, CalendarCheck, Banknote, LogOut, ShieldCheck, Megaphone, Search, MapPin, Newspaper } from "lucide-react";
 import { createSupabaseBrowser } from "@/lib/supabase-browser";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +13,9 @@ const NAV = [
   { href: "/admin/auszahlungen/", icon: Banknote,         label: "Auszahlungen" },
   { href: "/admin/angebote/",     icon: PackageSearch,    label: "Angebote" },
   { href: "/admin/werbung/",      icon: Megaphone,        label: "Werbeplätze" },
+  { href: "/admin/seo/",          icon: Search,           label: "SEO" },
+  { href: "/admin/destinations/", icon: MapPin,           label: "Destinations" },
+  { href: "/admin/magazin/",      icon: Newspaper,        label: "Magazin" },
 ];
 
 export default function AdminNav({ userEmail }: { userEmail: string }) {
