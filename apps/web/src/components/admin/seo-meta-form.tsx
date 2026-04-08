@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ScanSearch, Check, X } from "lucide-react";
 import type { PageSeoMeta } from "@/lib/seo-meta";
 
 interface Props {
@@ -22,6 +22,8 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
   const [ogImage, setOgImage] = useState(initial?.og_image ?? "");
   const [saving, setSaving] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysis, setAnalysis] = useState<{ score: number; checks: { label: string; pass: boolean; detail: string }[]; headings: { level: number; text: string }[] } | null>(null);
   const [message, setMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
 
   const handleGenerate = async () => {
@@ -114,6 +116,85 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
             {generating ? "Recherchiert …" : "Mit KI generieren"}
           </button>
         </div>
+      </div>
+
+      {/* Seiten-Analyse */}
+      <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <ScanSearch className="w-4 h-4 text-blue-400" />
+            <p className="text-sm font-bold text-blue-300">Live-Analyse</p>
+          </div>
+          <button
+            onClick={async () => {
+              setAnalyzing(true);
+              try {
+                const res = await fetch("/api/admin/analyze-page", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ pagePath, focusKeyword: focusKeyword || undefined }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error);
+                setAnalysis(data);
+              } catch (err) {
+                setMessage({ type: "error", text: `Analyse fehlgeschlagen: ${err}` });
+              } finally {
+                setAnalyzing(false);
+              }
+            }}
+            disabled={analyzing}
+            className="shrink-0 flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold px-4 py-2 rounded-xl text-xs transition-colors"
+          >
+            <ScanSearch className="w-3.5 h-3.5" />
+            {analyzing ? "Analysiert …" : "Seite analysieren"}
+          </button>
+        </div>
+
+        {analysis && (
+          <div>
+            {/* Score */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className={`text-3xl font-black ${analysis.score >= 80 ? "text-green-400" : analysis.score >= 50 ? "text-yellow-400" : "text-red-400"}`}>
+                {analysis.score}%
+              </span>
+              <span className="text-xs text-gray-500">SEO-Score (Live-Analyse)</span>
+            </div>
+
+            {/* Checks */}
+            <div className="space-y-1.5">
+              {analysis.checks.map((c, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs">
+                  {c.pass
+                    ? <Check className="w-3.5 h-3.5 text-green-400 shrink-0 mt-0.5" />
+                    : <X className="w-3.5 h-3.5 text-red-400 shrink-0 mt-0.5" />
+                  }
+                  <div>
+                    <span className={c.pass ? "text-green-300" : "text-red-300"}>{c.label}</span>
+                    <span className="text-gray-500 ml-1.5">{c.detail}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* H-Struktur */}
+            {analysis.headings.length > 0 && (
+              <details className="mt-3">
+                <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-300">
+                  Überschriften-Struktur ({analysis.headings.length} Headings)
+                </summary>
+                <div className="mt-2 space-y-0.5 max-h-48 overflow-y-auto">
+                  {analysis.headings.map((h, i) => (
+                    <div key={i} className="text-xs text-gray-400" style={{ paddingLeft: `${(h.level - 1) * 16}px` }}>
+                      <span className="text-gray-600 font-mono mr-1.5">H{h.level}</span>
+                      <span className={h.level === 1 ? "text-white font-semibold" : ""}>{h.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Meta Title */}
