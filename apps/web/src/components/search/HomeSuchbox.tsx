@@ -708,38 +708,36 @@ export default function HomeSuchbox() {
     if (openOverlay !== "airport") return null;
     return (
       <Overlay wide onClose={closeOverlay}>
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-xs font-bold text-white/40 uppercase tracking-wider">Abflughafen wählen</div>
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-[10px] font-bold text-white/40 uppercase tracking-wider">Abflughafen wählen</div>
           <button
             type="button"
             onClick={() => setSelectedAirports([])}
-            className={`text-sm px-3 py-1 rounded-full border transition-colors ${selectedAirports.length === 0 ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/60 hover:border-[#1db682]"}`}
+            className={`text-xs px-2.5 py-0.5 rounded-full border transition-colors ${selectedAirports.length === 0 ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/60 hover:border-[#1db682]"}`}
           >
             Beliebig
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 max-h-100 overflow-y-auto pr-1">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 max-h-80 overflow-y-auto pr-1">
           {AIRPORT_GROUPS.map((group) => (
             <div key={group.label}>
-              <div className="text-xs font-bold text-[#6991d8] uppercase tracking-wider mb-1.5">{group.label}</div>
-              <div className="space-y-0.5">
-                {group.airports.map((ap) => {
-                  const checked = selectedAirports.includes(ap.code);
-                  return (
-                    <label
-                      key={ap.code}
-                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
-                    >
-                      <span className={`w-4.5 h-4.5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${checked ? "bg-[#1db682] border-[#1db682]" : "border-white/30"}`}>
-                        {checked && <Check className="w-3 h-3 text-white" />}
-                      </span>
-                      <input type="checkbox" className="sr-only" checked={checked} onChange={() => toggleAirport(ap.code)} />
-                      <span className="text-sm text-white/85 font-medium">{ap.name}</span>
-                      <span className="text-xs font-mono text-white/40 ml-0.5">{ap.code}</span>
-                    </label>
-                  );
-                })}
-              </div>
+              <div className="text-[10px] font-bold text-[#6991d8] uppercase tracking-wider mb-1">{group.label}</div>
+              {group.airports.map((ap) => {
+                const checked = selectedAirports.includes(ap.code);
+                return (
+                  <label
+                    key={ap.code}
+                    className="flex items-center gap-1.5 px-1.5 py-1 rounded cursor-pointer hover:bg-white/10 transition-colors"
+                  >
+                    <span className={`w-3.5 h-3.5 rounded border-[1.5px] flex items-center justify-center shrink-0 transition-colors ${checked ? "bg-[#1db682] border-[#1db682]" : "border-white/30"}`}>
+                      {checked && <Check className="w-2.5 h-2.5 text-white" />}
+                    </span>
+                    <input type="checkbox" className="sr-only" checked={checked} onChange={() => toggleAirport(ap.code)} />
+                    <span className="text-xs text-white/85">{ap.name}</span>
+                    <span className="text-[10px] font-mono text-white/35">{ap.code}</span>
+                  </label>
+                );
+              })}
             </div>
           ))}
         </div>
