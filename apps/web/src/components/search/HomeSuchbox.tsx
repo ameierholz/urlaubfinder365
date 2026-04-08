@@ -7,8 +7,8 @@ import { DESTINATION_REGION_MAP } from "@/lib/search-params";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type TabKey = "urlaub" | "lastminute" | "hotel" | "flug" | "mietwagen" | "kreuzfahrt";
-type OverlayKey = "destination" | "airport" | "date" | "travelers" | "flugVon" | "flugNach" | "cruiseArea" | "cruiseLine" | "mietAbhol" | "mietRueck" | null;
+type TabKey = "urlaub" | "lastminute" | "hotel" | "flug" | "mietwagen" | "kreuzfahrt" | "aktivitaeten";
+type OverlayKey = "destination" | "airport" | "date" | "travelers" | "flugVon" | "flugNach" | "cruiseArea" | "cruiseLine" | "mietAbhol" | "mietRueck" | "lmWann" | "lmDauer" | "aktCity" | null;
 
 interface Tab {
   key: TabKey;
@@ -25,6 +25,7 @@ const TABS: Tab[] = [
   { key: "flug", label: "Flug", icon: "✈️" },
   { key: "mietwagen", label: "Mietwagen", icon: "🚗" },
   { key: "kreuzfahrt", label: "Kreuzfahrt", icon: "🚢" },
+  { key: "aktivitaeten", label: "Aktivitäten", icon: "🎯" },
 ];
 
 const BELIEBTE_REISEZIELE = [
@@ -126,6 +127,20 @@ const DURATION_OPTIONS = [
   }))},
 ];
 
+
+const LM_WANN_OPTIONS = [
+  { value: "1", label: "Morgen" },
+  { value: "3", label: "In 3 Tagen" },
+  { value: "7", label: "In 1 Woche" },
+  { value: "14", label: "In 2 Wochen" },
+  { value: "21", label: "In 3 Wochen" },
+];
+
+const BELIEBTE_STAEDTE = [
+  "Antalya", "Mallorca", "Barcelona", "Kreta", "Dubai", "Istanbul",
+  "Rom", "Paris", "Hurghada", "Lissabon", "Rhodos", "Bodrum",
+  "Phuket", "Marrakesch", "Side", "Alanya", "Fuerteventura", "Teneriffa",
+];
 
 const CRUISE_AREAS = [
   "Alle Gebiete", "Mittelmeer", "Karibik", "Nordsee", "Ostsee",
@@ -362,6 +377,9 @@ export default function HomeSuchbox() {
   // Last-Minute: Wann fliegen?
   const [lmDeparture, setLmDeparture] = useState("3"); // Tage ab heute
 
+  // Aktivitäten
+  const [aktCity, setAktCity] = useState("");
+
   // Mietwagen
   const [mietAbhol, setMietAbhol] = useState("");
   const [mietRueck, setMietRueck] = useState("");
@@ -568,6 +586,15 @@ export default function HomeSuchbox() {
         params.set("adults", String(adults));
         if (childAges.length) params.set("children", childAges.join(","));
         router.push(`/kreuzfahrten/?${params.toString()}`);
+        break;
+      }
+      case "aktivitaeten": {
+        const slug = aktCity
+          ? aktCity.toLowerCase()
+              .replace(/ü/g, "ue").replace(/ö/g, "oe").replace(/ä/g, "ae").replace(/ß/g, "ss")
+              .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+          : "";
+        router.push(slug ? `/aktivitaeten/${slug}/` : "/aktivitaeten/");
         break;
       }
     }
@@ -1001,45 +1028,58 @@ export default function HomeSuchbox() {
               {renderAirportOverlay()}
             </div>
 
-            {/* Wann fliegen? – Last-Minute spezifisch */}
-            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15 px-4 py-3 flex items-center gap-3">
-              <div className="flex-1">
-                <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Wann fliegen?</div>
-                <select
-                  value={lmDeparture}
-                  onChange={(e) => setLmDeparture(e.target.value)}
-                  className="w-full bg-transparent text-white text-sm font-medium focus:outline-none appearance-none cursor-pointer"
-                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 0 center", paddingRight: "16px" }}
-                >
-                  <option value="1" className="bg-[#0d1f35]">Morgen</option>
-                  <option value="3" className="bg-[#0d1f35]">In 3 Tagen</option>
-                  <option value="7" className="bg-[#0d1f35]">In 1 Woche</option>
-                  <option value="14" className="bg-[#0d1f35]">In 2 Wochen</option>
-                  <option value="21" className="bg-[#0d1f35]">In 3 Wochen</option>
-                </select>
-              </div>
+            {/* Wann fliegen? – Overlay */}
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Wann fliegen?"
+                value={LM_WANN_OPTIONS.find((o) => o.value === lmDeparture)?.label ?? "In 3 Tagen"}
+                onClick={() => setOpenOverlay(openOverlay === "lmWann" ? null : "lmWann")}
+                active={openOverlay === "lmWann"}
+              />
+              {openOverlay === "lmWann" && (
+                <Overlay onClose={closeOverlay}>
+                  <div className="space-y-0.5">
+                    {LM_WANN_OPTIONS.map((opt) => (
+                      <button key={opt.value} type="button"
+                        onClick={() => { setLmDeparture(opt.value); closeOverlay(); }}
+                        className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors ${lmDeparture === opt.value ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </Overlay>
+              )}
             </div>
 
-            {/* Reisedauer */}
-            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15 px-4 py-3 flex items-center gap-3">
-              <div className="flex-1">
-                <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Reisedauer</div>
-                <select
-                  value={duration}
-                  onChange={(e) => setDuration(e.target.value)}
-                  className="w-full bg-transparent text-white text-sm font-medium focus:outline-none appearance-none cursor-pointer"
-                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 0 center", paddingRight: "16px" }}
-                >
-                  <option value="1-28" className="bg-[#0d1f35]">Beliebig</option>
+            {/* Reisedauer – Overlay */}
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Reisedauer"
+                value={durationLabel}
+                onClick={() => setOpenOverlay(openOverlay === "lmDauer" ? null : "lmDauer")}
+                active={openOverlay === "lmDauer"}
+              />
+              {openOverlay === "lmDauer" && (
+                <Overlay onClose={closeOverlay}>
+                  <button type="button"
+                    onClick={() => { setDuration("1-28"); closeOverlay(); }}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors mb-1 ${duration === "1-28" ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
+                    Beliebig
+                  </button>
                   {DURATION_OPTIONS.map((group) => (
-                    <optgroup key={group.group} label={group.group} className="bg-[#0d1f35]">
+                    <div key={group.group}>
+                      <div className="text-[10px] font-bold text-white/35 uppercase tracking-wider px-3 pt-2 pb-1">{group.group}</div>
                       {group.items.map((opt) => (
-                        <option key={opt.value} value={opt.value} className="bg-[#0d1f35]">{opt.label}</option>
+                        <button key={opt.value} type="button"
+                          onClick={() => { setDuration(opt.value); closeOverlay(); }}
+                          className={`w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors ${duration === opt.value ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
+                          {opt.label}
+                        </button>
                       ))}
-                    </optgroup>
+                    </div>
                   ))}
-                </select>
-              </div>
+                </Overlay>
+              )}
             </div>
 
             <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
@@ -1386,6 +1426,54 @@ export default function HomeSuchbox() {
             </div>
           </div>
         );
+
+      case "aktivitaeten":
+        return (
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-[3] border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Stadt oder Reiseziel"
+                value={aktCity || "Wo suchst du Aktivitäten?"}
+                onClick={() => setOpenOverlay(openOverlay === "aktCity" ? null : "aktCity")}
+                active={openOverlay === "aktCity"}
+              />
+              {openOverlay === "aktCity" && (
+                <Overlay wide onClose={closeOverlay}>
+                  <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Beliebte Städte</div>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {BELIEBTE_STAEDTE.map((city) => (
+                      <button key={city} type="button"
+                        onClick={() => { setAktCity(city); closeOverlay(); }}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${aktCity === city ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/80 hover:border-[#1db682]"}`}>
+                        {city}
+                      </button>
+                    ))}
+                  </div>
+                </Overlay>
+              )}
+            </div>
+
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox label="Reisezeitraum" value={dateDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
+                active={openOverlay === "date"} />
+              {renderDateOverlay()}
+            </div>
+
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox label="Reisende" value={travelerDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
+                active={openOverlay === "travelers"} />
+              {renderTravelersOverlay()}
+            </div>
+
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button type="button" onClick={handleSubmit} className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap">
+                <Search className="w-3.5 h-3.5" /> Suchen
+              </button>
+            </div>
+          </div>
+        );
     }
   }
 
@@ -1398,6 +1486,7 @@ export default function HomeSuchbox() {
     flug: "Flüge finden",
     mietwagen: "Mietwagen finden",
     kreuzfahrt: "Kreuzfahrten finden",
+    aktivitaeten: "Aktivitäten finden",
   };
 
   return (
