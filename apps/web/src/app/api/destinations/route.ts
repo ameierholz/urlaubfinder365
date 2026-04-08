@@ -33,13 +33,14 @@ export async function GET(req: NextRequest) {
       type: "region" as const,
     }));
 
-    // Orte/Städte
+    // Orte/Städte — cityCode separat für IBE cityId-Parameter
     const locations = (data.locationList ?? [])
       .filter((l: { name: string }) => !l.name.startsWith("Kreuzfahrt") && !l.name.startsWith("Rundreise"))
       .slice(0, 10)
       .map((l: { code: string; name: string; region?: { code: string; name: string } }) => ({
         name: l.name,
         regionCode: l.region?.code ?? "",
+        cityCode: l.code,
         parent: l.region?.name ?? "",
         type: "city" as const,
       }));

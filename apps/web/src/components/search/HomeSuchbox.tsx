@@ -308,7 +308,8 @@ export default function HomeSuchbox() {
   const [destination, setDestination] = useState("");
   const [destRegionCode, setDestRegionCode] = useState("");
   const [destSearch, setDestSearch] = useState("");
-  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; parent: string; type?: string }[]>([]);
+  const [destCityCode, setDestCityCode] = useState("");
+  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; cityCode?: string; parent: string; type?: string }[]>([]);
   const [destLoading, setDestLoading] = useState(false);
 
   // Airports (multi-select)
@@ -470,6 +471,7 @@ export default function HomeSuchbox() {
         const regionId = destRegionCode || (destination ? DESTINATION_REGION_MAP[destination] : undefined);
         if (regionId) params.set("regionId", regionId);
         else if (destination) params.set("destination", destination);
+        if (destCityCode) params.set("cityId", destCityCode);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("from", String(fromDays));
         params.set("to", String(toDays));
@@ -484,6 +486,7 @@ export default function HomeSuchbox() {
         const regionId = destRegionCode || (destination ? DESTINATION_REGION_MAP[destination] : undefined);
         if (regionId) params.set("regionId", regionId);
         else if (destination) params.set("destination", destination);
+        if (destCityCode) params.set("cityId", destCityCode);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("duration", `${duration}-${duration}`);
         params.set("adults", String(adults));
@@ -559,9 +562,10 @@ export default function HomeSuchbox() {
   function renderDestinationOverlay() {
     if (openOverlay !== "destination") return null;
 
-    const selectDest = (name: string, regionCode: string) => {
+    const selectDest = (name: string, regionCode: string, cityCode?: string) => {
       setDestination(name);
       setDestRegionCode(regionCode);
+      setDestCityCode(cityCode ?? "");
       setDestSearch("");
       closeOverlay();
     };
@@ -601,7 +605,7 @@ export default function HomeSuchbox() {
                     <button
                       key={`${d.regionCode}-${d.name}-${i}`}
                       type="button"
-                      onClick={() => selectDest(label, d.regionCode)}
+                      onClick={() => selectDest(label, d.regionCode, d.cityCode)}
                       className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
                         destination === label
                           ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
