@@ -104,20 +104,27 @@ const AIRPORT_GROUPS: AirportGroup[] = [
   },
 ];
 
-// duration wird als "min-max" String gespeichert (z.B. "7-7" = exakt, "5-8" = Bereich)
-const DURATION_WEEKS = [
-  { label: "1 Woche",   value: "6-8" },
-  { label: "2 Wochen",  value: "13-15" },
-  { label: "3 Wochen",  value: "19-22" },
-  { label: "4 Wochen",  value: "26-29" },
+// Reisedauer-Modus: "exact" = exakte Reisedaten, "flexible" = flexibel mit Dauer-Wahl
+type DurationMode = "exact" | "flexible";
+
+const DURATION_OPTIONS = [
+  { group: "Wochen",  items: [
+    { label: "1 Woche",   value: "6-8" },
+    { label: "2 Wochen",  value: "13-15" },
+    { label: "3 Wochen",  value: "19-22" },
+    { label: "4 Wochen",  value: "26-29" },
+  ]},
+  { group: "Nächte",  items: [
+    { label: "1–4 Nächte",   value: "1-4" },
+    { label: "5–8 Nächte",   value: "5-8" },
+    { label: "9–12 Nächte",  value: "9-12" },
+    { label: "13–15 Nächte", value: "13-15" },
+  ]},
+  { group: "Tage",  items: Array.from({ length: 21 }, (_, i) => ({
+    label: `${i + 1} ${i === 0 ? "Tag" : "Tage"}`,
+    value: `${i + 1}-${i + 1}`,
+  }))},
 ];
-const DURATION_RANGES = [
-  { label: "1–4 Nächte",   value: "1-4" },
-  { label: "5–8 Nächte",   value: "5-8" },
-  { label: "9–12 Nächte",  value: "9-12" },
-  { label: "13–15 Nächte", value: "13-15" },
-];
-const DURATION_EXACT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
 
 const CRUISE_AREAS = [
@@ -336,6 +343,7 @@ export default function HomeSuchbox() {
   // Date
   const [departure, setDeparture] = useState<Date | null>(null);
   const [returnDate, setReturnDate] = useState<Date | null>(null);
+  const [durationMode, setDurationMode] = useState<DurationMode>("flexible");
   const [duration, setDuration] = useState("6-8"); // "min-max" Format
   const [calMonth, setCalMonth] = useState(() => {
     const now = new Date();
@@ -404,11 +412,12 @@ export default function HomeSuchbox() {
       : `${selectedAirports.slice(0, 3).join(", ")} +${selectedAirports.length - 3}`;
 
   const durationLabel = (() => {
-    if (duration === "1-28" || duration === "1-21") return "Beliebig";
-    const week = DURATION_WEEKS.find((d) => d.value === duration);
-    if (week) return week.label;
-    const range = DURATION_RANGES.find((d) => d.value === duration);
-    if (range) return range.label;
+    if (durationMode === "exact") return "Exakte Reisedaten";
+    if (duration === "1-28") return "Beliebig";
+    for (const g of DURATION_OPTIONS) {
+      const found = g.items.find((d) => d.value === duration);
+      if (found) return found.label;
+    }
     const [min, max] = duration.split("-");
     if (min === max) return `${min} Nächte`;
     return `${min}–${max} Nächte`;
@@ -482,6 +491,7 @@ export default function HomeSuchbox() {
     switch (activeTab) {
       case "urlaub": {
         const fromDays = departure ? daysBetween(today, departure) : 1;
+        const exactNights = departure && returnDate ? daysBetween(departure, returnDate) : 0;
         const durMax = parseInt(duration.split("-")[1] || "7", 10);
         const toDays = returnDate ? daysBetween(today, returnDate) : fromDays + durMax;
         const params = new URLSearchParams();
@@ -493,7 +503,8 @@ export default function HomeSuchbox() {
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("from", String(fromDays));
         params.set("to", String(toDays));
-        params.set("duration", duration);
+        // Exakt = genau die gewählten Tage, Flexibel = Bereich
+        params.set("duration", durationMode === "exact" && exactNights > 0 ? `${exactNights}-${exactNights}` : duration);
         params.set("adults", String(adults));
         if (childAges.length) params.set("children", childAges.join(","));
         router.push(`/guenstig-urlaub-buchen/?${params.toString()}`);
@@ -786,35 +797,46 @@ export default function HomeSuchbox() {
           </div>
         )}
 
-        {/* Duration */}
-        <div className="mb-3 space-y-1.5">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Dauer</span>
-            <button type="button" onClick={() => setDuration("1-28")}
-              className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
-              Beliebig</button>
-            {DURATION_WEEKS.map((opt) => (
-              <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
-                {opt.label}</button>
-            ))}
-            {DURATION_RANGES.map((opt) => (
-              <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
-                {opt.label}</button>
-            ))}
+        {/* Duration Mode + Dropdown */}
+        <div className="mb-3">
+          <div className="flex items-center gap-3">
+            {/* Exakt / Flexibel Toggle */}
+            <div className="flex rounded-xl overflow-hidden border border-white/20">
+              <button type="button" onClick={() => setDurationMode("exact")}
+                className={`px-3 py-1.5 text-xs font-semibold transition-colors ${durationMode === "exact" ? "bg-[#1db682] text-white" : "text-white/60 hover:text-white/80"}`}>
+                Exakte Reisedaten</button>
+              <button type="button" onClick={() => setDurationMode("flexible")}
+                className={`px-3 py-1.5 text-xs font-semibold transition-colors ${durationMode === "flexible" ? "bg-[#1db682] text-white" : "text-white/60 hover:text-white/80"}`}>
+                Flexibel</button>
+            </div>
+
+            {/* Dauer-Dropdown (nur bei flexibel) */}
+            {durationMode === "flexible" && (
+              <select
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+                className="bg-white/10 border border-white/20 rounded-xl px-3 py-1.5 text-xs text-white font-medium focus:outline-none focus:border-[#1db682] appearance-none cursor-pointer"
+                style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center", paddingRight: "24px" }}
+              >
+                <option value="1-28" className="bg-[#0d1f35] text-white">Beliebig</option>
+                {DURATION_OPTIONS.map((group) => (
+                  <optgroup key={group.group} label={group.group} className="bg-[#0d1f35] text-white">
+                    {group.items.map((opt) => (
+                      <option key={opt.value} value={opt.value} className="bg-[#0d1f35] text-white">{opt.label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            )}
           </div>
-          <div className="flex flex-wrap items-center gap-1">
-            <span className="text-[10px] text-white/30">Exakt</span>
-            {DURATION_EXACT.map((n) => {
-              const val = `${n}-${n}`;
-              return (
-                <button key={n} type="button" onClick={() => setDuration(val)}
-                  className={`w-8 h-7 rounded-lg text-xs font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/15 text-white/50 hover:border-[#1db682]"}`}>
-                  {n}</button>
-              );
-            })}
-          </div>
+          {durationMode === "exact" && departure && returnDate && (
+            <p className="text-[11px] text-white/40 mt-1.5">
+              Exakt vom {formatDate(departure)} bis {formatDate(returnDate)} ({daysBetween(departure, returnDate)} Nächte)
+            </p>
+          )}
+          {durationMode === "exact" && (!departure || !returnDate) && (
+            <p className="text-[11px] text-amber-400/70 mt-1.5">Bitte wähle Anreise- und Rückreisedatum im Kalender.</p>
+          )}
         </div>
 
         {/* Calendar */}
