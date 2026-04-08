@@ -1,6 +1,9 @@
-// Root-Layout für next-intl App-Router-Setup.
-// html/body werden vom [locale]/layout.tsx gerendert.
-// Next.js 16 zeigt eine Warnung, die bei next-intl mit [locale]-Segment erwartet wird.
+// Root-Layout – Next.js 16 erfordert <html> und <body> im Root.
+// [locale]/layout.tsx überschreibt diese Tags für i18n-Seiten.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <html lang="de" suppressHydrationWarning>
+      <body>{children}</body>
+    </html>
+  );
 }
