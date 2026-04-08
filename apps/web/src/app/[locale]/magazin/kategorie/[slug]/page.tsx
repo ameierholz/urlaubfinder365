@@ -65,11 +65,11 @@ export default async function MagazinKategoriePage({
       .from("magazin_categories" as never)
       .select("id, name, slug")
       .eq("slug", slug)
-      .single() as Promise<{ data: Category | null }>,
+      .single() as unknown as Promise<{ data: Category | null }>,
     supabase
       .from("magazin_categories" as never)
       .select("id, name, slug")
-      .order("name") as Promise<{ data: Category[] | null }>,
+      .order("name") as unknown as Promise<{ data: Category[] | null }>,
   ]);
 
   if (!category) notFound();

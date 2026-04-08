@@ -18,11 +18,11 @@ export default async function AdminMagazinEditPage({
       .from("magazin_articles" as never)
       .select("id, title, slug, category_id, author_name, excerpt, cover_image, content, meta_title, meta_description, focus_keyword, status")
       .eq("id", id)
-      .single() as Promise<{ data: ExistingArticle | null }>,
+      .single() as unknown as Promise<{ data: ExistingArticle | null }>,
     supabase
       .from("magazin_categories" as never)
       .select("id, name, slug")
-      .order("name") as Promise<{ data: Category[] | null }>,
+      .order("name") as unknown as Promise<{ data: Category[] | null }>,
   ]);
 
   if (!article) notFound();

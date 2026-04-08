@@ -57,11 +57,11 @@ export default async function MagazinPage({
       .from("magazin_articles" as never)
       .select("id, title, slug, excerpt, cover_image, published_at, magazin_categories(name, slug)")
       .eq("status", "veroeffentlicht")
-      .order("published_at", { ascending: false }) as Promise<{ data: Article[] | null }>,
+      .order("published_at", { ascending: false }) as unknown as Promise<{ data: Article[] | null }>,
     supabase
       .from("magazin_categories" as never)
       .select("id, name, slug")
-      .order("name") as Promise<{ data: Category[] | null }>,
+      .order("name") as unknown as Promise<{ data: Category[] | null }>,
   ]);
 
   const jsonLd = [
