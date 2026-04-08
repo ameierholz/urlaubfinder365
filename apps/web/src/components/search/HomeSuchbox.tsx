@@ -304,9 +304,12 @@ export default function HomeSuchbox() {
   const closeOverlay = useCallback(() => setOpenOverlay(null), []);
   useClickOutside(containerRef, closeOverlay);
 
-  // Destination
+  // Destination (live search from IBE data)
   const [destination, setDestination] = useState("");
+  const [destRegionCode, setDestRegionCode] = useState("");
   const [destSearch, setDestSearch] = useState("");
+  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; parent: string }[]>([]);
+  const [destLoading, setDestLoading] = useState(false);
 
   // Airports (multi-select)
   const [selectedAirports, setSelectedAirports] = useState<string[]>([]);
@@ -345,6 +348,19 @@ export default function HomeSuchbox() {
   const [mietAbhol, setMietAbhol] = useState("");
   const [mietRueck, setMietRueck] = useState("");
   const [mietSameLocation, setMietSameLocation] = useState(true);
+
+  // Debounced destination search (IBE regions)
+  useEffect(() => {
+    if (destSearch.length < 2) { setDestResults([]); return; }
+    setDestLoading(true);
+    const timer = setTimeout(() => {
+      fetch(`/api/destinations?q=${encodeURIComponent(destSearch)}`)
+        .then((r) => r.json())
+        .then((data) => { setDestResults(data); setDestLoading(false); })
+        .catch(() => setDestLoading(false));
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [destSearch]);
 
   // Debounced airport search – Von
   useEffect(() => {
@@ -451,7 +467,7 @@ export default function HomeSuchbox() {
         const fromDays = departure ? daysBetween(today, departure) : 1;
         const toDays = returnDate ? daysBetween(today, returnDate) : fromDays + duration;
         const params = new URLSearchParams();
-        const regionId = destination ? DESTINATION_REGION_MAP[destination] : undefined;
+        const regionId = destRegionCode || (destination ? DESTINATION_REGION_MAP[destination] : undefined);
         if (regionId) params.set("regionId", regionId);
         else if (destination) params.set("destination", destination);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
@@ -465,7 +481,7 @@ export default function HomeSuchbox() {
       }
       case "lastminute": {
         const params = new URLSearchParams();
-        const regionId = destination ? DESTINATION_REGION_MAP[destination] : undefined;
+        const regionId = destRegionCode || (destination ? DESTINATION_REGION_MAP[destination] : undefined);
         if (regionId) params.set("regionId", regionId);
         else if (destination) params.set("destination", destination);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
@@ -536,28 +552,29 @@ export default function HomeSuchbox() {
     );
   }
 
-  // ── Filtered destinations ──
-
-  const filteredBeliebte = destSearch
-    ? BELIEBTE_REISEZIELE.filter((d) => d.toLowerCase().includes(destSearch.toLowerCase()))
-    : BELIEBTE_REISEZIELE;
-
-  const filteredAlle = destSearch
-    ? ALLE_REISEZIELE.filter((d) => d.toLowerCase().includes(destSearch.toLowerCase()))
-    : ALLE_REISEZIELE;
+  // ── Filtered destinations (removed – now using live search) ──
 
   // ── Render overlays ──
 
   function renderDestinationOverlay() {
     if (openOverlay !== "destination") return null;
+
+    const selectDest = (name: string, regionCode: string) => {
+      setDestination(name);
+      setDestRegionCode(regionCode);
+      setDestSearch("");
+      closeOverlay();
+    };
+
     return (
       <Overlay wide onClose={closeOverlay}>
+        {/* Suchfeld */}
         <div className="mb-3">
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
             <input
               type="text"
-              placeholder="Reiseziel eingeben..."
+              placeholder="Reiseziel eingeben – z. B. Mallorca, Kreta, Hurghada …"
               value={destSearch}
               onChange={(e) => setDestSearch(e.target.value)}
               className="w-full pl-10 pr-8 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682] focus:ring-1 focus:ring-[#1db682]/40"
@@ -571,33 +588,64 @@ export default function HomeSuchbox() {
           </div>
         </div>
 
-        {filteredBeliebte.length > 0 && (
+        {/* Livesuche-Ergebnisse */}
+        {destSearch.length >= 2 && (
+          <div className="mb-4">
+            {destLoading && <div className="text-white/40 text-sm py-3 text-center">Suche…</div>}
+            {!destLoading && destResults.length > 0 && (
+              <div className="max-h-64 overflow-y-auto space-y-0.5">
+                {destResults.map((d) => (
+                  <button
+                    key={d.regionCode}
+                    type="button"
+                    onClick={() => selectDest(d.name, d.regionCode)}
+                    className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
+                      destRegionCode === d.regionCode
+                        ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
+                        : "text-white/80 hover:bg-white/10"
+                    }`}
+                  >
+                    <div>
+                      <span className="font-medium">{d.name}</span>
+                      {d.parent !== d.name && (
+                        <span className="text-white/40 text-xs ml-2">{d.parent}</span>
+                      )}
+                    </div>
+                    {destRegionCode === d.regionCode && <Check className="w-4 h-4 text-[#1db682]" />}
+                  </button>
+                ))}
+              </div>
+            )}
+            {!destLoading && destResults.length === 0 && destSearch.length >= 2 && (
+              <div className="text-white/40 text-sm text-center py-4">Kein Reiseziel gefunden.</div>
+            )}
+          </div>
+        )}
+
+        {/* Beliebte Ziele (wenn kein Suchtext) */}
+        {destSearch.length < 2 && (
           <>
             <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Beliebte Reiseziele</div>
             <div className="flex flex-wrap gap-2 mb-4">
-              {filteredBeliebte.map((z) => (
+              {BELIEBTE_REISEZIELE.map((z) => (
                 <button
                   key={z}
                   type="button"
-                  onClick={() => { setDestination(z); setDestSearch(""); closeOverlay(); }}
+                  onClick={() => { setDestination(z); setDestRegionCode(DESTINATION_REGION_MAP[z] ?? ""); setDestSearch(""); closeOverlay(); }}
                   className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${destination === z ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/80 hover:border-[#1db682] hover:text-[#1db682]"}`}
                 >
                   {z}
                 </button>
               ))}
             </div>
-          </>
-        )}
 
-        {filteredAlle.length > 0 && (
-          <>
-            <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Alle Reiseziele A–Z</div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 max-h-60 overflow-y-auto">
-              {filteredAlle.map((z) => (
+            <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Alle Regionen A–Z</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 max-h-52 overflow-y-auto">
+              {ALLE_REISEZIELE.map((z) => (
                 <button
                   key={z}
                   type="button"
-                  onClick={() => { setDestination(z); setDestSearch(""); closeOverlay(); }}
+                  onClick={() => { setDestination(z); setDestRegionCode(DESTINATION_REGION_MAP[z] ?? ""); setDestSearch(""); closeOverlay(); }}
                   className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${destination === z ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
                 >
                   {z}
@@ -605,10 +653,6 @@ export default function HomeSuchbox() {
               ))}
             </div>
           </>
-        )}
-
-        {filteredBeliebte.length === 0 && filteredAlle.length === 0 && (
-          <div className="text-white/40 text-sm text-center py-6">Kein Reiseziel gefunden.</div>
         )}
       </Overlay>
     );
