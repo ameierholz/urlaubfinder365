@@ -411,7 +411,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           backgroundImage: `url(${HERO_BG})`,
           backgroundSize: "cover",
           backgroundPosition: "center 40%",
-          overflow: "visible",
+          overflowX: "clip",
+          overflowY: "visible",
         }}
       >
         {/* ── Cinematic Overlays ── */}
