@@ -104,15 +104,15 @@ const AIRPORT_GROUPS: AirportGroup[] = [
   },
 ];
 
-const DURATION_OPTIONS = [
-  { value: 3, label: "3 Nächte" }, { value: 4, label: "4 Nächte" },
-  { value: 5, label: "5 Nächte" }, { value: 6, label: "6 Nächte" },
-  { value: 7, label: "7 Nächte" }, { value: 8, label: "8 Nächte" },
-  { value: 9, label: "9 Nächte" }, { value: 10, label: "10 Nächte" },
-  { value: 11, label: "11 Nächte" }, { value: 12, label: "12 Nächte" },
-  { value: 13, label: "13 Nächte" }, { value: 14, label: "14 Nächte" },
-  { value: 0, label: "Beliebig" },
+// duration wird als "min-max" String gespeichert (z.B. "7-7" = exakt, "5-8" = Bereich)
+const DURATION_QUICK = [
+  { label: "Beliebig",     value: "1-21" },
+  { label: "Kurztrip",     value: "2-4",   sub: "2–4 Nächte" },
+  { label: "1 Woche",      value: "6-8",   sub: "6–8 Nächte" },
+  { label: "2 Wochen",     value: "13-15", sub: "13–15 Nächte" },
+  { label: "3 Wochen",     value: "19-22", sub: "19–22 Nächte" },
 ];
+const DURATION_EXACT = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
 
 const CRUISE_AREAS = [
@@ -331,7 +331,7 @@ export default function HomeSuchbox() {
   // Date
   const [departure, setDeparture] = useState<Date | null>(null);
   const [returnDate, setReturnDate] = useState<Date | null>(null);
-  const [duration, setDuration] = useState(7);
+  const [duration, setDuration] = useState("6-8"); // "min-max" Format
   const [calMonth, setCalMonth] = useState(() => {
     const now = new Date();
     return { year: now.getFullYear(), month: now.getMonth() };
@@ -398,8 +398,9 @@ export default function HomeSuchbox() {
       ? selectedAirports.join(", ")
       : `${selectedAirports.slice(0, 3).join(", ")} +${selectedAirports.length - 3}`;
 
+  const durationLabel = duration === "1-21" ? "Beliebig" : DURATION_QUICK.find((d) => d.value === duration)?.label ?? `${duration} Nächte`;
   const dateDisplay = departure && returnDate
-    ? `${formatDate(departure)} – ${formatDate(returnDate)}, ${duration > 0 ? `${duration} Nächte` : "Beliebig"}`
+    ? `${formatDate(departure)} – ${formatDate(returnDate)}, ${durationLabel}`
     : "Wann & wie lange?";
 
   const travelerDisplay = children > 0
@@ -467,7 +468,8 @@ export default function HomeSuchbox() {
     switch (activeTab) {
       case "urlaub": {
         const fromDays = departure ? daysBetween(today, departure) : 1;
-        const toDays = returnDate ? daysBetween(today, returnDate) : fromDays + duration;
+        const durMax = parseInt(duration.split("-")[1] || "7", 10);
+        const toDays = returnDate ? daysBetween(today, returnDate) : fromDays + durMax;
         const params = new URLSearchParams();
         const regionId = destRegionCode || (destination ? DESTINATION_REGION_MAP[destination] : undefined);
         if (regionId) params.set("regionId", regionId);
@@ -477,7 +479,7 @@ export default function HomeSuchbox() {
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("from", String(fromDays));
         params.set("to", String(toDays));
-        params.set("duration", `${duration}-${duration}`);
+        params.set("duration", duration);
         params.set("adults", String(adults));
         if (childAges.length) params.set("children", childAges.join(","));
         router.push(`/guenstig-urlaub-buchen/?${params.toString()}`);
@@ -490,7 +492,7 @@ export default function HomeSuchbox() {
         else if (destination) params.set("destination", destination);
         if (destCityCode) params.set("cityId", destCityCode);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
-        params.set("duration", `${duration}-${duration}`);
+        params.set("duration", duration);
         params.set("adults", String(adults));
         if (childAges.length) params.set("children", childAges.join(","));
         router.push(`/last-minute/?${params.toString()}`);
@@ -770,11 +772,11 @@ export default function HomeSuchbox() {
           </div>
         )}
 
-        {/* Duration */}
+        {/* Duration – Schnellwahl + Exakt */}
         <div className="mb-4">
           <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mb-1.5">Reisedauer</div>
-          <div className="flex flex-wrap gap-1.5">
-            {DURATION_OPTIONS.map((opt) => (
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {DURATION_QUICK.map((opt) => (
               <button
                 key={opt.value}
                 type="button"
@@ -784,6 +786,22 @@ export default function HomeSuchbox() {
                 {opt.label}
               </button>
             ))}
+          </div>
+          <div className="text-[10px] text-white/30 uppercase tracking-wider font-semibold mb-1">Exakt</div>
+          <div className="flex flex-wrap gap-1">
+            {DURATION_EXACT.map((n) => {
+              const val = `${n}-${n}`;
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setDuration(val)}
+                  className={`w-8 h-7 rounded-lg text-[11px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/15 text-white/60 hover:border-[#1db682]"}`}
+                >
+                  {n}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -891,7 +909,7 @@ export default function HomeSuchbox() {
             <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Reisezeitraum"
-                value={activeTab === "lastminute" ? `Nächste 14 Tage, ${duration > 0 ? `${duration} Nächte` : "Beliebig"}` : dateDisplay}
+                value={activeTab === "lastminute" ? `Nächste 14 Tage, ${durationLabel}` : dateDisplay}
                 onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
                 active={openOverlay === "date"}
               />
