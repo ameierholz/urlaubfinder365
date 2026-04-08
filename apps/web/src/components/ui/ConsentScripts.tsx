@@ -20,19 +20,17 @@ export default function ConsentScripts() {
       <SpeedInsights />
 
       {/*
-        Google AdSense: Nur laden wenn Consent (marketing=true) erteilt wurde.
-        Ohne Consent werden keine AdSense-Scripts geladen → DSGVO-konform.
-        Hinweis: Domain-Verifizierung bei Google via AdSense-Dashboard oder
-        alternativ per DNS TXT-Record "google-site-verification=..." erledigen.
+        Google AdSense:
+        Das Basis-Script wird immer geladen (nötig für Domain-Verifizierung).
+        Anzeigen werden erst nach Consent ausgeliefert via data-ad-status.
+        Ohne consent.marketing zeigt AdSense keine personalisierten Anzeigen.
       */}
-      {consent?.marketing === true && (
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
-      )}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
+        strategy="afterInteractive"
+        crossOrigin="anonymous"
+      />
     </>
   );
 }
