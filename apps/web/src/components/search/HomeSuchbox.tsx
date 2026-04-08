@@ -379,6 +379,7 @@ export default function HomeSuchbox() {
 
   // Aktivitäten
   const [aktCity, setAktCity] = useState("");
+  const [aktQuery, setAktQuery] = useState("");
 
   // Mietwagen
   const [mietAbhol, setMietAbhol] = useState("");
@@ -594,7 +595,15 @@ export default function HomeSuchbox() {
               .replace(/ü/g, "ue").replace(/ö/g, "oe").replace(/ä/g, "ae").replace(/ß/g, "ss")
               .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
           : "";
-        router.push(slug ? `/aktivitaeten/${slug}/` : "/aktivitaeten/");
+        const base = slug ? `/aktivitaeten/${slug}/` : "/aktivitaeten/";
+        const params = new URLSearchParams();
+        if (aktQuery) params.set("q", aktQuery);
+        if (departure) params.set("von", formatDate(departure));
+        if (returnDate) params.set("bis", formatDate(returnDate));
+        if (adults !== 2 || children > 0) params.set("adults", String(adults));
+        if (childAges.length) params.set("children", childAges.join(","));
+        const qs = params.toString();
+        router.push(qs ? `${base}?${qs}` : base);
         break;
       }
     }
@@ -1430,17 +1439,48 @@ export default function HomeSuchbox() {
       case "aktivitaeten":
         return (
           <div className="flex flex-col md:flex-row">
-            <div className="relative flex-[3] border-b md:border-b-0 md:border-r border-white/15">
+            {/* Was suchen? */}
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15 px-4 py-3">
+              <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Was suchst du?</div>
+              <input
+                type="text"
+                placeholder="z. B. Schnorcheln, Stadtführung, Quad …"
+                value={aktQuery}
+                onChange={(e) => setAktQuery(e.target.value)}
+                className="w-full bg-transparent text-white text-sm font-medium placeholder-white/35 focus:outline-none"
+              />
+            </div>
+
+            {/* Wo? */}
+            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
-                label="Stadt oder Reiseziel"
-                value={aktCity || "Wo suchst du Aktivitäten?"}
+                label="Wo?"
+                value={aktCity || "Stadt oder Reiseziel"}
                 onClick={() => setOpenOverlay(openOverlay === "aktCity" ? null : "aktCity")}
                 active={openOverlay === "aktCity"}
               />
               {openOverlay === "aktCity" && (
                 <Overlay wide onClose={closeOverlay}>
+                  <div className="mb-3">
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                      <input
+                        type="text"
+                        placeholder="Stadt eingeben …"
+                        value={aktCity}
+                        onChange={(e) => setAktCity(e.target.value)}
+                        className="w-full pl-10 pr-8 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]"
+                        autoFocus
+                      />
+                      {aktCity && (
+                        <button type="button" onClick={() => setAktCity("")} className="absolute right-3 top-1/2 -translate-y-1/2">
+                          <X className="w-4 h-4 text-white/40" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
                   <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Beliebte Städte</div>
-                  <div className="flex flex-wrap gap-1.5 mb-3">
+                  <div className="flex flex-wrap gap-1.5">
                     {BELIEBTE_STAEDTE.map((city) => (
                       <button key={city} type="button"
                         onClick={() => { setAktCity(city); closeOverlay(); }}
@@ -1453,11 +1493,47 @@ export default function HomeSuchbox() {
               )}
             </div>
 
+            {/* Von – Bis */}
             <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
-              <FieldBox label="Reisezeitraum" value={dateDisplay}
+              <FieldBox
+                label="Zeitraum"
+                value={departure && returnDate ? `${formatDate(departure)} – ${formatDate(returnDate)}` : "Wann?"}
                 onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
-                active={openOverlay === "date"} />
-              {renderDateOverlay()}
+                active={openOverlay === "date"}
+              />
+              {openOverlay === "date" && (
+                <Overlay wide onClose={closeOverlay}>
+                  <div className="flex gap-4 mb-4">
+                    <div className="flex-1 px-3 py-2 bg-white/10 rounded-xl border border-white/15">
+                      <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Von</div>
+                      <div className="text-sm text-white font-medium">{departure ? formatDate(departure) : "—"}</div>
+                    </div>
+                    <div className="flex-1 px-3 py-2 bg-white/10 rounded-xl border border-white/15">
+                      <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">Bis</div>
+                      <div className="text-sm text-white font-medium">{returnDate ? formatDate(returnDate) : "—"}</div>
+                    </div>
+                  </div>
+                  {(() => {
+                    const m2 = calMonth.month === 11 ? { year: calMonth.year + 1, month: 0 } : { year: calMonth.year, month: calMonth.month + 1 };
+                    return (
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <button type="button" onClick={prevMonth} className="p-1 rounded-lg hover:bg-white/10">
+                            <ChevronDown className="w-5 h-5 rotate-90 text-white/60" />
+                          </button>
+                          <button type="button" onClick={nextMonth} className="p-1 rounded-lg hover:bg-white/10">
+                            <ChevronDown className="w-5 h-5 -rotate-90 text-white/60" />
+                          </button>
+                        </div>
+                        <div className="flex gap-6 flex-col sm:flex-row">
+                          <CalendarMonth year={calMonth.year} month={calMonth.month} departure={departure} returnDate={returnDate} onSelect={handleDateSelect} />
+                          <CalendarMonth year={m2.year} month={m2.month} departure={departure} returnDate={returnDate} onSelect={handleDateSelect} />
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </Overlay>
+              )}
             </div>
 
             <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
