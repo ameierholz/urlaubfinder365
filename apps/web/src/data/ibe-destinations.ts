@@ -13,6 +13,8 @@ export interface IbeDestination {
   name: string;
   regionCode: string;
   parent: string;
+  /** Stadtname → wird als "Stadt (Region)" angezeigt, regionCode = übergeordnete Region */
+  city?: boolean;
 }
 
 export const IBE_DESTINATIONS: IbeDestination[] = [
@@ -429,6 +431,168 @@ export const IBE_DESTINATIONS: IbeDestination[] = [
   { name: "Langkawi",                  regionCode: "100378", parent: "Malaysia" },
   { name: "Penang",                    regionCode: "100379", parent: "Malaysia" },
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BELIEBTE STÄDTE / ORTE (city: true → zeigen „Ort (Region)" an)
+  // regionCode = übergeordnete Region, damit die IBE die richtige Region öffnet
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ─── Türkische Riviera ──────────────────────────────────────────────────────
+  { name: "Alanya",           regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Antalya",          regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Belek",            regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Side",             regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Kemer",            regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Lara",             regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Kundu",            regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Manavgat",         regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Konakli",          regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Mahmutlar",        regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Avsallar",         regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Beldibi",          regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Göynük",           regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Tekirova",         regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Çolakli",          regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Okurcalar",        regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Bogazkent",        regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Evrenseki",        regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Kargicak",         regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Kalkan",           regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Kas",              regionCode: "149", parent: "Türkische Riviera", city: true },
+  { name: "Incekum",          regionCode: "149", parent: "Türkische Riviera", city: true },
+
+  // ─── Türkische Ägäis ───────────────────────────────────────────────────────
+  { name: "Bodrum",           regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Kusadasi",         regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Marmaris",         regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Fethiye",          regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Dalaman",          regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Ölüdeniz",         regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Didim",            regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Içmeler",          regionCode: "144", parent: "Türkische Ägäis", city: true },
+  { name: "Dalyan",           regionCode: "144", parent: "Türkische Ägäis", city: true },
+
+  // ─── Mallorca ──────────────────────────────────────────────────────────────
+  { name: "Palma de Mallorca", regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Alcudia",           regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Cala Millor",       regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Cala Ratjada",      regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Playa de Palma",    regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Sa Coma",           regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Can Picafort",      regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Cala d'Or",         regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Paguera",           regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Santa Ponsa",       regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Pollença",          regionCode: "133", parent: "Mallorca", city: true },
+  { name: "Colonia Sant Jordi", regionCode: "133", parent: "Mallorca", city: true },
+
+  // ─── Kreta ─────────────────────────────────────────────────────────────────
+  { name: "Heraklion",         regionCode: "46", parent: "Kreta", city: true },
+  { name: "Chania",            regionCode: "46", parent: "Kreta", city: true },
+  { name: "Rethymnon",         regionCode: "46", parent: "Kreta", city: true },
+  { name: "Agios Nikolaos",    regionCode: "46", parent: "Kreta", city: true },
+  { name: "Hersonissos",       regionCode: "46", parent: "Kreta", city: true },
+  { name: "Malia",             regionCode: "46", parent: "Kreta", city: true },
+  { name: "Georgioupolis",     regionCode: "46", parent: "Kreta", city: true },
+  { name: "Platanias",         regionCode: "46", parent: "Kreta", city: true },
+  { name: "Stalis",            regionCode: "46", parent: "Kreta", city: true },
+
+  // ─── Rhodos ────────────────────────────────────────────────────────────────
+  { name: "Rhodos Stadt",      regionCode: "55", parent: "Rhodos", city: true },
+  { name: "Faliraki",          regionCode: "55", parent: "Rhodos", city: true },
+  { name: "Kolymbia",          regionCode: "55", parent: "Rhodos", city: true },
+  { name: "Ixia",              regionCode: "55", parent: "Rhodos", city: true },
+  { name: "Lindos",            regionCode: "55", parent: "Rhodos", city: true },
+  { name: "Kallithea",         regionCode: "55", parent: "Rhodos", city: true },
+
+  // ─── Hurghada / Ägypten ────────────────────────────────────────────────────
+  { name: "Hurghada Stadt",    regionCode: "310", parent: "Hurghada & Safaga", city: true },
+  { name: "Makadi Bay",        regionCode: "310", parent: "Hurghada & Safaga", city: true },
+  { name: "Soma Bay",          regionCode: "310", parent: "Hurghada & Safaga", city: true },
+  { name: "Sahl Hasheesh",     regionCode: "310", parent: "Hurghada & Safaga", city: true },
+  { name: "El Gouna",          regionCode: "310", parent: "Hurghada & Safaga", city: true },
+  { name: "Safaga",            regionCode: "310", parent: "Hurghada & Safaga", city: true },
+
+  // ─── Marsa Alam / Ägypten ──────────────────────────────────────────────────
+  { name: "Marsa Alam Stadt",  regionCode: "585", parent: "Marsa Alam", city: true },
+  { name: "Port Ghalib",       regionCode: "585", parent: "Marsa Alam", city: true },
+  { name: "El Quseir",         regionCode: "585", parent: "Marsa Alam", city: true },
+
+  // ─── Sharm el-Sheikh ───────────────────────────────────────────────────────
+  { name: "Sharm el-Sheikh",   regionCode: "307", parent: "Sharm el-Sheikh", city: true },
+  { name: "Nabq Bay",          regionCode: "307", parent: "Sharm el-Sheikh", city: true },
+  { name: "Ras Nasrani",       regionCode: "307", parent: "Sharm el-Sheikh", city: true },
+
+  // ─── Teneriffa ─────────────────────────────────────────────────────────────
+  { name: "Playa de las Américas", regionCode: "135", parent: "Teneriffa", city: true },
+  { name: "Costa Adeje",       regionCode: "135", parent: "Teneriffa", city: true },
+  { name: "Los Cristianos",    regionCode: "135", parent: "Teneriffa", city: true },
+  { name: "Puerto de la Cruz", regionCode: "135", parent: "Teneriffa", city: true },
+  { name: "Los Gigantes",      regionCode: "135", parent: "Teneriffa", city: true },
+
+  // ─── Gran Canaria ──────────────────────────────────────────────────────────
+  { name: "Playa del Inglés",  regionCode: "128", parent: "Gran Canaria", city: true },
+  { name: "Maspalomas",        regionCode: "128", parent: "Gran Canaria", city: true },
+  { name: "Las Palmas",        regionCode: "128", parent: "Gran Canaria", city: true },
+  { name: "Puerto Rico",       regionCode: "128", parent: "Gran Canaria", city: true },
+  { name: "Mogán",             regionCode: "128", parent: "Gran Canaria", city: true },
+
+  // ─── Fuerteventura ─────────────────────────────────────────────────────────
+  { name: "Corralejo",         regionCode: "127", parent: "Fuerteventura", city: true },
+  { name: "Costa Calma",       regionCode: "127", parent: "Fuerteventura", city: true },
+  { name: "Jandía",            regionCode: "127", parent: "Fuerteventura", city: true },
+  { name: "Caleta de Fuste",   regionCode: "127", parent: "Fuerteventura", city: true },
+
+  // ─── Lanzarote ─────────────────────────────────────────────────────────────
+  { name: "Puerto del Carmen", regionCode: "132", parent: "Lanzarote", city: true },
+  { name: "Playa Blanca",      regionCode: "132", parent: "Lanzarote", city: true },
+  { name: "Costa Teguise",     regionCode: "132", parent: "Lanzarote", city: true },
+
+  // ─── Costa del Sol ─────────────────────────────────────────────────────────
+  { name: "Torremolinos",      regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Benalmádena",       regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Marbella",          regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Fuengirola",        regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Málaga",            regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Nerja",             regionCode: "736", parent: "Costa del Sol", city: true },
+  { name: "Estepona",          regionCode: "736", parent: "Costa del Sol", city: true },
+
+  // ─── Algarve ───────────────────────────────────────────────────────────────
+  { name: "Albufeira",         regionCode: "109", parent: "Algarve", city: true },
+  { name: "Vilamoura",         regionCode: "109", parent: "Algarve", city: true },
+  { name: "Lagos",             regionCode: "109", parent: "Algarve", city: true },
+  { name: "Portimão",          regionCode: "109", parent: "Algarve", city: true },
+  { name: "Tavira",            regionCode: "109", parent: "Algarve", city: true },
+  { name: "Faro",              regionCode: "109", parent: "Algarve", city: true },
+
+  // ─── Dalmatien / Kroatien ──────────────────────────────────────────────────
+  { name: "Dubrovnik",         regionCode: "123", parent: "Dalmatien", city: true },
+  { name: "Split",             regionCode: "123", parent: "Dalmatien", city: true },
+  { name: "Makarska",          regionCode: "123", parent: "Dalmatien", city: true },
+  { name: "Zadar",             regionCode: "123", parent: "Dalmatien", city: true },
+  { name: "Šibenik",           regionCode: "123", parent: "Dalmatien", city: true },
+  { name: "Trogir",            regionCode: "123", parent: "Dalmatien", city: true },
+
+  // ─── Thailand ──────────────────────────────────────────────────────────────
+  { name: "Patong Beach",      regionCode: "100100", parent: "Phuket", city: true },
+  { name: "Kata Beach",        regionCode: "100100", parent: "Phuket", city: true },
+  { name: "Karon Beach",       regionCode: "100100", parent: "Phuket", city: true },
+  { name: "Chaweng Beach",     regionCode: "100102", parent: "Koh Samui", city: true },
+  { name: "Lamai Beach",       regionCode: "100102", parent: "Koh Samui", city: true },
+
+  // ─── Djerba / Tunesien ─────────────────────────────────────────────────────
+  { name: "Midoun",            regionCode: "145", parent: "Djerba", city: true },
+  { name: "Houmt Souk",        regionCode: "145", parent: "Djerba", city: true },
+  { name: "Sidi Mahres",       regionCode: "145", parent: "Djerba", city: true },
+
+  // ─── Dom. Rep. / Punta Cana ────────────────────────────────────────────────
+  { name: "Bavaro",            regionCode: "100120", parent: "Punta Cana", city: true },
+  { name: "Cap Cana",          regionCode: "100120", parent: "Punta Cana", city: true },
+
+  // ─── Dubai ─────────────────────────────────────────────────────────────────
+  { name: "Jumeirah Beach",    regionCode: "500", parent: "Dubai", city: true },
+  { name: "Dubai Marina",      regionCode: "500", parent: "Dubai", city: true },
+  { name: "Palm Jumeirah",     regionCode: "500", parent: "Dubai", city: true },
+  { name: "Deira",             regionCode: "500", parent: "Dubai", city: true },
 ];
 
 export default IBE_DESTINATIONS;

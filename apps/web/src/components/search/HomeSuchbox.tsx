@@ -594,24 +594,25 @@ export default function HomeSuchbox() {
             {destLoading && <div className="text-white/40 text-sm py-3 text-center">Suche…</div>}
             {!destLoading && destResults.length > 0 && (
               <div className="max-h-64 overflow-y-auto space-y-0.5">
-                {destResults.map((d) => (
+                {destResults.map((d, i) => (
                   <button
-                    key={d.regionCode}
+                    key={`${d.regionCode}-${d.name}-${i}`}
                     type="button"
-                    onClick={() => selectDest(d.name, d.regionCode)}
+                    onClick={() => selectDest(d.city ? `${d.name} (${d.parent})` : d.name, d.regionCode)}
                     className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
-                      destRegionCode === d.regionCode
+                      destination === (d.city ? `${d.name} (${d.parent})` : d.name)
                         ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
                         : "text-white/80 hover:bg-white/10"
                     }`}
                   >
-                    <div>
+                    <div className="flex items-center gap-2">
+                      {d.city && <MapPin className="w-3 h-3 text-white/30 shrink-0" />}
                       <span className="font-medium">{d.name}</span>
-                      {d.parent !== d.name && (
-                        <span className="text-white/40 text-xs ml-2">{d.parent}</span>
-                      )}
+                      <span className="text-white/40 text-xs">
+                        {d.city ? `· ${d.parent}` : d.parent !== d.name ? d.parent : ""}
+                      </span>
                     </div>
-                    {destRegionCode === d.regionCode && <Check className="w-4 h-4 text-[#1db682]" />}
+                    {destination === (d.city ? `${d.name} (${d.parent})` : d.name) && <Check className="w-4 h-4 text-[#1db682]" />}
                   </button>
                 ))}
               </div>
