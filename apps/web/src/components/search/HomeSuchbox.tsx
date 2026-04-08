@@ -114,6 +114,7 @@ const DURATION_OPTIONS = [
   { value: 0, label: "Beliebig" },
 ];
 
+
 const CRUISE_AREAS = [
   "Alle Gebiete", "Mittelmeer", "Karibik", "Nordsee", "Ostsee",
   "Atlantik", "Fjorde", "Orient", "Transatlantik", "Südostasien",
@@ -259,6 +260,36 @@ function CalendarMonth({ year, month, departure, returnDate, onSelect }: {
   );
 }
 
+// ─── Overlay (außerhalb der Hauptkomponente – verhindert Remount bei Re-render) ──
+
+function Overlay({ children, wide = false, onClose }: { children: React.ReactNode; wide?: boolean; onClose?: () => void }) {
+  return (
+    <>
+      {/* Mobile: Backdrop + Bottom Sheet */}
+      <div className="md:hidden">
+        <div className="fixed inset-0 z-40 bg-black/50" onClick={onClose} />
+        <div className="fixed inset-x-0 bottom-0 z-50 bg-[#0d1f35] border-t border-white/15 rounded-t-2xl shadow-2xl p-5 max-h-[80vh] overflow-y-auto">
+          <div className="flex items-center justify-between mb-3">
+            <div className="w-10 h-1 rounded-full bg-white/20 mx-auto" />
+          </div>
+          {children}
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full mt-4 py-3 bg-[#1db682] hover:bg-[#18a070] text-white font-semibold rounded-xl transition-colors"
+          >
+            Übernehmen
+          </button>
+        </div>
+      </div>
+      {/* Desktop: Dropdown */}
+      <div className={`hidden md:block absolute top-full left-0 z-50 bg-[#0d1f35] rounded-2xl shadow-2xl border border-white/15 mt-1 p-5 max-h-[75vh] overflow-y-auto ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
+        {children}
+      </div>
+    </>
+  );
+}
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function HomeSuchbox() {
@@ -282,7 +313,14 @@ export default function HomeSuchbox() {
 
   // Single airport for Flug
   const [flugVon, setFlugVon] = useState("");
+  const [flugVonSearch, setFlugVonSearch] = useState("");
+  const [flugVonResults, setFlugVonResults] = useState<{ iata: string; name: string; city: string; country: string }[]>([]);
+  const [flugVonLoading, setFlugVonLoading] = useState(false);
   const [flugNach, setFlugNach] = useState("");
+  const [flugNachSearch, setFlugNachSearch] = useState("");
+  const [flugNachConfirmed, setFlugNachConfirmed] = useState(false);
+  const [flugNachResults, setFlugNachResults] = useState<{ iata: string; name: string; city: string; country: string }[]>([]);
+  const [flugNachLoading, setFlugNachLoading] = useState(false);
   const [flugRoundtrip, setFlugRoundtrip] = useState(true);
 
   // Date
@@ -307,6 +345,32 @@ export default function HomeSuchbox() {
   const [mietAbhol, setMietAbhol] = useState("");
   const [mietRueck, setMietRueck] = useState("");
   const [mietSameLocation, setMietSameLocation] = useState(true);
+
+  // Debounced airport search – Von
+  useEffect(() => {
+    if (flugVonSearch.length < 2) { setFlugVonResults([]); return; }
+    setFlugVonLoading(true);
+    const timer = setTimeout(() => {
+      fetch(`/api/airports?q=${encodeURIComponent(flugVonSearch)}`)
+        .then((r) => r.json())
+        .then((data) => { setFlugVonResults(data); setFlugVonLoading(false); })
+        .catch(() => setFlugVonLoading(false));
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [flugVonSearch]);
+
+  // Debounced airport search – Nach
+  useEffect(() => {
+    if (flugNachSearch.length < 2) { setFlugNachResults([]); return; }
+    setFlugNachLoading(true);
+    const timer = setTimeout(() => {
+      fetch(`/api/airports?q=${encodeURIComponent(flugNachSearch)}`)
+        .then((r) => r.json())
+        .then((data) => { setFlugNachResults(data); setFlugNachLoading(false); })
+        .catch(() => setFlugNachLoading(false));
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [flugNachSearch]);
 
   // ── Derived ──
 
@@ -472,16 +536,6 @@ export default function HomeSuchbox() {
     );
   }
 
-  // ── Overlay wrapper ──
-
-  function Overlay({ children, wide = false }: { children: React.ReactNode; wide?: boolean }) {
-    return (
-      <div className={`absolute top-full left-0 z-50 bg-[#0d1f35] rounded-2xl shadow-2xl border border-white/15 mt-1 p-5 max-h-[75vh] overflow-y-auto ${wide ? "w-175 max-w-[95vw]" : "w-100 max-w-[95vw]"}`}>
-        {children}
-      </div>
-    );
-  }
-
   // ── Filtered destinations ──
 
   const filteredBeliebte = destSearch
@@ -497,7 +551,7 @@ export default function HomeSuchbox() {
   function renderDestinationOverlay() {
     if (openOverlay !== "destination") return null;
     return (
-      <Overlay wide>
+      <Overlay wide onClose={closeOverlay}>
         <div className="mb-3">
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
@@ -563,7 +617,7 @@ export default function HomeSuchbox() {
   function renderAirportOverlay() {
     if (openOverlay !== "airport") return null;
     return (
-      <Overlay wide>
+      <Overlay wide onClose={closeOverlay}>
         <div className="flex items-center justify-between mb-3">
           <div className="text-xs font-bold text-white/40 uppercase tracking-wider">Abflughafen wählen</div>
           <button
@@ -610,7 +664,7 @@ export default function HomeSuchbox() {
     const m2 = calMonth.month === 11 ? { year: calMonth.year + 1, month: 0 } : { year: calMonth.year, month: calMonth.month + 1 };
 
     return (
-      <Overlay wide>
+      <Overlay wide onClose={closeOverlay}>
         {isLastMinute ? (
           <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 bg-amber-500/20 text-amber-300 rounded-full text-sm font-semibold border border-amber-400/30">
             <span>⚡</span> Nächste 14 Tage
@@ -669,7 +723,7 @@ export default function HomeSuchbox() {
   function renderTravelersOverlay() {
     if (openOverlay !== "travelers") return null;
     return (
-      <Overlay>
+      <Overlay onClose={closeOverlay}>
         <Counter label="Erwachsene" value={adults} min={1} max={8} onChange={setAdults} />
         <div className="border-t border-white/15" />
         <Counter label="Kinder (0–17)" value={children} min={0} max={6} onChange={handleChildrenChange} />
@@ -700,7 +754,7 @@ export default function HomeSuchbox() {
   function renderCruiseAreaOverlay() {
     if (openOverlay !== "cruiseArea") return null;
     return (
-      <Overlay>
+      <Overlay onClose={closeOverlay}>
         <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Fahrtgebiet wählen</div>
         <div className="space-y-0.5">
           {CRUISE_AREAS.map((area) => (
@@ -828,38 +882,155 @@ export default function HomeSuchbox() {
           <div className="flex flex-col md:flex-row">
             <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
-                label="Von"
+                label={flugVon ? "✓ Abflug" : "Von"}
                 value={flugVon || "Abflughafen"}
                 onClick={() => setOpenOverlay(openOverlay === "flugVon" ? null : "flugVon")}
                 active={openOverlay === "flugVon"}
               />
               {openOverlay === "flugVon" && (
-                <Overlay>
-                  <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Abflughafen wählen</div>
-                  <div className="max-h-75 overflow-y-auto space-y-0.5">
-                    {AIRPORT_GROUPS.flatMap((g) => g.airports).map((ap) => (
-                      <button key={ap.code} type="button"
-                        onClick={() => { setFlugVon(`${ap.name} (${ap.code})`); closeOverlay(); }}
-                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${flugVon.includes(ap.code) ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}>
-                        <span className="font-medium">{ap.name}</span> <span className="text-white/40 ml-0.5">{ap.code}</span>
+                <Overlay wide onClose={closeOverlay}>
+                  {/* Top 5 Schnellwahl */}
+                  {!flugVonSearch && (
+                    <>
+                      <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Beliebteste Abflughäfen</div>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {[
+                          { iata: "FRA", city: "Frankfurt" },
+                          { iata: "MUC", city: "München" },
+                          { iata: "BER", city: "Berlin" },
+                          { iata: "DUS", city: "Düsseldorf" },
+                          { iata: "HAM", city: "Hamburg" },
+                        ].map((ap) => {
+                          const val = `${ap.city} (${ap.iata})`;
+                          const selected = flugVon === val;
+                          return (
+                            <button
+                              key={ap.iata}
+                              type="button"
+                              onClick={() => { setFlugVon(val); closeOverlay(); }}
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border transition-colors ${selected ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/25 text-white/80 hover:border-[#1db682] hover:text-[#1db682]"}`}
+                            >
+                              {selected && <Check className="w-3.5 h-3.5" />}
+                              <span className="font-mono text-xs text-white/50">{ap.iata}</span>
+                              {ap.city}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Live-Suche */}
+                  <div className="relative mb-3">
+                    <Plane className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                    <input
+                      type="text"
+                      placeholder="Anderen Abflughafen suchen…"
+                      value={flugVonSearch}
+                      onChange={(e) => setFlugVonSearch(e.target.value)}
+                      className="w-full pl-10 pr-8 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]"
+                      autoFocus={!!flugVon}
+                    />
+                    {flugVonSearch && (
+                      <button type="button" onClick={() => { setFlugVonSearch(""); setFlugVonResults([]); }} className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <X className="w-4 h-4 text-white/40" />
                       </button>
-                    ))}
+                    )}
                   </div>
+
+                  {flugVonLoading && <p className="text-white/40 text-xs text-center py-3">Suche…</p>}
+                  {!flugVonLoading && flugVonSearch.length >= 2 && flugVonResults.length === 0 && (
+                    <p className="text-white/40 text-xs text-center py-3">Kein Flughafen gefunden.</p>
+                  )}
+                  {!flugVonLoading && flugVonResults.length > 0 && (
+                    <div className="space-y-0.5">
+                      {flugVonResults.map((ap) => {
+                        const val = `${ap.city} (${ap.iata})`;
+                        const selected = flugVon === val;
+                        return (
+                          <button
+                            key={ap.iata}
+                            type="button"
+                            onClick={() => { setFlugVon(val); setFlugVonSearch(""); setFlugVonResults([]); closeOverlay(); }}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${selected ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
+                          >
+                            <span className="font-mono text-xs bg-white/10 px-1.5 py-0.5 rounded text-white/60 shrink-0 w-10 text-center">{ap.iata}</span>
+                            <span className="flex-1 text-left">
+                              <span className="font-medium">{ap.city}</span>
+                              <span className="text-white/40 text-xs ml-1.5">{ap.name}</span>
+                            </span>
+                            <span className="text-xs text-white/30 shrink-0">{ap.country}</span>
+                            {selected && <Check className="w-4 h-4 text-[#1db682] shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </Overlay>
               )}
             </div>
             <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
-                label="Nach"
+                label={flugNachConfirmed ? "✓ Ziel" : "Nach"}
                 value={flugNach || "Zielflughafen"}
                 onClick={() => setOpenOverlay(openOverlay === "flugNach" ? null : "flugNach")}
                 active={openOverlay === "flugNach"}
               />
               {openOverlay === "flugNach" && (
-                <Overlay>
-                  <input type="text" placeholder="Zielflughafen eingeben..." value={flugNach}
-                    onChange={(e) => setFlugNach(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]" autoFocus />
+                <Overlay wide onClose={closeOverlay}>
+                  <div className="relative mb-3">
+                    <Plane className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                    <input
+                      type="text"
+                      placeholder="Stadt, Flughafen oder IATA-Code..."
+                      value={flugNachSearch}
+                      onChange={(e) => { setFlugNachSearch(e.target.value); setFlugNachConfirmed(false); }}
+                      className="w-full pl-10 pr-8 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]"
+                      autoFocus
+                    />
+                    {flugNachSearch && (
+                      <button type="button" onClick={() => { setFlugNachSearch(""); setFlugNach(""); setFlugNachConfirmed(false); setFlugNachResults([]); }} className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <X className="w-4 h-4 text-white/40" />
+                      </button>
+                    )}
+                  </div>
+
+                  {flugNachSearch.length < 2 && (
+                    <p className="text-white/40 text-xs text-center py-4">Mindestens 2 Zeichen eingeben…</p>
+                  )}
+
+                  {flugNachLoading && (
+                    <p className="text-white/40 text-xs text-center py-4">Suche…</p>
+                  )}
+
+                  {!flugNachLoading && flugNachSearch.length >= 2 && flugNachResults.length === 0 && (
+                    <p className="text-white/40 text-xs text-center py-4">Kein Flughafen gefunden.</p>
+                  )}
+
+                  {!flugNachLoading && flugNachResults.length > 0 && (
+                    <div className="space-y-0.5">
+                      {flugNachResults.map((ap) => {
+                        const val = `${ap.city} (${ap.iata})`;
+                        const selected = flugNach === val;
+                        return (
+                          <button
+                            key={ap.iata}
+                            type="button"
+                            onClick={() => { setFlugNach(val); setFlugNachSearch(""); setFlugNachConfirmed(true); setFlugNachResults([]); closeOverlay(); }}
+                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${selected ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
+                          >
+                            <span className="font-mono text-xs bg-white/10 px-1.5 py-0.5 rounded text-white/60 shrink-0 w-10 text-center">{ap.iata}</span>
+                            <span className="flex-1 text-left">
+                              <span className="font-medium">{ap.city}</span>
+                              <span className="text-white/40 text-xs ml-1.5">{ap.name}</span>
+                            </span>
+                            <span className="text-xs text-white/30 shrink-0">{ap.country}</span>
+                            {selected && <Check className="w-4 h-4 text-[#1db682] shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 </Overlay>
               )}
             </div>
@@ -905,7 +1076,7 @@ export default function HomeSuchbox() {
                 onClick={() => setOpenOverlay(openOverlay === "mietAbhol" ? null : "mietAbhol")}
                 active={openOverlay === "mietAbhol"} />
               {openOverlay === "mietAbhol" && (
-                <Overlay>
+                <Overlay onClose={closeOverlay}>
                   <input type="text" placeholder="Abholort eingeben..." value={mietAbhol}
                     onChange={(e) => { setMietAbhol(e.target.value); if (mietSameLocation) setMietRueck(e.target.value); }}
                     className="w-full px-3 py-2.5 bg-white/10 border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:border-[#1db682]" autoFocus />
@@ -950,7 +1121,7 @@ export default function HomeSuchbox() {
                 onClick={() => setOpenOverlay(openOverlay === "cruiseLine" ? null : "cruiseLine")}
                 active={openOverlay === "cruiseLine"} />
               {openOverlay === "cruiseLine" && (
-                <Overlay>
+                <Overlay onClose={closeOverlay}>
                   <div className="text-xs font-bold text-white/40 uppercase tracking-wider mb-2">Reederei wählen</div>
                   <div className="space-y-0.5 max-h-64 overflow-y-auto">
                     {["Alle Reedereien","AIDA Cruises","Costa Cruises","MSC Cruises","Norwegian Cruise Line","Princess Cruises","Royal Caribbean","TUI Cruises","Viking Ocean Cruises","Hapag-Lloyd Cruises"].map((line) => (

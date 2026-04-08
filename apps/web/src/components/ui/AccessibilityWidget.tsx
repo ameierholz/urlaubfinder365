@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 interface A11ySettings {
   textSize: "normal" | "lg" | "xl";
@@ -53,6 +53,29 @@ export default function AccessibilityWidget() {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>("display");
   const [settings, setSettings] = useState<A11ySettings>(DEFAULT);
+
+  // Draggable FAB on mobile
+  const [fabY, setFabY] = useState<number | null>(null);
+  const fabRef = React.useRef<HTMLButtonElement>(null);
+  const dragRef = React.useRef<{ startY: number; startTop: number } | null>(null);
+
+  function onTouchStart(e: React.TouchEvent) {
+    const touch = e.touches[0];
+    const btn = fabRef.current;
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    dragRef.current = { startY: touch.clientY, startTop: rect.top };
+  }
+  function onTouchMove(e: React.TouchEvent) {
+    if (!dragRef.current) return;
+    const touch = e.touches[0];
+    const delta = touch.clientY - dragRef.current.startY;
+    const newTop = Math.max(60, Math.min(window.innerHeight - 100, dragRef.current.startTop + delta));
+    setFabY(newTop);
+  }
+  function onTouchEnd() {
+    dragRef.current = null;
+  }
 
   // Load from localStorage on mount and apply
   useEffect(() => {
@@ -107,12 +130,17 @@ export default function AccessibilityWidget() {
         </defs>
       </svg>
 
-      {/* FAB – Vertical Tab am rechten Bildschirmrand, vertikal zentriert */}
+      {/* FAB – Vertical Tab am rechten Bildschirmrand (auf Mobil verschiebbar) */}
       <button
+        ref={fabRef}
         onClick={() => setOpen((v) => !v)}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
         aria-label="Barrierefreiheits-Einstellungen öffnen"
         aria-expanded={open}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-9990 flex flex-col items-center gap-2 px-2.5 py-4 bg-[#00838F] text-white rounded-l-2xl shadow-xl hover:bg-[#006d78] hover:pr-3.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50"
+        className="fixed right-0 z-9990 flex flex-col items-center gap-2 px-2.5 py-4 bg-[#00838F] text-white rounded-l-2xl shadow-xl hover:bg-[#006d78] hover:pr-3.5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#00838F]/50 touch-none"
+        style={fabY != null ? { top: fabY } : { top: "50%", transform: "translateY(-50%)" }}
       >
         <span className="text-xl leading-none" aria-hidden="true">♿</span>
         <span
@@ -132,13 +160,15 @@ export default function AccessibilityWidget() {
         />
       )}
 
-      {/* Panel */}
+      {/* Panel (Desktop: Centered, Mobil: Bottom Sheet) */}
       {open && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Barrierefreiheits-Einstellungen"
-          className="fixed right-14 top-1/2 -translate-y-1/2 z-9992 w-[320px] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
+          className="fixed z-9992 bg-white shadow-2xl border border-gray-100 flex flex-col overflow-hidden
+            inset-x-0 bottom-0 rounded-t-2xl max-h-[85vh]
+            md:inset-auto md:right-14 md:top-1/2 md:-translate-y-1/2 md:bottom-auto md:w-[320px] md:max-h-[80vh] md:rounded-2xl"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-[#00838F] text-white rounded-t-2xl shrink-0">

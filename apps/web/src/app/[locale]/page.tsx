@@ -568,17 +568,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
             {topDeals.length > 0 ? (
               <div className="space-y-5">
-                {/* Top 3 – groß & prominent */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {/* Top 3 – groß & prominent (Carousel auf Mobil) */}
+                <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0">
                   {topDeals.slice(0, 3).map((offer, i) => (
-                    <HomeDealCard key={offer.product_code} offer={offer} priority={i === 0} featured />
+                    <div key={offer.product_code} className="min-w-[80vw] snap-start sm:min-w-0">
+                      <HomeDealCard offer={offer} priority={i === 0} featured />
+                    </div>
                   ))}
                 </div>
-                {/* Rest – kompakter, 5 pro Reihe */}
+                {/* Rest – kompakter (Carousel auf Mobil) */}
                 {topDeals.length > 3 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                  <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible sm:snap-none sm:pb-0">
                     {topDeals.slice(3).map((offer) => (
-                      <HomeDealCard key={offer.product_code} offer={offer} />
+                      <div key={offer.product_code} className="min-w-[45vw] snap-start sm:min-w-0">
+                        <HomeDealCard offer={offer} />
+                      </div>
                     ))}
                   </div>
                 )}
