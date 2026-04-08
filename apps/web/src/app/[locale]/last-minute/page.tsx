@@ -3,6 +3,9 @@ import Link from "next/link";
 import { fetchOffers } from "@/lib/travel-api";
 import { destinations } from "@/lib/destinations";
 import OffersGrid from "@/components/offers/OffersGrid";
+import IbeWidget from "@/components/widgets/IbeWidget";
+import AutoScrollToWidget from "@/components/widgets/AutoScrollToWidget";
+import { buildB2bUrl } from "@/lib/search-params";
 import { setRequestLocale } from "next-intl/server";
 
 const YEAR = new Date().getFullYear();
@@ -86,9 +89,18 @@ const breadcrumbSchema = {
 
 export const revalidate = 1800;
 
-export default async function ({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ({ params, searchParams }: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const sp = (await searchParams) ?? {};
+  const hasSearchParams = !!(sp.regionId || sp.destination || sp.adults);
+  const ibeUrl = buildB2bUrl(
+    "https://b2b.specials.de/index/jump/121/2798/993243/",
+    { adults: "2", duration: sp.duration || "1-14", ...sp }
+  );
   const antalya = destinations.find((d) => d.slug === "antalya")!;
   const offers = await fetchOffers({ regionIds: antalya.regionIds, duration: "3-5", limit: 6 }).catch(() => []);
 
@@ -135,6 +147,14 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <a href="#checkliste" className="hover:text-orange-600 transition-colors">⑤ Checkliste vor der Buchung</a>
               <a href="#faq" className="hover:text-orange-600 transition-colors">⑥ Häufige Fragen</a>
             </nav>
+          </div>
+        </div>
+
+        {/* IBE Last-Minute Suche */}
+        {hasSearchParams && <AutoScrollToWidget targetId="lastminute-ibe" />}
+        <div id="lastminute-ibe" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-2 scroll-mt-24">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <IbeWidget dataSrc={ibeUrl} height={3750} />
           </div>
         </div>
 
