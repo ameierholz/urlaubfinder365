@@ -60,7 +60,7 @@ export default async function DestinationSeoEditPage({ params }: Props) {
 
       {/* Form */}
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <DestinationSeoForm slug={slug} name={destination.name} initial={data} />
+        <DestinationSeoForm slug={slug} name={destination.name} country={destination.country} initial={data} />
       </div>
 
       {/* Back */}
