@@ -36,6 +36,9 @@ export function buildB2bUrl(
   // Stadt/Ort (z.B. Antalya = 930 innerhalb Türkische Riviera = 149)
   if (searchParams.cityId) url.searchParams.set("cityId", String(searchParams.cityId));
 
+  // Hotel (GIATA-ID für direkte Hotelsuche)
+  if (searchParams.giataId) url.searchParams.set("giataId", String(searchParams.giataId));
+
   // Hotel params
   if (searchParams.checkin) url.searchParams.set("checkin", String(searchParams.checkin));
   if (searchParams.checkout) url.searchParams.set("checkout", String(searchParams.checkout));

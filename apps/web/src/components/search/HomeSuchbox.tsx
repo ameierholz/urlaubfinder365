@@ -309,7 +309,8 @@ export default function HomeSuchbox() {
   const [destRegionCode, setDestRegionCode] = useState("");
   const [destSearch, setDestSearch] = useState("");
   const [destCityCode, setDestCityCode] = useState("");
-  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; cityCode?: string; parent: string; type?: string }[]>([]);
+  const [destGiataId, setDestGiataId] = useState("");
+  const [destResults, setDestResults] = useState<{ name: string; regionCode: string; cityCode?: string; giataId?: string; parent: string; type?: string; stars?: number | null; rating?: number | null }[]>([]);
   const [destLoading, setDestLoading] = useState(false);
 
   // Airports (multi-select)
@@ -472,6 +473,7 @@ export default function HomeSuchbox() {
         if (regionId) params.set("regionId", regionId);
         else if (destination) params.set("destination", destination);
         if (destCityCode) params.set("cityId", destCityCode);
+        if (destGiataId) params.set("giataId", destGiataId);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
         params.set("from", String(fromDays));
         params.set("to", String(toDays));
@@ -562,10 +564,11 @@ export default function HomeSuchbox() {
   function renderDestinationOverlay() {
     if (openOverlay !== "destination") return null;
 
-    const selectDest = (name: string, regionCode: string, cityCode?: string) => {
+    const selectDest = (name: string, regionCode: string, cityCode?: string, giataId?: string) => {
       setDestination(name);
       setDestRegionCode(regionCode);
       setDestCityCode(cityCode ?? "");
+      setDestGiataId(giataId ?? "");
       setDestSearch("");
       closeOverlay();
     };
@@ -596,40 +599,69 @@ export default function HomeSuchbox() {
         {destSearch.length >= 2 && (
           <div className="mb-4">
             {destLoading && <div className="text-white/40 text-sm py-3 text-center">Suche…</div>}
-            {!destLoading && destResults.length > 0 && (
-              <div className="max-h-64 overflow-y-auto space-y-0.5">
-                {destResults.map((d, i) => {
-                  const isCity = d.type === "city";
-                  const label = isCity ? `${d.name} (${d.parent})` : d.name;
-                  return (
-                    <button
-                      key={`${d.regionCode}-${d.name}-${i}`}
-                      type="button"
-                      onClick={() => selectDest(label, d.regionCode, d.cityCode)}
-                      className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${
-                        destination === label
-                          ? "bg-[#1db682]/20 text-[#1db682] font-semibold"
-                          : "text-white/80 hover:bg-white/10"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        {isCity && <MapPin className="w-3 h-3 text-white/30 shrink-0" />}
-                        <span className="font-medium truncate">{d.name}</span>
-                        {d.parent && (
-                          <span className="text-white/40 text-xs shrink-0">
-                            {isCity ? `· ${d.parent}` : d.parent !== d.name ? d.parent : ""}
-                          </span>
-                        )}
-                        {d.type === "country" && (
-                          <span className="text-[10px] text-white/30 border border-white/15 px-1.5 py-0.5 rounded-full shrink-0">Land</span>
-                        )}
-                      </div>
-                      {destination === label && <Check className="w-4 h-4 text-[#1db682] shrink-0" />}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+            {!destLoading && destResults.length > 0 && (() => {
+              const regions = destResults.filter((d) => d.type === "region" || d.type === "city" || d.type === "country");
+              const hotels = destResults.filter((d) => d.type === "hotel");
+              return (
+                <div className="max-h-72 overflow-y-auto">
+                  {/* Regionen / Orte / Länder */}
+                  {regions.length > 0 && (
+                    <>
+                      <div className="text-[10px] font-bold text-white/35 uppercase tracking-wider px-3 pt-1 pb-1.5">Regionen</div>
+                      {regions.map((d, i) => {
+                        const isCity = d.type === "city";
+                        const label = isCity ? `${d.name} (${d.parent})` : d.name;
+                        return (
+                          <button
+                            key={`r-${d.regionCode}-${d.name}-${i}`}
+                            type="button"
+                            onClick={() => selectDest(label, d.regionCode, d.cityCode)}
+                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${destination === label ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
+                          >
+                            <div className="flex items-center gap-2 min-w-0">
+                              {isCity && <MapPin className="w-3 h-3 text-white/30 shrink-0" />}
+                              <span className="font-medium truncate">{d.name}</span>
+                              {d.parent && d.parent !== d.name && (
+                                <span className="text-white/40 text-xs shrink-0">{isCity ? `· ${d.parent}` : d.parent}</span>
+                              )}
+                              {d.type === "country" && (
+                                <span className="text-[10px] text-white/30 border border-white/15 px-1.5 py-0.5 rounded-full shrink-0">Land</span>
+                              )}
+                            </div>
+                            {destination === label && <Check className="w-4 h-4 text-[#1db682] shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </>
+                  )}
+
+                  {/* Hotels */}
+                  {hotels.length > 0 && (
+                    <>
+                      <div className="text-[10px] font-bold text-white/35 uppercase tracking-wider px-3 pt-3 pb-1.5">Hotels</div>
+                      {hotels.map((d, i) => (
+                        <button
+                          key={`h-${d.giataId}-${i}`}
+                          type="button"
+                          onClick={() => selectDest(d.name, d.regionCode, undefined, d.giataId)}
+                          className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center justify-between gap-2 ${destination === d.name ? "bg-[#1db682]/20 text-[#1db682] font-semibold" : "text-white/80 hover:bg-white/10"}`}
+                        >
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-white/30 text-xs">🏨</span>
+                              <span className="font-medium truncate">{d.name}</span>
+                              {d.stars && <span className="text-yellow-400 text-[10px] shrink-0">{"★".repeat(d.stars)}</span>}
+                            </div>
+                            {d.parent && <div className="text-white/35 text-xs mt-0.5 truncate">{d.parent}</div>}
+                          </div>
+                          {d.rating && <span className="text-[10px] text-white/40 border border-white/15 px-1.5 py-0.5 rounded-full shrink-0">{d.rating}%</span>}
+                        </button>
+                      ))}
+                    </>
+                  )}
+                </div>
+              );
+            })()}
             {!destLoading && destResults.length === 0 && destSearch.length >= 2 && (
               <div className="text-white/40 text-sm text-center py-4">Kein Reiseziel gefunden.</div>
             )}
