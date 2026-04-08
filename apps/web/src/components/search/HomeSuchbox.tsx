@@ -105,14 +105,19 @@ const AIRPORT_GROUPS: AirportGroup[] = [
 ];
 
 // duration wird als "min-max" String gespeichert (z.B. "7-7" = exakt, "5-8" = Bereich)
-const DURATION_QUICK = [
-  { label: "Beliebig",     value: "1-21" },
-  { label: "Kurztrip",     value: "2-4",   sub: "2–4 Nächte" },
-  { label: "1 Woche",      value: "6-8",   sub: "6–8 Nächte" },
-  { label: "2 Wochen",     value: "13-15", sub: "13–15 Nächte" },
-  { label: "3 Wochen",     value: "19-22", sub: "19–22 Nächte" },
+const DURATION_WEEKS = [
+  { label: "1 Woche",   value: "6-8" },
+  { label: "2 Wochen",  value: "13-15" },
+  { label: "3 Wochen",  value: "19-22" },
+  { label: "4 Wochen",  value: "26-29" },
 ];
-const DURATION_EXACT = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+const DURATION_RANGES = [
+  { label: "1–4 Nächte",   value: "1-4" },
+  { label: "5–8 Nächte",   value: "5-8" },
+  { label: "9–12 Nächte",  value: "9-12" },
+  { label: "13–15 Nächte", value: "13-15" },
+];
+const DURATION_EXACT = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
 
 const CRUISE_AREAS = [
@@ -398,7 +403,16 @@ export default function HomeSuchbox() {
       ? selectedAirports.join(", ")
       : `${selectedAirports.slice(0, 3).join(", ")} +${selectedAirports.length - 3}`;
 
-  const durationLabel = duration === "1-21" ? "Beliebig" : DURATION_QUICK.find((d) => d.value === duration)?.label ?? `${duration} Nächte`;
+  const durationLabel = (() => {
+    if (duration === "1-28" || duration === "1-21") return "Beliebig";
+    const week = DURATION_WEEKS.find((d) => d.value === duration);
+    if (week) return week.label;
+    const range = DURATION_RANGES.find((d) => d.value === duration);
+    if (range) return range.label;
+    const [min, max] = duration.split("-");
+    if (min === max) return `${min} Nächte`;
+    return `${min}–${max} Nächte`;
+  })();
   const dateDisplay = departure && returnDate
     ? `${formatDate(departure)} – ${formatDate(returnDate)}, ${durationLabel}`
     : "Wann & wie lange?";
@@ -772,11 +786,22 @@ export default function HomeSuchbox() {
           </div>
         )}
 
-        {/* Duration – Schnellwahl + Exakt */}
+        {/* Duration */}
         <div className="mb-4">
           <div className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mb-1.5">Reisedauer</div>
+          {/* Beliebig */}
+          <div className="mb-2">
+            <button
+              type="button"
+              onClick={() => setDuration("1-28")}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
+            >
+              Beliebig
+            </button>
+          </div>
+          {/* Wochen */}
           <div className="flex flex-wrap gap-1.5 mb-2">
-            {DURATION_QUICK.map((opt) => (
+            {DURATION_WEEKS.map((opt) => (
               <button
                 key={opt.value}
                 type="button"
@@ -787,7 +812,21 @@ export default function HomeSuchbox() {
               </button>
             ))}
           </div>
-          <div className="text-[10px] text-white/30 uppercase tracking-wider font-semibold mb-1">Exakt</div>
+          {/* Nächte-Bereiche */}
+          <div className="flex flex-wrap gap-1.5 mb-2">
+            {DURATION_RANGES.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setDuration(opt.value)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/70 hover:border-[#1db682]"}`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+          {/* Exakte Tage */}
+          <div className="text-[10px] text-white/30 uppercase tracking-wider font-semibold mb-1">Exakte Reisedauer (Tage)</div>
           <div className="flex flex-wrap gap-1">
             {DURATION_EXACT.map((n) => {
               const val = `${n}-${n}`;
