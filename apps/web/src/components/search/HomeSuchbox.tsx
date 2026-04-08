@@ -1440,11 +1440,11 @@ export default function HomeSuchbox() {
         return (
           <div className="flex flex-col md:flex-row">
             {/* Was suchen? */}
-            <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15 px-4 py-3">
-              <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Was suchst du?</div>
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15 px-4 py-3">
+              <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Aktivität</div>
               <input
                 type="text"
-                placeholder="z. B. Schnorcheln, Stadtführung, Quad …"
+                placeholder="Schnorcheln, Tour …"
                 value={aktQuery}
                 onChange={(e) => setAktQuery(e.target.value)}
                 className="w-full bg-transparent text-white text-sm font-medium placeholder-white/35 focus:outline-none"
