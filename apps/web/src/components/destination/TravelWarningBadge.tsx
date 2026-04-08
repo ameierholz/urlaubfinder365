@@ -107,7 +107,7 @@ export default async function TravelWarningBadge({ countryName }: Props) {
               Alle Reisewarnungen →
             </Link>
             <a
-              href="https://www.auswaertiges-amt.de/de/service/laender-reisewarnungen/-/231198"
+              href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/reise-und-sicherheitshinweise"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-gray-500 hover:text-gray-700"
