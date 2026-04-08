@@ -788,29 +788,29 @@ export default function HomeSuchbox() {
 
         {/* Duration – kompakt */}
         <div className="mb-3">
-          <div className="flex flex-wrap gap-1 items-center">
-            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mr-1">Dauer</span>
+          <div className="flex flex-wrap gap-0.5 items-center">
+            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mr-0.5">Dauer</span>
             <button type="button" onClick={() => setDuration("1-28")}
-              className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
               Beliebig</button>
             {DURATION_WEEKS.map((opt) => (
               <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
                 {opt.label}</button>
             ))}
             {DURATION_RANGES.map((opt) => (
               <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-2 py-1 rounded-full text-[11px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
                 {opt.label}</button>
             ))}
           </div>
-          <div className="flex flex-wrap gap-0.5 mt-1.5">
-            <span className="text-[10px] text-white/30 mr-1 self-center">Exakt</span>
+          <div className="flex flex-wrap gap-px mt-1">
+            <span className="text-[9px] text-white/30 mr-0.5 self-center">Exakt</span>
             {DURATION_EXACT.map((n) => {
               const val = `${n}-${n}`;
               return (
                 <button key={n} type="button" onClick={() => setDuration(val)}
-                  className={`w-7 h-6 rounded text-[10px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/10 text-white/50 hover:border-[#1db682]"}`}>
+                  className={`w-6 h-5.5 rounded text-[9px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/10 text-white/50 hover:border-[#1db682]"}`}>
                   {n}</button>
               );
             })}
