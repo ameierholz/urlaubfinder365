@@ -359,6 +359,9 @@ export default function HomeSuchbox() {
   const [cruiseArea, setCruiseArea] = useState("Alle Gebiete");
   const [cruiseLine, setCruiseLine] = useState("Alle Reedereien");
 
+  // Last-Minute: Wann fliegen?
+  const [lmDeparture, setLmDeparture] = useState("3"); // Tage ab heute
+
   // Mietwagen
   const [mietAbhol, setMietAbhol] = useState("");
   const [mietRueck, setMietRueck] = useState("");
@@ -517,6 +520,9 @@ export default function HomeSuchbox() {
         else if (destination) params.set("destination", destination);
         if (destCityCode) params.set("cityId", destCityCode);
         if (selectedAirports.length) params.set("airport", selectedAirports.join(","));
+        params.set("from", lmDeparture);
+        const durMax = parseInt(duration.split("-")[1] || "14", 10);
+        params.set("to", String(parseInt(lmDeparture, 10) + durMax));
         params.set("duration", duration);
         params.set("adults", String(adults));
         if (childAges.length) params.set("children", childAges.join(","));
@@ -917,7 +923,6 @@ export default function HomeSuchbox() {
   function renderTabContent() {
     switch (activeTab) {
       case "urlaub":
-      case "lastminute":
         return (
           <div className="flex flex-col md:flex-row">
             <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
@@ -943,11 +948,98 @@ export default function HomeSuchbox() {
             <div className="relative flex-[1.5] border-b md:border-b-0 md:border-r border-white/15">
               <FieldBox
                 label="Reisezeitraum"
-                value={activeTab === "lastminute" ? `Nächste 14 Tage, ${durationLabel}` : dateDisplay}
+                value={dateDisplay}
                 onClick={() => setOpenOverlay(openOverlay === "date" ? null : "date")}
                 active={openOverlay === "date"}
               />
               {renderDateOverlay()}
+            </div>
+
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Reisende"
+                value={travelerDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "travelers" ? null : "travelers")}
+                active={openOverlay === "travelers"}
+              />
+              {renderTravelersOverlay()}
+            </div>
+
+            <div className="hidden md:flex items-center px-4 shrink-0">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="flex items-center gap-1.5 bg-[#1db682] hover:bg-[#18a070] text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors whitespace-nowrap"
+              >
+                <Search className="w-3.5 h-3.5" />
+                Suchen
+              </button>
+            </div>
+          </div>
+        );
+
+      case "lastminute":
+        return (
+          <div className="flex flex-col md:flex-row">
+            <div className="relative flex-2 border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Reiseziel"
+                value={destination || "Wohin soll es gehen?"}
+                onClick={() => setOpenOverlay(openOverlay === "destination" ? null : "destination")}
+                active={openOverlay === "destination"}
+              />
+              {renderDestinationOverlay()}
+            </div>
+
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15">
+              <FieldBox
+                label="Abflughafen"
+                value={airportDisplay}
+                onClick={() => setOpenOverlay(openOverlay === "airport" ? null : "airport")}
+                active={openOverlay === "airport"}
+              />
+              {renderAirportOverlay()}
+            </div>
+
+            {/* Wann fliegen? – Last-Minute spezifisch */}
+            <div className="relative flex-[1.2] border-b md:border-b-0 md:border-r border-white/15 px-4 py-3 flex items-center gap-3">
+              <div className="flex-1">
+                <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Wann fliegen?</div>
+                <select
+                  value={lmDeparture}
+                  onChange={(e) => setLmDeparture(e.target.value)}
+                  className="w-full bg-transparent text-white text-sm font-medium focus:outline-none appearance-none cursor-pointer"
+                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 0 center", paddingRight: "16px" }}
+                >
+                  <option value="1" className="bg-[#0d1f35]">Morgen</option>
+                  <option value="3" className="bg-[#0d1f35]">In 3 Tagen</option>
+                  <option value="7" className="bg-[#0d1f35]">In 1 Woche</option>
+                  <option value="14" className="bg-[#0d1f35]">In 2 Wochen</option>
+                  <option value="21" className="bg-[#0d1f35]">In 3 Wochen</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Reisedauer */}
+            <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15 px-4 py-3 flex items-center gap-3">
+              <div className="flex-1">
+                <div className="text-[10px] text-white/50 font-semibold uppercase tracking-wider mb-1">Reisedauer</div>
+                <select
+                  value={duration}
+                  onChange={(e) => setDuration(e.target.value)}
+                  className="w-full bg-transparent text-white text-sm font-medium focus:outline-none appearance-none cursor-pointer"
+                  style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,255,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 0 center", paddingRight: "16px" }}
+                >
+                  <option value="1-28" className="bg-[#0d1f35]">Beliebig</option>
+                  {DURATION_OPTIONS.map((group) => (
+                    <optgroup key={group.group} label={group.group} className="bg-[#0d1f35]">
+                      {group.items.map((opt) => (
+                        <option key={opt.value} value={opt.value} className="bg-[#0d1f35]">{opt.label}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="relative flex-1 border-b md:border-b-0 md:border-r border-white/15">
