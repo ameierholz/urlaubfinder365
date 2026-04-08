@@ -122,7 +122,46 @@ export async function POST(req: NextRequest) {
       detail: `${pageDescription.length} Zeichen`,
     });
 
-    // 9. Bilder mit alt-Text
+    // 9. Textlänge (Wortanzahl)
+    const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    const bodyText = bodyMatch?.[1]
+      ?.replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<nav[\s\S]*?<\/nav>/gi, "")
+      .replace(/<footer[\s\S]*?<\/footer>/gi, "")
+      .replace(/<header[\s\S]*?<\/header>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim() ?? "";
+    const wordCount = bodyText.split(/\s+/).filter((w) => w.length > 1).length;
+    checks.push({
+      label: "Textlänge (mind. 800 Wörter)",
+      pass: wordCount >= 800,
+      detail: `${wordCount.toLocaleString("de-DE")} Wörter ${wordCount < 300 ? "(Thin Content!)" : wordCount < 800 ? "(etwas dünn)" : wordCount >= 1500 ? "(sehr gut)" : "(gut)"}`,
+    });
+
+    // 10. Focus Keyword Dichte
+    if (focusKeyword && bodyText.length > 0) {
+      const kwLower = focusKeyword.toLowerCase();
+      const textLower = bodyText.toLowerCase();
+      const kwCount = textLower.split(kwLower).length - 1;
+      const density = wordCount > 0 ? ((kwCount / wordCount) * 100) : 0;
+      checks.push({
+        label: "Keyword-Dichte (0,5–2,5%)",
+        pass: density >= 0.5 && density <= 2.5,
+        detail: `"${focusKeyword}" kommt ${kwCount}× vor (${density.toFixed(1)}%)`,
+      });
+    }
+
+    // 11. Interne Links
+    const internalLinks = (html.match(/href=["']\/((?!_next|api|favicon|static)[^"']*?)["']/gi) ?? []).length;
+    checks.push({
+      label: "Interne Verlinkung (mind. 3)",
+      pass: internalLinks >= 3,
+      detail: `${internalLinks} interne Links gefunden`,
+    });
+
+    // 12. Bilder mit alt-Text
     const imgCount = (html.match(/<img /gi) ?? []).length;
     const imgWithAlt = (html.match(/<img [^>]*alt=["'][^"']+["']/gi) ?? []).length;
     checks.push({
@@ -131,7 +170,7 @@ export async function POST(req: NextRequest) {
       detail: `${imgWithAlt}/${imgCount} Bilder haben Alt-Text`,
     });
 
-    // 10. JSON-LD vorhanden
+    // 13. JSON-LD vorhanden
     const hasJsonLd = html.includes("application/ld+json");
     checks.push({
       label: "Strukturierte Daten (JSON-LD)",
@@ -150,6 +189,7 @@ export async function POST(req: NextRequest) {
       h1: h1s[0]?.text ?? null,
       h2Count: h2s.length,
       h3Count: h3s.length,
+      wordCount,
       pageTitle,
       pageDescription,
     });
