@@ -35,17 +35,21 @@ export default async function AnbieterLayout({ children }: { children: React.Rea
   const messages = (await import(`../../../messages/de.json`)).default;
 
   return (
-    <NextIntlClientProvider locale="de" messages={messages}>
-      <AnbieterI18nProvider initialSprache={initialSprache} anbieter_id={profil.id}>
-        <div className="min-h-screen bg-gray-50 flex">
-          <AnbieterNav profil={profil} />
-          <div className="flex-1 min-w-0">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              {children}
+    <html lang="de">
+      <body>
+        <NextIntlClientProvider locale="de" messages={messages}>
+          <AnbieterI18nProvider initialSprache={initialSprache} anbieter_id={profil.id}>
+            <div className="min-h-screen bg-gray-50 flex">
+              <AnbieterNav profil={profil} />
+              <div className="flex-1 min-w-0">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                  {children}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </AnbieterI18nProvider>
-    </NextIntlClientProvider>
+          </AnbieterI18nProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

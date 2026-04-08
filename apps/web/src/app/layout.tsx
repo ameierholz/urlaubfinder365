@@ -1,9 +1,6 @@
-// Root-Layout – Next.js 16 erfordert <html> und <body> im Root.
-// [locale]/layout.tsx überschreibt diese Tags für i18n-Seiten.
+// Root-Layout für next-intl App-Router-Setup.
+// html/body werden vom [locale]/layout.tsx bzw. admin/anbieter layouts gerendert.
+// @ts-expect-error Next.js 16 warnt, aber next-intl mit [locale]-Segment braucht es so.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="de" suppressHydrationWarning>
-      <body>{children}</body>
-    </html>
-  );
+  return children;
 }
