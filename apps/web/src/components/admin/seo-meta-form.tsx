@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
+import { Sparkles } from "lucide-react";
 import type { PageSeoMeta } from "@/lib/seo-meta";
 
 interface Props {
@@ -20,20 +21,48 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
   const [ogDescription, setOgDescription] = useState(initial?.og_description ?? "");
   const [ogImage, setOgImage] = useState(initial?.og_image ?? "");
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+
+  const handleGenerate = async () => {
+    setGenerating(true);
+    setMessage({ type: "info", text: "KI recherchiert optimale SEO-Daten …" });
+    try {
+      const res = await fetch("/api/admin/generate-seo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pagePath, pageTitle: metaTitle || undefined }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Fehler bei KI-Generierung");
+
+      setMetaTitle(data.meta_title ?? "");
+      setMetaDescription(data.meta_description ?? "");
+      setFocusKeyword(data.focus_keyword ?? "");
+      setAdditionalKeywords((data.additional_keywords ?? []).join(", "));
+      setOgTitle(data.og_title ?? "");
+      setOgDescription(data.og_description ?? "");
+      if (data.og_image_suggestion) {
+        setMessage({ type: "success", text: `KI-Vorschläge übernommen. Bild-Empfehlung: ${data.og_image_suggestion}` });
+      } else {
+        setMessage({ type: "success", text: "KI-Vorschläge erfolgreich übernommen." });
+      }
+    } catch (err) {
+      setMessage({ type: "error", text: String(err) });
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   const handleSave = async () => {
     setSaving(true);
     setMessage(null);
     try {
       const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-      const keywords = additionalKeywords
-        .split(",")
-        .map((k) => k.trim())
-        .filter(Boolean);
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const keywords = additionalKeywords.split(",").map((k) => k.trim()).filter(Boolean);
 
       const { error } = await supabase.from("page_seo_meta").upsert(
         {
@@ -64,24 +93,47 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
 
   return (
     <div className="space-y-6">
+      {/* KI-Generierung */}
+      <div className="bg-purple-900/20 border border-purple-700/40 rounded-xl p-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <p className="text-sm font-bold text-purple-300">KI-Optimierung</p>
+            </div>
+            <p className="text-xs text-purple-400/70">
+              Recherchiert auf Basis von SEO-Best-Practices und Konkurrenzanalyse die optimalen Meta-Daten.
+            </p>
+          </div>
+          <button
+            onClick={handleGenerate}
+            disabled={generating}
+            className="shrink-0 flex items-center gap-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors"
+          >
+            <Sparkles className="w-4 h-4" />
+            {generating ? "Recherchiert …" : "Mit KI generieren"}
+          </button>
+        </div>
+      </div>
+
       {/* Meta Title */}
       <div>
         <label className={labelClass}>
           Meta Title
-          <span className={`ml-2 font-normal normal-case ${metaTitle.length > 60 ? "text-red-400" : "text-gray-500"}`}>
+          <span className={`ml-2 font-normal normal-case ${metaTitle.length > 60 ? "text-red-400" : metaTitle.length >= 30 ? "text-green-400" : "text-gray-500"}`}>
             {metaTitle.length}/60
           </span>
         </label>
-        <input
-          type="text"
-          value={metaTitle}
-          onChange={(e) => setMetaTitle(e.target.value)}
-          maxLength={80}
-          placeholder="Seitentitel für Suchmaschinen (max. 60 Zeichen)"
-          className={inputClass}
-        />
-        {metaTitle.length > 60 && (
-          <p className="mt-1 text-xs text-red-400">Empfehlung: max. 60 Zeichen</p>
+        <input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)}
+          maxLength={80} placeholder="Seitentitel für Suchmaschinen (30–60 Zeichen ideal)" className={inputClass} />
+        {/* Google Preview */}
+        {metaTitle && (
+          <div className="mt-2 bg-gray-800 rounded-lg p-3 border border-gray-700">
+            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Google-Vorschau</p>
+            <p className="text-blue-400 text-sm font-medium truncate">{metaTitle}</p>
+            <p className="text-green-400 text-xs">urlaubfinder365.de{pagePath}</p>
+            <p className="text-gray-400 text-xs mt-0.5 line-clamp-2">{metaDescription || "Keine Beschreibung"}</p>
+          </div>
         )}
       </div>
 
@@ -89,107 +141,89 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
       <div>
         <label className={labelClass}>
           Meta Description
-          <span className={`ml-2 font-normal normal-case ${metaDescription.length > 160 ? "text-red-400" : "text-gray-500"}`}>
+          <span className={`ml-2 font-normal normal-case ${metaDescription.length > 160 ? "text-red-400" : metaDescription.length >= 120 ? "text-green-400" : "text-gray-500"}`}>
             {metaDescription.length}/160
           </span>
         </label>
-        <textarea
-          value={metaDescription}
-          onChange={(e) => setMetaDescription(e.target.value)}
-          rows={3}
-          maxLength={200}
-          placeholder="Kurzbeschreibung für Suchmaschinen (max. 160 Zeichen)"
-          className={inputClass + " resize-none"}
-        />
-        {metaDescription.length > 160 && (
-          <p className="mt-1 text-xs text-red-400">Empfehlung: max. 160 Zeichen</p>
-        )}
+        <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)}
+          rows={3} maxLength={200} placeholder="Kurzbeschreibung (120–160 Zeichen ideal)"
+          className={inputClass + " resize-none"} />
       </div>
 
       {/* Focus Keyword */}
       <div>
         <label className={labelClass}>Focus Keyword</label>
-        <input
-          type="text"
-          value={focusKeyword}
-          onChange={(e) => setFocusKeyword(e.target.value)}
-          placeholder="z. B. Antalya Urlaub"
-          className={inputClass}
-        />
+        <input type="text" value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)}
+          placeholder="z. B. Pauschalreise Türkei" className={inputClass} />
+        {focusKeyword && metaTitle && (
+          <div className="mt-1 flex gap-2 text-xs">
+            <span className={metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+              {metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"} im Title
+            </span>
+            <span className={metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+              {metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"} in Description
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Additional Keywords */}
       <div>
         <label className={labelClass}>Weitere Keywords (kommagetrennt)</label>
-        <input
-          type="text"
-          value={additionalKeywords}
-          onChange={(e) => setAdditionalKeywords(e.target.value)}
-          placeholder="z. B. Türkei Urlaub, All Inclusive, Pauschalreise"
-          className={inputClass}
-        />
+        <input type="text" value={additionalKeywords} onChange={(e) => setAdditionalKeywords(e.target.value)}
+          placeholder="z. B. Türkei Urlaub, All Inclusive, günstig buchen" className={inputClass} />
+        {additionalKeywords && (
+          <div className="mt-1.5 flex flex-wrap gap-1">
+            {additionalKeywords.split(",").map((k) => k.trim()).filter(Boolean).map((kw) => (
+              <span key={kw} className="text-[10px] bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full border border-gray-700">{kw}</span>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Divider */}
+      {/* Open Graph */}
       <div className="border-t border-gray-800 pt-4">
         <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4">Open Graph (Social Media)</p>
-
-        {/* OG Title */}
-        <div className="mb-4">
-          <label className={labelClass}>OG Title</label>
-          <input
-            type="text"
-            value={ogTitle}
-            onChange={(e) => setOgTitle(e.target.value)}
-            placeholder="Titel für Social-Media-Vorschau (Standard: Meta Title)"
-            className={inputClass}
-          />
-        </div>
-
-        {/* OG Description */}
-        <div className="mb-4">
-          <label className={labelClass}>OG Description</label>
-          <textarea
-            value={ogDescription}
-            onChange={(e) => setOgDescription(e.target.value)}
-            rows={2}
-            placeholder="Beschreibung für Social-Media-Vorschau"
-            className={inputClass + " resize-none"}
-          />
-        </div>
-
-        {/* OG Image */}
-        <div>
-          <label className={labelClass}>OG Image URL</label>
-          <input
-            type="text"
-            value={ogImage}
-            onChange={(e) => setOgImage(e.target.value)}
-            placeholder="https://... (empfohlen: 1200×630 px)"
-            className={inputClass}
-          />
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className={labelClass}>OG Title</label>
+            <input type="text" value={ogTitle} onChange={(e) => setOgTitle(e.target.value)}
+              placeholder="Titel für Social-Media (Standard: Meta Title)" className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass}>OG Description</label>
+            <textarea value={ogDescription} onChange={(e) => setOgDescription(e.target.value)}
+              rows={2} placeholder="Beschreibung für Social-Media"
+              className={inputClass + " resize-none"} />
+          </div>
+          <div>
+            <label className={labelClass}>OG Image URL</label>
+            <input type="text" value={ogImage} onChange={(e) => setOgImage(e.target.value)}
+              placeholder="https://... (1200×630 px empfohlen)" className={inputClass} />
+            {ogImage && (
+              <div className="mt-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={ogImage} alt="OG Preview" className="rounded-lg border border-gray-700 max-h-32 object-cover" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Message */}
       {message && (
-        <div
-          className={`rounded-lg px-4 py-3 text-sm font-medium ${
-            message.type === "success"
-              ? "bg-teal-900/40 text-teal-300 border border-teal-700"
-              : "bg-red-900/40 text-red-300 border border-red-700"
-          }`}
-        >
+        <div className={`rounded-lg px-4 py-3 text-sm font-medium ${
+          message.type === "success" ? "bg-teal-900/40 text-teal-300 border border-teal-700"
+          : message.type === "info" ? "bg-blue-900/40 text-blue-300 border border-blue-700"
+          : "bg-red-900/40 text-red-300 border border-red-700"
+        }`}>
           {message.text}
         </div>
       )}
 
-      {/* Save Button */}
-      <button
-        onClick={handleSave}
-        disabled={saving}
-        className="bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-colors"
-      >
+      {/* Save */}
+      <button onClick={handleSave} disabled={saving}
+        className="bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-colors">
         {saving ? "Speichern…" : "SEO-Daten speichern"}
       </button>
     </div>
