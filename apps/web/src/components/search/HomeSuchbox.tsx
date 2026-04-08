@@ -786,31 +786,31 @@ export default function HomeSuchbox() {
           </div>
         )}
 
-        {/* Duration – kompakt */}
-        <div className="mb-3">
-          <div className="flex flex-wrap gap-0.5 items-center">
-            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold mr-0.5">Dauer</span>
+        {/* Duration – kompakt, horizontal scrollbar */}
+        <div className="mb-3 space-y-1.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-0.5">
+            <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold shrink-0">Dauer</span>
             <button type="button" onClick={() => setDuration("1-28")}
-              className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+              className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === "1-28" ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
               Beliebig</button>
             {DURATION_WEEKS.map((opt) => (
               <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
                 {opt.label}</button>
             ))}
             {DURATION_RANGES.map((opt) => (
               <button key={opt.value} type="button" onClick={() => setDuration(opt.value)}
-                className={`px-1.5 py-0.5 rounded-full text-[10px] font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
+                className={`shrink-0 px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${duration === opt.value ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/20 text-white/60 hover:border-[#1db682]"}`}>
                 {opt.label}</button>
             ))}
           </div>
-          <div className="flex flex-wrap gap-px mt-1">
-            <span className="text-[9px] text-white/30 mr-0.5 self-center">Exakt</span>
+          <div className="flex items-center gap-1 overflow-x-auto scrollbar-none pb-0.5">
+            <span className="text-[10px] text-white/30 shrink-0">Exakt</span>
             {DURATION_EXACT.map((n) => {
               const val = `${n}-${n}`;
               return (
                 <button key={n} type="button" onClick={() => setDuration(val)}
-                  className={`w-6 h-5.5 rounded text-[9px] font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/10 text-white/50 hover:border-[#1db682]"}`}>
+                  className={`shrink-0 w-8 h-7 rounded-lg text-xs font-medium border transition-colors ${duration === val ? "bg-[#1db682] text-white border-[#1db682]" : "border-white/15 text-white/50 hover:border-[#1db682]"}`}>
                   {n}</button>
               );
             })}
