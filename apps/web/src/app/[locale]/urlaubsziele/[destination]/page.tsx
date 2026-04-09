@@ -578,6 +578,13 @@ export default async function DestinationPage({ params }: Props) {
               />
             </div>
 
+            {/* Buchungsempfehlung – mobil sichtbar (Desktop in Sidebar) */}
+            <div className="mt-8 xl:hidden">
+              <Suspense fallback={null}>
+                <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
+              </Suspense>
+            </div>
+
             {/* Preisverlauf – unter Last-Minute */}
             <div id="preisverlauf" className="mt-8 scroll-mt-24">
               <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
