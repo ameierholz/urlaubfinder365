@@ -140,7 +140,7 @@ export default function OutreachPage() {
     setSaving(true);
     try {
       const sb = getSupabase();
-      const { error: err } = await sb.from("backlink_outreach").insert({
+      const { error: err } = await sb.from("backlink_outreach" as never).insert({
         target_url: targetUrl,
         target_name: targetName || null,
         contact_email: contactEmail || null,
@@ -162,7 +162,7 @@ export default function OutreachPage() {
   async function loadTracker() {
     const sb = getSupabase();
     const { data } = await sb
-      .from("backlink_outreach")
+      .from("backlink_outreach" as never)
       .select("*")
       .order("created_at", { ascending: false })
       .limit(50);
@@ -172,7 +172,7 @@ export default function OutreachPage() {
 
   async function updateStatus(id: string, status: Status) {
     const sb = getSupabase();
-    await sb.from("backlink_outreach").update({ status }).eq("id", id);
+    await sb.from("backlink_outreach" as never).update({ status }).eq("id", id);
     setEntries((prev) => prev.map((e) => (e.id === id ? { ...e, status } : e)));
   }
 

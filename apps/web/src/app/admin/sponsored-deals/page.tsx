@@ -31,7 +31,7 @@ export default function SponsoredDealsPage() {
 
   async function load() {
     const { data } = await supabase
-      .from("sponsored_deals")
+      .from("sponsored_deals" as never)
       .select("id, hotel_name, destination_name, price_per_person, start_date, end_date, impressions, clicks, status, sponsor_name")
       .order("created_at", { ascending: false });
     setDeals((data ?? []) as SponsoredDeal[]);
@@ -43,7 +43,7 @@ export default function SponsoredDealsPage() {
   async function toggleStatus(deal: SponsoredDeal) {
     setToggling(deal.id);
     const next = deal.status === "aktiv" ? "pausiert" : "aktiv";
-    await supabase.from("sponsored_deals").update({ status: next }).eq("id", deal.id);
+    await supabase.from("sponsored_deals" as never).update({ status: next }).eq("id", deal.id);
     await load();
     setToggling(null);
   }

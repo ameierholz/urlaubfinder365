@@ -8,7 +8,7 @@ export async function GET() {
   const today = new Date().toISOString().slice(0, 10);
 
   const { data, error } = await supabase
-    .from("sponsored_deals")
+    .from("sponsored_deals" as never)
     .select("*")
     .eq("status", "aktiv")
     .lte("start_date", today)
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
   // Fetch current value, then increment (simple approach without custom RPC)
   const { data } = await supabase
-    .from("sponsored_deals")
+    .from("sponsored_deals" as never)
     .select(column)
     .eq("id", dealId)
     .single();
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
   if (data) {
     const current = (data as Record<string, number>)[column] ?? 0;
     await supabase
-      .from("sponsored_deals")
+      .from("sponsored_deals" as never)
       .update({ [column]: current + 1 })
       .eq("id", dealId);
   }

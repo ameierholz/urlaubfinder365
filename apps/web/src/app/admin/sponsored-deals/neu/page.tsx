@@ -44,7 +44,7 @@ export default function SponsoredDealNeuPage() {
     setError(null);
     setSaving(true);
 
-    const { error: err } = await supabase.from("sponsored_deals").insert({
+    const { error: err } = await supabase.from("sponsored_deals" as never).insert({
       hotel_name:       form.hotel_name,
       destination_name: form.destination_name,
       destination_slug: form.destination_slug || form.destination_name.toLowerCase().replace(/\s+/g, "-"),
