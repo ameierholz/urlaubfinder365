@@ -119,6 +119,16 @@ export default async function SeoAdminPage() {
 
       <BulkSeoButton missingCount={KNOWN_PATHS.length - metaMap.size} />
 
+      {/* Quick-Links zu SEO-Tools */}
+      <div className="flex gap-3 mb-6">
+        <Link href="/admin/seo/links/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-teal-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
+          🔗 Link-Audit
+        </Link>
+        <Link href="/admin/seo/konkurrenz/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-purple-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
+          🏆 Konkurrenz-Analyse
+        </Link>
+      </div>
+
       <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
         <table className="w-full text-sm">
           <thead>

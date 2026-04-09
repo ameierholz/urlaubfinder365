@@ -15,6 +15,7 @@ import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
 import ReiseHub from "@/components/reise-hub/ReiseHub";
 import TiqetsActivitiesSection from "@/components/tiqets/TiqetsActivitiesSection";
 import DestinationCarousel, { type DestCarouselItem } from "@/components/ui/DestinationCarousel";
+import RelatedDestinations from "@/components/destination/related-destinations";
 import EntryInfoBox from "@/components/destination/EntryInfoBox";
 import TravelWarningBadge from "@/components/destination/TravelWarningBadge";
 import DestinationMap from "@/components/destination/DestinationMap";
@@ -785,6 +786,9 @@ export default async function DestinationPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {/* Ähnliche Urlaubsziele */}
+      <RelatedDestinations currentSlug={dest.slug} country={dest.country} />
 
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
