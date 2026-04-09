@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 import { Globe } from "lucide-react";
+import BulkSeoButton from "@/components/admin/bulk-seo-button";
 
 const KNOWN_PATHS = [
   "/guenstig-urlaub-buchen", "/last-minute", "/hotelsuche", "/flugsuche",
@@ -115,6 +116,8 @@ export default async function SeoAdminPage() {
           <p className="text-xs text-gray-500 mt-1">Ø SEO-Score</p>
         </div>
       </div>
+
+      <BulkSeoButton missingCount={KNOWN_PATHS.length - metaMap.size} />
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
         <table className="w-full text-sm">
