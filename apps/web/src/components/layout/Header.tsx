@@ -251,7 +251,7 @@ function ExtrasMegaMenu({ onClose }: { onClose: () => void }) {
   return (
     <div
       className="absolute top-full right-0 mt-1 rounded-xl shadow-xl border border-white/30 z-50 backdrop-blur-sm overflow-hidden"
-      style={{ backgroundColor: DROPDOWN_BG, width: "540px" }}
+      style={{ backgroundColor: DROPDOWN_BG, width: "600px" }}
     >
       {/* Featured strip: KI-Urlaubsplaner */}
       <Link
@@ -292,7 +292,7 @@ function ExtrasMegaMenu({ onClose }: { onClose: () => void }) {
                     <Icon className={`w-3.5 h-3.5 shrink-0 ${item.color}`} />
                     <span className="text-[13px] text-white/80 group-hover/item:text-white flex-1 leading-tight">{item.label}</span>
                     {item.badge && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/70 text-white leading-none shrink-0">
+                      <span className="text-[8px] font-bold px-1 py-px rounded bg-emerald-500/70 text-white leading-none shrink-0">
                         {item.badge}
                       </span>
                     )}
