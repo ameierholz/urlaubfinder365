@@ -13,6 +13,7 @@ import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
 import FeaturedAngebotsCarousel from "@/components/home/FeaturedAngebotsCarousel";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -561,6 +562,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         {/* ── Cards ── */}
         <div style={{ backgroundColor: "rgba(238,206,161,0.18)" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+            {/* Sponsored Deal Banner – oberhalb der regulären Deals */}
+            <SponsoredDealBanner />
 
             {/* Label-Zeile über den Karten */}
             <div className="flex items-center gap-3 mb-5">
