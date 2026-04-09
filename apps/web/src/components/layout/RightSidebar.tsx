@@ -109,7 +109,7 @@ export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle,
         )}
 
         {/* Slot: nach SEO-Links (z.B. Buchungsempfehlung) */}
-        {afterLinks && <div className="border-b border-gray-100 px-4 py-3">{afterLinks}</div>}
+        {afterLinks && <div className="border-b border-gray-100 p-4">{afterLinks}</div>}
 
         {/* 3 · Empfohlene Anbieter */}
         <div className="border-b border-gray-100">
