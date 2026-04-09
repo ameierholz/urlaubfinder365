@@ -62,13 +62,16 @@ const components: Components = {
     );
   },
   img: ({ src, alt }) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt ?? ""}
-      className="rounded-2xl shadow-md w-full my-6 object-cover"
-      loading="lazy"
-    />
+    <figure className="my-6">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt ?? ""}
+        className="rounded-xl shadow-sm w-full max-h-72 object-cover"
+        loading="lazy"
+      />
+      {alt && <figcaption className="text-xs text-gray-400 mt-2 text-center italic">{alt}</figcaption>}
+    </figure>
   ),
   hr: () => <hr className="border-gray-200 my-8" />,
   strong: ({ children }) => (
