@@ -240,6 +240,7 @@ const EXTRAS_GROUPS = [
   {
     label: "Entdecken",
     items: [
+      { href: "/magazin/",               icon: BookOpen, color: "text-blue-400",   label: "Urlaubsmagazin", badge: "NEU" },
       { href: "/erlebnisse/",             icon: Compass, color: "text-orange-400", label: "Erlebnisse",     badge: null },
       { href: "/extras/reisenden-karte/", icon: Globe,   color: "text-cyan-400",   label: "Urlauber-Karte", badge: null },
     ],
