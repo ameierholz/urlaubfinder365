@@ -51,19 +51,18 @@ export async function GET(req: NextRequest) {
         });
 
         const rows = data.rows ?? [];
-        const totals = rows.reduce(
-          (acc, r) => ({
-            clicks: acc.clicks + (r.clicks ?? 0),
-            impressions: acc.impressions + (r.impressions ?? 0),
-            ctr: 0,
-            position: 0,
-          }),
-          { clicks: 0, impressions: 0, ctr: 0, position: 0 }
-        );
-        totals.ctr = totals.impressions > 0 ? totals.clicks / totals.impressions : 0;
-        totals.position = rows.length > 0
-          ? rows.reduce((sum, r) => sum + (r.position ?? 0), 0) / rows.length
-          : 0;
+        let totalClicks = 0, totalImpressions = 0, totalPosition = 0;
+        for (const r of rows) {
+          totalClicks += r.clicks ?? 0;
+          totalImpressions += r.impressions ?? 0;
+          totalPosition += r.position ?? 0;
+        }
+        const totals = {
+          clicks: totalClicks,
+          impressions: totalImpressions,
+          ctr: totalImpressions > 0 ? totalClicks / totalImpressions : 0,
+          position: rows.length > 0 ? totalPosition / rows.length : 0,
+        };
 
         // Vorperiode zum Vergleich
         const prevEnd = new Date(startDate);
@@ -81,13 +80,9 @@ export async function GET(req: NextRequest) {
         });
 
         const prevRows = prevData.rows ?? [];
-        const prevTotals = prevRows.reduce(
-          (acc, r) => ({
-            clicks: acc.clicks + (r.clicks ?? 0),
-            impressions: acc.impressions + (r.impressions ?? 0),
-          }),
-          { clicks: 0, impressions: 0 }
-        );
+        let prevClicks = 0, prevImpressions = 0;
+        for (const r of prevRows) { prevClicks += r.clicks ?? 0; prevImpressions += r.impressions ?? 0; }
+        const prevTotals = { clicks: prevClicks, impressions: prevImpressions };
 
         return NextResponse.json({
           totals,
