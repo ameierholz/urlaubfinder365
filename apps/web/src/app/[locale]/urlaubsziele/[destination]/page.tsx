@@ -22,6 +22,7 @@ import DestinationMap from "@/components/destination/DestinationMap";
 import ClimateChart from "@/components/destination/ClimateChart";
 import PriceChart from "@/components/destination/price-chart";
 import BookingAdvisor from "@/components/destination/booking-advisor";
+import PriceAlertWidget from "@/components/destination/price-alert-widget";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
@@ -535,6 +536,11 @@ export default async function DestinationPage({ params }: Props) {
               <Suspense fallback={null}>
                 <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
               </Suspense>
+            </div>
+
+            {/* Preisalarm */}
+            <div className="mt-8">
+              <PriceAlertWidget destinationSlug={dest.slug} destinationName={dest.name} />
             </div>
 
             {/* Preisverlauf */}

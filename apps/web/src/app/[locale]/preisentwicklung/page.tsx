@@ -5,6 +5,7 @@ import PreisentwicklungClient from "@/components/preisentwicklung/Preisentwicklu
 import PriceComparisonTable from "@/components/preisentwicklung/PriceComparisonTable";
 import SeasonCalendar from "@/components/preisentwicklung/SeasonCalendar";
 import RightSidebar from "@/components/layout/RightSidebar";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 export const revalidate = 3600;
 
@@ -181,6 +182,21 @@ export default async function PreisentwicklungPage({
                   <p className="text-sm text-gray-500 leading-relaxed">{card.text}</p>
                 </div>
               ))}
+            </div>
+            {/* Newsletter CTA */}
+            <div className="mt-10 mb-6 rounded-2xl overflow-hidden shadow-md">
+              <div className="bg-linear-to-r from-teal-500 to-blue-500 px-6 py-5 text-white">
+                <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-1">Newsletter</p>
+                <h2 className="text-xl font-black leading-tight mb-1">
+                  Wöchentlich die besten Reisedeals
+                </h2>
+                <p className="text-white/80 text-sm">
+                  Erhalte wöchentlich die besten Reisedeals und Preisanalysen — kostenlos direkt in dein Postfach.
+                </p>
+              </div>
+              <div className="bg-white px-6 py-5">
+                <NewsletterSignup variant="inline" />
+              </div>
             </div>
           </div>
 
