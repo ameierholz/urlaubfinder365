@@ -14,6 +14,7 @@ import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
 import FeaturedAngebotsCarousel from "@/components/home/FeaturedAngebotsCarousel";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
+import MagazinTeaser from "@/components/home/MagazinTeaser";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -1294,6 +1295,11 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <NewsletterSignup variant="hero" />
         </div>
       </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          9b · URLAUBSMAGAZIN – Neueste Artikel
+      ══════════════════════════════════════════════════════════ */}
+      <MagazinTeaser />
 
       {/* ══════════════════════════════════════════════════════════
           10 · FINALER CTA
