@@ -141,7 +141,7 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
 // ─── Statische Daten ─────────────────────────────────────────────────────────
 
 const HERO_BG =
-  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=2000&q=80";
+  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1600&q=70";
 
 // Günstigsten Preis pro Person aus einem Deal-Objekt extrahieren
 function minPrice(deal: TravelOffer | null, fallback: string): string {
@@ -407,14 +407,19 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       ══════════════════════════════════════════════════════════ */}
       <section
         className="relative text-white flex flex-col -mt-20"
-        style={{
-          backgroundImage: `url(${HERO_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
-          overflowX: "clip",
-          overflowY: "visible",
-        }}
+        style={{ overflowX: "clip", overflowY: "visible" }}
       >
+        {/* Hero-Bild als <img> für besseres LCP + Preloading */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HERO_BG}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+          // @ts-ignore
+          fetchPriority="high"
+          decoding="async"
+        />
         {/* ── Cinematic Overlays ── */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
