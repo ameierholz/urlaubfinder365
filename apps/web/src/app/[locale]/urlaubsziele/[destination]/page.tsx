@@ -578,6 +578,11 @@ export default async function DestinationPage({ params }: Props) {
               />
             </div>
 
+            {/* Preisverlauf – unter Last-Minute */}
+            <div id="preisverlauf" className="mt-8 scroll-mt-24">
+              <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
+            </div>
+
             {/* Tiqets Aktivitäten */}
             {dest.tiqetsCityId && (
               <div id="aktivitaeten" className="mt-12 scroll-mt-24">
@@ -653,11 +658,6 @@ export default async function DestinationPage({ params }: Props) {
 
         </div>
       </div>{/* end two-column layout */}
-
-      {/* Preisverlauf – über Flugverbindungen */}
-      <div id="preisverlauf" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-mt-24">
-        <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
-      </div>
 
       {/* Flugverbindungen */}
       {dest.iataCode && (
