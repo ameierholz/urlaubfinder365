@@ -30,11 +30,15 @@ interface Props {
   adPlacementKey?: string;
   /** regionIds für Live-Verfügbarkeits-Check des Deal des Tages */
   dealRegionIds?: number[];
+  /** Slot: wird nach SEO-Links angezeigt (z.B. Buchungsempfehlung) */
+  afterLinks?: React.ReactNode;
+  /** Slot: wird über Lokale Partner angezeigt (z.B. Preisalarm) */
+  beforeLocalPartners?: React.ReactNode;
 }
 
 const DEFAULT_AD_KEY = "6e805e1e43279dbf742fa3dca2efc442";
 
-export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds }: Props) {
+export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds, afterLinks, beforeLocalPartners }: Props) {
   const t = await getTranslations("ui.sidebar");
   const accent = extrasBox?.accentColor ?? "bg-[#1db682]";
 
@@ -104,6 +108,9 @@ export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle,
           </div>
         )}
 
+        {/* Slot: nach SEO-Links (z.B. Buchungsempfehlung) */}
+        {afterLinks && <div className="border-b border-gray-100 px-4 py-3">{afterLinks}</div>}
+
         {/* 3 · Empfohlene Anbieter */}
         <div className="border-b border-gray-100">
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
@@ -132,6 +139,9 @@ export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle,
             </Suspense>
           </div>
         </div>
+
+        {/* Slot: über Lokale Partner (z.B. Preisalarm) */}
+        {beforeLocalPartners && <div className="border-b border-gray-100 px-4 py-3">{beforeLocalPartners}</div>}
 
         {/* 5 · Lokale Partner */}
         <div>

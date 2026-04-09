@@ -517,10 +517,7 @@ export default async function DestinationPage({ params }: Props) {
 
             {/* Buchungsempfehlung + Preisalarm → in Sidebar verschoben */}
 
-            {/* Preisverlauf */}
-            <div id="preisverlauf" className="mt-8 scroll-mt-24">
-              <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
-            </div>
+            {/* Preisverlauf → nach unten verschoben (über Flugverbindungen) */}
 
             {/* All-Inclusive */}
             <div id="all-inclusive" className="mt-12 scroll-mt-24">
@@ -641,22 +638,28 @@ export default async function DestinationPage({ params }: Props) {
                   { href: "/urlaubsziele/dubai/",          label: "Dubai" },
                   { href: "/urlaubsziele/",                label: "Alle Urlaubsziele →" },
                 ]}
+                afterLinks={
+                  <Suspense fallback={null}>
+                    <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
+                  </Suspense>
+                }
+                beforeLocalPartners={
+                  <PriceAlertWidget destinationSlug={dest.slug} destinationName={dest.name} />
+                }
               />
 
-              {/* Buchungsempfehlung in Sidebar */}
-              <Suspense fallback={null}>
-                <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
-              </Suspense>
-
-              {/* Preisalarm in Sidebar */}
-              <PriceAlertWidget destinationSlug={dest.slug} destinationName={dest.name} />
             </div>
           </aside>
 
         </div>
       </div>{/* end two-column layout */}
 
-      {/* Flugverbindungen – Vollbreite außerhalb Sidebar-Layout */}
+      {/* Preisverlauf – über Flugverbindungen */}
+      <div id="preisverlauf" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-mt-24">
+        <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
+      </div>
+
+      {/* Flugverbindungen */}
       {dest.iataCode && (
         <div id="fluginfo" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 scroll-mt-24">
           <div className="relative rounded-2xl overflow-hidden mb-6">
@@ -791,14 +794,20 @@ export default async function DestinationPage({ params }: Props) {
       {/* SEO Middle – Kompletter Reiseführer (ganz unten) */}
       {seoTexts?.seo_middle && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 lg:p-10">
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-8">
               {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
             </h2>
-            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed">
-              {seoTexts.seo_middle.split("\n\n").map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+            <div className="max-w-none text-gray-600 leading-relaxed space-y-4">
+              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
+                const trimmed = block.trim();
+                // Kurze Zeilen ohne Punkt am Ende = Zwischenüberschrift
+                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
+                if (isHeading) {
+                  return <h3 key={i} className="text-lg font-bold text-gray-900 mt-8 mb-2">{trimmed}</h3>;
+                }
+                return <p key={i} className="text-[15px] text-gray-600 leading-[1.8]">{trimmed}</p>;
+              })}
             </div>
           </div>
         </div>
@@ -807,7 +816,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* SEO Bottom – Buchungs-CTA */}
       {seoTexts?.seo_bottom && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-gradient-to-br from-[#0d1f35] to-[#1a3a5c] rounded-2xl p-6 sm:p-8 text-white">
+          <div className="bg-linear-to-br from-[#0d1f35] to-[#1a3a5c] rounded-2xl p-6 sm:p-8 text-white">
             <h2 className="text-2xl font-bold mb-4">
               {seoTexts.seo_h2_bottom ?? `${dest.name} Urlaub günstig buchen`}
             </h2>
