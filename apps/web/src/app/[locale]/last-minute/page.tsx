@@ -4,6 +4,7 @@ import { fetchOffers } from "@/lib/travel-api";
 import { destinations } from "@/lib/destinations";
 import OffersGrid from "@/components/offers/OffersGrid";
 import IbeWidget from "@/components/widgets/IbeWidget";
+import PriceChart from "@/components/destination/price-chart";
 import AutoScrollToWidget from "@/components/widgets/AutoScrollToWidget";
 import { buildB2bUrl } from "@/lib/search-params";
 import { setRequestLocale } from "next-intl/server";
@@ -163,6 +164,15 @@ export default async function ({ params, searchParams }: {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Aktuelle Last-Minute Angebote</h2>
           <p className="text-gray-500 mb-6">Heute verfügbare Angebote – täglich aktualisiert, direkt buchbar.</p>
           <OffersGrid offers={offers} />
+        </div>
+
+        {/* Preisverlauf Top-Ziele */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Preisverlauf: Beliebte Last-Minute Ziele</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <PriceChart destinationSlug="antalya" destinationName="Antalya" />
+            <PriceChart destinationSlug="mallorca" destinationName="Mallorca" />
+          </div>
         </div>
 
         {/* Was sind Last-Minute + Vorteile */}
