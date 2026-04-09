@@ -81,11 +81,12 @@ export async function GET(req: NextRequest) {
       case "keywords": {
         const rows = await query(sc, siteUrl, {
           startDate: fmt(startDate), endDate: fmt(endDate),
-          dimensions: ["query"], rowLimit: 50,
-          orderBy: [{ field: "impressions", sortOrder: "DESCENDING" }],
+          dimensions: ["query"], rowLimit: 500,
         });
+        rows.sort((a, b) => (b.impressions ?? 0) - (a.impressions ?? 0));
+        const top = rows.slice(0, 50);
         return NextResponse.json({
-          keywords: rows.map((r) => ({
+          keywords: top.map((r) => ({
             keyword: r.keys?.[0], clicks: r.clicks, impressions: r.impressions,
             ctr: r.ctr, position: Math.round((r.position ?? 0) * 10) / 10,
           })),
@@ -95,11 +96,11 @@ export async function GET(req: NextRequest) {
       case "pages": {
         const rows = await query(sc, siteUrl, {
           startDate: fmt(startDate), endDate: fmt(endDate),
-          dimensions: ["page"], rowLimit: 50,
-          orderBy: [{ field: "clicks", sortOrder: "DESCENDING" }],
+          dimensions: ["page"], rowLimit: 500,
         });
+        rows.sort((a, b) => (b.clicks ?? 0) - (a.clicks ?? 0));
         return NextResponse.json({
-          pages: rows.map((r) => ({
+          pages: rows.slice(0, 50).map((r) => ({
             page: r.keys?.[0]?.replace("https://www.urlaubfinder365.de", ""),
             clicks: r.clicks, impressions: r.impressions,
             ctr: r.ctr, position: Math.round((r.position ?? 0) * 10) / 10,
