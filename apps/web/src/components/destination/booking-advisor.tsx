@@ -193,33 +193,33 @@ export default async function BookingAdvisor({
       <p className="text-sm text-gray-700 leading-relaxed mb-5">{reason}</p>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-white/70 rounded-xl p-3 text-center">
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
+      <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="bg-white/70 rounded-lg p-2 text-center">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
             Aktuell
           </p>
-          <p className="text-xl font-black text-gray-900">
-            {currentPrice.toLocaleString("de-DE")} €
+          <p className="text-base font-black text-gray-900 leading-tight">
+            {currentPrice} €
           </p>
-          <p className="text-[11px] text-gray-500">pro Person</p>
+          <p className="text-[9px] text-gray-500">p.P.</p>
         </div>
-        <div className="bg-white/70 rounded-xl p-3 text-center">
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
-            Bestzpreis 90 T.
+        <div className="bg-white/70 rounded-lg p-2 text-center">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+            Bestpreis
           </p>
-          <p className="text-xl font-black text-emerald-600">
-            {minPrice.toLocaleString("de-DE")} €
+          <p className="text-base font-black text-emerald-600 leading-tight">
+            {minPrice} €
           </p>
-          <p className="text-[11px] text-gray-500">{formatDate(minDate)}</p>
+          <p className="text-[9px] text-gray-500">{formatDate(minDate)}</p>
         </div>
-        <div className="bg-white/70 rounded-xl p-3 text-center">
-          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
-            Ø 90 Tage
+        <div className="bg-white/70 rounded-lg p-2 text-center">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+            Ø 90 T.
           </p>
-          <p className="text-xl font-black text-gray-900">
-            {avgPrice.toLocaleString("de-DE")} €
+          <p className="text-base font-black text-gray-900 leading-tight">
+            {avgPrice} €
           </p>
-          <p className="text-[11px] text-gray-500">Durchschnitt</p>
+          <p className="text-[9px] text-gray-500">Schnitt</p>
         </div>
       </div>
 
