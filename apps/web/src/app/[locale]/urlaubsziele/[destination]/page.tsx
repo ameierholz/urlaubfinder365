@@ -485,22 +485,6 @@ export default async function DestinationPage({ params }: Props) {
               <UrlaubsartenGrid regionId={regionId} destName={dest.name} />
             </div>
 
-            {/* SEO Middle – Reiseinfos */}
-            {seoTexts?.seo_middle && (
-              <div className="mt-12 scroll-mt-24">
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    {seoTexts.seo_h2_middle ?? `${dest.name} – Wissenswertes für deinen Urlaub`}
-                  </h2>
-                  <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed">
-                    {seoTexts.seo_middle.split("\n\n").map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
             {/* Pauschalreisen */}
             <div id="pauschalreisen" className="mt-12 scroll-mt-24">
               <div className="relative rounded-2xl overflow-hidden mb-6">
@@ -531,17 +515,7 @@ export default async function DestinationPage({ params }: Props) {
               />
             </div>
 
-            {/* Buchungsempfehlung */}
-            <div className="mt-8">
-              <Suspense fallback={null}>
-                <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
-              </Suspense>
-            </div>
-
-            {/* Preisalarm */}
-            <div className="mt-8">
-              <PriceAlertWidget destinationSlug={dest.slug} destinationName={dest.name} />
-            </div>
+            {/* Buchungsempfehlung + Preisalarm → in Sidebar verschoben */}
 
             {/* Preisverlauf */}
             <div id="preisverlauf" className="mt-8 scroll-mt-24">
@@ -647,7 +621,7 @@ export default async function DestinationPage({ params }: Props) {
 
           {/* ── Sidebar ──────────────────────────────────────────────────── */}
           <aside className="hidden xl:block w-72 shrink-0 mt-12">
-            <div className="sticky top-24">
+            <div className="sticky top-24 space-y-5">
               <RightSidebar
                 dealRegionIds={dest.regionIds}
                 extrasBox={{
@@ -668,6 +642,14 @@ export default async function DestinationPage({ params }: Props) {
                   { href: "/urlaubsziele/",                label: "Alle Urlaubsziele →" },
                 ]}
               />
+
+              {/* Buchungsempfehlung in Sidebar */}
+              <Suspense fallback={null}>
+                <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
+              </Suspense>
+
+              {/* Preisalarm in Sidebar */}
+              <PriceAlertWidget destinationSlug={dest.slug} destinationName={dest.name} />
             </div>
           </aside>
 
@@ -805,6 +787,22 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
+
+      {/* SEO Middle – Kompletter Reiseführer (ganz unten) */}
+      {seoTexts?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
+            </h2>
+            <div className="prose prose-gray max-w-none text-gray-600 leading-relaxed">
+              {seoTexts.seo_middle.split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* SEO Bottom – Buchungs-CTA */}
       {seoTexts?.seo_bottom && (
