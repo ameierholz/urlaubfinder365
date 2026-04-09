@@ -195,13 +195,6 @@ export default async function DestinationPage({ params }: Props) {
       },
       ...(dest.faqs && dest.faqs.length > 0 ? [
         {
-          "@type": "Review",
-          "itemReviewed": { "@type": "TouristDestination", "name": dest.name },
-          "author": { "@type": "Organization", "name": "Urlaubfinder365 Community" },
-          "reviewBody": `Reisebewertungen und Erfahrungsberichte zu ${dest.name}, ${dest.country} von der Urlaubfinder365 Community.`,
-          "publisher": { "@type": "Organization", "name": "Urlaubfinder365" },
-        },
-        {
           "@type": "FAQPage",
           "mainEntity": dest.faqs.map((f: { question: string; answer: string }) => ({
             "@type": "Question",
