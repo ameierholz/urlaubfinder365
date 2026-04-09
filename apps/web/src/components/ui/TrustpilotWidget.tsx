@@ -40,7 +40,8 @@ export default function TrustpilotWidget({ theme = "light", className = "" }: Pr
       href={REVIEW_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 no-underline ${className}`}
+      className={`inline-flex items-center gap-2 no-underline${className ? ` ${className}` : ""}`}
+      suppressHydrationWarning
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <rect width="24" height="24" rx="3" fill="#00b67a" />
