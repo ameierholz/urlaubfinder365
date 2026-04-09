@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
     const current = (data as Record<string, number>)[column] ?? 0;
     await supabase
       .from("sponsored_deals" as never)
-      .update({ [column]: current + 1 })
-      .eq("id", dealId);
+      .update({ [column]: current + 1 } as never)
+      .eq("id" as never, dealId);
   }
 
   return NextResponse.json({ ok: true });
