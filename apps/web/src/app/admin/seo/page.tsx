@@ -121,6 +121,9 @@ export default async function SeoAdminPage() {
 
       {/* Quick-Links zu SEO-Tools */}
       <div className="flex gap-3 mb-6">
+        <Link href="/admin/seo/dashboard/" className="flex items-center gap-2 bg-teal-900/40 border border-teal-700 hover:border-teal-500 rounded-xl px-4 py-3 text-sm text-teal-300 hover:text-white transition-colors font-semibold">
+          🎯 Command Center
+        </Link>
         <Link href="/admin/seo/links/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-teal-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
           🔗 Link-Audit
         </Link>
