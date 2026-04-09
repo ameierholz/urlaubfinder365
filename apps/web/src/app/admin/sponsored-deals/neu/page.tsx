@@ -64,7 +64,7 @@ export default function SponsoredDealNeuPage() {
       status:           "pausiert",
       impressions:      0,
       clicks:           0,
-    });
+    } as never);
 
     setSaving(false);
 

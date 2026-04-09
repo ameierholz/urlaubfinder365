@@ -43,7 +43,7 @@ export default function SponsoredDealsPage() {
   async function toggleStatus(deal: SponsoredDeal) {
     setToggling(deal.id);
     const next = deal.status === "aktiv" ? "pausiert" : "aktiv";
-    await supabase.from("sponsored_deals" as never).update({ status: next }).eq("id", deal.id);
+    await (supabase.from("sponsored_deals" as never).update({ status: next } as never) as unknown as { eq: (col: string, val: string) => Promise<unknown> }).eq("id", deal.id);
     await load();
     setToggling(null);
   }
