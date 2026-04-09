@@ -20,6 +20,8 @@ import EntryInfoBox from "@/components/destination/EntryInfoBox";
 import TravelWarningBadge from "@/components/destination/TravelWarningBadge";
 import DestinationMap from "@/components/destination/DestinationMap";
 import ClimateChart from "@/components/destination/ClimateChart";
+import PriceChart from "@/components/destination/price-chart";
+import BookingAdvisor from "@/components/destination/booking-advisor";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
@@ -526,6 +528,18 @@ export default async function DestinationPage({ params }: Props) {
                 excludeAi
                 hideHeading
               />
+            </div>
+
+            {/* Buchungsempfehlung */}
+            <div className="mt-8">
+              <Suspense fallback={null}>
+                <BookingAdvisor destinationSlug={dest.slug} destinationName={dest.name} />
+              </Suspense>
+            </div>
+
+            {/* Preisverlauf */}
+            <div id="preisverlauf" className="mt-8 scroll-mt-24">
+              <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
             </div>
 
             {/* All-Inclusive */}

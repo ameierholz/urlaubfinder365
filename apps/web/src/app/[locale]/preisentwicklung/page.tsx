@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 import PreisentwicklungClient from "@/components/preisentwicklung/PreisentwicklungClient";
+import PriceComparisonTable from "@/components/preisentwicklung/PriceComparisonTable";
+import SeasonCalendar from "@/components/preisentwicklung/SeasonCalendar";
 import RightSidebar from "@/components/layout/RightSidebar";
 
 export const revalidate = 3600;
@@ -142,6 +145,16 @@ export default async function PreisentwicklungPage({
           {/* Main */}
           <div className="flex-1 min-w-0">
             <PreisentwicklungClient />
+
+            {/* Preisvergleich-Tabelle */}
+            <Suspense fallback={null}>
+              <PriceComparisonTable />
+            </Suspense>
+
+            {/* Saisonkalender */}
+            <Suspense fallback={null}>
+              <SeasonCalendar />
+            </Suspense>
 
             {/* Info cards */}
             <div className="grid sm:grid-cols-3 gap-6 mt-10 pb-16">
