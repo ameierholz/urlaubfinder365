@@ -77,7 +77,7 @@ export default function SponsoredDealBanner() {
     fetch("/api/sponsored-deal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "click", dealId: deal!.id }),
+      body: JSON.stringify({ action: "click", dealId: (deal as SponsoredDeal).id }),
     }).catch(() => {});
     window.open((deal as SponsoredDeal).booking_url, "_blank", "noopener,noreferrer");
   }
