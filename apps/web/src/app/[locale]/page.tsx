@@ -25,6 +25,18 @@ export const metadata: Metadata = {
   keywords: ["Pauschalreisen günstig buchen", "Urlaub günstig buchen", "Last Minute Urlaub", "All Inclusive Urlaub", "Pauschalreisen Türkei", "Pauschalreisen Mallorca", "Pauschalreisen Ägypten", "Billig Urlaub buchen", "Urlaubsschnäppchen", "Urlaub buchen online"],
   alternates: {
     canonical: "https://www.urlaubfinder365.de/",
+    languages: {
+      "de": "https://www.urlaubfinder365.de/",
+      "en": "https://www.urlaubfinder365.de/en/",
+      "tr": "https://www.urlaubfinder365.de/tr/",
+      "es": "https://www.urlaubfinder365.de/es/",
+      "fr": "https://www.urlaubfinder365.de/fr/",
+      "it": "https://www.urlaubfinder365.de/it/",
+      "pl": "https://www.urlaubfinder365.de/pl/",
+      "ru": "https://www.urlaubfinder365.de/ru/",
+      "ar": "https://www.urlaubfinder365.de/ar/",
+      "x-default": "https://www.urlaubfinder365.de/",
+    },
   },
   openGraph: {
     title: `✈ Pauschalreisen & Last Minute günstig buchen ${YEAR} | Urlaubfinder365`,
