@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export interface ArticleCardProps {
   title: string;
@@ -18,26 +17,27 @@ export default function ArtikelCard({
   published_at,
   category_name,
 }: ArticleCardProps) {
-  const fallback = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=450&fit=crop&q=80";
-
   return (
     <Link
       href={`/magazin/${slug}/`}
       className="group flex flex-col bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300"
     >
       {/* Cover */}
-      <div className="relative w-full h-48 overflow-hidden bg-gray-100">
-        <Image
-          src={cover_image || fallback}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <span className="absolute top-3 left-3 bg-[#1db682] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
-          {category_name}
-        </span>
-      </div>
+      {cover_image && (
+        <div className="relative w-full h-48 overflow-hidden bg-gray-100">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={cover_image}
+            alt={title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          />
+          <span className="absolute top-3 left-3 bg-[#1db682] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+            {category_name}
+          </span>
+        </div>
+      )}
 
       {/* Body */}
       <div className="flex flex-col gap-2 p-5 flex-1">
