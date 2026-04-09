@@ -9,21 +9,31 @@ interface Props {
   className?: string;
 }
 
+function StarIcon({ filled, half }: { filled: boolean; half: boolean }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" fill={filled || half ? "#00b67a" : "#dcdce6"} />
+      {half && <rect x="12" width="12" height="24" fill="#dcdce6" />}
+      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="white" />
+    </svg>
+  );
+}
+
 export default function TrustpilotWidget({ theme = "light", className = "" }: Props) {
   const isDark = theme === "dark";
-  const [score, setScore] = useState<number | null>(null);
-  const [count, setCount] = useState<number | null>(null);
+  const [score, setScore] = useState(5);
+  const [count, setCount] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/trustpilot")
       .then((r) => r.json())
-      .then((d) => { setScore(d.score); setCount(d.count); })
-      .catch(() => {});
+      .then((d) => { setScore(d.score ?? 5); setCount(d.count ?? 0); setLoaded(true); })
+      .catch(() => setLoaded(true));
   }, []);
 
-  const displayScore = score ?? 5;
-  const fullStars = Math.floor(displayScore);
-  const hasHalf = displayScore - fullStars >= 0.3;
+  const fullStars = Math.floor(score);
+  const hasHalf = score - fullStars >= 0.3;
 
   return (
     <a
@@ -32,35 +42,23 @@ export default function TrustpilotWidget({ theme = "light", className = "" }: Pr
       rel="noopener noreferrer"
       className={`inline-flex items-center gap-2 no-underline ${className}`}
     >
-      {/* Trustpilot Logo */}
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
         <rect width="24" height="24" rx="3" fill="#00b67a" />
         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="white" />
       </svg>
 
-      {/* Sterne */}
       <span className="flex items-center gap-px">
-        {[1, 2, 3, 4, 5].map((i) => {
-          const isFull = i <= fullStars;
-          const isHalf = i === fullStars + 1 && hasHalf;
-          const isEmpty = !isFull && !isHalf;
-          return (
-            <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <rect width="24" height="24" fill={isEmpty ? "#dcdce6" : "#00b67a"} />
-              {isHalf && <rect x="12" width="12" height="24" fill="#dcdce6" />}
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="white" />
-            </svg>
-          );
-        })}
+        {[1, 2, 3, 4, 5].map((i) => (
+          <StarIcon key={i} filled={i <= fullStars} half={i === fullStars + 1 && hasHalf} />
+        ))}
       </span>
 
-      {/* Score + Count */}
-      {score !== null && (
+      {loaded && (
         <span className="flex items-center gap-1">
           <span className="text-xs font-bold" style={{ color: isDark ? "white" : "#1a1a1a" }}>
-            {displayScore.toFixed(1)}
+            {score.toFixed(1)}
           </span>
-          {count !== null && count > 0 && (
+          {count > 0 && (
             <span className="text-[11px]" style={{ color: isDark ? "rgba(255,255,255,0.5)" : "#6b7280" }}>
               ({count})
             </span>
@@ -68,7 +66,6 @@ export default function TrustpilotWidget({ theme = "light", className = "" }: Pr
         </span>
       )}
 
-      {/* Label */}
       <span className="text-[10px] font-semibold" style={{ color: isDark ? "rgba(255,255,255,0.4)" : "#999" }}>
         Trustpilot
       </span>
