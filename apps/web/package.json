@@ -24,6 +24,7 @@
     "clsx": "^2.1",
     "firebase": "^11",
     "firebase-admin": "^13",
+    "googleapis": "^171.4.0",
     "leaflet": "^1.9",
     "lucide-react": "^0.577",
     "next": "16.1.6",

@@ -127,6 +127,9 @@ export default async function SeoAdminPage() {
         <Link href="/admin/seo/konkurrenz/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-purple-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
           🏆 Konkurrenz-Analyse
         </Link>
+        <Link href="/admin/seo/performance/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-blue-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
+          📊 Performance
+        </Link>
       </div>
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
