@@ -173,20 +173,20 @@ export default async function BookingAdvisor({
       className={`rounded-2xl border ${signalConfig.border} bg-linear-to-br ${signalConfig.bg} p-4 sm:p-5 shadow-sm`}
     >
       {/* Header */}
-      <div className="flex items-start justify-between gap-2 mb-4">
-        <div className="min-w-0">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">
+      <div className="mb-3">
+        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
             Buchungsempfehlung
           </p>
-          <h3 className="text-base font-black text-gray-900 leading-tight">
-            💡 Wann buchen: {destinationName}?
-          </h3>
+          <span
+            className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${signalConfig.badge}`}
+          >
+            {signalConfig.emoji} {signalLabel}
+          </span>
         </div>
-        <span
-          className={`shrink-0 inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold whitespace-nowrap ${signalConfig.badge}`}
-        >
-          {signalConfig.emoji} {signalLabel}
-        </span>
+        <h3 className="text-sm font-black text-gray-900 leading-tight">
+          💡 Wann buchen: {destinationName}?
+        </h3>
       </div>
 
       {/* Reason */}
