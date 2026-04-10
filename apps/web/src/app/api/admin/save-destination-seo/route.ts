@@ -17,14 +17,18 @@ import { createSupabaseServer } from "@/lib/supabase-server";
 export const runtime = "nodejs";
 
 interface Body {
-  slug:           string;
-  name:           string;
-  country?:       string | null;
-  seo_intro?:     string | null;
-  seo_h2_middle?: string | null;
-  seo_middle?:    string | null;
-  seo_h2_bottom?: string | null;
-  seo_bottom?:    string | null;
+  slug:              string;
+  name:              string;
+  country?:          string | null;
+  meta_title?:       string | null;
+  meta_description?: string | null;
+  focus_keyword?:    string | null;
+  keywords?:         string | null;
+  seo_intro?:        string | null;
+  seo_h2_middle?:    string | null;
+  seo_middle?:       string | null;
+  seo_h2_bottom?:    string | null;
+  seo_bottom?:       string | null;
 }
 
 export async function POST(req: NextRequest) {
@@ -80,15 +84,19 @@ export async function POST(req: NextRequest) {
   );
 
   const row = {
-    slug:          body.slug,
-    name:          body.name,
-    country:       body.country ?? null,
-    seo_intro:     body.seo_intro ?? null,
-    seo_h2_middle: body.seo_h2_middle ?? null,
-    seo_middle:    body.seo_middle ?? null,
-    seo_h2_bottom: body.seo_h2_bottom ?? null,
-    seo_bottom:    body.seo_bottom ?? null,
-    updated_at:    new Date().toISOString(),
+    slug:             body.slug,
+    name:             body.name,
+    country:          body.country ?? null,
+    meta_title:       body.meta_title ?? null,
+    meta_description: body.meta_description ?? null,
+    focus_keyword:    body.focus_keyword ?? null,
+    keywords:         body.keywords ?? null,
+    seo_intro:        body.seo_intro ?? null,
+    seo_h2_middle:    body.seo_h2_middle ?? null,
+    seo_middle:       body.seo_middle ?? null,
+    seo_h2_bottom:    body.seo_h2_bottom ?? null,
+    seo_bottom:       body.seo_bottom ?? null,
+    updated_at:       new Date().toISOString(),
   };
 
   const { error } = await admin

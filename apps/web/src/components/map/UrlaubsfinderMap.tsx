@@ -314,6 +314,7 @@ export default function UrlaubsfinderMap({
   const mapRef       = useRef<LeafletMap | null>(null);
   const clusterRef   = useRef<MarkerClusterGroup | null>(null);
   const markersRef   = useRef<Marker[]>([]);
+  const hasFitInitialBoundsRef = useRef(false);
 
   const [filters, setFilters] = useState<MapFilters>(() => ({
     ...DEFAULT_FILTERS,
@@ -493,6 +494,7 @@ export default function UrlaubsfinderMap({
     markersRef.current = [];
 
     // Neue Marker bauen — defensive: ein einzelner Fehler darf den Loop nicht killen
+    const validLatLngs: Array<[number, number]> = [];
     for (const m of visibleMarkers) {
       try {
         if (typeof m.lat !== "number" || typeof m.lng !== "number" || isNaN(m.lat) || isNaN(m.lng)) {
@@ -503,11 +505,23 @@ export default function UrlaubsfinderMap({
         marker.on("click", () => setSelectedRef.current(m));
         cluster.addLayer(marker);
         markersRef.current.push(marker);
+        validLatLngs.push([m.lat, m.lng]);
       } catch (err) {
         console.warn("[UrlaubsfinderMap] Marker konnte nicht erstellt werden:", m.id, err);
       }
     }
-  }, [visibleMarkers]);
+
+    // Initial auto-fit auf alle Marker (nur beim ersten Render mit Markern)
+    if (compact && validLatLngs.length >= 2 && !hasFitInitialBoundsRef.current) {
+      try {
+        const bounds = L.latLngBounds(validLatLngs);
+        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10, animate: false });
+        hasFitInitialBoundsRef.current = true;
+      } catch {
+        // ignore
+      }
+    }
+  }, [visibleMarkers, compact]);
 
   // ── Wenn `center` oder `zoom` sich ändert (z.B. durch Suche) ──────────────
   useEffect(() => {
@@ -588,7 +602,6 @@ export default function UrlaubsfinderMap({
         <MapSidePanel
           marker={selected}
           onClose={() => setSelected(null)}
-          compact={compact}
         />
       )}
 

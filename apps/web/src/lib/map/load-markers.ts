@@ -269,6 +269,8 @@ export interface LoadMarkersOptions {
   layers?: ("destination" | "tip" | "report" | "media" | "anbieter")[];
   /** Wenn gesetzt, nur Marker im Umkreis (km) um diesen Punkt */
   near?: { lat: number; lng: number; radiusKm: number };
+  /** Wenn gesetzt, nur Marker mit destinationSlug, country oder superRegionName, der zur Region passt */
+  forSlug?: string;
 }
 
 export async function loadAllMarkers(opts: LoadMarkersOptions = {}): Promise<MapMarker[]> {
@@ -288,6 +290,34 @@ export async function loadAllMarkers(opts: LoadMarkersOptions = {}): Promise<Map
   if (opts.near) {
     const { lat, lng, radiusKm } = opts.near;
     markers = markers.filter((m) => haversineKm(lat, lng, m.lat, m.lng) <= radiusKm);
+  }
+
+  // Filter auf Catalog-Slug: alle Marker, die geographisch oder per slug
+  // zur Region/dem Land gehören. Sinnvoll fuer eingebettete Destination-Maps
+  // (z. B. /urlaubsziele/tuerkei/ → alle Tuerkei-Marker statt nur 80km Radius).
+  if (opts.forSlug) {
+    const entry = CATALOG.find((e) => e.slug === opts.forSlug);
+    if (entry) {
+      // Alle Catalog-Slugs des gleichen Country oder Super-Region
+      const relatedSlugs = new Set(
+        CATALOG
+          .filter((e) =>
+            e.country === entry.country ||
+            e.superRegionSlug === entry.superRegionSlug ||
+            e.parentSlug === entry.slug ||
+            e.slug === entry.slug
+          )
+          .map((e) => e.slug)
+      );
+      markers = markers.filter((m) => {
+        if (m.kind === "destination") return relatedSlugs.has(m.slug);
+        if (m.kind === "tip")         return true; // Tipps haben keinen slug; lassen wir alle durch
+        if (m.kind === "media")       return relatedSlugs.has(m.destinationSlug);
+        if (m.kind === "report")      return true; // gleiches Problem wie tip
+        if (m.kind === "anbieter")    return m.landName === entry.country || m.landName === entry.superRegionName;
+        return true;
+      });
+    }
   }
 
   return markers;

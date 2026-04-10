@@ -32,7 +32,7 @@ export default async function DestinationSeoEditPage({ params }: Props) {
   );
   const { data } = await supabase
     .from("destination_seo_texts")
-    .select("seo_intro, seo_middle, seo_bottom, seo_h2_middle, seo_h2_bottom")
+    .select("seo_intro, seo_middle, seo_bottom, seo_h2_middle, seo_h2_bottom, meta_title, meta_description, focus_keyword, keywords")
     .eq("slug", slug)
     .maybeSingle();
 

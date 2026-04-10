@@ -94,34 +94,42 @@ export default function MapFilterBar({
   // ── Compact Mode (oben schmal) ─────────────────────────────────────────────
   if (mode === "compact") {
     return (
-      <div className="absolute top-3 left-3 right-3 z-10 flex gap-2 flex-wrap">
-        {/* Layer-Toggles als kleine Chips */}
-        <div className="bg-white/95 backdrop-blur-md rounded-full shadow-lg flex items-center gap-1 px-1.5 py-1.5">
-          {enabledLayers.map((kind) => {
-            const cfg = LAYER_CONFIG[kind];
-            const active = filters.layers.has(kind);
-            return (
-              <button
-                key={kind}
-                onClick={() => toggleLayer(kind)}
-                title={cfg.label}
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-base transition-all ${
-                  active
-                    ? "shadow-md scale-105"
-                    : "opacity-40 hover:opacity-70"
-                }`}
-                style={{ background: active ? cfg.color : "#f3f4f6" }}
-              >
-                <span className={active ? "filter brightness-0 invert" : ""}>{cfg.emoji}</span>
-              </button>
-            );
-          })}
+      <div className="absolute top-3 left-3 right-3 z-10 flex flex-col gap-2">
+        {/* Top-Row: Layer-Pills mit Beschriftung + Counter */}
+        <div className="flex items-start gap-2 flex-wrap">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-lg flex items-center gap-1 px-2 py-1.5 flex-wrap">
+            {enabledLayers.map((kind) => {
+              const cfg = LAYER_CONFIG[kind];
+              const active = filters.layers.has(kind);
+              return (
+                <button
+                  key={kind}
+                  onClick={() => toggleLayer(kind)}
+                  title={cfg.description}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold transition-all whitespace-nowrap ${
+                    active
+                      ? "text-white shadow-md"
+                      : "text-gray-500 bg-gray-100 hover:bg-gray-200"
+                  }`}
+                  style={active ? { background: cfg.color } : undefined}
+                >
+                  <span className="text-sm leading-none">{cfg.emoji}</span>
+                  <span>{cfg.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Counter */}
+          <div className="bg-white/95 backdrop-blur-md rounded-full shadow-lg px-4 py-2 text-xs font-bold text-gray-600 flex items-center shrink-0">
+            {markerCount}
+          </div>
         </div>
 
-        {/* Suche */}
+        {/* Suche (eigene Zeile) */}
         {showSearch && (
-          <div className="flex-1 min-w-[200px] relative">
-            <div className="bg-white/95 backdrop-blur-md rounded-full shadow-lg flex items-center px-3 py-1.5">
+          <div className="relative max-w-md">
+            <div className="bg-white/95 backdrop-blur-md rounded-full shadow-lg flex items-center px-3 py-2">
               <Search className="w-4 h-4 text-gray-400 shrink-0" />
               <input
                 type="text"
@@ -144,11 +152,6 @@ export default function MapFilterBar({
             )}
           </div>
         )}
-
-        {/* Counter */}
-        <div className="bg-white/95 backdrop-blur-md rounded-full shadow-lg px-4 py-1.5 text-xs font-semibold text-gray-600 flex items-center">
-          {markerCount} / {totalCount}
-        </div>
       </div>
     );
   }

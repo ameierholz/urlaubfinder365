@@ -33,6 +33,10 @@ interface DestinationSeoData {
   seo_bottom?: string | null;
   seo_h2_middle?: string | null;
   seo_h2_bottom?: string | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+  focus_keyword?: string | null;
+  keywords?: string | null;
 }
 
 interface Props {
@@ -57,11 +61,15 @@ function TextPreview({ text }: { text: string }) {
 }
 
 export default function DestinationSeoForm({ slug, name, country, initial }: Props) {
-  const [seoIntro, setSeoIntro] = useState(initial?.seo_intro ?? "");
-  const [seoH2Middle, setSeoH2Middle] = useState(initial?.seo_h2_middle ?? "");
-  const [seoMiddle, setSeoMiddle] = useState(initial?.seo_middle ?? "");
-  const [seoH2Bottom, setSeoH2Bottom] = useState(initial?.seo_h2_bottom ?? "");
-  const [seoBottom, setSeoBottom] = useState(initial?.seo_bottom ?? "");
+  const [metaTitle, setMetaTitle]           = useState(initial?.meta_title ?? "");
+  const [metaDesc, setMetaDesc]             = useState(initial?.meta_description ?? "");
+  const [focusKeyword, setFocusKeyword]     = useState(initial?.focus_keyword ?? "");
+  const [keywords, setKeywords]             = useState(initial?.keywords ?? "");
+  const [seoIntro, setSeoIntro]             = useState(initial?.seo_intro ?? "");
+  const [seoH2Middle, setSeoH2Middle]       = useState(initial?.seo_h2_middle ?? "");
+  const [seoMiddle, setSeoMiddle]           = useState(initial?.seo_middle ?? "");
+  const [seoH2Bottom, setSeoH2Bottom]       = useState(initial?.seo_h2_bottom ?? "");
+  const [seoBottom, setSeoBottom]           = useState(initial?.seo_bottom ?? "");
   const [saving, setSaving] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
@@ -126,12 +134,16 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
         body: JSON.stringify({
           slug,
           name,
-          country: country ?? null,
-          seo_intro:     seoIntro || null,
-          seo_h2_middle: seoH2Middle || null,
-          seo_middle:    seoMiddle || null,
-          seo_h2_bottom: seoH2Bottom || null,
-          seo_bottom:    seoBottom || null,
+          country:          country ?? null,
+          meta_title:       metaTitle || null,
+          meta_description: metaDesc || null,
+          focus_keyword:    focusKeyword || null,
+          keywords:         keywords || null,
+          seo_intro:        seoIntro || null,
+          seo_h2_middle:    seoH2Middle || null,
+          seo_middle:       seoMiddle || null,
+          seo_h2_bottom:    seoH2Bottom || null,
+          seo_bottom:       seoBottom || null,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -146,7 +158,9 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
     }
   };
 
-  const totalWords = [seoIntro, seoMiddle, seoBottom].join(" ").split(/\s+/).filter((w) => w.length > 1).length;
+  const totalWords       = [seoIntro, seoMiddle, seoBottom].join(" ").split(/\s+/).filter((w) => w.length > 1).length;
+  const metaTitleLen     = metaTitle.length;
+  const metaDescLen      = metaDesc.length;
 
   const inputClass = "w-full bg-gray-900 text-white border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-teal-500 placeholder-gray-600";
   const labelClass = "block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1";
@@ -222,6 +236,85 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
           </details>
         </div>
       )}
+
+      {/* ── SEO-Metadaten ─────────────────────────────────────── */}
+      <div className="border border-gray-700 rounded-xl p-5 space-y-4 bg-gray-800/30">
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+          🔍 SEO-Metadaten
+        </h3>
+
+        {/* Meta Titel */}
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label className={labelClass}>Meta-Titel</label>
+            <span className={`text-xs font-mono ${metaTitleLen > 60 ? "text-red-400" : metaTitleLen > 50 ? "text-yellow-400" : "text-gray-500"}`}>
+              {metaTitleLen}/60
+            </span>
+          </div>
+          <input
+            type="text"
+            value={metaTitle}
+            onChange={(e) => setMetaTitle(e.target.value)}
+            maxLength={80}
+            placeholder={`${name} Urlaub – Pauschalreisen, Preise & Tipps`}
+            className={inputClass}
+          />
+          {metaTitleLen > 0 && (
+            <div className="mt-1.5 bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-xs text-blue-300 font-medium truncate">
+              {metaTitle}
+            </div>
+          )}
+        </div>
+
+        {/* Meta Description */}
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label className={labelClass}>Meta-Description</label>
+            <span className={`text-xs font-mono ${metaDescLen > 160 ? "text-red-400" : metaDescLen > 140 ? "text-yellow-400" : "text-gray-500"}`}>
+              {metaDescLen}/160
+            </span>
+          </div>
+          <textarea
+            value={metaDesc}
+            onChange={(e) => setMetaDesc(e.target.value)}
+            rows={2}
+            maxLength={200}
+            placeholder={`${name} Urlaub günstig buchen ✓ Pauschalreisen ab X € ✓ Preisverlauf & Buchungsempfehlung ✓ Jetzt vergleichen`}
+            className={inputClass + " resize-none"}
+          />
+          {metaDescLen > 0 && (
+            <div className="mt-1.5 bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-xs text-gray-400 leading-relaxed">
+              {metaDesc}
+            </div>
+          )}
+        </div>
+
+        {/* Fokus-Keyword + weitere Keywords */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Fokus-Keyword</label>
+            <input
+              type="text"
+              value={focusKeyword}
+              onChange={(e) => setFocusKeyword(e.target.value)}
+              placeholder={`${name} Urlaub`}
+              className={inputClass}
+            />
+            <p className="text-[10px] text-gray-600 mt-1">Hauptbegriff, auf den die Seite optimiert ist</p>
+          </div>
+          <div>
+            <label className={labelClass}>Weitere Keywords</label>
+            <input
+              type="text"
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
+              placeholder={`${name} All Inclusive, günstig ${name}, ${name} Pauschalreise`}
+              className={inputClass}
+            />
+            <p className="text-[10px] text-gray-600 mt-1">Kommagetrennt</p>
+          </div>
+        </div>
+      </div>
 
       {/* Wort-Counter */}
       <div className="flex items-center gap-3 text-xs">

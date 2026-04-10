@@ -16,11 +16,12 @@ import NearbyActivities from "./NearbyActivities";
 interface Props {
   marker:  MapMarker;
   onClose: () => void;
-  compact?: boolean;
 }
 
 // Side-Panel-Layout via injizierter CSS — unabhängig von Tailwind-Spacing-Scale.
-// Mobile (< 640px): Bottom-Sheet · Desktop: rechts angedockt 400px
+// Mobile (< 640px): Bottom-Sheet · Desktop: rechts angedockt
+// Auch der compact-Mode (eingebettet auf Destination-Seite) ist auf Desktop
+// rechts angedockt, damit der Inhalt klarer als Side-Panel erkennbar ist.
 const PANEL_CSS = `
   .uf-side-panel {
     position: absolute;
@@ -29,24 +30,22 @@ const PANEL_CSS = `
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    /* Mobile default */
+    /* Mobile default: Bottom-Sheet */
     left: 0;
     right: 0;
     bottom: 0;
-    max-height: 70%;
+    max-height: 75%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
   }
-  .uf-side-panel--compact {
-    max-height: 60%;
-  }
   @media (min-width: 640px) {
-    .uf-side-panel:not(.uf-side-panel--compact) {
+    /* Desktop: immer rechts angedockt */
+    .uf-side-panel {
       left: auto;
       top: 0;
       right: 0;
       bottom: 0;
-      width: 400px;
+      width: 380px;
       max-height: none;
       border-top-left-radius: 1rem;
       border-bottom-left-radius: 1rem;
@@ -66,13 +65,13 @@ function PanelStyles() {
   return null;
 }
 
-export default function MapSidePanel({ marker, onClose, compact = false }: Props) {
+export default function MapSidePanel({ marker, onClose }: Props) {
   const cfg = LAYER_CONFIG[marker.kind];
 
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className={`uf-side-panel${compact ? " uf-side-panel--compact" : ""}`}
+      className="uf-side-panel"
     >
       <PanelStyles />
       {/* Header */}
