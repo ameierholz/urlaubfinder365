@@ -22,11 +22,13 @@ export default function MapSidePanel({ marker, onClose, compact = false }: Props
 
   return (
     <div
-      className={`absolute z-20 bg-white shadow-2xl flex flex-col ${
+      onClick={(e) => e.stopPropagation()}
+      className={`absolute bg-white shadow-2xl flex flex-col ${
         compact
           ? "bottom-0 left-0 right-0 max-h-[60%] rounded-t-2xl"
           : "top-0 right-0 bottom-0 w-full sm:w-[400px] sm:rounded-l-2xl"
       }`}
+      style={{ zIndex: 1000 }}
     >
       {/* Header */}
       <div
@@ -43,9 +45,14 @@ export default function MapSidePanel({ marker, onClose, compact = false }: Props
           </div>
         </div>
         <button
-          onClick={onClose}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onClose();
+          }}
           aria-label="Schließen"
-          className="shrink-0 ml-3 text-white/80 hover:text-white p-1 rounded-full hover:bg-white/15 transition-colors"
+          className="shrink-0 ml-3 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/15 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -268,6 +275,18 @@ function AnbieterBody({ m }: { m: Extract<MapMarker, { kind: "anbieter" }> }) {
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
           <MapPin className="w-3.5 h-3.5" />
           <span>{[m.stadt, m.landName].filter(Boolean).join(", ")}</span>
+        </div>
+      )}
+
+      {/* Aktive Angebote + Bestpreis */}
+      {m.priceFrom !== undefined && m.offerCount !== undefined && m.offerCount > 0 && (
+        <div className="bg-purple-50 border border-purple-100 rounded-xl px-4 py-3">
+          <p className="text-[11px] text-purple-600 font-semibold uppercase tracking-wider">
+            {m.offerCount === 1 ? "1 Aktivität verfügbar" : `${m.offerCount} Aktivitäten verfügbar`}
+          </p>
+          <p className="font-black text-purple-700 text-lg leading-tight">
+            ab {m.priceFrom.toLocaleString("de-DE", { maximumFractionDigits: 0 })} €
+          </p>
         </div>
       )}
 

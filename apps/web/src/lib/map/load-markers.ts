@@ -29,7 +29,30 @@ function db() {
 
 // ─── Destinations (273 aus Catalog, statisch) ───────────────────────────────
 
-function loadDestinationMarkers(): DestinationMarker[] {
+async function loadDestinationMarkers(): Promise<DestinationMarker[]> {
+  // Pauschal-Bestpreis pro Slug aus dem letzten verfügbaren Datum laden
+  // (price_history wird täglich vom collect-prices Cron befüllt)
+  const priceMap = new Map<string, number>();
+  try {
+    const { data } = await db()
+      .from("price_history")
+      .select("destination_slug, min_price, date")
+      .eq("profile", "pauschal")
+      .order("date", { ascending: false })
+      .limit(2000);
+    if (data) {
+      // Pro Slug nur den neuesten Eintrag behalten
+      for (const row of data) {
+        const slug = row.destination_slug as string;
+        if (!priceMap.has(slug)) {
+          priceMap.set(slug, Math.round(Number(row.min_price)));
+        }
+      }
+    }
+  } catch {
+    // Keine Preisdaten → priceFrom bleibt undefined
+  }
+
   return CATALOG
     .filter((e) => e.coordinates)
     .map((e): DestinationMarker => ({
@@ -44,6 +67,7 @@ function loadDestinationMarkers(): DestinationMarker[] {
       superRegion: e.superRegionName,
       type:        e.type,
       imageUrl:    generateHeroFallback(e.unsplashKeyword),
+      priceFrom:   priceMap.get(e.slug),
     }));
 }
 
@@ -148,18 +172,48 @@ async function loadMediaMarkers(): Promise<MediaMarker[]> {
 // ─── Anbieter (65 aus anbieter_profile) ─────────────────────────────────────
 
 async function loadAnbieterMarkers(): Promise<AnbieterMarker[]> {
-  const { data, error } = await db()
+  const supabase = db();
+
+  // Aktive Anbieter laden
+  const { data: anbieter, error } = await supabase
     .from("anbieter_profile")
     .select("id, name, kategorie, bio, avatar_url, stadt, land_name, verifiziert, status")
     .eq("status", "aktiv");
 
-  if (error || !data) return [];
+  if (error || !anbieter) return [];
+
+  // Min-Preis + Anzahl aktiver Angebote pro Anbieter laden
+  const offerStats = new Map<string, { priceFrom: number; offerCount: number }>();
+  try {
+    const { data: angebote } = await supabase
+      .from("angebote")
+      .select("anbieter_id, preis, status")
+      .eq("status", "aktiv")
+      .not("preis", "is", null);
+    if (angebote) {
+      for (const o of angebote) {
+        const aid = o.anbieter_id as string;
+        const preis = Number(o.preis);
+        if (!Number.isFinite(preis) || preis <= 0) continue;
+        const cur = offerStats.get(aid);
+        if (!cur) {
+          offerStats.set(aid, { priceFrom: preis, offerCount: 1 });
+        } else {
+          cur.offerCount += 1;
+          if (preis < cur.priceFrom) cur.priceFrom = preis;
+        }
+      }
+    }
+  } catch {
+    // Keine Angebots-Daten verfügbar → priceFrom bleibt undefined
+  }
 
   const out: AnbieterMarker[] = [];
-  for (const a of data) {
+  for (const a of anbieter) {
     const geo = lookupGeo(a.stadt, a.land_name);
     if (!geo) continue;
     const j = jitter(geo.lat, geo.lng, a.id, 6);
+    const stats = offerStats.get(a.id);
 
     out.push({
       id:          `anbieter-${a.id}`,
@@ -175,6 +229,8 @@ async function loadAnbieterMarkers(): Promise<AnbieterMarker[]> {
       stadt:       a.stadt ?? undefined,
       landName:    a.land_name ?? undefined,
       verifiziert: !!a.verifiziert,
+      priceFrom:   stats?.priceFrom,
+      offerCount:  stats?.offerCount,
     });
   }
   return out;
@@ -192,7 +248,7 @@ export async function loadAllMarkers(opts: LoadMarkersOptions = {}): Promise<Map
   const layers = opts.layers ?? ["destination", "tip", "report", "media", "anbieter"];
 
   const tasks: Promise<MapMarker[]>[] = [];
-  if (layers.includes("destination")) tasks.push(Promise.resolve(loadDestinationMarkers()));
+  if (layers.includes("destination")) tasks.push(loadDestinationMarkers());
   if (layers.includes("tip"))         tasks.push(loadTipMarkers());
   if (layers.includes("report"))      tasks.push(loadReportMarkers());
   if (layers.includes("media"))       tasks.push(loadMediaMarkers());

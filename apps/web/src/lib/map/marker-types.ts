@@ -76,6 +76,10 @@ export interface AnbieterMarker extends BaseMarker {
   stadt?:      string;
   landName?:   string;
   verifiziert: boolean;
+  /** Günstigstes aktives Angebot des Anbieters in € */
+  priceFrom?:  number;
+  /** Anzahl aktiver Angebote */
+  offerCount?: number;
 }
 
 export type MapMarker =
