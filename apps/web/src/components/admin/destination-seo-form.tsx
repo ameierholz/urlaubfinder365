@@ -1,8 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { createBrowserClient } from "@supabase/ssr";
 import { Sparkles, ScanSearch, Check, X } from "lucide-react";
+
+// Robuste Error-zu-String Konversion. Supabase-Errors sind oft Objekte
+// ohne enumerable properties → JSON.stringify liefert "{}", String(err)
+// liefert "[object Object]". Wir extrahieren message/code/details.
+function errorToText(err: unknown): string {
+  if (!err) return "Unbekannter Fehler";
+  if (typeof err === "string") return err;
+  if (err instanceof Error) return err.message;
+  if (typeof err === "object") {
+    const e = err as Record<string, unknown>;
+    const parts: string[] = [];
+    if (typeof e.message === "string") parts.push(e.message);
+    if (typeof e.error === "string")   parts.push(e.error);
+    if (typeof e.code === "string")    parts.push(`(${e.code})`);
+    if (typeof e.details === "string") parts.push(e.details);
+    if (parts.length > 0) return parts.join(" ");
+    try {
+      return JSON.stringify(err);
+    } catch {
+      return "Unbekannter Fehler";
+    }
+  }
+  return String(err);
+}
 
 interface DestinationSeoData {
   seo_intro?: string | null;
@@ -56,10 +79,10 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
         body: JSON.stringify({ pagePath, focusKeyword: `${name} Urlaub` }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(errorToText(data.error ?? data));
       setAnalysis(data);
     } catch (err) {
-      setMessage({ type: "error", text: `Analyse fehlgeschlagen: ${err}` });
+      setMessage({ type: "error", text: `Analyse fehlgeschlagen: ${errorToText(err)}` });
     } finally {
       setAnalyzing(false);
     }
@@ -75,7 +98,7 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
         body: JSON.stringify({ slug, name, country }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(errorToText(data.error ?? data));
 
       setSeoIntro(data.seo_intro ?? "");
       setSeoH2Middle(data.seo_h2_middle ?? "");
@@ -84,35 +107,40 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
       setSeoBottom(data.seo_bottom ?? "");
       setMessage({ type: "success", text: "KI-Texte übernommen. Bitte prüfen und speichern." });
     } catch (err) {
-      setMessage({ type: "error", text: String(err) });
+      setMessage({ type: "error", text: errorToText(err) });
     } finally {
       setGenerating(false);
     }
   };
 
+  // Speichern erfolgt jetzt server-side via /api/admin/save-destination-seo,
+  // weil destination_seo_texts nur eine Public-Read-Policy hat — direktes
+  // Schreiben aus dem Browser via anon-key wird von RLS blockiert.
   const handleSave = async () => {
     setSaving(true);
     setMessage(null);
     try {
-      const supabase = createBrowserClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
-      const { error } = await supabase.from("destination_seo_texts").upsert(
-        {
-          slug, name, country,
-          seo_intro: seoIntro || null,
+      const res = await fetch("/api/admin/save-destination-seo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          slug,
+          name,
+          country: country ?? null,
+          seo_intro:     seoIntro || null,
           seo_h2_middle: seoH2Middle || null,
-          seo_middle: seoMiddle || null,
+          seo_middle:    seoMiddle || null,
           seo_h2_bottom: seoH2Bottom || null,
-          seo_bottom: seoBottom || null,
-        },
-        { onConflict: "slug" }
-      );
-      if (error) throw error;
+          seo_bottom:    seoBottom || null,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(errorToText(data?.error ?? data) || `HTTP ${res.status}`);
+      }
       setMessage({ type: "success", text: `SEO-Texte für „${name}" gespeichert.` });
     } catch (err) {
-      setMessage({ type: "error", text: "Fehler: " + String(err) });
+      setMessage({ type: "error", text: "Fehler: " + errorToText(err) });
     } finally {
       setSaving(false);
     }

@@ -24,6 +24,7 @@ import PriceChart from "@/components/destination/price-chart";
 import BookingAdvisor from "@/components/destination/booking-advisor";
 import PriceAlertWidget from "@/components/destination/price-alert-widget";
 import HomeDealCard from "@/components/home/HomeDealCard";
+import AdBanner from "@/components/ui/AdBanner";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
@@ -816,29 +817,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
 
-      {/* SEO Middle – Kompletter Reiseführer (ganz unten) */}
-      {seoTexts?.seo_middle && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 lg:p-10">
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-8">
-              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
-            </h2>
-            <div className="max-w-none text-gray-600 leading-relaxed space-y-4">
-              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
-                const trimmed = block.trim();
-                // Kurze Zeilen ohne Punkt am Ende = Zwischenüberschrift
-                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
-                if (isHeading) {
-                  return <h3 key={i} className="text-lg font-bold text-gray-900 mt-8 mb-2">{trimmed}</h3>;
-                }
-                return <p key={i} className="text-[15px] text-gray-600 leading-[1.8]">{trimmed}</p>;
-              })}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* SEO Bottom – Buchungs-CTA */}
+      {/* SEO Bottom – Buchungs-CTA (vor dem langen Reiseführer-Text) */}
       {seoTexts?.seo_bottom && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="bg-linear-to-br from-[#0d1f35] to-[#1a3a5c] rounded-2xl p-6 sm:p-8 text-white">
@@ -857,6 +836,33 @@ export default async function DestinationPage({ params }: Props) {
               <Link href="/last-minute/" className="bg-white/15 hover:bg-white/25 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Last-Minute Deals
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SEO Middle – Kompletter Reiseführer (langer Text ganz unten) */}
+      {seoTexts?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 lg:p-10">
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-8">
+              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
+            </h2>
+            <div className="max-w-none text-gray-600 leading-relaxed space-y-4">
+              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
+                const trimmed = block.trim();
+                // Kurze Zeilen ohne Punkt am Ende = Zwischenüberschrift
+                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
+                if (isHeading) {
+                  return <h3 key={i} className="text-lg font-bold text-gray-900 mt-8 mb-2">{trimmed}</h3>;
+                }
+                return <p key={i} className="text-[15px] text-gray-600 leading-[1.8]">{trimmed}</p>;
+              })}
+            </div>
+
+            {/* adup-tech Werbeslot — direkt nach dem langen SEO-Text */}
+            <div className="mt-10 pt-8 border-t border-gray-100">
+              <AdBanner placementKey="0e94b36d3e60c61a2c3a10bc481fe508" height={250} />
             </div>
           </div>
         </div>
