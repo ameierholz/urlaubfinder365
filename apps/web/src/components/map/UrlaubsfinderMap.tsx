@@ -54,8 +54,15 @@ function LeafletAssets() {
       style.setAttribute("data-uf-marker-css", "true");
       style.textContent = `
         .uf-marker { cursor: pointer !important; }
-        .uf-marker-pill > div { transition: transform 0.15s ease, box-shadow 0.15s ease; }
-        .uf-marker-pill:hover > div { transform: scale(1.08); box-shadow: 0 4px 14px rgba(0,0,0,0.28) !important; }
+        .uf-marker-pill .uf-pill-wrap > div:first-of-type {
+          transition: transform 0.15s ease, box-shadow 0.15s ease;
+          transform-origin: 50% 100%;
+        }
+        .uf-marker-pill:hover .uf-pill-wrap > div:first-of-type {
+          transform: translate(-50%, -100%) scale(1.08);
+          box-shadow: 0 5px 16px rgba(0,0,0,0.32) !important;
+          z-index: 10;
+        }
         .uf-marker-drop:hover > div { transform: rotate(-45deg) scale(1.12); }
       `;
       document.head.appendChild(style);
@@ -97,32 +104,68 @@ function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
     const price = m.kind === "destination" || m.kind === "anbieter"
       ? Math.round(m.priceFrom!)
       : 0;
+    // Pille mit Pfeil-Schwanz und Punkt unten — Spitze sitzt exakt auf lat/lng.
+    // Wrapper hat width:0/height:0 + transform-Magic, damit variable Pillen-Breiten
+    // immer mittig über dem Punkt sitzen.
     const html = `
-      <div style="
-        display: inline-flex;
+      <div class="uf-pill-wrap" style="
+        position: relative;
+        width: 0;
+        height: 0;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 4px;
-        background: white;
-        border: 2px solid ${cfg.color};
-        border-radius: 999px;
-        padding: 4px 10px 4px 6px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.18);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        font-weight: 700;
-        font-size: 12px;
-        color: ${cfg.color};
-        white-space: nowrap;
-        line-height: 1;
       ">
-        <span style="font-size: 13px;">${cfg.emoji}</span>
-        <span>ab ${price} €</span>
+        <div style="
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: white;
+          border: 2px solid ${cfg.color};
+          border-radius: 999px;
+          padding: 5px 11px 5px 7px;
+          box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          font-weight: 800;
+          font-size: 12px;
+          color: ${cfg.color};
+          white-space: nowrap;
+          line-height: 1;
+          transform: translate(-50%, -100%);
+          margin-bottom: 8px;
+        ">
+          <span style="font-size: 13px;">${cfg.emoji}</span>
+          <span>ab ${price} €</span>
+        </div>
+        <!-- Verbindungslinie + Endpunkt direkt am Pin -->
+        <div style="
+          position: absolute;
+          left: 0;
+          top: -8px;
+          width: 2px;
+          height: 8px;
+          background: ${cfg.color};
+          transform: translateX(-50%);
+        "></div>
+        <div style="
+          position: absolute;
+          left: 0;
+          top: -2px;
+          width: 8px;
+          height: 8px;
+          background: white;
+          border: 2px solid ${cfg.color};
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        "></div>
       </div>
     `;
     return L.divIcon({
       html,
       className:  `uf-marker uf-marker-pill uf-marker-${m.kind}`,
-      iconSize:   undefined,    // auto-size by content
-      iconAnchor: [40, 14],     // ungefähr Mitte unten
+      iconSize:   [0, 0],
+      iconAnchor: [0, 0],
     });
   }
 
