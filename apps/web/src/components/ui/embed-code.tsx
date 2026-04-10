@@ -36,7 +36,7 @@ export function EmbedCode({
   const iframeCode = `<iframe
   src="${embedUrl}"
   width="500"
-  height="260"
+  height="340"
   frameborder="0"
   scrolling="no"
   style="border-radius:12px;overflow:hidden;max-width:100%"
