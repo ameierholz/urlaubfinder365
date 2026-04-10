@@ -37,6 +37,10 @@ interface SeoTexts {
   seo_bottom: string | null;
   seo_h2_middle: string | null;
   seo_h2_bottom: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  focus_keyword: string | null;
+  keywords: string | null;
 }
 
 async function fetchSeoTexts(slug: string): Promise<SeoTexts | null> {
@@ -47,7 +51,7 @@ async function fetchSeoTexts(slug: string): Promise<SeoTexts | null> {
     );
     const { data } = await supabase
       .from("destination_seo_texts")
-      .select("seo_intro, seo_middle, seo_bottom, seo_h2_middle, seo_h2_bottom")
+      .select("seo_intro, seo_middle, seo_bottom, seo_h2_middle, seo_h2_bottom, meta_title, meta_description, focus_keyword, keywords")
       .eq("slug", slug)
       .maybeSingle();
     return data;
@@ -82,14 +86,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!dest) return {};
 
-  const title       = dest.metaTitle       ?? `${dest.name} Urlaub – Günstige Pauschalreisen`;
-  const description = dest.metaDescription ?? dest.description;
+  // DB-Werte haben Vorrang vor den hardcodierten Config-Fallbacks
+  const seoTexts = await fetchSeoTexts(dest.slug);
+
+  const title       = seoTexts?.meta_title       || dest.metaTitle       || `${dest.name} Urlaub – Günstige Pauschalreisen`;
+  const description = seoTexts?.meta_description || dest.metaDescription || dest.description;
   const canonical   = `${BASE_URL}/urlaubsziele/${dest.slug}/`;
   const ogImage     = dest.heroImageFallback ?? dest.heroImage;
+
+  // Weitere Keywords für <meta name="keywords"> (optional, schwacher SEO-Faktor)
+  const keywordsMeta = seoTexts?.keywords ?? undefined;
 
   return {
     title,
     description,
+    ...(keywordsMeta ? { keywords: keywordsMeta } : {}),
     robots: { index: true, follow: true },
     alternates: { canonical },
     openGraph: {
