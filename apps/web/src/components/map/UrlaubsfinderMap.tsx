@@ -423,32 +423,55 @@ export default function UrlaubsfinderMap({
     });
 
     // Bounds-Change-Handler — debounced fürs Hotels-Lazy-Loading
+    // Defensive: in React StrictMode wird der Effect doppelt mounted/unmounted.
+    // Wenn der setTimeout aus dem ersten Mount nach dem Cleanup feuert, hat
+    // map.remove() bereits _leaflet_pos und interne Container gelöscht.
+    // → cancelled-Flag + try/catch um getBounds().
     let boundsTimer: ReturnType<typeof setTimeout> | null = null;
+    let cancelled = false;
     const emitBounds = () => {
+      if (cancelled) return;
       if (!onBoundsRef.current) return;
       if (boundsTimer) clearTimeout(boundsTimer);
       boundsTimer = setTimeout(() => {
-        const b = map.getBounds();
-        onBoundsRef.current?.({
-          north: b.getNorth(),
-          south: b.getSouth(),
-          east:  b.getEast(),
-          west:  b.getWest(),
-        });
+        if (cancelled) return;
+        // Map-Container könnte bereits entfernt worden sein (StrictMode-Cycle)
+        try {
+          // @ts-expect-error _container ist intern, aber wir prüfen es defensiv
+          if (!map._container || !map._container.parentNode) return;
+          const b = map.getBounds();
+          onBoundsRef.current?.({
+            north: b.getNorth(),
+            south: b.getSouth(),
+            east:  b.getEast(),
+            west:  b.getWest(),
+          });
+        } catch {
+          // Map war schon entfernt — silent fail
+        }
       }, 250);
     };
     map.on("moveend", emitBounds);
     map.on("zoomend", emitBounds);
-    // Initial bounds emitten
-    emitBounds();
+    // Initial bounds emitten — etwas länger warten, damit Layout fertig ist
+    setTimeout(emitBounds, 100);
 
     mapRef.current = map;
     clusterRef.current = cluster;
 
     // Cleanup
     return () => {
-      map.off();
-      map.remove();
+      cancelled = true;
+      if (boundsTimer) {
+        clearTimeout(boundsTimer);
+        boundsTimer = null;
+      }
+      try {
+        map.off();
+        map.remove();
+      } catch {
+        // doppelter Cleanup im StrictMode — silent
+      }
       mapRef.current = null;
       clusterRef.current = null;
       markersRef.current = [];
