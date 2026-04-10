@@ -24,7 +24,7 @@ import PriceChart from "@/components/destination/price-chart";
 import BookingAdvisor from "@/components/destination/booking-advisor";
 import PriceAlertWidget from "@/components/destination/price-alert-widget";
 import HomeDealCard from "@/components/home/HomeDealCard";
-import AdBanner from "@/components/ui/AdBanner";
+import AdSlot from "@/components/ads/AdSlot";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
@@ -443,6 +443,11 @@ export default async function DestinationPage({ params }: Props) {
               </Suspense>
             </div>
 
+            {/* Werbeslot — Content oben (über den Top-Deals) */}
+            <div className="mt-8">
+              <AdSlot slotKey="destination_content_top" />
+            </div>
+
             {/* TOP-DEALS */}
             {topDeals.length > 0 && (
               <div id="top-deals" className="mt-12 scroll-mt-24">
@@ -534,6 +539,11 @@ export default async function DestinationPage({ params }: Props) {
             {/* Buchungsempfehlung + Preisalarm → in Sidebar verschoben */}
 
             {/* Preisverlauf → nach unten verschoben (über Flugverbindungen) */}
+
+            {/* Werbeslot — Content Mitte (zwischen Pauschal und All-Inclusive) */}
+            <div className="mt-8">
+              <AdSlot slotKey="destination_content_mid" />
+            </div>
 
             {/* All-Inclusive */}
             <div id="all-inclusive" className="mt-12 scroll-mt-24">
@@ -651,6 +661,8 @@ export default async function DestinationPage({ params }: Props) {
             <div className="sticky top-24 space-y-5">
               <RightSidebar
                 dealRegionIds={hasIbeData ? effectiveIbeIds : []}
+                adSlotTop="destination_sidebar_top"
+                adSlotBottom="destination_sidebar_bottom"
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=200&q=70&auto=format&fit=crop",
                   eyebrow: "Jetzt buchen",
@@ -860,9 +872,10 @@ export default async function DestinationPage({ params }: Props) {
               })}
             </div>
 
-            {/* adup-tech Werbeslot — direkt nach dem langen SEO-Text */}
+            {/* Werbeslot — direkt nach dem langen SEO-Text. Code wird vom Admin
+                unter /admin/werbeplaetze/ (slot_key=destination_content_bottom) gepflegt. */}
             <div className="mt-10 pt-8 border-t border-gray-100">
-              <AdBanner placementKey="0e94b36d3e60c61a2c3a10bc481fe508" height={250} />
+              <AdSlot slotKey="destination_content_bottom" minHeight={120} />
             </div>
           </div>
         </div>

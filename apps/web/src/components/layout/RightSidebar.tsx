@@ -5,6 +5,7 @@
 
 import Link from "next/link";
 import AdBanner from "@/components/ui/AdBanner";
+import AdSlot from "@/components/ads/AdSlot";
 import SponsoredAnbieter from "@/components/marktplatz/SponsoredAnbieter";
 import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
 import LocalPartnersWidget from "@/components/marktplatz/LocalPartnersWidget";
@@ -34,16 +35,22 @@ interface Props {
   afterLinks?: React.ReactNode;
   /** Slot: wird über Lokale Partner angezeigt (z.B. Preisalarm) */
   beforeLocalPartners?: React.ReactNode;
+  /** Optional: Ad-Slot-Keys für admin-verwaltete Werbeplätze (sidebar top/bottom) */
+  adSlotTop?: string;
+  adSlotBottom?: string;
 }
 
 const DEFAULT_AD_KEY = "6e805e1e43279dbf742fa3dca2efc442";
 
-export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds, afterLinks, beforeLocalPartners }: Props) {
+export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle, adPlacementKey, dealRegionIds, afterLinks, beforeLocalPartners, adSlotTop, adSlotBottom }: Props) {
   const t = await getTranslations("ui.sidebar");
   const accent = extrasBox?.accentColor ?? "bg-[#1db682]";
 
   return (
     <div className="space-y-4">
+
+      {/* Werbeslot — Sidebar oben (admin-managed) */}
+      {adSlotTop && <AdSlot slotKey={adSlotTop} />}
 
       {/* ── Deal des Tages (Live-Verfügbarkeit) ─────────────────────── */}
       {dealRegionIds && dealRegionIds.length > 0 && (
@@ -189,16 +196,21 @@ export default async function RightSidebar({ extrasBox, seoLinks, seoLinksTitle,
         </div>
       </div>
 
-      {/* ── AdBanner ────────────────────────────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
-          {t("adLabel")}
-        </p>
-        <AdBanner
-          placementKey={adPlacementKey ?? DEFAULT_AD_KEY}
-          height={280}
-        />
-      </div>
+      {/* Werbeslot — Sidebar unten (admin-managed). Falls leer, fällt der
+          alte AdBanner mit Default-Placement-Key zurück. */}
+      {adSlotBottom ? (
+        <AdSlot slotKey={adSlotBottom} />
+      ) : (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <p className="text-[10px] text-gray-400 text-center py-1.5 uppercase tracking-widest font-semibold border-b border-gray-100">
+            {t("adLabel")}
+          </p>
+          <AdBanner
+            placementKey={adPlacementKey ?? DEFAULT_AD_KEY}
+            height={280}
+          />
+        </div>
+      )}
 
     </div>
   );
