@@ -108,12 +108,16 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
       const data = await res.json();
       if (!res.ok) throw new Error(errorToText(data.error ?? data));
 
+      if (data.meta_title)       setMetaTitle(data.meta_title);
+      if (data.meta_description) setMetaDesc(data.meta_description);
+      if (data.focus_keyword)    setFocusKeyword(data.focus_keyword);
+      if (data.keywords)         setKeywords(data.keywords);
       setSeoIntro(data.seo_intro ?? "");
       setSeoH2Middle(data.seo_h2_middle ?? "");
       setSeoMiddle(data.seo_middle ?? "");
       setSeoH2Bottom(data.seo_h2_bottom ?? "");
       setSeoBottom(data.seo_bottom ?? "");
-      setMessage({ type: "success", text: "KI-Texte übernommen. Bitte prüfen und speichern." });
+      setMessage({ type: "success", text: "KI-Texte & Meta-Daten übernommen. Bitte prüfen und speichern." });
     } catch (err) {
       setMessage({ type: "error", text: errorToText(err) });
     } finally {

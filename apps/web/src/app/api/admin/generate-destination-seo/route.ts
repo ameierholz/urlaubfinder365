@@ -24,6 +24,10 @@ SEITENAUFBAU (von oben nach unten):
 
 Antworte AUSSCHLIESSLICH mit folgendem JSON:
 {
+  "meta_title": "Max. 60 Zeichen. Pflicht-Keyword '${name} Urlaub' am Anfang. Beispiel: '${name} Urlaub – Günstige Pauschalreisen ${new Date().getFullYear()}'",
+  "meta_description": "Max. 155 Zeichen. Enthält Keyword, konkreten Nutzen, Zahl oder USP, schwaches CTA. Beispiel: '${name} Urlaub günstig buchen ✓ Preisvergleich ✓ Preisverlauf ✓ Pauschalreisen ab X € – jetzt vergleichen'",
+  "focus_keyword": "Hauptkeyword, z.B. '${name} Urlaub'",
+  "keywords": "5-8 weitere Keywords, kommagetrennt. z.B. 'Pauschalreise ${name}, ${name} All Inclusive, ${name} buchen, günstig ${name}, ${name} Last Minute'",
   "seo_intro": "2-3 emotionale Sätze die Lust auf ${name} machen. Echte Highlights, keine Floskeln. Max. 60 Wörter.",
   "seo_h2_middle": "Kurze H2 mit Keyword, z.B. '${name} – Was dich erwartet'",
   "seo_middle": "1-2 Absätze (durch \\n\\n getrennt). Kurze Highlights: Klima, beste Reisezeit, 1-2 Top-Sehenswürdigkeiten. Max. 80 Wörter. Kein Fließtext, keine Listen.",
@@ -48,7 +52,7 @@ WICHTIG:
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 2048,
+        max_tokens: 3000,
         messages: [{ role: "user", content: prompt }],
       }),
     });
