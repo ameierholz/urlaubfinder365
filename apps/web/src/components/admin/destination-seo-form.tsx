@@ -341,9 +341,9 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
             placeholder={`z. B. ${name} – Strände, Kultur & Reisetipps`} className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>SEO-Text Mitte (informativ, 200+ Wörter)</label>
-          <textarea value={seoMiddle} onChange={(e) => setSeoMiddle(e.target.value)} rows={10}
-            placeholder={`Ausführlicher Text über ${name}…\n\nAbsätze mit Leerzeile trennen.`} className={inputClass + " resize-y"} />
+          <label className={labelClass}>SEO-Text Mitte (kurz, vor Aktivitäten – max. 80 Wörter)</label>
+          <textarea value={seoMiddle} onChange={(e) => setSeoMiddle(e.target.value)} rows={4}
+            placeholder={`Kurze Highlights: Klima, beste Reisezeit, Top-Sehenswürdigkeit…`} className={inputClass + " resize-y"} />
           <TextPreview text={seoMiddle} />
         </div>
       </div>
@@ -356,9 +356,9 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
             placeholder={`z. B. ${name}-Urlaub günstig buchen`} className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>SEO-Text unten (CTA, Buchung)</label>
-          <textarea value={seoBottom} onChange={(e) => setSeoBottom(e.target.value)} rows={6}
-            placeholder={`Call-to-Action Text für ${name}…`} className={inputClass + " resize-y"} />
+          <label className={labelClass}>SEO-Text unten (langer Reiseführer + CTA, 250–350 Wörter)</label>
+          <textarea value={seoBottom} onChange={(e) => setSeoBottom(e.target.value)} rows={10}
+            placeholder={`Ausführlicher Reiseführer: Reisezeit, Strände, Aktivitäten, Kulinarik, Buchungstipp…\n\nAbsätze mit Leerzeile trennen.`} className={inputClass + " resize-y"} />
           <TextPreview text={seoBottom} />
         </div>
       </div>

@@ -636,6 +636,26 @@ export default async function DestinationPage({ params }: Props) {
             {/* Embed-Widget für Blogger & Medienseiten */}
             <EmbedWidgetSection destinationSlug={dest.slug} destinationName={dest.name} />
 
+            {/* SEO Middle – vor Aktivitäten */}
+            {seoTexts?.seo_middle && (
+              <div className="mt-10">
+                <div className="relative rounded-2xl p-6 sm:p-8 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
+                  <Info className="absolute top-4 right-4 w-4 h-4 text-white/20" />
+                  <h2 className="text-2xl sm:text-3xl font-black text-white mb-6">
+                    {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
+                  </h2>
+                  <div className="leading-relaxed space-y-4">
+                    {seoTexts.seo_middle.split("\n\n").map((block, i) => {
+                      const trimmed = block.trim();
+                      const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
+                      if (isHeading) return <h3 key={i} className="text-lg font-bold text-white mt-6 mb-2">{trimmed}</h3>;
+                      return <p key={i} className="text-[15px] text-white/80 leading-[1.8]">{trimmed}</p>;
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Tiqets Aktivitäten */}
             {dest.tiqetsCityId && (
               <div id="aktivitaeten" className="mt-12 scroll-mt-24">
@@ -847,33 +867,7 @@ export default async function DestinationPage({ params }: Props) {
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
 
-      {/* SEO Middle – Kompletter Reiseführer */}
-      {seoTexts?.seo_middle && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="relative rounded-2xl p-6 sm:p-8 lg:p-10 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
-            <Info className="absolute top-4 right-4 w-4 h-4 text-white/20" />
-            <h2 className="text-2xl sm:text-3xl font-black text-white mb-8">
-              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
-            </h2>
-            <div className="leading-relaxed space-y-4">
-              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
-                const trimmed = block.trim();
-                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
-                if (isHeading) {
-                  return <h3 key={i} className="text-lg font-bold text-white mt-8 mb-2">{trimmed}</h3>;
-                }
-                return <p key={i} className="text-[15px] text-white/80 leading-[1.8]">{trimmed}</p>;
-              })}
-            </div>
-
-            <div className="mt-10 pt-8 border-t border-white/10">
-              <AdSlot slotKey="destination_content_bottom" minHeight={120} />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* SEO Bottom – Buchungs-CTA */}
+      {/* SEO Bottom – langer Reiseführer + CTA */}
       {seoTexts?.seo_bottom && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative rounded-2xl p-6 sm:p-8 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
@@ -893,6 +887,9 @@ export default async function DestinationPage({ params }: Props) {
               <Link href="/last-minute/" className="bg-white/15 hover:bg-white/25 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Last-Minute Deals
               </Link>
+            </div>
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <AdSlot slotKey="destination_content_bottom" minHeight={120} />
             </div>
           </div>
         </div>

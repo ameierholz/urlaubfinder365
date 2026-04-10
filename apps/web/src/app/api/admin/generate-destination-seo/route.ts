@@ -12,19 +12,23 @@ export async function POST(req: NextRequest) {
 
   const prompt = `Du bist ein erfahrener Reise-SEO-Texter für urlaubfinder365.de.
 
-Erstelle drei SEO-Textblöcke für die Destination-Seite /urlaubsziele/${slug}/:
+Erstelle SEO-Textblöcke für die Destination-Seite /urlaubsziele/${slug}/:
 - Destination: ${name}
 ${country ? `- Land: ${country}` : ""}
 
-Recherchiere mental: Was suchen Urlauber zu "${name}"? Welche Infos bieten Check24, HolidayCheck, TUI, ab-in-den-urlaub? Schreibe BESSERE, informativere Texte.
+SEITENAUFBAU (von oben nach unten):
+1. seo_intro → direkt unter dem Hero-Bild
+2. seo_h2_middle + seo_middle → kurzer Infoblock VOR dem Aktivitäten-Bereich
+3. [Aktivitäten & Tickets Sektion]
+4. seo_h2_bottom + seo_bottom → langer Reiseführer-Text GANZ UNTEN (nach Aktivitäten, Karte etc.)
 
 Antworte AUSSCHLIESSLICH mit folgendem JSON:
 {
-  "seo_intro": "2-3 emotionale Sätze die Lust auf ${name} machen. Keine Floskeln, echte Highlights.",
-  "seo_h2_middle": "H2-Überschrift mit Keyword '${name} Urlaub' oder '${name} Reise'",
-  "seo_middle": "3-4 Absätze (durch \\n\\n getrennt):\\n\\n1. Beste Reisezeit & Klima\\n\\n2. Top-Strände/Sehenswürdigkeiten\\n\\n3. Aktivitäten & Ausflüge\\n\\n4. Kulinarik & Insider-Tipps\\n\\nInsgesamt 200-300 Wörter, natürlich, informativ, mit Keywords.",
-  "seo_h2_bottom": "H2-Überschrift mit CTA-Charakter, z.B. '${name}-Urlaub günstig buchen'",
-  "seo_bottom": "2-3 Absätze (durch \\n\\n getrennt):\\n\\n1. Warum bei Urlaubfinder365 buchen (Preisvergleich, Preisalarm)\\n\\n2. Pauschalreise-Vorteile\\n\\n3. Call-to-Action\\n\\nInsgesamt 100-150 Wörter."
+  "seo_intro": "2-3 emotionale Sätze die Lust auf ${name} machen. Echte Highlights, keine Floskeln. Max. 60 Wörter.",
+  "seo_h2_middle": "Kurze H2 mit Keyword, z.B. '${name} – Was dich erwartet'",
+  "seo_middle": "1-2 Absätze (durch \\n\\n getrennt). Kurze Highlights: Klima, beste Reisezeit, 1-2 Top-Sehenswürdigkeiten. Max. 80 Wörter. Kein Fließtext, keine Listen.",
+  "seo_h2_bottom": "H2 mit Reiseführer-Charakter, z.B. '${name} Reiseführer: Tipps, Strände & Insiderwissen'",
+  "seo_bottom": "4-5 Absätze (durch \\n\\n getrennt):\\n\\n1. Beste Reisezeit & Klima (detailliert)\\n\\n2. Top-Strände oder Sehenswürdigkeiten\\n\\n3. Aktivitäten & Ausflugstipps\\n\\n4. Kulinarik & lokale Besonderheiten\\n\\n5. Buchungstipp + Call-to-Action\\n\\nInsgesamt 250-350 Wörter, informativ, natürlich, mit Keywords."
 }
 
 WICHTIG:
