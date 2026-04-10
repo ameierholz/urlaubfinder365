@@ -114,12 +114,14 @@ function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
   // Hat dieser Marker einen Preis? → Pill-Style
   const hasPrice =
     (m.kind === "destination" && typeof m.priceFrom === "number") ||
-    (m.kind === "anbieter"    && typeof m.priceFrom === "number");
+    (m.kind === "anbieter"    && typeof m.priceFrom === "number") ||
+    (m.kind === "hotel"       && typeof m.priceFrom === "number");
 
   if (hasPrice) {
-    const price = m.kind === "destination" || m.kind === "anbieter"
-      ? Math.round(m.priceFrom!)
-      : 0;
+    const price =
+      m.kind === "destination" || m.kind === "anbieter" || m.kind === "hotel"
+        ? Math.round(m.priceFrom!)
+        : 0;
     // Booking-Style Pille: weiß, schwarzer fetter Text, dünner Schatten,
     // kleiner farbiger Layer-Indikator links. Anker = exakt lat/lng (Endpunkt).
     const html = `
@@ -278,6 +280,15 @@ export interface UrlaubsfinderMapProps {
 
   /** Compact-Mode: kleinere UI für eingebettete Karten */
   compact?: boolean;
+
+  /** Callback wenn sich die sichtbaren Bounds ändern (zoom/pan) */
+  onBoundsChange?: (bounds: { north: number; south: number; east: number; west: number }) => void;
+
+  /** Callback wenn sich die sichtbaren Marker (nach Filter) ändern */
+  onVisibleMarkersChange?: (markers: MapMarker[]) => void;
+
+  /** Externer "selected"-State (für Sync mit Sidebar-Liste) */
+  externalSelected?: MapMarker | null;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -295,6 +306,9 @@ export default function UrlaubsfinderMap({
   editable = false,
   onPickLocation,
   compact = false,
+  onBoundsChange,
+  onVisibleMarkersChange,
+  externalSelected,
 }: UrlaubsfinderMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef       = useRef<LeafletMap | null>(null);
@@ -313,9 +327,18 @@ export default function UrlaubsfinderMap({
   const onPickRef = useRef(onPickLocation);
   const editableRef = useRef(editable);
   const setSelectedRef = useRef(setSelected);
+  const onBoundsRef = useRef(onBoundsChange);
   onPickRef.current = onPickLocation;
   editableRef.current = editable;
   setSelectedRef.current = setSelected;
+  onBoundsRef.current = onBoundsChange;
+
+  // Sync externalSelected → internal
+  useEffect(() => {
+    if (externalSelected !== undefined) {
+      setSelected(externalSelected);
+    }
+  }, [externalSelected]);
 
   // ── Marker filtern ────────────────────────────────────────────────────────
   const visibleMarkers = useMemo(() => {
@@ -339,6 +362,11 @@ export default function UrlaubsfinderMap({
       return true;
     });
   }, [markers, filters, excludeSlug]);
+
+  // Visible Markers nach außen pushen (für Sidebar-Liste)
+  useEffect(() => {
+    onVisibleMarkersChange?.(visibleMarkers);
+  }, [visibleMarkers, onVisibleMarkersChange]);
 
   // ── Karte initialisieren ───────────────────────────────────────────────────
   useLayoutEffect(() => {
@@ -394,6 +422,26 @@ export default function UrlaubsfinderMap({
       }
     });
 
+    // Bounds-Change-Handler — debounced fürs Hotels-Lazy-Loading
+    let boundsTimer: ReturnType<typeof setTimeout> | null = null;
+    const emitBounds = () => {
+      if (!onBoundsRef.current) return;
+      if (boundsTimer) clearTimeout(boundsTimer);
+      boundsTimer = setTimeout(() => {
+        const b = map.getBounds();
+        onBoundsRef.current?.({
+          north: b.getNorth(),
+          south: b.getSouth(),
+          east:  b.getEast(),
+          west:  b.getWest(),
+        });
+      }, 250);
+    };
+    map.on("moveend", emitBounds);
+    map.on("zoomend", emitBounds);
+    // Initial bounds emitten
+    emitBounds();
+
     mapRef.current = map;
     clusterRef.current = cluster;
 
@@ -445,6 +493,15 @@ export default function UrlaubsfinderMap({
     map.setView(center, zoom, { animate: true });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [center[0], center[1], zoom]);
+
+  // ── Wenn externalSelected sich ändert: zum Marker fliegen ─────────────────
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !externalSelected) return;
+    map.flyTo([externalSelected.lat, externalSelected.lng], Math.max(map.getZoom(), 9), {
+      duration: 0.6,
+    });
+  }, [externalSelected]);
 
   // ── Nominatim-Suche ────────────────────────────────────────────────────────
   async function handleSearch(query: string) {

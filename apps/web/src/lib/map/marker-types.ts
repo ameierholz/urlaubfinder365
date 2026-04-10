@@ -10,7 +10,8 @@ export type MarkerKind =
   | "tip"
   | "report"
   | "media"
-  | "anbieter";
+  | "anbieter"
+  | "hotel";
 
 export interface BaseMarker {
   id:    string;       // unique über alle Layer
@@ -79,6 +80,22 @@ export interface MediaMarker extends BaseMarker {
   likesCount:  number;
 }
 
+export interface HotelMarker extends BaseMarker {
+  kind:           "hotel";
+  productCode:    string;
+  hotelName:      string;
+  category:       number;        // Sterne 1-5
+  destination:    string;        // city/region
+  country:        string;
+  imageUrl?:      string;
+  priceFrom:      number;        // EUR pro Person
+  rating?:        number;        // overall_percentage
+  recommendation?: number;       // 0-100
+  bookingUrl:     string;        // direct affiliate link
+  /** Catalog-Slug, dem dieses Hotel zugeordnet ist (für Cache) */
+  destinationSlug: string;
+}
+
 export interface AnbieterMarker extends BaseMarker {
   kind:        "anbieter";
   anbieterId:  string;
@@ -100,7 +117,8 @@ export type MapMarker =
   | TipMarker
   | ReportMarker
   | MediaMarker
-  | AnbieterMarker;
+  | AnbieterMarker
+  | HotelMarker;
 
 // ─── Layer-Konfiguration ────────────────────────────────────────────────────
 
@@ -143,15 +161,23 @@ export const LAYER_CONFIG: Record<MarkerKind, LayerConfig> = {
   },
   anbieter: {
     key:    "anbieter",
-    label:  "Anbieter",
-    emoji:  "🏨",
+    label:  "Anbieter & Aktivitäten",
+    emoji:  "🎯",
     color:  "#A855F7",
-    description: "Lokale Anbieter & Hotels",
+    description: "Lokale Anbieter & Touren",
+  },
+  hotel: {
+    key:    "hotel",
+    label:  "Hotels",
+    emoji:  "🏨",
+    color:  "#0EA5E9",
+    description: "Live-Hotelpreise mit Direktbuchung",
   },
 };
 
 export const LAYER_ORDER: MarkerKind[] = [
   "destination",
+  "hotel",
   "tip",
   "report",
   "media",

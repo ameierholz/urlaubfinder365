@@ -105,6 +105,7 @@ export default function MapSidePanel({ marker, onClose, compact = false }: Props
       {/* Body — polymorph je nach kind */}
       <div className="flex-1 overflow-y-auto">
         {marker.kind === "destination" && <DestinationBody m={marker} />}
+        {marker.kind === "hotel"       && <HotelBody       m={marker} />}
         {marker.kind === "tip"         && <TipBody         m={marker} />}
         {marker.kind === "report"      && <ReportBody      m={marker} />}
         {marker.kind === "media"       && <MediaBody       m={marker} />}
@@ -412,6 +413,66 @@ function AnbieterBody({ m }: { m: Extract<MapMarker, { kind: "anbieter" }> }) {
         Anbieter-Profil
         <ExternalLink className="w-4 h-4" />
       </Link>
+    </div>
+  );
+}
+
+// ─── Hotel ──────────────────────────────────────────────────────────────────
+
+function HotelBody({ m }: { m: Extract<MapMarker, { kind: "hotel" }> }) {
+  const stars = Math.min(5, Math.max(0, Math.round(m.category)));
+  return (
+    <div>
+      {m.imageUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={m.imageUrl} alt={m.hotelName} className="w-full h-44 object-cover" />
+      )}
+      <div className="p-5 space-y-4">
+        <div className="flex items-center gap-2 text-xs text-gray-500">
+          <MapPin className="w-3.5 h-3.5" />
+          <span>{m.destination}{m.country && m.country !== m.destination ? `, ${m.country}` : ""}</span>
+        </div>
+
+        {/* Sterne + Empfehlung */}
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={`w-4 h-4 ${s <= stars ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+              />
+            ))}
+          </div>
+          {m.recommendation !== undefined && m.recommendation > 0 && (
+            <span className="flex items-center gap-1 text-xs font-semibold text-emerald-600">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              {m.recommendation}% Empfehlung
+            </span>
+          )}
+        </div>
+
+        {/* Preis */}
+        <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+          <p className="text-sky-600 text-[10px] font-bold uppercase tracking-widest mb-1">
+            Live-Preis (7 Tage, 2 Personen)
+          </p>
+          <p className="font-black text-sky-700 text-2xl leading-tight">
+            ab {m.priceFrom.toLocaleString("de-DE")} €
+          </p>
+          <p className="text-[11px] text-sky-600/80 mt-0.5">pro Person · inkl. Flug</p>
+        </div>
+
+        {/* Buchen-Button → Affiliate-Link */}
+        <a
+          href={m.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full bg-[#0EA5E9] hover:bg-[#0284c7] text-white font-bold px-4 py-3 rounded-xl transition-colors text-sm"
+        >
+          Hotel ansehen & buchen
+          <ExternalLink className="w-4 h-4" />
+        </a>
+      </div>
     </div>
   );
 }
