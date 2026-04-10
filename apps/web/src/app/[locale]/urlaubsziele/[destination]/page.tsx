@@ -89,8 +89,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // DB-Werte haben Vorrang vor den hardcodierten Config-Fallbacks
   const seoTexts = await fetchSeoTexts(dest.slug);
+  const YEAR = new Date().getFullYear();
 
-  const title       = seoTexts?.meta_title       || dest.metaTitle       || `${dest.name} Urlaub – Günstige Pauschalreisen`;
+  // Jahr dynamisch anhängen – KI-generierte Titel enthalten kein hartkodiertes Jahr
+  const rawTitle = seoTexts?.meta_title || dest.metaTitle || `${dest.name} Urlaub – Günstige Pauschalreisen`;
+  const title = rawTitle.includes(String(YEAR)) ? rawTitle : `${rawTitle} ${YEAR}`;
+
   const description = seoTexts?.meta_description || dest.metaDescription || dest.description;
   const canonical   = `${BASE_URL}/urlaubsziele/${dest.slug}/`;
   const ogImage     = dest.heroImageFallback ?? dest.heroImage;
