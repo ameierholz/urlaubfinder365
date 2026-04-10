@@ -169,24 +169,30 @@ export default function MapFilterBar({
           isOpen ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
         } overflow-y-auto`}
       >
-        {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-5 py-4 z-10">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-extrabold text-gray-900">Filter & Layer</h2>
-            <span className="text-xs text-gray-400 font-semibold">
+        {/* Header — gradient background (gut sichtbar, nicht ueberlagerbar) */}
+        <div className="sticky top-0 z-10 px-5 py-5 text-white shadow-md" style={{ background: "linear-gradient(135deg, #1db682, #00838F)" }}>
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-2">
+              <Layers className="w-5 h-5" />
+              <h2 className="text-base font-extrabold">Karte filtern</h2>
+            </div>
+            <span className="text-[11px] font-bold bg-white/25 px-2.5 py-1 rounded-full">
               {markerCount} / {totalCount}
             </span>
           </div>
+          <p className="text-[11px] text-white/80">
+            Reiseziele, Hotels, Tipps & mehr auswählen
+          </p>
           {showSearch && (
             <div className="mt-3 relative">
-              <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 focus-within:border-[#1db682]">
+              <div className="flex items-center gap-2 bg-white border border-white/40 rounded-xl px-3 py-2.5 focus-within:border-white">
                 <Search className="w-4 h-4 text-gray-400 shrink-0" />
                 <input
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   placeholder="Ort, Land oder Tipp suchen…"
-                  className="flex-1 bg-transparent outline-none text-sm"
+                  className="flex-1 bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400"
                 />
                 {searchInput && (
                   <button
@@ -208,7 +214,7 @@ export default function MapFilterBar({
         <div className="p-5 border-b border-gray-100">
           <div className="flex items-center gap-2 mb-3">
             <Layers className="w-4 h-4 text-gray-400" />
-            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Layer</h3>
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Was anzeigen</h3>
           </div>
           <div className="space-y-2">
             {LAYER_ORDER.filter((k) => enabledLayers.includes(k)).map((kind) => {
