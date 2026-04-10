@@ -93,6 +93,7 @@ async function loadDestinationMarkers(): Promise<DestinationMarker[]> {
         highlights:  profile.highlights,
         cuisine:     profile.cuisine,
         priceFrom:   priceMap.get(e.slug),
+        hasTiqets:   !!e.tiqetsCityId,
       };
     });
 }

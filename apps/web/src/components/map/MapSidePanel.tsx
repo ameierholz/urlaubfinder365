@@ -148,8 +148,13 @@ function WeatherCard({ lat, lng }: { lat: number; lng: number }) {
   return null;
 }
 
-/** Cross-Link-Block: zur Destination-Seite + Reiseberichte + Aktivitäten */
+/** Cross-Link-Block: zur Destination-Seite + Aktivitäten + Reiseberichte */
 function InternalLinks({ slug, name }: { slug: string; name: string }) {
+  // Catalog-Eintrag suchen → tiqetsCityId vorhanden? → Aktivitäten-Link zeigen
+  const catalogEntry = CATALOG.find((e) => e.slug === slug);
+  const hasTiqets = !!catalogEntry?.tiqetsCityId;
+  const iataCode  = catalogEntry?.iataCode;
+
   return (
     <div className="border-t border-gray-100 pt-4 space-y-1.5">
       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
@@ -174,6 +179,28 @@ function InternalLinks({ slug, name }: { slug: string; name: string }) {
         </span>
         <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100" />
       </Link>
+      {hasTiqets && (
+        <Link
+          href={`/aktivitaeten/${slug}/`}
+          className="flex items-center justify-between text-xs text-gray-600 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg transition-colors group"
+        >
+          <span className="flex items-center gap-2">
+            🎟️ Aktivitäten & Tickets
+          </span>
+          <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100" />
+        </Link>
+      )}
+      {iataCode && (
+        <Link
+          href={`/flugsuche/?nach=${encodeURIComponent(iataCode)}`}
+          className="flex items-center justify-between text-xs text-gray-600 hover:text-sky-600 hover:bg-sky-50 px-3 py-2 rounded-lg transition-colors group"
+        >
+          <span className="flex items-center gap-2">
+            ✈️ Flüge nach {iataCode}
+          </span>
+          <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100" />
+        </Link>
+      )}
       <Link
         href={`/community/reiseberichte/?destination=${encodeURIComponent(slug)}`}
         className="flex items-center justify-between text-xs text-gray-600 hover:text-[#1db682] hover:bg-emerald-50 px-3 py-2 rounded-lg transition-colors group"
@@ -226,12 +253,27 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
             </div>
           )}
           {m.flightTime && (
-            <div className="bg-gray-50 rounded-lg px-3 py-2 col-span-2">
-              <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center gap-1">
-                <Plane className="w-3 h-3" /> Flugzeit{m.iataCode ? ` (${m.iataCode})` : ""}
-              </p>
-              <p className="font-semibold text-gray-800">{m.flightTime}</p>
-            </div>
+            m.iataCode ? (
+              <Link
+                href={`/flugsuche/?nach=${encodeURIComponent(m.iataCode)}`}
+                className="bg-gray-50 rounded-lg px-3 py-2 col-span-2 group hover:bg-emerald-50 hover:ring-1 hover:ring-emerald-200 transition-colors"
+              >
+                <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center gap-1">
+                  <Plane className="w-3 h-3" /> Flugzeit ({m.iataCode})
+                  <span className="ml-auto text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                    Flüge ansehen <ExternalLink className="w-2.5 h-2.5" />
+                  </span>
+                </p>
+                <p className="font-semibold text-gray-800 group-hover:text-emerald-700">{m.flightTime}</p>
+              </Link>
+            ) : (
+              <div className="bg-gray-50 rounded-lg px-3 py-2 col-span-2">
+                <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center gap-1">
+                  <Plane className="w-3 h-3" /> Flugzeit
+                </p>
+                <p className="font-semibold text-gray-800">{m.flightTime}</p>
+              </div>
+            )
           )}
           <div className="bg-gray-50 rounded-lg px-3 py-2">
             <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-0.5">Klima</p>
@@ -245,14 +287,29 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
           )}
         </div>
 
-        {/* Highlights */}
+        {/* Highlights — verlinkt zu Aktivitäten falls verfügbar */}
         {m.highlights && (
-          <div>
-            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> Highlights
-            </p>
-            <p className="text-xs text-gray-600 leading-relaxed">{m.highlights}</p>
-          </div>
+          m.hasTiqets ? (
+            <Link
+              href={`/aktivitaeten/${m.slug}/`}
+              className="block group hover:bg-orange-50 hover:ring-1 hover:ring-orange-200 rounded-lg p-2 -m-2 transition-colors"
+            >
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
+                <Sparkles className="w-3 h-3" /> Highlights & Aktivitäten
+                <span className="ml-auto text-orange-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                  Tickets buchen <ExternalLink className="w-2.5 h-2.5" />
+                </span>
+              </p>
+              <p className="text-xs text-gray-600 leading-relaxed group-hover:text-gray-700">{m.highlights}</p>
+            </Link>
+          ) : (
+            <div>
+              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
+                <Sparkles className="w-3 h-3" /> Highlights
+              </p>
+              <p className="text-xs text-gray-600 leading-relaxed">{m.highlights}</p>
+            </div>
+          )
         )}
 
         {/* Küche */}

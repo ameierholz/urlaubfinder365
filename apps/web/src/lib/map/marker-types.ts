@@ -44,6 +44,8 @@ export interface DestinationMarker extends BaseMarker {
   cuisine?:    string;
   /** Aktueller Pauschalpreis ab X €/Person aus price_history */
   priceFrom?:  number;
+  /** True wenn Tiqets-Aktivitäten für diesen Slug verfügbar sind */
+  hasTiqets?:  boolean;
 }
 
 export interface TipMarker extends BaseMarker {
