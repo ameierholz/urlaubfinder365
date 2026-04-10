@@ -34,7 +34,7 @@ function analyzePrices(records: PriceRecord[]): AnalysisResult | null {
   const avgPrice = Math.round(prices.reduce((s, p) => s + p, 0) / prices.length);
 
   const minEntry = sorted.reduce((best, r) => (r.min_price > 0 && r.min_price < best.min_price ? r : best), sorted[0]);
-  const minPrice = minEntry.min_price;
+  const minPrice = Math.round(minEntry.min_price);
   const minDate = minEntry.date;
 
   // Trend: letzte 7 Tage vs. davor
@@ -53,8 +53,9 @@ function analyzePrices(records: PriceRecord[]): AnalysisResult | null {
   const trend: "steigend" | "fallend" | "stabil" =
     trendPercent >= 3 ? "steigend" : trendPercent <= -3 ? "fallend" : "stabil";
 
-  const currentPrice = Math.round(avgRecent);
-  const diffFromAvg = Math.round(((currentPrice - avgPrice) / avgPrice) * 100);
+  // Aktuell = letzter echter Datenpunkt (identisch mit PriceChart "Aktuell")
+  const currentPrice = Math.round(sorted[sorted.length - 1].min_price);
+  const diffFromAvg = Math.round(((avgRecent - avgPrice) / avgPrice) * 100);
 
   // Signal-Logik
   let signal: "green" | "yellow" | "red";
@@ -195,44 +196,44 @@ export default async function BookingAdvisor({
       {/* Stats Grid */}
       <div className="grid grid-cols-3 gap-2 mb-4">
         <div className="bg-white/70 rounded-lg p-2 text-center">
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
             Aktuell
           </p>
-          <p className="text-base font-black text-gray-900 leading-tight">
+          <p className="text-sm font-black text-gray-900 leading-tight whitespace-nowrap">
             {currentPrice} €
           </p>
-          <p className="text-[9px] text-gray-500">p.P.</p>
+          <p className="text-[9px] text-gray-400 mt-0.5">p.P.</p>
         </div>
         <div className="bg-white/70 rounded-lg p-2 text-center">
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
             Bestpreis
           </p>
-          <p className="text-base font-black text-emerald-600 leading-tight">
+          <p className="text-sm font-black text-emerald-600 leading-tight whitespace-nowrap">
             {minPrice} €
           </p>
-          <p className="text-[9px] text-gray-500">{formatDate(minDate)}</p>
+          <p className="text-[9px] text-gray-400 mt-0.5">{formatDate(minDate)}</p>
         </div>
         <div className="bg-white/70 rounded-lg p-2 text-center">
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
-            Ø 90 T.
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1">
+            Ø 90 Tage
           </p>
-          <p className="text-base font-black text-gray-900 leading-tight">
+          <p className="text-sm font-black text-gray-900 leading-tight whitespace-nowrap">
             {avgPrice} €
           </p>
-          <p className="text-[9px] text-gray-500">Schnitt</p>
+          <p className="text-[9px] text-gray-400 mt-0.5">p.P.</p>
         </div>
       </div>
 
       {/* Trend footer */}
-      <div className="flex items-center justify-between border-t border-white/60 pt-3 mt-3">
-        <p className="text-xs text-gray-500">
+      <div className="flex items-start justify-between gap-3 border-t border-white/60 pt-3 mt-3">
+        <p className="text-xs text-gray-500 leading-relaxed">
           Basiert auf {records.length} Datenpunkten der letzten 90 Tage
         </p>
-        <span className={`text-sm font-bold ${trendColor}`}>
+        <span className={`text-xs font-bold whitespace-nowrap shrink-0 ${trendColor}`}>
           {trendIcon}{" "}
           {trend === "stabil"
-            ? "Preis stabil"
-            : `Preis ${trend} (${Math.abs(trendPercent)}%)`}
+            ? "Stabil"
+            : `${trendIcon === "↑" ? "Steigend" : "Fallend"} (${Math.abs(trendPercent)}%)`}
         </span>
       </div>
     </div>

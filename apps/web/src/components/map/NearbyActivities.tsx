@@ -15,6 +15,8 @@ import type { TiqetsProduct } from "@/types";
 
 interface Props {
   slug: string;
+  lat?: number;
+  lng?: number;
   /** Max. Anzahl Cards (default: 4) */
   limit?: number;
 }
@@ -22,13 +24,13 @@ interface Props {
 const cache = new Map<string, { products: TiqetsProduct[]; ts: number }>();
 const CACHE_TTL_MS = 30 * 60 * 1000; // 30 Min
 
-export default function NearbyActivities({ slug, limit = 4 }: Props) {
+export default function NearbyActivities({ slug, lat, lng, limit = 4 }: Props) {
   const [products, setProducts] = useState<TiqetsProduct[]>([]);
   const [loading, setLoading]   = useState(false);
 
   useEffect(() => {
     if (!slug) return;
-    const key = `${slug}:${limit}`;
+    const key = `${slug}:${limit}:${lat}:${lng}`;
     const cached = cache.get(key);
     if (cached && Date.now() - cached.ts < CACHE_TTL_MS) {
       setProducts(cached.products);
@@ -37,7 +39,12 @@ export default function NearbyActivities({ slug, limit = 4 }: Props) {
 
     let cancelled = false;
     setLoading(true);
-    fetch(`/api/map/activities?slug=${encodeURIComponent(slug)}&limit=${limit}`)
+    const url = new URL("/api/map/activities", window.location.origin);
+    url.searchParams.set("slug", slug);
+    url.searchParams.set("limit", String(limit));
+    if (lat !== undefined) url.searchParams.set("lat", String(lat));
+    if (lng !== undefined) url.searchParams.set("lng", String(lng));
+    fetch(url.toString())
       .then((r) => r.ok ? r.json() : { products: [] })
       .then((json) => {
         if (cancelled) return;

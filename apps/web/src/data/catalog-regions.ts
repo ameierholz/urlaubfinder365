@@ -95,7 +95,7 @@ export const CATALOG: CatalogEntry[] = [
     type: "super",
     unsplashKeyword: "turkey turquoise coast sailing",
     climateZone: "mediterranean",
-    tiqetsCityId: "79079",
+    // tiqetsCityId entfernt: 79079 = Istanbul, nicht ganz Türkei
     coordinates: { lat: 38.9, lng: 35.2 },
   },
   {
@@ -3225,7 +3225,8 @@ export const CATALOG: CatalogEntry[] = [
     unsplashKeyword: "antalya old town harbor turkey turquoise",
     climateZone: "mediterranean",
     iataCode: "AYT",
-    tiqetsCityId: "79079",
+    // tiqetsCityId entfernt: 79079 = Istanbul (falsch zugewiesen)
+    // TODO: korrekten Antalya-City-ID bei Tiqets eintragen
     coordinates: { lat: 36.9, lng: 30.7 },
     parentSlug: "tuerkei",
   },

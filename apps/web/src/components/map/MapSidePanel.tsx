@@ -298,7 +298,7 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
         )}
 
         {/* Tiqets-Aktivitäten — live geladen, max 4 Cards */}
-        <NearbyActivities slug={m.slug} limit={4} />
+        <NearbyActivities slug={m.slug} lat={m.lat} lng={m.lng} limit={4} />
 
         {/* Küche */}
         {m.cuisine && (
