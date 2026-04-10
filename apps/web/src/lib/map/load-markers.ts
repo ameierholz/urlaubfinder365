@@ -35,28 +35,38 @@ function db() {
 // ─── Destinations (273 aus Catalog, statisch) ───────────────────────────────
 
 async function loadDestinationMarkers(): Promise<DestinationMarker[]> {
-  // Pauschal-Bestpreis pro Slug aus dem letzten verfügbaren Datum laden
-  // (price_history wird täglich vom collect-prices Cron befüllt)
+  // Pauschal-Bestpreis pro Slug aus dem neuesten verfügbaren Datum laden
   const priceMap = new Map<string, number>();
   try {
-    const { data } = await db()
+    const supabase = db();
+    // 1. Neuestes Datum für pauschal ermitteln
+    const { data: latestRow } = await supabase
       .from("price_history")
-      .select("destination_slug, min_price, date")
+      .select("date")
       .eq("profile", "pauschal")
       .order("date", { ascending: false })
-      .limit(2000);
-    if (data) {
-      // Pro Slug nur den neuesten Eintrag behalten
-      for (const row of data) {
-        const slug = row.destination_slug as string;
-        if (!priceMap.has(slug)) {
+      .limit(1)
+      .maybeSingle();
+    const latestDate = latestRow?.date as string | undefined;
+
+    if (latestDate) {
+      // 2. Genau diesen einen Tag laden — eine Zeile pro Slug, max ~273 Zeilen
+      const { data } = await supabase
+        .from("price_history")
+        .select("destination_slug, min_price")
+        .eq("profile", "pauschal")
+        .eq("date", latestDate);
+      if (data) {
+        for (const row of data) {
+          const slug = row.destination_slug as string;
           priceMap.set(slug, Math.round(Number(row.min_price)));
         }
       }
     }
-  } catch {
-    // Keine Preisdaten → priceFrom bleibt undefined
+  } catch (err) {
+    console.warn("[load-markers] Konnte Pauschalpreise nicht laden:", err);
   }
+  console.log("[load-markers] Destination-Preise geladen:", priceMap.size, "von", CATALOG.filter((e) => e.coordinates).length);
 
   return CATALOG
     .filter((e) => e.coordinates)

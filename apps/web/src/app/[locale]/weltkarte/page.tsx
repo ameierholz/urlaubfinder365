@@ -33,13 +33,16 @@ const jsonLd = {
   },
 };
 
-export const revalidate = 600; // ISR alle 10 Min für die Marker-Daten
+// Force dynamic rendering — vermeidet ISR-Cache, jeder Request laedt frische Marker
+export const dynamic = "force-dynamic";
 
 export default async function WeltkartePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const markers = await loadAllMarkers();
+  const sample = markers.find((m) => m.kind === "destination" && (m as { priceFrom?: number }).priceFrom);
+  console.log("[weltkarte] markers loaded:", markers.length, "| sample with price:", sample?.id, (sample as { priceFrom?: number } | undefined)?.priceFrom);
 
   return (
     <>
