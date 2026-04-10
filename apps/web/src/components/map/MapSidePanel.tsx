@@ -256,15 +256,15 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
             m.iataCode ? (
               <Link
                 href={`/flugsuche/?nach=${encodeURIComponent(m.iataCode)}`}
-                className="bg-gray-50 rounded-lg px-3 py-2 col-span-2 group hover:bg-emerald-50 hover:ring-1 hover:ring-emerald-200 transition-colors"
+                className="bg-sky-50 hover:bg-sky-100 border border-sky-200 hover:border-sky-400 rounded-lg px-3 py-2.5 col-span-2 transition-colors cursor-pointer block"
               >
-                <p className="text-gray-400 text-[10px] uppercase tracking-wider mb-0.5 flex items-center gap-1">
+                <p className="text-sky-600 text-[10px] font-bold uppercase tracking-wider mb-0.5 flex items-center gap-1">
                   <Plane className="w-3 h-3" /> Flugzeit ({m.iataCode})
-                  <span className="ml-auto text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
-                    Flüge ansehen <ExternalLink className="w-2.5 h-2.5" />
+                  <span className="ml-auto text-sky-700 font-semibold flex items-center gap-0.5">
+                    Flüge nach {m.iataCode} →
                   </span>
                 </p>
-                <p className="font-semibold text-gray-800 group-hover:text-emerald-700">{m.flightTime}</p>
+                <p className="font-semibold text-gray-800">{m.flightTime}</p>
               </Link>
             ) : (
               <div className="bg-gray-50 rounded-lg px-3 py-2 col-span-2">
@@ -292,15 +292,15 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
           m.hasTiqets ? (
             <Link
               href={`/aktivitaeten/${m.slug}/`}
-              className="block group hover:bg-orange-50 hover:ring-1 hover:ring-orange-200 rounded-lg p-2 -m-2 transition-colors"
+              className="block bg-orange-50 hover:bg-orange-100 border border-orange-200 hover:border-orange-400 rounded-lg px-3 py-2.5 transition-colors cursor-pointer"
             >
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
+              <p className="text-orange-600 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
                 <Sparkles className="w-3 h-3" /> Highlights & Aktivitäten
-                <span className="ml-auto text-orange-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
-                  Tickets buchen <ExternalLink className="w-2.5 h-2.5" />
+                <span className="ml-auto text-orange-700 font-semibold flex items-center gap-0.5">
+                  Tickets buchen →
                 </span>
               </p>
-              <p className="text-xs text-gray-600 leading-relaxed group-hover:text-gray-700">{m.highlights}</p>
+              <p className="text-xs text-gray-700 leading-relaxed">{m.highlights}</p>
             </Link>
           ) : (
             <div>
