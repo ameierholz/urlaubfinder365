@@ -1,6 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Annie_Use_Your_Telescope } from "next/font/google";
-import "../globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -16,13 +14,6 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 import { routing, locales, SITE_URL, type Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const annie = Annie_Use_Your_Telescope({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-annie",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -129,6 +120,10 @@ export async function generateMetadata({
   };
 }
 
+// ─── Preconnect / DNS-Prefetch via Metadata Links ───────────────────────────
+// In Next.js 16 wandern <link>-Hints, die früher in <head> direkt rendert wurden,
+// ins Root-Layout via Next.js Metadata API (siehe app/layout.tsx).
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -175,9 +170,6 @@ const webSiteSchema = {
   },
 };
 
-// HTML dir-Attribut für RTL-Sprachen
-const RTL_LOCALES: Locale[] = ["ar"];
-
 export default async function LocaleLayout({
   children,
   params,
@@ -193,50 +185,34 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await getMessages();
-  const dir = RTL_LOCALES.includes(locale as Locale) ? "rtl" : "ltr";
 
+  // Hinweis: <html>/<body> werden im Root-Layout (app/layout.tsx) gerendert.
+  // Hier nur Provider, Header/Footer und Page-Inhalt.
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
-      <head>
-        {/* Google AdSense – Domain-Verifizierung (statisch im HTML, kein JS nötig) */}
-        <meta name="google-adsense-account" content="ca-pub-9799640580685030" />
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="preconnect" href="https://api.specials.de" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://assets.specials.de" />
-        <link rel="dns-prefetch" href="https://b2b.specials.de" />
-        <link rel="dns-prefetch" href="https://flagcdn.com" />
-        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-        <link rel="dns-prefetch" href="https://widget.trustpilot.com" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
-        />
-      </head>
-      <body
-        className={`${inter.variable} ${annie.variable} antialiased text-gray-900`}
-        style={{ backgroundColor: "rgba(238, 206, 161, 0.44)" }}
-      >
-        <NextIntlClientProvider messages={messages}>
-          <AuthProvider>
-            <FontAwesomeLoader />
-            <IbeProvider />
-            <ScrollToTop />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <CookieBanner />
-            <AccessibilityWidget />
-            <ScrollToTopButton />
-          </AuthProvider>
-        </NextIntlClientProvider>
-        <ConsentScripts />
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <AuthProvider>
+        <div style={{ backgroundColor: "rgba(238, 206, 161, 0.44)" }}>
+          {/* JSON-LD: Inline im <body> erlaubt, wird von Google trotzdem indexiert */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+          />
+          <FontAwesomeLoader />
+          <IbeProvider />
+          <ScrollToTop />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <CookieBanner />
+          <AccessibilityWidget />
+          <ScrollToTopButton />
+        </div>
+      </AuthProvider>
+      <ConsentScripts />
+    </NextIntlClientProvider>
   );
 }

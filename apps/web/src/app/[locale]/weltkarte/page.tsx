@@ -1,23 +1,7 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { setRequestLocale } from "next-intl/server";
 import { loadAllMarkers } from "@/lib/map/load-markers";
-
-// Karte ist Client-only (Leaflet + AuthContext)
-const WeltkarteWithTipEditor = dynamic(
-  () => import("@/components/map/WeltkarteWithTipEditor"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-screen flex items-center justify-center bg-gray-100">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-3 border-[#1db682] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm text-gray-500 font-semibold">Weltkarte wird geladen…</p>
-        </div>
-      </div>
-    ),
-  },
-);
+import WeltkartePageClient from "@/components/map/WeltkartePageClient";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -64,7 +48,7 @@ export default async function WeltkartePage({ params }: { params: Promise<{ loca
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <WeltkarteWithTipEditor
+      <WeltkartePageClient
         markers={markers}
         center={[30, 10]}
         zoom={3}

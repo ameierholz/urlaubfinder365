@@ -1,21 +1,12 @@
 /**
  * DestinationMapEmbed — Server Component, lädt Marker im Umkreis und
- * rendert die UrlaubsfinderMap im eingebetteten Modus.
+ * rendert die UrlaubsfinderMap (über DestinationMapClient) im eingebetteten Modus.
  *
  * Wird auf jeder Destination-Seite verwendet (ersetzt das alte iframe).
  */
 
-import dynamic from "next/dynamic";
 import { loadAllMarkers } from "@/lib/map/load-markers";
-
-const UrlaubsfinderMap = dynamic(() => import("@/components/map/UrlaubsfinderMap"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[480px] flex items-center justify-center bg-gray-100 rounded-2xl">
-      <div className="w-8 h-8 border-2 border-[#1db682] border-t-transparent rounded-full animate-spin" />
-    </div>
-  ),
-});
+import DestinationMapClient from "./DestinationMapClient";
 
 interface Props {
   lat:  number;
@@ -50,15 +41,12 @@ export default async function DestinationMapEmbed({ lat, lng, slug, name }: Prop
       </div>
 
       <div className="rounded-2xl overflow-hidden shadow-md border border-gray-200">
-        <UrlaubsfinderMap
+        <DestinationMapClient
           markers={markers}
           center={[lat, lng]}
           zoom={9}
           height="480px"
-          filterUI="compact"
-          showSearch={false}
           excludeSlug={slug}
-          compact
         />
       </div>
 

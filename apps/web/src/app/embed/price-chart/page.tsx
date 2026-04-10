@@ -110,34 +110,29 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
   const destName = data?.destinationName ?? destination;
 
   return (
-    <html lang="de">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{`Preisverlauf ${destName} – urlaubfinder365.de`}</title>
-        <meta name="robots" content="noindex" />
-        <style>{`
-          * { box-sizing: border-box; margin: 0; padding: 0; }
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: ${bg}; color: ${text}; }
-          .widget { padding: 16px; border-radius: 12px; background: ${bg}; min-width: 280px; }
-          .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-          .title { font-size: 13px; font-weight: 700; color: ${text}; }
-          .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: ${isGoodDeal ? "#dcfce7" : cardBg}; color: ${isGoodDeal ? "#15803d" : textMuted}; border: 1px solid ${isGoodDeal ? "#86efac" : borderColor}; }
-          .chart-wrap { background: ${cardBg}; border-radius: 10px; border: 1px solid ${borderColor}; padding: 8px; margin-bottom: 12px; overflow: hidden; }
-          .chart-svg { width: 100%; height: auto; display: block; }
-          .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-          .stat { background: ${cardBg}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 8px; text-align: center; }
-          .stat-val { font-size: 14px; font-weight: 800; color: ${text}; }
-          .stat-label { font-size: 10px; color: ${textMuted}; margin-top: 2px; }
-          .footer { display: flex; align-items: center; justify-content: space-between; }
-          .demo-note { font-size: 10px; color: ${textMuted}; font-style: italic; }
-          .powered { font-size: 11px; color: ${textMuted}; text-decoration: none; display: flex; align-items: center; gap: 4px; }
-          .powered:hover { color: ${accent}; }
-          .powered-dot { width: 6px; height: 6px; border-radius: 50%; background: ${accent}; display: inline-block; }
-        `}</style>
-      </head>
-      <body>
-        <div className="widget">
+    <>
+      {/* React 19 erlaubt <title>/<style> direkt im body — Next.js hebt sie in den head */}
+      <title>{`Preisverlauf ${destName} – urlaubfinder365.de`}</title>
+      <style>{`
+        html, body { background: ${bg}; color: ${text}; }
+        .uf-embed-widget { padding: 16px; border-radius: 12px; background: ${bg}; min-width: 280px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        .uf-embed-widget * { box-sizing: border-box; margin: 0; padding: 0; }
+        .uf-embed-widget .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .uf-embed-widget .title { font-size: 13px; font-weight: 700; color: ${text}; }
+        .uf-embed-widget .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: ${isGoodDeal ? "#dcfce7" : cardBg}; color: ${isGoodDeal ? "#15803d" : textMuted}; border: 1px solid ${isGoodDeal ? "#86efac" : borderColor}; }
+        .uf-embed-widget .chart-wrap { background: ${cardBg}; border-radius: 10px; border: 1px solid ${borderColor}; padding: 8px; margin-bottom: 12px; overflow: hidden; }
+        .uf-embed-widget .chart-svg { width: 100%; height: auto; display: block; }
+        .uf-embed-widget .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .uf-embed-widget .stat { background: ${cardBg}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 8px; text-align: center; }
+        .uf-embed-widget .stat-val { font-size: 14px; font-weight: 800; color: ${text}; }
+        .uf-embed-widget .stat-label { font-size: 10px; color: ${textMuted}; margin-top: 2px; }
+        .uf-embed-widget .footer { display: flex; align-items: center; justify-content: space-between; }
+        .uf-embed-widget .demo-note { font-size: 10px; color: ${textMuted}; font-style: italic; }
+        .uf-embed-widget .powered { font-size: 11px; color: ${textMuted}; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+        .uf-embed-widget .powered:hover { color: ${accent}; }
+        .uf-embed-widget .powered-dot { width: 6px; height: 6px; border-radius: 50%; background: ${accent}; display: inline-block; }
+      `}</style>
+      <div className="uf-embed-widget">
           <div className="header">
             <span className="title">
               Preisverlauf {destName} · {days} Tage
@@ -231,7 +226,6 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
             </a>
           </div>
         </div>
-      </body>
-    </html>
+    </>
   );
 }
