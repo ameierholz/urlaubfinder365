@@ -137,7 +137,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       tagColor: "bg-pink-50 text-pink-600",
     },
     {
-      href: "/extras/reisenden-karte/",
+      href: "/weltkarte/",
       icon: Globe,
       iconBg: "bg-cyan-100",
       iconColor: "text-cyan-500",

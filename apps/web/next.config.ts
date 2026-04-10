@@ -90,6 +90,10 @@ const nextConfig: NextConfig = {
   // ─── 301-Redirects: alte WordPress-URLs → neue Next.js-Struktur ───
   async redirects() {
     return [
+      // Reisenden-Karte → Weltkarte (konsolidiert seit 2026-04)
+      { source: "/extras/reisenden-karte/", destination: "/weltkarte/", permanent: true },
+      { source: "/extras/reisenden-karte",  destination: "/weltkarte/", permanent: true },
+
       // Sitemap & Feeds
       { source: "/sitemap_index.xml", destination: "/sitemap.xml", permanent: true },
       { source: "/wp-sitemap.xml", destination: "/sitemap.xml", permanent: true },
@@ -214,8 +218,8 @@ const nextConfig: NextConfig = {
       { source: "/pauschalreisen/:slug", destination: "/urlaubsarten/pauschalreisen/", permanent: true },
 
       // Reisenden-Karte
-      { source: "/reisenden-karte/", destination: "/extras/reisenden-karte/", permanent: true },
-      { source: "/reisenden-karte", destination: "/extras/reisenden-karte/", permanent: true },
+      { source: "/reisenden-karte/", destination: "/weltkarte/", permanent: true },
+      { source: "/reisenden-karte", destination: "/weltkarte/", permanent: true },
 
       // Erlebnisse → Aktivitäten (Seite nie angelegt, Tiqets-Content ist in /aktivitaeten/)
       { source: "/erlebnisse/", destination: "/aktivitaeten/", permanent: false },

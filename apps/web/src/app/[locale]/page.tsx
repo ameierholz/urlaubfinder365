@@ -1218,7 +1218,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               { href: "/reisewarnungen/",          icon: ShieldAlert, bg: "bg-red-50",     iconColor: "text-red-500",     labelKey: "cockpitTool5Label", descKey: "cockpitTool5Desc", badge: null },
               { href: "/reiseversicherung/",       icon: Star,        bg: "bg-indigo-50",  iconColor: "text-indigo-500",  labelKey: "cockpitTool6Label", descKey: "cockpitTool6Desc", badge: null },
               { href: "/erlebnisse/",              icon: Compass,     bg: "bg-orange-50",  iconColor: "text-orange-500",  labelKey: "cockpitTool7Label", descKey: "cockpitTool7Desc", badge: null },
-              { href: "/extras/reisenden-karte/",  icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    labelKey: "cockpitTool8Label", descKey: "cockpitTool8Desc", badge: null },
+              { href: "/weltkarte/",               icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    labelKey: "cockpitTool8Label", descKey: "cockpitTool8Desc", badge: null },
             ] as const).map(({ href, icon: Icon, bg, iconColor, labelKey, descKey, badge }) => (
               <Link
                 key={href}

@@ -4,9 +4,8 @@
  * UrlaubsfinderMap — Master-Karten-Component für die ganze Seite.
  *
  * Wird verwendet auf:
- *   - /weltkarte/                       (Vollbild, alle Layer)
+ *   - /weltkarte/                       (Vollbild, alle Layer + Tipp-Editor)
  *   - /urlaubsziele/[slug]/             (eingebettet, fokussiert auf Destination)
- *   - /extras/reisenden-karte/          (mit editable=true für Pin-Setzen)
  *
  * Architektur:
  *   - Vanilla-Leaflet (kein react-leaflet wegen React 19 Strict-Mode-Issues)
@@ -128,7 +127,7 @@ export interface UrlaubsfinderMapProps {
   /** Eigene Marker dieser Slug ausschließen (z. B. Destination-Self) */
   excludeSlug?: string;
 
-  /** Editable: erlaubt User-Tipps zu setzen (für /extras/reisenden-karte/) */
+  /** Editable: erlaubt User-Tipps zu setzen (Click-to-pick) */
   editable?: boolean;
   onPickLocation?: (lat: number, lng: number) => void;
 

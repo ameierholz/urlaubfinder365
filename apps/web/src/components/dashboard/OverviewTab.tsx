@@ -519,7 +519,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
             { href:"/flugsuche/",              label:t("quickFlights"),         icon:Plane,    color:"bg-sky-50 text-sky-600" },
             { href:"/community/reiseberichte/",label:t("quickReports"),         icon:BookOpen, color:"bg-violet-50 text-violet-600" },
             { href:"/community/gruppen/",      label:t("quickGroups"),          icon:Users2,   color:"bg-blue-50 text-blue-600" },
-            { href:"/extras/reisenden-karte/", label:t("quickMap"),             icon:Globe,    color:"bg-emerald-50 text-emerald-600" },
+            { href:"/weltkarte/",              label:t("quickMap"),             icon:Globe,    color:"bg-emerald-50 text-emerald-600" },
           ].map(({ href, label, icon: Icon, color }) => (
             <Link key={href} href={href}
               className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 flex flex-col items-center gap-2 text-center hover:shadow-md hover:-translate-y-0.5 transition-all"

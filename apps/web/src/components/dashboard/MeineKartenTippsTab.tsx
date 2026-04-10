@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { getMyTravelTips, deleteTravelTip } from "@/lib/supabase-db";
 import { TravelTip } from "@/types";
-import { CATEGORY_CONFIG } from "@/components/reisenden-karte/travelMapConfig";
+import { CATEGORY_CONFIG } from "@/lib/map/tip-categories";
 import {
   MapPin, Clock, CheckCircle2, XCircle, Hourglass,
   Trash2, ImageIcon, AlertCircle, Loader2, Map,
@@ -82,7 +82,7 @@ export default function MeineKartenTippsTab({ user }: Props) {
           <p className="font-semibold text-gray-500">{t("emptyTitle")}</p>
           <p className="text-sm mt-1">
             Besuche die{" "}
-            <a href="/extras/reisenden-karte/" className="text-teal-600 hover:underline font-medium">
+            <a href="/weltkarte/" className="text-teal-600 hover:underline font-medium">
               {t("emptyLink")}
             </a>{" "}
             {t("emptyDesc")}

@@ -61,7 +61,7 @@ const COMMUNITY_SECTIONS = [
   { label: "Urlaubsberichte",   href: "/community/reiseberichte/", icon: BookOpen, color: "text-teal-300",    desc: "Echte Erfahrungen von Reisenden" },
   { label: "Urlaubs-Gruppen",   href: "/community/gruppen/",       icon: Users2,   color: "text-cyan-300",    desc: "Finde Gleichgesinnte für dein Ziel" },
   { label: "Mitglieder",      href: "/community/mitglieder/",    icon: Users,    color: "text-sky-300",     desc: "Entdecke aktive Reisende" },
-  { label: "Urlauber-Karte",  href: "/extras/reisenden-karte/",  icon: Globe,    color: "text-emerald-300", desc: "Alle Urlauber auf der Weltkarte" },
+  { label: "Weltkarte",       href: "/weltkarte/",               icon: Globe,    color: "text-emerald-300", desc: "Alle Reiseziele, Tipps & Anbieter weltweit" },
 ];
 
 const NEW_GROUPS = [
@@ -243,7 +243,6 @@ const EXTRAS_GROUPS = [
       { href: "/weltkarte/",              icon: Globe,   color: "text-emerald-400", label: "Weltkarte",      badge: "NEU" },
       { href: "/magazin/",               icon: BookOpen, color: "text-blue-400",   label: "Urlaubsmagazin", badge: null },
       { href: "/erlebnisse/",             icon: Compass, color: "text-orange-400", label: "Erlebnisse",     badge: null },
-      { href: "/extras/reisenden-karte/", icon: Globe,   color: "text-cyan-400",   label: "Urlauber-Karte", badge: null },
     ],
   },
 ] as const;
@@ -638,7 +637,7 @@ export default function Header() {
         { label: "Urlaubsberichte",   href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" /> },
         { label: "Urlaubs-Gruppen",   href: "/community/gruppen/",       icon: <Users2   className="w-4 h-4" /> },
         { label: "Mitglieder",      href: "/community/mitglieder/",    icon: <Users    className="w-4 h-4" /> },
-        { label: "Urlauber-Karte",   href: "/extras/reisenden-karte/",  icon: <Globe    className="w-4 h-4" /> },
+        { label: "Weltkarte",         href: "/weltkarte/",               icon: <Globe    className="w-4 h-4" /> },
       ],
     },
     {

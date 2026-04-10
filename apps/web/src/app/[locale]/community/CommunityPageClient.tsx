@@ -7,7 +7,7 @@ import { getTravelReports, getCommunityProfiles, getLatestApprovedTips } from "@
 import { TravelReport, CommunityProfile, TravelTip } from "@/types";
 import TravelReportCard from "@/components/community/TravelReportCard";
 import UserProfileCard from "@/components/community/UserProfileCard";
-import { CATEGORY_CONFIG } from "@/components/reisenden-karte/travelMapConfig";
+import { CATEGORY_CONFIG } from "@/lib/map/tip-categories";
 import { BookOpen, Users, Map, Users2, ArrowRight, Star, MessageCircle, Play, UserSearch, Route, Sparkles, Brain, Flame, MapPin, Navigation } from "lucide-react";
 
 /* ── Demo-Daten (Fallback wenn DB leer) ──────────────────────────────────── */
@@ -188,7 +188,7 @@ export default function CommunityPageClient() {
               { href: "/feed/",                    icon: <Play className="w-4 h-4" />,      label: t("navFeed") },
               { href: "/travel-buddies/",          icon: <UserSearch className="w-4 h-4" />,label: t("navTravelBuddies") },
               { href: "/reiserouten/",             icon: <Route className="w-4 h-4" />,     label: t("navRoutes") },
-              { href: "/extras/reisenden-karte/",  icon: <Map className="w-4 h-4" />,      label: t("navTravelerMap") },
+              { href: "/weltkarte/",  icon: <Map className="w-4 h-4" />,      label: t("navTravelerMap") },
             ].map((n) => (
               <Link key={n.href} href={n.href}
                 className="flex items-center gap-1.5 px-4 py-3 text-sm font-semibold text-gray-600 hover:text-teal-700 hover:bg-teal-50 rounded-lg whitespace-nowrap transition-colors"
@@ -259,7 +259,7 @@ export default function CommunityPageClient() {
               <Navigation className="w-5 h-5 text-teal-600" />
               {t("tipsSection")}
             </h2>
-            <Link href="/extras/reisenden-karte/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
+            <Link href="/weltkarte/" className="text-sm text-teal-600 font-semibold hover:underline flex items-center gap-1">
               {t("tipsAll")} <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -277,7 +277,7 @@ export default function CommunityPageClient() {
                 return (
                   <Link
                     key={tip.id}
-                    href="/extras/reisenden-karte/"
+                    href="/weltkarte/"
                     className="w-60 shrink-0 snap-start bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden group"
                   >
                     {/* Bild oder farbiger Header */}
@@ -323,7 +323,7 @@ export default function CommunityPageClient() {
 
               {/* CTA-Karte */}
               <Link
-                href="/extras/reisenden-karte/"
+                href="/weltkarte/"
                 className="w-52 shrink-0 snap-start bg-linear-to-br from-teal-50 to-cyan-50 border border-teal-100 rounded-2xl flex flex-col items-center justify-center gap-3 p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center">
@@ -446,7 +446,7 @@ export default function CommunityPageClient() {
               { icon: Sparkles, color: "bg-amber-50 text-amber-600 border-amber-100", title: t("featureAi"), desc: t("featureAiDesc"), href: "/dashboard/" },
               { icon: Brain, color: "bg-indigo-50 text-indigo-600 border-indigo-100", title: t("featureQuiz"), desc: t("featureQuizDesc"), href: "/dashboard/" },
               { icon: Flame, color: "bg-orange-50 text-orange-600 border-orange-100", title: t("featureStreak"), desc: t("featureStreakDesc"), href: "/dashboard/" },
-              { icon: Map, color: "bg-teal-50 text-teal-600 border-teal-100", title: t("featureMap"), desc: t("featureMapDesc"), href: "/extras/reisenden-karte/" },
+              { icon: Map, color: "bg-teal-50 text-teal-600 border-teal-100", title: t("featureMap"), desc: t("featureMapDesc"), href: "/weltkarte/" },
             ].map(({ icon: Icon, color, title, desc, href }) => (
               <Link key={href + title} href={href}
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all group"

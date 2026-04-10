@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { getPendingTravelTips, approveTravelTip, rejectTravelTip } from "@/lib/supabase-db";
 import { TravelTip } from "@/types";
-import { CATEGORY_CONFIG } from "@/components/reisenden-karte/travelMapConfig";
+import { CATEGORY_CONFIG } from "@/lib/map/tip-categories";
 import { CheckCircle2, XCircle, MapPin, Clock, ImageIcon, AlertCircle, Loader2, RefreshCw } from "lucide-react";
 
 export default function AdminTravelTipsTab() {
