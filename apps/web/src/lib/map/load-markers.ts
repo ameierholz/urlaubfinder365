@@ -8,7 +8,12 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { CATALOG } from "@/data/catalog-regions";
-import { generateHeroFallback, isFakeIbeRegionId } from "@/lib/catalog-helpers";
+import {
+  generateHeroFallback,
+  isFakeIbeRegionId,
+  getCountryProfile,
+  CLIMATE_NARRATIVES,
+} from "@/lib/catalog-helpers";
 import { lookupGeo, jitter } from "./geo-lookup";
 import type {
   MapMarker,
@@ -55,20 +60,31 @@ async function loadDestinationMarkers(): Promise<DestinationMarker[]> {
 
   return CATALOG
     .filter((e) => e.coordinates)
-    .map((e): DestinationMarker => ({
-      id:          `dest-${e.slug}`,
-      kind:        "destination",
-      lat:         e.coordinates!.lat,
-      lng:         e.coordinates!.lng,
-      title:       e.name,
-      slug:        e.slug,
-      country:     e.country,
-      climateZone: e.climateZone,
-      superRegion: e.superRegionName,
-      type:        e.type,
-      imageUrl:    generateHeroFallback(e.unsplashKeyword),
-      priceFrom:   priceMap.get(e.slug),
-    }));
+    .map((e): DestinationMarker => {
+      const profile = getCountryProfile(e.country);
+      const climate = CLIMATE_NARRATIVES[e.climateZone];
+      return {
+        id:          `dest-${e.slug}`,
+        kind:        "destination",
+        lat:         e.coordinates!.lat,
+        lng:         e.coordinates!.lng,
+        title:       e.name,
+        slug:        e.slug,
+        country:     e.country,
+        climateZone: e.climateZone,
+        superRegion: e.superRegionName,
+        type:        e.type,
+        imageUrl:    generateHeroFallback(e.unsplashKeyword),
+        iataCode:    e.iataCode,
+        bestMonths:  climate?.bestMonths,
+        summerTemp:  climate?.summerTemp,
+        sunDays:     climate?.sunDays,
+        flightTime:  profile.flightTime,
+        highlights:  profile.highlights,
+        cuisine:     profile.cuisine,
+        priceFrom:   priceMap.get(e.slug),
+      };
+    });
 }
 
 // ─── User-Tipps (49 echte aus travel_tips) ──────────────────────────────────

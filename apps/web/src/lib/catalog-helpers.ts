@@ -74,7 +74,7 @@ interface CountryProfile {
   priceRangeWeek: [number, number]; // Pauschalreise 7d/Person low/high €
 }
 
-const COUNTRY_PROFILES: Record<string, CountryProfile> = {
+export const COUNTRY_PROFILES: Record<string, CountryProfile> = {
   "Spanien": {
     highlights:    "Tapas-Bars in Sevilla, die Alhambra in Granada, Gaudís Sagrada Familia in Barcelona und kilometerlange Sandstrände an der Costa del Sol",
     cuisine:       "Tapas, Paella, Iberico-Schinken und frische Meeresfrüchte",
@@ -302,7 +302,7 @@ const COUNTRY_ALIASES: Record<string, string> = {
   "Malta":                     "Malta Gozo Comino",
 };
 
-function getCountryProfile(country: string): CountryProfile {
+export function getCountryProfile(country: string): CountryProfile {
   const canonical = COUNTRY_ALIASES[country] ?? country;
   return COUNTRY_PROFILES[canonical] ?? DEFAULT_COUNTRY_PROFILE;
 }
@@ -314,7 +314,7 @@ interface ClimateNarrative {
   vibe:       string;     // 1 vollständiger Satz, beginnt mit Großbuchstabe
 }
 
-const CLIMATE_NARRATIVES: Record<ClimateZone, ClimateNarrative> = {
+export const CLIMATE_NARRATIVES: Record<ClimateZone, ClimateNarrative> = {
   mediterranean: {
     sunDays:    "rund 300 Sonnentagen im Jahr",
     bestMonths: "Mai bis Oktober",

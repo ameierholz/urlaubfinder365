@@ -28,8 +28,21 @@ export interface DestinationMarker extends BaseMarker {
   superRegion: string;
   type:        "super" | "region";
   imageUrl?:   string;
+  iataCode?:   string;
+  /** "Mai bis Oktober" — aus CLIMATE_NARRATIVES */
   bestMonths?: string;
-  priceFrom?:  number;   // aus price_history.pauschal current
+  /** "26 bis 32 °C" — Sommertemperaturen aus CLIMATE_NARRATIVES */
+  summerTemp?: string;
+  /** "rund 300 Sonnentagen im Jahr" */
+  sunDays?:    string;
+  /** "rund 3 bis 3,5 Stunden ab Frankfurt" — aus COUNTRY_PROFILES */
+  flightTime?: string;
+  /** Konkrete Sehenswürdigkeiten/Highlights als 1 Satz */
+  highlights?: string;
+  /** Typische Küche-Stichworte */
+  cuisine?:    string;
+  /** Aktueller Pauschalpreis ab X €/Person aus price_history */
+  priceFrom?:  number;
 }
 
 export interface TipMarker extends BaseMarker {

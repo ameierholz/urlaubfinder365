@@ -48,11 +48,77 @@ function LeafletAssets() {
       link.setAttribute("data-cluster-default-css", "true");
       document.head.appendChild(link);
     }
+    // Custom Tooltip-Styling: weiss, abgerundet, mit Schatten
+    if (!document.querySelector('style[data-uf-tooltip-css]')) {
+      const style = document.createElement("style");
+      style.setAttribute("data-uf-tooltip-css", "true");
+      style.textContent = `
+        .uf-marker-tooltip {
+          background: #ffffff !important;
+          color: #1a202c !important;
+          border: none !important;
+          border-radius: 10px !important;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
+          padding: 8px 12px !important;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        }
+        .uf-marker-tooltip:before {
+          border-top-color: #ffffff !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
   }, []);
   return null;
 }
 
 // ─── Custom Marker Icons (per Layer) ────────────────────────────────────────
+
+// HTML escape helper für Tooltip-Inhalt
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Tooltip-HTML pro Marker-Typ — kompakt, max. 2-3 Zeilen
+function buildTooltipHtml(m: MapMarker): string {
+  const cfg = LAYER_CONFIG[m.kind];
+  const head = `<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+    <span style="font-size:13px">${cfg.emoji}</span>
+    <span style="font-weight:700;font-size:13px;color:#1a202c">${esc(m.title)}</span>
+  </div>`;
+
+  let sub = "";
+  if (m.kind === "destination") {
+    const country = m.country !== m.title ? esc(m.country) : "";
+    const price = m.priceFrom ? `<span style="color:#1db682;font-weight:700">ab ${m.priceFrom} €</span>` : "";
+    sub = `<div style="font-size:11px;color:#64748b;display:flex;gap:6px;align-items:center">
+      ${country ? `<span>${country}</span>` : ""}
+      ${country && price ? `<span style="color:#cbd5e1">·</span>` : ""}
+      ${price}
+    </div>`;
+  } else if (m.kind === "anbieter") {
+    const loc = [m.stadt, m.landName].filter(Boolean).join(", ");
+    const price = m.priceFrom ? `<span style="color:#A855F7;font-weight:700">ab ${Math.round(m.priceFrom)} €</span>` : "";
+    sub = `<div style="font-size:11px;color:#64748b;display:flex;gap:6px;align-items:center">
+      ${loc ? `<span>${esc(loc)}</span>` : ""}
+      ${loc && price ? `<span style="color:#cbd5e1">·</span>` : ""}
+      ${price}
+    </div>`;
+  } else if (m.kind === "tip") {
+    sub = `<div style="font-size:11px;color:#64748b">${esc(m.locationName ?? m.category)}</div>`;
+  } else if (m.kind === "report") {
+    const stars = "★".repeat(m.rating) + "☆".repeat(5 - m.rating);
+    sub = `<div style="font-size:11px;color:#fbbf24">${stars}</div>`;
+  } else if (m.kind === "media") {
+    sub = `<div style="font-size:11px;color:#64748b">📸 ${esc(m.destination)}</div>`;
+  }
+
+  return `<div style="font-family:-apple-system,sans-serif;line-height:1.3">${head}${sub}</div>`;
+}
 
 function buildIcon(L: typeof import("leaflet"), kind: MarkerKind) {
   const cfg = LAYER_CONFIG[kind];
@@ -286,6 +352,16 @@ export default function UrlaubsfinderMap({
         iconCache.current.set(m.kind, icon);
       }
       const marker = L.marker([m.lat, m.lng], { icon, title: m.title });
+
+      // Hover-Tooltip mit Name + Preis (Leaflet bindTooltip)
+      const tooltipHtml = buildTooltipHtml(m);
+      marker.bindTooltip(tooltipHtml, {
+        direction: "top",
+        offset: [0, -28],
+        opacity: 1,
+        className: "uf-marker-tooltip",
+      });
+
       marker.on("click", () => setSelectedRef.current(m));
       cluster.addLayer(marker);
       markersRef.current.push(marker);
