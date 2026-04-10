@@ -27,7 +27,8 @@ export default function MapSidePanel({ marker, onClose, compact = false }: Props
       className={`absolute bg-white shadow-2xl flex flex-col ${
         compact
           ? "bottom-0 left-0 right-0 max-h-[60%] rounded-t-2xl"
-          : "top-0 right-0 bottom-0 w-full sm:w-100 sm:rounded-l-2xl"
+          // Mobile: Bottom-Sheet · Desktop (sm): rechts angedockt 400px
+          : "left-0 right-0 bottom-0 max-h-[70%] rounded-t-2xl sm:left-auto sm:top-0 sm:right-0 sm:max-h-none sm:w-100 sm:rounded-l-2xl sm:rounded-tr-none"
       }`}
       style={{ zIndex: 1000 }}
     >

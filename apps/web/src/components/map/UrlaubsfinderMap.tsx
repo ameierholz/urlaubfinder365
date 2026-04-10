@@ -48,23 +48,15 @@ function LeafletAssets() {
       link.setAttribute("data-cluster-default-css", "true");
       document.head.appendChild(link);
     }
-    // Custom Tooltip-Styling: weiss, abgerundet, mit Schatten
-    if (!document.querySelector('style[data-uf-tooltip-css]')) {
+    // Marker-Stile: Pill mit Hover-Effekt + Click-Hint
+    if (!document.querySelector('style[data-uf-marker-css]')) {
       const style = document.createElement("style");
-      style.setAttribute("data-uf-tooltip-css", "true");
+      style.setAttribute("data-uf-marker-css", "true");
       style.textContent = `
-        .uf-marker-tooltip {
-          background: #ffffff !important;
-          color: #1a202c !important;
-          border: none !important;
-          border-radius: 10px !important;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
-          padding: 8px 12px !important;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-        }
-        .uf-marker-tooltip:before {
-          border-top-color: #ffffff !important;
-        }
+        .uf-marker { cursor: pointer !important; }
+        .uf-marker-pill > div { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .uf-marker-pill:hover > div { transform: scale(1.08); box-shadow: 0 4px 14px rgba(0,0,0,0.28) !important; }
+        .uf-marker-drop:hover > div { transform: rotate(-45deg) scale(1.12); }
       `;
       document.head.appendChild(style);
     }
@@ -74,54 +66,67 @@ function LeafletAssets() {
 
 // ─── Custom Marker Icons (per Layer) ────────────────────────────────────────
 
-// HTML escape helper für Tooltip-Inhalt
-function esc(s: string): string {
-  return s
+// HTML escape helper — null/undefined-safe
+function esc(s: string | undefined | null): string {
+  if (s === undefined || s === null) return "";
+  return String(s)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 }
 
-// Tooltip-HTML pro Marker-Typ — kompakt, max. 2-3 Zeilen
-function buildTooltipHtml(m: MapMarker): string {
+/**
+ * Marker-Icon-Bauer.
+ *
+ * Zwei Stile:
+ *   1. PRICE PILL — wenn der Marker einen Preis hat (Destination, Anbieter)
+ *      Pillenform mit "ab X €" + Emoji links. Direkt sichtbar wie bei Booking.com.
+ *   2. ICON DROP — runder Pin mit Emoji für Marker ohne Preis
+ *      (Tipps, Reports, Media)
+ */
+function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
   const cfg = LAYER_CONFIG[m.kind];
-  const head = `<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-    <span style="font-size:13px">${cfg.emoji}</span>
-    <span style="font-weight:700;font-size:13px;color:#1a202c">${esc(m.title)}</span>
-  </div>`;
 
-  let sub = "";
-  if (m.kind === "destination") {
-    const country = m.country !== m.title ? esc(m.country) : "";
-    const price = m.priceFrom ? `<span style="color:#1db682;font-weight:700">ab ${m.priceFrom} €</span>` : "";
-    sub = `<div style="font-size:11px;color:#64748b;display:flex;gap:6px;align-items:center">
-      ${country ? `<span>${country}</span>` : ""}
-      ${country && price ? `<span style="color:#cbd5e1">·</span>` : ""}
-      ${price}
-    </div>`;
-  } else if (m.kind === "anbieter") {
-    const loc = [m.stadt, m.landName].filter(Boolean).join(", ");
-    const price = m.priceFrom ? `<span style="color:#A855F7;font-weight:700">ab ${Math.round(m.priceFrom)} €</span>` : "";
-    sub = `<div style="font-size:11px;color:#64748b;display:flex;gap:6px;align-items:center">
-      ${loc ? `<span>${esc(loc)}</span>` : ""}
-      ${loc && price ? `<span style="color:#cbd5e1">·</span>` : ""}
-      ${price}
-    </div>`;
-  } else if (m.kind === "tip") {
-    sub = `<div style="font-size:11px;color:#64748b">${esc(m.locationName ?? m.category)}</div>`;
-  } else if (m.kind === "report") {
-    const stars = "★".repeat(m.rating) + "☆".repeat(5 - m.rating);
-    sub = `<div style="font-size:11px;color:#fbbf24">${stars}</div>`;
-  } else if (m.kind === "media") {
-    sub = `<div style="font-size:11px;color:#64748b">📸 ${esc(m.destination)}</div>`;
+  // Hat dieser Marker einen Preis? → Pill-Style
+  const hasPrice =
+    (m.kind === "destination" && typeof m.priceFrom === "number") ||
+    (m.kind === "anbieter"    && typeof m.priceFrom === "number");
+
+  if (hasPrice) {
+    const price = m.kind === "destination" || m.kind === "anbieter"
+      ? Math.round(m.priceFrom!)
+      : 0;
+    const html = `
+      <div style="
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: white;
+        border: 2px solid ${cfg.color};
+        border-radius: 999px;
+        padding: 4px 10px 4px 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        color: ${cfg.color};
+        white-space: nowrap;
+        line-height: 1;
+      ">
+        <span style="font-size: 13px;">${cfg.emoji}</span>
+        <span>ab ${price} €</span>
+      </div>
+    `;
+    return L.divIcon({
+      html,
+      className:  `uf-marker uf-marker-pill uf-marker-${m.kind}`,
+      iconSize:   undefined,    // auto-size by content
+      iconAnchor: [40, 14],     // ungefähr Mitte unten
+    });
   }
 
-  return `<div style="font-family:-apple-system,sans-serif;line-height:1.3">${head}${sub}</div>`;
-}
-
-function buildIcon(L: typeof import("leaflet"), kind: MarkerKind) {
-  const cfg = LAYER_CONFIG[kind];
+  // Klassischer Drop-Pin für Tipps/Reports/Media
   const html = `
     <div style="
       width: 32px;
@@ -140,12 +145,13 @@ function buildIcon(L: typeof import("leaflet"), kind: MarkerKind) {
   `;
   return L.divIcon({
     html,
-    className: `uf-marker uf-marker-${kind}`,
-    iconSize:  [32, 32],
-    iconAnchor:[16, 32],
-    popupAnchor: [0, -32],
+    className:  `uf-marker uf-marker-drop uf-marker-${m.kind}`,
+    iconSize:   [32, 32],
+    iconAnchor: [16, 32],
   });
 }
+
+void esc; // string-escape utility, currently unused since icons use sanitized data
 
 // ─── Filter State ────────────────────────────────────────────────────────────
 
@@ -221,7 +227,6 @@ export default function UrlaubsfinderMap({
   const mapRef       = useRef<LeafletMap | null>(null);
   const clusterRef   = useRef<MarkerClusterGroup | null>(null);
   const markersRef   = useRef<Marker[]>([]);
-  const iconCache    = useRef<Map<MarkerKind, L.DivIcon>>(new Map());
 
   const [filters, setFilters] = useState<MapFilters>(() => ({
     ...DEFAULT_FILTERS,
@@ -326,7 +331,6 @@ export default function UrlaubsfinderMap({
       mapRef.current = null;
       clusterRef.current = null;
       markersRef.current = [];
-      iconCache.current.clear();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -344,27 +348,20 @@ export default function UrlaubsfinderMap({
     cluster.clearLayers();
     markersRef.current = [];
 
-    // Neue Marker bauen
+    // Neue Marker bauen — defensive: ein einzelner Fehler darf den Loop nicht killen
     for (const m of visibleMarkers) {
-      let icon = iconCache.current.get(m.kind);
-      if (!icon) {
-        icon = buildIcon(L, m.kind);
-        iconCache.current.set(m.kind, icon);
+      try {
+        if (typeof m.lat !== "number" || typeof m.lng !== "number" || isNaN(m.lat) || isNaN(m.lng)) {
+          continue;
+        }
+        const icon = buildIcon(L, m);
+        const marker = L.marker([m.lat, m.lng], { icon, title: m.title ?? "" });
+        marker.on("click", () => setSelectedRef.current(m));
+        cluster.addLayer(marker);
+        markersRef.current.push(marker);
+      } catch (err) {
+        console.warn("[UrlaubsfinderMap] Marker konnte nicht erstellt werden:", m.id, err);
       }
-      const marker = L.marker([m.lat, m.lng], { icon, title: m.title });
-
-      // Hover-Tooltip mit Name + Preis (Leaflet bindTooltip)
-      const tooltipHtml = buildTooltipHtml(m);
-      marker.bindTooltip(tooltipHtml, {
-        direction: "top",
-        offset: [0, -28],
-        opacity: 1,
-        className: "uf-marker-tooltip",
-      });
-
-      marker.on("click", () => setSelectedRef.current(m));
-      cluster.addLayer(marker);
-      markersRef.current.push(marker);
     }
   }, [visibleMarkers]);
 
