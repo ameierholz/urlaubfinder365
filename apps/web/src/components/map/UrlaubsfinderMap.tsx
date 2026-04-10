@@ -48,22 +48,38 @@ function LeafletAssets() {
       link.setAttribute("data-cluster-default-css", "true");
       document.head.appendChild(link);
     }
-    // Marker-Stile: Pill mit Hover-Effekt + Click-Hint
+    // Marker-Stile: Pill + Community-Pin mit Hover-Effekten
     if (!document.querySelector('style[data-uf-marker-css]')) {
       const style = document.createElement("style");
       style.setAttribute("data-uf-marker-css", "true");
       style.textContent = `
         .uf-marker { cursor: pointer !important; }
+
+        /* Booking-Style Preis-Pille (Destinations & Anbieter) */
         .uf-marker-pill .uf-pill-wrap > div:first-of-type {
-          transition: transform 0.15s ease, box-shadow 0.15s ease;
+          transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
           transform-origin: 50% 100%;
         }
         .uf-marker-pill:hover .uf-pill-wrap > div:first-of-type {
-          transform: translate(-50%, -100%) scale(1.08);
-          box-shadow: 0 5px 16px rgba(0,0,0,0.32) !important;
+          transform: translateX(-50%) scale(1.10);
+          background: #1a202c !important;
+          color: #ffffff !important;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.15) !important;
           z-index: 10;
         }
-        .uf-marker-drop:hover > div { transform: rotate(-45deg) scale(1.12); }
+        .uf-marker-pill:hover .uf-pill-wrap > div:first-of-type > span:last-child {
+          color: #ffffff !important;
+        }
+
+        /* Community-Pin (Tipps, Reports, Media) — kreisrund */
+        .uf-marker-drop .uf-pill-wrap > div:first-of-type {
+          transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .uf-marker-drop:hover .uf-pill-wrap > div:first-of-type {
+          transform: translate(-50%, 0) scale(1.20);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.32) !important;
+          z-index: 10;
+        }
       `;
       document.head.appendChild(style);
     }
@@ -104,40 +120,43 @@ function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
     const price = m.kind === "destination" || m.kind === "anbieter"
       ? Math.round(m.priceFrom!)
       : 0;
-    // Pille mit Pfeil-Schwanz und Punkt unten — Spitze sitzt exakt auf lat/lng.
-    // Wrapper hat width:0/height:0 + transform-Magic, damit variable Pillen-Breiten
-    // immer mittig über dem Punkt sitzen.
+    // Booking-Style Pille: weiß, schwarzer fetter Text, dünner Schatten,
+    // kleiner farbiger Layer-Indikator links. Anker = exakt lat/lng (Endpunkt).
     const html = `
       <div class="uf-pill-wrap" style="
         position: relative;
         width: 0;
         height: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
       ">
         <div style="
+          position: absolute;
+          left: 0;
+          bottom: 8px;
+          transform: translateX(-50%);
           display: inline-flex;
           align-items: center;
-          gap: 4px;
-          background: white;
-          border: 2px solid ${cfg.color};
+          gap: 5px;
+          background: #ffffff;
           border-radius: 999px;
-          padding: 5px 11px 5px 7px;
-          box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+          padding: 5px 11px 5px 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.08);
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           font-weight: 800;
           font-size: 12px;
-          color: ${cfg.color};
+          color: #1a202c;
           white-space: nowrap;
           line-height: 1;
-          transform: translate(-50%, -100%);
-          margin-bottom: 8px;
         ">
-          <span style="font-size: 13px;">${cfg.emoji}</span>
+          <span style="
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: ${cfg.color};
+          "></span>
           <span>ab ${price} €</span>
         </div>
-        <!-- Verbindungslinie + Endpunkt direkt am Pin -->
+        <!-- Verbindungslinie + Endpunkt direkt am lat/lng -->
         <div style="
           position: absolute;
           left: 0;
@@ -153,7 +172,7 @@ function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
           top: -2px;
           width: 8px;
           height: 8px;
-          background: white;
+          background: #ffffff;
           border: 2px solid ${cfg.color};
           border-radius: 50%;
           transform: translate(-50%, -50%);
@@ -169,28 +188,39 @@ function buildIcon(L: typeof import("leaflet"), m: MapMarker) {
     });
   }
 
-  // Klassischer Drop-Pin für Tipps/Reports/Media
+  // Community-Pin für Tipps/Reports/Media — kompakter runder Pin mit Avatar-Look
   const html = `
-    <div style="
-      width: 32px;
-      height: 32px;
-      border-radius: 50% 50% 50% 0;
-      background: ${cfg.color};
-      transform: rotate(-45deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      border: 2px solid white;
+    <div class="uf-pill-wrap" style="
+      position: relative;
+      width: 0;
+      height: 0;
     ">
-      <span style="transform: rotate(45deg); font-size: 14px; line-height: 1;">${cfg.emoji}</span>
+      <div style="
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate(-50%, 0);
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 2px solid ${cfg.color};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        line-height: 1;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.22);
+      ">
+        ${cfg.emoji}
+      </div>
     </div>
   `;
   return L.divIcon({
     html,
     className:  `uf-marker uf-marker-drop uf-marker-${m.kind}`,
-    iconSize:   [32, 32],
-    iconAnchor: [16, 32],
+    iconSize:   [0, 0],
+    iconAnchor: [0, 0],
   });
 }
 
