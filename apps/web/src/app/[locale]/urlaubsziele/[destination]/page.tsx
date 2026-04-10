@@ -864,9 +864,6 @@ export default async function DestinationPage({ params }: Props) {
       {/* Ähnliche Urlaubsziele */}
       <RelatedDestinations currentSlug={dest.slug} country={dest.country} />
 
-      {/* Alle Urlaubsziele – Carousel */}
-      <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
-
       {/* SEO Bottom – langer Reiseführer + CTA */}
       {seoTexts?.seo_bottom && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -914,6 +911,9 @@ export default async function DestinationPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      {/* Alle Urlaubsziele – Carousel */}
+      <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
     </>
   );
 }
