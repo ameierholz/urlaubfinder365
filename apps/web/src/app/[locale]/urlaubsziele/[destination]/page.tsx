@@ -805,7 +805,7 @@ export default async function DestinationPage({ params }: Props) {
             </div>
           </a>
           <a
-            href="https://www.adac.de/reise-freizeit/reiseplanung/reisevorbereitung/"
+            href="https://www.adac.de/reise-freizeit/reiseplanung/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-3 bg-yellow-50 border border-yellow-100 rounded-xl p-4 hover:border-yellow-300 transition-colors"
@@ -817,14 +817,14 @@ export default async function DestinationPage({ params }: Props) {
             </div>
           </a>
           <a
-            href="https://www.bzga.de/infomaterialien/reisemedizin/"
+            href="https://www.crm.de/reiseziele.html"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-3 bg-green-50 border border-green-100 rounded-xl p-4 hover:border-green-300 transition-colors"
           >
             <span className="text-2xl shrink-0">💉</span>
             <div>
-              <p className="font-semibold text-green-800 text-sm">BZgA Reisemedizin</p>
+              <p className="font-semibold text-green-800 text-sm">CRM Reisemedizin</p>
               <p className="text-xs text-gray-500 mt-0.5">Impfempfehlungen & Gesundheitstipps</p>
             </div>
           </a>
