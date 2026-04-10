@@ -32,7 +32,9 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
-          { key: "X-Frame-Options", value: "DENY" },
+          // X-Frame-Options bewusst NICHT global gesetzt – middleware.ts setzt
+          // dynamisch CSP frame-ancestors (CSP-L2 ersetzt X-Frame-Options).
+          // /embed/* bekommt frame-ancestors *, alle anderen 'none'.
           { key: "X-Content-Type-Options", value: "nosniff" },
           {
             key: "Referrer-Policy",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink, Flame } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
-import { catalogToConfig, generateHeroFallback } from "@/lib/catalog-helpers";
+import { catalogToConfig, generateHeroFallback, getEffectiveIbeRegionIds, isFakeIbeRegionId } from "@/lib/catalog-helpers";
 import { getHubDataByCountry } from "@/lib/reise-hub-data";
 import IbeHolidayWidget from "@/components/ibe/IbeHolidayWidget";
 import UrlaubsartenGrid from "@/components/destination/UrlaubsartenGrid";
@@ -18,7 +18,7 @@ import DestinationCarousel, { type DestCarouselItem } from "@/components/ui/Dest
 import RelatedDestinations from "@/components/destination/related-destinations";
 import EntryInfoBox from "@/components/destination/EntryInfoBox";
 import TravelWarningBadge from "@/components/destination/TravelWarningBadge";
-import DestinationMap from "@/components/destination/DestinationMap";
+import DestinationMapEmbed from "@/components/map/DestinationMapEmbed";
 import ClimateChart from "@/components/destination/ClimateChart";
 import PriceChart from "@/components/destination/price-chart";
 import BookingAdvisor from "@/components/destination/booking-advisor";
@@ -126,16 +126,26 @@ export default async function DestinationPage({ params }: Props) {
   const subDestinations = isSuperRegion ? getCatalogByParent(catalogEntry!.slug) : [];
   const YEAR = new Date().getFullYear();
 
-  const regionId = dest.ibeRegionId ?? dest.regionIds?.[0]?.toString() ?? "";
+  // Effektive IBE-Region-IDs ermitteln (mit Recovery für Platzhalter-IDs aus Catalog).
+  // Rich destinations (antalya, mallorca, …) haben echte IDs und werden 1:1 verwendet.
+  // Catalog-Einträge mit Fake-IDs (1xxxxx) → fallback auf Children/Parent/Geschwister.
+  const richIsFake = !!richDest && isFakeIbeRegionId(richDest.ibeRegionId);
+  const effectiveIbeIds: number[] =
+    richDest && !richIsFake
+      ? (richDest.ibeRegionId
+          ? [Number(richDest.ibeRegionId)]
+          : (richDest.regionIds ?? []))
+      : getEffectiveIbeRegionIds(dest.slug);
+
+  const hasIbeData = effectiveIbeIds.length > 0;
+
+  // String-Form für IBE-Teaser (komma-getrennt, Specials.de unterstützt das)
+  const regionId = hasIbeData ? effectiveIbeIds.join(",") : "";
   const cityId   = dest.ibeCityId ?? "";
   const hubData  = getHubDataByCountry(dest.country);
 
-  // Top-Deals: ibeRegionId hat Vorrang vor regionIds (Platzhalter-Werte vermeiden)
-  const dealRegionIds = dest.ibeRegionId
-    ? [Number(dest.ibeRegionId)]
-    : dest.regionIds;
   const [topDeals, seoTexts] = await Promise.all([
-    fetchTopDeals(dealRegionIds, 5),
+    hasIbeData ? fetchTopDeals(effectiveIbeIds, 5) : Promise.resolve([]),
     fetchSeoTexts(dest.slug),
   ]);
 
@@ -466,24 +476,29 @@ export default async function DestinationPage({ params }: Props) {
               </div>
             )}
 
-            {/* Urlaubsarten-Navigation */}
-            <div className="mt-12">
-              <div className="relative rounded-2xl overflow-hidden mb-5">
-                <div className="absolute inset-0 bg-linear-to-br from-[#1db682] via-[#00838F] to-[#006d78]" />
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-                <div className="relative z-10 px-6 py-5 flex items-center gap-5">
-                  <span className="text-5xl shrink-0 drop-shadow">⭐</span>
-                  <div>
-                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Für jeden Geschmack</p>
-                    <h2 className="text-xl font-black text-white leading-tight">
-                      Beliebte Urlaubsarten in {dest.name}
-                    </h2>
-                    <p className="text-sm text-white/70 mt-0.5">Tagesaktuelle Preise · direkt buchbar</p>
+            {/* Urlaubsarten-Navigation – nur wenn echte IBE-ID vorhanden */}
+            {hasIbeData && (
+              <div className="mt-12">
+                <div className="relative rounded-2xl overflow-hidden mb-5">
+                  <div className="absolute inset-0 bg-linear-to-br from-[#1db682] via-[#00838F] to-[#006d78]" />
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+                  <div className="relative z-10 px-6 py-5 flex items-center gap-5">
+                    <span className="text-5xl shrink-0 drop-shadow">⭐</span>
+                    <div>
+                      <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Für jeden Geschmack</p>
+                      <h2 className="text-xl font-black text-white leading-tight">
+                        Beliebte Urlaubsarten in {dest.name}
+                      </h2>
+                      <p className="text-sm text-white/70 mt-0.5">Tagesaktuelle Preise · direkt buchbar</p>
+                    </div>
                   </div>
                 </div>
+                <UrlaubsartenGrid regionId={regionId} destName={dest.name} />
               </div>
-              <UrlaubsartenGrid regionId={regionId} destName={dest.name} />
-            </div>
+            )}
+
+            {/* Pauschalreisen / All-Inclusive / Last Minute – nur wenn echte IBE-ID vorhanden */}
+            {hasIbeData && <>
 
             {/* Pauschalreisen */}
             <div id="pauschalreisen" className="mt-12 scroll-mt-24">
@@ -578,6 +593,8 @@ export default async function DestinationPage({ params }: Props) {
               />
             </div>
 
+            </>}
+
             {/* Buchungsempfehlung – mobil sichtbar (Desktop in Sidebar) */}
             <div className="mt-8 xl:hidden">
               <Suspense fallback={null}>
@@ -632,7 +649,7 @@ export default async function DestinationPage({ params }: Props) {
           <aside className="hidden xl:block w-72 shrink-0 mt-12">
             <div className="sticky top-24 space-y-5">
               <RightSidebar
-                dealRegionIds={dest.regionIds}
+                dealRegionIds={hasIbeData ? effectiveIbeIds : []}
                 extrasBox={{
                   image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=200&q=70&auto=format&fit=crop",
                   eyebrow: "Jetzt buchen",
@@ -728,12 +745,13 @@ export default async function DestinationPage({ params }: Props) {
         <EntryInfoBox info={dest.entryInfo} destination={dest.name} />
       )}
 
-      {/* Interaktive Karte */}
+      {/* Interaktive Karte mit POIs im Umkreis */}
       {dest.coordinates && (
-        <DestinationMap
+        <DestinationMapEmbed
           lat={dest.coordinates.lat}
           lng={dest.coordinates.lng}
-          destination={dest.name}
+          slug={dest.slug}
+          name={dest.name}
         />
       )}
 

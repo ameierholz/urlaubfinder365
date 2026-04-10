@@ -1,11 +1,12 @@
 /**
- * Vercel Cron Job – täglich in 3 Läufen:
- *   03:00  ?profile=pauschal  – Pauschalreisen (min. 3★, ≥50 % Empfehlung)
- *   04:00  ?profile=hotel     – Nur Hotel exkl. All-Inclusive
- *   05:00  ?profile=ai        – All-Inclusive
+ * Vercel Cron Job – ein Lauf pro Tag, sammelt Preise für ALLE Profile:
+ *   03:00  /api/cron/collect-prices  → läuft pauschal, hotel, ai, last_minute
+ *   parallel durch (Hobby-Limit: 60s maxDuration, daher Promise.all statt sequenziell).
+ *   Hobby erlaubt insgesamt nur 2 Crons → ein konsolidierter Job für alle Profile.
  *
  * Manueller Aufruf:
- *   GET /api/cron/collect-prices?profile=pauschal
+ *   GET /api/cron/collect-prices                  → alle Profile
+ *   GET /api/cron/collect-prices?profile=pauschal → nur ein Profil (Debugging)
  *   Header: Authorization: Bearer <CRON_SECRET>
  */
 
@@ -15,7 +16,8 @@ import { upsertPriceTrendProfile, checkAndUpdateAlerts } from "@/lib/supabase-db
 import { sendPushToUsers } from "@/lib/web-push";
 import type { PriceSnapshot, PriceProfileId } from "@/types";
 
-// Vercel Hobby: 60 s, Pro: 300 s
+// Vercel Hobby: 60 s. Profile laufen parallel um in dieses Limit zu passen.
+// Bei Wechsel auf Pro kann das auf 300 erhöht und Profile auf sequenziell umgestellt werden.
 export const maxDuration = 60;
 
 const AGENT_ID = process.env.NEXT_PUBLIC_TRAVEL_AGENT_ID || "993243";
@@ -132,38 +134,25 @@ async function fetchMinPriceForProfile(
   }
 }
 
-// ── Handler ───────────────────────────────────────────────────────────────────
+// ── Per-Profil-Sammler ────────────────────────────────────────────────────────
 
-export async function GET(req: NextRequest) {
-  // 1. Auth
-  const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    const auth = req.headers.get("authorization");
-    if (auth !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-  }
+interface ProfileResult {
+  profile:       PriceProfileId;
+  profileLabel:  string;
+  total:         number;
+  success:       number;
+  failed:        number;
+  skipped:       number;
+  alertsMatched: number;
+}
 
-  // 2. Profil aus Query-Param (default: pauschal)
-  const profileParam = req.nextUrl.searchParams.get("profile") ?? "pauschal";
-  if (!(profileParam in PROFILES)) {
-    return NextResponse.json(
-      { error: `Ungültiges Profil: ${profileParam}. Erlaubt: pauschal, hotel, ai, last_minute` },
-      { status: 400 }
-    );
-  }
-  const profileId = profileParam as PriceProfileId;
-  const profile   = PROFILES[profileId];
-
-  const today = new Date().toISOString().split("T")[0];
-
-  // 3. Destinationen mit gültiger Region-ID
-  const destinations = CATALOG.filter(
-    (e) => e.ibeRegionId && Number(e.ibeRegionId) > 0
-  );
-
-  const results = {
-    date:          today,
+async function collectForProfile(
+  profileId: PriceProfileId,
+  destinations: typeof CATALOG,
+  today: string
+): Promise<ProfileResult> {
+  const profile = PROFILES[profileId];
+  const results: ProfileResult = {
     profile:       profileId,
     profileLabel:  profile.label,
     total:         destinations.length,
@@ -173,9 +162,12 @@ export async function GET(req: NextRequest) {
     alertsMatched: 0,
   };
 
-  // 4. In 5er-Batches verarbeiten
-  for (let i = 0; i < destinations.length; i += 5) {
-    const batch = destinations.slice(i, i + 5);
+  // In 10er-Batches verarbeiten (parallel innerhalb eines Batches).
+  // Bei 273 dests: 28 Batches × ~1s = ~28s pro Profil; mit 4 parallelen Profilen
+  // sind das effektiv ~30s für den ganzen Lauf — passt komfortabel in Hobby-60s.
+  // Trade-off: bis zu 10 simultane Specials.de-API-Calls pro Profil, 40 insgesamt.
+  for (let i = 0; i < destinations.length; i += 10) {
+    const batch = destinations.slice(i, i + 10);
 
     await Promise.all(
       batch.map(async (dest) => {
@@ -223,11 +215,64 @@ export async function GET(req: NextRequest) {
       })
     );
 
-    if (i + 5 < destinations.length) {
-      await new Promise((r) => setTimeout(r, 250));
+    if (i + 10 < destinations.length) {
+      await new Promise((r) => setTimeout(r, 100));
     }
   }
 
   console.log(`[collect-prices/${profileId}] Ergebnis:`, results);
-  return NextResponse.json({ ok: true, ...results });
+  return results;
+}
+
+// ── Handler ───────────────────────────────────────────────────────────────────
+
+const ALL_PROFILES: PriceProfileId[] = ["pauschal", "hotel", "ai", "last_minute"];
+
+export async function GET(req: NextRequest) {
+  // 1. Auth
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret) {
+    const auth = req.headers.get("authorization");
+    if (auth !== `Bearer ${cronSecret}`) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+  }
+
+  // 2. Profil-Auswahl: kein Param oder ?profile=all → alle vier sequenziell
+  const profileParam = req.nextUrl.searchParams.get("profile");
+  let profilesToRun: PriceProfileId[];
+  if (!profileParam || profileParam === "all") {
+    profilesToRun = ALL_PROFILES;
+  } else if (profileParam in PROFILES) {
+    profilesToRun = [profileParam as PriceProfileId];
+  } else {
+    return NextResponse.json(
+      { error: `Ungültiges Profil: ${profileParam}. Erlaubt: all, pauschal, hotel, ai, last_minute` },
+      { status: 400 }
+    );
+  }
+
+  const today = new Date().toISOString().split("T")[0];
+
+  // 3. Destinationen mit gültiger Region-ID
+  const destinations = CATALOG.filter(
+    (e) => e.ibeRegionId && Number(e.ibeRegionId) > 0
+  );
+
+  // 4. Profile PARALLEL laufen lassen (Hobby-60s-Limit; auf Pro evtl. sequenziell für API-Schonung)
+  const profileResults = await Promise.all(
+    profilesToRun.map((p) => collectForProfile(p, destinations, today))
+  );
+
+  return NextResponse.json({
+    ok:       true,
+    date:     today,
+    profiles: profileResults,
+    summary: {
+      totalSuccess:  profileResults.reduce((s, r) => s + r.success, 0),
+      totalFailed:   profileResults.reduce((s, r) => s + r.failed, 0),
+      totalSkipped:  profileResults.reduce((s, r) => s + r.skipped, 0),
+      totalAlerts:   profileResults.reduce((s, r) => s + r.alertsMatched, 0),
+    },
+  });
 }

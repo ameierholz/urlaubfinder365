@@ -18,8 +18,10 @@ const SKIP_CSP = /^\/(api|_next\/static|_next\/image|favicon|apple-icon|icon|rob
 /** Baut den dynamischen CSP-Header mit Per-Request-Nonce.
  *  unsafe-inline für script-src ist entfernt — nur Nonce-tragende Inline-Scripts laufen.
  *  unsafe-eval bleibt (benötigt für IBE-Widget & AdSense).
+ *  isEmbed=true → frame-ancestors *  (erlaubt Einbetten in beliebige fremde Seiten;
+ *    nach CSP-L2 wird X-Frame-Options dann ignoriert).
  */
-function buildCsp(nonce: string): string {
+function buildCsp(nonce: string, isEmbed = false): string {
   return [
     "default-src 'self'",
     `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://*.specials.de https://api.specials.de https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
@@ -32,7 +34,7 @@ function buildCsp(nonce: string): string {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self' https://accounts.google.com",
-    "frame-ancestors 'none'",
+    isEmbed ? "frame-ancestors *" : "frame-ancestors 'none'",
   ].join("; ");
 }
 
@@ -73,7 +75,8 @@ export async function middleware(request: NextRequest) {
 
   // CSP nur für HTML-Seiten setzen (nicht für statische Assets / API)
   if (!SKIP_CSP.test(pathname)) {
-    response.headers.set("Content-Security-Policy", buildCsp(nonce));
+    const isEmbed = pathname.startsWith("/embed/");
+    response.headers.set("Content-Security-Policy", buildCsp(nonce, isEmbed));
   }
 
   return response;

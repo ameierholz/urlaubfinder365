@@ -6,40 +6,12 @@
   "regions": ["fra1"],
   "crons": [
     {
-      "path": "/api/cron/collect-prices?profile=pauschal",
+      "path": "/api/cron/collect-prices",
       "schedule": "0 3 * * *"
     },
     {
-      "path": "/api/cron/collect-prices?profile=hotel",
-      "schedule": "0 4 * * *"
-    },
-    {
-      "path": "/api/cron/collect-prices?profile=ai",
-      "schedule": "0 5 * * *"
-    },
-    {
-      "path": "/api/cron/collect-prices?profile=last_minute",
-      "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/cron/anbieter-monatsbericht",
-      "schedule": "0 8 1 * *"
-    },
-    {
-      "path": "/api/cron/buchung-erinnerung",
+      "path": "/api/cron/daily-tasks",
       "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/cron/buchung-bewertung",
-      "schedule": "0 10 * * *"
-    },
-    {
-      "path": "/api/cron/buchung-abschliessen",
-      "schedule": "0 11 * * *"
-    },
-    {
-      "path": "/api/cron/sync-travel-warnings",
-      "schedule": "0 7 * * *"
     }
   ],
   "headers": [

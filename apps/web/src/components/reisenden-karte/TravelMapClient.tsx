@@ -258,6 +258,14 @@ export default function TravelMapClient() {
             </div>
           </div>
 
+          {/* Link zur Weltkarte */}
+          <a
+            href="/weltkarte/"
+            className="shrink-0 hidden md:flex items-center gap-1.5 bg-white border border-gray-200 hover:border-[#1db682] text-gray-700 hover:text-[#1db682] text-xs font-semibold px-3 py-1.5 rounded-full transition-colors"
+          >
+            🗺️ Weltkarte
+          </a>
+
           {/* Tipp hinzufügen – immer sichtbar */}
           <button
             onClick={() => user ? (setPendingLat(null), setPendingLng(null), setForm(EMPTY_FORM), setIsPicking(false), setShowModal(true)) : setError("Bitte anmelden.")}

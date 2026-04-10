@@ -240,7 +240,8 @@ const EXTRAS_GROUPS = [
   {
     label: "Entdecken",
     items: [
-      { href: "/magazin/",               icon: BookOpen, color: "text-blue-400",   label: "Urlaubsmagazin", badge: "NEU" },
+      { href: "/weltkarte/",              icon: Globe,   color: "text-emerald-400", label: "Weltkarte",      badge: "NEU" },
+      { href: "/magazin/",               icon: BookOpen, color: "text-blue-400",   label: "Urlaubsmagazin", badge: null },
       { href: "/erlebnisse/",             icon: Compass, color: "text-orange-400", label: "Erlebnisse",     badge: null },
       { href: "/extras/reisenden-karte/", icon: Globe,   color: "text-cyan-400",   label: "Urlauber-Karte", badge: null },
     ],
@@ -645,6 +646,7 @@ export default function Header() {
       label: t("extras"),
       href: "/extras/",
       children: [
+        { label: "Weltkarte",          href: "/weltkarte/",         icon: <Globe        className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
         { label: "Preisentwicklung",  href: "/preisentwicklung/",  icon: <TrendingUp   className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
         { label: "Reisewarnungen",    href: "/reisewarnungen/",    icon: <ShieldAlert  className="w-4 h-4 text-red-400" /> },
         { label: t("urlaubsguides"),    href: "/urlaubsguides",          icon: <BookOpen     className="w-4 h-4" /> },
