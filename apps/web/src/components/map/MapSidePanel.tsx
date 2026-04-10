@@ -18,20 +18,62 @@ interface Props {
   compact?: boolean;
 }
 
+// Side-Panel-Layout via injizierter CSS — unabhängig von Tailwind-Spacing-Scale.
+// Mobile (< 640px): Bottom-Sheet · Desktop: rechts angedockt 400px
+const PANEL_CSS = `
+  .uf-side-panel {
+    position: absolute;
+    background: #ffffff;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    /* Mobile default */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 70%;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+  .uf-side-panel--compact {
+    max-height: 60%;
+  }
+  @media (min-width: 640px) {
+    .uf-side-panel:not(.uf-side-panel--compact) {
+      left: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 400px;
+      max-height: none;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+      border-top-right-radius: 0;
+      box-shadow: -8px 0 32px rgba(0,0,0,0.18);
+    }
+  }
+`;
+
+function PanelStyles() {
+  if (typeof document !== "undefined" && !document.querySelector('style[data-uf-panel-css]')) {
+    const style = document.createElement("style");
+    style.setAttribute("data-uf-panel-css", "true");
+    style.textContent = PANEL_CSS;
+    document.head.appendChild(style);
+  }
+  return null;
+}
+
 export default function MapSidePanel({ marker, onClose, compact = false }: Props) {
   const cfg = LAYER_CONFIG[marker.kind];
 
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className={`absolute bg-white shadow-2xl flex flex-col ${
-        compact
-          ? "bottom-0 left-0 right-0 max-h-[60%] rounded-t-2xl"
-          // Mobile: Bottom-Sheet · Desktop (sm): rechts angedockt 400px
-          : "left-0 right-0 bottom-0 max-h-[70%] rounded-t-2xl sm:left-auto sm:top-0 sm:right-0 sm:max-h-none sm:w-100 sm:rounded-l-2xl sm:rounded-tr-none"
-      }`}
-      style={{ zIndex: 1000 }}
+      className={`uf-side-panel${compact ? " uf-side-panel--compact" : ""}`}
     >
+      <PanelStyles />
       {/* Header */}
       <div
         className="relative flex items-center justify-between px-5 py-4 border-b border-gray-100"
