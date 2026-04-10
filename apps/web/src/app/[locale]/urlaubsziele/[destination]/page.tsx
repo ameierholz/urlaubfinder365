@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink, Flame } from "lucide-react";
+import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink, Flame, Info } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
 import { catalogToConfig, generateHeroFallback, getEffectiveIbeRegionIds, isFakeIbeRegionId } from "@/lib/catalog-helpers";
@@ -22,6 +22,7 @@ import DestinationMapEmbed from "@/components/map/DestinationMapEmbed";
 import ClimateChart from "@/components/destination/ClimateChart";
 import PriceChart from "@/components/destination/price-chart";
 import BookingAdvisor from "@/components/destination/booking-advisor";
+import EmbedWidgetSection from "@/components/destination/embed-widget-section";
 import PriceAlertWidget from "@/components/destination/price-alert-widget";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import AdSlot from "@/components/ads/AdSlot";
@@ -430,9 +431,12 @@ export default async function DestinationPage({ params }: Props) {
       {/* SEO Intro */}
       {seoTexts?.seo_intro && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-          <p className="text-lg text-gray-700 leading-relaxed font-medium">
-            {seoTexts.seo_intro}
-          </p>
+          <div className="relative rounded-2xl p-6 sm:p-8 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
+            <Info className="absolute top-4 right-4 w-4 h-4 text-white/20" />
+            <p className="text-base sm:text-lg text-white/85 leading-relaxed">
+              {seoTexts.seo_intro}
+            </p>
+          </div>
         </div>
       )}
 
@@ -628,6 +632,9 @@ export default async function DestinationPage({ params }: Props) {
             <div id="preisverlauf" className="mt-8 scroll-mt-24">
               <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
             </div>
+
+            {/* Embed-Widget für Blogger & Medienseiten */}
+            <EmbedWidgetSection destinationSlug={dest.slug} destinationName={dest.name} />
 
             {/* Tiqets Aktivitäten */}
             {dest.tiqetsCityId && (
@@ -840,11 +847,38 @@ export default async function DestinationPage({ params }: Props) {
       {/* Alle Urlaubsziele – Carousel */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />
 
-      {/* SEO Bottom – Buchungs-CTA (vor dem langen Reiseführer-Text) */}
+      {/* SEO Middle – Kompletter Reiseführer */}
+      {seoTexts?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="relative rounded-2xl p-6 sm:p-8 lg:p-10 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
+            <Info className="absolute top-4 right-4 w-4 h-4 text-white/20" />
+            <h2 className="text-2xl sm:text-3xl font-black text-white mb-8">
+              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
+            </h2>
+            <div className="leading-relaxed space-y-4">
+              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
+                const trimmed = block.trim();
+                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
+                if (isHeading) {
+                  return <h3 key={i} className="text-lg font-bold text-white mt-8 mb-2">{trimmed}</h3>;
+                }
+                return <p key={i} className="text-[15px] text-white/80 leading-[1.8]">{trimmed}</p>;
+              })}
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-white/10">
+              <AdSlot slotKey="destination_content_bottom" minHeight={120} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SEO Bottom – Buchungs-CTA */}
       {seoTexts?.seo_bottom && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-linear-to-br from-[#0d1f35] to-[#1a3a5c] rounded-2xl p-6 sm:p-8 text-white">
-            <h2 className="text-2xl font-bold mb-4">
+          <div className="relative rounded-2xl p-6 sm:p-8 bg-linear-to-br from-[#1e2d3d] to-[#243b52]">
+            <Info className="absolute top-4 right-4 w-4 h-4 text-white/20" />
+            <h2 className="text-2xl font-bold text-white mb-4">
               {seoTexts.seo_h2_bottom ?? `${dest.name} Urlaub günstig buchen`}
             </h2>
             <div className="text-white/80 leading-relaxed space-y-3">
@@ -859,34 +893,6 @@ export default async function DestinationPage({ params }: Props) {
               <Link href="/last-minute/" className="bg-white/15 hover:bg-white/25 text-white font-semibold px-6 py-3 rounded-full transition-colors">
                 Last-Minute Deals
               </Link>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* SEO Middle – Kompletter Reiseführer (langer Text ganz unten) */}
-      {seoTexts?.seo_middle && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8 lg:p-10">
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-8">
-              {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
-            </h2>
-            <div className="max-w-none text-gray-600 leading-relaxed space-y-4">
-              {seoTexts.seo_middle.split("\n\n").map((block, i) => {
-                const trimmed = block.trim();
-                // Kurze Zeilen ohne Punkt am Ende = Zwischenüberschrift
-                const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
-                if (isHeading) {
-                  return <h3 key={i} className="text-lg font-bold text-gray-900 mt-8 mb-2">{trimmed}</h3>;
-                }
-                return <p key={i} className="text-[15px] text-gray-600 leading-[1.8]">{trimmed}</p>;
-              })}
-            </div>
-
-            {/* Werbeslot — direkt nach dem langen SEO-Text. Code wird vom Admin
-                unter /admin/werbeplaetze/ (slot_key=destination_content_bottom) gepflegt. */}
-            <div className="mt-10 pt-8 border-t border-gray-100">
-              <AdSlot slotKey="destination_content_bottom" minHeight={120} />
             </div>
           </div>
         </div>

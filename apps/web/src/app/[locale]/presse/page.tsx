@@ -17,7 +17,36 @@ import {
   BookOpen,
 } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
+import { createClient } from "@supabase/supabase-js";
 import { EmbedCode } from "@/components/ui/embed-code";
+
+async function fetchEmbedDestinations(): Promise<{ slug: string; name: string }[]> {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data } = await supabase
+      .from("price_history")
+      .select("destination_slug, destination_name")
+      .order("destination_name", { ascending: true });
+
+    if (!data) return [];
+
+    // Deduplizieren nach slug, alphabetisch sortiert
+    const seen = new Set<string>();
+    const result: { slug: string; name: string }[] = [];
+    for (const row of data) {
+      if (row.destination_slug && !seen.has(row.destination_slug)) {
+        seen.add(row.destination_slug);
+        result.push({ slug: row.destination_slug, name: row.destination_name ?? row.destination_slug });
+      }
+    }
+    return result.sort((a, b) => a.name.localeCompare(b.name, "de"));
+  } catch {
+    return [];
+  }
+}
 
 export const metadata: Metadata = {
   title: "Presse – Urlaubfinder365.de | Mediadaten & Pressemitteilungen",
@@ -119,6 +148,13 @@ export default async function PressePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const embedDestinations = await fetchEmbedDestinations();
+  // Fallback wenn keine DB-Daten
+  const embedDests = embedDestinations.length > 0
+    ? embedDestinations
+    : [{ slug: "antalya", name: "Antalya" }];
+  const firstDest = embedDests[0];
 
   return (
     <main className="bg-gray-50 min-h-screen">
@@ -453,10 +489,11 @@ export default async function PressePage({
             </p>
           </div>
           <EmbedCode
-            destinationSlug="antalya"
-            destinationName="Antalya"
+            destinationSlug={firstDest.slug}
+            destinationName={firstDest.name}
             days={30}
             theme="light"
+            destinations={embedDests}
           />
         </section>
 

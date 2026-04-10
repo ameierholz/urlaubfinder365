@@ -3,11 +3,18 @@
 import { useState } from "react";
 import { Copy, Check, ExternalLink, Code2 } from "lucide-react";
 
+interface DestinationOption {
+  slug: string;
+  name: string;
+}
+
 interface Props {
   destinationSlug: string;
   destinationName: string;
   days?: number;
   theme?: "light" | "dark";
+  /** Wenn übergeben, wird ein Destination-Picker angezeigt */
+  destinations?: DestinationOption[];
 }
 
 export function EmbedCode({
@@ -15,13 +22,16 @@ export function EmbedCode({
   destinationName,
   days = 30,
   theme = "light",
+  destinations,
 }: Props) {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [selectedDays, setSelectedDays] = useState(days);
   const [selectedTheme, setSelectedTheme] = useState<"light" | "dark">(theme);
+  const [selectedSlug, setSelectedSlug] = useState(destinationSlug);
+  const [selectedName, setSelectedName] = useState(destinationName);
 
-  const embedUrl = `https://www.urlaubfinder365.de/embed/price-chart?destination=${destinationSlug}&days=${selectedDays}&theme=${selectedTheme}`;
+  const embedUrl = `https://www.urlaubfinder365.de/embed/price-chart?destination=${selectedSlug}&days=${selectedDays}&theme=${selectedTheme}`;
 
   const iframeCode = `<iframe
   src="${embedUrl}"
@@ -30,7 +40,7 @@ export function EmbedCode({
   frameborder="0"
   scrolling="no"
   style="border-radius:12px;overflow:hidden;max-width:100%"
-  title="Preisverlauf ${destinationName} – urlaubfinder365.de"
+  title="Preisverlauf ${selectedName} – urlaubfinder365.de"
   loading="lazy"
 ></iframe>`;
 
@@ -40,6 +50,14 @@ export function EmbedCode({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  function handleDestinationChange(slug: string) {
+    const dest = destinations?.find((d) => d.slug === slug);
+    if (dest) {
+      setSelectedSlug(dest.slug);
+      setSelectedName(dest.name);
+    }
+  }
+
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       {/* Header */}
@@ -47,7 +65,7 @@ export function EmbedCode({
         <div className="flex items-center gap-2">
           <Code2 className="w-4 h-4 text-[#1db682]" />
           <span className="font-bold text-sm text-gray-900">
-            Widget: Preisverlauf {destinationName}
+            Widget: Preisverlauf {selectedName}
           </span>
         </div>
         <div className="flex bg-white rounded-lg border border-gray-200 p-0.5">
@@ -68,7 +86,23 @@ export function EmbedCode({
       </div>
 
       {/* Controls */}
-      <div className="flex items-center gap-4 px-5 py-3 border-b border-gray-100 bg-gray-50/50">
+      <div className="flex items-center gap-4 px-5 py-3 border-b border-gray-100 bg-gray-50/50 flex-wrap">
+        {destinations && destinations.length > 1 && (
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Reiseziel:</span>
+            <select
+              value={selectedSlug}
+              onChange={(e) => handleDestinationChange(e.target.value)}
+              className="text-xs border border-gray-200 rounded-lg px-2 py-1 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-[#1db682] max-w-45"
+            >
+              {destinations.map((d) => (
+                <option key={d.slug} value={d.slug}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-500">Zeitraum:</span>
           <select
@@ -114,7 +148,7 @@ export function EmbedCode({
                   overflow: "hidden",
                   maxWidth: "100%",
                 }}
-                title={`Preisverlauf ${destinationName}`}
+                title={`Preisverlauf ${selectedName}`}
                 loading="lazy"
               />
             </div>

@@ -1251,6 +1251,11 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
+      {/* ══════════════════════════════════════════════════════════
+          9b · URLAUBSMAGAZIN – Neueste Artikel
+      ══════════════════════════════════════════════════════════ */}
+      <MagazinTeaser />
+
       {/* Wave: Community/Guides Weiß → SEO Sand */}
       <div className="relative h-10 overflow-hidden bg-white">
         <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-full">
@@ -1307,11 +1312,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <NewsletterSignup variant="hero" />
         </div>
       </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          9b · URLAUBSMAGAZIN – Neueste Artikel
-      ══════════════════════════════════════════════════════════ */}
-      <MagazinTeaser />
 
       {/* ══════════════════════════════════════════════════════════
           10 · FINALER CTA
