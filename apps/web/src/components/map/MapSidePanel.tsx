@@ -11,6 +11,7 @@ import { X, MapPin, Star, ExternalLink, Heart, CheckCircle2, Calendar, Plane, Ca
 import type { MapMarker } from "@/lib/map/marker-types";
 import { LAYER_CONFIG } from "@/lib/map/marker-types";
 import { useWeather, weatherCodeToInfo } from "./useWeather";
+import NearbyActivities from "./NearbyActivities";
 
 interface Props {
   marker:  MapMarker;
@@ -287,30 +288,18 @@ function DestinationBody({ m }: { m: Extract<MapMarker, { kind: "destination" }>
           )}
         </div>
 
-        {/* Highlights — verlinkt zu Aktivitäten falls verfügbar */}
+        {/* Highlights — Beschreibung */}
         {m.highlights && (
-          m.hasTiqets ? (
-            <Link
-              href={`/aktivitaeten/${m.slug}/`}
-              className="block bg-orange-50 hover:bg-orange-100 border border-orange-200 hover:border-orange-400 rounded-lg px-3 py-2.5 transition-colors cursor-pointer"
-            >
-              <p className="text-orange-600 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> Highlights & Aktivitäten
-                <span className="ml-auto text-orange-700 font-semibold flex items-center gap-0.5">
-                  Tickets buchen →
-                </span>
-              </p>
-              <p className="text-xs text-gray-700 leading-relaxed">{m.highlights}</p>
-            </Link>
-          ) : (
-            <div>
-              <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> Highlights
-              </p>
-              <p className="text-xs text-gray-600 leading-relaxed">{m.highlights}</p>
-            </div>
-          )
+          <div>
+            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> Highlights
+            </p>
+            <p className="text-xs text-gray-600 leading-relaxed">{m.highlights}</p>
+          </div>
         )}
+
+        {/* Tiqets-Aktivitäten — live geladen, max 4 Cards */}
+        <NearbyActivities slug={m.slug} limit={4} />
 
         {/* Küche */}
         {m.cuisine && (
