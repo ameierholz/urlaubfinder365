@@ -163,15 +163,14 @@ export default function HomeDealCard({ offer, priority = false, featured = false
           <Heart className="w-4 h-4" fill={saved ? "currentColor" : "none"} />
         </button>
 
-        {/* Editoriale Headline unten */}
+        {/* Hotel + Ort unten */}
         <div className="absolute bottom-0 left-0 right-0 p-4 pr-12 text-white">
           <p className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1 drop-shadow">
             {getLocation(offer)}
           </p>
-          <h3 className="font-black text-lg leading-tight drop-shadow-md group-hover:text-sand-200 transition-colors">
-            {getHeadline(offer)}
+          <h3 className="font-black text-lg leading-tight drop-shadow-md group-hover:text-sand-200 transition-colors line-clamp-2">
+            {offer.hotel_name}
           </h3>
-          <p className="text-white/65 text-xs mt-1 line-clamp-1">{offer.hotel_name}</p>
         </div>
       </div>
 
