@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { PAUSCHAL_KOMBIS, getPauschalKombi } from "@/lib/pauschalreisen-kombi-data";
 import { getDestinationBySlug } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
+import { fetchDestinationPriceStats } from "@/lib/destination-pricing";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
@@ -59,6 +60,16 @@ export default async function PauschalKombiPage({ params }: Props) {
     .map(destExists)
     .filter((x): x is { name: string; slug: string } => x !== null);
 
+  // Echte Preis-Range aus price_history aggregiert über alle relatedDestinationSlugs
+  const priceStatsList = await Promise.all(
+    data.relatedDestinationSlugs.map((s) => fetchDestinationPriceStats(s))
+  );
+  const lowPrices  = priceStatsList.map((p) => p.lowPrice).filter((n): n is number => n !== null);
+  const highPrices = priceStatsList.map((p) => p.highPrice).filter((n): n is number => n !== null);
+  const totalSamples = priceStatsList.reduce((sum, p) => sum + p.sampleSize, 0);
+  const aggLowPrice  = lowPrices.length > 0 ? Math.min(...lowPrices) : null;
+  const aggHighPrice = highPrices.length > 0 ? Math.max(...highPrices) : null;
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -79,10 +90,74 @@ export default async function PauschalKombiPage({ params }: Props) {
     })),
   };
 
+  // Product + Offer Schema für Rich Snippets (Preis in SERP)
+  const productSchema = aggLowPrice ? {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `${data.h1.replace(/ \d{4}.*/, "").trim()}`,
+    "description": data.lead,
+    "image": data.heroImage,
+    "brand": { "@type": "Brand", "name": "Urlaubfinder365" },
+    "category": "Travel > Package Holidays",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": aggLowPrice,
+      ...(aggHighPrice && aggHighPrice > aggLowPrice ? { "highPrice": aggHighPrice } : {}),
+      "offerCount": totalSamples > 0 ? totalSamples : data.relatedDestinationSlugs.length * 10,
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Urlaubfinder365",
+        "url": BASE_URL,
+      },
+    },
+  } : null;
+
+  // TouristTrip Schema für Travel Rich Results
+  const tripSchema = aggLowPrice ? {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": data.h1.replace(/ \d{4}.*/, "").trim(),
+    "description": data.longDescription,
+    "url": `${BASE_URL}/pauschalreisen/${data.slug}/`,
+    "image": data.heroImage,
+    "touristType": [`Pauschalreise ${data.country}`, "Badeurlaub", data.board === "AI" ? "All Inclusive" : "Pauschalreise"],
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": relatedDests.map((d, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "TouristDestination",
+          "name": d.name,
+          "url": `${BASE_URL}/urlaubsziele/${d.slug}/`,
+          "address": { "@type": "PostalAddress", "addressCountry": data.country },
+        },
+      })),
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": aggLowPrice,
+      ...(aggHighPrice && aggHighPrice > aggLowPrice ? { "highPrice": aggHighPrice } : {}),
+      "offerCount": totalSamples > 0 ? totalSamples : data.relatedDestinationSlugs.length * 10,
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "Urlaubfinder365" },
+    },
+    "provider": { "@type": "Organization", "name": "Urlaubfinder365", "url": BASE_URL },
+  } : null;
+
   return (
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {productSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+      )}
+      {tripSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tripSchema) }} />
+      )}
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[440px] flex items-end">

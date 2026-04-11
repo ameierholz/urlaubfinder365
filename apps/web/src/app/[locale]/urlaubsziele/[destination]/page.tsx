@@ -30,7 +30,12 @@ import AdSlot from "@/components/ads/AdSlot";
 import DestinationHubLinks from "@/components/destination/DestinationHubLinks";
 import LongTailContentSection from "@/components/destination/LongTailContentSection";
 import BudgetBreakdownSection from "@/components/destination/BudgetBreakdownSection";
+import DestinationReviewsSection from "@/components/destination/DestinationReviewsSection";
+import DestinationCommunityReports from "@/components/destination/DestinationCommunityReports";
 import { fetchTopDeals } from "@/lib/travel-api";
+import { fetchDestinationPriceStats } from "@/lib/destination-pricing";
+import { fetchDestinationReviews } from "@/lib/destination-reviews";
+import { fetchDestinationTravelReports } from "@/lib/destination-travel-reports";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -165,10 +170,20 @@ export default async function DestinationPage({ params }: Props) {
   const cityId   = dest.ibeCityId ?? "";
   const hubData  = getHubDataByCountry(dest.country);
 
-  const [topDeals, seoTexts] = await Promise.all([
+  const [topDeals, seoTexts, priceStats, reviewStats, communityReports] = await Promise.all([
     hasIbeData ? fetchTopDeals(effectiveIbeIds, 5) : Promise.resolve([]),
     fetchSeoTexts(dest.slug),
+    fetchDestinationPriceStats(dest.slug),
+    fetchDestinationReviews(dest.slug),
+    fetchDestinationTravelReports(dest.name, 4),
   ]);
+
+  // Offer-Preis-Range: bevorzugt echte Daten aus price_history, sonst aus Top-Deals
+  const offerLowPrice =
+    priceStats.lowPrice ??
+    (topDeals[0]?.offer_price_adult ? Math.floor(Number(topDeals[0].offer_price_adult)) : null);
+  const offerHighPrice = priceStats.highPrice;
+  const offerCount = priceStats.sampleSize > 0 ? priceStats.sampleSize : topDeals.length;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -203,15 +218,73 @@ export default async function DestinationPage({ params }: Props) {
             "value": `${m.tempHigh}°C`,
           })),
         } : {}),
-        ...(topDeals.length > 0 && topDeals[0].offer_price_adult ? {
+        ...(offerLowPrice ? {
           "offers": {
             "@type": "AggregateOffer",
-            "lowPrice": Math.floor(Number(topDeals[0].offer_price_adult)),
             "priceCurrency": "EUR",
-            "offerCount": topDeals.length,
+            "lowPrice": offerLowPrice,
+            ...(offerHighPrice && offerHighPrice > offerLowPrice ? { "highPrice": offerHighPrice } : {}),
+            "offerCount": offerCount,
+            "availability": "https://schema.org/InStock",
+            "seller": { "@type": "Organization", "name": "Urlaubfinder365" },
           },
         } : {}),
+        ...(reviewStats.count > 0 ? {
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": reviewStats.average,
+            "bestRating": 5,
+            "worstRating": 1,
+            "ratingCount": reviewStats.count,
+            "reviewCount": reviewStats.count,
+          },
+          "review": reviewStats.recent.slice(0, 3).map((r) => ({
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": r.rating,
+              "bestRating": 5,
+              "worstRating": 1,
+            },
+            "author": { "@type": "Person", "name": "Urlaubfinder365-Community" },
+            "datePublished": r.created_at,
+            ...(r.title ? { "name": r.title } : {}),
+            ...(r.content ? { "reviewBody": r.content } : {}),
+          })),
+        } : {}),
       },
+      ...(offerLowPrice ? [
+        {
+          "@type": "TouristTrip",
+          "name": `Pauschalreise ${dest.name} – Flug, Hotel & Transfer`,
+          "description": `Pauschalreise nach ${dest.name} (${dest.country}) mit Flug, Hotel und Transfer. 7 Nächte, 2 Personen. Preise basieren auf tagesaktuellen Angeboten der letzten 90 Tage.`,
+          "url": BASE_URL + `/urlaubsziele/${dest.slug}/`,
+          "image": dest.heroImageFallback ?? dest.heroImage,
+          "itinerary": {
+            "@type": "ItemList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "TouristDestination",
+                "name": dest.name,
+                "address": { "@type": "PostalAddress", "addressCountry": dest.country },
+              },
+            }],
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "EUR",
+            "lowPrice": offerLowPrice,
+            ...(offerHighPrice && offerHighPrice > offerLowPrice ? { "highPrice": offerHighPrice } : {}),
+            "offerCount": offerCount,
+            "availability": "https://schema.org/InStock",
+            "seller": { "@type": "Organization", "name": "Urlaubfinder365" },
+            ...(priceStats.lastUpdated ? { "priceValidUntil": priceStats.lastUpdated } : {}),
+          },
+          "provider": { "@type": "Organization", "name": "Urlaubfinder365", "url": BASE_URL },
+        },
+      ] : []),
       {
         "@type": "TravelAction",
         "name": `Urlaub in ${dest.name} buchen`,
@@ -901,6 +974,20 @@ export default async function DestinationPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {/* Urlauber-Bewertungen */}
+      <DestinationReviewsSection
+        stats={reviewStats}
+        destinationName={dest.name}
+        destinationSlug={dest.slug}
+      />
+
+      {/* Community-Reiseberichte */}
+      <DestinationCommunityReports
+        reports={communityReports}
+        destinationName={dest.name}
+        destinationSlug={dest.slug}
+      />
 
       {/* Kosten & Preisverlauf – gehören thematisch zusammen */}
       <BudgetBreakdownSection dest={dest} />

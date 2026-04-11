@@ -21,11 +21,15 @@ export const metadata: Metadata = {
 export const revalidate = 86400;
 
 const CATEGORY_META: Record<string, { emoji: string; color: string }> = {
-  "Buchung":     { emoji: "📅", color: "bg-sky-100 text-sky-700" },
-  "Verpflegung": { emoji: "🍽️", color: "bg-amber-100 text-amber-700" },
-  "Preise":      { emoji: "💰", color: "bg-emerald-100 text-emerald-700" },
-  "Planung":     { emoji: "🗺️", color: "bg-purple-100 text-purple-700" },
-  "Sicherheit":  { emoji: "🛡️", color: "bg-rose-100 text-rose-700" },
+  "Buchung":         { emoji: "📅", color: "bg-sky-100 text-sky-700" },
+  "Verpflegung":     { emoji: "🍽️", color: "bg-amber-100 text-amber-700" },
+  "Preise":          { emoji: "💰", color: "bg-emerald-100 text-emerald-700" },
+  "Planung":         { emoji: "🗺️", color: "bg-purple-100 text-purple-700" },
+  "Sicherheit":      { emoji: "🛡️", color: "bg-rose-100 text-rose-700" },
+  "Familie":         { emoji: "👨‍👩‍👧", color: "bg-pink-100 text-pink-700" },
+  "Trends":          { emoji: "📈", color: "bg-indigo-100 text-indigo-700" },
+  "Reisemittel":     { emoji: "✈️", color: "bg-cyan-100 text-cyan-700" },
+  "Nachhaltigkeit":  { emoji: "🌱", color: "bg-lime-100 text-lime-700" },
 };
 
 export default async function RatgeberIndexPage({ params }: { params: Promise<{ locale: string }> }) {
