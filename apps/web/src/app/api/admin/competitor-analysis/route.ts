@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   const prompt = `Analysiere die Google-Suchergebnisse für "${keyword}" im deutschen Markt. Welche Seiten ranken in den Top 10? Was machen Check24, HolidayCheck, TUI, ab-in-den-urlaub anders? Was braucht urlaubfinder365.de um in die Top 5 zu kommen?
 
-Antworte ausschließlich als valides JSON ohne Markdown-Codeblöcke:
+Gib genau dieses JSON-Objekt zurück (keine anderen Felder, kein Text drumherum):
 {
   "competitors": [
     {"name": "Seitenname", "url": "https://...", "strengths": ["Stärke 1", "Stärke 2"]}
@@ -46,8 +46,9 @@ Antworte ausschließlich als valides JSON ohne Markdown-Codeblöcke:
 
   try {
     const message = await client.messages.create({
-      model: "claude-haiku-4-5",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 1500,
+      system: "Du antwortest ausschließlich mit validem JSON. Kein erklärender Text, kein Markdown, keine Codeblöcke. Nur das rohe JSON-Objekt.",
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -57,8 +58,12 @@ Antworte ausschließlich als valides JSON ohne Markdown-Codeblöcke:
     }
 
     let text = content.text.trim();
-    // Strip Markdown code block if present
-    text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    // Robuste JSON-Extraktion: erstes { bis letztes }
+    const jsonStart = text.indexOf("{");
+    const jsonEnd   = text.lastIndexOf("}");
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+      text = text.slice(jsonStart, jsonEnd + 1);
+    }
 
     const result: AnalysisResult = JSON.parse(text);
     return NextResponse.json(result);
