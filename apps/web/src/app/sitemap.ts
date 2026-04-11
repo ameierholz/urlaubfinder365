@@ -72,7 +72,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedEntries("/urlaubsthemen/hochzeitsreise/",  { lastModified: content, changeFrequency: "weekly",  priority: 0.75 }),
     ...localizedEntries("/urlaubsthemen/seniorenreisen/",  { lastModified: content, changeFrequency: "weekly",  priority: 0.75 }),
     ...localizedEntries("/urlaubsthemen/kurreisen/",       { lastModified: content, changeFrequency: "weekly",  priority: 0.72 }),
-    ...localizedEntries("/urlaubsthemen/fruhbucher/",      { lastModified: content, changeFrequency: "weekly",  priority: 0.75 }),
     ...localizedEntries("/urlaubsthemen/budget-bis-500/",  { lastModified: today,   changeFrequency: "daily",   priority: 0.78 }),
     ...localizedEntries("/urlaubsthemen/budget-bis-1000/", { lastModified: today,   changeFrequency: "daily",   priority: 0.80 }),
     ...localizedEntries("/urlaubsthemen/budget-bis-1500/", { lastModified: today,   changeFrequency: "daily",   priority: 0.78 }),

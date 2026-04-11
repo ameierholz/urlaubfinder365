@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
@@ -197,32 +198,34 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      {/* Hero */}
-      <div
-        className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[320px]"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80')",
-        }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(0,131,143,0.85) 0%, rgba(0,109,120,0.65) 50%, rgba(15,23,42,0.75) 100%)",
-          }}
+
+      {/* HERO */}
+      <div className="relative overflow-hidden -mt-24 pt-24 min-h-[480px] flex items-end">
+        <Image
+          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80"
+          alt="Urlaubsthemen – Reiseideen für jeden Geschmack"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
         />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-sm font-medium px-3.5 py-1.5 rounded-full mb-5">
-            {t("heroBadge")}
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-3 leading-tight">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.85) 100%)" }} />
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-32">
+          <nav className="flex items-center gap-2 text-white/60 text-xs mb-6">
+            <Link href="/" className="hover:text-white">Home</Link>
+            <span>/</span>
+            <span className="text-white/90">Urlaubsthemen</span>
+          </nav>
+          <span className="inline-flex items-center gap-2 bg-[#00838F]/90 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-5 shadow-lg">
+            🌴 {t("heroBadge")}
+          </span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
             {t("heroTitle")}<br />
             <span className="text-[#6CC4BA]">{t("heroTitleHighlight")}</span>
           </h1>
-          <p className="text-white/80 text-lg max-w-2xl">
+          <p className="text-white/80 text-lg max-w-2xl leading-relaxed">
             {t("heroSubtitle")}
           </p>
         </div>
