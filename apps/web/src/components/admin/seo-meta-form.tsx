@@ -34,11 +34,11 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
   const [ogImage, setOgImage]           = useState(initial?.og_image ?? "");
 
   // Textblöcke
-  const [seoIntro, setSeoIntro]         = useState((initial as Record<string, unknown>)?.seo_intro as string ?? "");
-  const [seoH2Middle, setSeoH2Middle]   = useState((initial as Record<string, unknown>)?.seo_h2_middle as string ?? "");
-  const [seoMiddle, setSeoMiddle]       = useState((initial as Record<string, unknown>)?.seo_middle as string ?? "");
-  const [seoH2Bottom, setSeoH2Bottom]   = useState((initial as Record<string, unknown>)?.seo_h2_bottom as string ?? "");
-  const [seoBottom, setSeoBottom]       = useState((initial as Record<string, unknown>)?.seo_bottom as string ?? "");
+  const [seoIntro, setSeoIntro]         = useState((initial as unknown as Record<string, unknown>)?.seo_intro as string ?? "");
+  const [seoH2Middle, setSeoH2Middle]   = useState((initial as unknown as Record<string, unknown>)?.seo_h2_middle as string ?? "");
+  const [seoMiddle, setSeoMiddle]       = useState((initial as unknown as Record<string, unknown>)?.seo_middle as string ?? "");
+  const [seoH2Bottom, setSeoH2Bottom]   = useState((initial as unknown as Record<string, unknown>)?.seo_h2_bottom as string ?? "");
+  const [seoBottom, setSeoBottom]       = useState((initial as unknown as Record<string, unknown>)?.seo_bottom as string ?? "");
 
   const [saving, setSaving]             = useState(false);
   const [generating, setGenerating]     = useState(false);
