@@ -43,9 +43,22 @@ function extractJson(text: string): string {
   return (start !== -1 && end !== -1) ? text.slice(start, end + 1) : text;
 }
 
+interface UrlResult {
+  domain: string;
+  kategorie: string;
+  staerken: string[];
+  schwaechen: string[];
+  seoTaktiken: string[];
+  contentBereiche: string[];
+  zielgruppe: string;
+  monetarisierung: string[];
+  chancenFuerUns: string[];
+  empfehlungen: string[];
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { keyword, mode } = body as { keyword?: string; mode?: string };
+  const { keyword, mode, url } = body as { keyword?: string; mode?: string; url?: string };
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
@@ -107,6 +120,57 @@ Gib mindestens 6 Hauptkonkurrenten und 12 Top-Keywords zurück. Keywords sollen 
 
       const result: OverviewResult = JSON.parse(extractJson(content.text.trim()));
       return NextResponse.json({ mode: "overview", ...result });
+    } catch (err) {
+      if (err instanceof SyntaxError) {
+        return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden" }, { status: 500 });
+      }
+      return NextResponse.json({ error: String(err) }, { status: 500 });
+    }
+  }
+
+  // ── URL MODE ───────────────────────────────────────────────────────────────
+  if (mode === "url") {
+    if (!url || typeof url !== "string") {
+      return NextResponse.json({ error: "url fehlt" }, { status: 400 });
+    }
+
+    const domain = url.replace(/^https?:\/\//, "").split("/")[0];
+
+    const prompt = `Du bist ein SEO-Experte und analysierst den Wettbewerber "${domain}" (${url}) für das deutsche Reiseportal urlaubfinder365.de.
+
+urlaubfinder365.de ist ein neues deutsches Reiseportal mit: Pauschalreisen, Last Minute, All Inclusive Vergleich, 250+ Reiseziele, Aktivitäten (Tiqets), Community-Features, Magazin, Preisvergleich.
+
+Analysiere den Wettbewerber anhand deines Wissens über diese Website/Domain und gib exakt dieses JSON zurück:
+{
+  "domain": "${domain}",
+  "kategorie": "Art des Portals (z.B. Preisvergleich, Veranstalter, OTA, Blog)",
+  "staerken": ["Stärke 1", "Stärke 2", "Stärke 3", "Stärke 4", "Stärke 5"],
+  "schwaechen": ["Schwäche 1", "Schwäche 2", "Schwäche 3"],
+  "seoTaktiken": ["SEO-Taktik 1", "SEO-Taktik 2", "SEO-Taktik 3", "SEO-Taktik 4"],
+  "contentBereiche": ["Content-Bereich 1", "Content-Bereich 2", "Content-Bereich 3", "Content-Bereich 4"],
+  "zielgruppe": "Wer ist die primäre Zielgruppe dieses Portals?",
+  "monetarisierung": ["Einnahmequelle 1", "Einnahmequelle 2", "Einnahmequelle 3"],
+  "chancenFuerUns": ["Chance 1", "Chance 2", "Chance 3", "Chance 4"],
+  "empfehlungen": ["Konkrete Empfehlung 1", "Konkrete Empfehlung 2", "Konkrete Empfehlung 3", "Konkrete Empfehlung 4", "Konkrete Empfehlung 5"]
+}
+
+Sei präzise und spezifisch für diesen Wettbewerber. Wenn du die Site nicht kennst, analysiere anhand des Domain-Namens und typischer Muster ähnlicher Portale.`;
+
+    try {
+      const message = await client.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 2000,
+        system,
+        messages: [{ role: "user", content: prompt }],
+      });
+
+      const content = message.content[0];
+      if (content.type !== "text") {
+        return NextResponse.json({ error: "Unerwartete Antwort von Claude" }, { status: 500 });
+      }
+
+      const result: UrlResult = JSON.parse(extractJson(content.text.trim()));
+      return NextResponse.json({ mode: "url", ...result });
     } catch (err) {
       if (err instanceof SyntaxError) {
         return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden" }, { status: 500 });

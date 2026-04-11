@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import {
   BarChart2, ChevronRight, Search, Loader2, ExternalLink,
   Lightbulb, FileSearch, Target, TrendingUp, Zap, RefreshCw,
-  ChevronDown, ChevronUp, Shield,
+  ChevronDown, ChevronUp, Shield, Globe, Link2,
 } from "lucide-react";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -18,6 +18,20 @@ interface KeywordResult {
   suggestedTitle: string;
   suggestedH1: string;
 }
+interface UrlResult {
+  mode: "url";
+  domain: string;
+  kategorie: string;
+  staerken: string[];
+  schwaechen: string[];
+  seoTaktiken: string[];
+  contentBereiche: string[];
+  zielgruppe: string;
+  monetarisierung: string[];
+  chancenFuerUns: string[];
+  empfehlungen: string[];
+}
+
 interface OverviewResult {
   mode: "overview";
   marktposition: string;
@@ -42,15 +56,20 @@ const POT_COLOR  = { hoch: "text-emerald-400", mittel: "text-yellow-400", niedri
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function KonkurrenzPage() {
-  const [keyword, setKeyword]       = useState("");
-  const [loading, setLoading]       = useState(false);
-  const [overviewLoading, setOvLoad]= useState(true);
-  const [kwResult, setKwResult]     = useState<KeywordResult | null>(null);
-  const [overview, setOverview]     = useState<OverviewResult | null>(null);
-  const [error, setError]           = useState<string | null>(null);
-  const [ovError, setOvError]       = useState<string | null>(null);
-  const [showAllKw, setShowAllKw]   = useState(false);
+  const [keyword, setKeyword]           = useState("");
+  const [loading, setLoading]           = useState(false);
+  const [overviewLoading, setOvLoad]    = useState(true);
+  const [kwResult, setKwResult]         = useState<KeywordResult | null>(null);
+  const [overview, setOverview]         = useState<OverviewResult | null>(null);
+  const [error, setError]               = useState<string | null>(null);
+  const [ovError, setOvError]           = useState<string | null>(null);
+  const [showAllKw, setShowAllKw]       = useState(false);
   const [expandedComp, setExpandedComp] = useState<number | null>(null);
+  // URL analysis state
+  const [urlInput, setUrlInput]         = useState("");
+  const [urlLoading, setUrlLoading]     = useState(false);
+  const [urlResult, setUrlResult]       = useState<UrlResult | null>(null);
+  const [urlError, setUrlError]         = useState<string | null>(null);
 
   // Auto-load overview on mount
   useEffect(() => {
@@ -93,6 +112,26 @@ export default function KonkurrenzPage() {
       setTimeout(() => document.getElementById("kw-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
     } catch (e) { setError(String(e)); }
     finally { setLoading(false); }
+  }
+
+  async function analyzeUrl() {
+    const u = urlInput.trim();
+    if (!u) return;
+    setUrlLoading(true);
+    setUrlError(null);
+    setUrlResult(null);
+    try {
+      const res = await fetch("/api/admin/competitor-analysis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "url", url: u }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) { setUrlError(data.error ?? "Unbekannter Fehler"); return; }
+      setUrlResult(data as UrlResult);
+      setTimeout(() => document.getElementById("url-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+    } catch (e) { setUrlError(String(e)); }
+    finally { setUrlLoading(false); }
   }
 
   const displayedKw = showAllKw ? overview?.topKeywords : overview?.topKeywords?.slice(0, 8);
@@ -293,6 +332,164 @@ export default function KonkurrenzPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* ── URL-ANALYSE ────────────────────────────────────────────────────── */}
+      <section className="space-y-5">
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <Globe className="w-5 h-5 text-purple-400" />
+          Konkurrenz-URL analysieren
+        </h2>
+
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+            URL eines Wettbewerbers eingeben
+          </label>
+          <div className="flex gap-3">
+            <div className="relative flex-1">
+              <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <input type="url" value={urlInput}
+                onChange={(e) => setUrlInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !urlLoading && analyzeUrl()}
+                placeholder="z.B. https://www.check24.de oder https://www.tui.com/de"
+                className="w-full pl-9 pr-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-600 transition-colors"
+              />
+            </div>
+            <button onClick={analyzeUrl} disabled={urlLoading || !urlInput.trim()}
+              className="flex items-center gap-2 px-5 py-2.5 bg-purple-700 hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-colors whitespace-nowrap">
+              {urlLoading ? <><Loader2 className="w-4 h-4 animate-spin" /> Analysiere…</> : <><Globe className="w-4 h-4" /> Analysieren</>}
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-3">
+            {["https://www.check24.de", "https://www.tui.com/de", "https://www.holidaycheck.de", "https://www.ab-in-den-urlaub.de", "https://www.lastminute.de"].map(u => (
+              <button key={u} onClick={() => setUrlInput(u)}
+                className="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg text-[11px] text-gray-400 hover:text-white transition-all">
+                {u.replace(/^https?:\/\/www\./, "")}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {urlError && (
+          <div className="bg-red-900/20 border border-red-800/50 rounded-xl p-4 text-red-400 text-sm">
+            Fehler: {urlError}
+          </div>
+        )}
+
+        {urlLoading && (
+          <div className="bg-gray-900 border border-gray-800 rounded-2xl p-12 flex flex-col items-center gap-3 text-gray-500">
+            <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+            <span className="text-sm">KI analysiert {urlInput}…</span>
+          </div>
+        )}
+
+        {urlResult && !urlLoading && (
+          <div id="url-result" className="space-y-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h3 className="font-bold text-white text-lg">{urlResult.domain}</h3>
+              <span className="text-xs text-purple-300 bg-purple-900/30 border border-purple-800/50 px-2.5 py-1 rounded-full">{urlResult.kategorie}</span>
+            </div>
+            <p className="text-sm text-gray-400">
+              <span className="text-gray-500">Zielgruppe:</span> {urlResult.zielgruppe}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Stärken */}
+              <div className="bg-gray-900 border border-red-800/30 rounded-xl p-4">
+                <p className="text-xs font-bold text-red-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5" /> Stärken
+                </p>
+                <ul className="space-y-1.5">
+                  {urlResult.staerken.map((s, i) => (
+                    <li key={i} className="text-xs text-gray-300 flex items-start gap-1.5">
+                      <span className="text-red-400 shrink-0">•</span>{s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Schwächen */}
+              <div className="bg-gray-900 border border-green-800/30 rounded-xl p-4">
+                <p className="text-xs font-bold text-green-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <Shield className="w-3.5 h-3.5" /> Schwächen (unsere Chancen)
+                </p>
+                <ul className="space-y-1.5">
+                  {urlResult.schwaechen.map((s, i) => (
+                    <li key={i} className="text-xs text-gray-300 flex items-start gap-1.5">
+                      <span className="text-green-400 shrink-0">✓</span>{s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* SEO-Taktiken */}
+              <div className="bg-gray-900 border border-teal-800/30 rounded-xl p-4">
+                <p className="text-xs font-bold text-teal-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <Target className="w-3.5 h-3.5" /> SEO-Taktiken
+                </p>
+                <ul className="space-y-1.5">
+                  {urlResult.seoTaktiken.map((s, i) => (
+                    <li key={i} className="text-xs text-gray-300 flex items-start gap-1.5">
+                      <span className="text-teal-400 shrink-0">→</span>{s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Content-Bereiche */}
+              <div className="bg-gray-900 border border-blue-800/30 rounded-xl p-4">
+                <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <FileSearch className="w-3.5 h-3.5" /> Content-Bereiche
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {urlResult.contentBereiche.map((c, i) => (
+                    <span key={i} className="px-2.5 py-1 bg-blue-900/20 border border-blue-800/40 rounded-lg text-[11px] text-blue-300">{c}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Monetarisierung */}
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Monetarisierung</p>
+              <div className="flex flex-wrap gap-2">
+                {urlResult.monetarisierung.map((m, i) => (
+                  <span key={i} className="px-2.5 py-1 bg-amber-900/20 border border-amber-800/40 rounded-lg text-xs text-amber-300">{m}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Empfehlungen */}
+            <div className="bg-gray-900 border border-yellow-800/30 rounded-xl p-5">
+              <h4 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                <Lightbulb className="w-4 h-4 text-yellow-400" />
+                Was wir von {urlResult.domain} lernen können
+              </h4>
+              <ol className="space-y-2">
+                {urlResult.empfehlungen.map((r, i) => (
+                  <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                    <span className="text-yellow-400 font-bold shrink-0 mt-0.5">{i + 1}.</span>{r}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Direkte Chancen */}
+            <div className="bg-green-900/20 border border-green-800/40 rounded-xl p-5">
+              <h4 className="text-sm font-bold text-green-400 mb-3 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Konkrete Chancen für urlaubfinder365.de
+              </h4>
+              <ul className="space-y-2">
+                {urlResult.chancenFuerUns.map((c, i) => (
+                  <li key={i} className="text-sm text-green-300 flex items-start gap-2">
+                    <span className="text-green-500 shrink-0 mt-0.5">▲</span>{c}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
