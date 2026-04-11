@@ -54,8 +54,8 @@ export default function IbeAllOffersButton({
     if (cityId)                  params.set("cityId",        cityId);
     if (boardCode && !excludeAi) params.set("boardCode",     boardCode);
     if (minRecommrate)           params.set("minRecommrate", minRecommrate);
-    params.set("departureFrom", from);
-    params.set("departureTo",   to);
+    params.set("from", from);
+    params.set("to",   to);
 
     const url = `https://ibe.specials.de/?${params}`;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
