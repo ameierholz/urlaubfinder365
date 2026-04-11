@@ -52,7 +52,6 @@ export default function SafeDestImage({
       loading="lazy"
       className={className}
       onError={() => setFailed(true)}
-      unoptimized={src.startsWith("https://images.unsplash.com")}
     />
   );
 }

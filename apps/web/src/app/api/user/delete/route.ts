@@ -12,22 +12,24 @@ export async function DELETE(req: NextRequest) {
   const admin = supabaseAdmin();
   const uid = user.id;
 
-  // Daten in abhaengiger Reihenfolge loeschen (FKs beachten)
+  // Daten in abhaengiger Reihenfolge loeschen (FKs beachten).
+  // Tabellen, die nicht existieren, sind hier nicht aufgefuehrt — sonst still fail.
   await Promise.all([
     admin.from("favorites").delete().eq("user_id", uid),
     admin.from("price_alerts").delete().eq("user_id", uid),
-    admin.from("itineraries").delete().eq("user_id", uid),
     admin.from("travel_tips").delete().eq("user_id", uid),
     admin.from("user_achievements").delete().eq("user_id", uid),
     admin.from("user_streaks").delete().eq("user_id", uid),
     admin.from("trivia_scores").delete().eq("user_id", uid),
     admin.from("media_feed").delete().eq("user_id", uid),
     admin.from("reports").delete().eq("user_id", uid),
-    admin.from("messages").delete().eq("sender_id", uid),
+    admin.from("travel_reports").delete().eq("user_id", uid),
+    admin.from("destination_reviews").delete().eq("user_id", uid),
+    admin.from("community_profiles").delete().eq("uid", uid),
   ]);
 
-  // Profil loeschen
-  await admin.from("user_profiles").delete().eq("uid", uid);
+  // User-Datensatz aus public.users loeschen
+  await admin.from("users").delete().eq("id", uid);
 
   // Storage: User-Uploads loeschen
   const { data: files } = await admin.storage.from("travel-tip-images").list(uid);

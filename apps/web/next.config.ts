@@ -44,8 +44,13 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()",
           },
+          // HSTS – erzwingt HTTPS für 1 Jahr (auch für Subdomains, mit Preload-Eligibility)
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains; preload",
+          },
           // CSP wird dynamisch per Middleware mit Per-Request-Nonce gesetzt (middleware.ts)
-          // → unsafe-inline für script-src entfernt, stattdessen 'nonce-{random}'
+          // → unsafe-eval entfernt; unsafe-inline noch aktiv bis JsonLd-Migration abgeschlossen
         ],
       },
       {

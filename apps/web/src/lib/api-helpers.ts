@@ -18,17 +18,18 @@ export async function requireAuth() {
   return user;
 }
 
-/** Prueft ob der aktuelle User Admin/Moderator ist. Gibt User oder null zurueck. */
+/** Prueft ob der aktuelle User Admin/Moderator ist. Gibt User oder null zurueck.
+ *  Liest aus public.users (Spalten: id, role). */
 export async function requireAdmin() {
   const user = await requireAuth();
   if (!user) return null;
 
   const admin = supabaseAdmin();
   const { data: profile } = await admin
-    .from("user_profiles")
+    .from("users")
     .select("role")
-    .eq("uid", user.id)
-    .single();
+    .eq("id", user.id)
+    .maybeSingle();
 
   if (!profile || (profile.role !== "admin" && profile.role !== "moderator")) return null;
   return user;

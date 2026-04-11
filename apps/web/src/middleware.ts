@@ -16,15 +16,22 @@ const NEEDS_AUTH = /^\/(dashboard|community|profil|travel-buddies)/;
 const SKIP_CSP = /^\/(api|_next\/static|_next\/image|favicon|apple-icon|icon|robots|sitemap|ads\.txt|scripts|styles|images)/;
 
 /** Baut den dynamischen CSP-Header mit Per-Request-Nonce.
- *  unsafe-inline für script-src ist entfernt — nur Nonce-tragende Inline-Scripts laufen.
- *  unsafe-eval bleibt (benötigt für IBE-Widget & AdSense).
+ *
+ *  Status:
+ *  - 'unsafe-eval' ENTFERNT (geprüft: weder IBE-Engine noch modernes AdSense
+ *    nutzen eval/new Function/setTimeout-string).
+ *  - 'unsafe-inline' bleibt VORLÄUFIG, weil 100+ JSON-LD <script>-Blöcke
+ *    noch nicht auf den Nonce-basierten <JsonLd>-Server-Component migriert
+ *    sind. Migration läuft inkrementell – sobald alle migriert sind, kann
+ *    'unsafe-inline' entfernt werden und die Nonce wird wirksam.
+ *
  *  isEmbed=true → frame-ancestors *  (erlaubt Einbetten in beliebige fremde Seiten;
  *    nach CSP-L2 wird X-Frame-Options dann ignoriert).
  */
 function buildCsp(nonce: string, isEmbed = false): string {
   return [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://*.specials.de https://api.specials.de https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://*.specials.de https://api.specials.de https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://unpkg.com",
     "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://assets.specials.de data:",
     "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://*.tiqets.com https://aws-tiqets-cdn.imgix.net https://*.supabase.co https://*.googleusercontent.com https://*.googleapis.com https://i.pravatar.cc https://*.ypsilon.net https://pics.avs.io https://*.trustpilot.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://*.openstreetmap.org https://unpkg.com",

@@ -6,31 +6,38 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useConsent } from "@/hooks/use-consent";
 
 /**
- * Laedt Drittanbieter-Scripts nur wenn der User Consent gegeben hat.
- * - Analytics + SpeedInsights: immer (anonymisiert, Legitimate Interest)
- * - AdSense: nur bei marketing=true
+ * Lädt Drittanbieter-Scripts strikt nach DSGVO/TTDSG §25 erst NACH Consent.
+ *
+ * - Vercel Analytics + SpeedInsights → nur bei consent.analytics === true
+ *   (auch wenn anonymisiert, ist es nicht „technisch notwendig" und braucht Opt-In)
+ * - Google AdSense → nur bei consent.marketing === true
+ *
+ * Wenn der User noch keinen Consent gegeben hat oder explizit ablehnt,
+ * wird KEIN externes Script geladen → keine Cookies, keine IP-Übertragung.
  */
 export default function ConsentScripts() {
   const consent = useConsent();
 
   return (
     <>
-      {/* Vercel Analytics/SpeedInsights: anonymisiert, kein Consent noetig */}
-      <Analytics />
-      <SpeedInsights />
+      {/* Vercel Analytics + Speed Insights – nur bei Analytics-Consent */}
+      {consent?.analytics && (
+        <>
+          <Analytics />
+          <SpeedInsights />
+        </>
+      )}
 
-      {/*
-        Google AdSense:
-        Das Basis-Script wird immer geladen (nötig für Domain-Verifizierung).
-        Anzeigen werden erst nach Consent ausgeliefert via data-ad-status.
-        Ohne consent.marketing zeigt AdSense keine personalisierten Anzeigen.
-      */}
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
-        strategy="afterInteractive"
-        crossOrigin="anonymous"
-      />
+      {/* Google AdSense – nur bei Marketing-Consent.
+          Wir nutzen `lazyOnload` damit das Script nicht den Main-Thread blockiert. */}
+      {consent?.marketing && (
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9799640580685030"
+          strategy="lazyOnload"
+          crossOrigin="anonymous"
+        />
+      )}
     </>
   );
 }

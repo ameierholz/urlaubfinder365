@@ -10,13 +10,15 @@ export async function GET() {
   const uid = user.id;
 
   // Alle relevanten Tabellen parallel abfragen
-  const [profile, favorites, priceAlerts, itineraries, reports, tips, achievements, buchungen] =
+  const [profile, communityProfile, favorites, priceAlerts, reports, travelReports, destinationReviews, tips, achievements, buchungen] =
     await Promise.all([
-      admin.from("user_profiles").select("*").eq("uid", uid).maybeSingle(),
+      admin.from("users").select("*").eq("id", uid).maybeSingle(),
+      admin.from("community_profiles").select("*").eq("uid", uid).maybeSingle(),
       admin.from("favorites").select("*").eq("user_id", uid),
       admin.from("price_alerts").select("*").eq("user_id", uid),
-      admin.from("itineraries").select("*").eq("user_id", uid),
       admin.from("reports").select("*").eq("user_id", uid),
+      admin.from("travel_reports").select("*").eq("user_id", uid),
+      admin.from("destination_reviews").select("*").eq("user_id", uid),
       admin.from("travel_tips").select("*").eq("user_id", uid),
       admin.from("user_achievements").select("*").eq("user_id", uid),
       admin.from("buchungen").select("buchungs_nummer, datum, personen, gesamtpreis, status, created_at").eq("kunden_email", user.email ?? ""),
@@ -31,10 +33,12 @@ export async function GET() {
       createdAt: user.created_at,
     },
     profile: profile.data ?? null,
+    communityProfile: communityProfile.data ?? null,
     favorites: favorites.data ?? [],
     priceAlerts: priceAlerts.data ?? [],
-    itineraries: itineraries.data ?? [],
     reports: reports.data ?? [],
+    travelReports: travelReports.data ?? [],
+    destinationReviews: destinationReviews.data ?? [],
     travelTips: tips.data ?? [],
     achievements: achievements.data ?? [],
     buchungen: buchungen.data ?? [],
