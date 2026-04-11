@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { Expert } from "@/lib/experts";
+import ExpertAvatar from "@/components/ui/ExpertAvatar";
 
 interface Props {
   expert: Expert;
@@ -55,22 +56,14 @@ export default function ExpertBanner({
         </div>
 
         <div className="flex items-start gap-4 md:gap-6">
-          {/* Foto */}
-          <div className="shrink-0">
-            <div
-              className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-[3px] shadow-md"
-              style={{ borderColor: accentColor }}
-            >
-              <img
-                src={expert.image}
-                alt={expert.name}
-                width={80}
-                height={80}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          {/* Avatar (SVG – einzigartig, nicht recherchierbar) */}
+          <ExpertAvatar
+            name={expert.name}
+            gradient={expert.gradient}
+            icon={expert.icon}
+            size={80}
+            borderColor={accentColor}
+          />
 
           {/* Text */}
           <div className="flex-1 min-w-0">

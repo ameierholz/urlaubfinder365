@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -248,6 +249,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#059669" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Reiseziele unter 1.000 €"
+        heading="Preiswerte Reiseziele im Überblick"
+        accentColor="#059669"
+        destinations={[
+          { slug: "mallorca", label: "Mallorca unter 1.000 €" },
+          { slug: "antalya", label: "Antalya unter 1.000 €" },
+          { slug: "side", label: "Side unter 1.000 €" },
+          { slug: "hurghada", label: "Hurghada unter 1.000 €" },
+          { slug: "kreta", label: "Kreta unter 1.000 €" },
+          { slug: "rhodos", label: "Rhodos unter 1.000 €" },
+          { slug: "gran-canaria", label: "Gran Canaria unter 1.000 €" },
+          { slug: "teneriffa", label: "Teneriffa unter 1.000 €" },
+          { slug: "fuerteventura", label: "Fuerteventura unter 1.000 €" },
+          { slug: "korfu", label: "Korfu unter 1.000 €" },
+          { slug: "kos", label: "Kos unter 1.000 €" },
+          { slug: "marrakesch", label: "Marrakesch unter 1.000 €" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

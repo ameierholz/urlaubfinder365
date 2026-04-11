@@ -7,6 +7,7 @@ import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
@@ -254,6 +255,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#e11d48" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Adults-Only-Reiseziele"
+        heading="Adults Only Reiseziele im Überblick"
+        accentColor="#e11d48"
+        destinations={[
+          { slug: "ibiza", label: "Adults Only Ibiza" },
+          { slug: "mykonos", label: "Adults Only Mykonos" },
+          { slug: "santorini", label: "Adults Only Santorini" },
+          { slug: "dubai", label: "Adults Only Dubai" },
+          { slug: "marrakesch", label: "Adults Only Marrakesch" },
+          { slug: "mallorca", label: "Adults Only Mallorca" },
+          { slug: "halbinsel-bodrum", label: "Adults Only Bodrum" },
+          { slug: "venedig", label: "Adults Only Venedig" },
+          { slug: "paphos", label: "Adults Only Paphos" },
+          { slug: "phuket", label: "Adults Only Phuket" },
+          { slug: "ayia-napa", label: "Adults Only Ayia Napa" },
+          { slug: "side", label: "Adults Only Side" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

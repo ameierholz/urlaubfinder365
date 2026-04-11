@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -250,6 +251,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#16a34a" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Aktiv-Reiseziele"
+        heading="Aktivurlaub Reiseziele im Überblick"
+        accentColor="#16a34a"
+        destinations={[
+          { slug: "teneriffa", label: "Aktiv Teneriffa" },
+          { slug: "mallorca", label: "Aktiv Mallorca" },
+          { slug: "kreta", label: "Aktiv Kreta" },
+          { slug: "gran-canaria", label: "Aktiv Gran Canaria" },
+          { slug: "lanzarote", label: "Aktiv Lanzarote" },
+          { slug: "fuerteventura", label: "Aktiv Fuerteventura" },
+          { slug: "dubrovnik", label: "Aktiv Dubrovnik" },
+          { slug: "split", label: "Aktiv Split" },
+          { slug: "korfu", label: "Aktiv Korfu" },
+          { slug: "rhodos", label: "Aktiv Rhodos" },
+          { slug: "santorini", label: "Aktiv Santorini" },
+          { slug: "marrakesch", label: "Aktiv Marrakesch" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

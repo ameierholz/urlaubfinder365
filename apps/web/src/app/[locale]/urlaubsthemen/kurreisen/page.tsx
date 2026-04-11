@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -250,6 +251,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#0891b2" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Kurreise-Ziele"
+        heading="Kurreisen & Städtetrips im Überblick"
+        accentColor="#0891b2"
+        destinations={[
+          { slug: "wien", label: "Kurreise Wien" },
+          { slug: "rom", label: "Kurreise Rom" },
+          { slug: "florenz", label: "Kurreise Florenz" },
+          { slug: "amsterdam", label: "Kurreise Amsterdam" },
+          { slug: "paris", label: "Kurreise Paris" },
+          { slug: "venedig", label: "Kurreise Venedig" },
+          { slug: "marrakesch", label: "Kurreise Marrakesch" },
+          { slug: "lissabon", label: "Kurreise Lissabon" },
+          { slug: "barcelona", label: "Kurreise Barcelona" },
+          { slug: "dubai", label: "Kurreise Dubai" },
+          { slug: "split", label: "Kurreise Split" },
+          { slug: "dubrovnik", label: "Kurreise Dubrovnik" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -251,6 +252,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#9333ea" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Reiseziele unter 2.000 €"
+        heading="Premium-Reiseziele im Überblick"
+        accentColor="#9333ea"
+        destinations={[
+          { slug: "dubai", label: "Dubai unter 2.000 €" },
+          { slug: "mallorca", label: "Mallorca unter 2.000 €" },
+          { slug: "ibiza", label: "Ibiza unter 2.000 €" },
+          { slug: "santorini", label: "Santorini unter 2.000 €" },
+          { slug: "mykonos", label: "Mykonos unter 2.000 €" },
+          { slug: "barcelona", label: "Barcelona unter 2.000 €" },
+          { slug: "rom", label: "Rom unter 2.000 €" },
+          { slug: "paris", label: "Paris unter 2.000 €" },
+          { slug: "amsterdam", label: "Amsterdam unter 2.000 €" },
+          { slug: "wien", label: "Wien unter 2.000 €" },
+          { slug: "venedig", label: "Venedig unter 2.000 €" },
+          { slug: "dubrovnik", label: "Dubrovnik unter 2.000 €" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

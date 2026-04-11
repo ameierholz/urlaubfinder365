@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -251,6 +252,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#db2777" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Hochzeitsreise-Ziele"
+        heading="Hochzeitsreise Reiseziele im Überblick"
+        accentColor="#db2777"
+        destinations={[
+          { slug: "santorini", label: "Hochzeitsreise Santorini" },
+          { slug: "mykonos", label: "Hochzeitsreise Mykonos" },
+          { slug: "mallorca", label: "Hochzeitsreise Mallorca" },
+          { slug: "dubai", label: "Hochzeitsreise Dubai" },
+          { slug: "venedig", label: "Hochzeitsreise Venedig" },
+          { slug: "paris", label: "Hochzeitsreise Paris" },
+          { slug: "teneriffa", label: "Hochzeitsreise Teneriffa" },
+          { slug: "phuket", label: "Hochzeitsreise Phuket" },
+          { slug: "ibiza", label: "Hochzeitsreise Ibiza" },
+          { slug: "marrakesch", label: "Hochzeitsreise Marrakesch" },
+          { slug: "rom", label: "Hochzeitsreise Rom" },
+          { slug: "dubrovnik", label: "Hochzeitsreise Dubrovnik" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

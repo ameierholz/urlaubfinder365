@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -249,6 +250,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#15803d" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Reiseziele unter 500 €"
+        heading="Günstige Reiseziele im Überblick"
+        accentColor="#15803d"
+        destinations={[
+          { slug: "antalya", label: "Antalya unter 500 €" },
+          { slug: "side", label: "Side unter 500 €" },
+          { slug: "alanya", label: "Alanya unter 500 €" },
+          { slug: "hurghada", label: "Hurghada unter 500 €" },
+          { slug: "marmaris", label: "Marmaris unter 500 €" },
+          { slug: "sharm-el-sheikh", label: "Sharm el-Sheikh unter 500 €" },
+          { slug: "sonnenstrand", label: "Sonnenstrand unter 500 €" },
+          { slug: "djerba", label: "Djerba unter 500 €" },
+          { slug: "agadir", label: "Agadir unter 500 €" },
+          { slug: "rhodos", label: "Rhodos unter 500 €" },
+          { slug: "kreta", label: "Kreta unter 500 €" },
+          { slug: "marrakesch", label: "Marrakesch unter 500 €" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

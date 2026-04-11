@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -248,6 +249,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#ea580c" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Abenteuer-Reiseziele"
+        heading="Abenteuerurlaub Reiseziele im Überblick"
+        accentColor="#ea580c"
+        destinations={[
+          { slug: "teneriffa", label: "Abenteuer Teneriffa" },
+          { slug: "lanzarote", label: "Abenteuer Lanzarote" },
+          { slug: "marrakesch", label: "Abenteuer Marrakesch" },
+          { slug: "kreta", label: "Abenteuer Kreta" },
+          { slug: "mallorca", label: "Abenteuer Mallorca" },
+          { slug: "gran-canaria", label: "Abenteuer Gran Canaria" },
+          { slug: "fuerteventura", label: "Abenteuer Fuerteventura" },
+          { slug: "dubai", label: "Abenteuer Dubai" },
+          { slug: "santorini", label: "Abenteuer Santorini" },
+          { slug: "hurghada", label: "Abenteuer Hurghada" },
+          { slug: "rhodos", label: "Abenteuer Rhodos" },
+          { slug: "dubrovnik", label: "Abenteuer Dubrovnik" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

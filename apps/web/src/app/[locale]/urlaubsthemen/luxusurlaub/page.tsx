@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -251,6 +252,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#ca8a04" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Beliebte Luxus-Reiseziele"
+        heading="Luxusurlaub Reiseziele im Überblick"
+        accentColor="#ca8a04"
+        destinations={[
+          { slug: "dubai", label: "Luxusurlaub Dubai" },
+          { slug: "mallorca", label: "Luxusurlaub Mallorca" },
+          { slug: "mykonos", label: "Luxusurlaub Mykonos" },
+          { slug: "santorini", label: "Luxusurlaub Santorini" },
+          { slug: "ibiza", label: "Luxusurlaub Ibiza" },
+          { slug: "paris", label: "Luxusurlaub Paris" },
+          { slug: "venedig", label: "Luxusurlaub Venedig" },
+          { slug: "marrakesch", label: "Luxusurlaub Marrakesch" },
+          { slug: "phuket", label: "Luxusurlaub Phuket" },
+          { slug: "halbinsel-bodrum", label: "Luxusurlaub Bodrum" },
+          { slug: "korfu", label: "Luxusurlaub Korfu" },
+          { slug: "teneriffa", label: "Luxusurlaub Teneriffa" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">

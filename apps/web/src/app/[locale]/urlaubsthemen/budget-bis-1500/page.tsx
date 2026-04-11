@@ -5,6 +5,7 @@ import ThemeSidebar from "@/components/ui/ThemeSidebar";
 import DestinationGrid, { DestinationCard } from "@/components/offers/DestinationGrid";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 import ExpertBanner from "@/components/ui/ExpertBanner";
+import ThemeDestinationLinks from "@/components/ui/ThemeDestinationLinks";
 import { EXPERTS } from "@/lib/experts";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import ThemeFeatureGrid from "@/components/ui/ThemeFeatureGrid";
@@ -249,6 +250,27 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           <ThemeFAQAccordion items={FAQ} accentColor="#4f46e5" />
         </div>
       </div>
+
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <ThemeDestinationLinks
+        eyebrow="Reiseziele unter 1.500 €"
+        heading="Mittelklasse-Reiseziele im Überblick"
+        accentColor="#4f46e5"
+        destinations={[
+          { slug: "mallorca", label: "Mallorca unter 1.500 €" },
+          { slug: "ibiza", label: "Ibiza unter 1.500 €" },
+          { slug: "dubai", label: "Dubai unter 1.500 €" },
+          { slug: "barcelona", label: "Barcelona unter 1.500 €" },
+          { slug: "rom", label: "Rom unter 1.500 €" },
+          { slug: "santorini", label: "Santorini unter 1.500 €" },
+          { slug: "mykonos", label: "Mykonos unter 1.500 €" },
+          { slug: "venedig", label: "Venedig unter 1.500 €" },
+          { slug: "lissabon", label: "Lissabon unter 1.500 €" },
+          { slug: "dubrovnik", label: "Dubrovnik unter 1.500 €" },
+          { slug: "split", label: "Split unter 1.500 €" },
+          { slug: "ayia-napa", label: "Ayia Napa unter 1.500 €" },
+        ]}
+      />
 
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
