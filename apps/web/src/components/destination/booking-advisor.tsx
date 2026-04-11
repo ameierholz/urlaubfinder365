@@ -185,9 +185,9 @@ export default async function BookingAdvisor({
             {signalConfig.emoji} {signalLabel}
           </span>
         </div>
-        <h3 className="text-sm font-black text-gray-900 leading-tight">
+        <h2 className="text-sm font-black text-gray-900 leading-tight">
           💡 Wann buchen: {destinationName}?
-        </h3>
+        </h2>
       </div>
 
       {/* Reason */}

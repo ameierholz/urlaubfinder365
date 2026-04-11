@@ -10,21 +10,43 @@ interface Props {
   initial?: PageSeoMeta | null;
 }
 
+function TextPreview({ text }: { text: string }) {
+  if (!text.trim()) return null;
+  return (
+    <div className="mt-2 p-3 bg-gray-950 border border-gray-800 rounded-lg space-y-2">
+      <p className="text-[10px] text-gray-600 uppercase tracking-wide font-semibold mb-2">Vorschau</p>
+      {text.split(/\n\n+/).filter(Boolean).map((p, i) => (
+        <p key={i} className="text-gray-400 text-xs leading-relaxed">{p}</p>
+      ))}
+    </div>
+  );
+}
+
 export default function SeoMetaForm({ pagePath, initial }: Props) {
-  const [metaTitle, setMetaTitle] = useState(initial?.meta_title ?? "");
+  const [metaTitle, setMetaTitle]       = useState(initial?.meta_title ?? "");
   const [metaDescription, setMetaDescription] = useState(initial?.meta_description ?? "");
   const [focusKeyword, setFocusKeyword] = useState(initial?.focus_keyword ?? "");
   const [additionalKeywords, setAdditionalKeywords] = useState(
     initial?.additional_keywords?.join(", ") ?? ""
   );
-  const [ogTitle, setOgTitle] = useState(initial?.og_title ?? "");
+  const [ogTitle, setOgTitle]           = useState(initial?.og_title ?? "");
   const [ogDescription, setOgDescription] = useState(initial?.og_description ?? "");
-  const [ogImage, setOgImage] = useState(initial?.og_image ?? "");
-  const [saving, setSaving] = useState(false);
-  const [generating, setGenerating] = useState(false);
-  const [analyzing, setAnalyzing] = useState(false);
-  const [analysis, setAnalysis] = useState<{ score: number; checks: { label: string; pass: boolean; detail: string }[]; headings: { level: number; text: string }[] } | null>(null);
-  const [message, setMessage] = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+  const [ogImage, setOgImage]           = useState(initial?.og_image ?? "");
+
+  // Textblöcke
+  const [seoIntro, setSeoIntro]         = useState((initial as Record<string, unknown>)?.seo_intro as string ?? "");
+  const [seoH2Middle, setSeoH2Middle]   = useState((initial as Record<string, unknown>)?.seo_h2_middle as string ?? "");
+  const [seoMiddle, setSeoMiddle]       = useState((initial as Record<string, unknown>)?.seo_middle as string ?? "");
+  const [seoH2Bottom, setSeoH2Bottom]   = useState((initial as Record<string, unknown>)?.seo_h2_bottom as string ?? "");
+  const [seoBottom, setSeoBottom]       = useState((initial as Record<string, unknown>)?.seo_bottom as string ?? "");
+
+  const [saving, setSaving]             = useState(false);
+  const [generating, setGenerating]     = useState(false);
+  const [analyzing, setAnalyzing]       = useState(false);
+  const [analysis, setAnalysis]         = useState<{ score: number; checks: { label: string; pass: boolean; detail: string }[]; headings: { level: number; text: string }[] } | null>(null);
+  const [message, setMessage]           = useState<{ type: "success" | "error" | "info"; text: string } | null>(null);
+
+  const totalWords = [seoIntro, seoMiddle, seoBottom].join(" ").split(/\s+/).filter((w) => w.length > 1).length;
 
   const handleGenerate = async () => {
     setGenerating(true);
@@ -44,10 +66,16 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
       setAdditionalKeywords((data.additional_keywords ?? []).join(", "));
       setOgTitle(data.og_title ?? "");
       setOgDescription(data.og_description ?? "");
+      if (data.seo_intro)     setSeoIntro(data.seo_intro);
+      if (data.seo_h2_middle) setSeoH2Middle(data.seo_h2_middle);
+      if (data.seo_middle)    setSeoMiddle(data.seo_middle);
+      if (data.seo_h2_bottom) setSeoH2Bottom(data.seo_h2_bottom);
+      if (data.seo_bottom)    setSeoBottom(data.seo_bottom);
+
       if (data.og_image_suggestion) {
         setMessage({ type: "success", text: `KI-Vorschläge übernommen. Bild-Empfehlung: ${data.og_image_suggestion}` });
       } else {
-        setMessage({ type: "success", text: "KI-Vorschläge erfolgreich übernommen." });
+        setMessage({ type: "success", text: "KI-Vorschläge erfolgreich übernommen. Bitte prüfen und speichern." });
       }
     } catch (err) {
       setMessage({ type: "error", text: String(err) });
@@ -68,14 +96,19 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
 
       const { error } = await supabase.from("page_seo_meta").upsert(
         {
-          page_path: pagePath,
-          meta_title: metaTitle || null,
-          meta_description: metaDescription || null,
-          focus_keyword: focusKeyword || null,
+          page_path:         pagePath,
+          meta_title:        metaTitle || null,
+          meta_description:  metaDescription || null,
+          focus_keyword:     focusKeyword || null,
           additional_keywords: keywords.length > 0 ? keywords : null,
-          og_title: ogTitle || null,
-          og_description: ogDescription || null,
-          og_image: ogImage || null,
+          og_title:          ogTitle || null,
+          og_description:    ogDescription || null,
+          og_image:          ogImage || null,
+          seo_intro:         seoIntro || null,
+          seo_h2_middle:     seoH2Middle || null,
+          seo_middle:        seoMiddle || null,
+          seo_h2_bottom:     seoH2Bottom || null,
+          seo_bottom:        seoBottom || null,
         },
         { onConflict: "page_path" }
       );
@@ -104,7 +137,7 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
               <p className="text-sm font-bold text-purple-300">KI-Optimierung</p>
             </div>
             <p className="text-xs text-purple-400/70">
-              Recherchiert auf Basis von SEO-Best-Practices und Konkurrenzanalyse die optimalen Meta-Daten.
+              Recherchiert auf Basis von SEO-Best-Practices und Konkurrenzanalyse die optimalen Meta-Daten + Textblöcke (850+ Wörter).
             </p>
           </div>
           <button
@@ -113,7 +146,7 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
             className="shrink-0 flex items-center gap-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors"
           >
             <Sparkles className="w-4 h-4" />
-            {generating ? "Recherchiert …" : "Mit KI generieren"}
+            {generating ? "Generiert …" : "Mit KI generieren"}
           </button>
         </div>
       </div>
@@ -153,15 +186,12 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
 
         {analysis && (
           <div>
-            {/* Score */}
             <div className="flex items-center gap-3 mb-3">
               <span className={`text-3xl font-black ${analysis.score >= 80 ? "text-green-400" : analysis.score >= 50 ? "text-yellow-400" : "text-red-400"}`}>
                 {analysis.score}%
               </span>
               <span className="text-xs text-gray-500">SEO-Score (Live-Analyse)</span>
             </div>
-
-            {/* Checks */}
             <div className="space-y-1.5">
               {analysis.checks.map((c, i) => (
                 <div key={i} className="flex items-start gap-2 text-xs">
@@ -176,8 +206,6 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
                 </div>
               ))}
             </div>
-
-            {/* H-Struktur */}
             {analysis.headings.length > 0 && (
               <details className="mt-3">
                 <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-300">
@@ -197,74 +225,96 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
         )}
       </div>
 
-      {/* Meta Title */}
-      <div>
-        <label className={labelClass}>
-          Meta Title
-          <span className={`ml-2 font-normal normal-case ${metaTitle.length > 60 ? "text-red-400" : metaTitle.length >= 30 ? "text-green-400" : "text-gray-500"}`}>
-            {metaTitle.length}/60
-          </span>
-        </label>
-        <input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)}
-          maxLength={80} placeholder="Seitentitel für Suchmaschinen (30–60 Zeichen ideal)" className={inputClass} />
-        {/* Google Preview */}
-        {metaTitle && (
-          <div className="mt-2 bg-gray-800 rounded-lg p-3 border border-gray-700">
-            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Google-Vorschau</p>
-            <p className="text-blue-400 text-sm font-medium truncate">{metaTitle}</p>
-            <p className="text-green-400 text-xs">urlaubfinder365.de{pagePath}</p>
-            <p className="text-gray-400 text-xs mt-0.5 line-clamp-2">{metaDescription || "Keine Beschreibung"}</p>
-          </div>
-        )}
-      </div>
+      {/* ── SEO-Metadaten ─────────────────────────────────────── */}
+      <div className="border border-gray-700 rounded-xl p-5 space-y-4 bg-gray-800/30">
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">🔍 SEO-Metadaten</h3>
 
-      {/* Meta Description */}
-      <div>
-        <label className={labelClass}>
-          Meta Description
-          <span className={`ml-2 font-normal normal-case ${metaDescription.length > 160 ? "text-red-400" : metaDescription.length >= 120 ? "text-green-400" : "text-gray-500"}`}>
-            {metaDescription.length}/160
-          </span>
-        </label>
-        <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)}
-          rows={3} maxLength={200} placeholder="Kurzbeschreibung (120–160 Zeichen ideal)"
-          className={inputClass + " resize-none"} />
-      </div>
-
-      {/* Focus Keyword */}
-      <div>
-        <label className={labelClass}>Focus Keyword</label>
-        <input type="text" value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)}
-          placeholder="z. B. Pauschalreise Türkei" className={inputClass} />
-        {focusKeyword && metaTitle && (
-          <div className="mt-1 flex gap-2 text-xs">
-            <span className={metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
-              {metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"} im Title
+        {/* Meta Title */}
+        <div>
+          <label className={labelClass}>
+            Meta Title
+            <span className={`ml-2 font-normal normal-case ${metaTitle.length > 60 ? "text-red-400" : metaTitle.length >= 30 ? "text-green-400" : "text-gray-500"}`}>
+              {metaTitle.length}/60
             </span>
-            <span className={metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
-              {metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"} in Description
+          </label>
+          <input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)}
+            maxLength={80} placeholder="Seitentitel für Suchmaschinen (30–60 Zeichen ideal)" className={inputClass} />
+        </div>
+
+        {/* Meta Description */}
+        <div>
+          <label className={labelClass}>
+            Meta Description
+            <span className={`ml-2 font-normal normal-case ${metaDescription.length > 160 ? "text-red-400" : metaDescription.length >= 120 ? "text-green-400" : "text-gray-500"}`}>
+              {metaDescription.length}/160
             </span>
+          </label>
+          <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)}
+            rows={3} maxLength={200} placeholder="Kurzbeschreibung (120–160 Zeichen ideal)"
+            className={inputClass + " resize-none"} />
+        </div>
+
+        {/* Google SERP Vorschau */}
+        {(metaTitle.length > 0 || metaDescription.length > 0) && (
+          <div className="bg-gray-950 border border-gray-800 rounded-xl p-4">
+            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-3 font-semibold">Google-Vorschau</p>
+            <div className="space-y-0.5">
+              <p className="text-[13px] text-blue-400 font-medium leading-tight truncate">
+                {metaTitle || `urlaubfinder365.de${pagePath}`}
+              </p>
+              <p className="text-[11px] text-green-500 leading-tight">
+                urlaubfinder365.de{pagePath}
+              </p>
+              <p className="text-[12px] text-gray-400 leading-relaxed line-clamp-2 mt-0.5">
+                {metaDescription || "Keine Beschreibung vorhanden."}
+              </p>
+            </div>
+            <div className="mt-2 pt-2 border-t border-gray-800 flex flex-wrap gap-4 text-[10px]">
+              <span className={metaTitle.length >= 30 && metaTitle.length <= 60 ? "text-green-400" : metaTitle.length > 0 ? "text-yellow-400" : "text-gray-600"}>
+                Title: {metaTitle.length} Zeichen {metaTitle.length >= 30 && metaTitle.length <= 60 ? "✓" : metaTitle.length > 60 ? "(zu lang)" : "(zu kurz)"}
+              </span>
+              <span className={metaDescription.length >= 120 && metaDescription.length <= 160 ? "text-green-400" : metaDescription.length > 0 ? "text-yellow-400" : "text-gray-600"}>
+                Description: {metaDescription.length} Zeichen {metaDescription.length >= 120 && metaDescription.length <= 160 ? "✓" : metaDescription.length > 160 ? "(zu lang)" : metaDescription.length > 0 ? "(zu kurz)" : ""}
+              </span>
+              {focusKeyword && (
+                <>
+                  <span className={metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+                    Keyword im Title {metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"}
+                  </span>
+                  <span className={metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+                    in Description {metaDescription.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         )}
-      </div>
 
-      {/* Additional Keywords */}
-      <div>
-        <label className={labelClass}>Weitere Keywords (kommagetrennt)</label>
-        <input type="text" value={additionalKeywords} onChange={(e) => setAdditionalKeywords(e.target.value)}
-          placeholder="z. B. Türkei Urlaub, All Inclusive, günstig buchen" className={inputClass} />
-        {additionalKeywords && (
-          <div className="mt-1.5 flex flex-wrap gap-1">
-            {additionalKeywords.split(",").map((k) => k.trim()).filter(Boolean).map((kw) => (
-              <span key={kw} className="text-[10px] bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full border border-gray-700">{kw}</span>
-            ))}
+        {/* Focus Keyword + Additional Keywords */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass}>Focus Keyword</label>
+            <input type="text" value={focusKeyword} onChange={(e) => setFocusKeyword(e.target.value)}
+              placeholder="z. B. Pauschalreise Türkei" className={inputClass} />
           </div>
-        )}
+          <div>
+            <label className={labelClass}>Weitere Keywords (kommagetrennt)</label>
+            <input type="text" value={additionalKeywords} onChange={(e) => setAdditionalKeywords(e.target.value)}
+              placeholder="z. B. Türkei Urlaub, All Inclusive, günstig buchen" className={inputClass} />
+            {additionalKeywords && (
+              <div className="mt-1.5 flex flex-wrap gap-1">
+                {additionalKeywords.split(",").map((k) => k.trim()).filter(Boolean).map((kw) => (
+                  <span key={kw} className="text-[10px] bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full border border-gray-700">{kw}</span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Open Graph */}
-      <div className="border-t border-gray-800 pt-4">
-        <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold mb-4">Open Graph (Social Media)</p>
+      {/* ── Open Graph ─────────────────────────────────────────── */}
+      <div className="border border-gray-700 rounded-xl p-5 space-y-4 bg-gray-800/30">
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">📢 Open Graph (Social Media)</h3>
         <div className="grid grid-cols-1 gap-4">
           <div>
             <label className={labelClass}>OG Title</label>
@@ -288,6 +338,57 @@ export default function SeoMetaForm({ pagePath, initial }: Props) {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* ── SEO-Textblöcke ─────────────────────────────────────── */}
+      <div className="border border-gray-700 rounded-xl p-5 space-y-5 bg-gray-800/30">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">📝 SEO-Textblöcke</h3>
+          <span className={`text-xs font-bold ${totalWords >= 850 ? "text-green-400" : totalWords >= 400 ? "text-yellow-400" : "text-gray-500"}`}>
+            {totalWords} Wörter {totalWords >= 850 ? "✓" : `(mind. 850 empfohlen)`}
+          </span>
+        </div>
+
+        {/* SEO Intro */}
+        <div>
+          <label className={labelClass}>SEO-Intro (nach Hero, max. 80 Wörter)</label>
+          <textarea value={seoIntro} onChange={(e) => setSeoIntro(e.target.value)} rows={3}
+            placeholder="Emotionaler Einleitungstext direkt unter dem Hero-Bild…"
+            className={inputClass + " resize-y"} />
+          <TextPreview text={seoIntro} />
+        </div>
+
+        {/* H2 Mitte */}
+        <div className="border-t border-gray-800 pt-4">
+          <label className={labelClass}>H2-Überschrift (Mitte)</label>
+          <input type="text" value={seoH2Middle} onChange={(e) => setSeoH2Middle(e.target.value)}
+            placeholder="z. B. Alles zum Thema Pauschalreisen" className={inputClass} />
+        </div>
+
+        {/* SEO Middle */}
+        <div>
+          <label className={labelClass}>SEO-Text Mitte (150–200 Wörter)</label>
+          <textarea value={seoMiddle} onChange={(e) => setSeoMiddle(e.target.value)} rows={5}
+            placeholder="Informationsblock in der Seitenmitte, vor dem Hauptinhalt…"
+            className={inputClass + " resize-y"} />
+          <TextPreview text={seoMiddle} />
+        </div>
+
+        {/* H2 Unten */}
+        <div className="border-t border-gray-800 pt-4">
+          <label className={labelClass}>H2-Überschrift (unten)</label>
+          <input type="text" value={seoH2Bottom} onChange={(e) => setSeoH2Bottom(e.target.value)}
+            placeholder="z. B. Der große Ratgeber: Tipps & Hintergrundwissen" className={inputClass} />
+        </div>
+
+        {/* SEO Bottom */}
+        <div>
+          <label className={labelClass}>SEO-Text unten (500–600 Wörter — längster Block)</label>
+          <textarea value={seoBottom} onChange={(e) => setSeoBottom(e.target.value)} rows={12}
+            placeholder="Ausführlicher Ratgeber-Text ganz unten auf der Seite. Dieser muss der längste Textblock sein.&#10;&#10;Absätze mit Leerzeile trennen."
+            className={inputClass + " resize-y"} />
+          <TextPreview text={seoBottom} />
         </div>
       </div>
 

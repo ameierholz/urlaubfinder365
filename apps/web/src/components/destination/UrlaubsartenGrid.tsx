@@ -22,6 +22,13 @@ function fmtDate(iso: string) {
   return `${d}.${m}.`;
 }
 
+// Kategorie-Farben: Pauschalreisen=Blau, All Inclusive=Gold, Last Minute=Rot
+const KAT_COLORS: Record<string, { border: string; bg: string; iconBg: string; iconColor: string }> = {
+  pauschal:   { border: "#1b6ca8", bg: "#eef4fb", iconBg: "#dbeafe", iconColor: "#0f4c75" },
+  ai:         { border: "#c97d00", bg: "#fdf7ee", iconBg: "#fef3c7", iconColor: "#b06a00" },
+  lastminute: { border: "#e74c3c", bg: "#fef2f2", iconBg: "#fee2e2", iconColor: "#c0392b" },
+};
+
 interface KatDef {
   key: string;
   icon: string;
@@ -41,8 +48,8 @@ const KATEGORIEN: KatDef[] = [
     icon: "✈️",
     label: "Pauschalreisen",
     desc: "Flug + Hotel perfekt kombiniert",
-    color: "bg-blue-50 border-blue-200 hover:border-blue-400",
-    iconBg: "bg-blue-100 text-blue-700",
+    color: "",
+    iconBg: "",
     apiParams: { from: "14", to: "42" },
     excludeAi: true,
     ibeParams: {},
@@ -53,8 +60,8 @@ const KATEGORIEN: KatDef[] = [
     icon: "🍹",
     label: "All Inclusive",
     desc: "Rundum-sorglos ohne Kostenkontrolle",
-    color: "bg-teal-50 border-teal-200 hover:border-teal-400",
-    iconBg: "bg-teal-100 text-teal-700",
+    color: "",
+    iconBg: "",
     apiParams: { from: "14", to: "42", boardCode: "AI" },
     ibeParams: { boardCode: "AI" },
     anchor: "#all-inclusive",
@@ -64,8 +71,8 @@ const KATEGORIEN: KatDef[] = [
     icon: "⚡",
     label: "Last Minute",
     desc: "Spontan weg & kräftig sparen",
-    color: "bg-amber-50 border-amber-200 hover:border-amber-400",
-    iconBg: "bg-amber-100 text-amber-700",
+    color: "",
+    iconBg: "",
     apiParams: { from: "3", to: "21" },
     ibeParams: { from: "3", to: "21" },
     anchor: "#last-minute",
@@ -439,14 +446,25 @@ export default function UrlaubsartenGrid({ regionId, destName }: Props) {
           const { loading, price, trend, trendPct, history } = prices[kat.key];
           const hasChart = history.length >= 2;
 
+          const katColor = KAT_COLORS[kat.key];
           return (
             <a
               key={kat.key}
               href={kat.anchor ?? buildIbeUrl(kat)}
               onClick={(e) => handleCardClick(e, kat)}
-              className={`flex items-center gap-4 rounded-2xl border-2 px-5 py-4 transition-all duration-200 cursor-pointer group no-underline ${kat.color}`}
+              className="flex items-center gap-4 rounded-2xl border-2 px-5 py-4 transition-all duration-200 cursor-pointer group no-underline"
+              style={katColor
+                ? { backgroundColor: katColor.bg, borderColor: katColor.border }
+                : { backgroundColor: "#f8fafc", borderColor: "#e2e8f0" }
+              }
             >
-              <span className={`text-2xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${kat.iconBg}`}>
+              <span
+                className="text-2xl w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                style={katColor
+                  ? { backgroundColor: katColor.iconBg, color: katColor.iconColor }
+                  : { backgroundColor: "#f1f5f9", color: "#475569" }
+                }
+              >
                 {kat.icon}
               </span>
 

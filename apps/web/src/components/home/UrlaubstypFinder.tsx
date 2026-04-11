@@ -5,10 +5,10 @@ import { Link } from "@/i18n/navigation";
 
 const TYPEN = [
   { emoji: "🏖️", color: "#6CC4BA", bg: "rgba(108,196,186,0.1)", labelKey: "strand",      href: "/urlaubsthemen/strandurlaub/" },
-  { emoji: "🍹", color: "#c49038", bg: "rgba(196,144,56,0.1)",  labelKey: "allInclusive", href: "/urlaubsarten/all-inclusive-urlaub/" },
+  { emoji: "🍹", color: "#c97d00", bg: "rgba(201,125,0,0.1)",   labelKey: "allInclusive", href: "/urlaubsarten/all-inclusive-urlaub/" },
   { emoji: "👨‍👩‍👧‍👦", color: "#3b82f6", bg: "rgba(59,130,246,0.1)",  labelKey: "familie",      href: "/urlaubsthemen/familienurlaub/" },
   { emoji: "🏛️", color: "#8b5cf6", bg: "rgba(139,92,246,0.1)",  labelKey: "kultur",       href: "/urlaubsthemen/staedtereisen/" },
-  { emoji: "⚡", color: "#ef4444", bg: "rgba(239,68,68,0.1)",   labelKey: "lastMinute",   href: "/last-minute/" },
+  { emoji: "⚡", color: "#e74c3c", bg: "rgba(231,76,60,0.1)",   labelKey: "lastMinute",   href: "/last-minute/" },
   { emoji: "🌍", color: "#10b981", bg: "rgba(16,185,129,0.1)",  labelKey: "fernreisen",   href: "/urlaubsziele/" },
 ] as const;
 

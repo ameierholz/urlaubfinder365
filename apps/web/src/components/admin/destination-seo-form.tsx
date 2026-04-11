@@ -263,11 +263,6 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
             placeholder={`${name} Urlaub – Pauschalreisen, Preise & Tipps`}
             className={inputClass}
           />
-          {metaTitleLen > 0 && (
-            <div className="mt-1.5 bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-xs text-blue-300 font-medium truncate">
-              {metaTitle}
-            </div>
-          )}
         </div>
 
         {/* Meta Description */}
@@ -283,15 +278,46 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
             onChange={(e) => setMetaDesc(e.target.value)}
             rows={2}
             maxLength={200}
-            placeholder={`${name} Urlaub günstig buchen ✓ Pauschalreisen ab X € ✓ Preisverlauf & Buchungsempfehlung ✓ Jetzt vergleichen`}
+            placeholder={`${name} Urlaub günstig buchen. Pauschalreisen vergleichen, Preisverlauf & Buchungstipp.`}
             className={inputClass + " resize-none"}
           />
-          {metaDescLen > 0 && (
-            <div className="mt-1.5 bg-gray-950 border border-gray-800 rounded px-3 py-1.5 text-xs text-gray-400 leading-relaxed">
-              {metaDesc}
-            </div>
-          )}
         </div>
+
+        {/* Google SERP Vorschau */}
+        {(metaTitleLen > 0 || metaDescLen > 0) && (
+          <div className="mt-1 bg-gray-950 border border-gray-800 rounded-xl p-4">
+            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-3 font-semibold">Google-Vorschau</p>
+            <div className="space-y-0.5">
+              <p className="text-[13px] text-blue-400 font-medium leading-tight truncate">
+                {metaTitle || `${name} Urlaub – urlaubfinder365.de`}
+              </p>
+              <p className="text-[11px] text-green-500 leading-tight">
+                urlaubfinder365.de › urlaubsziele › {slug}
+              </p>
+              <p className="text-[12px] text-gray-400 leading-relaxed line-clamp-2 mt-0.5">
+                {metaDesc || "Keine Beschreibung vorhanden."}
+              </p>
+            </div>
+            <div className="mt-2 pt-2 border-t border-gray-800 flex gap-4 text-[10px]">
+              <span className={metaTitleLen >= 30 && metaTitleLen <= 60 ? "text-green-400" : metaTitleLen > 0 ? "text-yellow-400" : "text-gray-600"}>
+                Title: {metaTitleLen} Zeichen {metaTitleLen >= 30 && metaTitleLen <= 60 ? "✓" : metaTitleLen > 60 ? "(zu lang)" : metaTitleLen > 0 ? "(zu kurz)" : ""}
+              </span>
+              <span className={metaDescLen >= 120 && metaDescLen <= 160 ? "text-green-400" : metaDescLen > 0 ? "text-yellow-400" : "text-gray-600"}>
+                Description: {metaDescLen} Zeichen {metaDescLen >= 120 && metaDescLen <= 160 ? "✓" : metaDescLen > 160 ? "(zu lang)" : metaDescLen > 0 ? "(zu kurz)" : ""}
+              </span>
+              {focusKeyword && (
+                <>
+                  <span className={metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+                    Keyword im Title {metaTitle.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"}
+                  </span>
+                  <span className={metaDesc.toLowerCase().includes(focusKeyword.toLowerCase()) ? "text-green-400" : "text-red-400"}>
+                    in Description {metaDesc.toLowerCase().includes(focusKeyword.toLowerCase()) ? "✓" : "✗"}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Fokus-Keyword + weitere Keywords */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

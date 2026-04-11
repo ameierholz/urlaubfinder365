@@ -93,8 +93,8 @@ export default async function SeoAdminPage() {
           <Globe className="w-6 h-6 text-teal-400" />
         </div>
         <div>
-          <h1 className="text-2xl font-black text-white">SEO-Verwaltung</h1>
-          <p className="text-sm text-gray-500">Meta-Daten für alle Seiten pflegen</p>
+          <h1 className="text-2xl font-black text-white">Pages</h1>
+          <p className="text-sm text-gray-500">SEO-Metadaten & Textblöcke für alle Seiten</p>
         </div>
       </div>
 

@@ -57,8 +57,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("art1Desc"),
       emoji: "✈️",
       highlight: t("art1Highlight"),
-      color: "bg-blue-50 border-blue-100",
-      badge: "bg-blue-100 text-blue-700",
+      cardStyle: { backgroundColor: "#eef4fb", borderColor: "#1b6ca8" },
+      badgeStyle: { backgroundColor: "#dbeafe", color: "#0f4c75" },
     },
     {
       title: t("art2Title"),
@@ -66,8 +66,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("art2Desc"),
       emoji: "🌅",
       highlight: t("art2Highlight"),
-      color: "bg-amber-50 border-amber-100",
-      badge: "bg-amber-100 text-amber-700",
+      cardStyle: { backgroundColor: "#fffbeb", borderColor: "#f59e0b" },
+      badgeStyle: { backgroundColor: "#fef3c7", color: "#92400e" },
     },
     {
       title: t("art3Title"),
@@ -75,8 +75,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("art3Desc"),
       emoji: "🍹",
       highlight: t("art3Highlight"),
-      color: "bg-teal-50 border-teal-100",
-      badge: "bg-teal-100 text-teal-700",
+      cardStyle: { backgroundColor: "#fdf7ee", borderColor: "#c97d00" },
+      badgeStyle: { backgroundColor: "#fef3c7", color: "#b06a00" },
     },
     {
       title: t("art4Title"),
@@ -84,8 +84,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("art4Desc"),
       emoji: "⚡",
       highlight: t("art4Highlight"),
-      color: "bg-orange-50 border-orange-100",
-      badge: "bg-orange-100 text-orange-700",
+      cardStyle: { backgroundColor: "#fef2f2", borderColor: "#e74c3c" },
+      badgeStyle: { backgroundColor: "#fee2e2", color: "#c0392b" },
     },
     {
       title: t("art5Title"),
@@ -93,8 +93,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("art5Desc"),
       emoji: "🚀",
       highlight: t("art5Highlight"),
-      color: "bg-red-50 border-red-100",
-      badge: "bg-red-100 text-red-700",
+      cardStyle: { backgroundColor: "#fef2f2", borderColor: "#dc2626" },
+      badgeStyle: { backgroundColor: "#fee2e2", color: "#991b1b" },
     },
   ];
 
@@ -156,9 +156,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <Link
                 key={art.href}
                 href={art.href}
-                className={`relative rounded-2xl border p-6 hover:shadow-lg transition-all duration-200 group ${art.color}`}
+                className="relative rounded-2xl border p-6 hover:shadow-lg transition-all duration-200 group"
+                style={art.cardStyle}
               >
-                <span className={`inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-4 ${art.badge}`}>
+                <span className="inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-4" style={art.badgeStyle}>
                   {art.highlight}
                 </span>
                 <div className="text-4xl mb-3">{art.emoji}</div>

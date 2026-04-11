@@ -28,15 +28,17 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON:
   "meta_description": "Max. 150 Zeichen. Natürliche Sprache, destination-fokussiert – was will jemand der nach '${name} Urlaub' sucht wissen? Nutzen statt Feature-Listen. Keine ✓-Zeichen. Beispiel: 'Günstige ${name} Pauschalreisen entdecken. Preise vergleichen, besten Buchungszeitpunkt finden und traumhaften Urlaub buchen.'",
   "focus_keyword": "Das meistgesuchte Keyword für dieses Ziel – prüfe mental: Was tippen die meisten Urlauber bei Google ein wenn sie ${name} buchen wollen? Meist '${name} Urlaub' oder '${name} Pauschalreise' oder '${name} All Inclusive' – nimm das volumenstärkste.",
   "keywords": "6-8 weitere Keywords nach Suchvolumen geordnet, kommagetrennt. Varianten: Pauschalreise, All Inclusive, Last Minute, günstig, buchen, Angebote.",
-  "seo_intro": "2-3 emotionale Sätze die Lust auf ${name} machen. Echte Highlights, keine Floskeln. Max. 60 Wörter.",
+  "seo_intro": "2-3 emotionale Sätze die Lust auf ${name} machen. Echte Highlights, keine Floskeln. Max. 80 Wörter.",
   "seo_h2_middle": "Kurze H2 mit Keyword, z.B. '${name} – Was dich erwartet'",
-  "seo_middle": "1-2 Absätze (durch \\n\\n getrennt). Kurze Highlights: Klima, beste Reisezeit, 1-2 Top-Sehenswürdigkeiten. Max. 80 Wörter. Kein Fließtext, keine Listen.",
+  "seo_middle": "2-3 Absätze (durch \\n\\n getrennt). Klima, beste Reisezeit, 2-3 Top-Sehenswürdigkeiten oder Highlights. 150-200 Wörter.",
   "seo_h2_bottom": "H2 mit Reiseführer-Charakter, z.B. '${name} Reiseführer: Tipps, Strände & Insiderwissen'",
-  "seo_bottom": "4-5 Absätze (durch \\n\\n getrennt):\\n\\n1. Beste Reisezeit & Klima (detailliert)\\n\\n2. Top-Strände oder Sehenswürdigkeiten\\n\\n3. Aktivitäten & Ausflugstipps\\n\\n4. Kulinarik & lokale Besonderheiten\\n\\n5. Buchungstipp + Call-to-Action\\n\\nInsgesamt 250-350 Wörter, informativ, natürlich, mit Keywords."
+  "seo_bottom": "5-7 Absätze (durch \\n\\n getrennt):\\n\\n1. Beste Reisezeit & Klima (ausführlich)\\n\\n2. Top-Strände oder Sehenswürdigkeiten (mit Details)\\n\\n3. Aktivitäten & Ausflugstipps\\n\\n4. Kulinarik & lokale Besonderheiten\\n\\n5. Unterkünfte & Hotels (Typen)\\n\\n6. Anreise & praktische Tipps\\n\\n7. Buchungstipp + Call-to-Action\\n\\nInsgesamt 500-600 Wörter. WICHTIG: Dies muss der längste Textblock sein."
 }
 
 WICHTIG:
 - Deutsch, natürlicher Lesefluss
+- seo_bottom MUSS der längste Text sein (500-600 Wörter)
+- Gesamtwortzahl seo_intro + seo_middle + seo_bottom: mindestens 850 Wörter
 - Keywords natürlich einbauen: "${name} Urlaub", "Pauschalreise ${name}", "${name} buchen", "günstig"
 - KEIN Keyword-Stuffing
 - Einzigartig (nicht generisch/austauschbar)
@@ -52,7 +54,7 @@ WICHTIG:
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 3000,
+        max_tokens: 4500,
         messages: [{ role: "user", content: prompt }],
       }),
     });

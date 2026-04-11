@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 /**
  * POST /api/admin/generate-seo
- * Generiert optimale SEO-Meta-Daten für eine Seite via Claude API.
+ * Generiert SEO-Meta-Daten + Textblöcke für eine Seite via Claude API.
  * Body: { pagePath: string, pageTitle?: string }
  */
 export async function POST(req: NextRequest) {
@@ -19,25 +19,40 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "pagePath fehlt" }, { status: 400 });
   }
 
-  const prompt = `Du bist ein SEO-Experte für urlaubfinder365.de – ein deutsches Reiseportal für Pauschalreisen, Last-Minute, Hotels, Flüge und Kreuzfahrten.
+  const prompt = `Du bist ein SEO-Experte und Texter für urlaubfinder365.de – ein deutsches Reiseportal für Pauschalreisen, Last-Minute, Hotels, Flüge und Kreuzfahrten.
 
-Generiere optimale SEO-Meta-Daten für folgende Seite:
+Generiere optimale SEO-Daten und Textblöcke für folgende Seite:
 - Seiten-Pfad: ${pagePath}
 ${pageTitle ? `- Aktueller Titel: ${pageTitle}` : ""}
 - Domain: urlaubfinder365.de
 
-Recherchiere mental, welche Keywords die großen Konkurrenten (Check24, HolidayCheck, TUI, ab-in-den-urlaub, Expedia) für ähnliche Seiten nutzen. Ziel: Top-Rankings bei Google, Bing und KI-Suchmaschinen.
+SEITENAUFBAU:
+1. seo_intro → direkt unter dem Hero-Bild (kurzer Einstieg)
+2. seo_h2_middle + seo_middle → Infoblock in der Seitenmitte (vor Hauptinhalten)
+3. seo_h2_bottom + seo_bottom → langer Ratgeber-Text ganz unten (Hauptteil für SEO)
 
-Antworte AUSSCHLIESSLICH mit folgendem JSON (keine Erklärung, kein Markdown):
+Antworte AUSSCHLIESSLICH mit folgendem JSON (kein Markdown, keine Erklärung):
 {
-  "meta_title": "... (max 60 Zeichen, mit Keyword am Anfang, Jahr ${new Date().getFullYear()} wenn passend)",
-  "meta_description": "... (max 155 Zeichen, Call-to-Action, Vertrauenssignale wie ✓, USPs)",
-  "focus_keyword": "... (1-3 Wörter, höchstes Suchvolumen)",
+  "meta_title": "Max. 58 Zeichen. KEINE Jahreszahl. Hauptkeyword am Anfang. Natürliche Sprache.",
+  "meta_description": "Max. 150 Zeichen. Natürliche Sprache, nutzerfokussiert. KEINE Sonderzeichen wie ✓ oder Pipes. Beispiel: 'Günstig Pauschalreisen vergleichen und zum Bestpreis buchen. Preisverlauf & Buchungsempfehlung inklusive.'",
+  "focus_keyword": "Das meistgesuchte Keyword für diese Seite (höchstes Suchvolumen).",
   "additional_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"],
-  "og_title": "... (max 60 Zeichen, emotionaler als meta_title, mit Emoji wenn passend)",
-  "og_description": "... (max 200 Zeichen, Social-Media optimiert, neugierig machend)",
-  "og_image_suggestion": "... (Beschreibung des idealen OG-Bildes: Motiv, Stimmung, Format 1200x630)"
-}`;
+  "og_title": "Max. 60 Zeichen, emotionaler als meta_title.",
+  "og_description": "Max. 200 Zeichen, Social-Media-optimiert, neugierig machend.",
+  "og_image_suggestion": "Beschreibung des idealen OG-Bildes: Motiv, Stimmung, Format 1200×630.",
+  "seo_intro": "2-3 emotionale Sätze die Lust auf das Thema machen. Echte Vorteile, keine Floskeln. Max. 80 Wörter.",
+  "seo_h2_middle": "Kurze H2 mit Keyword, passend zur Seitenmitte.",
+  "seo_middle": "2-3 Absätze (durch \\n\\n getrennt). Informativ, mit Keywords. 150-200 Wörter.",
+  "seo_h2_bottom": "H2 mit Ratgeber-Charakter, z.B. 'Der große Ratgeber: Tipps & Hintergrundwissen'",
+  "seo_bottom": "5-7 Absätze (durch \\n\\n getrennt). Umfassender Ratgeber-Text zu diesem Thema: Was ist das?, Vorteile, Tipps, FAQ-Antworten, Vergleich, Call-to-Action. Insgesamt 500-600 Wörter. Mit Keywords, informativ, natürlicher Lesefluss. WICHTIG: Dies muss der längste Textblock sein."
+}
+
+WICHTIG:
+- Deutsch, natürlicher Lesefluss
+- seo_bottom MUSS der längste Text sein (500-600 Wörter)
+- Gesamtwortzahl seo_intro + seo_middle + seo_bottom: mindestens 850 Wörter
+- Keywords natürlich einbauen (kein Stuffing)
+- Echte Fakten und Tipps`;
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -49,7 +64,7 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON (keine Erklärung, kein Markdown):
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 1024,
+        max_tokens: 4000,
         messages: [{ role: "user", content: prompt }],
       }),
     });
@@ -62,7 +77,6 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON (keine Erklärung, kein Markdown):
     const data = await res.json();
     const text = data.content?.[0]?.text ?? "";
 
-    // Parse JSON aus der Antwort
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       return NextResponse.json({ error: "Keine JSON-Antwort von Claude", raw: text }, { status: 500 });

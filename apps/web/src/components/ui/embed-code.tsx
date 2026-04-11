@@ -137,16 +137,17 @@ export function EmbedCode({
             <p className="text-xs text-gray-500">
               So sieht das Widget auf deiner Webseite aus:
             </p>
-            <div className="bg-gray-100 rounded-xl p-4 flex justify-center">
+            <div className="bg-gray-100 rounded-xl p-3">
               <iframe
                 src={embedUrl}
-                width="500"
-                height="260"
+                width="100%"
+                height="340"
                 style={{
                   border: "none",
                   borderRadius: "12px",
                   overflow: "hidden",
-                  maxWidth: "100%",
+                  display: "block",
+                  minWidth: 0,
                 }}
                 title={`Preisverlauf ${selectedName}`}
                 loading="lazy"

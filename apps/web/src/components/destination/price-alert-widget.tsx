@@ -80,7 +80,7 @@ export default function PriceAlertWidget({ destinationSlug, destinationName, cur
             <Bell className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-white font-black text-lg leading-tight">Preisalarm aktivieren</h2>
+            <p className="text-white font-black text-lg leading-tight">Preisalarm aktivieren</p>
             <p className="text-white/75 text-xs">Kostenlos — kein Account nötig</p>
           </div>
         </div>

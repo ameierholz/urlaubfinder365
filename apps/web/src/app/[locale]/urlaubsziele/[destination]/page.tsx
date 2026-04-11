@@ -11,6 +11,7 @@ import SponsoredAngebote from "@/components/marktplatz/SponsoredAngebote";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { Suspense } from "react";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
+import IbeAllOffersButton from "@/components/ibe/IbeAllOffersButton";
 import IbeBoardingPass from "@/components/ibe/IbeBoardingPass";
 import ReiseHub from "@/components/reise-hub/ReiseHub";
 import TiqetsActivitiesSection from "@/components/tiqets/TiqetsActivitiesSection";
@@ -533,7 +534,7 @@ export default async function DestinationPage({ params }: Props) {
                 <div className="relative z-10 px-6 py-5 flex items-center gap-5">
                   <span className="text-5xl shrink-0 drop-shadow">✈️</span>
                   <div>
-                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Pauschalreisen</p>
+                    <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-white text-[#0f4c75] rounded-full px-2.5 py-0.5 mb-2">✈️ Pauschalreisen</span>
                     <h2 className="text-xl font-black text-white leading-tight">
                       Entspannt &amp; perfekt organisiert nach {dest.name}
                     </h2>
@@ -552,6 +553,20 @@ export default async function DestinationPage({ params }: Props) {
                 minRecommrate="40"
                 excludeAi
                 hideHeading
+              />
+              <IbeAllOffersButton
+                label={`Alle Pauschalreisen nach ${dest.name} anzeigen`}
+                modalTitle={`Pauschalreisen nach ${dest.name}`}
+                regionId={regionId}
+                cityId={cityId}
+                from="14"
+                to="42"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                excludeAi
+                accentColor="#1b6ca8"
               />
             </div>
 
@@ -572,7 +587,7 @@ export default async function DestinationPage({ params }: Props) {
                 <div className="relative z-10 px-6 py-5 flex items-center gap-5">
                   <span className="text-5xl shrink-0 drop-shadow">🏖️</span>
                   <div>
-                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">All Inclusive</p>
+                    <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-white text-[#b06a00] rounded-full px-2.5 py-0.5 mb-2">🏖️ All Inclusive</span>
                     <h2 className="text-xl font-black text-white leading-tight">
                       Rundum sorglos &amp; Luxus pur in {dest.name}
                     </h2>
@@ -592,6 +607,20 @@ export default async function DestinationPage({ params }: Props) {
                 minRecommrate="40"
                 hideHeading
               />
+              <IbeAllOffersButton
+                label={`Alle All Inclusive Angebote in ${dest.name} anzeigen`}
+                modalTitle={`All Inclusive in ${dest.name}`}
+                regionId={regionId}
+                cityId={cityId}
+                boardCode="AI"
+                from="14"
+                to="42"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                accentColor="#c97d00"
+              />
             </div>
 
             {/* Last Minute */}
@@ -602,7 +631,7 @@ export default async function DestinationPage({ params }: Props) {
                 <div className="relative z-10 px-6 py-5 flex items-center gap-5">
                   <span className="text-5xl shrink-0 drop-shadow">⚡</span>
                   <div>
-                    <p className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-1">Last Minute</p>
+                    <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-white text-[#c0392b] rounded-full px-2.5 py-0.5 mb-2">⚡ Last Minute</span>
                     <h2 className="text-xl font-black text-white leading-tight">
                       Spontan in den Urlaub: Last Minute Deals für {dest.name}
                     </h2>
@@ -620,6 +649,19 @@ export default async function DestinationPage({ params }: Props) {
                 category="3"
                 minRecommrate="40"
                 hideHeading
+              />
+              <IbeAllOffersButton
+                label={`Alle Last Minute Deals für ${dest.name} anzeigen`}
+                modalTitle={`Last Minute nach ${dest.name}`}
+                regionId={regionId}
+                cityId={cityId}
+                from="3"
+                to="17"
+                duration="7-7"
+                adults="2"
+                category="3"
+                minRecommrate="40"
+                accentColor="#e74c3c"
               />
             </div>
 
@@ -841,7 +883,7 @@ export default async function DestinationPage({ params }: Props) {
             </div>
           </a>
           <a
-            href="https://www.crm.de/reiseziele.html"
+            href="https://crm.de/reiselaender/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-3 bg-green-50 border border-green-100 rounded-xl p-4 hover:border-green-300 transition-colors"
@@ -901,7 +943,7 @@ export default async function DestinationPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="mt-8 bg-linear-to-r from-blue-600 to-blue-500 rounded-3xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl font-bold mb-1">Dein digitaler Urlaubsbegleiter für {dest.name}</h2>
+              <h2 className="text-xl font-bold mb-1">Dein informativer Urlaubsführer für {dest.name}</h2>
               <p className="text-blue-100 text-sm">
                 Einreiseinfos, Klima, Sehenswürdigkeiten, Gesundheitstipps und mehr.
               </p>
