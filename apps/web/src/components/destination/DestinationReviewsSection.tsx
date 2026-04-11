@@ -119,7 +119,7 @@ export default function DestinationReviewsSection({
             Noch gibt es keine Bewertungen für {destinationName} – sei die erste Stimme.
           </p>
           <Link
-            href={`/community/reiseberichte/?destination=${destinationSlug}`}
+            href={`/community/reiseberichte/neu?destination=${destinationSlug}`}
             className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
           >
             Bewertung schreiben →

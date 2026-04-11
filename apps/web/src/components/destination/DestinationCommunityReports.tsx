@@ -99,7 +99,7 @@ export default function DestinationCommunityReports({
             Empfehlungen mit der Community.
           </p>
           <Link
-            href="/community/reiseberichte/neu"
+            href={`/community/reiseberichte/neu?destination=${destinationSlug}`}
             className="inline-flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
           >
             Reisebericht schreiben →
