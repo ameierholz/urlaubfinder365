@@ -677,14 +677,6 @@ export default async function DestinationPage({ params }: Props) {
               </Suspense>
             </div>
 
-            {/* Preisverlauf – unter Last-Minute */}
-            <div id="preisverlauf" className="mt-8 scroll-mt-24">
-              <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
-            </div>
-
-            {/* Embed-Widget für Blogger & Medienseiten */}
-            <EmbedWidgetSection destinationSlug={dest.slug} destinationName={dest.name} />
-
             {/* SEO Middle – vor Aktivitäten */}
             {seoTexts?.seo_middle && (
               <div className="mt-10">
@@ -910,8 +902,13 @@ export default async function DestinationPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Budget-Breakdown */}
+      {/* Kosten & Preisverlauf – gehören thematisch zusammen */}
       <BudgetBreakdownSection dest={dest} />
+
+      <div id="preisverlauf" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 scroll-mt-24">
+        <PriceChart destinationSlug={dest.slug} destinationName={dest.name} />
+        <EmbedWidgetSection destinationSlug={dest.slug} destinationName={dest.name} />
+      </div>
 
       {/* Long-tail Suchbegriffe + Reisezeiten */}
       <LongTailContentSection name={dest.name} slug={dest.slug} hasTiqets={!!dest.tiqetsCityId} />
