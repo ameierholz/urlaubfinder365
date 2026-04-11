@@ -29,6 +29,7 @@ import HomeDealCard from "@/components/home/HomeDealCard";
 import AdSlot from "@/components/ads/AdSlot";
 import DestinationHubLinks from "@/components/destination/DestinationHubLinks";
 import LongTailContentSection from "@/components/destination/LongTailContentSection";
+import BudgetBreakdownSection from "@/components/destination/BudgetBreakdownSection";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
@@ -908,6 +909,9 @@ export default async function DestinationPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {/* Budget-Breakdown */}
+      <BudgetBreakdownSection dest={dest} />
 
       {/* Long-tail Suchbegriffe + Reisezeiten */}
       <LongTailContentSection name={dest.name} slug={dest.slug} hasTiqets={!!dest.tiqetsCityId} />

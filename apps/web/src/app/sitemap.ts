@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { locales, SITE_URL } from "@/i18n/routing";
+import { SEASON_GUIDES } from "@/lib/season-guide-data";
+import { PAUSCHAL_KOMBIS } from "@/lib/pauschalreisen-kombi-data";
+import { RATGEBER_ARTICLES } from "@/lib/ratgeber-data";
 
 // Nicht-DE Locales für Alternate-URLs
 const NON_DEFAULT_LOCALES = locales.filter((l) => l !== "de");
@@ -74,6 +77,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedEntries("/urlaubsthemen/budget-bis-1000/", { lastModified: today,   changeFrequency: "daily",   priority: 0.80 }),
     ...localizedEntries("/urlaubsthemen/budget-bis-1500/", { lastModified: today,   changeFrequency: "daily",   priority: 0.78 }),
     ...localizedEntries("/urlaubsthemen/budget-bis-2000/", { lastModified: today,   changeFrequency: "daily",   priority: 0.75 }),
+    // ── Neue SEO-Hubs (Saisonal, Pauschal-Kombis, Ratgeber) ───────────────────
+    ...localizedEntries("/reiseziele/",     { lastModified: content, changeFrequency: "monthly", priority: 0.85 }),
+    ...localizedEntries("/pauschalreisen/", { lastModified: today,   changeFrequency: "daily",   priority: 0.88 }),
+    ...localizedEntries("/ratgeber/",       { lastModified: content, changeFrequency: "weekly",  priority: 0.82 }),
     ...localizedEntries("/mietwagen-reservieren/",             { lastModified: content, changeFrequency: "weekly",  priority: 0.72 }),
     ...localizedEntries("/community/",                         { lastModified: today,   changeFrequency: "daily",   priority: 0.82 }),
     ...localizedEntries("/community/reiseberichte/",           { lastModified: today,   changeFrequency: "daily",   priority: 0.8 }),
@@ -111,11 +118,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ),
     ]);
 
+  // ── Saisonal-Guides (Reiseziele nach Monat) ──────────────────────────────────
+  const seasonPages = SEASON_GUIDES.flatMap((g) =>
+    localizedEntries(`/reiseziele/${g.slug}/`, { lastModified: content, changeFrequency: "monthly", priority: 0.78 })
+  );
+
+  // ── Pauschalreisen-Kombi-Seiten ──────────────────────────────────────────────
+  const pauschalKombiPages = PAUSCHAL_KOMBIS.flatMap((k) =>
+    localizedEntries(`/pauschalreisen/${k.slug}/`, { lastModified: today, changeFrequency: "daily", priority: 0.82 })
+  );
+
+  // ── Ratgeber-Artikel ─────────────────────────────────────────────────────────
+  const ratgeberPages = RATGEBER_ARTICLES.flatMap((a) =>
+    localizedEntries(`/ratgeber/${a.slug}/`, { lastModified: new Date(a.updatedAt), changeFrequency: "monthly", priority: 0.75 })
+  );
+
+  // ── Top-20-Attraktionen pro Tiqets-Stadt ─────────────────────────────────────
+  const tiqetsSlugs = new Set<string>();
+  destinations.filter((d) => d.tiqetsCityId).forEach((d) => tiqetsSlugs.add(d.slug));
+  CATALOG.filter((e) => e.tiqetsCityId).forEach((e) => tiqetsSlugs.add(e.slug));
+  const topAttractionPages = Array.from(tiqetsSlugs).flatMap((slug) =>
+    localizedEntries(`/aktivitaeten/${slug}/top-attraktionen/`, { lastModified: content, changeFrequency: "weekly", priority: 0.76 })
+  );
+
   return [
     ...staticPages,
     ...richDestinationPages,
     ...catalogPages,
     ...guidePages,
     ...aktivitaetenPages,
+    ...seasonPages,
+    ...pauschalKombiPages,
+    ...ratgeberPages,
+    ...topAttractionPages,
   ];
 }

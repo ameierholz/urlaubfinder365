@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getDestinationBySlug, destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { generateHeroFallback } from "@/lib/catalog-helpers";
@@ -116,6 +117,23 @@ export default async function AktivitaetenCityPage({ params }: Props) {
         citySlug={cfg.slug}
         heroImage={cfg.heroImage}
       />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <Link
+          href={`/aktivitaeten/${cfg.slug}/top-attraktionen/`}
+          className="group flex items-center justify-between gap-4 bg-linear-to-r from-amber-50 to-white border border-amber-200 hover:border-amber-400 hover:shadow-lg rounded-2xl p-6 transition-all"
+        >
+          <div>
+            <p className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-1">Ranking</p>
+            <h2 className="text-xl font-bold text-gray-900 group-hover:text-amber-700">
+              Top 20 Attraktionen in {cfg.name}
+            </h2>
+            <p className="text-gray-600 text-sm mt-1">
+              Die beliebtesten Sehenswürdigkeiten sortiert nach echten Bewertungen →
+            </p>
+          </div>
+          <span className="shrink-0 text-3xl">🏆</span>
+        </Link>
+      </div>
     </>
   );
 }
