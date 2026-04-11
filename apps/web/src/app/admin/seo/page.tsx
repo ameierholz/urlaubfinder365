@@ -3,7 +3,11 @@ import { createClient } from "@supabase/supabase-js";
 import { Globe } from "lucide-react";
 import BulkSeoButton from "@/components/admin/bulk-seo-button";
 
-const KNOWN_PATHS = [
+import { PAUSCHAL_KOMBIS } from "@/lib/pauschalreisen-kombi-data";
+import { SEASON_GUIDES } from "@/lib/season-guide-data";
+import { RATGEBER_ARTICLES } from "@/lib/ratgeber-data";
+
+const STATIC_PATHS = [
   "/guenstig-urlaub-buchen", "/last-minute", "/hotelsuche", "/flugsuche",
   "/kreuzfahrten", "/mietwagen", "/aktivitaeten",
   "/urlaubsarten/all-inclusive-urlaub", "/urlaubsarten/pauschalreisen",
@@ -20,6 +24,20 @@ const KNOWN_PATHS = [
   "/reisewarnungen", "/visum-checker", "/preisentwicklung",
   "/reiseversicherung", "/ki-reiseplaner", "/community", "/feed",
   "/urlaubsguides", "/magazin",
+  // Neue Hub-Seiten (eigene Routes)
+  "/pauschalreisen", "/ratgeber", "/reiseziele",
+];
+
+// Dynamische Routes der neuen Bereiche
+const PAUSCHAL_PATHS = PAUSCHAL_KOMBIS.map((k) => `/pauschalreisen/${k.slug}`);
+const RATGEBER_PATHS = RATGEBER_ARTICLES.map((a) => `/ratgeber/${a.slug}`);
+const SEASON_PATHS   = SEASON_GUIDES.map((g) => `/reiseziele/${g.slug}`);
+
+const KNOWN_PATHS = [
+  ...STATIC_PATHS,
+  ...PAUSCHAL_PATHS,
+  ...RATGEBER_PATHS,
+  ...SEASON_PATHS,
 ];
 
 interface SeoRow {
@@ -120,9 +138,12 @@ export default async function SeoAdminPage() {
       <BulkSeoButton missingCount={KNOWN_PATHS.length - metaMap.size} />
 
       {/* Quick-Links zu SEO-Tools */}
-      <div className="flex gap-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-6">
         <Link href="/admin/seo/dashboard/" className="flex items-center gap-2 bg-teal-900/40 border border-teal-700 hover:border-teal-500 rounded-xl px-4 py-3 text-sm text-teal-300 hover:text-white transition-colors font-semibold">
           🎯 Command Center
+        </Link>
+        <Link href="/admin/seo/indexing/" className="flex items-center gap-2 bg-emerald-900/40 border border-emerald-700 hover:border-emerald-500 rounded-xl px-4 py-3 text-sm text-emerald-300 hover:text-white transition-colors font-semibold">
+          🚀 Google Indexing
         </Link>
         <Link href="/admin/seo/links/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-teal-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
           🔗 Link-Audit
