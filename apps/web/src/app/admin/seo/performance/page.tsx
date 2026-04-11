@@ -91,10 +91,10 @@ export default function SeoPerformancePage() {
             <div>
               <p className="font-bold mb-2">Google Search Console API nicht verbunden</p>
               <p className="text-red-400 text-xs">
-                1. Gehe zu <a href="https://console.cloud.google.com" target="_blank" className="underline">Google Cloud Console</a><br/>
+                1. Gehe zu <a href="https://console.cloud.google.com"  target="_blank" rel="noopener noreferrer" className="underline">Google Cloud Console</a><br/>
                 2. Erstelle ein Projekt + aktiviere "Search Console API"<br/>
                 3. Erstelle einen Service Account + lade JSON-Key herunter<br/>
-                4. Füge die Service-Account-Email als Nutzer in der <a href="https://search.google.com/search-console" target="_blank" className="underline">Search Console</a> hinzu<br/>
+                4. Füge die Service-Account-Email als Nutzer in der <a href="https://search.google.com/search-console"  target="_blank" rel="noopener noreferrer" className="underline">Search Console</a> hinzu<br/>
                 5. Setze den JSON-Key als <code className="bg-red-800 px-1 rounded">GOOGLE_SERVICE_ACCOUNT_KEY</code> in Vercel
               </p>
             </div>
@@ -221,7 +221,7 @@ export default function SeoPerformancePage() {
                 <tr key={p.page} className="border-b border-gray-800/60 hover:bg-gray-800/30">
                   <td className="px-4 py-2.5 text-gray-600 text-xs">{i + 1}</td>
                   <td className="px-4 py-2.5">
-                    <a href={`https://www.urlaubfinder365.de${p.page}`} target="_blank" className="text-teal-400 hover:text-teal-300 font-mono text-xs">{p.page}</a>
+                    <a href={`https://www.urlaubfinder365.de${p.page}`}  target="_blank" rel="noopener noreferrer" className="text-teal-400 hover:text-teal-300 font-mono text-xs">{p.page}</a>
                   </td>
                   <td className="px-4 py-2.5 text-right text-blue-400">{fmtNum(p.clicks)}</td>
                   <td className="px-4 py-2.5 text-right text-gray-400">{fmtNum(p.impressions)}</td>

@@ -326,6 +326,41 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <span className="font-semibold text-gray-800">Google Fonts / Schriftarten</span>
               <p>Die Hauptschrift (Inter) wird lokal eingebettet (self-hosted). Ergänzende Schriften (Plus Jakarta Sans, Font Awesome) werden asynchron von Google Fonts bzw. Cloudflare CDN geladen. Dabei kann deine IP an Google (USA) übertragen werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
             </div>
+            <div>
+              <span className="font-semibold text-gray-800">Anthropic Claude API (KI-Inhaltserstellung – nur Admin)</span>
+              <p className="mb-2">
+                Im internen Admin-Bereich nutzen wir die <strong>Claude API</strong> der
+                Anthropic, PBC (548 Market St, San Francisco, CA 94104, USA), um SEO-Texte
+                und Konkurrenz-Analysen zu generieren. Dabei werden ausschließlich
+                redaktionelle Eingaben (z.B. Reisezielnamen, Keywords) an Anthropic
+                übertragen — <strong>keine personenbezogenen Daten von Website-Besuchern</strong>.
+              </p>
+              <p className="mb-2">
+                <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+                (berechtigtes Interesse an effizienter Content-Pflege).
+                Übertragung in die USA auf Basis der EU-Standardvertragsklauseln.
+              </p>
+              <p>
+                Weitere Infos:{" "}
+                <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  anthropic.com/legal/privacy
+                </a>
+              </p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">Brevo (Newsletter-Versand)</span>
+              <p>
+                Newsletter-Anmeldungen werden über die Sendinblue/<strong>Brevo SAS</strong>,
+                7 rue de Madrid, 75008 Paris, Frankreich, verarbeitet. Brevo speichert E-Mail
+                und Anmelde-Zeitstempel. Wir nutzen Double-Opt-In: Du erhältst eine
+                Bestätigungsmail vor Aktivierung. Eine Abmeldung ist jederzeit über den
+                Link in jeder Mail möglich. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO
+                (Einwilligung). Weitere Infos:{" "}
+                <a href="https://www.brevo.com/de/legal/privacypolicy/" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  brevo.com/de/legal/privacypolicy
+                </a>
+              </p>
+            </div>
           </div>
         </section>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getDestinationBySlug, destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { generateHeroFallback } from "@/lib/catalog-helpers";
+import { getAlternateUrls } from "@/i18n/routing";
 import TiqetsExperiencePage from "@/components/tiqets/TiqetsExperiencePage";
 import { setRequestLocale } from "next-intl/server";
 
@@ -75,7 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: { canonical, languages: getAlternateUrls(`/aktivitaeten/${cfg.slug}/`) },
     openGraph: {
       title,
       description,

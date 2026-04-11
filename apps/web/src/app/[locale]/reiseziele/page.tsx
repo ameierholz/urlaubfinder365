@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { SEASON_GUIDES } from "@/lib/season-guide-data";
+import { getAlternateUrls } from "@/i18n/routing";
 
 const YEAR = new Date().getFullYear();
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -10,7 +11,10 @@ const BASE_URL = "https://www.urlaubfinder365.de";
 export const metadata: Metadata = {
   title: `Beste Reiseziele nach Monat ${YEAR} – Saisonale Empfehlungen`,
   description: `Finde die besten Reiseziele für jeden Monat ${YEAR} ✓ Wetter ✓ Preise ✓ Tipps für Januar bis Dezember ✓ Optimale Reisezeit für dein Urlaubsziel.`,
-  alternates: { canonical: `${BASE_URL}/reiseziele/` },
+  alternates: {
+    canonical: `${BASE_URL}/reiseziele/`,
+    languages: getAlternateUrls("/reiseziele/"),
+  },
   openGraph: {
     title: `Beste Reiseziele nach Monat ${YEAR} – Saisonale Empfehlungen`,
     description: `Finde die besten Reiseziele für jeden Monat ${YEAR} ✓ Wetter ✓ Preise ✓ Tipps für Januar bis Dezember.`,

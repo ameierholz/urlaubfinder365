@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { SEASON_GUIDES, getSeasonGuide } from "@/lib/season-guide-data";
 import { getDestinationBySlug } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
+import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: guide.seoTitle,
     description: guide.seoDescription,
-    alternates: { canonical },
+    alternates: { canonical, languages: getAlternateUrls(`/reiseziele/${guide.slug}/`) },
     openGraph: {
       title: guide.seoTitle,
       description: guide.seoDescription,

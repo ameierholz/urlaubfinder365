@@ -2,7 +2,19 @@
 
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import type { Components } from "react-markdown";
+
+// Erlaubt zusätzlich zu defaultSchema: target+rel auf Links, Klassen für Code-Highlighting
+const sanitizeSchema = {
+  ...defaultSchema,
+  attributes: {
+    ...defaultSchema.attributes,
+    a: [...(defaultSchema.attributes?.a ?? []), "target", "rel"],
+    code: [...(defaultSchema.attributes?.code ?? []), "className"],
+    img: [...(defaultSchema.attributes?.img ?? []), "loading"],
+  },
+};
 
 interface Props {
   content: string;
@@ -95,7 +107,10 @@ const components: Components = {
 export default function ArtikelContent({ content }: Props) {
   return (
     <div className="max-w-none text-base">
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components}>
+      {/* rehypeRaw → rehypeSanitize Reihenfolge ist wichtig:
+          rehypeRaw parsed inline HTML, rehypeSanitize entfernt direkt danach
+          alle gefährlichen Tags/Attribute (script, on*, javascript:). */}
+      <ReactMarkdown rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]} components={components}>
         {content}
       </ReactMarkdown>
     </div>

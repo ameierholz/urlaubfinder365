@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { getDestinationBySlug, destinations } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { generateHeroFallback } from "@/lib/catalog-helpers";
+import { getAlternateUrls } from "@/i18n/routing";
 
 interface Props {
   params: Promise<{ city: string; locale: string }>;
@@ -106,7 +107,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: getAlternateUrls(`/aktivitaeten/${cfg.slug}/top-attraktionen/`),
+    },
     openGraph: {
       title,
       description,

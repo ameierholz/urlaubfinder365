@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { PAUSCHAL_KOMBIS } from "@/lib/pauschalreisen-kombi-data";
+import { getAlternateUrls } from "@/i18n/routing";
 
 const YEAR = new Date().getFullYear();
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -10,7 +11,10 @@ const BASE_URL = "https://www.urlaubfinder365.de";
 export const metadata: Metadata = {
   title: `Pauschalreisen ${YEAR} nach Ländern & Budget – alle Angebote`,
   description: `Pauschalreisen ${YEAR} nach Land, Preis oder Verpflegung ✓ Türkei, Ägypten, Spanien ✓ All Inclusive ✓ Unter 500€ ✓ Last Minute ✓ Alle Kombinationen.`,
-  alternates: { canonical: `${BASE_URL}/pauschalreisen/` },
+  alternates: {
+    canonical: `${BASE_URL}/pauschalreisen/`,
+    languages: getAlternateUrls("/pauschalreisen/"),
+  },
   openGraph: {
     title: `Pauschalreisen ${YEAR} nach Ländern & Budget – alle Angebote`,
     description: `Pauschalreisen ${YEAR} nach Land, Preis oder Verpflegung ✓ Türkei, Ägypten, Spanien ✓ All Inclusive ✓ Unter 500€.`,

@@ -3,13 +3,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { RATGEBER_ARTICLES } from "@/lib/ratgeber-data";
+import { getAlternateUrls } from "@/i18n/routing";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 export const metadata: Metadata = {
   title: "Reise-Ratgeber & Tipps – Antworten auf die wichtigsten Fragen",
   description: "Alles, was du vor und während der Reise wissen musst: Wann buchen, All Inclusive oder nicht, Pauschalreise vs. Einzelbuchung, Versicherungen und vieles mehr.",
-  alternates: { canonical: `${BASE_URL}/ratgeber/` },
+  alternates: {
+    canonical: `${BASE_URL}/ratgeber/`,
+    languages: getAlternateUrls("/ratgeber/"),
+  },
   openGraph: {
     title: "Reise-Ratgeber & Tipps – Antworten auf die wichtigsten Fragen",
     description: "Alles, was du vor und während der Reise wissen musst: Buchung, Versicherung, Verpflegung und Sicherheit.",

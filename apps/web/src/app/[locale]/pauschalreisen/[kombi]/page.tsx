@@ -7,6 +7,7 @@ import { PAUSCHAL_KOMBIS, getPauschalKombi } from "@/lib/pauschalreisen-kombi-da
 import { getDestinationBySlug } from "@/lib/destinations";
 import { CATALOG } from "@/data/catalog-regions";
 import { fetchDestinationPriceStats } from "@/lib/destination-pricing";
+import { getAlternateUrls } from "@/i18n/routing";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: data.seoTitle,
     description: data.seoDescription,
-    alternates: { canonical },
+    alternates: { canonical, languages: getAlternateUrls(`/pauschalreisen/${data.slug}/`) },
     openGraph: {
       title: data.seoTitle,
       description: data.seoDescription,

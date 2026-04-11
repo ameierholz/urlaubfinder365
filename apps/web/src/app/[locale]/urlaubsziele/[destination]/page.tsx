@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Package, Umbrella, Zap, Ticket, PlaneTakeoff, HelpCircle, Thermometer, ExternalLink, Flame, Info } from "lucide-react";
 import { getDestinationBySlug, destinations, destImg } from "@/lib/destinations";
 import { getCatalogEntry, getCatalogByParent, CATALOG } from "@/data/catalog-regions";
@@ -36,6 +37,7 @@ import { fetchTopDeals } from "@/lib/travel-api";
 import { fetchDestinationPriceStats } from "@/lib/destination-pricing";
 import { fetchDestinationReviews } from "@/lib/destination-reviews";
 import { fetchDestinationTravelReports } from "@/lib/destination-travel-reports";
+import { getAlternateUrls } from "@/i18n/routing";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -116,7 +118,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     ...(keywordsMeta ? { keywords: keywordsMeta } : {}),
     robots: { index: true, follow: true },
-    alternates: { canonical },
+    alternates: { canonical, languages: getAlternateUrls(`/urlaubsziele/${destination}/`) },
     openGraph: {
       title,
       description,
@@ -322,14 +324,14 @@ export default async function DestinationPage({ params }: Props) {
 
       {/* ── Cinematic Hero ─────────────────────────────────────────────────── */}
       <section className="relative w-full overflow-hidden" style={{ height: "clamp(360px, 52vh, 540px)" }}>
-        {/* Background image – LCP candidate */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* Background image – LCP candidate, Next.js optimiert (avif/webp) */}
+        <Image
           src={richDest ? destImg(dest) : (dest.heroImageFallback ?? dest.heroImage)}
           alt={`${dest.name} Urlaub`}
-          className="absolute inset-0 w-full h-full object-cover"
-          // @ts-ignore
-          fetchPriority="high"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
 
         {/* Gradient: leichter oben, stärker zur Mitte, dann konstant für Pills-Bereich */}

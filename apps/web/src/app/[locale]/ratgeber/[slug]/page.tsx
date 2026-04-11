@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { RATGEBER_ARTICLES, getRatgeberArticle } from "@/lib/ratgeber-data";
+import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: article.seoTitle,
     description: article.seoDescription,
-    alternates: { canonical },
+    alternates: { canonical, languages: getAlternateUrls(`/ratgeber/${article.slug}/`) },
     openGraph: {
       title: article.seoTitle,
       description: article.seoDescription,
