@@ -213,9 +213,8 @@ const nextConfig: NextConfig = {
       { source: "/mietwagen/:path*/", destination: "/mietwagen-reservieren/", permanent: true },
       { source: "/mietwagen/:path*", destination: "/mietwagen-reservieren/", permanent: true },
 
-      // Pauschalreisen Top-Level
-      { source: "/pauschalreisen/:slug/", destination: "/urlaubsarten/pauschalreisen/", permanent: true },
-      { source: "/pauschalreisen/:slug", destination: "/urlaubsarten/pauschalreisen/", permanent: true },
+      // Pauschalreisen Top-Level – /pauschalreisen/[kombi]/ ist jetzt eine echte Route,
+      // keine Wildcard-Weiterleitung mehr.
 
       // Reisenden-Karte
       { source: "/reisenden-karte/", destination: "/weltkarte/", permanent: true },

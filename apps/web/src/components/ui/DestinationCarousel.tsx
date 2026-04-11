@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import SafeDestImage from "@/components/ui/SafeDestImage";
 
 interface DestItem {
   slug: string;
@@ -113,16 +113,14 @@ export default function DestinationCarousel({
           >
             {/* Bild */}
             <div className="relative h-44 overflow-hidden bg-gray-100">
-              <Image
+              <SafeDestImage
                 src={d.image}
                 alt={`${d.name} Urlaub günstig buchen – Pauschalreisen & Angebote`}
-                fill
+                name={d.name}
                 sizes="144px"
-                loading="lazy"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {/* Gradient */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
 
               {/* Flagge oben rechts */}
               {d.flagCode && (

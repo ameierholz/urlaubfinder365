@@ -333,7 +333,6 @@ export const destinations: DestinationConfig[] = [
     country: "Ägypten",
     heroImage: "/images/destinations/hurghada-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80",
-    cardImage: "/images/destinations/hurghada-card.jpg",
     description: "Hurghada am Roten Meer in Ägypten ist das ideale Ziel für Strandurlaub, Tauchen und Schnorcheln. Das kristallklare Rote Meer mit seiner einzigartigen Unterwasserwelt aus farbenfrohen Korallen und exotischen Fischen fasziniert Wassersportler aus aller Welt. Großzügige All-Inclusive-Resorts mit privatem Strandzugang und weitläufigen Poolanlagen bieten maximale Entspannung. Die Ganzjahres-Destination Hurghada punktet mit kurzen Flugzeiten und sehr günstigen Pauschalreisen.",
     metaTitle: "Hurghada Urlaub – All Inclusive buchen",
     metaDescription: "Hurghada Urlaub günstig buchen: Pauschalreisen ✓ All Inclusive ✓ Last Minute Ägypten ✓ Traumstrand am Roten Meer – Angebote vergleichen & buchen!",
@@ -400,7 +399,6 @@ export const destinations: DestinationConfig[] = [
     country: "Spanien",
     heroImage: "/images/destinations/teneriffa-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80",
-    cardImage: "/images/destinations/teneriffa-card.jpg",
     description: "Teneriffa, die größte der Kanarischen Inseln, bietet das ganze Jahr über angenehmes Frühlingswetter und damit ideale Bedingungen für einen Strandurlaub. Der imposante Teide – Spaniens höchster Berg – thront über der Insel und verleiht ihr ein einzigartiges Panorama. Von familienfreundlichen All-Inclusive-Resorts in Playa de las Américas bis hin zu ruhigen Naturerlebnissen im Teide-Nationalpark bietet Teneriffa Abwechslung für jeden Geschmack. Direktflüge von zahlreichen deutschen Flughäfen machen die Anreise besonders komfortabel.",
     metaTitle: "Teneriffa Urlaub – All Inclusive buchen",
     metaDescription: "Teneriffa Urlaub günstig buchen: Pauschalreisen ✓ All Inclusive ✓ Last Minute Kanaren ✓ Ganzjährig Sonne – Angebote vergleichen & buchen!",
@@ -467,7 +465,6 @@ export const destinations: DestinationConfig[] = [
     country: "Griechenland",
     heroImage: "/images/destinations/rhodos-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1664118145742-f2ad1c09c10b?w=1600&q=80",
-    cardImage: "/images/destinations/rhodos-card.jpg",
     description: "Rhodos, die Sonneninsel der Ägäis, verbindet mittelalterliches Erbe mit traumhaften Stränden und pulsierendem Nachtleben. Die UNESCO-geschützte Altstadt von Rhodos-Stadt mit ihrer beeindruckenden Ritterburg ist ein Highlight für Kulturinteressierte. Entlang der Nordküste reihen sich weitläufige Sandstrände und gepflegte Hotelanlagen aneinander, die als perfekte Basis für Tagesausflüge dienen. Günstige Pauschalreisen nach Rhodos sind von Mai bis Oktober buchbar.",
     metaTitle: "Rhodos Urlaub – Pauschalreise buchen",
     metaDescription: "Rhodos Urlaub günstig buchen: Pauschalreisen ✓ All Inclusive ✓ Last Minute Griechenland ✓ Mittelalterliche Altstadt & traumhafte Strände – buchen!",
@@ -534,7 +531,6 @@ export const destinations: DestinationConfig[] = [
     country: "Spanien",
     heroImage: "/images/destinations/ibiza-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1689859870434-8248d5a113c1?w=1600&q=80",
-    cardImage: "/images/destinations/ibiza-card.jpg",
     description: "Ibiza, die zauberhafte Insel im Mittelmeer, steht längst nicht mehr nur für Partytourismus – sie ist ein echtes Allround-Urlaubsziel für Familien, Paare und Naturliebhaber. Türkisfarbene Buchten, malerische Dörfer im Inselinneren und kristallklares Wasser machen Ibiza zum perfekten Sommerziel. Die Baleareninsel bietet eine reiche Geschichte, exzellente Gastronomie und entspannte Strände abseits des Trubels. Pauschalreisen nach Ibiza sind von April bis Oktober erhältlich.",
     metaTitle: "Ibiza Urlaub – Pauschalreise buchen",
     metaDescription: "Ibiza Urlaub günstig buchen: Pauschalreisen ✓ Strandurlaub ✓ Last Minute Balearen ✓ Party & Entspannung – Angebote vergleichen & buchen!",
@@ -601,7 +597,6 @@ export const destinations: DestinationConfig[] = [
     country: "VAE",
     heroImage: "/images/destinations/dubai-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600&q=80",
-    cardImage: "/images/destinations/dubai-card.jpg",
     description: "Dubai, die futuristische Metropole am Persischen Golf, beeindruckt mit spektakulärer Architektur, erstklassigem Shopping und einer einzigartigen Wüstenatmosphäre. Der Burj Khalifa, die Dubai Mall und der Palm Jumeirah sind nur einige der vielen Sehenswürdigkeiten dieser pulsierenden Stadt. Neben luxuriösen Strandresorts bietet Dubai faszinierende Wüstensafaris, Souk-Besuche und weltklasse Gastronomie. Direktflüge von Deutschland dauern ca. 6 Stunden und machen Dubai zu einem komfortablen Kurztrip-Ziel.",
     metaTitle: "Dubai Urlaub – Pauschalreise buchen",
     metaDescription: "Dubai Urlaub günstig buchen: Pauschalreisen ✓ Luxushotels ✓ Last Minute VAE ✓ Burj Khalifa & Wüstensafari – Angebote vergleichen & buchen!",
@@ -668,7 +663,6 @@ export const destinations: DestinationConfig[] = [
     country: "Thailand",
     heroImage: "/images/destinations/phuket-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1704928517302-67b645c9b083?w=1600&q=80",
-    cardImage: "/images/destinations/phuket-card.jpg",
     description: "Phuket, Thailands größte Insel, überzeugt mit traumhaften weißen Sandstränden, kristallklarem türkisfarbenem Wasser und einer lebendigen Kultur. Die Andamanensee bietet ideale Bedingungen zum Schnorcheln, Tauchen und für Bootstouren zu den berühmten Phi Phi Islands. Zahlreiche Spa-Resorts, buddhistische Tempel und eine einzigartige Streetfood-Szene machen Phuket zu einem Ziel für echte Genießer. Die beste Reisezeit liegt zwischen November und April.",
     metaTitle: "Phuket Urlaub – Pauschalreise buchen",
     metaDescription: "Phuket Urlaub günstig buchen: Pauschalreisen ✓ Strandurlaub Thailand ✓ Last Minute Asien ✓ Traumstrände & Tempel – Angebote vergleichen & buchen!",
@@ -734,7 +728,6 @@ export const destinations: DestinationConfig[] = [
     country: "Portugal",
     heroImage: "/images/destinations/lissabon-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1600&q=80",
-    cardImage: "/images/destinations/lissabon-card.jpg",
     description: "Lissabon, Portugals charmante Hauptstadt am Tejo, ist eine der beliebtesten Städtereise-Destinationen Europas. Die hügelige Stadt begeistert mit authentischen Stadtteilen wie dem Alfama-Viertel, weltberühmten Klosteranlagen wie dem Mosteiro dos Jerónimos und einer lebendigen Fado-Musik-Szene. Entdecke lokale Märkte, exzellente Küche und gemütliche Aussichtspunkte mit Panoramablick über die Stadt. Lissabon ist ganzjährig attraktiv mit mildem Klima und kurzen Flugzeiten aus Deutschland.",
     metaTitle: "Lissabon Urlaub – Städtereise buchen",
     metaDescription: "Lissabon Urlaub günstig buchen: Städtereisen ✓ Kurzurlaub Portugal ✓ Fado & Kultur ✓ Jetzt Angebote vergleichen & die atlantische Metropole entdecken!",
@@ -801,7 +794,6 @@ export const destinations: DestinationConfig[] = [
     country: "Italien",
     heroImage: "/images/destinations/sardinien-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1600&q=80",
-    cardImage: "/images/destinations/sardinien-card.jpg",
     description: "Sardinien, die zweitgrößte Insel des Mittelmeers, gilt als eines der schönsten Urlaubsziele Europas mit Stränden in Karibik-Qualität. Die Costa Smeralda im Nordosten ist berühmt für ihr glasklares türkisfarbenes Wasser und den feinen weißen Sand. Neben traumhaften Badebuchten bietet Sardinien eine faszinierende Nuraghen-Kultur, ursprüngliche Bergdörfer und eine hervorragende sardische Küche. Pauschalreisen nach Sardinien sind von Mai bis Oktober buchbar.",
     metaTitle: "Sardinien Urlaub – Pauschalreise buchen",
     metaDescription: "Sardinien Urlaub günstig buchen: Pauschalreisen ✓ Strandurlaub Italien ✓ Last Minute ✓ Traumstrände & Nuraghen – Angebote vergleichen & buchen!",
@@ -867,7 +859,6 @@ export const destinations: DestinationConfig[] = [
     country: "Griechenland",
     heroImage: "/images/destinations/santorini-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1618478669118-1b3eb2b2bb95?w=1600&q=80",
-    cardImage: "/images/destinations/santorini-card.jpg",
     description: "Santorini, die vulkanische Kykladeninsel in der Ägäis, ist eines der romantischsten Urlaubsziele der Welt. Die charakteristischen blau-weißen Häuser von Oia und Fira mit Blick auf die Caldera gehören zu den ikonischsten Ansichten Griechenlands. Neben dem berühmten Sonnenuntergang warten einzigartige Vulkanstrände, exzellente lokale Weine und faszinierende archäologische Stätten. Santorini ist besonders für Flitterwochen-Reisen und romantische Pärchen-Trips beliebt.",
     metaTitle: "Santorini Urlaub – Pauschalreise buchen",
     metaDescription: "Santorini Urlaub günstig buchen: Pauschalreisen ✓ Romantikurlaub ✓ Last Minute Griechenland ✓ Oia Sonnenuntergang & Vulkankrater – buchen!",
@@ -934,7 +925,6 @@ export const destinations: DestinationConfig[] = [
     country: "Türkei",
     heroImage: "/images/destinations/side-hero.jpg",
     heroImageFallback: "https://images.unsplash.com/photo-1561712815-883650f32f92?w=1600&q=80",
-    cardImage: "/images/destinations/side-card.jpg",
     description: "Side an der türkischen Riviera gehört zu den beliebtesten All-Inclusive-Urlaubszielen für deutsche Urlauber. Die charmante Halbstadt besticht durch ihre einzigartige Lage: antike griechisch-römische Ruinen – darunter ein beeindruckendes Theater für 15.000 Zuschauer – liegen direkt neben feinen Sandstränden und modernen Hotelresorts. Mit erstklassigen Strandbedingungen, zahlreichen Aquaparks und familienfreundlichen Resorts ist Side ein perfektes Ziel für den Familienurlaub von Mai bis Oktober.",
     metaTitle: "Side Urlaub – All Inclusive buchen",
     metaDescription: "Side Urlaub günstig buchen: Pauschalreisen ✓ All Inclusive ✓ Last Minute Türkei ✓ Apollon-Tempel & Sandstrand – Angebote vergleichen & buchen!",
@@ -2438,8 +2428,10 @@ export function getDestinationBySlug(slug: string): DestinationConfig | undefine
   return destinations.find((d) => d.slug === slug);
 }
 
-// Bild-Fallback: Unsplash bis eigene Bilder in /public/images/ vorhanden
+// Bild-Fallback: Eigene Bilder in /public/images/ bevorzugen, sonst Unsplash
 export function destImg(dest: DestinationConfig, type: "hero" | "card" = "hero"): string {
-  if (type === "card") return dest.heroImageFallback || dest.heroImage;
+  if (type === "card") {
+    return dest.cardImage || dest.heroImageFallback || dest.heroImage;
+  }
   return dest.heroImageFallback || dest.heroImage;
 }
