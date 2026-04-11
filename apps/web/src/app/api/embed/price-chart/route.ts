@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
       .from("price_history")
       .select("date, min_price, avg_price, deal_count")
       .eq("destination_slug", destination)
+      .eq("profile", "pauschal")
       .gte("date", since)
       .order("date", { ascending: true });
 

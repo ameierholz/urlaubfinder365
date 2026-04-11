@@ -239,7 +239,6 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
             <svg
               viewBox={`0 0 ${W} ${H}`}
               className="chart-svg"
-              preserveAspectRatio="none"
             >
               <defs>
                 <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
