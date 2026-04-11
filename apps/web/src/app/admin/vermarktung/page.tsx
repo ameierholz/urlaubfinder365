@@ -45,7 +45,12 @@ export default async function AdminVermarktungPage() {
       .eq("status", "aktiv"),
   ]);
 
-  const wb = werbeplaetzeBuchungen ?? [];
+  type WbRow = {
+    id: string; status: string; preis_monatlich: number; preis_gesamt: number;
+    paket: string; kontakt_firma: string | null; kontakt_name: string | null;
+    created_at: string; naechste_zahlung_at: string | null;
+  };
+  const wb = (werbeplaetzeBuchungen ?? []) as WbRow[];
 
   // Werbeplatz-Kennzahlen
   const wpAktiv      = wb.filter(b => b.status === "aktiv");
