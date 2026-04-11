@@ -53,13 +53,23 @@ export default async function Footer() {
             </p>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link href="/ratgeber/" className="hover:text-white transition-colors">
+                  Reise-Ratgeber
+                </Link>
+              </li>
+              <li>
+                <Link href="/reiseziele/" className="hover:text-white transition-colors">
+                  Reiseziele nach Monat
+                </Link>
+              </li>
+              <li>
                 <Link href="/urlaubsguides/" className="hover:text-white transition-colors">
                   {tFooter("allGuides")}
                 </Link>
               </li>
               <li>
-                <Link href="/urlaubsarten/pauschalreisen/" className="hover:text-white transition-colors">
-                  {tNav("pauschalreisen")}
+                <Link href="/pauschalreisen/" className="hover:text-white transition-colors">
+                  Pauschalreisen nach Land
                 </Link>
               </li>
               <li>

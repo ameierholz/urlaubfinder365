@@ -243,11 +243,11 @@ const SEO_LINK_HREFS = [
   { key: "seoLinkAegypten",      href: "/urlaubsziele/aegypten/" },
   { key: "seoLinkPortugal",      href: "/urlaubsziele/portugal/" },
   { key: "seoLinkKreta",         href: "/urlaubsziele/kreta/" },
-  { key: "seoLinkPauschalreisen",href: "/guenstig-urlaub-buchen/" },
+  { key: "seoLinkPauschalreisen",href: "/pauschalreisen/" },
   { key: "seoLinkLastMinute",    href: "/last-minute/" },
-  { key: "seoLinkAllInclusive",  href: "/urlaubsarten/pauschalreisen/" },
+  { key: "seoLinkAllInclusive",  href: "/urlaubsarten/all-inclusive-urlaub/" },
   { key: "seoLinkKreuzfahrten",  href: "/kreuzfahrten/" },
-  { key: "seoLinkGuides",        href: "/urlaubsguides/" },
+  { key: "seoLinkGuides",        href: "/ratgeber/" },
   { key: "seoLinkAlleZiele",     href: "/urlaubsziele/" },
 ];
 
@@ -1253,6 +1253,108 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           9b · URLAUBSMAGAZIN – Neueste Artikel
       ══════════════════════════════════════════════════════════ */}
       <MagazinTeaser />
+
+      {/* ══════════════════════════════════════════════════════════
+          9c · DISCOVERY-HUB – Neue Bereiche prominent
+      ══════════════════════════════════════════════════════════ */}
+      <section className="bg-white py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2">
+              Mehr entdecken
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">
+              Plane deinen perfekten Urlaub
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">
+              Saisonale Reisetipps, ehrliche Ratgeber und Pauschalreisen nach Ländern – alles auf einer Seite.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            <Link
+              href="/reiseziele/"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-emerald-400 hover:shadow-lg transition-all"
+            >
+              <div className="relative aspect-[5/3] overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=900&q=80&auto=format&fit=crop"
+                  alt="Beste Reiseziele nach Monat"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <span className="inline-flex items-center gap-1.5 self-start bg-emerald-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
+                    <Calendar className="w-3 h-3" /> Saisonal
+                  </span>
+                  <h3 className="text-xl font-black text-white leading-tight mb-1">
+                    Reiseziele nach Monat
+                  </h3>
+                  <p className="text-white/80 text-xs">
+                    12 Saison-Guides · Wann ist wo am schönsten?
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/pauschalreisen/"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-sky-400 hover:shadow-lg transition-all"
+            >
+              <div className="relative aspect-[5/3] overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80&auto=format&fit=crop"
+                  alt="Pauschalreisen nach Ländern"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <span className="inline-flex items-center gap-1.5 self-start bg-sky-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
+                    ✈️ NEU
+                  </span>
+                  <h3 className="text-xl font-black text-white leading-tight mb-1">
+                    Pauschalreisen nach Land
+                  </h3>
+                  <p className="text-white/80 text-xs">
+                    Türkei, Ägypten, Mallorca · Filter nach Budget & Verpflegung
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/ratgeber/"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-amber-400 hover:shadow-lg transition-all"
+            >
+              <div className="relative aspect-[5/3] overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=900&q=80&auto=format&fit=crop"
+                  alt="Reise-Ratgeber"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <span className="inline-flex items-center gap-1.5 self-start bg-amber-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
+                    <BookOpen className="w-3 h-3" /> 28 Artikel
+                  </span>
+                  <h3 className="text-xl font-black text-white leading-tight mb-1">
+                    Reise-Ratgeber
+                  </h3>
+                  <p className="text-white/80 text-xs">
+                    Buchung, Versicherung, All-Inclusive · ehrlich erklärt
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Wave: Community/Guides Weiß → SEO Sand */}
       <div className="relative h-10 overflow-hidden bg-white">

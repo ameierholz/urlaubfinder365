@@ -614,6 +614,7 @@ export default function Header() {
       href: "/urlaubsarten",
       children: [
         { label: t("pauschalreisen"),           href: "/urlaubsarten/pauschalreisen" },
+        { label: "Pauschalreisen nach Land",     href: "/pauschalreisen/", badge: "NEU" },
         { label: `${t("fruehbucher")} Urlaub`,  href: "/urlaubsarten/fruhbucher-urlaub" },
         { label: `${t("allInclusive")} Urlaub`, href: "/urlaubsarten/all-inclusive-urlaub" },
         { label: `${t("lastMinute")} Urlaub`,   href: "/urlaubsarten/last-minute-urlaub" },
@@ -634,10 +635,11 @@ export default function Header() {
       id: "community",
       label: t("community"),
       children: [
-        { label: "Urlaubsberichte",   href: "/community/reiseberichte/", icon: <BookOpen className="w-4 h-4" /> },
-        { label: "Urlaubs-Gruppen",   href: "/community/gruppen/",       icon: <Users2   className="w-4 h-4" /> },
-        { label: "Mitglieder",      href: "/community/mitglieder/",    icon: <Users    className="w-4 h-4" /> },
-        { label: "Weltkarte",         href: "/weltkarte/",               icon: <Globe    className="w-4 h-4" /> },
+        { label: "Urlaubsberichte",       href: "/community/reiseberichte/",     icon: <BookOpen className="w-4 h-4" /> },
+        { label: "Bericht schreiben",     href: "/community/reiseberichte/neu",  icon: <BookOpen className="w-4 h-4" />, badge: "NEU" },
+        { label: "Urlaubs-Gruppen",       href: "/community/gruppen/",           icon: <Users2   className="w-4 h-4" /> },
+        { label: "Mitglieder",          href: "/community/mitglieder/",        icon: <Users    className="w-4 h-4" /> },
+        { label: "Weltkarte",             href: "/weltkarte/",                   icon: <Globe    className="w-4 h-4" /> },
       ],
     },
     {
@@ -645,8 +647,10 @@ export default function Header() {
       label: t("extras"),
       href: "/extras/",
       children: [
-        { label: "Weltkarte",          href: "/weltkarte/",         icon: <Globe        className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
-        { label: "Preisentwicklung",  href: "/preisentwicklung/",  icon: <TrendingUp   className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
+        { label: "Reise-Ratgeber",     href: "/ratgeber/",          icon: <BookOpen     className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
+        { label: "Reiseziele nach Monat", href: "/reiseziele/",     icon: <Calendar     className="w-4 h-4 text-emerald-400" />, badge: "NEU" },
+        { label: "Weltkarte",          href: "/weltkarte/",         icon: <Globe        className="w-4 h-4 text-emerald-400" /> },
+        { label: "Preisentwicklung",  href: "/preisentwicklung/",  icon: <TrendingUp   className="w-4 h-4 text-emerald-400" /> },
         { label: "Reisewarnungen",    href: "/reisewarnungen/",    icon: <ShieldAlert  className="w-4 h-4 text-red-400" /> },
         { label: t("urlaubsguides"),    href: "/urlaubsguides",          icon: <BookOpen     className="w-4 h-4" /> },
         { label: "KI-Urlaubsplaner",      href: "/ki-reiseplaner/",        icon: <Sparkles     className="w-4 h-4" /> },

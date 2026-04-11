@@ -119,6 +119,28 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <div className="xl:flex xl:items-start xl:gap-8 xl:max-w-7xl xl:mx-auto">
       <div className="flex-1 min-w-0">
 
+      {/* Hinweis-Banner: Pauschalreisen nach Land filtern */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <Link
+          href="/pauschalreisen/"
+          className="group flex items-center justify-between gap-4 bg-linear-to-r from-sky-50 to-blue-50 hover:from-sky-100 hover:to-blue-100 border-2 border-sky-200 hover:border-sky-400 rounded-2xl p-5 transition-all"
+        >
+          <div className="flex items-center gap-4">
+            <span className="text-3xl shrink-0">🌍</span>
+            <div>
+              <p className="text-xs font-bold text-sky-600 uppercase tracking-widest mb-0.5">Pauschalreisen nach Land</p>
+              <p className="text-base font-bold text-gray-900 group-hover:text-sky-700">
+                Türkei, Ägypten, Mallorca, Griechenland & 9 weitere Länder vergleichen
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Filter nach Land, Budget und Verpflegung – inkl. All Inclusive Spezial-Angebote
+              </p>
+            </div>
+          </div>
+          <span className="shrink-0 text-sky-500 group-hover:text-sky-700 text-2xl">→</span>
+        </Link>
+      </div>
+
       {/* Angebote Antalya */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-1">
