@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { getDestinationBySlug } from "@/lib/destinations";
 import { guideData } from "@/lib/guide-data";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-rhodos/`;
 const YEAR = new Date().getFullYear();
@@ -65,7 +66,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const dest = getDestinationBySlug("rhodos")!;
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <div className="xl:flex xl:items-start xl:gap-6 max-w-400 mx-auto px-2 sm:px-4 my-8">
         <div className="flex-1 min-w-0">
           <GenericGuide dest={dest} content={guideData.rhodos} />

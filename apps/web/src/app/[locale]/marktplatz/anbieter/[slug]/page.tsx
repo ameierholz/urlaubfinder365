@@ -9,6 +9,7 @@ import {
 import { AKTIVITAETEN, KATEGORIEN } from "@/data/marktplatz-data";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
 }
@@ -58,10 +59,7 @@ export default async function AnbieterProfilPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <div className="min-h-screen bg-gray-50">
 

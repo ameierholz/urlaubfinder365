@@ -43,6 +43,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { createClient } from "@supabase/supabase-js";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface SeoTexts {
   seo_intro: string | null;
   seo_middle: string | null;
@@ -317,10 +318,7 @@ export default async function DestinationPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* ── Cinematic Hero ─────────────────────────────────────────────────── */}
       <section className="relative w-full overflow-hidden" style={{ height: "clamp(360px, 52vh, 540px)" }}>

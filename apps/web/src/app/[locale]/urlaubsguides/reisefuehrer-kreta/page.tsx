@@ -3,6 +3,7 @@ import KretaGuide from "@/components/guides/KretaGuide";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-kreta/`;
 const YEAR = new Date().getFullYear();
@@ -64,7 +65,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <div className="xl:flex xl:items-start xl:gap-6 max-w-400 mx-auto px-2 sm:px-4 my-8">
         <div className="flex-1 min-w-0">
           <KretaGuide />

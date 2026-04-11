@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import MitgliederClient from "./mitgliederclient";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "👤 Community-Mitglieder – Reisende entdecken",
   description: "Entdecke aktive Mitglieder der Urlaubfinder365 Community ✓ Profile ansehen ✓ Urlaubserfahrung teilen ✓ Neue Kontakte knüpfen.",
@@ -30,7 +31,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <MitgliederClient />
     </>
   );

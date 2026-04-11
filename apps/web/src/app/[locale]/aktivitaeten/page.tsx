@@ -4,6 +4,7 @@ import MarktplatzHome from "@/components/marktplatz/MarktplatzHome";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Aktivitäten, Touren & Erlebnisse buchen | Urlaubfinder365",
   description:
@@ -32,7 +33,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const t = await getTranslations("aktivitaetenPage");
   return (
     <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+    <JsonLd data={breadcrumbSchema} />
     <MarktplatzHome
       sidebar={
         <Suspense fallback={null}>

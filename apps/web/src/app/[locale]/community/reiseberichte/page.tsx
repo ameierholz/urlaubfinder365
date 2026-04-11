@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import UrlaubsberichteClient from "./reiseberichteclient";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "📝 Urlaubsberichte – echte Erfahrungen von Urlaubern",
   description: "Echte Urlaubsberichte & Urlaubserfahrungen lesen ✓ Bewertungen ✓ Hotelberichte ✓ Insidertipps von Reisenden ✓ Jetzt Community beitreten.",
@@ -30,7 +31,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <UrlaubsberichteClient />
     </>
   );

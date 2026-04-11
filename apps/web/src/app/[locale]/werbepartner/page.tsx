@@ -7,6 +7,7 @@ import {
   Monitor, Globe, ChevronRight,
   CheckCircle2, Zap, BarChart3, Shield,
 } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("werbepartnerPage");
@@ -151,7 +152,7 @@ export default async function WerbepartnerPage({
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* ── Hero ────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden text-white" style={{ minHeight: "420px" }}>

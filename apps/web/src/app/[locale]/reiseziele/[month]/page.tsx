@@ -10,6 +10,7 @@ import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 interface Props {
@@ -94,9 +95,9 @@ export default async function MonthGuidePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqSchema} />
+      <JsonLd data={itemListSchema} />
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[460px] flex items-end">

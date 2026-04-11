@@ -6,6 +6,7 @@ import DestinationCard, { type Destination } from "@/components/urlaubskalender/
 import KalenderAngebotBox, { type KalenderAngebot } from "@/components/urlaubskalender/KalenderAngebotBox";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 const KALENDER_ANGEBOTE: KalenderAngebot[] = [
@@ -376,7 +377,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden text-white" style={{ minHeight: "340px" }}>

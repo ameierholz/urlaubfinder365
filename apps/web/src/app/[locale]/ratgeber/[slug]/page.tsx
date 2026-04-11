@@ -7,6 +7,7 @@ import { RATGEBER_ARTICLES, getRatgeberArticle } from "@/lib/ratgeber-data";
 import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 interface Props {
@@ -92,9 +93,9 @@ export default async function RatgeberArticlePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={articleSchema} />
+      <JsonLd data={faqSchema} />
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[420px] flex items-end">

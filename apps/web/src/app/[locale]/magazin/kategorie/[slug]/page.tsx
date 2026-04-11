@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ArtikelCard from "@/components/magazin/artikel-card";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface Category {
   id: string;
   name: string;
@@ -93,10 +94,7 @@ export default async function MagazinKategoriePage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#1db682] to-[#6991d8] text-white py-16 px-4">

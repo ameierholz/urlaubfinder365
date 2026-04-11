@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { URLAUBSTHEMEN, themeImage } from "@/lib/urlaubsthemen-config";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -111,7 +112,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[480px] flex items-end">

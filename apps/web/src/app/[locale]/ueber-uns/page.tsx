@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, Globe, Users, TrendingUp, Heart, Award } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Über uns – Urlaubfinder365",
   description:
@@ -91,10 +92,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section

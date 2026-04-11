@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, CheckSquare, Sun, Plane, Shield, Smartphone, ShoppingBag } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -138,10 +139,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <main>
 
         {/* ── Hero ── */}

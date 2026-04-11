@@ -1,14 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { Clock, Flame, Plane, Utensils, Heart } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Clock, Flame, Plane, Utensils } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { TravelOffer } from "@/types";
 import { formatPrice } from "@/lib/travel-api";
-import { useAuth } from "@/context/AuthContext";
-import { saveTrip } from "@/lib/supabase-db";
-import SaveLoginModal from "@/components/ui/SaveLoginModal";
+import HomeDealCardActions from "./HomeDealCardActions";
 
 interface Props {
   offer: TravelOffer;
@@ -60,8 +55,6 @@ const EDITORIAL_KEYS: Record<string, string> = {
 function getLocation(offer: TravelOffer): string {
   const dest    = (offer.destination_name ?? "").trim();
   const country = (offer.country_name ?? "").trim();
-  // Wenn destination_name eine Stadt+Region enthält (z.B. "Olbia, Sardinien"),
-  // nur die Region (letzter Teil nach dem Komma) anzeigen
   const parts  = dest.split(",").map((p) => p.trim()).filter(Boolean);
   const region = parts.length > 1 ? parts[parts.length - 1] : dest;
   if (!country) return region;
@@ -69,30 +62,15 @@ function getLocation(offer: TravelOffer): string {
   return `${region} · ${country}`;
 }
 
-export default function HomeDealCard({ offer, priority = false, featured = false }: Props) {
-  const t = useTranslations("dealCard");
-  const { user } = useAuth();
-  const [saved, setSaved]           = useState(false);
-  const [saving, setSaving]         = useState(false);
-  const [showModal, setShowModal]   = useState(false);
+/**
+ * Server Component – rendert Bild, Texte, Preis ohne Client-JS.
+ * Nur Heart-Save-Button + Click-Handler werden via HomeDealCardActions
+ * als Client Island geladen → ~300KB JS Bundle-Reduktion auf Home/Destination.
+ */
+export default async function HomeDealCard({ offer, priority = false, featured = false }: Props) {
+  const t = await getTranslations("dealCard");
+
   const rec = Number(offer.rating?.recommendation ?? 0);
-
-  function getHeadline(o: TravelOffer): string {
-    const c = (o.country_name ?? "").toLowerCase();
-    for (const [key, editKey] of Object.entries(EDITORIAL_KEYS)) {
-      if (c.includes(key)) return t(`editorial.${editKey}`);
-    }
-    return t("editorial.fallback", { country: o.country_name ?? "Europa" });
-  }
-
-  const handleSave = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!user) { setShowModal(true); return; }
-    if (saved) return;
-    setSaving(true);
-    try { await saveTrip(user.uid, offer); setSaved(true); }
-    finally { setSaving(false); }
-  };
 
   const bookingUrl = (() => {
     const p = new URLSearchParams({
@@ -107,25 +85,12 @@ export default function HomeDealCard({ offer, priority = false, featured = false
     return `https://b2b.specials.de/index/jump/119/2780/993243/?${p}`;
   })();
 
-  const handleClick = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const openModal = (window as any).ibeOpenBooking;
-    if (typeof openModal === "function") {
-      openModal(bookingUrl, offer.hotel_name);
-    } else {
-      window.open(bookingUrl, "_blank", "noopener,noreferrer");
-    }
-  };
+  // headline currently unused but kept for backward compatibility
+  // (alte Versionen nutzten EDITORIAL_KEYS für seitliche Headline-Pills)
+  void EDITORIAL_KEYS;
 
   return (
-    <>
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={handleClick}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleClick(); }}
-      className="group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 bg-white text-left w-full cursor-pointer ring-0 hover:ring-2 hover:ring-sand-400/60"
-    >
+    <div className="group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 bg-white text-left w-full ring-0 hover:ring-2 hover:ring-sand-400/60">
       {/* ── Bild ── */}
       <div className="relative overflow-hidden" style={{ height: featured ? "240px" : "160px" }}>
         <Image
@@ -136,35 +101,27 @@ export default function HomeDealCard({ offer, priority = false, featured = false
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 20vw"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent pointer-events-none" />
 
         {/* TOP DEAL – oben links */}
-        <div className="absolute top-3 left-3 flex items-center gap-1 bg-linear-to-r from-red-700 to-sand-600 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none">
+        <div className="absolute top-3 left-3 flex items-center gap-1 bg-linear-to-r from-red-700 to-sand-600 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md uppercase tracking-wider leading-none z-10 pointer-events-none">
           <Flame className="w-2.5 h-2.5" />
           {t("topDeal")}
         </div>
 
         {/* Weiterempfehlung oben rechts */}
         {rec >= 90 && (
-          <span className={`absolute top-3 right-3 flex items-center gap-1 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md leading-none z-10 ${rec >= 95 ? "bg-green-500/90" : "bg-emerald-500/90"}`}>
+          <span
+            className={`absolute top-3 right-3 flex items-center gap-1 backdrop-blur-sm text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md leading-none z-10 pointer-events-none ${
+              rec >= 95 ? "bg-green-500/90" : "bg-emerald-500/90"
+            }`}
+          >
             ✓ {t("recommended", { pct: rec })}
           </span>
         )}
 
-        {/* Herz-Button unten rechts */}
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className={`absolute bottom-3 right-3 w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all z-10 ${
-            saved ? "bg-rose-500 text-white scale-110" : "bg-black/40 backdrop-blur-sm text-white/70 hover:bg-black/60 hover:text-rose-400"
-          }`}
-          title={saved ? t("savedInProfile") : t("saveToProfile")}
-        >
-          <Heart className="w-4 h-4" fill={saved ? "currentColor" : "none"} />
-        </button>
-
         {/* Hotel + Ort unten */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 pr-12 text-white">
+        <div className="absolute bottom-0 left-0 right-0 p-4 pr-12 text-white pointer-events-none z-10">
           <p className="text-xs font-bold text-white/80 uppercase tracking-wider mb-1 drop-shadow">
             {getLocation(offer)}
           </p>
@@ -172,39 +129,57 @@ export default function HomeDealCard({ offer, priority = false, featured = false
             {offer.hotel_name}
           </h3>
         </div>
+
+        {/* Klick-Layer + Heart-Button (Client Island) */}
+        <HomeDealCardActions
+          offer={offer}
+          bookingUrl={bookingUrl}
+          hotelName={offer.hotel_name}
+          labels={{
+            saveToProfile: t("saveToProfile"),
+            savedInProfile: t("savedInProfile"),
+          }}
+        />
       </div>
 
       {/* ── Card-Body (dunkel & premium) ── */}
-      <div className="flex flex-col flex-1 bg-gray-900">
-
+      <div className="flex flex-col flex-1 bg-gray-900 pointer-events-none">
         {/* Info-Zeile */}
         <div className="px-4 pt-3 pb-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-white/10">
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Clock className="w-4 h-4 text-gray-500 shrink-0" />{t("nights", { count: offer.offer_duration })}
+            <Clock className="w-4 h-4 text-gray-500 shrink-0" />
+            {t("nights", { count: offer.offer_duration })}
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Plane className="w-4 h-4 text-sky-400 shrink-0" />{t("inclFlight")}
+            <Plane className="w-4 h-4 text-sky-400 shrink-0" />
+            {t("inclFlight")}
           </span>
           <span className="flex items-center gap-1.5 text-gray-300 text-xs whitespace-nowrap">
-            <Utensils className="w-4 h-4 text-sand-400 shrink-0" />{offer.board_name}
+            <Utensils className="w-4 h-4 text-sand-400 shrink-0" />
+            {offer.board_name}
           </span>
         </div>
 
         {/* Preis + CTA */}
         <div className="px-4 pt-3 pb-4 mt-auto flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs sm:text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">{t("perPerson")}</p>
-            <p className="text-3xl font-black text-sand-400 leading-none">{formatPrice(offer.offer_price_adult)}</p>
-            <p className="text-xs sm:text-[10px] text-gray-500 mt-1">{t("total")} {formatPrice(offer.offer_price_total)}</p>
+            <p className="text-xs sm:text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-0.5">
+              {t("perPerson")}
+            </p>
+            <p className="text-3xl font-black text-sand-400 leading-none">
+              {formatPrice(offer.offer_price_adult)}
+            </p>
+            <p className="text-xs sm:text-[10px] text-gray-500 mt-1">
+              {t("total")} {formatPrice(offer.offer_price_total)}
+            </p>
           </div>
           <span className="shrink-0 bg-linear-to-r from-sand-500 to-sand-600 group-hover:from-sand-400 group-hover:to-sand-500 text-white text-xs font-bold px-4 py-3 rounded-xl transition-all shadow-lg shadow-sand-900/40 text-center leading-snug">
-            {t("checkOfferLine1")}<br />{t("checkOfferLine2")}
+            {t("checkOfferLine1")}
+            <br />
+            {t("checkOfferLine2")}
           </span>
         </div>
-
       </div>
     </div>
-    {showModal && <SaveLoginModal onClose={() => setShowModal(false)} />}
-    </>
   );
 }

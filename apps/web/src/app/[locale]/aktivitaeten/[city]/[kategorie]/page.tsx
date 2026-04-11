@@ -5,6 +5,7 @@ import { getDestinationBySlug, destinations } from "@/lib/destinations";
 import TiqetsNicheSection from "@/components/tiqets/TiqetsNicheSection";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface Props {
   params: Promise<{ city: string; kategorie: string; locale: string }>;
 }
@@ -67,10 +68,7 @@ export default async function TiqetsNichePage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <div className="bg-linear-to-br from-[#00838F] to-[#004F5A] text-white relative overflow-hidden">

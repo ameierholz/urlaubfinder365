@@ -7,6 +7,7 @@ import { CATALOG } from "@/data/catalog-regions";
 import { generateHeroFallback } from "@/lib/catalog-helpers";
 import { getAlternateUrls } from "@/i18n/routing";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface Props {
   params: Promise<{ city: string; locale: string }>;
 }
@@ -180,8 +181,8 @@ export default async function TopAttraktionenPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={itemListSchema} />
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[380px] flex items-end">

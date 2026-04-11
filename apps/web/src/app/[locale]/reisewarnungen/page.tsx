@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import ReisewarnungenClient from "@/components/reisewarnungen/ReisewarnungenClient";
 import RightSidebar from "@/components/layout/RightSidebar";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const revalidate = 3600;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -78,10 +79,7 @@ export default async function ReisewarnungenPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="relative text-white py-16 px-4 overflow-hidden" style={{ minHeight: 360 }}>

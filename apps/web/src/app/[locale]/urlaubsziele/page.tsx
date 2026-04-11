@@ -6,6 +6,7 @@ import CountryHoverCard from "@/components/destinations/CountryHoverCard";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const YEAR = new Date().getFullYear();
 
@@ -212,7 +213,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
   return (
     <div className="bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }} />
+      <JsonLd data={collectionPageSchema} />
 
       {/* ══ HERO ══════════════════════════════════════════════════════════════ */}
       <div className="relative overflow-hidden bg-[#003d47]" style={{ minHeight: 300 }}>

@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import RightSidebar from "@/components/layout/RightSidebar";
 import Link from "next/link";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "🌍 Urlaubs-Community – Berichte, Gruppen & Tipps",
   description: "Urlaubfinder365 Urlaubs-Community: Echte Urlaubsberichte lesen, Urlaubsgruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.",
@@ -59,7 +60,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const t = await getTranslations("communityPage");
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* ── Hero (full width) ── */}
       <section className="relative text-white overflow-hidden" style={{ minHeight: "420px" }}>

@@ -5,6 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 import { SEASON_GUIDES } from "@/lib/season-guide-data";
 import { getAlternateUrls } from "@/i18n/routing";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 const BASE_URL = "https://www.urlaubfinder365.de";
 
@@ -40,7 +41,7 @@ export default async function ReisezieleIndexPage({ params }: { params: Promise<
 
   return (
     <div className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[420px] flex items-end">

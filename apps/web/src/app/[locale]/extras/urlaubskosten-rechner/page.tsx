@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import UrlaubskostenRechnerClient from "@/components/tools/urlaubskosten-rechner-client";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -37,10 +38,7 @@ export default async function UrlaubskostenRechnerPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSONLD) }}
-      />
+      <JsonLd data={JSONLD} />
       <main className="min-h-screen bg-gray-950 text-white">
         {/* Hero */}
         <section className="bg-linear-to-b from-gray-900 to-gray-950 border-b border-gray-800 py-12 px-4">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import GruppenClient from "./gruppenclient";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "👥 Urlaubsgruppen – Gleichgesinnte finden & vernetzen",
   description: "Urlaubsgruppen bei Urlaubfinder365: Gleichgesinnte Reisende finden ✓ Nach Interessen filtern ✓ Gemeinsam planen ✓ Kostenlos beitreten.",
@@ -30,7 +31,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <GruppenClient />
     </>
   );

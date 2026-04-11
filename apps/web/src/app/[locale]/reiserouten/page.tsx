@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import UrlaubsroutenClient from "./UrlaubsroutenClient";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "🗺 Urlaubsrouten – Routen planen, teilen & klonen",
   description: "Urlaubsrouten planen & teilen ✓ Beliebte Routen anderer Reisender klonen ✓ Tagesplanung & Sehenswürdigkeiten ✓ Kostenlos nutzen.",
@@ -39,7 +40,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <UrlaubsroutenClient />
     </>
   );

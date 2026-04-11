@@ -12,26 +12,9 @@ interface Props {
   title?: string;
 }
 
-function FaqJsonLd({ faqs }: { faqs: FaqItem[] }) {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+// HINWEIS: Die FAQPage-JSON-LD muss vom Eltern-Server-Component
+// gerendert werden (siehe @/components/seo/JsonLd), damit der CSP-Nonce
+// korrekt gesetzt wird. Dieses Client-Component rendert nur die UI.
 
 export default function FaqSection({ faqs, title = "Häufige Fragen" }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -42,7 +25,6 @@ export default function FaqSection({ faqs, title = "Häufige Fragen" }: Props) {
 
   return (
     <>
-      <FaqJsonLd faqs={faqs} />
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">{title}</h2>
         <div className="space-y-3">

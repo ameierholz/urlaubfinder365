@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import TravelBuddiesClient from "./TravelBuddiesClient";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "🤝 Travel Buddies – Urlaubspartner finden",
   description: "Travel Buddies finden bei Urlaubfinder365: Urlaubspartner nach Ziel, Reiseart & Zeitraum matchen ✓ Gemeinsam verreisen ✓ Kostenlos.",
@@ -39,7 +40,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <TravelBuddiesClient />
     </>
   );

@@ -7,6 +7,7 @@ import Link from "next/link";
 import ArtikelContent from "@/components/magazin/artikel-content";
 import ArtikelCard from "@/components/magazin/artikel-card";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const revalidate = 3600;
 
 interface Article {
@@ -131,10 +132,7 @@ export default async function MagazinArtikelPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Breadcrumb */}
       <nav className="max-w-4xl mx-auto px-4 pt-6 pb-2 flex items-center gap-1.5 text-xs text-gray-400 flex-wrap">

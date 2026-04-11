@@ -4,6 +4,7 @@ import { createSupabaseServer } from "@/lib/supabase-server";
 import Link from "next/link";
 import { ArrowRight, Newspaper } from "lucide-react";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Urlaubsmagazin – Reisetipps, Spartipps & mehr | Urlaubfinder365",
   description:
@@ -67,7 +68,7 @@ export default async function MagazinPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section className="relative text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #0d1f35 0%, #1a3a5c 50%, #0d6e8c 100%)" }}>

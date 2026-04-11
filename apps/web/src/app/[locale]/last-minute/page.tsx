@@ -9,6 +9,7 @@ import AutoScrollToWidget from "@/components/widgets/AutoScrollToWidget";
 import { buildB2bUrl } from "@/lib/search-params";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -108,7 +109,7 @@ export default async function ({ params, searchParams }: {
   return (
     <>
       {/* Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
 
       <div className="min-h-screen">
         {/* Hero */}

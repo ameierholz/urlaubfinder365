@@ -8,6 +8,7 @@ import { getAlternateUrls } from "@/i18n/routing";
 import TiqetsExperiencePage from "@/components/tiqets/TiqetsExperiencePage";
 import { setRequestLocale } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 interface Props {
   params: Promise<{ city: string; locale: string }>;
 }
@@ -108,10 +109,7 @@ export default async function AktivitaetenCityPage({ params }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <TiqetsExperiencePage
         cityId={cfg.tiqetsCityId}
         cityName={cfg.name}

@@ -15,6 +15,7 @@ import { setRequestLocale } from "next-intl/server";
 import { routing, locales, SITE_URL, type Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -113,6 +114,14 @@ export async function generateMetadata({
         "x-default": `${SITE_URL}/`,
       },
     },
+    // Search Engine Verifications (Token aus env vars, leer = kein Tag)
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+      yandex: process.env.YANDEX_VERIFICATION || undefined,
+      other: {
+        "msvalidate.01": process.env.BING_SITE_VERIFICATION || "",
+      },
+    },
     other: {
       // Google AdSense – Domain-Verifizierung via Meta-Tag
       "google-adsense-account": "ca-pub-9799640580685030",
@@ -193,14 +202,8 @@ export default async function LocaleLayout({
       <AuthProvider>
         <div style={{ backgroundColor: "rgba(238, 206, 161, 0.44)" }}>
           {/* JSON-LD: Inline im <body> erlaubt, wird von Google trotzdem indexiert */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
-          />
+          <JsonLd data={organizationSchema} />
+          <JsonLd data={webSiteSchema} />
           <FontAwesomeLoader />
           <IbeProvider />
           <ScrollToTop />

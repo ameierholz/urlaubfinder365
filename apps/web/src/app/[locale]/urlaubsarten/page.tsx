@@ -5,6 +5,7 @@ import LifestyleSection from "@/components/home/LifestyleSection";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -118,7 +119,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* ── Hero ── */}
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 
 export interface BreadcrumbItem {
   label: string;
@@ -25,10 +26,7 @@ export default function Breadcrumbs({ items }: Props) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      <JsonLd data={schema} />
       <nav
         aria-label="Breadcrumb"
         className="overflow-x-auto whitespace-nowrap"

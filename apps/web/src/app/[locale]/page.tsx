@@ -15,6 +15,7 @@ import FeaturedAngebotsCarousel from "@/components/home/FeaturedAngebotsCarousel
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
 import MagazinTeaser from "@/components/home/MagazinTeaser";
+import JsonLd from "@/components/seo/JsonLd";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -408,13 +409,10 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   return (
     <>
       {/* JSON-LD – Organization, WebSite, ItemList, FAQPage */}
-      {[schemaOrganization, schemaWebSite, schemaItemList, schemaFaq].map((schema, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+      <JsonLd data={schemaOrganization} />
+      <JsonLd data={schemaWebSite} />
+      <JsonLd data={schemaItemList} />
+      <JsonLd data={schemaFaq} />
 
       {/* ══════════════════════════════════════════════════════════
           1 · HERO  –  Cinematic Full-Viewport

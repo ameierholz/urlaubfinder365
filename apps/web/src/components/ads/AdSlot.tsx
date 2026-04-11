@@ -9,6 +9,12 @@
  * vertrauenswürdige Admins (Service-Role-Check in der Save-API) können
  * Code hinterlegen.
  *
+ * ⚠️ CSP-Hinweis: Inline <script>-Blöcke in den Slots werden durch unsere
+ * strikte CSP (kein 'unsafe-inline') blockiert. Externe AdSense/Adup-Skripte
+ * via <script src="..."> sind whitelisted und funktionieren. Bei reinen
+ * Inline-Skripten entweder a) auf src-Form umstellen oder b) im Code-Snippet
+ * `nonce="${nonce}"` setzen (Server-Side per headers().get('x-nonce')).
+ *
  * Caching: ISR mit 5min revalidate, damit Änderungen schnell live sind
  * ohne bei jedem Page-Hit die DB anzupingen.
  */

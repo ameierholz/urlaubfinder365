@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { loadAllMarkers } from "@/lib/map/load-markers";
 import WeltkartePageClient from "@/components/map/WeltkartePageClient";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 export const metadata: Metadata = {
@@ -46,10 +47,7 @@ export default async function WeltkartePage({ params }: { params: Promise<{ loca
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       <WeltkartePageClient
         markers={markers}

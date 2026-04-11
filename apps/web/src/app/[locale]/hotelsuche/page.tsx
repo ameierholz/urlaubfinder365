@@ -6,6 +6,7 @@ import PageNavBar from "@/components/ui/PageNavBar";
 import { setRequestLocale } from "next-intl/server";
 import { buildB2bUrl } from "@/lib/search-params";
 
+import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 const HOTEL_NAV_ITEMS = [
@@ -118,7 +119,7 @@ export default async function ({ params, searchParams }: {
   );
   return (
     <div className="min-h-screen bg-gray-50">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* ═══════════════════════════════════════════════════════════════════
           HERO

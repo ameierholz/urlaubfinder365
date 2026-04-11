@@ -3,6 +3,7 @@ import KreuzfahrtenContent from "@/components/cruise/KreuzfahrtenContent";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 export async function generateMetadata(): Promise<Metadata> {
   const year = new Date().getFullYear();
   const next = year + 1;
@@ -44,7 +45,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const t = await getTranslations("kreuzfahrtenPage");
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
       <KreuzfahrtenContent
         sidebar={
           <RightSidebar

@@ -7,6 +7,7 @@ import SeasonCalendar from "@/components/preisentwicklung/SeasonCalendar";
 import RightSidebar from "@/components/layout/RightSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
+import JsonLd from "@/components/seo/JsonLd";
 export const revalidate = 3600;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -82,10 +83,7 @@ export default async function PreisentwicklungPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
 
       {/* Hero */}
       <section

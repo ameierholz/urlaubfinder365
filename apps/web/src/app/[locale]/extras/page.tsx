@@ -7,6 +7,7 @@ import {
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
+import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -151,7 +152,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden text-white" style={{ minHeight: "320px" }}>
