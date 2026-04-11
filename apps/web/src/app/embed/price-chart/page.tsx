@@ -23,12 +23,13 @@ interface EmbedData {
   destinationName: string;
   days: number;
   series: PriceSeries[];
+  trend: string;
   stats: {
     currentPrice: number;
     lowestPrice: number;
+    lowestDate: string | null;
     highestPrice: number;
     avgPrice: number;
-    isGoodDeal: boolean;
     isDemo: boolean;
   };
   embed: {
@@ -42,13 +43,24 @@ async function fetchData(destination: string, days: number): Promise<EmbedData |
     const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://www.urlaubfinder365.de";
     const res = await fetch(
       `${base}/api/embed/price-chart?destination=${destination}&days=${days}`,
-      { next: { revalidate: 3600 } }
+      { cache: "no-store" }
     );
     if (!res.ok) return null;
     return res.json();
   } catch {
     return null;
   }
+}
+
+/** 5-Tage gleitender Durchschnitt – reduziert tägliche Schwankungen */
+function movingAvg(values: number[], window = 5): number[] {
+  return values.map((_, i) => {
+    const half  = Math.floor(window / 2);
+    const start = Math.max(0, i - half);
+    const end   = Math.min(values.length, i + half + 1);
+    const slice = values.slice(start, end);
+    return Math.round(slice.reduce((a, b) => a + b, 0) / slice.length);
+  });
 }
 
 function formatDate(dateStr: string): string {
@@ -83,24 +95,29 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
   const accentGreen = "#1db682";
   const accentBlue  = "#6991d8";
 
-  const series  = data?.series ?? [];
-  const hasSeries = series.length >= 2;
+  const series     = data?.series ?? [];
+  const hasSeries  = series.length >= 2;
+  const stats      = data?.stats;
+
+  // Glättung: 5-Tage Moving Average für saubere Kurve
+  const rawMin    = series.map((s) => s.minPrice);
+  const rawAvg    = series.map((s) => s.avgPrice);
+  const minPrices = hasSeries ? movingAvg(rawMin, 5) : rawMin;
+  const avgPricesSmooth = hasSeries ? movingAvg(rawAvg.filter(p => p > 0), 5) : [];
 
   // ── Chart-Geometrie ─────────────────────────────────────────────────────────
   const W = 460;
-  const H = 160;
-  const padT = 10, padB = 28, padL = 48, padR = 16;
+  const H = 180;
+  const padT = 12, padB = 28, padL = 52, padR = 16;
   const chartW = W - padL - padR;
   const chartH = H - padT - padB;
 
-  const minPrices = series.map((s) => s.minPrice);
-  const avgPrices = series.map((s) => s.avgPrice).filter((p) => p > 0);
-  const allPrices = [...minPrices, ...avgPrices];
-  const dataMin   = allPrices.length ? Math.min(...allPrices) : 0;
-  const dataMax   = allPrices.length ? Math.max(...allPrices) : 1000;
-  const pad       = (dataMax - dataMin) * 0.12 || 50;
-  const yMin      = Math.max(0, dataMin - pad);
-  const yMax      = dataMax + pad;
+  const allPlotted = [...minPrices, ...avgPricesSmooth.filter(p => p > 0)];
+  const dataMin   = allPlotted.length ? Math.min(...allPlotted) : 0;
+  const dataMax   = allPlotted.length ? Math.max(...allPlotted) : 1000;
+  const padY      = (dataMax - dataMin) * 0.15 || 50;
+  const yMin      = Math.max(0, dataMin - padY);
+  const yMax      = dataMax + padY;
   const yRange    = yMax - yMin || 1;
 
   function xPos(i: number) {
@@ -110,15 +127,12 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
     return padT + (1 - (val - yMin) / yRange) * chartH;
   }
 
-  // SVG-Pfade
+  // SVG-Pfade (geglättet)
   const minPath = hasSeries
-    ? series.map((s, i) => `${i === 0 ? "M" : "L"} ${xPos(i).toFixed(1)},${yPos(s.minPrice).toFixed(1)}`).join(" ")
+    ? minPrices.map((p, i) => `${i === 0 ? "M" : "L"} ${xPos(i).toFixed(1)},${yPos(p).toFixed(1)}`).join(" ")
     : "";
-  const avgPath = hasSeries
-    ? series.filter((s) => s.avgPrice > 0).map((s, i, arr) => {
-        const idx = series.findIndex((x) => x === s);
-        return `${i === 0 ? "M" : "L"} ${xPos(idx).toFixed(1)},${yPos(s.avgPrice).toFixed(1)}`;
-      }).join(" ")
+  const avgPath = hasSeries && avgPricesSmooth.length >= 2
+    ? avgPricesSmooth.map((p, i) => `${i === 0 ? "M" : "L"} ${xPos(i).toFixed(1)},${yPos(p).toFixed(1)}`).join(" ")
     : "";
 
   // Area unter min-Linie
@@ -141,8 +155,8 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
       })
     : [];
 
-  // Tiefstpreis-Marker
-  const lowestIdx = minPrices.indexOf(Math.min(...minPrices));
+  // Tiefstpreis-Marker (aus echten Rohdaten, nicht geglättet)
+  const lowestIdx = rawMin.indexOf(Math.min(...rawMin));
   const lowestX   = hasSeries ? xPos(lowestIdx) : 0;
   const lowestY   = hasSeries ? yPos(minPrices[lowestIdx]) : 0;
 
@@ -151,15 +165,18 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
   const lastX   = hasSeries ? xPos(lastIdx) : 0;
   const lastY   = hasSeries ? yPos(minPrices[lastIdx]) : 0;
 
-  // Trend
-  const stats = data?.stats;
-  const recent7  = minPrices.slice(-7);
-  const older7   = minPrices.slice(-14, -7);
-  const avgR = recent7.length ? recent7.reduce((a, b) => a + b, 0) / recent7.length : 0;
-  const avgO = older7.length  ? older7.reduce((a, b)  => a + b, 0) / older7.length  : avgR;
-  const trendPct = avgO > 0 ? Math.round(((avgR - avgO) / avgO) * 100) : 0;
-  const trendLabel = trendPct >= 3 ? `↑ Steigend (${trendPct}%)` : trendPct <= -3 ? `↓ Fallend (${Math.abs(trendPct)}%)` : "→ Preise stabil";
-  const trendColor = trendPct >= 3 ? "#ef4444" : trendPct <= -3 ? accentGreen : "#f59e0b";
+  // Trend aus API
+  const trendRaw = data?.trend ?? "stable";
+  const trendPct = (() => {
+    if (rawMin.length < 14) return 0;
+    const r = rawMin.slice(-7).reduce((a, b) => a + b, 0) / 7;
+    const o = rawMin.slice(-14, -7).reduce((a, b) => a + b, 0) / 7;
+    return o > 0 ? Math.round(((r - o) / o) * 100) : 0;
+  })();
+  const trendLabel = trendRaw === "rising"  ? `↑ Steigend (${Math.abs(trendPct)}%)`
+                   : trendRaw === "falling" ? `↓ Fallend (${Math.abs(trendPct)}%)`
+                   : "→ Preise stabil";
+  const trendColor = trendRaw === "rising" ? "#ef4444" : trendRaw === "falling" ? accentGreen : "#f59e0b";
 
   const destName = data?.destinationName ?? destination;
 
@@ -218,8 +235,8 @@ export default async function EmbedPriceChart({ searchParams }: Props) {
             <div className="price-block">
               <span className="price-label">Tiefstpreis</span>
               <span className="price-val low">{formatPrice(stats.lowestPrice)}</span>
-              {hasSeries && lowestIdx >= 0 && (
-                <span className="price-date">{formatDate(series[lowestIdx].date)}</span>
+              {stats.lowestDate && (
+                <span className="price-date">{formatDate(stats.lowestDate)}</span>
               )}
             </div>
             <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
