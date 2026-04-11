@@ -249,6 +249,34 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </div>
 
+      {/* REISEZIEL-LINKS (Hub→Spoke) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
+        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Beliebte Städtereise-Ziele</p>
+        <h2 className="text-xl font-extrabold text-gray-900 mb-5">Städtereisen Reiseziele im Überblick</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+          {[
+            { href: "/urlaubsziele/barcelona/",    label: "Städtereise Barcelona" },
+            { href: "/urlaubsziele/rom/",           label: "Städtereise Rom" },
+            { href: "/urlaubsziele/paris/",         label: "Städtereise Paris" },
+            { href: "/urlaubsziele/amsterdam/",     label: "Städtereise Amsterdam" },
+            { href: "/urlaubsziele/dubai/",         label: "Städtereise Dubai" },
+            { href: "/urlaubsziele/istanbul/",      label: "Städtereise Istanbul" },
+            { href: "/urlaubsziele/new-york/",      label: "Städtereise New York" },
+            { href: "/urlaubsziele/london/",        label: "Städtereise London" },
+            { href: "/urlaubsziele/prag/",          label: "Städtereise Prag" },
+            { href: "/urlaubsziele/wien/",          label: "Städtereise Wien" },
+            { href: "/urlaubsziele/lissabon/",      label: "Städtereise Lissabon" },
+            { href: "/urlaubsziele/marrakesch/",    label: "Städtereise Marrakesch" },
+          ].map(({ href, label }) => (
+            <Link key={href} href={href}
+              className="flex items-center justify-between bg-white border border-gray-200 hover:border-[#475569] hover:text-[#475569] text-gray-700 text-sm font-medium px-3 py-2.5 rounded-lg transition-all group">
+              <span>{label}</span>
+              <span className="text-gray-300 group-hover:text-[#475569] text-xs ml-1 shrink-0">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
         <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Weitere Urlaubsthemen</p>

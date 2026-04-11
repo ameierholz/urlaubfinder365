@@ -251,6 +251,38 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </div>
 
+      {/* REISEZIEL-LINKS (Hub→Spoke interne Verlinkung) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
+        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Beliebte Strand-Reiseziele buchen</p>
+        <h2 className="text-xl font-extrabold text-gray-900 mb-5">Strandurlaub Reiseziele im Überblick</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+          {[
+            { href: "/urlaubsziele/mallorca/",     label: "Strandurlaub Mallorca" },
+            { href: "/urlaubsziele/ibiza/",         label: "Strandurlaub Ibiza" },
+            { href: "/urlaubsziele/teneriffa/",     label: "Strandurlaub Teneriffa" },
+            { href: "/urlaubsziele/fuerteventura/", label: "Strandurlaub Fuerteventura" },
+            { href: "/urlaubsziele/lanzarote/",     label: "Strandurlaub Lanzarote" },
+            { href: "/urlaubsziele/gran-canaria/",  label: "Strandurlaub Gran Canaria" },
+            { href: "/urlaubsziele/antalya/",       label: "Strandurlaub Antalya" },
+            { href: "/urlaubsziele/side/",          label: "Strandurlaub Side" },
+            { href: "/urlaubsziele/alanya/",        label: "Strandurlaub Alanya" },
+            { href: "/urlaubsziele/kreta/",         label: "Strandurlaub Kreta" },
+            { href: "/urlaubsziele/rhodos/",        label: "Strandurlaub Rhodos" },
+            { href: "/urlaubsziele/korfu/",         label: "Strandurlaub Korfu" },
+            { href: "/urlaubsziele/hurghada/",      label: "Strandurlaub Hurghada" },
+            { href: "/urlaubsziele/maldiven/",      label: "Strandurlaub Malediven" },
+            { href: "/urlaubsziele/phuket/",        label: "Strandurlaub Phuket" },
+            { href: "/urlaubsziele/bali/",          label: "Strandurlaub Bali" },
+          ].map(({ href, label }) => (
+            <Link key={href} href={href}
+              className="flex items-center justify-between bg-white border border-gray-200 hover:border-[#0284c7] hover:text-[#0284c7] text-gray-700 text-sm font-medium px-3 py-2.5 rounded-lg transition-all group">
+              <span>{label}</span>
+              <span className="text-gray-300 group-hover:text-[#0284c7] text-xs ml-1 shrink-0">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* INTERNAL LINKS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
         <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Weitere Urlaubsthemen</p>

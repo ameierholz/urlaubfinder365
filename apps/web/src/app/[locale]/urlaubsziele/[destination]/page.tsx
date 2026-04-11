@@ -27,6 +27,8 @@ import EmbedWidgetSection from "@/components/destination/embed-widget-section";
 import PriceAlertWidget from "@/components/destination/price-alert-widget";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import AdSlot from "@/components/ads/AdSlot";
+import DestinationHubLinks from "@/components/destination/DestinationHubLinks";
+import LongTailContentSection from "@/components/destination/LongTailContentSection";
 import { fetchTopDeals } from "@/lib/travel-api";
 import type { DestinationConfig } from "@/types";
 import type { Metadata } from "next";
@@ -906,6 +908,12 @@ export default async function DestinationPage({ params }: Props) {
           </Link>
         </div>
       </div>
+
+      {/* Long-tail Suchbegriffe + Reisezeiten */}
+      <LongTailContentSection name={dest.name} slug={dest.slug} hasTiqets={!!dest.tiqetsCityId} />
+
+      {/* Hub-and-Spoke interne Links */}
+      <DestinationHubLinks name={dest.name} />
 
       {/* Ähnliche Urlaubsziele */}
       <RelatedDestinations currentSlug={dest.slug} country={dest.country} />
