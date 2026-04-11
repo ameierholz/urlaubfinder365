@@ -144,11 +144,11 @@ export default async function SeoAdminPage() {
             <tr className="border-b border-gray-800">
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pfad</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
+              <th className="px-4 py-3"></th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
-              <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -159,11 +159,7 @@ export default async function SeoAdminPage() {
                 <tr key={path} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
                   <td className="px-4 py-2.5 font-mono text-gray-300 text-xs whitespace-nowrap">{path}</td>
                   <td className="px-4 py-2.5"><ScoreBadge score={score} /></td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{row?.meta_title || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{row?.meta_description || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{row?.additional_keywords?.join(", ") || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-right">
+                  <td className="px-4 py-2.5">
                     <Link
                       href={`/admin/seo/${encodeURIComponent(path)}`}
                       className="text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors whitespace-nowrap"
@@ -171,6 +167,10 @@ export default async function SeoAdminPage() {
                       Bearbeiten →
                     </Link>
                   </td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{row?.meta_title || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{row?.meta_description || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{row?.additional_keywords?.join(", ") || <span className="text-gray-600">—</span>}</td>
                 </tr>
               );
             })}
