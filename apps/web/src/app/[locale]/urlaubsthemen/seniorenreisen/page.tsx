@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=1600&q=80&auto=format&fit=crop"
           alt="Seniorenreisen – Komfortables Reisen für Senioren"
           fill
           priority

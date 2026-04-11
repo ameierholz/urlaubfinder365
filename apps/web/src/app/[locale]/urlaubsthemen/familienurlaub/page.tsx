@@ -114,7 +114,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1600&q=80&auto=format&fit=crop"
           alt="Familienurlaub – Hotels für die ganze Familie"
           fill
           priority

@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&q=80&auto=format&fit=crop"
           alt="Kurreisen – Wellness & Gesundheitsurlaub"
           fill
           priority

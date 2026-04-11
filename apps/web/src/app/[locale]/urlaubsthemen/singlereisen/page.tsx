@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=1600&q=80&auto=format&fit=crop"
           alt="Singlereisen – Urlaub für Alleinreisende"
           fill
           priority

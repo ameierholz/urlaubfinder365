@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=80&auto=format&fit=crop"
           alt="Luxusurlaub – 5-Sterne Hotels & Resorts"
           fill
           priority

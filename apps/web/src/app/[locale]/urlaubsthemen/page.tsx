@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
+import { URLAUBSTHEMEN, themeImage } from "@/lib/urlaubsthemen-config";
 
 const YEAR = new Date().getFullYear();
 
@@ -33,104 +34,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   setRequestLocale(locale);
   const t = await getTranslations("urlaubsthemenPage");
 
-  const THEMEN = [
-    {
-      href: "/urlaubsthemen/adults-only/",
-      emoji: "💑",
-      label: t("thema1Label"),
-      desc: t("thema1Desc"),
-      color: "from-rose-500/80 to-pink-700/80",
-      img: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/familienurlaub/",
-      emoji: "👨‍👩‍👧‍👦",
-      label: t("thema2Label"),
-      desc: t("thema2Desc"),
-      color: "from-sky-500/80 to-blue-700/80",
-      img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/strandurlaub/",
-      emoji: "🏖️",
-      label: t("thema3Label"),
-      desc: t("thema3Desc"),
-      color: "from-teal-500/80 to-cyan-700/80",
-      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/wellnessurlaub/",
-      emoji: "🧖",
-      label: t("thema4Label"),
-      desc: t("thema4Desc"),
-      color: "from-emerald-500/80 to-green-700/80",
-      img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/staedtereisen/",
-      emoji: "🏙️",
-      label: t("thema5Label"),
-      desc: t("thema5Desc"),
-      color: "from-violet-500/80 to-purple-700/80",
-      img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/hochzeitsreise/",
-      emoji: "💒",
-      label: t("thema6Label"),
-      desc: t("thema6Desc"),
-      color: "from-pink-500/80 to-rose-700/80",
-      img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/abenteuerurlaub/",
-      emoji: "🧗",
-      label: t("thema7Label"),
-      desc: t("thema7Desc"),
-      color: "from-orange-500/80 to-red-700/80",
-      img: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/luxusurlaub/",
-      emoji: "👑",
-      label: t("thema8Label"),
-      desc: t("thema8Desc"),
-      color: "from-amber-500/80 to-yellow-700/80",
-      img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/singlereisen/",
-      emoji: "🧳",
-      label: t("thema9Label"),
-      desc: t("thema9Desc"),
-      color: "from-teal-500/80 to-cyan-700/80",
-      img: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/aktivurlaub/",
-      emoji: "🏃",
-      label: t("thema10Label"),
-      desc: t("thema10Desc"),
-      color: "from-lime-500/80 to-green-700/80",
-      img: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/kurreisen/",
-      emoji: "💧",
-      label: t("thema11Label"),
-      desc: t("thema11Desc"),
-      color: "from-cyan-500/80 to-blue-700/80",
-      img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=70",
-    },
-    {
-      href: "/urlaubsthemen/seniorenreisen/",
-      emoji: "🌟",
-      label: t("thema12Label"),
-      desc: t("thema12Desc"),
-      color: "from-blue-500/80 to-indigo-700/80",
-      img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=600&q=70",
-    },
-  ];
+  // Themen-Grid aus zentraler Config – Bild ist identisch mit Detail-Seiten-Hero
+  const THEMEN = URLAUBSTHEMEN.map((th, i) => ({
+    href: `/urlaubsthemen/${th.slug}/`,
+    emoji: th.emoji,
+    label: t(`thema${i + 1}Label`),
+    desc: t(`thema${i + 1}Desc`),
+    color: th.cardGradient,
+    img: themeImage(th.imageId, 600, 75),
+  }));
 
   const BUDGET = [
     {
@@ -275,24 +187,24 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       </div>
 
       {/* Budget Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
+      <div className="pb-12 pt-4">
+        <div className="bg-gray-50 rounded-3xl p-6 sm:p-10 border border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             {t("budgetTitle")} <span className="text-[#00838F]">{t("budgetTitleHighlight")}</span>
           </h2>
-          <p className="text-gray-500 mb-6 text-sm">
+          <p className="text-gray-500 mb-8 text-sm">
             {t("budgetSubtitle")}
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {BUDGET.map((b) => (
               <Link
                 key={b.href}
                 href={b.href}
-                className={`flex flex-col items-center text-center p-5 rounded-2xl border-2 transition-all ${b.color}`}
+                className={`flex flex-col items-center text-center p-6 sm:p-7 rounded-2xl border-2 transition-all ${b.color}`}
               >
-                <span className="text-3xl mb-2">{b.badge}</span>
+                <span className="text-4xl mb-3">{b.badge}</span>
                 <span className={`font-bold text-base ${b.textColor}`}>{b.label}</span>
-                <span className="text-xs text-gray-500 mt-1 leading-snug">{b.desc}</span>
+                <span className="text-xs text-gray-500 mt-1.5 leading-snug">{b.desc}</span>
               </Link>
             ))}
           </div>

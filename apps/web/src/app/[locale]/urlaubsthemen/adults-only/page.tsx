@@ -118,7 +118,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=1600&q=80&auto=format&fit=crop"
           alt="Adults Only Urlaub – Exklusive Resorts für Erwachsene"
           fill
           priority

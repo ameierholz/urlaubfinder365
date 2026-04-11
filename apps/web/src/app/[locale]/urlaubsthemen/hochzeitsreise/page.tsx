@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=80&auto=format&fit=crop"
           alt="Hochzeitsreise – Romantische Flitterwochen"
           fill
           priority
