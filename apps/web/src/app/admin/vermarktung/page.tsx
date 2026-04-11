@@ -60,12 +60,14 @@ export default async function AdminVermarktungPage() {
   const wpPending    = [...wpAngefragt, ...wpBestaetigt];
 
   // Buchungs-Kennzahlen
-  const provisionMonat  = (buchungenMonat ?? []).reduce((s, b) => s + Number(b.provision_betrag), 0);
-  const umsatzMonat     = (buchungenMonat ?? []).reduce((s, b) => s + Number(b.gesamtpreis), 0);
-  const provisionGesamt = (buchungenGesamt ?? []).reduce((s, b) => s + Number(b.provision_betrag), 0);
+  type BRow = { provision_betrag: number; gesamtpreis: number };
+  const provisionMonat  = (buchungenMonat as BRow[] ?? []).reduce((s, b) => s + Number(b.provision_betrag), 0);
+  const umsatzMonat     = (buchungenMonat as BRow[] ?? []).reduce((s, b) => s + Number(b.gesamtpreis), 0);
+  const provisionGesamt = (buchungenGesamt as BRow[] ?? []).reduce((s, b) => s + Number(b.provision_betrag), 0);
 
   // Sponsored
-  const sd        = sponsoredDeals ?? [];
+  type SdRow = { id: string; titel: string; status: string; impressionen: number | null; klicks: number | null; preis_monatlich: number | null };
+  const sd        = (sponsoredDeals as SdRow[] ?? []);
   const sdMrr     = sd.reduce((s, d) => s + Number(d.preis_monatlich ?? 0), 0);
   const sdImpr    = sd.reduce((s, d) => s + Number(d.impressionen ?? 0), 0);
 
@@ -204,7 +206,7 @@ export default async function AdminVermarktungPage() {
               {
                 icon: "📊",
                 label: "Marktplatz-Provision",
-                detail: `${(buchungenGesamt ?? []).length} Buchungen gesamt`,
+                detail: `${(buchungenGesamt as BRow[] ?? []).length} Buchungen gesamt`,
                 value: fmt(provisionGesamt),
                 href: "/admin/buchungen/",
                 sub: `${fmt(provisionMonat)} diesen Monat`,
