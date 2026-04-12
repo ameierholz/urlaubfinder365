@@ -29,6 +29,7 @@ const SEO_NAV = [
   { href: "/admin/seo/",          icon: FileText,  label: "Pages" },
   { href: "/admin/destinations/", icon: MapPin,    label: "Destinations" },
   { href: "/admin/magazin/",      icon: Newspaper, label: "Magazin" },
+  { href: "/admin/ratgeber/",     icon: FileText,  label: "Ratgeber" },
 ];
 
 const COMMAND_CENTER = [
