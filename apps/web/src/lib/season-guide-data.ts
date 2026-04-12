@@ -62,7 +62,7 @@ export const SEASON_GUIDES: SeasonGuide[] = [
     emoji: "🏂",
     headline: "Beste Reiseziele im Februar",
     lead: "Ski-Hochsaison, Karneval in Rio & karibische Sonne – der Februar ist vielseitiger, als man denkt.",
-    heroImage: "https://images.unsplash.com/photo-1551806235-6692b3b12b19?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1551524559-8af4e6624178?w=1920&q=80",
     seoTitle: `Beste Reiseziele im Februar ${YEAR} – Skiurlaub, Karneval & Karibik`,
     seoDescription: `Top-Reiseziele im Februar ${YEAR} ✓ Schneesichere Skigebiete ✓ Karibik-Sonne ✓ Karneval Rio & Venedig ✓ Wetter, Angebote & Tipps.`,
     weatherSummary: "Europa bleibt winterlich (Alpen: ideale Schneeverhältnisse). Karibik, Kanaren und Südostasien sind bei 25-30 °C ideal. In Brasilien und Venedig herrscht Karnevals-Hochsaison.",

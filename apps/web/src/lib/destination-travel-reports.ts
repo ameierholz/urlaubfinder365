@@ -37,7 +37,16 @@ export async function fetchDestinationTravelReports(
 
     if (error || !data) return [];
 
-    return data.map((r) => ({
+    // Deduplizierung: nur ein Bericht pro Titel (Demo-Daten enthalten oft Duplikate)
+    const seen = new Set<string>();
+    const unique = data.filter((r) => {
+      const key = (r.title as string) ?? "";
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    return unique.map((r) => ({
       id: r.id as string,
       displayName: (r.display_name as string) ?? "Reisender",
       title: (r.title as string) ?? "",

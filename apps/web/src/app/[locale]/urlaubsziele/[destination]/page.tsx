@@ -978,10 +978,10 @@ export default async function DestinationPage({ params }: Props) {
       </div>
 
       {/* Long-tail Suchbegriffe + Reisezeiten */}
-      <LongTailContentSection name={dest.name} slug={dest.slug} hasTiqets={!!dest.tiqetsCityId} />
+      <LongTailContentSection name={dest.name} slug={dest.slug} regionId={regionId} hasTiqets={!!dest.tiqetsCityId} />
 
       {/* Hub-and-Spoke interne Links */}
-      <DestinationHubLinks name={dest.name} />
+      <DestinationHubLinks name={dest.name} regionId={regionId} />
 
       {/* Ähnliche Urlaubsziele */}
       <RelatedDestinations currentSlug={dest.slug} country={dest.country} />

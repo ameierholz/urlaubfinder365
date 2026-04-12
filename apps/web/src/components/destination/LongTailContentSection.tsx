@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+
+const AGENT = "993243";
+const IBE_BASE = "https://ibe.specials.de/";
 
 interface Props {
   name: string;
   slug: string;
+  regionId?: string;
   hasTiqets?: boolean;
 }
 
@@ -13,13 +19,27 @@ const SEASONS = [
   { label: "Winter",   months: "Dez–Feb",   emoji: "❄️", query: "winter"   },
 ];
 
-export default function LongTailContentSection({ name, slug, hasTiqets }: Props) {
-  const quickLinks = [
-    { label: `${name} günstig buchen`,    href: `/guenstig-urlaub-buchen/` },
-    { label: `${name} Last Minute Deals`, href: `/last-minute/` },
-    { label: `${name} All Inclusive`,     href: `/urlaubsarten/all-inclusive-urlaub/` },
-    { label: `${name} Familienurlaub`,    href: `/urlaubsthemen/familienurlaub/` },
-    { label: `${name} Frühbucher`,        href: `/urlaubsarten/fruhbucher-urlaub/` },
+interface QuickLink {
+  label: string;
+  /** Wenn gesetzt → normaler Link statt Modal */
+  href?: string;
+  /** IBE-Parameter für das Reisemodal */
+  ibeParams?: Record<string, string>;
+}
+
+function openBooking(regionId: string, ibeParams: Record<string, string>, title: string) {
+  const p = new URLSearchParams({ agent: AGENT, adults: "2", duration: "7-7", regionId, ...ibeParams });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any).ibeOpenBooking?.(`${IBE_BASE}?${p.toString()}`, title);
+}
+
+export default function LongTailContentSection({ name, slug, regionId, hasTiqets }: Props) {
+  const quickLinks: QuickLink[] = [
+    { label: `${name} günstig buchen`,    ibeParams: { from: "14", to: "42" } },
+    { label: `${name} Last Minute Deals`, ibeParams: { from: "3", to: "21" } },
+    { label: `${name} All Inclusive`,      ibeParams: { boardCode: "AI" } },
+    { label: `${name} Familienurlaub`,     ibeParams: { from: "14", to: "42", children: "8,8" } },
+    { label: `${name} Frühbucher`,         ibeParams: { from: "60", to: "365" } },
     ...(hasTiqets ? [{ label: `${name} Aktivitäten & Touren`, href: `/aktivitaeten/${slug}/` }] : []),
   ];
 
@@ -49,16 +69,29 @@ export default function LongTailContentSection({ name, slug, hasTiqets }: Props)
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {quickLinks.map(({ label, href }) => (
-          <Link
-            key={label}
-            href={href}
-            className="flex items-center justify-between bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-3 rounded-lg transition-all group"
-          >
-            <span>{label}</span>
-            <span className="text-gray-300 group-hover:text-[#1db682] text-xs ml-2 shrink-0">→</span>
-          </Link>
-        ))}
+        {quickLinks.map(({ label, href, ibeParams }) =>
+          href ? (
+            <Link
+              key={label}
+              href={href}
+              className="flex items-center justify-between bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-3 rounded-lg transition-all group"
+            >
+              <span>{label}</span>
+              <span className="text-gray-300 group-hover:text-[#1db682] text-xs ml-2 shrink-0">→</span>
+            </Link>
+          ) : (
+            <button
+              key={label}
+              type="button"
+              onClick={() => regionId && ibeParams && openBooking(regionId, ibeParams, label)}
+              disabled={!regionId}
+              className="flex items-center justify-between bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-3 rounded-lg transition-all group text-left cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span>{label}</span>
+              <span className="text-gray-300 group-hover:text-[#1db682] text-xs ml-2 shrink-0">→</span>
+            </button>
+          )
+        )}
       </div>
     </div>
   );

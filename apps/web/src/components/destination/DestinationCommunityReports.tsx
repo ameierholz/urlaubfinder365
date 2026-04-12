@@ -88,24 +88,7 @@ export default function DestinationCommunityReports({
             </Link>
           </div>
         </>
-      ) : (
-        <div className="bg-linear-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-2xl p-8 text-center">
-          <div className="text-4xl mb-3">📝</div>
-          <h3 className="text-lg font-bold text-gray-900 mb-2">
-            Noch keine Reiseberichte zu {destinationName}
-          </h3>
-          <p className="text-sm text-gray-600 max-w-lg mx-auto mb-5">
-            Du warst in {destinationName}? Teile deine Highlights, Geheimtipps und
-            Empfehlungen mit der Community.
-          </p>
-          <Link
-            href={`/community/reiseberichte/neu?destination=${destinationSlug}`}
-            className="inline-flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
-          >
-            Reisebericht schreiben →
-          </Link>
-        </div>
-      )}
+      ) : null}
     </div>
   );
 }
