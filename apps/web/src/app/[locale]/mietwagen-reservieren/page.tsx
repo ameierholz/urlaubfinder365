@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=80";
+  "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80&auto=format";
 
 // ── Beliebte Mietwagen-Ziele ─────────────────────────────────────────────────
 const ZIELE = [
@@ -607,7 +607,7 @@ export default async function ({ params, searchParams }: {
           <div className="sticky top-24 pt-8">
             <RightSidebar
               extrasBox={{
-                image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&h=200&q=70",
+                image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                 eyebrow: "Tipp",
                 title: "Flug + Hotel + Mietwagen im Paket",
                 description: "Als Pauschalreise buchst du alles günstiger aus einer Hand.",

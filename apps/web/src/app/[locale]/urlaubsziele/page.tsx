@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: `🌍 Alle Urlaubsziele ${YEAR} – Pauschalreisen weltweit | Urlaubfinder365`,
     description: `50+ Urlaubsziele ${YEAR}: Pauschalreisen, All Inclusive & Last Minute nach Türkei, Mallorca, Griechenland, Ägypten, Thailand & mehr ✓ Jetzt vergleichen.`,
     url: `${BASE_URL}/urlaubsziele/`,
-    images: [{ url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=630&fit=crop&q=80", width: 1200, height: 630, alt: "Urlaubsziele weltweit" }],
+    images: [{ url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=630&fit=crop&q=80&auto=format", width: 1200, height: 630, alt: "Urlaubsziele weltweit" }],
   },
 };
 
@@ -376,7 +376,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <RightSidebar
                 dealRegionIds={[141, 149, 128, 171, 130, 4]}
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: t("sidebarEyebrow"),
                   title: t("sidebarTitle"),
                   description: t("sidebarDescription"),

@@ -46,7 +46,7 @@ export default async function ReisezieleIndexPage({ params }: { params: Promise<
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[420px] flex items-end">
         <Image
-          src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format"
           alt="Beste Reiseziele für jeden Monat"
           fill
           priority

@@ -9,7 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-dubai/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&h=630&fit=crop&q=80&auto=format";
 
 export const metadata: Metadata = {
   title: `🏙 Dubai Urlaubsführer ${YEAR} – Burj Khalifa, Wüste & Tipps`,

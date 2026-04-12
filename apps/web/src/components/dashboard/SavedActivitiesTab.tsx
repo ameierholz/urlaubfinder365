@@ -146,12 +146,12 @@ export default function SavedActivitiesTab({ user }: Props) {
               <div className="relative h-40 shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80"}
+                  src={img || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format"}
                   alt={a.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
+                      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format";
                   }}
                 />
                 {/* Trash button */}

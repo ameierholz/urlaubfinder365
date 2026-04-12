@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Strandurlaub günstig buchen – Traumhotels am Meer auf Urlaubfinder365",
@@ -40,16 +40,16 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Die türkische Riviera beheimatet einige der beeindruckendsten Sandstrände Europas: Lara Beach bei Antalya erstreckt sich über Kilometer feinen goldenen Sands, Side besticht durch sein einzigartiges Panorama zwischen antiken Ruinen und türkisblauem Meer, und Alanya trumpft mit einer dramatischen Felsenkulisse auf. Gepaart mit dem warmen Mittelmeerklima, exzellentem All-Inclusive-Angebot und günstigen Pauschalpreisen ist die Türkei die erste Wahl für den perfekten Strandurlaub.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=724" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Kristallklares Wasser und weiße Sandstrände auf Mallorca, Ibiza & Formentera.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100000" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"365 Tage Sommer: Traumstrände auf Fuerteventura, Teneriffa & Gran Canaria.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=851" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta, Rhodos & Korfu: türkisblaues Wasser und einsame Buchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&countryId=GR" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Mykonos, Santorini & Kos: traumhafte Buchten und azurblaues Ägäisches Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100002" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada & Marsa Alam: kristallklares Rotes Meer mit Korallenriffen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=651" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Kuba, Mexiko & Dominikanische Republik: endlose weiße Traumstrände.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100017" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phi Phi, Phuket & Samui: tropische Strände inmitten üppiger Natur.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100220" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: wilde Atlantikstrände mit imposanten Felsenformationen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=725" },
-  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80", teaser:"Sardinien: das klarste Wasser Europas und fast unberührte Sandstrände.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&countryId=IT" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Die türkische Riviera beheimatet einige der beeindruckendsten Sandstrände Europas: Lara Beach bei Antalya erstreckt sich über Kilometer feinen goldenen Sands, Side besticht durch sein einzigartiges Panorama zwischen antiken Ruinen und türkisblauem Meer, und Alanya trumpft mit einer dramatischen Felsenkulisse auf. Gepaart mit dem warmen Mittelmeerklima, exzellentem All-Inclusive-Angebot und günstigen Pauschalpreisen ist die Türkei die erste Wahl für den perfekten Strandurlaub.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=724" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Kristallklares Wasser und weiße Sandstrände auf Mallorca, Ibiza & Formentera.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100000" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"365 Tage Sommer: Traumstrände auf Fuerteventura, Teneriffa & Gran Canaria.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=851" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta, Rhodos & Korfu: türkisblaues Wasser und einsame Buchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&countryId=GR" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Mykonos, Santorini & Kos: traumhafte Buchten und azurblaues Ägäisches Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100002" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada & Marsa Alam: kristallklares Rotes Meer mit Korallenriffen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=651" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Kuba, Mexiko & Dominikanische Republik: endlose weiße Traumstrände.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100017" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phi Phi, Phuket & Samui: tropische Strände inmitten üppiger Natur.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=100220" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: wilde Atlantikstrände mit imposanten Felsenformationen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&regionId=725" },
+  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80&auto=format", teaser:"Sardinien: das klarste Wasser Europas und fast unberührte Sandstrände.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=65&countryId=IT" },
 ];
 
 const FAQ = [
@@ -117,7 +117,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&auto=format&fit=crop"
           alt="Strandurlaub am schönsten Meer der Welt"
           fill
           priority

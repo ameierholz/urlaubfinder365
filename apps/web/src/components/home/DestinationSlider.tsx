@@ -15,16 +15,16 @@ export interface SliderDestination {
 }
 
 const DESTINATIONS_STATIC = [
-  { key: "tuerkei",       slug: "tuerkei",           flagCode: "tr", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", labelColor: "bg-sand-500" },
-  { key: "mallorca",      slug: "balearen",          flagCode: "es", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", labelColor: "bg-blue-500" },
-  { key: "griechenland",  slug: "griechische-inseln", flagCode: "gr", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", labelColor: "" },
-  { key: "aegypten",      slug: "aegypten",          flagCode: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=80", labelColor: "bg-green-500" },
-  { key: "kreta",         slug: "kreta",             flagCode: "gr", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80", labelColor: "" },
-  { key: "portugal",      slug: "portugal",          flagCode: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", labelColor: "" },
-  { key: "italien",       slug: "italien",           flagCode: "it", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80", labelColor: "" },
-  { key: "tunesien",      slug: "tunesien",          flagCode: "tn", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80", labelColor: "bg-red-500" },
-  { key: "usa",           slug: "usa-ostkueste",     flagCode: "us", img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80", labelColor: "" },
-  { key: "malediven",     slug: "indischer-ozean",   flagCode: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80", labelColor: "bg-purple-500" },
+  { key: "tuerkei",       slug: "tuerkei",           flagCode: "tr", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", labelColor: "bg-sand-500" },
+  { key: "mallorca",      slug: "balearen",          flagCode: "es", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", labelColor: "bg-blue-500" },
+  { key: "griechenland",  slug: "griechische-inseln", flagCode: "gr", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", labelColor: "" },
+  { key: "aegypten",      slug: "aegypten",          flagCode: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=80&auto=format", labelColor: "bg-green-500" },
+  { key: "kreta",         slug: "kreta",             flagCode: "gr", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80&auto=format", labelColor: "" },
+  { key: "portugal",      slug: "portugal",          flagCode: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", labelColor: "" },
+  { key: "italien",       slug: "italien",           flagCode: "it", img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=600&q=80&auto=format", labelColor: "" },
+  { key: "tunesien",      slug: "tunesien",          flagCode: "tn", img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80&auto=format", labelColor: "bg-red-500" },
+  { key: "usa",           slug: "usa-ostkueste",     flagCode: "us", img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80&auto=format", labelColor: "" },
+  { key: "malediven",     slug: "indischer-ozean",   flagCode: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80&auto=format", labelColor: "bg-purple-500" },
 ];
 
 export default function DestinationSlider() {

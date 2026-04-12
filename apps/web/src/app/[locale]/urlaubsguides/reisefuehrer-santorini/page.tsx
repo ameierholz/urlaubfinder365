@@ -9,7 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-santorini/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1618478669118-1b3eb2b2bb95?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1618478669118-1b3eb2b2bb95?w=1200&h=630&fit=crop&q=80&auto=format";
 
 export const metadata: Metadata = {
   title: `🌅 Santorini Urlaubsführer ${YEAR} – Oia, Vulkan & Tipps`,

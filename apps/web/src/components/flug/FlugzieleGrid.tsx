@@ -10,18 +10,18 @@ interface Ziel {
 }
 
 const ZIELE: Ziel[] = [
-  { cc: "tr", iata: "AYT", name: "Antalya",   photo: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" },
-  { cc: "es", iata: "PMI", name: "Mallorca",  photo: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80" },
-  { cc: "gr", iata: "HER", name: "Kreta",     photo: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80" },
-  { cc: "gr", iata: "ATH", name: "Athen",     photo: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80" },
-  { cc: "es", iata: "BCN", name: "Barcelona", photo: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80" },
-  { cc: "ae", iata: "DXB", name: "Dubai",     photo: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" },
-  { cc: "th", iata: "BKK", name: "Bangkok",   photo: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=600&q=80" },
-  { cc: "us", iata: "JFK", name: "New York",  photo: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80" },
-  { cc: "pt", iata: "LIS", name: "Lissabon",  photo: "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=600&q=80" },
-  { cc: "it", iata: "FCO", name: "Rom",       photo: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80" },
-  { cc: "fr", iata: "CDG", name: "Paris",     photo: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" },
-  { cc: "id", iata: "DPS", name: "Bali",      photo: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" },
+  { cc: "tr", iata: "AYT", name: "Antalya",   photo: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format" },
+  { cc: "es", iata: "PMI", name: "Mallorca",  photo: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format" },
+  { cc: "gr", iata: "HER", name: "Kreta",     photo: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format" },
+  { cc: "gr", iata: "ATH", name: "Athen",     photo: "https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format" },
+  { cc: "es", iata: "BCN", name: "Barcelona", photo: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80&auto=format" },
+  { cc: "ae", iata: "DXB", name: "Dubai",     photo: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format" },
+  { cc: "th", iata: "BKK", name: "Bangkok",   photo: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=600&q=80&auto=format" },
+  { cc: "us", iata: "JFK", name: "New York",  photo: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600&q=80&auto=format" },
+  { cc: "pt", iata: "LIS", name: "Lissabon",  photo: "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?w=600&q=80&auto=format" },
+  { cc: "it", iata: "FCO", name: "Rom",       photo: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80&auto=format" },
+  { cc: "fr", iata: "CDG", name: "Paris",     photo: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80&auto=format" },
+  { cc: "id", iata: "DPS", name: "Bali",      photo: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80&auto=format" },
 ];
 
 // 5 größte deutsche Abflughäfen

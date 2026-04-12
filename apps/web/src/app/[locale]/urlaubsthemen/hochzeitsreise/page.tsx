@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Hochzeitsreise günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Kaum ein Ort der Welt lässt Herzen so höher schlagen wie Santorini und Mykonos: Die ikonischen weißgetünchten Caldera-Häuser, die in das tiefblaue Ägäische Meer hinabblicken, der legendäre Sonnenuntergang über Oia und die exklusiven Boutique-Hotels mit privatem Infinity-Pool machen die griechischen Inseln zur ersten Wahl für Flitterwochen. Hier beginnt das gemeinsame Leben mit einem Kapitel, das man sein Leben lang nicht vergisst.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100002&keywords=ado" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Mallorca & Formentera: romantische Buchten und exklusive Boutique-Hotels.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100000&keywords=ado" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Koh Samui: private Strandbungalows und romantische Sonnenuntergänge.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100220&keywords=ado" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Jamaika & Kuba: Flitterwochen in All-Inclusive-Resorts nur für Erwachsene.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100017&keywords=ado" },
-  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80", teaser:"Dubai: unvergessliche Hochzeitsreise in den ikonischsten Hotels der Welt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=650&keywords=ado" },
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Bodrum & Çeşme: romantische Ägäis-Resorts mit Kerzenlicht-Dinner am Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=724&keywords=ado" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: romantische Hochzeitsnächte direkt am türkisblauen Mittelmeer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&countryId=GR&keywords=ado" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: exklusive Klippenhotels für einen romantischen Start zu zweit.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=725&keywords=ado" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Kaum ein Ort der Welt lässt Herzen so höher schlagen wie Santorini und Mykonos: Die ikonischen weißgetünchten Caldera-Häuser, die in das tiefblaue Ägäische Meer hinabblicken, der legendäre Sonnenuntergang über Oia und die exklusiven Boutique-Hotels mit privatem Infinity-Pool machen die griechischen Inseln zur ersten Wahl für Flitterwochen. Hier beginnt das gemeinsame Leben mit einem Kapitel, das man sein Leben lang nicht vergisst.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100002&keywords=ado" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Mallorca & Formentera: romantische Buchten und exklusive Boutique-Hotels.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100000&keywords=ado" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Koh Samui: private Strandbungalows und romantische Sonnenuntergänge.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100220&keywords=ado" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Jamaika & Kuba: Flitterwochen in All-Inclusive-Resorts nur für Erwachsene.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100017&keywords=ado" },
+  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format", teaser:"Dubai: unvergessliche Hochzeitsreise in den ikonischsten Hotels der Welt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=650&keywords=ado" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Bodrum & Çeşme: romantische Ägäis-Resorts mit Kerzenlicht-Dinner am Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=724&keywords=ado" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: romantische Hochzeitsnächte direkt am türkisblauen Mittelmeer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&countryId=GR&keywords=ado" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: exklusive Klippenhotels für einen romantischen Start zu zweit.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=725&keywords=ado" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80&auto=format&fit=crop"
           alt="Hochzeitsreise – Romantische Flitterwochen"
           fill
           priority

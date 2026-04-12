@@ -245,7 +245,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="sticky top-24">
           <RightSidebar
             extrasBox={{
-              image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+              image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
               eyebrow: t("sidebarEyebrow"),
               title: t("sidebarTitle"),
               description: t("sidebarDescription"),

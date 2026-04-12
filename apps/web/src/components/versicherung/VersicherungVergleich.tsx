@@ -19,7 +19,7 @@ function ErvModal({ onClose }: { onClose: () => void }) {
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format"
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover"

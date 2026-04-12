@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Abenteuerurlaub günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Die türkische Riviera ist weit mehr als Sandstrand und Sonne – das Taurusgebirge direkt hinter Antalya bietet atemberaubendes Canyoning, Wildwasser-Rafting und Paragliding von Ölüdeniz mit Blick auf das türkisblaue Mittelmeer. Erfahrene Guides führen Gruppen durch schmale Schluchten, über Kletterpfade und bei aufregenden Jeep-Safaris durchs anatolische Hochland. Wer Abenteuer mit Komfort verbinden möchte, findet in der Türkei das perfekte Preis-Leistungs-Verhältnis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta: Schluchten-Wanderungen, Klettern und Meereshöhlen-Abenteuer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&countryId=GR" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Chiang Mai: Tauchen, Klettern, Elefanten-Trekkings und Dschungel-Touren.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100220" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada & Sharm el-Sheikh: Tauchen und Schnorcheln im Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=651" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Lanzarote & La Palma: Vulkanwanderungen, Surfspots und Steilklippen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=851" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Ibiza & Mallorca: Klettersteige, Seakayaking und Canyoning in wilden Schluchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100000" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Kuba & Mexiko: Höhlentauchen, Ziplining und Dschungel-Expeditionen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100017" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: Wellenreiten, Klettern an Klippen und Kajakfahren an der Felsküste.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=725" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Die türkische Riviera ist weit mehr als Sandstrand und Sonne – das Taurusgebirge direkt hinter Antalya bietet atemberaubendes Canyoning, Wildwasser-Rafting und Paragliding von Ölüdeniz mit Blick auf das türkisblaue Mittelmeer. Erfahrene Guides führen Gruppen durch schmale Schluchten, über Kletterpfade und bei aufregenden Jeep-Safaris durchs anatolische Hochland. Wer Abenteuer mit Komfort verbinden möchte, findet in der Türkei das perfekte Preis-Leistungs-Verhältnis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta: Schluchten-Wanderungen, Klettern und Meereshöhlen-Abenteuer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&countryId=GR" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Chiang Mai: Tauchen, Klettern, Elefanten-Trekkings und Dschungel-Touren.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100220" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada & Sharm el-Sheikh: Tauchen und Schnorcheln im Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=651" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Lanzarote & La Palma: Vulkanwanderungen, Surfspots und Steilklippen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=851" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Ibiza & Mallorca: Klettersteige, Seakayaking und Canyoning in wilden Schluchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100000" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Kuba & Mexiko: Höhlentauchen, Ziplining und Dschungel-Expeditionen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100017" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: Wellenreiten, Klettern an Klippen und Kajakfahren an der Felsküste.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=725" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80&auto=format&fit=crop"
           alt="Abenteuerurlaub – Outdoor & Erlebnisreisen"
           fill
           priority

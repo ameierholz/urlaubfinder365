@@ -9,7 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-gran-canaria/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1692697936225-249a57ad0e5c?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1692697936225-249a57ad0e5c?w=1200&h=630&fit=crop&q=80&auto=format";
 
 export const metadata: Metadata = {
   title: `🏜 Gran Canaria Urlaubsführer ${YEAR} – Dünen, Strände & Tipps`,

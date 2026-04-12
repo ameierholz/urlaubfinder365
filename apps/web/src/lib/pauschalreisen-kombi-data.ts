@@ -34,7 +34,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Türkei ${YEAR} günstig buchen`,
     seoTitle: `Pauschalreisen Türkei ${YEAR} – günstig buchen | Urlaubfinder365`,
     seoDescription: `Pauschalreisen Türkei ${YEAR} günstig buchen ✓ Antalya, Side, Alanya ✓ All Inclusive ab 350€ ✓ 50+ Veranstalter ✓ Täglich aktualisierte Angebote.`,
-    heroImage: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800&q=80&auto=format",
     lead: "Die Türkei zählt zu den Top-Destinationen für preisgünstige Pauschalreisen: Traumstrände, 4-Sterne-All-Inclusive-Resorts und garantierte Sonne von Mai bis Oktober.",
     longDescription: "Pauschalreisen in die Türkei sind seit Jahrzehnten der Klassiker für den sorgenfreien Badeurlaub. Die türkische Riviera rund um Antalya, Side, Belek und Alanya bietet ein unschlagbares Preis-Leistungs-Verhältnis: Schon ab 350 € pro Person gibt es All-Inclusive in 4-Sterne-Hotels direkt am Strand. Die Hauptsaison erstreckt sich von Mai bis Oktober, wobei Juli und August die heißesten Monate sind. Mai, Juni und September gelten als ideal – bei 25-30°C und günstigeren Preisen.",
     highlights: [
@@ -63,7 +63,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `All Inclusive Türkei ${YEAR} – Pauschalreisen mit Verpflegung`,
     seoTitle: `All Inclusive Türkei ${YEAR} günstig – Pauschalreisen | Urlaubfinder365`,
     seoDescription: `All Inclusive Türkei ${YEAR} günstig buchen ✓ Antalya, Side, Belek ✓ Ab 400€ pro Person ✓ 4-5 Sterne ✓ Täglich aktuelle Angebote.`,
-    heroImage: "https://images.unsplash.com/photo-1596392927852-2a18c336fb78?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1596392927852-2a18c336fb78?w=800&q=80&auto=format",
     lead: "Alles inklusive – von Frühstück bis Cocktails an der Poolbar. Die Türkei ist das Land der All-Inclusive-Resorts mit unschlagbarem Preis-Leistungs-Verhältnis.",
     longDescription: "All-Inclusive-Pauschalreisen in die Türkei sind der Klassiker für sorgenfreien Urlaub. In den meisten 4- und 5-Sterne-Hotels ist das komplette Verpflegungskonzept inklusive: Frühstück, Mittagessen, Abendessen, Snacks, alkoholische und alkoholfreie Getränke. Viele Resorts bieten sogar 'Ultra All-Inclusive' mit Minibar, Premium-Alkoholika und à-la-carte-Restaurants ohne Aufpreis. Die Türkei ist damit ideal für Familien, die ohne Budget-Stress Urlaub machen wollen.",
     highlights: [
@@ -90,7 +90,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Ägypten ${YEAR} – Hurghada & Rotes Meer`,
     seoTitle: `Pauschalreisen Ägypten ${YEAR} günstig – Hurghada, Marsa Alam`,
     seoDescription: `Pauschalreisen Ägypten ${YEAR} günstig buchen ✓ Hurghada ✓ Rotes Meer ✓ All Inclusive ab 400€ ✓ Ganzjährig warm ✓ Top-Schnorchelgebiete.`,
-    heroImage: "https://images.unsplash.com/photo-1601048902898-2f9a48c33b8e?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1601048902898-2f9a48c33b8e?w=800&q=80&auto=format",
     lead: "Ägypten bietet das ganze Jahr über warmes Badewetter, traumhafte Korallenriffe und unschlagbare All-Inclusive-Preise – ideal für Tauch-Fans und Sonnenanbeter.",
     longDescription: "Ägypten zählt zu den Ganzjahres-Zielen für Pauschalreisen: Das Rote Meer in Hurghada, Marsa Alam und Sharm el-Sheikh bietet selbst im europäischen Winter angenehme 22-25 °C und lädt zum Baden, Schnorcheln und Tauchen ein. Die Korallenriffe zählen zu den schönsten der Welt und sind direkt vor der Hoteltür erreichbar. All-Inclusive-Pauschalreisen starten bereits ab 400 € pro Person – auch in der Hauptsaison günstiger als viele europäische Ziele.",
     highlights: [
@@ -117,7 +117,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Mallorca ${YEAR} – der Klassiker`,
     seoTitle: `Pauschalreisen Mallorca ${YEAR} günstig – Flug & Hotel`,
     seoDescription: `Pauschalreisen Mallorca ${YEAR} günstig buchen ✓ Palma, Alcudia, Cala Millor ✓ Ab 450€ ✓ Tägliche Flüge ✓ Top-Hotels & Ferienwohnungen.`,
-    heroImage: "https://images.unsplash.com/photo-1580974852861-efd0cb71aa50?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1580974852861-efd0cb71aa50?w=800&q=80&auto=format",
     lead: "Mallorca ist und bleibt die Lieblingsinsel der Deutschen – mit kurzen Flugzeiten, traumhaften Stränden und einer einzigartigen Mischung aus Erholung und Nachtleben.",
     longDescription: "Mallorca ist Deutschlands beliebtestes Pauschalreise-Ziel – und das aus gutem Grund. Die größte Baleareninsel bietet alles: traumhafte Sandstrände (Es Trenc, Playa de Muro), kristallklares Wasser, über 300 Sonnentage, kurze Flugzeiten von nur 2-2,5 Stunden und eine perfekte Infrastruktur. Ob Familie, Paar oder Party-Urlauber – jeder findet hier seinen Platz. Pauschalreisen starten ab 450 € pro Person inklusive Flug und Hotel.",
     highlights: [
@@ -144,7 +144,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Griechenland ${YEAR} – Inseln & Festland`,
     seoTitle: `Pauschalreisen Griechenland ${YEAR} günstig – Kreta, Rhodos, Kos`,
     seoDescription: `Pauschalreisen Griechenland ${YEAR} günstig buchen ✓ Kreta, Rhodos, Kos, Korfu ✓ Ab 400€ ✓ Mediterranes Flair & traumhafte Strände.`,
-    heroImage: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80&auto=format",
     lead: "Sonne, Meer, antike Kultur und griechische Gastfreundschaft – Pauschalreisen nach Griechenland bieten pures mediterranes Lebensgefühl.",
     longDescription: "Griechenland ist mit seinen unzähligen Inseln ein Paradies für Pauschalreisende. Die größten Inseln Kreta, Rhodos, Kos und Korfu sind direkt mit Charterflügen erreichbar und bieten eine einzigartige Mischung aus Badeurlaub und Kulturerleben. Antike Stätten, malerische Fischerdörfer und traumhafte Buchten mit türkisblauem Wasser machen jeden Urlaub unvergesslich. All-Inclusive-Angebote starten ab 400 € pro Person.",
     highlights: [
@@ -171,7 +171,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Kanaren ${YEAR} – Ganzjahres-Urlaub`,
     seoTitle: `Pauschalreisen Kanaren ${YEAR} günstig – Teneriffa, Gran Canaria`,
     seoDescription: `Pauschalreisen Kanaren ${YEAR} günstig buchen ✓ Teneriffa, Gran Canaria, Fuerteventura ✓ Ganzjahres-Sonne ✓ All Inclusive ab 450€.`,
-    heroImage: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80&auto=format",
     lead: "Ewiger Frühling auf den Kanarischen Inseln: Das ideale Reiseziel für alle, die auch im Winter Sonne tanken wollen.",
     longDescription: "Die Kanarischen Inseln bieten ganzjährig mildes Klima mit 20-25 °C – der perfekte Ort, um dem deutschen Winter zu entfliehen. Teneriffa, Gran Canaria, Fuerteventura und Lanzarote sind jeweils mit Charterflügen direkt erreichbar und bieten ein breites Hotelangebot in allen Preisklassen. Vulkanlandschaften, kilometerlange Sandstrände und stabiles Klima machen die Kanaren zu einem Ganzjahres-Hit.",
     highlights: [
@@ -198,7 +198,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Türkei unter 500 € – günstige Pauschalreisen ${YEAR}`,
     seoTitle: `Türkei Pauschalreise unter 500€ ${YEAR} – All Inclusive Deals`,
     seoDescription: `Türkei Pauschalreisen unter 500€ ${YEAR} ✓ All Inclusive möglich ✓ Antalya, Side, Alanya ✓ Tägliche Deals ✓ Flug + Hotel + Transfer.`,
-    heroImage: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800&q=80&auto=format",
     lead: "Sonne, Strand und All-Inclusive für unter 500 € – in der Türkei machbar. Wir zeigen dir die besten Angebote.",
     longDescription: "Budget-Reisende können in der Türkei besonders viel Urlaub für ihr Geld bekommen. Pauschalreisen mit Flug, Hotel und Transfer gibt es regelmäßig unter 500 € pro Person – und das oft sogar mit All-Inclusive-Verpflegung. Die besten Schnäppchen findet man in der Nebensaison (Mai, September, Oktober) oder als Last-Minute-Deal 2-4 Wochen vor Abreise.",
     highlights: [
@@ -226,7 +226,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `All Inclusive Ägypten unter 1000 € – Top-Deals ${YEAR}`,
     seoTitle: `All Inclusive Ägypten unter 1000€ ${YEAR} – Pauschalreisen Hurghada`,
     seoDescription: `All Inclusive Ägypten ${YEAR} unter 1000€ pro Person ✓ 4-5 Sterne Resorts ✓ Hurghada, Marsa Alam ✓ Täglich aktuelle Angebote.`,
-    heroImage: "https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800&q=80&auto=format",
     lead: "Ägypten All Inclusive unter 1000 € – wir zeigen dir, wie du in 4- oder 5-Sterne-Resorts am Roten Meer urlaubst, ohne das Budget zu sprengen.",
     longDescription: "Für unter 1000 € pro Person bekommst du in Ägypten bereits hochwertige 4- und 5-Sterne All-Inclusive-Pauschalreisen. Die Resorts am Roten Meer (Hurghada, Marsa Alam, Sharm el-Sheikh) bieten exzellentes Preis-Leistungs-Verhältnis: direkte Strandlage, Top-Schnorchelgebiete, mehrere Pools und abwechslungsreiche Verpflegung. Selbst in der Hauptsaison sind solche Deals realistisch – in der Nebensaison oft sogar unter 600 €.",
     highlights: [
@@ -252,7 +252,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Spanien ${YEAR} – Balearen, Kanaren & Festland`,
     seoTitle: `Pauschalreisen Spanien ${YEAR} – Mallorca, Kanaren, Costa del Sol`,
     seoDescription: `Pauschalreisen Spanien ${YEAR} günstig buchen ✓ Mallorca, Ibiza, Kanaren ✓ Costa del Sol ✓ Ab 350€ ✓ Täglich aktualisierte Angebote.`,
-    heroImage: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80&auto=format",
     lead: "Spanien ist das meistbesuchte Pauschalreise-Land der Deutschen – und das aus gutem Grund: abwechslungsreiche Regionen, fantastisches Essen und garantierte Sonne.",
     longDescription: "Kaum ein Land bietet so viel Vielfalt wie Spanien: Die Balearen (Mallorca, Ibiza, Menorca) locken mit Traumstränden und Partys, die Kanaren mit ganzjährigem Sommer, und das Festland (Costa Brava, Costa del Sol, Costa Dorada) mit historischen Städten und Kultur. Pauschalreisen in diese Regionen starten bei 350-450 € pro Person und sind mit kurzen Flugzeiten (2-5 Stunden) perfekt erreichbar.",
     highlights: [
@@ -278,7 +278,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Italien ${YEAR} – La Dolce Vita`,
     seoTitle: `Pauschalreisen Italien ${YEAR} – Sardinien, Sizilien, Gardasee`,
     seoDescription: `Pauschalreisen Italien ${YEAR} günstig buchen ✓ Sardinien, Sizilien ✓ Gardasee ✓ Ab 450€ ✓ Täglich aktuelle Angebote & Flüge.`,
-    heroImage: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80&auto=format",
     lead: "Italien vereint alles, was einen perfekten Urlaub ausmacht: traumhafte Küsten, exzellente Küche, antike Städte und mediterranes Lebensgefühl.",
     longDescription: "Pauschalreisen nach Italien bringen dich in die schönsten Küstenregionen des Stiefel-Landes. Sardinien besticht durch karibisch anmutende Strände und kristallklares Wasser. Sizilien bietet eine Mischung aus antiken Stätten, Vulkanen und griechisch-arabischer Geschichte. Für Familien ist der Gardasee ideal: milde Temperaturen, viele Aktivitäten und die Alpen als Kulisse. Flugzeiten betragen 1,5-2,5 Stunden.",
     highlights: [
@@ -304,7 +304,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Pauschalreisen Thailand ${YEAR} – Fernreise-Träume`,
     seoTitle: `Pauschalreisen Thailand ${YEAR} – Phuket, Khao Lak, Koh Samui`,
     seoDescription: `Pauschalreisen Thailand ${YEAR} ab 1100€ ✓ Phuket, Khao Lak, Koh Samui ✓ 4-5 Sterne ✓ Traumstrände ✓ Fernreise-Deals.`,
-    heroImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80&auto=format",
     lead: "Weiße Strände, tropisches Klima und buddhistische Tempel – Thailand ist die perfekte Fernreise-Destination für Pauschalurlauber.",
     longDescription: "Thailand bietet auch im Pauschalreise-Segment unschlagbare Qualität: Luxuriöse 4- und 5-Sterne-Resorts an Traumstränden in Phuket, Khao Lak oder Koh Samui sind oft günstiger als vergleichbare Hotels in der Karibik. Die beste Reisezeit ist November bis März (Trockenzeit). Flugzeiten betragen 10-12 Stunden ab Deutschland. Pauschalreisen mit Flug und Hotel starten bei etwa 1100 € pro Person.",
     highlights: [
@@ -332,7 +332,7 @@ export const PAUSCHAL_KOMBIS: PauschalKombi[] = [
     h1: `Last Minute Türkei ${YEAR} – spontan & günstig`,
     seoTitle: `Last Minute Türkei ${YEAR} – günstige Pauschalreisen kurzfristig`,
     seoDescription: `Last Minute Türkei ${YEAR} ✓ Pauschalreisen kurzfristig ✓ Antalya, Side, Alanya ✓ All Inclusive ✓ Ab 300€ ✓ Täglich neue Schnäppchen.`,
-    heroImage: "https://images.unsplash.com/photo-1596392927852-2a18c336fb78?w=1920&q=80",
+    heroImage: "https://images.unsplash.com/photo-1596392927852-2a18c336fb78?w=800&q=80&auto=format",
     lead: "Spontan in die Sonne: Last-Minute-Deals in die Türkei sind regelmäßig 30-50 % günstiger als Frühbucher-Angebote.",
     longDescription: "Wer spontan und flexibel ist, kann bei Last-Minute-Reisen in die Türkei ordentlich sparen. Die besten Schnäppchen gibt es 2-4 Wochen vor Abflug: All-Inclusive-Pauschalreisen in 4-Sterne-Hotels bereits ab 300 € pro Person. Die Veranstalter reduzieren kurz vor Abreise die Preise, um Restplätze zu füllen. Ideal für spontane Urlaubsentscheidungen oder Last-Minute-Stornos.",
     highlights: [

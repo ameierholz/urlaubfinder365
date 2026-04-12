@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Günstig Urlaub buchen – Strandurlaub Deals auf Urlaubfinder365",
@@ -86,7 +86,7 @@ export default async function ({ params, searchParams }: {
       ═══════════════════════════════════════════════════════════════════ */}
       <div
         className="text-white relative overflow-hidden bg-cover bg-center -mt-20 pt-20"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1920&q=80')" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80')" }}
       >
         {/* Gradient-Overlay für Lesbarkeit */}
         <div
@@ -253,7 +253,7 @@ export default async function ({ params, searchParams }: {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
             <div className="relative rounded-3xl overflow-hidden h-64 sm:h-80 mb-6 shadow-lg">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1400&q=85" alt="Türkei" className="w-full h-full object-cover" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=85&auto=format" alt="Türkei" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent" />
               <Link href="/urlaubsziele/tuerkei/" className="absolute top-4 right-4 bg-white/90 hover:bg-white text-[#00838F] text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors">
                 {t("tuerkeiAllAngebote")}
@@ -289,7 +289,7 @@ export default async function ({ params, searchParams }: {
               <div className="lg:w-5/12 shrink-0">
                 <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-55 shadow-md">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=85" alt="Spanien" className="w-full h-full object-cover" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=85&auto=format" alt="Spanien" className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://flagcdn.com/w40/es.png" width="28" height="21" alt="Spanien" className="absolute bottom-4 left-4 rounded shadow" />
@@ -349,7 +349,7 @@ export default async function ({ params, searchParams }: {
               <div className="sm:w-64 lg:w-80 shrink-0">
                 <div className="relative rounded-2xl overflow-hidden h-44 sm:h-52 shadow-lg">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=85" alt="Griechenland" className="w-full h-full object-cover" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=85&auto=format" alt="Griechenland" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -362,7 +362,7 @@ export default async function ({ params, searchParams }: {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2">
             <div className="relative rounded-3xl overflow-hidden h-56 sm:h-72 mb-6 shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1400&q=85" alt="Ägypten" className="w-full h-full object-cover object-center" loading="lazy" />
+              <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=85&auto=format" alt="Ägypten" className="w-full h-full object-cover object-center" loading="lazy" />
               <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/40 to-black/80" />
               <Link href="/urlaubsziele/aegypten/" className="absolute top-4 right-4 bg-amber-400/90 hover:bg-amber-400 text-amber-950 text-xs font-bold px-3.5 py-1.5 rounded-full shadow transition-colors">
                 Alle Ägypten-Angebote →
@@ -398,7 +398,7 @@ export default async function ({ params, searchParams }: {
               <div className="lg:w-5/12 shrink-0">
                 <div className="relative rounded-2xl overflow-hidden h-52 lg:h-full min-h-55 shadow-md">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=85" alt="Italien" className="w-full h-full object-cover" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=85&auto=format" alt="Italien" className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="https://flagcdn.com/w40/it.png" width="28" height="21" alt="Italien" className="absolute bottom-4 right-4 rounded shadow" />

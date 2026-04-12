@@ -15,18 +15,18 @@ import {
 /* ── Preset cover images ────────────────────────────────────────────────── */
 
 const PRESET_IMAGES = [
-  { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80", label: "Strand & Meer" },
-  { url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=800&q=80", label: "Türkei" },
-  { url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80", label: "Mallorca" },
-  { url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80", label: "Griechenland" },
-  { url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", label: "Ägypten" },
-  { url: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80", label: "Barcelona" },
-  { url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80", label: "Abenteuer" },
-  { url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80", label: "Solo-Urlaub" },
-  { url: "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&q=80", label: "Familie" },
-  { url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80", label: "All-Inclusive" },
-  { url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80", label: "Berge & Natur" },
-  { url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=80", label: "Städtereise" },
+  { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&auto=format", label: "Strand & Meer" },
+  { url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=800&q=80&auto=format", label: "Türkei" },
+  { url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80&auto=format", label: "Mallorca" },
+  { url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80&auto=format", label: "Griechenland" },
+  { url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80&auto=format", label: "Ägypten" },
+  { url: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80&auto=format", label: "Barcelona" },
+  { url: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80&auto=format", label: "Abenteuer" },
+  { url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80&auto=format", label: "Solo-Urlaub" },
+  { url: "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=800&q=80&auto=format", label: "Familie" },
+  { url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80&auto=format", label: "All-Inclusive" },
+  { url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80&auto=format", label: "Berge & Natur" },
+  { url: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=800&q=80&auto=format", label: "Städtereise" },
 ];
 
 const CATEGORY_OPTIONS: { value: GroupCategory; label: string; emoji: string; hint: string }[] = [

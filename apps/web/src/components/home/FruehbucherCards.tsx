@@ -35,10 +35,10 @@ const LABELS: Record<string, { dest: string; flag: string }> = {
 };
 
 const FALLBACKS = [
-  { dest: "Türkei",       flag: "tr", regionId: "149", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75" },
-  { dest: "Ägypten",      flag: "eg", regionId: "560", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=75" },
-  { dest: "Griechenland", flag: "gr", regionId: "46",  img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=75" },
-  { dest: "Spanien",      flag: "es", regionId: "133", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=75" },
+  { dest: "Türkei",       flag: "tr", regionId: "149", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75&auto=format" },
+  { dest: "Ägypten",      flag: "eg", regionId: "560", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=75&auto=format" },
+  { dest: "Griechenland", flag: "gr", regionId: "46",  img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=75&auto=format" },
+  { dest: "Spanien",      flag: "es", regionId: "133", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=75&auto=format" },
 ];
 
 function getLabel(offer: TravelOffer) {

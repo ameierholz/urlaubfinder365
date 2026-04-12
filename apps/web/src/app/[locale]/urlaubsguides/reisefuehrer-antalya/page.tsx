@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: CANONICAL,
     type: "article",
     images: [{
-      url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80",
+      url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80&auto=format",
       width: 1200,
       height: 630,
       alt: `Antalya Türkei – Urlaubsführer ${YEAR}`,
@@ -51,7 +51,7 @@ const jsonLd = {
         "name": "Urlaubfinder365",
         "logo": { "@type": "ImageObject", "url": `${BASE_URL}/images/header_logo.webp` },
       },
-      "image": "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80",
+      "image": "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&h=630&fit=crop&q=80&auto=format",
       "about": {
         "@type": "TouristDestination",
         "name": "Antalya",

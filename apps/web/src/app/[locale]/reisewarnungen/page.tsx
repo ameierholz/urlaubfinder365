@@ -85,7 +85,7 @@ export default async function ReisewarnungenPage({
       <section className="relative text-white py-16 px-4 overflow-hidden" style={{ minHeight: 360 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1600&h=500&q=70"
+          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&h=500&q=70&auto=format"
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -138,7 +138,7 @@ export default async function ReisewarnungenPage({
             <div className="sticky top-24">
               <RightSidebar
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: "Absicherung",
                   title: "Reiseversicherung vergleichen",
                   description: "Bei einer Reisewarnung kann eine Reiserücktrittsversicherung Stornokosten erstatten.",

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Budget-bis-500 günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Wer glaubt, für unter 500 € gebe es keinen richtigen Urlaub, wird von der Türkei eines Besseren belehrt: Antalya, Side und Alanya bieten All-Inclusive-Pakete mit Flug und komfortablem Strandhotel, die regelmäßig weit unter dieser Marke buchbar sind. Das Erfolgsrezept liegt in der dichten Hotelindustrie, günstigen Direktflügen und einem extrem wettbewerbsintensiven Markt – Sonnenurlaub ohne Kompromisse zum Schnäppchenpreis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=724&maxPrice=500" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Mallorca Last-Minute-Deals: spontane Reisen unter 500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=3&to=30&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=100000&maxPrice=500" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: günstige Pauschalreisen nach Griechenland unter 500 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&countryId=GR&maxPrice=500" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada: eines der günstigsten Urlaubsziele überhaupt, All-Inclusive ab 350 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=7-7&adults=2&category=3&minRecommrate=60&regionId=651&maxPrice=500" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Gran Canaria & Teneriffa: preiswerte Pauschalreisen bei bestem Wetter.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=851&maxPrice=500" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Kos & Korfu: günstige Flug-Hotel-Pakete auf den schönen griechischen Inseln.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=100002&maxPrice=500" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: sonnige Urlaubswochen an Europas günstigster Atlantikküste.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=725&maxPrice=500" },
-  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80", teaser:"Sizilien & Sardinien: günstige Urlaubsangebote auf Italiens Inseln.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&countryId=IT&maxPrice=500" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Wer glaubt, für unter 500 € gebe es keinen richtigen Urlaub, wird von der Türkei eines Besseren belehrt: Antalya, Side und Alanya bieten All-Inclusive-Pakete mit Flug und komfortablem Strandhotel, die regelmäßig weit unter dieser Marke buchbar sind. Das Erfolgsrezept liegt in der dichten Hotelindustrie, günstigen Direktflügen und einem extrem wettbewerbsintensiven Markt – Sonnenurlaub ohne Kompromisse zum Schnäppchenpreis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=724&maxPrice=500" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Mallorca Last-Minute-Deals: spontane Reisen unter 500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=3&to=30&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=100000&maxPrice=500" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: günstige Pauschalreisen nach Griechenland unter 500 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&countryId=GR&maxPrice=500" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada: eines der günstigsten Urlaubsziele überhaupt, All-Inclusive ab 350 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=7-7&adults=2&category=3&minRecommrate=60&regionId=651&maxPrice=500" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Gran Canaria & Teneriffa: preiswerte Pauschalreisen bei bestem Wetter.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=851&maxPrice=500" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Kos & Korfu: günstige Flug-Hotel-Pakete auf den schönen griechischen Inseln.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=100002&maxPrice=500" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: sonnige Urlaubswochen an Europas günstigster Atlantikküste.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&regionId=725&maxPrice=500" },
+  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80&auto=format", teaser:"Sizilien & Sardinien: günstige Urlaubsangebote auf Italiens Inseln.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=90&duration=5-7&adults=2&category=3&minRecommrate=60&countryId=IT&maxPrice=500" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1473186578172-c141e6798cf4?w=800&q=80&auto=format"
           alt="Günstiger Urlaub bis 500 € buchen"
           fill
           priority

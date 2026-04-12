@@ -33,7 +33,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <section className="relative overflow-hidden text-white py-14 px-4" style={{ minHeight: "340px" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&q=80&auto=format"
           alt="Visum-Checker"
           className="absolute inset-0 w-full h-full object-cover"
           // @ts-ignore
@@ -100,7 +100,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="sticky top-24">
               <RightSidebar
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: "Absicherung",
                   title: "Auslandsschutz nicht vergessen",
                   description: "Krankheit im Ausland kann teuer werden. Reiseversicherung jetzt vergleichen.",

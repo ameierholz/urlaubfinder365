@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Budget-bis-1500 günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Die Karibik klingt nach unerreichbarem Luxus – doch mit einem Budget von bis zu 1.500 € pro Person sind traumhafte Pauschalreisen nach Mexiko, Jamaika oder Kuba durchaus realistisch. Weitläufige All-Inclusive-Resorts mit türkisblauem Meer, palmengesäumten Stränden und pulsierendem Nightlife warten auf Entdecker, die das Beste aus Fernreise und Budgetplanung herausholen möchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100017&maxPrice=1500" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Koh Samui: exzellente Resorts in Fernost bis 1.500 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100220&maxPrice=1500" },
-  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80", teaser:"Dubai: Luxushotels und exzellenter Service bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=650&maxPrice=1500" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Mykonos & Santorini: ikonische Inselresorts für bis zu 1.500 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100002&maxPrice=1500" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Mallorca & Ibiza: 5-Sterne-Resorts mit Meerblick bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100000&maxPrice=1500" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: Golfresorts und Design-Hotels bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=725&maxPrice=1500" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: hochwertige Resorts mit ausgezeichneten Bewertungen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&countryId=GR&maxPrice=1500" },
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Belek & Bodrum: Luxus-Golfresorts und 5-Sterne-Anlagen bis 1.500 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=724&maxPrice=1500" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Die Karibik klingt nach unerreichbarem Luxus – doch mit einem Budget von bis zu 1.500 € pro Person sind traumhafte Pauschalreisen nach Mexiko, Jamaika oder Kuba durchaus realistisch. Weitläufige All-Inclusive-Resorts mit türkisblauem Meer, palmengesäumten Stränden und pulsierendem Nightlife warten auf Entdecker, die das Beste aus Fernreise und Budgetplanung herausholen möchten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100017&maxPrice=1500" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Koh Samui: exzellente Resorts in Fernost bis 1.500 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100220&maxPrice=1500" },
+  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format", teaser:"Dubai: Luxushotels und exzellenter Service bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=650&maxPrice=1500" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Mykonos & Santorini: ikonische Inselresorts für bis zu 1.500 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100002&maxPrice=1500" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Mallorca & Ibiza: 5-Sterne-Resorts mit Meerblick bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=100000&maxPrice=1500" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: Golfresorts und Design-Hotels bis 1.500 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=725&maxPrice=1500" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: hochwertige Resorts mit ausgezeichneten Bewertungen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&countryId=GR&maxPrice=1500" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Belek & Bodrum: Luxus-Golfresorts und 5-Sterne-Anlagen bis 1.500 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=75&regionId=724&maxPrice=1500" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=800&q=80&auto=format"
           alt="Günstiger Urlaub bis 1.500 € buchen"
           fill
           priority

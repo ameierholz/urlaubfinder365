@@ -9,7 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-ibiza/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1689859870434-8248d5a113c1?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1689859870434-8248d5a113c1?w=1200&h=630&fit=crop&q=80&auto=format";
 
 export const metadata: Metadata = {
   title: `🌅 Ibiza Urlaubsführer ${YEAR} – Strände, Kultur & Tipps`,

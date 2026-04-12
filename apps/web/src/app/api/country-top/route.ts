@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const AGENT = "993243";
 const API_BASE = "https://api.specials.de/package/teaser.json";
-const FALLBACK_IMG = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=70";
+const FALLBACK_IMG = "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=70&auto=format";
 
 export const runtime = "nodejs";
 

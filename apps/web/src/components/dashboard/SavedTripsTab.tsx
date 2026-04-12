@@ -148,7 +148,7 @@ export default function SavedTripsTab({ user }: Props) {
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
           {trips.map((trip) => {
             const img = trip.offer.images?.medium || trip.offer.images?.large
-              || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80";
+              || "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format";
             const savedAt = formatSavedAt((trip as unknown as Record<string, unknown>).savedAt);
 
             return (

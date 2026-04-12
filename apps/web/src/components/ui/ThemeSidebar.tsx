@@ -6,7 +6,7 @@ export default function ThemeSidebar() {
       <div className="sticky top-24">
         <RightSidebar
           extrasBox={{
-            image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+            image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
             eyebrow: "Last-Minute",
             title: "Günstige Reisen jetzt",
             description: "Abreise in 7–14 Tagen – spontan & günstig buchen.",

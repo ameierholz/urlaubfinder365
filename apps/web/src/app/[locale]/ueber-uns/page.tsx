@@ -99,7 +99,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&q=80')",
+            "url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80')",
           minHeight: "340px",
         }}
       >

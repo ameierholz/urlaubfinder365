@@ -23,16 +23,16 @@ interface NavItem {
 
 // ─── Static data with translation keys ───────────────────────────────────────
 const MEGA_DESTINATIONS_DATA = [
-  { tKey: "tuerkei",      flagCode: "tr", slug: "tuerkei",           img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=70" },
-  { tKey: "spanien",      flagCode: "es", slug: "balearen",          img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=400&q=70" },
-  { tKey: "griechenland", flagCode: "gr", slug: "griechische-inseln", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=70" },
-  { tKey: "aegypten",     flagCode: "eg", slug: "aegypten",          img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=70" },
-  { tKey: "italien",      flagCode: "it", slug: "italien",           img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=400&q=70" },
-  { tKey: "deutschland",  flagCode: "de", slug: "deutschland-nord",  img: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=400&q=70" },
-  { tKey: "portugal",     flagCode: "pt", slug: "portugal",          img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=70" },
-  { tKey: "tunesien",     flagCode: "tn", slug: "tunesien",          img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=70" },
-  { tKey: "usa",          flagCode: "us", slug: "usa-ostkueste",     img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&q=70" },
-  { tKey: "malediven",    flagCode: "mv", slug: "indischer-ozean",   img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400&q=70" },
+  { tKey: "tuerkei",      flagCode: "tr", slug: "tuerkei",           img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=70&auto=format" },
+  { tKey: "spanien",      flagCode: "es", slug: "balearen",          img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=400&q=70&auto=format" },
+  { tKey: "griechenland", flagCode: "gr", slug: "griechische-inseln", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=70&auto=format" },
+  { tKey: "aegypten",     flagCode: "eg", slug: "aegypten",          img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=400&q=70&auto=format" },
+  { tKey: "italien",      flagCode: "it", slug: "italien",           img: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=400&q=70&auto=format" },
+  { tKey: "deutschland",  flagCode: "de", slug: "deutschland-nord",  img: "https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=400&q=70&auto=format" },
+  { tKey: "portugal",     flagCode: "pt", slug: "portugal",          img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=70&auto=format" },
+  { tKey: "tunesien",     flagCode: "tn", slug: "tunesien",          img: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=70&auto=format" },
+  { tKey: "usa",          flagCode: "us", slug: "usa-ostkueste",     img: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&q=70&auto=format" },
+  { tKey: "malediven",    flagCode: "mv", slug: "indischer-ozean",   img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400&q=70&auto=format" },
 ];
 
 const URLAUBSTHEMEN_DATA = [
@@ -76,35 +76,35 @@ const URLAUBSARTEN_ITEMS = [
     href:  "/urlaubsarten/pauschalreisen/",
     emoji: "✈️", badge: "Beliebteste Wahl", badgeColor: "bg-blue-400/30 text-blue-100",
     desc: "Flug + Hotel + Transfer – alles inklusive gebucht.",
-    img:  "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=70",
+    img:  "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=70&auto=format",
   },
   {
     label: "Frühbucher Urlaub",
     href:  "/urlaubsarten/fruhbucher-urlaub/",
     emoji: "🌅", badge: "Bis 40% sparen", badgeColor: "bg-amber-400/30 text-amber-100",
     desc: "Früh buchen und die besten Zimmer zum günstigsten Preis sichern.",
-    img:  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70",
+    img:  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70&auto=format",
   },
   {
     label: "All-Inclusive",
     href:  "/urlaubsarten/all-inclusive-urlaub/",
     emoji: "🍹", badge: "Sorglos genießen", badgeColor: "bg-teal-400/30 text-teal-100",
     desc: "Essen, Trinken & mehr inklusive – kein laufender Kostenstress.",
-    img:  "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=70",
+    img:  "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=70&auto=format",
   },
   {
     label: "Last-Minute",
     href:  "/urlaubsarten/last-minute-urlaub/",
     emoji: "⚡", badge: "Spontan & günstig", badgeColor: "bg-orange-400/30 text-orange-100",
     desc: "Kurzfristige Angebote bis 14 Tage vor Abreise mit Top-Rabatten.",
-    img:  "https://images.unsplash.com/photo-1490650034175-5d96d2e1d0a9?w=400&q=70",
+    img:  "https://images.unsplash.com/photo-1490650034175-5d96d2e1d0a9?w=400&q=70&auto=format",
   },
   {
     label: "Super-Last-Minute",
     href:  "/urlaubsarten/super-last-minute-urlaub/",
     emoji: "🚀", badge: "Innerhalb 72h", badgeColor: "bg-red-400/30 text-red-100",
     desc: "Innerhalb von 72 Stunden abreisen – maximale Ersparnis garantiert.",
-    img:  "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=400&q=70",
+    img:  "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=400&q=70&auto=format",
   },
 ];
 
@@ -422,7 +422,7 @@ function CommunityMegaMenu({ onClose }: { onClose: () => void }) {
 function DestinationsMegaMenu({ onClose }: { onClose: () => void }) {
   const tCountries = useTranslations("countries");
   const tMega      = useTranslations("megaMenu");
-  const FALLBACK   = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70";
+  const FALLBACK   = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=70&auto=format";
 
   return (
     <div
@@ -509,7 +509,7 @@ function UrlaubsartenMegaMenu({ onClose }: { onClose: () => void }) {
       <div className="flex">
         <div className="w-48 shrink-0 relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&q=70"
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=300&q=70&auto=format"
             alt="Urlaubsarten"
             className="w-full h-full object-cover"
             loading="lazy"

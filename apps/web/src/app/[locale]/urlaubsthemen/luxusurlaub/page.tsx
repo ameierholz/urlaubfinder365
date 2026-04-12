@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Luxusurlaub günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80", teaser:"Dubai und die Vereinigten Arabischen Emirate definieren Luxusreisen neu: Das ikonische Burj Al Arab, das einzige Sieben-Sterne-Hotel der Welt, steht sinnbildlich für eine Destination, die keine Wünsche offenlässt – von Rolls-Royce-Transfers über Privatstrände bis hin zu Michelin-Restaurants mit Blick auf die glitzernde Skyline. Wer einmal die unvergleichliche Gastfreundschaft und Extravaganz der Emirate erlebt hat, versteht, warum Dubai zur Welthauptstadt des Luxustourismus geworden ist.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=650" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Privat-Villas auf Phuket & Koh Samui mit Butler-Service und Infinity-Pool.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100220" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Mykonos & Santorini: ikonische Luxus-Hideaways mit Meerblick-Infinity-Pool.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100002" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Exklusive Resorts in Barbados & St. Lucia – fernab vom touristischen Trubel.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100017" },
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Belek & Bodrum: Weltklasse-Golfresorts und Luxusanlagen an der Ägäis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=724" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Boutique-Hotels & 5-Sterne-Resorts mit Panoramablick auf Mallorca & Ibiza.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100000" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Sharm el-Sheikh & Hurghada: traumhafte 5-Sterne-Resorts am Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=651" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: exklusive Design-Hotels und Golfresorts an atemberaubenden Klippen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=725" },
+  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format", teaser:"Dubai und die Vereinigten Arabischen Emirate definieren Luxusreisen neu: Das ikonische Burj Al Arab, das einzige Sieben-Sterne-Hotel der Welt, steht sinnbildlich für eine Destination, die keine Wünsche offenlässt – von Rolls-Royce-Transfers über Privatstrände bis hin zu Michelin-Restaurants mit Blick auf die glitzernde Skyline. Wer einmal die unvergleichliche Gastfreundschaft und Extravaganz der Emirate erlebt hat, versteht, warum Dubai zur Welthauptstadt des Luxustourismus geworden ist.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=650" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Privat-Villas auf Phuket & Koh Samui mit Butler-Service und Infinity-Pool.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100220" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Mykonos & Santorini: ikonische Luxus-Hideaways mit Meerblick-Infinity-Pool.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100002" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Exklusive Resorts in Barbados & St. Lucia – fernab vom touristischen Trubel.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100017" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Belek & Bodrum: Weltklasse-Golfresorts und Luxusanlagen an der Ägäis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=724" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Boutique-Hotels & 5-Sterne-Resorts mit Panoramablick auf Mallorca & Ibiza.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=100000" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Sharm el-Sheikh & Hurghada: traumhafte 5-Sterne-Resorts am Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=651" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: exklusive Design-Hotels und Golfresorts an atemberaubenden Klippen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&category=3&minRecommrate=90&regionId=725" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80&auto=format&fit=crop"
           alt="Luxusurlaub – 5-Sterne Hotels & Resorts"
           fill
           priority

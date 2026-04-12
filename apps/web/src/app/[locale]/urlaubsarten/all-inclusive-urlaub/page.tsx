@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: `All Inclusive Urlaub ${YEAR} günstig buchen ✓ Essen, Trinken & Unterhaltung inklusive ✓ 4 & 5 Sterne Hotels ✓ Täglich neue Angebote ✓ Bestpreis.`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/all-inclusive-urlaub/",
     siteName: "Urlaubfinder365",
-    images: [{ url: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80", width: 1200, height: 630, alt: "All Inclusive Hotel Pool mit türkisblauem Wasser" }],
+    images: [{ url: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=80&auto=format", width: 1200, height: 630, alt: "All Inclusive Hotel Pool mit türkisblauem Wasser" }],
     locale: "de_DE",
     type: "website",
   },
@@ -69,7 +69,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="text-white relative overflow-hidden -mt-24 pt-24 min-h-[380px]"
       >
         <Image
-          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80&auto=format"
           alt="All-Inclusive Urlaub – Pool & Strand im Hotel"
           fill
           priority

@@ -82,7 +82,7 @@ export default async function ({ params, searchParams }: {
       ═══════════════════════════════════════════════════════════════════ */}
       <div
         className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[380px] md:h-[440px]"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80')" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')" }}
       >
         {/* Gradient-Overlay */}
         <div
@@ -245,7 +245,7 @@ export default async function ({ params, searchParams }: {
       ═══════════════════════════════════════════════════════════════════ */}
       <div
         className="relative overflow-hidden"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80')", backgroundSize: "cover", backgroundPosition: "center 40%" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80')", backgroundSize: "cover", backgroundPosition: "center 40%" }}
       >
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(0,131,143,0.88) 0%, rgba(0,95,107,0.75) 60%, rgba(15,23,42,0.70) 100%)" }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -576,7 +576,7 @@ export default async function ({ params, searchParams }: {
           <div className="sticky top-24 pt-8">
             <RightSidebar
               extrasBox={{
-                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+                image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                 eyebrow: "Tipp",
                 title: "Pauschalreise statt Einzelbuchung",
                 description: "Flug + Hotel als Paket ist oft günstiger. Täglich tausende Angebote vergleichen.",

@@ -158,7 +158,7 @@ export default async function WerbepartnerPage({
       <section className="relative overflow-hidden text-white" style={{ minHeight: "420px" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80&auto=format"
           alt={t("heroBadge")}
           className="absolute inset-0 w-full h-full object-cover"
           // @ts-ignore

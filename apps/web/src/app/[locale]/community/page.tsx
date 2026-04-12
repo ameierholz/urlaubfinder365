@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Urlaubfinder365 Urlaubs-Community",
@@ -104,7 +104,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <Suspense fallback={null}>
                 <RightSidebar
                   extrasBox={{
-                    image: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=400&h=200&q=70",
+                    image: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                     eyebrow: t("sidebarEyebrow"),
                     title: t("sidebarTitle"),
                     description: t("sidebarDesc"),

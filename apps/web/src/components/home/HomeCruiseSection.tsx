@@ -29,25 +29,25 @@ const CRUISE_DEALS_STATIC = [
   {
     id: "mittelmeer",
     badgeColor: "bg-sand-500",
-    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80&auto=format",
     url: DL("&type=K&sort=pauf&region=10"),
   },
   {
     id: "karibik",
     badgeColor: "bg-emerald-500",
-    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80&auto=format",
     url: DL("&type=K&sort=pauf&region=8"),
   },
   {
     id: "nordeuropa",
     badgeColor: "bg-sky-600",
-    img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1508189860359-777d945909ef?w=800&q=80&auto=format",
     url: DL("&type=K&sort=pauf&region=12"),
   },
   {
     id: "fluss",
     badgeColor: "bg-teal-600",
-    img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80",
+    img: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80&auto=format",
     url: DL("&type=R&sort=pauf"),
   },
 ];

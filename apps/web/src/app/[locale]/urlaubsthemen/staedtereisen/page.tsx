@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Städtereisen günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -40,14 +40,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Barcelona", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80", teaser:"Barcelona ist die vielleicht vielseitigste Metropole Europas: Gaudís visionäre Architektur – von der Sagrada Família bis zum Park Güell – zieht Kunstliebhaber in ihren Bann, während die lebhaften Tapas-Bars im Barri Gòtic und die mondänen Clubs am Barceloneta-Strand für unvergessliche Nächte sorgen. Eingebettet zwischen Bergen und Mittelmeer verbindet die katalanische Hauptstadt Kulturgenuss, kulinarische Extravaganz und Strandurlaub zu einem einzigartigen Städteerlebnis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=100027" },
-  { name:"Dubai", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80", teaser:"Burj Khalifa, Souk und Luxus-Shopping – Dubai begeistert auf Schritt und Tritt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=650" },
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Istanbul: Bosporus, Bazare und Moscheen – Europas faszinierendste Metropole.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=724" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Athen: Akropolis, Plaka-Viertel und mediterrane Küche in der Kulturhauptstadt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&countryId=GR" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Lissabon & Porto: Fado, Pastéis de Nata und Tram 28 – unvergessliche Stadtromantik.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=725" },
-  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80", teaser:"Rom, Florenz & Venedig – Italiens Städte sind lebendige Kunstwerke.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&countryId=IT" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Las Palmas & Santa Cruz: moderne Hafenstädte mit südländischem Lebensgefühl.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=851" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Bangkok: Tempel, Streetfood und futuristisches Stadtleben in Asien.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=100220" },
+  { name:"Barcelona", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80&auto=format", teaser:"Barcelona ist die vielleicht vielseitigste Metropole Europas: Gaudís visionäre Architektur – von der Sagrada Família bis zum Park Güell – zieht Kunstliebhaber in ihren Bann, während die lebhaften Tapas-Bars im Barri Gòtic und die mondänen Clubs am Barceloneta-Strand für unvergessliche Nächte sorgen. Eingebettet zwischen Bergen und Mittelmeer verbindet die katalanische Hauptstadt Kulturgenuss, kulinarische Extravaganz und Strandurlaub zu einem einzigartigen Städteerlebnis.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=100027" },
+  { name:"Dubai", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format", teaser:"Burj Khalifa, Souk und Luxus-Shopping – Dubai begeistert auf Schritt und Tritt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=650" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Istanbul: Bosporus, Bazare und Moscheen – Europas faszinierendste Metropole.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=724" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Athen: Akropolis, Plaka-Viertel und mediterrane Küche in der Kulturhauptstadt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&countryId=GR" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Lissabon & Porto: Fado, Pastéis de Nata und Tram 28 – unvergessliche Stadtromantik.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=725" },
+  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80&auto=format", teaser:"Rom, Florenz & Venedig – Italiens Städte sind lebendige Kunstwerke.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&countryId=IT" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Las Palmas & Santa Cruz: moderne Hafenstädte mit südländischem Lebensgefühl.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=851" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Bangkok: Tempel, Streetfood und futuristisches Stadtleben in Asien.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=1&to=90&duration=3-5&adults=2&category=3&minRecommrate=65&regionId=100220" },
 ];
 
 const FAQ = [
@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80&auto=format&fit=crop"
           alt="Städtereisen – Europäische Metropolen entdecken"
           fill
           priority

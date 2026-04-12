@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Budget-bis-1000 günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Die Türkei gehört zu den besten Budget-Urlaubszielen der Welt: In Antalya und Belek bekommt man für unter 1.000 € pro Person eine Woche in einem 4- oder 5-Sterne-All-Inclusive-Resort mit uneingeschränktem Zugang zu Pools, Stränden und Buffets. Dank des starken Wettbewerbs und günstiger Wechselkurse sind Preise, die anderswo undenkbar wären, hier regelmäßig buchbar – ohne Abstriche beim Komfort.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724&maxPrice=1000" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Mallorca & Ibiza: komfortable Pauschalreisen bis 1.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100000&maxPrice=1000" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: Top-Hotels mit ausgezeichneten Bewertungen bis 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&countryId=GR&maxPrice=1000" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada & Sharm el-Sheikh: 5-Sterne-Luxus am Roten Meer für unter 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=651&maxPrice=1000" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Teneriffa & Fuerteventura: hochwertige Hotels bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=851&maxPrice=1000" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: anspruchsvolle Unterkünfte an der schönen Atlantikküste bis 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=725&maxPrice=1000" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Mykonos, Kos & Korfu: komfortabler Inselurlaub bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100002&maxPrice=1000" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Kuba & Mexiko: traumhafte Karibikurlaube bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100017&maxPrice=1000" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Die Türkei gehört zu den besten Budget-Urlaubszielen der Welt: In Antalya und Belek bekommt man für unter 1.000 € pro Person eine Woche in einem 4- oder 5-Sterne-All-Inclusive-Resort mit uneingeschränktem Zugang zu Pools, Stränden und Buffets. Dank des starken Wettbewerbs und günstiger Wechselkurse sind Preise, die anderswo undenkbar wären, hier regelmäßig buchbar – ohne Abstriche beim Komfort.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=724&maxPrice=1000" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Mallorca & Ibiza: komfortable Pauschalreisen bis 1.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100000&maxPrice=1000" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: Top-Hotels mit ausgezeichneten Bewertungen bis 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&countryId=GR&maxPrice=1000" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada & Sharm el-Sheikh: 5-Sterne-Luxus am Roten Meer für unter 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=651&maxPrice=1000" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Teneriffa & Fuerteventura: hochwertige Hotels bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=851&maxPrice=1000" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: anspruchsvolle Unterkünfte an der schönen Atlantikküste bis 1.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=725&maxPrice=1000" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Mykonos, Kos & Korfu: komfortabler Inselurlaub bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100002&maxPrice=1000" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Kuba & Mexiko: traumhafte Karibikurlaube bis 1.000 € pro Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=180&duration=7-7&adults=2&category=3&minRecommrate=70&regionId=100017&maxPrice=1000" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format"
           alt="Günstiger Urlaub bis 1.000 € buchen"
           fill
           priority

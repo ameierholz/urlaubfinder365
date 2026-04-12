@@ -84,6 +84,20 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" },
         ],
       },
+      {
+        // SVGs, ICOs und andere statische Assets
+        source: "/:path*.(svg|ico|webp|avif|png|jpg|jpeg|gif)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=604800" },
+        ],
+      },
+      {
+        // API-Routen mit ISR: kurzes Cache + stale-while-revalidate
+        source: "/api/(teaser|theme-offers|tiqets|tiqets-experiences)(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, s-maxage=300, stale-while-revalidate=600" },
+        ],
+      },
     ];
   },
 

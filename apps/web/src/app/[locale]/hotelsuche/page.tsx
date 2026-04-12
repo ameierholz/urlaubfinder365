@@ -126,7 +126,7 @@ export default async function ({ params, searchParams }: {
       ═══════════════════════════════════════════════════════════════════ */}
       <div
         className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[380px] md:h-[440px]"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80')" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80')" }}
       >
         {/* Gradient-Overlay – lighter so the hotel photo shines through */}
         <div

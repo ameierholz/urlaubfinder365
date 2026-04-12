@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Budget-bis-2000 günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Mit einem Budget von bis zu 2.000 € pro Person öffnet die Karibik ihre exklusivsten Türen: Auf Barbados, St. Lucia und Jamaika erwarten Sie Premium-Resorts mit privatem Strand, gehobener Cuisine und Spa-Bereich direkt am Meer. Diese Inseln stehen für ein Reiseerlebnis, das Grandezza mit karibischer Leichtigkeit verbindet – und durch clevere Frühbucher- oder Last-Minute-Deals ist dieser Traum überraschend gut erreichbar.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=100017&maxPrice=2000" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Koh Samui: Villa-Urlaub und Spa-Resorts der Spitzenklasse.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=100220&maxPrice=2000" },
-  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80", teaser:"Dubai: das ultimative Luxus-Erlebnis in den besten Hotels der Welt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=650&maxPrice=2000" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Mykonos & Santorini: unvergessliche Luxus-Erlebnisse bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=100002&maxPrice=2000" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Ibiza & Formentera: Weltklasse-Resorts und Traumvillen bis 2.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=100000&maxPrice=2000" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: 5-Sterne-Resorts mit privatem Strand bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&countryId=GR&maxPrice=2000" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Sharm el-Sheikh: Taucherparadies und Luxusresorts bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=651&maxPrice=2000" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: luxuriöse Golfhotels und private Villen-Resorts bis 2.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=725&maxPrice=2000" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Mit einem Budget von bis zu 2.000 € pro Person öffnet die Karibik ihre exklusivsten Türen: Auf Barbados, St. Lucia und Jamaika erwarten Sie Premium-Resorts mit privatem Strand, gehobener Cuisine und Spa-Bereich direkt am Meer. Diese Inseln stehen für ein Reiseerlebnis, das Grandezza mit karibischer Leichtigkeit verbindet – und durch clevere Frühbucher- oder Last-Minute-Deals ist dieser Traum überraschend gut erreichbar.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=100017&maxPrice=2000" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Koh Samui: Villa-Urlaub und Spa-Resorts der Spitzenklasse.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=100220&maxPrice=2000" },
+  { name:"Dubai & VAE", flag:"🇦🇪", image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80&auto=format", teaser:"Dubai: das ultimative Luxus-Erlebnis in den besten Hotels der Welt.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=650&maxPrice=2000" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Mykonos & Santorini: unvergessliche Luxus-Erlebnisse bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=100002&maxPrice=2000" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Ibiza & Formentera: Weltklasse-Resorts und Traumvillen bis 2.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=100000&maxPrice=2000" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: 5-Sterne-Resorts mit privatem Strand bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&countryId=GR&maxPrice=2000" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Sharm el-Sheikh: Taucherparadies und Luxusresorts bis 2.000 € per Person.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=10-14&adults=2&category=3&minRecommrate=80&regionId=651&maxPrice=2000" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: luxuriöse Golfhotels und private Villen-Resorts bis 2.000 €.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=7&to=365&duration=7-10&adults=2&category=3&minRecommrate=85&regionId=725&maxPrice=2000" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1582610116397-edb72af7e453?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1582610116397-edb72af7e453?w=800&q=80&auto=format"
           alt="Günstiger Urlaub bis 2.000 € buchen"
           fill
           priority

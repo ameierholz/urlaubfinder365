@@ -89,7 +89,7 @@ export async function generateMetadata({
       locale: t("ogLocale"),
       images: [
         {
-          url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+          url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
           width: 1200,
           height: 630,
           alt: `${t("homeTitle")} | ${YEAR}`,
@@ -102,7 +102,7 @@ export async function generateMetadata({
       creator: "@urlaubfinder365",
       images: [
         {
-          url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80",
+          url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
           alt: `${t("homeTitle")} | ${YEAR}`,
         },
       ],

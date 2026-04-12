@@ -258,7 +258,7 @@ export default function OverviewTab({ user, userProfile, setTab }: Props) {
         <div className="relative rounded-2xl overflow-hidden h-44 group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={generateHeroFallback(dailyDest.unsplashKeyword).replace("w=1600","w=900")}
+            src={generateHeroFallback(dailyDest.unsplashKeyword).replace("w=800","w=900")}
             alt={dailyDest.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />

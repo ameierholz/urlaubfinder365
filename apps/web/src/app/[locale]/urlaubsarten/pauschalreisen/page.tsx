@@ -84,7 +84,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="text-white relative overflow-hidden -mt-24 pt-24 min-h-[380px]"
       >
         <Image
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&auto=format"
           alt="Pauschalreisen günstig buchen – Flug & Hotel"
           fill
           priority

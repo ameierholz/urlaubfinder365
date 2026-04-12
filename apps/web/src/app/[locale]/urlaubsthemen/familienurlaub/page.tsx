@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Familienurlaub günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -40,15 +40,15 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Kein Land in Europa wird so sehr mit kinderfreundlichem Familienurlaub verbunden wie die Türkei: Riesige All-Inclusive-Resorts in Antalya und Belek verfügen über eigene Wasserparks, Kinderclubs für alle Altersgruppen und professionelle Animationsteams, die den Kleinen vom Morgen bis zum Abend unvergessliche Erlebnisse bereiten. Eltern können am Pool entspannen, während der Nachwuchs sicher betreut wird – und das zu Preisen, die die ganze Familie lächeln lassen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=724" },
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Familien-Pauschalreisen auf Mallorca & Menorca – ruhige Buchten und flaches Wasser.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100000" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta & Rhodos: flaches Wasser, Sandstrände und viele Kinderattraktionen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&countryId=GR" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Mildes Klima das ganze Jahr – ideal für Familien mit kleinen Kindern.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=851" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada: günstige Familienhotels am Roten Meer mit Schnorchelmöglichkeiten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=651" },
-  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"All-Inclusive Familienresorts in Mexiko und der Dominikanischen Republik.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100017" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Koh Samui: abenteuerliche Ausflüge und ruhige Strandabschnitte.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100220" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve: breite Sandstrände, ruhiges Wasser und familienfreundliche Hotels.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=725" },
-  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80", teaser:"Sizilien & Sardinien: süditalienisches Flair mit kinderfreundlichen Stränden.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&countryId=IT" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Kein Land in Europa wird so sehr mit kinderfreundlichem Familienurlaub verbunden wie die Türkei: Riesige All-Inclusive-Resorts in Antalya und Belek verfügen über eigene Wasserparks, Kinderclubs für alle Altersgruppen und professionelle Animationsteams, die den Kleinen vom Morgen bis zum Abend unvergessliche Erlebnisse bereiten. Eltern können am Pool entspannen, während der Nachwuchs sicher betreut wird – und das zu Preisen, die die ganze Familie lächeln lassen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=724" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Familien-Pauschalreisen auf Mallorca & Menorca – ruhige Buchten und flaches Wasser.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100000" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta & Rhodos: flaches Wasser, Sandstrände und viele Kinderattraktionen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&countryId=GR" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Mildes Klima das ganze Jahr – ideal für Familien mit kleinen Kindern.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=851" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada: günstige Familienhotels am Roten Meer mit Schnorchelmöglichkeiten.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=651" },
+  { name:"Karibik", flag:"🌴", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"All-Inclusive Familienresorts in Mexiko und der Dominikanischen Republik.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100017" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Koh Samui: abenteuerliche Ausflüge und ruhige Strandabschnitte.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=100220" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve: breite Sandstrände, ruhiges Wasser und familienfreundliche Hotels.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&regionId=725" },
+  { name:"Italien", flag:"🇮🇹", image:"https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80&auto=format", teaser:"Sizilien & Sardinien: süditalienisches Flair mit kinderfreundlichen Stränden.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=2&children=1&category=3&minRecommrate=65&countryId=IT" },
 ];
 
 const FAQ = [
@@ -115,7 +115,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&q=80&auto=format&fit=crop"
           alt="Familienurlaub – Hotels für die ganze Familie"
           fill
           priority

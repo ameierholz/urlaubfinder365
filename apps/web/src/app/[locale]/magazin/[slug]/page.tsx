@@ -101,7 +101,7 @@ export default async function MagazinArtikelPage({
     .limit(3) as { data: RelatedArticle[] | null };
 
   const fallback =
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=630&fit=crop&q=80";
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=630&fit=crop&q=80&auto=format";
 
   const jsonLd = [
     {

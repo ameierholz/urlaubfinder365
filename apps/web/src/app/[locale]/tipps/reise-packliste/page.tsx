@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "https://www.urlaubfinder365.de/tipps/reise-packliste/",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1553531384-411a247ccd73?w=1200&h=630&fit=crop&q=80",
+        url: "https://images.unsplash.com/photo-1553531384-411a247ccd73?w=1200&h=630&fit=crop&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Gepackter Koffer mit Reiseutensilien – Reise-Packliste bei Urlaubfinder365",

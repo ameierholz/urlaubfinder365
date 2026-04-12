@@ -12,11 +12,11 @@ interface Props {
 }
 
 const COUNTRY_FALLBACK: Record<string, string> = {
-  türkei:       "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
-  spanien:      "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-  griechenland: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
-  ägypten:      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=80",
-  italien:      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+  türkei:       "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80&auto=format",
+  spanien:      "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80&auto=format",
+  griechenland: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80&auto=format",
+  ägypten:      "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=80&auto=format",
+  italien:      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format",
 };
 
 function getImg(offer: { images?: { large?: string; medium?: string }; country_name?: string }): string {
@@ -26,7 +26,7 @@ function getImg(offer: { images?: { large?: string; medium?: string }; country_n
   for (const [key, url] of Object.entries(COUNTRY_FALLBACK)) {
     if (c.includes(key)) return url;
   }
-  return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80";
+  return "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&auto=format";
 }
 
 const EDITORIAL_KEYS: Record<string, string> = {

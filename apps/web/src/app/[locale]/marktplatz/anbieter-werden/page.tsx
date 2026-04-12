@@ -36,7 +36,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <section className="relative overflow-hidden text-white" style={{ minHeight: "340px" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&q=80&auto=format"
           alt="Anbieter werden"
           className="absolute inset-0 w-full h-full object-cover"
           // @ts-ignore

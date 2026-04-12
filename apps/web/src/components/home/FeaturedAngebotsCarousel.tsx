@@ -8,7 +8,7 @@ import WerbeplatzbuchenModal from "./WerbeplatzbuchenModal";
 
 const DEMO_ANGEBOTE = [
   {
-    bild: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Schnorchel-Tour",
     ort: "Hurghada, Ägypten",
     preis: 39,
@@ -18,7 +18,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: true,
   },
   {
-    bild: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Jeep Safari",
     ort: "Antalya, Türkei",
     preis: 55,
@@ -28,7 +28,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: true,
   },
   {
-    bild: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Bootsfahrt Caldera",
     ort: "Santorini, Griechenland",
     preis: 89,
@@ -38,7 +38,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: true,
   },
   {
-    bild: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Türkischer Kochkurs",
     ort: "Istanbul, Türkei",
     preis: 45,
@@ -48,7 +48,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: false,
   },
   {
-    bild: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Quad-Tour Vulkan",
     ort: "Fuerteventura",
     preis: 65,
@@ -58,7 +58,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: true,
   },
   {
-    bild: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Surfkurs Anfänger",
     ort: "Lanzarote",
     preis: 59,
@@ -68,7 +68,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: false,
   },
   {
-    bild: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Elefanten-Safari",
     ort: "Phuket, Thailand",
     preis: 79,
@@ -78,7 +78,7 @@ const DEMO_ANGEBOTE = [
     verifiziert: true,
   },
   {
-    bild: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=400&h=220&q=75",
+    bild: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=400&h=220&q=75&auto=format",
     titel: "Fahrrad-Tour Altstadt",
     ort: "Palma, Mallorca",
     preis: 29,

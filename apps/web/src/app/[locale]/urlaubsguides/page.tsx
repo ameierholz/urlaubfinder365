@@ -95,7 +95,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="sticky top-24">
           <RightSidebar
             extrasBox={{
-              image: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&fit=crop&w=400&h=200&q=70",
+              image: "https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
               eyebrow: "Urlaub planen",
               title: "Günstige Angebote finden",
               description: "Nutze unsere Guides zur Planung und buche direkt zum Bestpreis.",

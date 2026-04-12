@@ -93,7 +93,7 @@ export default async function PreisentwicklungPage({
         {/* Background image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1600&h=600&q=70"
+          src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&h=600&q=70&auto=format"
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -203,7 +203,7 @@ export default async function PreisentwicklungPage({
             <div className="sticky top-24">
               <RightSidebar
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: "Preisalarm",
                   title: "Nie wieder zu teuer buchen",
                   description: "Richte einen kostenlosen Preisalarm ein und werde benachrichtigt, wenn der Preis fällt.",

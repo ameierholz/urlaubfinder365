@@ -50,7 +50,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         sidebar={
           <RightSidebar
             extrasBox={{
-              image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=400&h=200&q=70",
+              image: "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
               eyebrow: t("sidebarEyebrow"),
               title: t("sidebarTitle"),
               description: t("sidebarDesc"),

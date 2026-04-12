@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Singlereisen günstig buchen – Traumurlaub auf Urlaubfinder365",
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 const DESTINATIONS: DestinationCard[] = [
-  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80", teaser:"Die Balearen sind für Alleinreisende ein Glücksgriff: Mallorca bietet mit seiner kosmopolitischen Urlaubsatmosphäre und den belebten Strandpromenaden jede Menge Gelegenheiten, neue Bekanntschaften zu schließen, während Ibiza mit seinem weltberühmten Nachtleben und offenen Vibe Solotrips zu einem unvergesslichen Erlebnis macht. Wer alleine reist, aber nicht allein sein möchte, findet auf den Balearen die perfekte Bühne.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100000" },
-  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80", teaser:"Antalya & Alanya: internationale Urlauberatmosphäre und Einzelreisende herzlich willkommen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=724" },
-  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", teaser:"Kreta, Rhodos & Korfu: Kultur, Geschichte und entspanntes Solo-Urlaubsflair.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&countryId=GR" },
-  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80", teaser:"Gran Canaria & Teneriffa: ganzjähriger Sonnenschein für Alleinreisende.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=851" },
-  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80", teaser:"Hurghada: günstige All-Inclusive Einzelreise am warmen Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=651" },
-  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80", teaser:"Algarve & Lissabon: ideal für Alleinreisende – offen, sicher und weltoffen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=725" },
-  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80", teaser:"Phuket & Bangkok: weltoffen und perfekt für Solotrips mit vielen Begegnungen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100220" },
-  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80", teaser:"Kos & Mykonos: pulsierendes Nachtleben und entspannte Tagszeiten für Solo-Reisende.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100002" },
+  { name:"Balearen", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format", teaser:"Die Balearen sind für Alleinreisende ein Glücksgriff: Mallorca bietet mit seiner kosmopolitischen Urlaubsatmosphäre und den belebten Strandpromenaden jede Menge Gelegenheiten, neue Bekanntschaften zu schließen, während Ibiza mit seinem weltberühmten Nachtleben und offenen Vibe Solotrips zu einem unvergesslichen Erlebnis macht. Wer alleine reist, aber nicht allein sein möchte, findet auf den Balearen die perfekte Bühne.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100000" },
+  { name:"Türkei", flag:"🇹🇷", image:"https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format", teaser:"Antalya & Alanya: internationale Urlauberatmosphäre und Einzelreisende herzlich willkommen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=724" },
+  { name:"Griechenland", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format", teaser:"Kreta, Rhodos & Korfu: Kultur, Geschichte und entspanntes Solo-Urlaubsflair.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&countryId=GR" },
+  { name:"Kanaren", flag:"🇪🇸", image:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80&auto=format", teaser:"Gran Canaria & Teneriffa: ganzjähriger Sonnenschein für Alleinreisende.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=851" },
+  { name:"Ägypten", flag:"🇪🇬", image:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80&auto=format", teaser:"Hurghada: günstige All-Inclusive Einzelreise am warmen Roten Meer.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=651" },
+  { name:"Portugal", flag:"🇵🇹", image:"https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=80&auto=format", teaser:"Algarve & Lissabon: ideal für Alleinreisende – offen, sicher und weltoffen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=725" },
+  { name:"Thailand", flag:"🇹🇭", image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&auto=format", teaser:"Phuket & Bangkok: weltoffen und perfekt für Solotrips mit vielen Begegnungen.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100220" },
+  { name:"Griech. Inseln", flag:"🇬🇷", image:"https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&q=80&auto=format", teaser:"Kos & Mykonos: pulsierendes Nachtleben und entspannte Tagszeiten für Solo-Reisende.", deeplink:"https://b2b.specials.de/index/jump/119/2780/993243/?from=14&to=180&duration=7-7&adults=1&category=3&minRecommrate=65&regionId=100002" },
 ];
 
 const FAQ = [
@@ -116,7 +116,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image
-          src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=1600&q=80&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80&auto=format&fit=crop"
           alt="Singlereisen – Urlaub für Alleinreisende"
           fill
           priority

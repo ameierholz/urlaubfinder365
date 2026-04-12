@@ -26,7 +26,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "mittel",
     rating: 5,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=600&q=80&auto=format",
     visitedAt: "2025-08",
     createdAt: "2025-09-01T10:00:00Z",
     likesCount: 24,
@@ -47,7 +47,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "mittel",
     rating: 4,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=80&auto=format",
     visitedAt: "2025-10",
     createdAt: "2025-10-20T14:30:00Z",
     likesCount: 18,
@@ -68,7 +68,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "mittel",
     rating: 5,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80&auto=format",
     visitedAt: "2025-11",
     createdAt: "2025-12-01T09:15:00Z",
     likesCount: 31,
@@ -89,7 +89,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "mittel",
     rating: 4,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80&auto=format",
     visitedAt: "2025-06",
     createdAt: "2025-07-10T16:00:00Z",
     likesCount: 22,
@@ -110,7 +110,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "mittel",
     rating: 5,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80&auto=format",
     visitedAt: "2025-09",
     createdAt: "2025-09-25T11:45:00Z",
     likesCount: 15,
@@ -131,7 +131,7 @@ const DEMO_REPORTS: TravelReport[] = [
     priceRange: "budget",
     rating: 4,
     recommendation: true,
-    coverImageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80&auto=format",
     visitedAt: "2025-07",
     createdAt: "2025-07-20T08:30:00Z",
     likesCount: 29,
@@ -152,8 +152,8 @@ const DEMO_TIPS: TravelTip[] = [
   { id: "d1", userId: "demo", displayName: "Sarah M.", title: "Patara Strand – Längster Naturstrand der Türkei", description: "Über 20 km Naturstrand ohne Hotels. Karettschildkröten nisten hier!", category: "strand", locationName: "Patara, Türkei", lat: 36.26, lng: 29.31, createdAt: "2025-07", status: "approved" },
   { id: "d2", userId: "demo", displayName: "Thomas K.", title: "Akropolis vor Sonnenaufgang", description: "Um 7 Uhr öffnet das Tor – fast alleine! Goldenes Morgenlicht.", category: "sehenswuerdigkeit", locationName: "Athen, Griechenland", lat: 37.972, lng: 23.725, createdAt: "2025-05", status: "approved" },
   { id: "d3", userId: "demo", displayName: "Lisa H.", title: "El Quim de la Boqueria", description: "Beste Tapasbar mitten im Markt. Nur Barhockerzplätze, früh kommen!", category: "gastronomie", locationName: "Barcelona, Spanien", lat: 41.381, lng: 2.172, createdAt: "2025-08", status: "approved" },
-  { id: "d4", userId: "demo", displayName: "Claudia M.", title: "Chatuchak Wochenendmarkt", description: "Größter Markt Asiens – morgens um 8 Uhr ist es noch aushaltbar.", category: "shopping", locationName: "Bangkok, Thailand", lat: 13.8, lng: 100.551, createdAt: "2025-06", status: "approved", imageUrl: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=400&q=70" },
-  { id: "d5", userId: "demo", displayName: "Tobias K.", title: "Plitvička jezera im Morgengrauen", description: "Mit dem ersten Bus rein: keine Massen, magisches Licht.", category: "natur", locationName: "Plitvicer Seen, Kroatien", lat: 44.865, lng: 15.582, createdAt: "2025-08", status: "approved", imageUrl: "https://images.unsplash.com/photo-1580502304784-8985b7eb7260?w=400&q=70" },
+  { id: "d4", userId: "demo", displayName: "Claudia M.", title: "Chatuchak Wochenendmarkt", description: "Größter Markt Asiens – morgens um 8 Uhr ist es noch aushaltbar.", category: "shopping", locationName: "Bangkok, Thailand", lat: 13.8, lng: 100.551, createdAt: "2025-06", status: "approved", imageUrl: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=400&q=70&auto=format" },
+  { id: "d5", userId: "demo", displayName: "Tobias K.", title: "Plitvička jezera im Morgengrauen", description: "Mit dem ersten Bus rein: keine Massen, magisches Licht.", category: "natur", locationName: "Plitvicer Seen, Kroatien", lat: 44.865, lng: 15.582, createdAt: "2025-08", status: "approved", imageUrl: "https://images.unsplash.com/photo-1580502304784-8985b7eb7260?w=400&q=70&auto=format" },
   { id: "d6", userId: "demo", displayName: "Lena S.", title: "Rooftop-Bar 61 Skybar Dubrovnik", description: "Bester Blick auf die Altstadt – zum Preis eines normalen Cocktails.", category: "nachtleben", locationName: "Dubrovnik, Kroatien", lat: 42.641, lng: 18.108, createdAt: "2025-07", status: "approved" },
 ];
 
@@ -350,7 +350,7 @@ export default function CommunityPageClient() {
           <div className="relative rounded-3xl overflow-hidden h-64 bg-linear-to-br from-rose-500 to-orange-400 flex items-center justify-center shadow-lg group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80"
+              src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80&auto=format"
               alt={t("feedSection")}
               className="absolute inset-0 w-full h-full object-cover opacity-60"
             />

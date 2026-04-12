@@ -159,7 +159,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
       <section className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80&auto=format"
           alt="Aktivitäten & Erlebnisse"
           className="absolute inset-0 w-full h-full object-cover"
           // @ts-ignore
@@ -359,7 +359,7 @@ export default function MarktplatzHome({ sidebar }: { sidebar?: React.ReactNode 
             <section className="relative overflow-hidden rounded-3xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&q=80"
+                src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&q=80&auto=format"
                 alt="Anbieter werden"
                 className="absolute inset-0 w-full h-full object-cover"
               />

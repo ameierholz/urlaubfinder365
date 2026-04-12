@@ -48,7 +48,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const FEATURED = [
     {
       href: "/ki-reiseplaner/",
-      img: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80",
+      img: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format",
       icon: Sparkles,
       badge: t("featuredBadgeKI"),
       badgeColor: "bg-purple-500/80",
@@ -59,7 +59,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     },
     {
       href: "/preisentwicklung/",
-      img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
+      img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format",
       icon: TrendingUp,
       badge: t("featuredBadgePreise"),
       badgeColor: "bg-emerald-500/80",
@@ -76,7 +76,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: ShieldAlert,
       iconBg: "bg-red-100",
       iconColor: "text-red-500",
-      img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=600&q=70&auto=format",
       title: t("toolTitleWarnungen"),
       desc: t("toolDescWarnungen"),
       tag: t("toolTagWarnungen"),
@@ -87,7 +87,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: BookOpen,
       iconBg: "bg-blue-100",
       iconColor: "text-blue-500",
-      img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=70&auto=format",
       title: t("toolTitleGuides"),
       desc: t("toolDescGuides"),
       tag: t("toolTagGuides"),
@@ -98,7 +98,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: ShieldCheck,
       iconBg: "bg-teal-100",
       iconColor: "text-teal-500",
-      img: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=70&auto=format",
       title: t("toolTitleVisum"),
       desc: t("toolDescVisum"),
       tag: t("toolTagVisum"),
@@ -109,7 +109,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: Star,
       iconBg: "bg-indigo-100",
       iconColor: "text-indigo-500",
-      img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=70&auto=format",
       title: t("toolTitleVersicherung"),
       desc: t("toolDescVersicherung"),
       tag: t("toolTagVersicherung"),
@@ -120,7 +120,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: Compass,
       iconBg: "bg-orange-100",
       iconColor: "text-orange-500",
-      img: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=70&auto=format",
       title: t("toolTitleAktivitaeten"),
       desc: t("toolDescAktivitaeten"),
       tag: t("toolTagAktivitaeten"),
@@ -131,7 +131,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: Calendar,
       iconBg: "bg-pink-100",
       iconColor: "text-pink-500",
-      img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=70&auto=format",
       title: t("toolTitleKalender"),
       desc: t("toolDescKalender"),
       tag: t("toolTagKalender"),
@@ -142,7 +142,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       icon: Globe,
       iconBg: "bg-cyan-100",
       iconColor: "text-cyan-500",
-      img: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=70",
+      img: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=70&auto=format",
       title: t("toolTitleKarte"),
       desc: t("toolDescKarte"),
       tag: t("toolTagKarte"),
@@ -158,7 +158,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       <section className="relative overflow-hidden text-white" style={{ minHeight: "320px" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80&auto=format"
           alt="Extras & Tools"
           className="absolute inset-0 w-full h-full object-cover"
           // @ts-ignore
@@ -294,7 +294,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="sticky top-24">
               <RightSidebar
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: t("sidebarEyebrow"),
                   title: t("sidebarTitle"),
                   description: t("sidebarDesc"),

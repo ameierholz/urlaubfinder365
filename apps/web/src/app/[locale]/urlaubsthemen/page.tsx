@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: "https://www.urlaubfinder365.de/urlaubsthemen/",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&fit=crop&q=80",
+        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&fit=crop&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Reisende mit Koffer am Flughafen – Urlaubsthemen und Reiseideen bei Urlaubfinder365",
@@ -117,7 +117,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* HERO */}
       <div className="relative overflow-hidden -mt-24 pt-24 min-h-[480px] flex items-end">
         <Image
-          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80&auto=format"
           alt="Urlaubsthemen – Reiseideen für jeden Geschmack"
           fill
           priority
@@ -257,7 +257,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="sticky top-24">
               <RightSidebar
                 extrasBox={{
-                  image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=200&q=70",
+                  image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&h=200&q=70&auto=format",
                   eyebrow: t("sidebarEyebrow"),
                   title: t("sidebarTitle"),
                   description: t("sidebarDescription"),

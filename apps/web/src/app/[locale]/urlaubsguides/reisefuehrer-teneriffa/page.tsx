@@ -9,7 +9,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 const CANONICAL = `${BASE_URL}/urlaubsguides/reisefuehrer-teneriffa/`;
 const YEAR = new Date().getFullYear();
-const OG_IMAGE = "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&h=630&fit=crop&q=80";
+const OG_IMAGE = "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&h=630&fit=crop&q=80&auto=format";
 
 export const metadata: Metadata = {
   title: `🌋 Teneriffa Urlaubsführer ${YEAR} – Teide, Strände & Tipps`,

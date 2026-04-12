@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&h=630&q=80",
+        url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
         width: 1200,
         height: 630,
         alt: "Last-Minute Urlaub günstig buchen – Strandurlaub mit Traumhotels",
@@ -116,7 +116,7 @@ export default async function ({ params, searchParams }: {
         {/* Hero */}
         <div
           className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[340px]"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1920&q=80')" }}
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80')" }}
         >
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(180,83,9,0.82) 0%, rgba(220,38,38,0.58) 50%, rgba(15,23,42,0.78) 100%)" }} />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">

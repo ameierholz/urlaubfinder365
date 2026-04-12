@@ -14,20 +14,20 @@ interface DestItem {
 
 /** Kuratierte Top-Urlaubsziele – alle Slugs haben eigene Seiten unter /urlaubsziele/ */
 const DESTINATIONS: DestItem[] = [
-  { slug: "antalya",   name: "Antalya",   country: "Türkei",       flagCode: "tr", image: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=400&q=75" },
-  { slug: "mallorca",  name: "Mallorca",  country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=400&q=75" },
-  { slug: "kreta",     name: "Kreta",     country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=75" },
-  { slug: "barcelona", name: "Barcelona", country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=75" },
-  { slug: "hurghada",  name: "Hurghada",  country: "Ägypten",      flagCode: "eg", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=75" },
-  { slug: "teneriffa", name: "Teneriffa", country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=75" },
-  { slug: "rhodos",    name: "Rhodos",    country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1664118145742-f2ad1c09c10b?w=400&q=75" },
-  { slug: "ibiza",     name: "Ibiza",     country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1689859870434-8248d5a113c1?w=400&q=75" },
-  { slug: "dubai",     name: "Dubai",     country: "VAE",          flagCode: "ae", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=75" },
-  { slug: "phuket",    name: "Phuket",    country: "Thailand",     flagCode: "th", image: "https://images.unsplash.com/photo-1704928517302-67b645c9b083?w=400&q=75" },
-  { slug: "lissabon",  name: "Lissabon",  country: "Portugal",     flagCode: "pt", image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=75" },
-  { slug: "sardinien", name: "Sardinien", country: "Italien",      flagCode: "it", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&q=75" },
-  { slug: "santorini", name: "Santorini", country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1618478669118-1b3eb2b2bb95?w=400&q=75" },
-  { slug: "side",      name: "Side",      country: "Türkei",       flagCode: "tr", image: "https://images.unsplash.com/photo-1561712815-883650f32f92?w=400&q=75" },
+  { slug: "antalya",   name: "Antalya",   country: "Türkei",       flagCode: "tr", image: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=400&q=75&auto=format" },
+  { slug: "mallorca",  name: "Mallorca",  country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=400&q=75&auto=format" },
+  { slug: "kreta",     name: "Kreta",     country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&q=75&auto=format" },
+  { slug: "barcelona", name: "Barcelona", country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=75&auto=format" },
+  { slug: "hurghada",  name: "Hurghada",  country: "Ägypten",      flagCode: "eg", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=75&auto=format" },
+  { slug: "teneriffa", name: "Teneriffa", country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=75&auto=format" },
+  { slug: "rhodos",    name: "Rhodos",    country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1664118145742-f2ad1c09c10b?w=400&q=75&auto=format" },
+  { slug: "ibiza",     name: "Ibiza",     country: "Spanien",      flagCode: "es", image: "https://images.unsplash.com/photo-1689859870434-8248d5a113c1?w=400&q=75&auto=format" },
+  { slug: "dubai",     name: "Dubai",     country: "VAE",          flagCode: "ae", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=75&auto=format" },
+  { slug: "phuket",    name: "Phuket",    country: "Thailand",     flagCode: "th", image: "https://images.unsplash.com/photo-1704928517302-67b645c9b083?w=400&q=75&auto=format" },
+  { slug: "lissabon",  name: "Lissabon",  country: "Portugal",     flagCode: "pt", image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=75&auto=format" },
+  { slug: "sardinien", name: "Sardinien", country: "Italien",      flagCode: "it", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&q=75&auto=format" },
+  { slug: "santorini", name: "Santorini", country: "Griechenland", flagCode: "gr", image: "https://images.unsplash.com/photo-1618478669118-1b3eb2b2bb95?w=400&q=75&auto=format" },
+  { slug: "side",      name: "Side",      country: "Türkei",       flagCode: "tr", image: "https://images.unsplash.com/photo-1561712815-883650f32f92?w=400&q=75&auto=format" },
 ];
 
 export interface DestCarouselItem {

@@ -346,7 +346,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
                       {d && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                          src={generateHeroFallback(d.unsplashKeyword).replace("w=1600", "w=120")}
+                          src={generateHeroFallback(d.unsplashKeyword).replace("w=800", "w=120")}
                           alt={d.name}
                           className="w-full h-full object-cover"
                           loading="lazy"
@@ -545,7 +545,7 @@ export default function WishlistTab({ user, userProfile }: Props) {
             <div key={dest.slug} className="relative group rounded-2xl overflow-hidden aspect-4/3 bg-gray-100">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={generateHeroFallback(dest.unsplashKeyword).replace("w=1600", "w=400")}
+                src={generateHeroFallback(dest.unsplashKeyword).replace("w=800", "w=400")}
                 alt={dest.name}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 loading="lazy"

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description: `Super Last Minute ${YEAR}: In 72 Stunden am Strand ✓ Maximale Ersparnis ✓ Sofortbuchung ✓ Türkei, Griechenland & Ägypten zum Spitzenpreis.`,
     url: "https://www.urlaubfinder365.de/urlaubsarten/super-last-minute-urlaub/",
     siteName: "Urlaubfinder365",
-    images: [{ url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&q=80", width: 1200, height: 630, alt: "Super Last Minute – Antalya Strand mit Taurusgebirge" }],
+    images: [{ url: "https://images.unsplash.com/photo-1686808191914-5df77394ec3a?w=1200&q=80&auto=format", width: 1200, height: 630, alt: "Super Last Minute – Antalya Strand mit Taurusgebirge" }],
     locale: "de_DE",
     type: "website",
   },
@@ -40,7 +40,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Hero */}
       <div
         className="text-white relative overflow-hidden bg-cover bg-center -mt-24 pt-24 min-h-[380px]"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1920&q=80')" }}
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80')" }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(220,38,38,0.82) 0%, rgba(225,29,72,0.60) 50%, rgba(15,23,42,0.75) 100%)" }} />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">

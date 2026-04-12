@@ -35,7 +35,7 @@ const guides = [
     category: "vor-der-reise",
     categoryLabel: "Vor der Reise",
     readingTime: 8,
-    coverImage: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=800&q=80",
+    coverImage: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=800&q=80&auto=format",
     tags: ["Türkei", "Strand", "Einreise", "Tipps"],
   },
 ];

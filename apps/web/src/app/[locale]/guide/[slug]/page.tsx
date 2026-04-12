@@ -24,7 +24,7 @@ const guideContent: Record<string, {
     destinationSlug: "antalya",
     title: "Antalya Urlaubsführer: Alles was du wissen musst",
     readingTime: 8,
-    coverImage: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=1600&q=80",
+    coverImage: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=800&q=80&auto=format",
     intro:
       "Antalya ist das Herz der türkischen Riviera – eine faszinierende Mischung aus antiker Geschichte, modernen Resorts und atemberaubender Natur. Dieser Urlaubsführer bereitet dich optimal auf deinen Urlaub vor.",
     sections: [
