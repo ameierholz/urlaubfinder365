@@ -17,11 +17,16 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    // Vercel Hobby-Plan: Image-Optimization-Limit erreicht (402).
+    // Unsplash liefert bereits optimierte Bilder über URL-Parameter (w=, q=).
+    // → Nach Upgrade auf Vercel Pro: unoptimized entfernen.
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "**.specials.de" },
       { protocol: "https", hostname: "media.traffics-switch.de" },
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "i.pravatar.cc" },
+      { protocol: "https", hostname: "flagcdn.com" },
     ],
     formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],

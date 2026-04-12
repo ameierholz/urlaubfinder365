@@ -148,13 +148,9 @@ const organizationSchema = {
     `${SITE_URL}/en/`,
     `${SITE_URL}/tr/`,
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.7",
-    reviewCount: "1243",
-    bestRating: "5",
-    worstRating: "1",
-  },
+  // aggregateRating entfernt: Daten waren hartcodiert (Fake) und verstoßen
+  // gegen Googles Rich-Results-Richtlinien. Erst wieder hinzufügen, wenn
+  // echte Bewertungen (z.B. Trustpilot) automatisch abgerufen werden.
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",

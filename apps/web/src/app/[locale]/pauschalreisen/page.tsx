@@ -4,6 +4,7 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { PAUSCHAL_KOMBIS } from "@/lib/pauschalreisen-kombi-data";
 import { getAlternateUrls } from "@/i18n/routing";
+import { FlagImage } from "@/components/ui/flag-image";
 
 import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
@@ -97,7 +98,7 @@ export default async function PauschalreisenIndexPage({ params }: { params: Prom
                 />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%)" }} />
                 <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <span className="text-2xl mb-1">{k.flag}</span>
+                  <FlagImage emoji={k.flag} name={k.country} size="lg" />
                   <h3 className="text-lg font-bold text-white leading-tight">
                     {k.h1.replace(/ \d{4}.*/, "").replace(/ – .*/, "")}
                   </h3>

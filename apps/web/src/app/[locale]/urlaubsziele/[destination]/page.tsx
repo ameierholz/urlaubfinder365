@@ -232,29 +232,9 @@ export default async function DestinationPage({ params }: Props) {
             "seller": { "@type": "Organization", "name": "Urlaubfinder365" },
           },
         } : {}),
-        ...(reviewStats.count > 0 ? {
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": reviewStats.average,
-            "bestRating": 5,
-            "worstRating": 1,
-            "ratingCount": reviewStats.count,
-            "reviewCount": reviewStats.count,
-          },
-          "review": reviewStats.recent.slice(0, 3).map((r) => ({
-            "@type": "Review",
-            "reviewRating": {
-              "@type": "Rating",
-              "ratingValue": r.rating,
-              "bestRating": 5,
-              "worstRating": 1,
-            },
-            "author": { "@type": "Person", "name": "Urlaubfinder365-Community" },
-            "datePublished": r.created_at,
-            ...(r.title ? { "name": r.title } : {}),
-            ...(r.content ? { "reviewBody": r.content } : {}),
-          })),
-        } : {}),
+        // AggregateRating/Review entfernt: Google unterstützt Review-Snippets
+        // NICHT auf TouristDestination (nur Product, LocalBusiness, CreativeWork etc.).
+        // Bewertungen werden weiterhin visuell auf der Seite angezeigt.
       },
       ...(offerLowPrice ? [
         {

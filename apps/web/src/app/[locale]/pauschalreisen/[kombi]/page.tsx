@@ -13,6 +13,7 @@ import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { FlagImage } from "@/components/ui/flag-image";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 interface Props {
@@ -181,7 +182,7 @@ export default async function PauschalKombiPage({ params }: Props) {
             <span className="text-white/90">{data.country}</span>
           </nav>
           <span className="inline-flex items-center gap-2 bg-sky-600/90 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-5 shadow-lg">
-            {data.flag} Pauschalreisen {data.country}
+            <FlagImage emoji={data.flag} name={data.country} size="sm" /> Pauschalreisen {data.country}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
             {data.h1}
@@ -278,7 +279,7 @@ export default async function PauschalKombiPage({ params }: Props) {
               href={`/pauschalreisen/${k.slug}/`}
               className="inline-flex items-center gap-1.5 bg-white border border-gray-200 hover:border-sky-400 hover:text-sky-600 text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all"
             >
-              <span>{k.flag}</span>
+              <FlagImage emoji={k.flag} name={k.country} size="sm" />
               {k.h1.replace(/ \d{4}.*/, "").replace(/^(Pauschalreisen|All Inclusive|Last Minute) /, (m) => m)}
             </Link>
           ))}

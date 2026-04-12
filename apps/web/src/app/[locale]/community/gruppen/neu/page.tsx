@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { createGroup } from "@/lib/supabase-db";
 import { GroupCategory } from "@/types";
 import Link from "next/link";
+import { FlagImage } from "@/components/ui/flag-image";
 import {
   ArrowLeft, ArrowRight, Check, ChevronDown, Globe, Image as ImageIcon,
   Lock, Plus, Shield, Tag, Trash2, Users2, X, Loader2, Upload,
@@ -38,10 +39,10 @@ const CATEGORY_OPTIONS: { value: GroupCategory; label: string; emoji: string; hi
 const LANGUAGES = [
   { code: "de", flag: "🇩🇪", label: "Deutsch" },
   { code: "en", flag: "🇬🇧", label: "Englisch" },
-  { code: "tr", flag: "🏖",  label: "Türkisch" },
-  { code: "pl", flag: "🌍",  label: "Polnisch" },
-  { code: "ru", flag: "🌍",  label: "Russisch" },
-  { code: "es", flag: "🌍",  label: "Spanisch" },
+  { code: "tr", flag: "🇹🇷", label: "Türkisch" },
+  { code: "pl", flag: "🇵🇱", label: "Polnisch" },
+  { code: "ru", flag: "🇷🇺", label: "Russisch" },
+  { code: "es", flag: "🇪🇸", label: "Spanisch" },
 ];
 
 const MONTHS = ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"];
@@ -556,7 +557,7 @@ export default function NeueGruppePage() {
                     language === lang.code ? "border-teal-500 bg-teal-50" : "border-gray-200 hover:border-teal-200"
                   }`}
                 >
-                  <span className="text-base">{lang.flag}</span>
+                  <FlagImage emoji={lang.flag} name={lang.label} size="sm" />
                   <span className={`text-xs font-semibold ${language === lang.code ? "text-teal-700" : "text-gray-600"}`}>{lang.label}</span>
                   {language === lang.code && <Check className="w-3 h-3 text-teal-600 ml-auto" />}
                 </button>

@@ -169,13 +169,8 @@ export default async function TopAttraktionenPage({ params }: Props) {
       position: i + 1,
       name: e.title,
       url: e.experience_url,
-      ...(e.ratings && {
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: e.ratings.average,
-          reviewCount: e.ratings.total,
-        },
-      }),
+      // AggregateRating entfernt: Google unterstützt Review-Snippets
+      // nicht auf ListItem. Ratings werden visuell angezeigt.
     })),
   };
 

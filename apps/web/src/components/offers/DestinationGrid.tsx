@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { FlagImage as FlagImg } from "@/components/ui/flag-image";
 
 export interface DestinationCard {
   name: string;
@@ -14,40 +15,6 @@ interface Props {
   destinations: DestinationCard[];
   accentColor?: string;
   carouselLabel?: string;
-}
-
-/** Emoji-Flag → ISO 3166-1 alpha-2 für flagcdn.com (Windows zeigt keine Emoji-Flaggen) */
-const FLAG_CODES: Record<string, string> = {
-  "🇦🇪": "ae", "🇦🇹": "at", "🇧🇪": "be", "🇧🇬": "bg", "🇧🇷": "br",
-  "🇨🇾": "cy", "🇨🇿": "cz", "🇩🇪": "de", "🇩🇰": "dk", "🇪🇬": "eg",
-  "🇪🇸": "es", "🇫🇷": "fr", "🇬🇧": "gb", "🇬🇷": "gr", "🇭🇷": "hr",
-  "🇭🇺": "hu", "🇮🇩": "id", "🇮🇳": "in", "🇮🇹": "it", "🇯🇵": "jp",
-  "🇲🇦": "ma", "🇲🇹": "mt", "🇲🇻": "mv", "🇲🇽": "mx", "🇳🇱": "nl",
-  "🇵🇹": "pt", "🇷🇴": "ro", "🇸🇬": "sg", "🇸🇮": "si", "🇸🇰": "sk",
-  "🇹🇭": "th", "🇹🇳": "tn", "🇹🇷": "tr", "🇺🇸": "us", "🇻🇳": "vn",
-  "🇿🇦": "za", "🇨🇺": "cu", "🇯🇲": "jm", "🇩🇴": "do", "🇧🇧": "bb",
-};
-
-function FlagImg({ emoji, name, size = "sm" }: { emoji: string; name: string; size?: "sm" | "lg" }) {
-  const code = FLAG_CODES[emoji];
-  if (!code) {
-    return <span className={size === "lg" ? "text-2xl leading-none" : "text-base leading-none"}>{emoji}</span>;
-  }
-  // flagcdn.com only supports standard sizes: 20x15, 24x18, 32x24, 48x36, 64x48 …
-  const w = size === "lg" ? 32 : 24;
-  const h = size === "lg" ? 24 : 18;
-  const w2 = size === "lg" ? 64 : 48;
-  const h2 = size === "lg" ? 48 : 36;
-  return (
-    <img
-      src={`https://flagcdn.com/${w}x${h}/${code}.png`}
-      srcSet={`https://flagcdn.com/${w2}x${h2}/${code}.png 2x`}
-      width={w}
-      height={h}
-      alt={name}
-      className="rounded-[2px] shadow-sm shrink-0"
-    />
-  );
 }
 
 export default function DestinationGrid({ destinations, accentColor = "#00838F", carouselLabel = "Weitere Urlaubsziele" }: Props) {

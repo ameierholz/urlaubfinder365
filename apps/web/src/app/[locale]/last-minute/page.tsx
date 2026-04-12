@@ -10,6 +10,7 @@ import { buildB2bUrl } from "@/lib/search-params";
 import { setRequestLocale } from "next-intl/server";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { FlagImage } from "@/components/ui/flag-image";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -341,7 +342,7 @@ export default async function ({ params, searchParams }: {
               ].map((dest) => (
                 <Link key={dest.href} href={dest.href} className="group block bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:border-orange-200 hover:shadow-md transition-all">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl">{dest.flag}</span>
+                    <FlagImage emoji={dest.flag} name={dest.name} size="lg" />
                     <h3 className="font-bold text-gray-900 group-hover:text-orange-700 transition-colors">{dest.name}</h3>
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed mb-3">{dest.text}</p>
