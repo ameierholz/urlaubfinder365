@@ -197,7 +197,7 @@ export default function TiqetsExperiencePage({ cityId, cityName, citySlug, heroI
           <nav className="flex items-center flex-wrap gap-x-2 gap-y-1 text-sm text-white/65 mb-7">
             <a href="/" className="hover:text-white transition-colors">Startseite</a>
             <span>›</span>
-            <a href="/aktivitaeten/" className="hover:text-white transition-colors">Aktivitäten</a>
+            <a href="/erlebnisse/" className="hover:text-white transition-colors">Erlebnisse</a>
             <span>›</span>
             <span className="text-white font-medium">{cityName}</span>
           </nav>

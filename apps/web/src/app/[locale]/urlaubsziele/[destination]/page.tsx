@@ -763,7 +763,7 @@ export default async function DestinationPage({ params }: Props) {
                     {dest.tiqetsNiches.map((niche) => (
                       <Link
                         key={niche.slug}
-                        href={`/aktivitaeten/${dest.slug}/${niche.slug}/`}
+                        href={`/erlebnisse/${dest.slug}/${niche.slug}/`}
                         className="inline-flex items-center gap-1.5 bg-teal-50 border border-teal-200 text-[#00838F] hover:bg-brand-teal hover:text-white hover:border-brand-teal text-xs font-semibold px-3 py-1.5 rounded-full transition-all"
                       >
                         🎟️ {niche.label}

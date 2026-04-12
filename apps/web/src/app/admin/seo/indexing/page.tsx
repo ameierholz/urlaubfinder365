@@ -65,7 +65,7 @@ export default function IndexingPage() {
       urls: destinations
         .filter((d) => d.tiqetsCityId)
         .slice(0, 12)
-        .map((d) => `${BASE}/aktivitaeten/${d.slug}/top-attraktionen/`),
+        .map((d) => `${BASE}/erlebnisse/${d.slug}/top-attraktionen/`),
     },
   ];
 

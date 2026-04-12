@@ -82,7 +82,6 @@ async function fetchTopAttractions(cityId: string): Promise<TiqetsExperience[]> 
     const data = await res.json();
     const all: TiqetsExperience[] = data.experiences ?? [];
 
-    // Sortieren nach Rating * log(count) für qualitative & stabile Top-20
     return all
       .filter((e) => e.ratings && e.ratings.total > 10)
       .sort((a, b) => {
@@ -103,14 +102,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `Top 20 Attraktionen ${cfg.name} ${YEAR} – Tickets online buchen`;
   const description = `Die 20 beliebtesten Attraktionen, Sehenswürdigkeiten & Touren in ${cfg.name} ✓ Echte Bewertungen ✓ Tickets sofort buchbar ✓ Beste Auswahl ${YEAR}.`;
-  const canonical = `${BASE_URL}/aktivitaeten/${cfg.slug}/top-attraktionen/`;
+  const canonical = `${BASE_URL}/erlebnisse/${cfg.slug}/top-attraktionen/`;
 
   return {
     title,
     description,
     alternates: {
       canonical,
-      languages: getAlternateUrls(`/aktivitaeten/${cfg.slug}/top-attraktionen/`),
+      languages: getAlternateUrls(`/erlebnisse/${cfg.slug}/top-attraktionen/`),
     },
     openGraph: {
       title,
@@ -153,9 +152,9 @@ export default async function TopAttraktionenPage({ params }: Props) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Startseite",  item: `${BASE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Aktivitäten", item: `${BASE_URL}/aktivitaeten/` },
-      { "@type": "ListItem", position: 3, name: cfg.name,       item: `${BASE_URL}/aktivitaeten/${cfg.slug}/` },
-      { "@type": "ListItem", position: 4, name: "Top 20",       item: `${BASE_URL}/aktivitaeten/${cfg.slug}/top-attraktionen/` },
+      { "@type": "ListItem", position: 2, name: "Erlebnisse",  item: `${BASE_URL}/erlebnisse/` },
+      { "@type": "ListItem", position: 3, name: cfg.name,      item: `${BASE_URL}/erlebnisse/${cfg.slug}/` },
+      { "@type": "ListItem", position: 4, name: "Top 20",      item: `${BASE_URL}/erlebnisse/${cfg.slug}/top-attraktionen/` },
     ],
   };
 
@@ -169,8 +168,6 @@ export default async function TopAttraktionenPage({ params }: Props) {
       position: i + 1,
       name: e.title,
       url: e.experience_url,
-      // AggregateRating entfernt: Google unterstützt Review-Snippets
-      // nicht auf ListItem. Ratings werden visuell angezeigt.
     })),
   };
 
@@ -190,9 +187,9 @@ export default async function TopAttraktionenPage({ params }: Props) {
           <nav className="flex items-center gap-2 text-white/60 text-xs mb-6">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/aktivitaeten/" className="hover:text-white">Aktivitäten</Link>
+            <Link href="/erlebnisse/" className="hover:text-white">Erlebnisse</Link>
             <span>/</span>
-            <Link href={`/aktivitaeten/${cfg.slug}/`} className="hover:text-white">{cfg.name}</Link>
+            <Link href={`/erlebnisse/${cfg.slug}/`} className="hover:text-white">{cfg.name}</Link>
             <span>/</span>
             <span className="text-white/90">Top 20</span>
           </nav>
@@ -227,8 +224,8 @@ export default async function TopAttraktionenPage({ params }: Props) {
       {attractions.length === 0 ? (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <p className="text-gray-500">Aktuell sind keine Attraktionen für {cfg.name} verfügbar.</p>
-          <Link href={`/aktivitaeten/${cfg.slug}/`} className="inline-block mt-4 text-[#1db682] font-semibold hover:underline">
-            Alle Aktivitäten in {cfg.name} ansehen →
+          <Link href={`/erlebnisse/${cfg.slug}/`} className="inline-block mt-4 text-[#1db682] font-semibold hover:underline">
+            Alle Erlebnisse in {cfg.name} ansehen →
           </Link>
         </div>
       ) : (
@@ -296,13 +293,13 @@ export default async function TopAttraktionenPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100 mt-8">
         <h2 className="text-xl font-bold text-gray-900 mb-3">Noch mehr in {cfg.name} entdecken</h2>
         <div className="flex flex-wrap gap-2">
-          <Link href={`/aktivitaeten/${cfg.slug}/`} className="inline-flex items-center bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all">
-            Alle Aktivitäten
+          <Link href={`/erlebnisse/${cfg.slug}/`} className="inline-flex items-center bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all">
+            Alle Erlebnisse
           </Link>
           <Link href={`/urlaubsziele/${cfg.slug}/`} className="inline-flex items-center bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all">
             {cfg.name} Reiseziel
           </Link>
-          <Link href="/aktivitaeten/" className="inline-flex items-center bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all">
+          <Link href="/erlebnisse/" className="inline-flex items-center bg-white border border-gray-200 hover:border-[#1db682] hover:text-[#1db682] text-gray-700 text-sm font-medium px-4 py-2 rounded-full transition-all">
             Alle Städte
           </Link>
         </div>

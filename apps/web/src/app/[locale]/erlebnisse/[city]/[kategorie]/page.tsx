@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const niche = dest?.tiqetsNiches?.find((n) => n.slug === kategorie);
   if (!dest || !niche) return {};
 
-  const canonical = `${BASE_URL}/aktivitaeten/${city}/${kategorie}/`;
+  const canonical = `${BASE_URL}/erlebnisse/${city}/${kategorie}/`;
   return {
     title: niche.metaTitle,
     description: niche.metaDescription,
@@ -59,10 +59,10 @@ export default async function TiqetsNichePage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Startseite",   item: `${BASE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Aktivitäten",  item: `${BASE_URL}/aktivitaeten/` },
-      { "@type": "ListItem", position: 3, name: dest.name,       item: `${BASE_URL}/aktivitaeten/${dest.slug}/` },
-      { "@type": "ListItem", position: 4, name: niche.label,    item: `${BASE_URL}/aktivitaeten/${dest.slug}/${niche.slug}/` },
+      { "@type": "ListItem", position: 1, name: "Startseite",  item: `${BASE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Erlebnisse",  item: `${BASE_URL}/erlebnisse/` },
+      { "@type": "ListItem", position: 3, name: dest.name,     item: `${BASE_URL}/erlebnisse/${dest.slug}/` },
+      { "@type": "ListItem", position: 4, name: niche.label,   item: `${BASE_URL}/erlebnisse/${dest.slug}/${niche.slug}/` },
     ],
   };
 
@@ -80,13 +80,12 @@ export default async function TiqetsNichePage({ params }: Props) {
           />
         )}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Breadcrumb */}
           <nav className="flex items-center flex-wrap gap-x-2 gap-y-1 text-sm text-white/65 mb-6">
             <Link href="/" className="hover:text-white transition-colors">Startseite</Link>
             <span>›</span>
-            <Link href="/aktivitaeten/" className="hover:text-white transition-colors">Aktivitäten</Link>
+            <Link href="/erlebnisse/" className="hover:text-white transition-colors">Erlebnisse</Link>
             <span>›</span>
-            <Link href={`/aktivitaeten/${dest.slug}/`} className="hover:text-white transition-colors">{dest.name}</Link>
+            <Link href={`/erlebnisse/${dest.slug}/`} className="hover:text-white transition-colors">{dest.name}</Link>
             <span>›</span>
             <span className="text-white font-medium">{niche.label}</span>
           </nav>
@@ -106,10 +105,10 @@ export default async function TiqetsNichePage({ params }: Props) {
 
           <div className="flex flex-wrap gap-3 mt-6">
             <Link
-              href={`/aktivitaeten/${dest.slug}/`}
+              href={`/erlebnisse/${dest.slug}/`}
               className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-white/25 transition-colors border border-white/30"
             >
-              ← Alle Aktivitäten in {dest.name}
+              ← Alle Erlebnisse in {dest.name}
             </Link>
             <Link
               href={`/urlaubsziele/${dest.slug}/`}
@@ -146,20 +145,20 @@ export default async function TiqetsNichePage({ params }: Props) {
               {dest.name} Urlaub buchen →
             </Link>
             <Link
-              href={`/aktivitaeten/${dest.slug}/`}
+              href={`/erlebnisse/${dest.slug}/`}
               className="inline-block border border-[#6CC4BA] text-[#00838F] hover:bg-[#6CC4BA] hover:text-white font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
             >
-              Alle Aktivitäten in {dest.name} →
+              Alle Erlebnisse in {dest.name} →
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Weitere Kategorien in dieser Stadt */}
+      {/* Weitere Kategorien */}
       {dest.tiqetsNiches && dest.tiqetsNiches.filter((n) => n.slug !== kategorie).length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <h2 className="text-lg font-bold text-gray-900 mb-3">
-            Weitere Aktivitäten in {dest.name}
+            Weitere Erlebnisse in {dest.name}
           </h2>
           <div className="flex flex-wrap gap-2">
             {dest.tiqetsNiches
@@ -167,7 +166,7 @@ export default async function TiqetsNichePage({ params }: Props) {
               .map((n) => (
                 <Link
                   key={n.slug}
-                  href={`/aktivitaeten/${dest.slug}/${n.slug}/`}
+                  href={`/erlebnisse/${dest.slug}/${n.slug}/`}
                   className="inline-flex items-center gap-2 bg-teal-50 hover:bg-[#6CC4BA] border border-teal-200 hover:border-[#6CC4BA] text-gray-700 hover:text-white text-sm font-semibold px-4 py-2 rounded-full transition-all duration-200"
                 >
                   🎟️ {n.label} →
@@ -177,7 +176,7 @@ export default async function TiqetsNichePage({ params }: Props) {
         </div>
       )}
 
-      {/* Aktivitäten in anderen Zielen */}
+      {/* Andere Ziele */}
       {(() => {
         const otherDests = destinations.filter(
           (d) => d.slug !== dest.slug && d.tiqetsCityId && d.tiqetsNiches && d.tiqetsNiches.length > 0
@@ -186,7 +185,7 @@ export default async function TiqetsNichePage({ params }: Props) {
         return (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
             <h2 className="text-lg font-bold text-gray-900 mb-4">
-              Ähnliche Aktivitäten an anderen Urlaubszielen
+              Ähnliche Erlebnisse an anderen Urlaubszielen
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {otherDests.slice(0, 2).map((od) => {
@@ -196,13 +195,13 @@ export default async function TiqetsNichePage({ params }: Props) {
                 return (
                   <Link
                     key={od.slug}
-                    href={similarNiche ? `/aktivitaeten/${od.slug}/${similarNiche.slug}/` : `/aktivitaeten/${od.slug}/`}
+                    href={similarNiche ? `/erlebnisse/${od.slug}/${similarNiche.slug}/` : `/erlebnisse/${od.slug}/`}
                     className="group flex items-center gap-4 bg-white border border-gray-200 hover:border-[#6CC4BA] hover:shadow-md rounded-2xl p-4 transition-all duration-200"
                   >
                     <div className="text-3xl shrink-0">🌍</div>
                     <div className="min-w-0">
                       <p className="font-bold text-gray-900 group-hover:text-[#00838F] transition-colors">
-                        {similarNiche?.label ?? "Aktivitäten"} in {od.name}
+                        {similarNiche?.label ?? "Erlebnisse"} in {od.name}
                       </p>
                       <p className="text-xs text-gray-500 mt-0.5">{od.country} · Jetzt entdecken →</p>
                     </div>

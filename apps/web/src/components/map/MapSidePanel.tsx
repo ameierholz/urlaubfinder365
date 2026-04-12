@@ -181,7 +181,7 @@ function InternalLinks({ slug, name }: { slug: string; name: string }) {
       </Link>
       {hasTiqets && (
         <Link
-          href={`/aktivitaeten/${slug}/`}
+          href={`/erlebnisse/${slug}/`}
           className="flex items-center justify-between text-xs text-gray-600 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg transition-colors group"
         >
           <span className="flex items-center gap-2">

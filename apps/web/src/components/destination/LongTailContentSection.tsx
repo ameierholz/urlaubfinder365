@@ -40,7 +40,7 @@ export default function LongTailContentSection({ name, slug, regionId, hasTiqets
     { label: `${name} All Inclusive`,      ibeParams: { boardCode: "AI" } },
     { label: `${name} Familienurlaub`,     ibeParams: { from: "14", to: "42", children: "8,8" } },
     { label: `${name} Frühbucher`,         ibeParams: { from: "60", to: "365" } },
-    ...(hasTiqets ? [{ label: `${name} Aktivitäten & Touren`, href: `/aktivitaeten/${slug}/` }] : []),
+    ...(hasTiqets ? [{ label: `${name} Aktivitäten & Touren`, href: `/erlebnisse/${slug}/` }] : []),
   ];
 
   return (

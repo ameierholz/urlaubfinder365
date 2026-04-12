@@ -111,9 +111,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const aktivitaetenPages = destinations
     .filter((d) => d.tiqetsCityId)
     .flatMap((d) => [
-      ...localizedEntries(`/aktivitaeten/${d.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.78 }),
+      ...localizedEntries(`/erlebnisse/${d.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.78 }),
       ...(d.tiqetsNiches ?? []).flatMap((n) =>
-        localizedEntries(`/aktivitaeten/${d.slug}/${n.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.72 })
+        localizedEntries(`/erlebnisse/${d.slug}/${n.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.72 })
       ),
     ]);
 
@@ -137,7 +137,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   destinations.filter((d) => d.tiqetsCityId).forEach((d) => tiqetsSlugs.add(d.slug));
   CATALOG.filter((e) => e.tiqetsCityId).forEach((e) => tiqetsSlugs.add(e.slug));
   const topAttractionPages = Array.from(tiqetsSlugs).flatMap((slug) =>
-    localizedEntries(`/aktivitaeten/${slug}/top-attraktionen/`, { lastModified: content, changeFrequency: "weekly", priority: 0.76 })
+    localizedEntries(`/erlebnisse/${slug}/top-attraktionen/`, { lastModified: content, changeFrequency: "weekly", priority: 0.76 })
   );
 
   return [

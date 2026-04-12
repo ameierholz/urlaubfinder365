@@ -80,7 +80,7 @@ export default function NearbyActivities({ slug, lat, lng, limit = 4 }: Props) {
           <Sparkles className="w-3 h-3" /> Aktivitäten in der Nähe
         </p>
         <Link
-          href={`/aktivitaeten/${slug}/`}
+          href={`/erlebnisse/${slug}/`}
           className="text-[10px] font-bold text-orange-600 hover:text-orange-800 flex items-center gap-0.5"
         >
           Alle ansehen →

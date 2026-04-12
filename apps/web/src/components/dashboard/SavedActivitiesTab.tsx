@@ -94,8 +94,8 @@ export default function SavedActivitiesTab({ user }: Props) {
           <p className="text-gray-400 text-sm mb-6">
             Klicke beim Stöbern auf das ❤ bei einer Aktivität, um sie hier zu speichern.
           </p>
-          <a href="/aktivitaeten/" className="inline-block bg-[#6CC4BA] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-[#5ab0a6] transition-colors">
-            Aktivitäten entdecken
+          <a href="/erlebnisse/" className="inline-block bg-[#6CC4BA] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-[#5ab0a6] transition-colors">
+            Erlebnisse entdecken
           </a>
         </div>
       </div>

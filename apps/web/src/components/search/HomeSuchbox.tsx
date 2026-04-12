@@ -595,7 +595,7 @@ export default function HomeSuchbox() {
               .replace(/ü/g, "ue").replace(/ö/g, "oe").replace(/ä/g, "ae").replace(/ß/g, "ss")
               .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
           : "";
-        const base = slug ? `/aktivitaeten/${slug}/` : "/aktivitaeten/";
+        const base = slug ? `/erlebnisse/${slug}/` : "/erlebnisse/";
         const params = new URLSearchParams();
         if (aktQuery) params.set("q", aktQuery);
         if (departure) params.set("von", formatDate(departure));

@@ -399,7 +399,7 @@ export default function TiqetsActivitiesSection({ cityId, cityName, citySlug }: 
           {/* View all */}
           <div className="text-center mt-5">
             <a
-              href={`/aktivitaeten/${citySlug}/`}
+              href={`/erlebnisse/${citySlug}/`}
               className="inline-block bg-[#6CC4BA] hover:bg-[#5ab0a6] text-white font-bold px-6 py-3 rounded-full text-sm shadow transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
               Alle Aktivitäten in {cityName} ansehen →
