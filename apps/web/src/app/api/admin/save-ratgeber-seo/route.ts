@@ -15,10 +15,20 @@ interface Body {
   title:            string;
   seo_title?:       string | null;
   seo_description?: string | null;
+  focus_keyword?:   string | null;
+  keywords?:        string | null;
+  og_title?:        string | null;
+  og_description?:  string | null;
+  og_image?:        string | null;
   lead?:            string | null;
   hero_image?:      string | null;
   category?:        string | null;
   reading_time_min?: number | null;
+  seo_intro?:       string | null;
+  seo_h2_middle?:   string | null;
+  seo_middle?:      string | null;
+  seo_h2_bottom?:   string | null;
+  seo_bottom?:      string | null;
   sections?:        Array<{ heading: string; body: string }> | null;
   faqs?:            Array<{ question: string; answer: string }> | null;
   related_slugs?:   string[] | null;
@@ -79,10 +89,20 @@ export async function POST(req: NextRequest) {
     title:            body.title,
     seo_title:        body.seo_title ?? null,
     seo_description:  body.seo_description ?? null,
+    focus_keyword:    body.focus_keyword ?? null,
+    keywords:         body.keywords ?? null,
+    og_title:         body.og_title ?? null,
+    og_description:   body.og_description ?? null,
+    og_image:         body.og_image ?? null,
     lead:             body.lead ?? null,
     hero_image:       body.hero_image ?? null,
     category:         body.category ?? null,
     reading_time_min: body.reading_time_min ?? null,
+    seo_intro:        body.seo_intro ?? null,
+    seo_h2_middle:    body.seo_h2_middle ?? null,
+    seo_middle:       body.seo_middle ?? null,
+    seo_h2_bottom:    body.seo_h2_bottom ?? null,
+    seo_bottom:       body.seo_bottom ?? null,
     sections:         body.sections ?? [],
     faqs:             body.faqs ?? [],
     related_slugs:    body.related_slugs ?? [],

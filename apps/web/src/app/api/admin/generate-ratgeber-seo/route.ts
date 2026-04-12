@@ -21,11 +21,17 @@ Der Artikel soll ein umfassender, suchmaschinenoptimierter Reise-Ratgeber sein.
 
 Antworte AUSSCHLIESSLICH mit folgendem JSON:
 {
-  "seo_title": "Max. 58 Zeichen. Keyword am Anfang. Knackig, klickstark. Beispiel: 'Last Minute buchen – Wann sind Reisen am günstigsten?'",
-  "seo_description": "Max. 155 Zeichen. Natürlicher Satz der Mehrwert verspricht. Kein Keyword-Stuffing. Beispiel: 'Erfahre den besten Buchungszeitpunkt für Last-Minute-Reisen und spare bis zu 40%. Mit konkreten Tipps und Preisvergleich.'",
-  "lead": "2-3 packende Sätze als Einleitung. Machen Lust den Artikel zu lesen. Max. 60 Wörter. Sprich den Leser direkt an.",
-  "hero_image_keyword": "Ein Suchbegriff für Unsplash der zum Thema passt, z.B. 'beach suitcase', 'cruise ship', 'family vacation'",
+  "seo_title": "Max. 58 Zeichen. Keyword am Anfang. Knackig, klickstark.",
+  "seo_description": "Max. 155 Zeichen. Natürlicher Satz der Mehrwert verspricht.",
+  "focus_keyword": "Das meistgesuchte Keyword zum Thema – was tippen Nutzer bei Google ein?",
+  "keywords": "6-8 weitere Keywords kommagetrennt, nach Suchvolumen geordnet.",
+  "lead": "2-3 packende Sätze als Einleitung. Max. 60 Wörter. Direkte Ansprache.",
   "reading_time_min": "Geschätzte Lesezeit in Minuten (5-10)",
+  "seo_intro": "2-3 emotionale Sätze direkt nach dem Hero-Bild. Max. 80 Wörter.",
+  "seo_h2_middle": "Kurze H2 mit Keyword für die Seitenmitte",
+  "seo_middle": "2-3 Absätze (durch \\n\\n getrennt). Kerninfos zum Thema. 150-200 Wörter.",
+  "seo_h2_bottom": "H2 mit Ratgeber-Charakter für den unteren Bereich",
+  "seo_bottom": "5-7 Absätze (durch \\n\\n getrennt). Ausführlicher Ratgeber-Text, 500-600 Wörter. MUSS der längste Textblock sein.",
   "sections": [
     {
       "heading": "Erste H2-Überschrift mit Keyword",
