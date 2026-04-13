@@ -417,18 +417,71 @@ export default function MarketingCalendarPage() {
                 </div>
               )}
 
-              {/* Canva Anleitung */}
-              {(p.canva_template || p.canva_hint) && (
-                <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Canva-Anleitung</p>
-                  {p.canva_template && (
-                    <p className="text-sm text-white font-semibold mb-1">Template: {p.canva_template}</p>
-                  )}
-                  {p.canva_hint && (
-                    <p className="text-xs text-gray-400 leading-relaxed whitespace-pre-line">{p.canva_hint?.replace(/\\n/g, "\n")}</p>
-                  )}
-                </div>
-              )}
+              {/* Schritt-fuer-Schritt Anleitung */}
+              <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 space-y-3">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wide">Schritt-fuer-Schritt Anleitung</p>
+
+                {/* Plattform-spezifischer Workflow */}
+                {(p.platform === "tiktok" || p.post_type === "reel") ? (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Video erstellen in Canva</p>
+                    <ol className="text-xs text-gray-300 space-y-1.5 list-none">
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">1.</span> Canva oeffnen → "Video erstellen" → Format <span className="text-white font-semibold">1080x1920</span></li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">2.</span> Links "Videos" klicken → Stock-Video suchen (siehe Bild-Tipp unten)</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">3.</span> Video auf Seite ziehen (5-15 Sekunden pro Szene)</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">4.</span> Text-Overlay: "Text" → Ueberschrift → Caption-Text von oben einfuegen</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">5.</span> Text animieren: Text anklicken → "Animieren" → "Einblenden"</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">6.</span> Musik: Links "Audio" → Suche "travel" oder "summer" → Track hinzufuegen</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">7.</span> Exportieren als <span className="text-white font-semibold">MP4</span> → Auf {p.platform === "tiktok" ? "TikTok" : "Instagram"} hochladen</li>
+                    </ol>
+                  </div>
+                ) : p.post_type === "karussell" ? (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Karussell erstellen in Canva</p>
+                    <ol className="text-xs text-gray-300 space-y-1.5 list-none">
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">1.</span> Canva oeffnen → "Instagram-Beitrag" → <span className="text-white font-semibold">1080x1080</span></li>
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">2.</span> Hintergrundfarbe: <span className="text-white font-semibold">#1db682</span> (gruen) oder <span className="text-white font-semibold">#6991d8</span> (blau)</li>
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">3.</span> Grossen weissen Text in die Mitte (ein Statement pro Slide)</li>
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">4.</span> Seite duplizieren → Farbe + Text aendern → 4-5 Slides</li>
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">5.</span> Letzter Slide: Logo + "urlaubfinder365.de"</li>
+                      <li className="flex gap-2"><span className="text-blue-400 font-bold shrink-0">6.</span> Alle Seiten als <span className="text-white font-semibold">PNG</span> exportieren → Als Karussell posten</li>
+                    </ol>
+                  </div>
+                ) : p.platform === "google" ? (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Google Business Beitrag</p>
+                    <ol className="text-xs text-gray-300 space-y-1.5 list-none">
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">1.</span> Canva → Eigene Groesse → <span className="text-white font-semibold">600x400</span></li>
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">2.</span> Reisefoto einfuegen (siehe Bild-Tipp)</li>
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">3.</span> Preis-Badge oben links (weiss auf gruen #1db682)</li>
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">4.</span> Export als <span className="text-white font-semibold">JPG</span></li>
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">5.</span> Google Business Profil → Beitraege → Angebot/Neuigkeit</li>
+                      <li className="flex gap-2"><span className="text-emerald-400 font-bold shrink-0">6.</span> Text von oben einfuegen → Bild hochladen → Veroeffentlichen</li>
+                    </ol>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Bild-Post erstellen in Canva</p>
+                    <ol className="text-xs text-gray-300 space-y-1.5 list-none">
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">1.</span> Canva oeffnen → {p.platform === "facebook" ? <>"Facebook-Beitrag" → <span className="text-white font-semibold">1200x675</span></> : <>"Instagram-Beitrag" → <span className="text-white font-semibold">1080x1080</span></>}</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">2.</span> Links "Fotos" → Reisefoto suchen (siehe Bild-Tipp)</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">3.</span> Foto als Hintergrund → ganzes Bild ausfuellen</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">4.</span> Unten: Dunkler Balken (Rechteck, schwarz, 60% transparent)</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">5.</span> Weisser Text auf Balken: Destination + Preis</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">6.</span> Logo oben rechts (aus "Uploads")</li>
+                      <li className="flex gap-2"><span className="text-teal-400 font-bold shrink-0">7.</span> Export als <span className="text-white font-semibold">PNG</span> → Posten</li>
+                    </ol>
+                  </div>
+                )}
+
+                {/* Bild-Tipp */}
+                {p.canva_hint && (
+                  <div className="bg-gray-800/50 rounded-lg p-3 mt-2">
+                    <p className="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">Bild-/Video-Tipp</p>
+                    <p className="text-xs text-gray-300 leading-relaxed whitespace-pre-line">{p.canva_hint?.replace(/\\n/g, "\n")}</p>
+                  </div>
+                )}
+              </div>
 
               {/* Link */}
               {p.link && (
