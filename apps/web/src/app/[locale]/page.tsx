@@ -907,6 +907,11 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               </div>
             ))}
           </div>
+          <div className="mt-6 text-center">
+            <Link href="/urlaubsziele/" className="inline-flex items-center gap-2 text-sm font-semibold text-[#1db682] hover:text-[#18a070] transition-colors">
+              Zu allen Urlaubsregionen <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
