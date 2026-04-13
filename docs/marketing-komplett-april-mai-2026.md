@@ -1,58 +1,50 @@
 # MARKETING-KALENDER — urlaubfinder365.de
-# 14. April bis 11. Mai 2026 — Komplett mit Anleitung
+# 14. April bis 11. Mai 2026
 
 ---
 
-# SO FUNKTIONIERT ES
+# ANLEITUNG
 
-## Dein taeglicher Ablauf (max. 30 Minuten)
+## Plattform-Regeln
 
-1. Oeffne diesen Kalender → finde den heutigen Tag
-2. Kopiere den fertigen Text
-3. Oeffne Canva → waehle das passende Template (siehe unten)
-4. Erstelle das Bild in 5 Minuten
-5. Poste auf der angegebenen Plattform
-6. Fertig
+| Plattform | Was posten | Format | Wo erstellen |
+|-----------|-----------|--------|-------------|
+| **Instagram Feed** | Bild oder Karussell | 1080x1080 | Canva → "Instagram-Beitrag" |
+| **Instagram Reel** | Video 15-30 Sek | 1080x1920 | Canva → "Video" → 1080x1920 |
+| **Instagram Story** | Bild mit Sticker | 1080x1920 | Canva → "Instagram Story" |
+| **Facebook** | Bild + Text | 1200x675 | Canva → "Facebook-Beitrag" |
+| **TikTok** | NUR Video 15-30 Sek | 1080x1920 | Canva → "Video" → 1080x1920 |
+| **Google Business** | Bild + Text | 600x400 | Canva → Eigene Groesse 600x400 |
 
-## Canva Templates erstellen (einmalig 20 Minuten)
+## Canva Video erstellen (TikTok + Instagram Reels)
 
-Erstelle in Canva Pro diese 5 Templates und speichere sie:
+1. Canva oeffnen → "Video erstellen" → 1080x1920
+2. Links "Videos" klicken → Suchbegriff eingeben (z.B. "beach drone")
+3. Stock-Video auf die Seite ziehen (5-15 Sekunden)
+4. Text-Overlay: Klick "Text" → Ueberschrift hinzufuegen
+5. Animation: Text anklicken → "Animieren" → "Einblenden" waehlen
+6. Musik: Links "Audio" → Suchbegriff "travel" oder "summer" → Track hinzufuegen
+7. Mehrere Seiten = mehrere Szenen (jeweils 3-5 Sekunden)
+8. Exportieren als MP4 → Auf TikTok/Instagram hochladen
 
-TEMPLATE 1 — "Deal Post" (Instagram + Facebook)
-- Format: 1080 x 1080 px
-- Oben: Urlaubfinder365 Logo (klein, rechte Ecke)
-- Mitte: Grosses Reisefoto (Platzhalter)
-- Unten: Dunkler Balken mit weissem Text: "[ZIEL] ab [PREIS]€"
-- Farben: #1db682 (Gruen) fuer Akzente, weiss fuer Text
-- Schrift: Montserrat Bold
+## Canva Bild erstellen (Instagram Feed + Facebook)
 
-TEMPLATE 2 — "Karussell Slide" (Instagram)
-- Format: 1080 x 1080 px
-- Hintergrund: #1db682 (Gruen) oder #6991d8 (Blau)
-- Mitte: Grosser weisser Text (Statement)
-- Unten: Kleiner Text + Logo
-- Keine Fotos noetig — nur Text auf Farbe
+1. Canva oeffnen → "Instagram-Beitrag" (1080x1080) oder "Facebook-Beitrag" (1200x675)
+2. Links "Fotos" → Suchbegriff eingeben (z.B. "Mallorca beach")
+3. Foto auf Seite ziehen → Ganzes Bild ausfuellen
+4. Unten dunklen Balken hinzufuegen (Rechteck, schwarz, Transparenz 60%)
+5. Weissen Text drauf: Destination + Preis
+6. Logo oben rechts (aus "Uploads" → euer Logo)
+7. Exportieren als PNG
 
-TEMPLATE 3 — "Story/Reel Cover" (Instagram + TikTok)
-- Format: 1080 x 1920 px (Hochformat)
-- Grosses Reisefoto als Hintergrund
-- Text-Overlay mit dunklem Verlauf unten
-- Logo oben rechts
+## Posting-Zeiten
 
-TEMPLATE 4 — "Facebook Link" (Facebook)
-- Format: 1200 x 675 px (Querformat)
-- Reisefoto + Headline + Logo
-- Dezenter als Instagram — weniger Text auf dem Bild
-
-TEMPLATE 5 — "Google Business" (Google)
-- Format: 600 x 400 px
-- Reisefoto + Preis-Badge
-- Kein Logo noetig
-
-## Wo finde ich Reisefotos?
-
-Suche in Canva nach: "Tuerkei Strand", "Mallorca", "Griechenland Meer" etc.
-Oder nutze die Unsplash-Bilder die bereits auf der Website sind.
+| Plattform | Beste Zeit |
+|-----------|-----------|
+| Instagram | 18:00 Uhr |
+| Facebook | 12:00 Uhr |
+| TikTok | 19:00 Uhr |
+| Google | Jederzeit |
 
 ---
 ---
@@ -63,11 +55,20 @@ Oder nutze die Unsplash-Bilder die bereits auf der Website sind.
 
 ## MONTAG 14. APRIL
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** Tuerkei Strand-Foto Hochformat, Text: "60% sparen? So gehts!"
-**Posten um:** 18:00 Uhr
+---
 
+### 18:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (3 Sek): Suche "beach resort aerial" → Video einfuegen → Text-Overlay: "60% sparen beim Fruehbuchen"
+3. Seite 2 (3 Sek): Farbiger Hintergrund #e74c3c (rot) → Text: "Last-Minute August: 899€"
+4. Seite 3 (3 Sek): Farbiger Hintergrund #1db682 (gruen) → Text: "Fruehbucher jetzt: 399€"
+5. Seite 4 (3 Sek): Suche "happy vacation" → Video → Text: "500€ gespart. Pro Person."
+6. Musik: Suche "upbeat travel" → hinzufuegen
+7. Export als MP4
+
+**Caption zum Kopieren:**
 ```
 Fruehbucher buchen JETZT und sparen bis zu 60%
 
@@ -79,47 +80,64 @@ Das sind 500€ gespart. Pro Person.
 
 Wir vergleichen ueber 50 Veranstalter fuer dich.
 Link in Bio
+```
 
-#urlaubfinder365 #fruehbucher #tuerkeiurlaub #allinclusive #urlaubschnaeppchen #reisedeals #guenstigreisen #reisetiktok
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #fruehbucher #tuerkeiurlaub #allinclusive #urlaubschnaeppchen #reisedeals #guenstigreisen
 ```
 
 ---
 
-### TikTok — Video
-**Template:** Story/Reel Cover (gleiches Bild wie Instagram)
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**So erstellst du das Video in Canva:**
+1. Kopiere das Instagram Reel (Canva → "Kopie erstellen")
+2. Aendere den letzten Text zu: "urlaubfinder365.de"
+3. Export als MP4 → Auf TikTok hochladen
+
+**Caption zum Kopieren:**
 ```
-Fruehbucher buchen JETZT und sparen bis zu 60%
+Fruehbucher buchen JETZT und sparen bis zu 60% 🏖️
 
-Last-Minute August: 899€
-Fruehbucher jetzt: 399€
-
-500€ gespart pro Person
+Last-Minute: 899€
+Fruehbucher: 399€
+= 500€ gespart
 
 urlaubfinder365.de
+```
 
-#fruehbucher #reisetok #urlaubtipps #guenstigreisen #reisehacks #urlaubfinder365
+**Hashtags zum Kopieren:**
+```
+#fruehbucher #reisetok #urlaubtipps #guenstigreisen #reisehacks #urlaubfinder365 #reisetiktok
 ```
 
 ---
 
 ## DIENSTAG 15. APRIL
 
-### Facebook — Bild-Post
-**Template:** Facebook Link
-**Canva:** Tuerkei Strand-Foto quer, Badge "ab 399€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**So erstellst du das Bild in Canva:**
+1. Neues Design → "Facebook-Beitrag" (1200x675)
+2. Suche "antalya beach" oder "turkey resort" → Foto einfuegen
+3. Unten: Dunkler Balken (Rechteck, schwarz, 60% transparent)
+4. Weisser Text auf Balken: "Tuerkei All-Inclusive ab 399€ p.P."
+5. Logo oben rechts
+6. Export als PNG
+
+**Text zum Kopieren:**
 ```
-Tuerkei All-Inclusive ab 399€ pro Person
+Tuerkei All-Inclusive ab 399€ pro Person 🇹🇷
 
 7 Naechte im 4-5 Sterne Hotel an der Tuerkischen Riviera
-Flug + Transfer + All-Inclusive inklusive
+✈️ Flug + Transfer + All-Inclusive inklusive
 
 Wir vergleichen ueber 50 Reiseveranstalter damit du immer den besten Preis bekommst.
 
-Jetzt Fruehbucher-Vorteil sichern
+👉 Jetzt Fruehbucher-Vorteil sichern
 urlaubfinder365.de/urlaubsziele/antalya/
 ```
 
@@ -127,120 +145,153 @@ urlaubfinder365.de/urlaubsziele/antalya/
 
 ## MITTWOCH 16. APRIL
 
-### Google Business — Angebot
-**Template:** Google Business
-**Canva:** Strand-Foto 600x400 mit Text "Fruehbucher 2027"
-**Posten:** Jederzeit
+---
 
+### Google Business Angebot
+
+**So erstellst du das Bild in Canva:**
+1. Neues Design → Eigene Groesse → 600x400
+2. Strand-Foto einfuegen
+3. Text-Badge oben links: "Fruehbucher 2027" (weiss auf gruen #1db682)
+4. Export als JPG
+
+**Im Google Business Profil eintragen:**
 ```
 Typ: Angebot
 Titel: Fruehbucher 2027 Jetzt bis zu 60 Prozent sparen
-Start: 16.04.2026
-Ende: 30.04.2026
+Startdatum: 16.04.2026
+Enddatum: 30.04.2026
 Button: Angebot ansehen
 Link: https://www.urlaubfinder365.de/urlaubsarten/fruhbucher-urlaub/
 
 Text:
-Sichern Sie sich jetzt die besten Hotels und guenstigsten Preise fuer 2027. Tuerkei All-Inclusive ab 399 Euro, Mallorca ab 349 Euro, Griechenland ab 389 Euro, Aegypten ab 449 Euro. Ueber 50 Reiseveranstalter im Preisvergleich.
+Sichern Sie sich jetzt die besten Hotels und guenstigsten Preise fuer 2027. Tuerkei All-Inclusive ab 399 Euro, Mallorca ab 349 Euro, Griechenland ab 389 Euro. Ueber 50 Reiseveranstalter im Preisvergleich.
 ```
 
 ---
 
-### Instagram — Karussell (5 Bilder)
-**Template:** Karussell Slide (5x duplizieren, verschiedene Farben)
-**Canva:**
-- Slide 1: Gruen #1db682 → "5 Gruende warum Fruehbucher schlauer sind"
-- Slide 2: Blau #6991d8 → "40-60% guenstiger"
-- Slide 3: Gruen → "Beste Zimmerauswahl"
-- Slide 4: Blau → "Kostenlos stornierbar"
-- Slide 5: Gruen → "Jetzt vergleichen auf urlaubfinder365.de"
-**Posten um:** 18:00 Uhr
+### 18:00 Uhr → Instagram Karussell (5 Bilder)
 
+**So erstellst du die 5 Slides in Canva:**
+1. Neues Design → "Instagram-Beitrag" (1080x1080)
+2. Slide 1: Hintergrund #1db682 (gruen) → Grosser Text: "5 Gruende warum Fruehbucher schlauer sind"
+3. Slide 2: Hintergrund #6991d8 (blau) → Text: "40-60% guenstiger als Last-Minute"
+4. Slide 3: Hintergrund #1db682 → Text: "Beste Zimmer noch verfuegbar"
+5. Slide 4: Hintergrund #6991d8 → Text: "Kostenlos stornierbar"
+6. Slide 5: Hintergrund #1db682 → Text: "Jetzt vergleichen" + Logo
+7. Alle 5 Seiten als PNG exportieren → Als Karussell auf Instagram posten
+
+**Caption zum Kopieren:**
 ```
-5 Gruende warum Fruehbucher schlauer sind
+5 Gruende warum Fruehbucher schlauer sind 💡
 
-1. Bis zu 60% guenstiger als Last-Minute
-2. Die besten Zimmer sind noch verfuegbar
-3. Kostenlos stornierbar bei den meisten Veranstaltern
-4. Kein Stress — alles in Ruhe planen
-5. Mehr Auswahl bei Flugzeiten und Hotels
+1️⃣ Bis zu 60% guenstiger als Last-Minute
+2️⃣ Die besten Zimmer sind noch verfuegbar
+3️⃣ Kostenlos stornierbar bei den meisten Veranstaltern
+4️⃣ Kein Stress — alles in Ruhe planen
+5️⃣ Mehr Auswahl bei Flugzeiten und Hotels
 
-Wann buchst du deinen naechsten Urlaub?
+Wann buchst du deinen naechsten Urlaub? 👇
 
 Link in Bio
+```
 
-#urlaubfinder365 #fruehbucher #reisetipps #urlaubbuchen #urlaubsplanung #pauschalreise #reisedeals
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #fruehbucher #reisetipps #urlaubbuchen #urlaubsplanung #pauschalreise #reisedeals #sparentipps
 ```
 
 ---
 
 ## DONNERSTAG 17. APRIL
 
-### Facebook — Link-Post
-**Template:** Facebook Link
-**Canva:** Screenshot vom Preisverlauf-Chart + Headline "Bester Zeitpunkt zum Buchen?"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Link-Post
+
+**So erstellst du das Bild in Canva:**
+1. Neues Design → "Facebook-Beitrag" (1200x675)
+2. Mache einen Screenshot vom Preisverlauf-Chart auf urlaubfinder365.de/preisentwicklung/
+3. Screenshot als Hintergrund einfuegen
+4. Oben: Dunkler Balken mit Text "Wann ist der beste Zeitpunkt zum Buchen?"
+5. Logo unten rechts
+6. Export als PNG
+
+**Text zum Kopieren:**
 ```
-Wann ist der beste Zeitpunkt zum Buchen?
+📊 Wann ist der beste Zeitpunkt zum Buchen?
 
 Unser Preisverlauf-Tool zeigt dir fuer ueber 250 Reiseziele wie sich die Preise entwickeln. So findest du den guenstigsten Moment.
 
-Kostenlos und ohne Anmeldung.
+✅ Kostenlos und ohne Anmeldung
 
-urlaubfinder365.de/preisentwicklung/
+👉 urlaubfinder365.de/preisentwicklung/
 ```
 
 ---
 
 ## FREITAG 18. APRIL
 
-### Instagram — Story
-**Template:** Story/Reel Cover
-**Canva:** Strand-Hintergrund + Umfrage-Sticker (in Instagram selbst hinzufuegen)
-**Posten um:** 18:00 Uhr
+---
 
-```
-Bild-Text: Wann buchst du deinen Urlaub?
+### 18:00 Uhr → Instagram Story
 
-Umfrage-Sticker:
-A: 6+ Monate vorher
-B: Last Minute
-```
+**So erstellst du die Story in Canva:**
+1. Neues Design → "Instagram Story" (1080x1920)
+2. Suche "tropical beach" → Foto als Hintergrund
+3. Grosser Text in der Mitte: "Wann buchst du deinen Urlaub?"
+4. Export als PNG → Auf Instagram als Story posten
+5. IN INSTAGRAM: Umfrage-Sticker hinzufuegen: "6+ Monate vorher" / "Last Minute"
 
 ---
 
-### TikTok — Video
-**Template:** Story/Reel Cover
-**Canva:** Splitscreen: Links "Last-Minute 899€" (rot), Rechts "Fruehbucher 399€" (gruen)
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (4 Sek): Suche "sad vacation" oder "expensive" → Video → Text: "Deine Freunde im August" → Roter Text: "899€ pro Person"
+3. Seite 2 (4 Sek): Suche "luxury pool resort" → Video → Text: "Du als Fruehbucher" → Gruener Text: "399€ pro Person"
+4. Seite 3 (3 Sek): Gruener Hintergrund → Text: "500€ gespart. urlaubfinder365.de"
+5. Musik: Suche "dramatic reveal" → hinzufuegen
+6. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-POV: Du buchst deinen Sommerurlaub 2027 im April 2026 und sparst 800 Euro
+POV: Du buchst deinen Sommerurlaub 2027 im April 2026 und sparst 800 Euro 😎
 
-Deine Freunde im August: 899€ pro Person
-Du als Fruehbucher: 399€ pro Person
+Deine Freunde im August: 899€
+Du als Fruehbucher: 399€
 
 urlaubfinder365.de
+```
 
-#fruehbucher #reisetok #urlaubtipps #guenstigreisen #reisehacks #urlaubfinder365
+**Hashtags zum Kopieren:**
+```
+#fruehbucher #reisetok #urlaubtipps #guenstigreisen #reisehacks #urlaubfinder365 #pov #reisetiktok
 ```
 
 ---
 
 ## SAMSTAG 19. APRIL
 
-### Facebook — Engagement-Post
-**Template:** Deal Post
-**Canva:** Mallorca Strand-Foto + "ab 349€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**So erstellst du das Bild in Canva:**
+1. Neues Design → "Facebook-Beitrag" (1200x675)
+2. Suche "mallorca beach" → Foto
+3. Dunkler Balken unten → Text: "Mallorca ab 349€ p.P."
+4. Spanien-Flagge als kleines Element
+5. Export als PNG
+
+**Text zum Kopieren:**
 ```
-Mallorca ab 349€ pro Person
+Mallorca ab 349€ pro Person 🇪🇸
 
-Wer will mit?
+Wer will mit? ✈️
 
-Markiere jemanden der dringend Urlaub braucht
+Markiere jemanden der dringend Urlaub braucht 👇
 
 urlaubfinder365.de/urlaubsziele/mallorca/
 ```
@@ -249,23 +300,36 @@ urlaubfinder365.de/urlaubsziele/mallorca/
 
 ## SONNTAG 20. APRIL
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** 3 Reisefotos nacheinander (Tuerkei, Aegypten, Bulgarien) mit Preis-Overlay
-**Posten um:** 19:00 Uhr
+---
 
+### 19:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (2 Sek): Titel "Die 3 guenstigsten Reiseziele 2027"
+3. Seite 2 (3 Sek): Suche "turkey beach aerial" → Video → Text: "1. Tuerkei ab 399€"
+4. Seite 3 (3 Sek): Suche "egypt red sea" → Video → Text: "2. Aegypten ab 449€"
+5. Seite 4 (3 Sek): Suche "bulgaria beach" → Video → Text: "3. Bulgarien ab 299€"
+6. Seite 5 (3 Sek): Gruener Hintergrund → "Welches Ziel waere deins?"
+7. Musik: Suche "countdown" oder "energetic"
+8. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Die 3 guenstigsten Reiseziele 2027
+Die 3 guenstigsten Reiseziele 2027 💰
 
-1. Tuerkei ab 399€ All-Inclusive
-2. Aegypten ab 449€ am Roten Meer
-3. Bulgarien ab 299€ Goldstrand
+1️⃣ Tuerkei ab 399€ All-Inclusive
+2️⃣ Aegypten ab 449€ am Roten Meer
+3️⃣ Bulgarien ab 299€ Goldstrand
 
-Alle Preise pro Person mit Flug und Hotel.
+Alle Preise pro Person mit Flug und Hotel ✈️
 
-Welches Ziel waere deins?
+Welches Ziel waere deins? Schreib es in die Kommentare 👇
+```
 
-#urlaubfinder365 #guenstigreisen #pauschalreise #tuerkeiurlaub #aegyptenurlaub #traumurlaub #reisetipps
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #guenstigreisen #pauschalreise #tuerkeiurlaub #aegyptenurlaub #traumurlaub #reisetipps #top3
 ```
 
 ---
@@ -277,100 +341,129 @@ Welches Ziel waere deins?
 
 ## MONTAG 21. APRIL
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** Screen-Recording des Preisverlauf-Tools (oder Screenshot davon als Video-Slides)
-**Posten um:** 18:00 Uhr
+---
 
+### 18:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Mache ein Screen-Recording (Handy oder PC) vom Preisverlauf-Tool auf urlaubfinder365.de/preisentwicklung/
+3. Zeige: Reiseziel eingeben → Chart erscheint → Preis ablesen
+4. ODER: 3 Screenshots vom Tool als Slides mit Zoom-Animation
+5. Letzter Slide: "Kostenlos auf urlaubfinder365.de"
+6. Musik: Suche "tech" oder "innovation"
+7. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Dieses Tool zeigt dir den BESTEN Zeitpunkt zum Buchen
+Dieses Tool zeigt dir den BESTEN Zeitpunkt zum Buchen 📊
 
 Einfach Reiseziel eingeben und den Preisverlauf checken. Kostenlos.
 
-Funktioniert fuer ueber 250 Reiseziele weltweit.
+Funktioniert fuer ueber 250 Reiseziele weltweit 🌍
 
 Link in Bio
+```
 
-#urlaubfinder365 #reisehacks #urlaubtipps #guenstigreisen #preisverlauf #reisetok #reisedeals
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #reisehacks #urlaubtipps #guenstigreisen #preisverlauf #sparentipps #reisetipps
 ```
 
 ---
 
-### TikTok — Video
-**Gleiches Video wie Instagram**
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**Gleiches Video wie Instagram Reel → Kopie erstellen → Export → TikTok**
+
+**Caption zum Kopieren:**
 ```
-Dieses kostenlose Tool zeigt dir wann du buchen solltest
+Dieses kostenlose Tool zeigt dir wann du buchen solltest 🤯
 
 Preisverlauf fuer 250+ Reiseziele
 
 urlaubfinder365.de
+```
 
-#reisehacks #preisverlauf #reisetok #guenstigreisen #urlaubfinder365
+**Hashtags zum Kopieren:**
+```
+#reisehacks #preisverlauf #reisetok #guenstigreisen #urlaubfinder365 #reisetiktok #urlaubtipps
 ```
 
 ---
 
 ## DIENSTAG 22. APRIL
 
-### Facebook — Bild-Post
-**Template:** Facebook Link
-**Canva:** Antalya Foto quer + "All-Inclusive ab 399€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**Canva:** Facebook-Beitrag → Antalya Foto → Balken "All-Inclusive ab 399€"
+
+**Text zum Kopieren:**
 ```
-Antalya — Tuerkische Riviera ab 399€
+Antalya — Tuerkische Riviera ab 399€ 🇹🇷
 
 7 Naechte All-Inclusive im 5-Sterne Hotel
-Flug und Transfer inklusive
+✈️ Flug und Transfer inklusive
 
-Traumstraende, historische Altstadt, Dueden-Wasserfaelle, weltklasse Hotels
+🏖️ Traumstraende mit tuerkisem Wasser
+🏛️ Historische Altstadt Kaleici
+💧 Dueden-Wasserfaelle
+⭐ Weltklasse All-Inclusive Hotels
 
-urlaubfinder365.de/urlaubsziele/antalya/
+👉 urlaubfinder365.de/urlaubsziele/antalya/
 ```
 
 ---
 
 ## MITTWOCH 23. APRIL
 
-### Google Business — Angebot
-**Template:** Google Business
-**Canva:** Antalya Foto 600x400 + "ab 399€"
+---
 
+### Google Business Angebot
+
+**Canva:** 600x400 → Antalya Foto → Badge "ab 399€"
+
+**Im Google Business Profil eintragen:**
 ```
 Typ: Angebot
 Titel: Tuerkei All-Inclusive ab 399 Euro pro Person
-Start: 23.04.2026
-Ende: 07.05.2026
+Startdatum: 23.04.2026
+Enddatum: 07.05.2026
 Button: Weitere Informationen
 Link: https://www.urlaubfinder365.de/urlaubsziele/antalya/
 
 Text:
-7 Naechte im 4-5 Sterne Hotel an der Tuerkischen Riviera. Flug Transfer und All-Inclusive inklusive. Ueber 50 Veranstalter im Preisvergleich.
+7 Naechte im 4-5 Sterne Hotel an der Tuerkischen Riviera. Flug Transfer und All-Inclusive inklusive. Ueber 50 Veranstalter im Preisvergleich. Jetzt Traumurlaub zum Bestpreis buchen.
 ```
 
 ---
 
-### Instagram — Karussell (4 Bilder)
-**Template:** Deal Post (4x mit verschiedenen Antalya-Fotos)
-**Canva:**
-- Slide 1: Strand + "Antalya entdecken"
-- Slide 2: Altstadt Kaleici
-- Slide 3: Tuerkisches Essen
-- Slide 4: Hotel Pool + "ab 399€"
-**Posten um:** 18:00 Uhr
+### 18:00 Uhr → Instagram Karussell (4 Bilder)
 
+**So erstellst du die 4 Slides in Canva:**
+1. Neues Design → "Instagram-Beitrag" (1080x1080)
+2. Slide 1: Antalya Strand-Foto → Text-Overlay: "Antalya entdecken"
+3. Slide 2: Suche "antalya old town" → Text: "Historische Altstadt Kaleici"
+4. Slide 3: Suche "turkish food" → Text: "Tuerkische Kueche vom Feinsten"
+5. Slide 4: Suche "turkey hotel pool" → Text: "All-Inclusive ab 399€" + Logo
+6. Export als PNG (alle Seiten)
+
+**Caption zum Kopieren:**
 ```
-Antalya — Was dich erwartet
+Antalya — Was dich erwartet 🇹🇷
 
-Endlose Sandstraende
-Historische Altstadt Kaleici
-Tuerkische Kueche vom Feinsten
-All-Inclusive ab 399€
+🏖️ Endlose Sandstraende
+🏛️ Historische Altstadt Kaleici
+🍽️ Tuerkische Kueche vom Feinsten
+💰 All-Inclusive ab 399€
 
-Warst du schon mal in Antalya?
+Warst du schon mal in Antalya? 👇
+```
 
+**Hashtags zum Kopieren:**
+```
 #urlaubfinder365 #antalya #tuerkeiurlaub #tuerkischeriviera #allinclusive #pauschalreise #strandurlaub
 ```
 
@@ -378,90 +471,122 @@ Warst du schon mal in Antalya?
 
 ## DONNERSTAG 24. APRIL
 
-### Facebook — Engagement
-**Template:** Kein Bild noetig (reiner Text-Post)
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Engagement-Post
+
+**Kein Bild noetig — reiner Text-Post**
+
+**Text zum Kopieren:**
 ```
-Welches Reiseziel steht 2027 auf eurer Liste?
+Welches Reiseziel steht 2027 auf eurer Liste? 🌍
 
-Schreibt es in die Kommentare — wir zeigen euch den besten Preis dafuer!
+Schreibt es in die Kommentare — wir zeigen euch den besten Preis dafuer! 💰👇
 ```
 
 ---
 
 ## FREITAG 25. APRIL
 
-### Instagram — Story
-**Template:** Story/Reel Cover
-**Canva:** 3 verschiedene Strand-Fotos + Quiz-Sticker
-**Posten um:** 18:00 Uhr
+---
+
+### 18:00 Uhr → Instagram Story
+
+**Canva:** Instagram Story → 3 verschiedene Reisefotos → Quiz-Sticker in Instagram
 
 ```
-Story 1: Strand-Foto → Quiz: "Welches Land ist das?" → Tuerkei
-Story 2: Stadt-Foto → Quiz: "Welche Stadt?" → Barcelona
-Story 3: "Alle Reiseziele auf urlaubfinder365.de"
+Story 1: Strand-Foto → Quiz "Welches Land?" → Richtig: Tuerkei
+Story 2: Stadtfoto Barcelona → Quiz "Welche Stadt?" → Richtig: Barcelona
+Story 3: Text "Alle Reiseziele auf urlaubfinder365.de" + Link-Sticker
 ```
 
 ---
 
-### TikTok — Video
-**Template:** Story/Reel Cover
-**Canva:** 3 Strand-Fotos mit Preis-Overlay
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (2 Sek): Text "3 Orte die schoener sind als die Malediven"
+3. Seite 2 (4 Sek): Suche "turkish riviera drone" → Video → Text: "Tuerkische Riviera 399€"
+4. Seite 3 (4 Sek): Suche "crete beach" → Video → Text: "Kreta 389€"
+5. Seite 4 (4 Sek): Suche "red sea snorkel" → Video → Text: "Hurghada 449€"
+6. Seite 5 (2 Sek): Text: "Und 10x guenstiger. urlaubfinder365.de"
+7. Musik: Suche "wow reveal"
+8. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-3 Orte die schoener sind als die Malediven und 10x guenstiger
+3 Orte die schoener sind als die Malediven und 10x guenstiger 🤫
 
 1. Tuerkische Riviera 399€
 2. Kreta Griechenland 389€
 3. Hurghada Aegypten 449€
 
-Alle mit Flug Hotel und All-Inclusive
+Alle mit Flug Hotel und All-Inclusive ✈️
+```
 
-#reisetok #urlaubtipps #guenstigreisen #malediven #urlaubfinder365
+**Hashtags zum Kopieren:**
+```
+#reisetok #guenstigreisen #malediven #tuerkei #griechenland #aegypten #urlaubfinder365 #geheimtipp #reisetiktok
 ```
 
 ---
 
 ## SAMSTAG 26. APRIL
 
-### Facebook — Bild-Post
-**Template:** Deal Post
-**Canva:** Kreta Strand-Foto + "ab 389€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**Canva:** Facebook-Beitrag → Kreta Foto → Balken "ab 389€"
+
+**Text zum Kopieren:**
 ```
-Kreta ab 389€ pro Person
+Kreta ab 389€ pro Person 🇬🇷
 
-Die groesste griechische Insel: Traumstraende, Schluchten, Geschichte und das beste Essen Griechenlands.
+Die groesste griechische Insel hat alles:
+🏖️ Traumstraende
+🥾 Samaria-Schlucht
+🍽️ Bestes Essen Griechenlands
+👨‍👩‍👧 Perfekt fuer Familien und Paare
 
-Perfekt fuer Familien und Paare.
-
-urlaubfinder365.de/urlaubsziele/kreta/
+👉 urlaubfinder365.de/urlaubsziele/kreta/
 ```
 
 ---
 
 ## SONNTAG 27. APRIL
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** 5 Reisefotos schnell hintereinander mit Preis-Overlay
-**Posten um:** 19:00 Uhr
+---
 
+### 19:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. 5 Seiten, je 3 Sekunden, verschiedene Reise-Stockvideos:
+3. Seite 1: "Turkey resort" → "Tuerkei: 7N AI 5-Sterne = 500€"
+4. Seite 2: "Egypt snorkel" → "Aegypten: 7N AI Rotes Meer = 500€"
+5. Seite 3: "Bulgaria beach" → "Bulgarien: 7N AI Goldstrand = 500€"
+6. Seite 4: "Mallorca" → "Mallorca: 7N HP 4-Sterne = 500€"
+7. Seite 5: "Alles mit Flug. urlaubfinder365.de"
+8. Musik: Suche "money" oder "cha ching"
+9. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Was du fuer 500€ pro Person bekommst
+Was du fuer 500€ pro Person bekommst 💰
 
-Tuerkei: 7 Naechte All-Inclusive 5-Sterne
-Aegypten: 7 Naechte All-Inclusive Rotes Meer
-Bulgarien: 7 Naechte All-Inclusive Goldstrand
-Tunesien: 7 Naechte All-Inclusive Strandhotel
-Mallorca: 7 Naechte Halbpension 4-Sterne
+🇹🇷 Tuerkei: 7 Naechte All-Inclusive 5-Sterne
+🇪🇬 Aegypten: 7 Naechte All-Inclusive Rotes Meer
+🇧🇬 Bulgarien: 7 Naechte All-Inclusive Goldstrand
+🇪🇸 Mallorca: 7 Naechte Halbpension 4-Sterne
 
-Alles mit Flug. Alle Preise auf urlaubfinder365.de
+Alles mit Flug ✈️ urlaubfinder365.de
+```
 
-#urlaubfinder365 #guenstigreisen #500euro #pauschalreise #allinclusive #traumurlaub
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #guenstigreisen #500euro #pauschalreise #allinclusive #traumurlaub #reisetipps
 ```
 
 ---
@@ -473,193 +598,242 @@ Alles mit Flug. Alle Preise auf urlaubfinder365.de
 
 ## MONTAG 28. APRIL
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** Screenshot KI-Reiseplaner oder Handy-Mockup mit der Seite
-**Posten um:** 18:00 Uhr
+---
 
+### 18:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Mache ein Screen-Recording vom KI-Reiseplaner auf urlaubfinder365.de/ki-reiseplaner/
+2. Zeige: Wuensche eingeben → KI antwortet → Vorschlag erscheint
+3. ODER in Canva: Screenshots als Slides mit Zoom-Animation
+4. Letzter Slide: "Kostenlos. urlaubfinder365.de/ki-reiseplaner/"
+5. Musik: Suche "futuristic" oder "AI"
+6. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Ich hab eine KI meinen Urlaub planen lassen
+Ich hab eine KI meinen Urlaub planen lassen 🤖
 
 Einfach eingeben was du willst:
-Budget, Reisezeit, Strand oder Stadt, mit Kindern oder ohne
+💰 Budget
+📅 Reisezeit
+🏖️ Strand oder Stadt
+👨‍👩‍👧 Mit Kindern oder ohne
 
-In 10 Sekunden bekommst du den perfekten Vorschlag.
+In 10 Sekunden der perfekte Vorschlag ⚡
 
 Kostenlos auf urlaubfinder365.de/ki-reiseplaner/
+```
 
-#urlaubfinder365 #ki #reiseplaner #urlaubtipps #reisetok #reisehacks
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #ki #reiseplaner #urlaubtipps #reisehacks #kuenstlicheintelligenz #reisetipps
 ```
 
 ---
 
-### TikTok — Video
-**Gleiches Video wie Instagram**
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**Gleiches Video wie Instagram → Kopie → TikTok**
+
+**Caption zum Kopieren:**
 ```
-Ich hab eine KI meinen Urlaub planen lassen und das ist passiert
+Ich hab eine KI meinen Urlaub planen lassen und das ist passiert 🤖✈️
 
 urlaubfinder365.de/ki-reiseplaner/
+```
 
-#ki #reisetok #reisehacks #urlaubfinder365 #kuenstlicheintelligenz
+**Hashtags zum Kopieren:**
+```
+#ki #reisetok #reisehacks #urlaubfinder365 #reisetiktok #urlaubtipps #kuenstlicheintelligenz
 ```
 
 ---
 
 ## DIENSTAG 29. APRIL
 
-### Facebook — Link-Post
-**Template:** Facebook Link
-**Canva:** Screenshot KI-Reiseplaner + "Neu: KI findet deinen Traumurlaub"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Link-Post
+
+**Canva:** Facebook-Beitrag → Screenshot KI-Reiseplaner → Headline "KI findet deinen Traumurlaub"
+
+**Text zum Kopieren:**
 ```
-Neu: Unser KI-Reiseplaner findet deinen perfekten Urlaub
+🤖 Neu: Unser KI-Reiseplaner findet deinen perfekten Urlaub
 
 Einfach Wuensche eingeben — Budget, Reisezeit, Interessen — und in Sekunden massgeschneiderte Vorschlaege erhalten.
 
-Kostenlos und ohne Anmeldung.
+✅ Kostenlos und ohne Anmeldung
 
-urlaubfinder365.de/ki-reiseplaner/
+👉 urlaubfinder365.de/ki-reiseplaner/
 ```
 
 ---
 
 ## MITTWOCH 30. APRIL
 
-### Google Business — Neuigkeit
-**Template:** Google Business
-**Canva:** KI-Grafik oder Screenshot + "KI-Reiseplaner"
+---
 
+### Google Business Neuigkeit
+
+**Canva:** 600x400 → Screenshot oder abstrakte KI-Grafik
+
+**Im Google Business Profil eintragen:**
 ```
-Typ: Neuigkeit (nicht Angebot)
-Titel: Neuer KI Reiseplaner Ihr persoenlicher Urlaubsberater
+Typ: Neuigkeit (NICHT Angebot)
 Button: Weitere Informationen
 Link: https://www.urlaubfinder365.de/ki-reiseplaner/
 
 Text:
-Unser neuer KI-Reiseplaner findet in Sekunden das perfekte Reiseziel fuer Sie. Einfach Wuensche eingeben und sofort passende Vorschlaege erhalten. Kostenlos und ohne Anmeldung.
+Unser neuer KI-Reiseplaner findet in Sekunden das perfekte Reiseziel fuer Sie. Einfach Wuensche eingeben und sofort passende Vorschlaege erhalten. Budget Reisezeit und Interessen werden beruecksichtigt. Kostenlos und ohne Anmeldung.
 ```
 
 ---
 
-### Instagram — Karussell (5 Bilder)
-**Template:** Karussell Slide
-**Canva:**
-- Slide 1: Blau → "5 Reise-Hacks die dir keiner verraet"
-- Slide 2: Gruen → "Dienstags fliegen = guenstiger"
-- Slide 3: Blau → "Mai + Oktober = halber Preis"
-- Slide 4: Gruen → "Preisverlauf checken statt blind buchen"
-- Slide 5: Blau → "urlaubfinder365.de"
-**Posten um:** 18:00 Uhr
+### 18:00 Uhr → Instagram Karussell (5 Bilder)
 
+**So erstellst du die 5 Slides in Canva:**
+1. Slide 1: Blau #6991d8 → "5 Reise-Hacks die dir keiner verraet"
+2. Slide 2: Gruen #1db682 → "Dienstags fliegen = guenstiger"
+3. Slide 3: Blau → "Mai + Oktober = halber Preis"
+4. Slide 4: Gruen → "Preisverlauf checken statt blind buchen"
+5. Slide 5: Blau → "Alle Tools auf urlaubfinder365.de" + Logo
+
+**Caption zum Kopieren:**
 ```
-5 Reise-Hacks die dir keiner verraet
+5 Reise-Hacks die dir keiner verraet 🤫
 
-1. Dienstags und mittwochs sind Fluege am guenstigsten
-2. Nebensaison Mai und Oktober = halber Preis
-3. Preisverlauf checken statt blind buchen
-4. Fruehbucher schlagen Last-Minute fast immer
-5. Preisalarm setzen und automatisch benachrichtigt werden
+1️⃣ Dienstags und mittwochs sind Fluege am guenstigsten
+2️⃣ Nebensaison Mai und Oktober = halber Preis
+3️⃣ Preisverlauf checken statt blind buchen
+4️⃣ Fruehbucher schlagen Last-Minute fast immer
+5️⃣ Preisalarm setzen und automatisch benachrichtigt werden
 
-Alle Tools kostenlos auf urlaubfinder365.de
+Alle Tools kostenlos auf urlaubfinder365.de 🔗
+```
 
-#urlaubfinder365 #reisehacks #reisetipps #guenstigfliegen #urlaubsplanung #sparentipps
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #reisehacks #reisetipps #guenstigfliegen #urlaubsplanung #sparentipps #reisedeals
 ```
 
 ---
 
 ## DONNERSTAG 1. MAI (FEIERTAG)
 
-### Facebook — Engagement
-**Template:** Deal Post
-**Canva:** Schoenes Urlaubsfoto + "Euer schoenster Moment?"
-**Posten um:** 10:00 Uhr (Feiertag = frueh posten)
+---
 
+### 10:00 Uhr → Facebook Engagement (frueher posten wegen Feiertag)
+
+**Canva:** Facebook-Beitrag → Schoenes Urlaubsfoto → Text "Euer schoenster Moment?"
+
+**Text zum Kopieren:**
 ```
-Feiertag = Urlaubstraeume erlaubt
+Feiertag = Urlaubstraeume erlaubt ☀️
 
-Euer schoenster Urlaubsmoment? Teilt ein Foto in den Kommentaren!
+Euer schoenster Urlaubsmoment? Teilt ein Foto in den Kommentaren! 📸
 
-Die besten reposten wir auf unserem Profil
+Die besten reposten wir auf unserem Profil ❤️
 ```
 
 ---
 
 ## FREITAG 2. MAI
 
-### Instagram — Story
-**Template:** Story/Reel Cover
-**Canva:** Strand-Hintergrund + Abstimmung
-**Posten um:** 18:00 Uhr
+---
+
+### 18:00 Uhr → Instagram Story
+
+**Canva:** Instagram Story → Strand-Hintergrund
 
 ```
-Bild-Text: Dein Budget 500€ pro Person — Wohin gehts?
-
-Abstimmung:
-A: Tuerkei All-Inclusive
-B: Aegypten Rotes Meer
+Bild-Text: "Dein Budget: 500€ pro Person — Wohin gehts?"
+→ In Instagram Abstimmung-Sticker: "Tuerkei AI" / "Aegypten Rotes Meer"
 ```
 
 ---
 
-### TikTok — Video
-**Template:** Story/Reel Cover
-**Canva:** Splitscreen 5 Portale mit Preisen
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (3 Sek): Text "Gleicher Urlaub — 5 verschiedene Portale"
+3. Seite 2 (2 Sek): Text "Check24: 689€" (grauer Hintergrund)
+4. Seite 3 (2 Sek): Text "HolidayCheck: 649€"
+5. Seite 4 (2 Sek): Text "TUI direkt: 719€"
+6. Seite 5 (2 Sek): Text "Urlaubfinder365: 399€" (gruener Hintergrund #1db682, GROSS)
+7. Seite 6 (3 Sek): "Wir vergleichen ALLE. urlaubfinder365.de"
+8. Musik: Suche "winner" oder "victory"
+9. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Ich habe den gleichen Urlaub auf 5 Portalen verglichen
+Ich habe den gleichen Urlaub auf 5 Portalen verglichen 🔍
 
-Ergebnis: Bei uns war er am guenstigsten.
-
-Wir vergleichen ALLE Veranstalter gleichzeitig.
+Wir vergleichen ALLE Veranstalter gleichzeitig. Deshalb sind wir guenstiger.
 
 urlaubfinder365.de
+```
 
-#reisehacks #urlaubfinder365 #preisvergleich #guenstigreisen #reisetok
+**Hashtags zum Kopieren:**
+```
+#reisehacks #urlaubfinder365 #preisvergleich #guenstigreisen #reisetok #reisetiktok #urlaubtipps
 ```
 
 ---
 
 ## SAMSTAG 3. MAI
 
-### Facebook — Bild-Post
-**Template:** Deal Post
-**Canva:** Hurghada Unterwasser-Foto + "ab 449€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**Canva:** Facebook-Beitrag → Unterwasser-Foto → "Hurghada ab 449€"
+
+**Text zum Kopieren:**
 ```
-Hurghada ab 449€ pro Person
+Hurghada ab 449€ pro Person 🇪🇬
 
-Taucher-Paradies am Roten Meer
-7 Naechte All-Inclusive im 5-Sterne Resort
+🤿 Taucher-Paradies am Roten Meer
+⭐ 7 Naechte All-Inclusive im 5-Sterne Resort
+🐠 Schoenste Korallenriffe der Welt
+🏖️ Schnorcheln direkt vom Hotel
 
-Das Rote Meer hat die schoensten Korallenriffe der Welt.
-
-urlaubfinder365.de/urlaubsziele/hurghada/
+👉 urlaubfinder365.de/urlaubsziele/hurghada/
 ```
 
 ---
 
 ## SONNTAG 4. MAI
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** Mallorca Morgen-Stimmung (Meerblick, Fruehstueck, Strand)
-**Posten um:** 19:00 Uhr
+---
 
+### 19:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Suche "mallorca morning" oder "hotel sea view breakfast" → Video (5 Sek)
+3. Dann "beach walk" → Video (5 Sek)
+4. Text-Overlay: "Dein erster Morgen auf Mallorca"
+5. Schluss-Text: "Ab 349€ p.P. urlaubfinder365.de"
+6. Musik: Suche "peaceful morning" oder "chill"
+7. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-POV: Dein erster Morgen auf Mallorca
+POV: Dein erster Morgen auf Mallorca ☀️
 
-Aufwachen mit Meerblick
-Fruehstueck auf der Terrasse
-Fuesse im Sand um 9 Uhr
+Aufwachen mit Meerblick 🌊
+Fruehstueck auf der Terrasse ☕
+Fuesse im Sand um 9 Uhr 🏖️
 
-Ab 349€ pro Person mit Flug und Hotel.
+Ab 349€ pro Person mit Flug und Hotel ✈️
+```
 
-#urlaubfinder365 #mallorca #mallorcaurlaub #strandurlaub #pauschalreise #traumurlaub #pov
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #mallorca #mallorcaurlaub #strandurlaub #pauschalreise #traumurlaub #pov #morningroutine
 ```
 
 ---
@@ -671,69 +845,94 @@ Ab 349€ pro Person mit Flug und Hotel.
 
 ## MONTAG 5. MAI
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** Koffer-Foto oder Pack-Szene Hochformat
-**Posten um:** 18:00 Uhr
+---
 
+### 18:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (3 Sek): Suche "packing suitcase" → Video → Text: "Die EINZIGE Packliste"
+3. Seite 2 (2 Sek): Gruener Hintergrund → "3-4 Outfits"
+4. Seite 3 (2 Sek): "Bikini/Badehose x2"
+5. Seite 4 (2 Sek): "Sonnencreme + Ladekabel"
+6. Seite 5 (2 Sek): "REISEPASS CHECKEN"
+7. Seite 6 (3 Sek): "Kompletter Guide: urlaubfinder365.de"
+8. Musik: Suche "checklist" oder "upbeat"
+9. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Die Packliste die du WIRKLICH brauchst
+Die Packliste die du WIRKLICH brauchst ✅
 
-3-4 Outfits (Mix and Match)
-Badehose oder Bikini x2
-Sonnencreme
-Ladekabel und Powerbank
-Reisepass checken JETZT
+👕 3-4 Outfits (Mix and Match)
+👙 Bikini/Badehose x2
+☀️ Sonnencreme
+🔌 Ladekabel + Powerbank
+🛂 Reisepass checken JETZT
 
 Kompletter Guide: urlaubfinder365.de/ratgeber/kofferchaos-vermeiden/
+```
 
-#urlaubfinder365 #packliste #reisetipps #urlaubsplanung #reisehacks #kofferpacken
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #packliste #reisetipps #urlaubsplanung #reisehacks #kofferpacken #reisetiktok
 ```
 
 ---
 
-### TikTok — Video
-**Gleiches Video wie Instagram**
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**Gleiches Video wie Instagram → Kopie → TikTok**
+
+**Caption zum Kopieren:**
 ```
-Die einzige Packliste die du brauchst
+Die einzige Packliste die du brauchst 🧳✅
 
 urlaubfinder365.de/ratgeber/kofferchaos-vermeiden/
+```
 
-#packliste #reisetok #reisehacks #urlaubfinder365
+**Hashtags zum Kopieren:**
+```
+#packliste #reisetok #reisehacks #urlaubfinder365 #kofferpacken #reisetiktok #urlaubtipps
 ```
 
 ---
 
 ## DIENSTAG 6. MAI
 
-### Facebook — Link-Post
-**Template:** Facebook Link
-**Canva:** Collage 4 Monats-Bilder + "Beste Reisezeit?"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Link-Post
+
+**Canva:** Facebook-Beitrag → Collage aus 4 Monatsbildern → "Beste Reisezeit?"
+
+**Text zum Kopieren:**
 ```
-Wann ist die beste Reisezeit fuer dein Traumziel?
+🗓️ Wann ist die beste Reisezeit fuer dein Traumziel?
 
-12 Saison-Guides fuer jeden Monat — mit Wetter, Preisen und Insider-Tipps.
+Unsere 12 Saison-Guides verraten dir fuer jeden Monat die perfekten Reiseziele — mit Wetter, Preisen und Insider-Tipps.
 
-urlaubfinder365.de/reiseziele/
+Januar bis Dezember komplett abgedeckt ✅
+
+👉 urlaubfinder365.de/reiseziele/
 ```
 
 ---
 
 ## MITTWOCH 7. MAI
 
-### Google Business — Angebot
-**Template:** Google Business
-**Canva:** Mallorca Foto 600x400 + "ab 349€"
+---
 
+### Google Business Angebot
+
+**Canva:** 600x400 → Mallorca Foto → Badge "ab 349€"
+
+**Im Google Business Profil eintragen:**
 ```
 Typ: Angebot
 Titel: Mallorca ab 349 Euro Jetzt Sommerurlaub sichern
-Start: 07.05.2026
-Ende: 21.05.2026
+Startdatum: 07.05.2026
+Enddatum: 21.05.2026
 Button: Angebot ansehen
 Link: https://www.urlaubfinder365.de/urlaubsziele/mallorca/
 
@@ -743,123 +942,162 @@ Traumstraende endlose Sonne und die beste Paella Europas. Mallorca ist das belie
 
 ---
 
-### Instagram — Karussell (4 Bilder)
-**Template:** Karussell Slide
-**Canva:**
-- Slide 1: "Mallorca vs Kreta"
-- Slide 2: "Mallorca: ab 349€ | Party + ruhige Buchten | 300 Sonnentage"
-- Slide 3: "Kreta: ab 389€ | Beste Kueche | Samaria-Schlucht | Elafonissi"
-- Slide 4: "Welche Insel ist deine? urlaubfinder365.de"
-**Posten um:** 18:00 Uhr
+### 18:00 Uhr → Instagram Karussell (4 Bilder)
 
+**So erstellst du die 4 Slides in Canva:**
+1. Slide 1: Geteiltes Bild Mallorca/Kreta → "Mallorca vs Kreta"
+2. Slide 2: Mallorca Foto → "Ab 349€ | Party + Buchten | 300 Sonnentage"
+3. Slide 3: Kreta Foto → "Ab 389€ | Beste Kueche | Samaria-Schlucht"
+4. Slide 4: Gruen #1db682 → "Welche Insel ist deine? urlaubfinder365.de"
+
+**Caption zum Kopieren:**
 ```
-Mallorca vs Kreta — Welche Insel passt zu dir?
+Mallorca vs Kreta — Welche Insel passt zu dir? 🏝️
 
-Mallorca: Ab 349€ | Partylife + ruhige Buchten | 300 Sonnentage
+🇪🇸 Mallorca: Ab 349€ | Party + ruhige Buchten | 300 Sonnentage
+🇬🇷 Kreta: Ab 389€ | Beste Kueche Griechenlands | Samaria-Schlucht
 
-Kreta: Ab 389€ | Beste Kueche Griechenlands | Samaria-Schlucht
+Welche Insel ist eure? 👇
+```
 
-Welche Insel ist eure?
-
-#urlaubfinder365 #mallorca #kreta #inselvergleich #griechenlandurlaub #mallorcaurlaub
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #mallorca #kreta #inselvergleich #griechenlandurlaub #mallorcaurlaub #pauschalreise
 ```
 
 ---
 
 ## DONNERSTAG 8. MAI
 
-### Facebook — Engagement
-**Template:** Kein Bild noetig
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Engagement
+
+**Kein Bild noetig**
+
+**Text zum Kopieren:**
 ```
-Strand oder Pool?
+Strand oder Pool? ☀️
 
 Was ist euch im Urlaub wichtiger?
 
-Like = Strand
-Herz = Pool
+👍 Like = Strand
+❤️ Herz = Pool
 ```
 
 ---
 
 ## FREITAG 9. MAI
 
-### Instagram — Story
-**Template:** Story/Reel Cover
-**Canva:** Griechenland Strand + grosser Preis "389€"
-**Posten um:** 18:00 Uhr
+---
+
+### 18:00 Uhr → Instagram Story
+
+**Canva:** Instagram Story → Griechenland Strand → Grosser Preis
 
 ```
-Bild-Text:
-DEAL DES TAGES
+Text auf Bild:
+DEAL DES TAGES 🔥
 Griechenland 7 Naechte
 4-Sterne All-Inclusive
 389€ pro Person
-Link in Bio
+→ Link-Sticker zu urlaubfinder365.de/urlaubsziele/kreta/
 ```
 
 ---
 
-### TikTok — Video
-**Template:** Story/Reel Cover
-**Canva:** Griechenland-Fotos mit Preis-Einblendung
-**Posten um:** 19:00 Uhr
+### 19:00 Uhr → TikTok Video
 
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (3 Sek): Text "Griechenland fuer unter 400€?"
+3. Seite 2 (2 Sek): Suche "greek island aerial" → Video → Text: "7 Naechte"
+4. Seite 3 (2 Sek): Suche "greece hotel" → Video → Text: "4-Sterne Hotel"
+5. Seite 4 (2 Sek): Suche "greek food buffet" → Video → Text: "All-Inclusive"
+6. Seite 5 (2 Sek): Suche "airplane takeoff" → Video → Text: "Flug inklusive"
+7. Seite 6 (3 Sek): Gruener Hintergrund → GROSS: "389€. Ja es geht."
+8. Musik: Suche "mind blown" oder "surprised"
+9. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Griechenland fuer unter 400 Euro — Geht das wirklich?
+Griechenland fuer unter 400 Euro — Geht das wirklich? 🤔
 
-7 Naechte
-4-Sterne Hotel
-All-Inclusive
-Flug inklusive
+7 Naechte ✅
+4-Sterne Hotel ✅
+All-Inclusive ✅
+Flug inklusive ✅
 
-389 Euro pro Person. Ja es geht.
+389€ pro Person. Ja. Es. Geht. 🇬🇷
 
 urlaubfinder365.de
+```
 
-#griechenland #kreta #guenstigreisen #reisetok #urlaubfinder365 #allinclusive
+**Hashtags zum Kopieren:**
+```
+#griechenland #kreta #guenstigreisen #reisetok #urlaubfinder365 #allinclusive #pauschalreise #reisetiktok
 ```
 
 ---
 
 ## SAMSTAG 10. MAI
 
-### Facebook — Bild-Post
-**Template:** Deal Post
-**Canva:** Kreuzfahrt-Foto + "ab 599€"
-**Posten um:** 12:00 Uhr
+---
 
+### 12:00 Uhr → Facebook Bild-Post
+
+**Canva:** Facebook-Beitrag → Kreuzfahrt-Foto → "ab 599€"
+
+**Text zum Kopieren:**
 ```
-Mittelmeer Kreuzfahrt ab 599€ pro Person
+Mittelmeer Kreuzfahrt ab 599€ pro Person 🚢
 
 7 Naechte Vollpension
-Barcelona — Rom — Dubrovnik — Korfu
+📍 Barcelona → Rom → Dubrovnik → Korfu
 
-urlaubfinder365.de/kreuzfahrten/
+Jetzt Kabine sichern bevor die besten Plaetze weg sind!
+
+👉 urlaubfinder365.de/kreuzfahrten/
 ```
 
 ---
 
 ## SONNTAG 11. MAI
 
-### Instagram — Reel
-**Template:** Story/Reel Cover
-**Canva:** 5 Reisefotos mit Preisen als schnelle Slideshow
-**Posten um:** 19:00 Uhr
+---
 
+### 19:00 Uhr → Instagram Reel
+
+**So erstellst du das Video in Canva:**
+1. Neues Design → "Video" → 1080x1920
+2. Seite 1 (2 Sek): "Die 5 besten Deals im April 🏆"
+3. Seite 2 (3 Sek): Tuerkei-Video → "1. Tuerkei AI 399€"
+4. Seite 3 (3 Sek): Mallorca-Video → "2. Mallorca 349€"
+5. Seite 4 (3 Sek): Griechenland-Video → "3. Griechenland 389€"
+6. Seite 5 (3 Sek): Aegypten-Video → "4. Aegypten 449€"
+7. Seite 6 (3 Sek): Kreuzfahrt-Video → "5. Kreuzfahrt 599€"
+8. Seite 7 (3 Sek): "Mai wird noch besser — folge uns!"
+9. Musik: Suche "top 5" oder "countdown"
+10. Export als MP4
+
+**Caption zum Kopieren:**
 ```
-Die 5 besten Deals im April — Monats-Recap
+Die 5 besten Deals im April — Monats-Recap 🏆
 
-1. Tuerkei All-Inclusive 399€
-2. Mallorca 349€
-3. Griechenland 389€
-4. Aegypten 449€
-5. Kreuzfahrt Mittelmeer 599€
+1️⃣ Tuerkei All-Inclusive 399€
+2️⃣ Mallorca 349€
+3️⃣ Griechenland 389€
+4️⃣ Aegypten 449€
+5️⃣ Kreuzfahrt Mittelmeer 599€
 
-Mai wird noch besser — folge uns
+Alle Preise pro Person mit Flug und Hotel ✈️
 
-#urlaubfinder365 #reisedeals #monatsrecap #guenstigreisen #pauschalreise #traumurlaub
+Mai wird noch besser — folge uns fuer taegliche Deals! 🔔
+```
+
+**Hashtags zum Kopieren:**
+```
+#urlaubfinder365 #reisedeals #monatsrecap #guenstigreisen #pauschalreise #traumurlaub #top5 #reisetipps
 ```
 
 ---
@@ -867,28 +1105,19 @@ Mai wird noch besser — folge uns
 
 # SCHNELL-REFERENZ
 
-## Hashtags kopieren
+## Hashtags
 
-**Instagram Standard:**
+**Instagram Standard (immer verwenden):**
 ```
-#urlaubfinder365 #pauschalreise #lastminute #allinclusive #urlaubbuchen #reisedeals #fruehbucher #urlaubschnaeppchen #reisetipps #traumurlaub
-```
-
-**TikTok Standard:**
-```
-#reisetiktok #urlaubtipps #reisehacks #guenstigreisen #urlaubbuchen #traumurlaub #reisetok #urlaubfinder365
+#urlaubfinder365 #pauschalreise #lastminute #allinclusive #urlaubbuchen #reisedeals #fruehbucher #reisetipps #traumurlaub
 ```
 
-## Posting-Zeiten
-
+**TikTok Standard (immer verwenden):**
 ```
-Instagram: 18:00-20:00 Uhr
-Facebook:  12:00-13:00 Uhr
-TikTok:    19:00-21:00 Uhr
-Google:    Jederzeit
+#reisetiktok #urlaubtipps #reisehacks #guenstigreisen #urlaubbuchen #reisetok #urlaubfinder365
 ```
 
-## Links die du haeufig brauchst
+## Wichtige Links
 
 ```
 Startseite:    urlaubfinder365.de
@@ -903,4 +1132,15 @@ KI-Planer:     urlaubfinder365.de/ki-reiseplaner/
 Preisverlauf:  urlaubfinder365.de/preisentwicklung/
 Ratgeber:      urlaubfinder365.de/ratgeber/
 Erlebnisse:    urlaubfinder365.de/erlebnisse/
+Reiseziele:    urlaubfinder365.de/reiseziele/
+```
+
+## Canva Farben (immer gleich verwenden)
+
+```
+Gruen (Marke):  #1db682
+Blau (Marke):   #6991d8
+Rot (Deals):    #e74c3c
+Sand (Warm):    #c49038
+Dunkel (Text):  #1a1a1a
 ```
