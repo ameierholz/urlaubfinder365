@@ -9,11 +9,12 @@ import { getLocale } from "next-intl/server";
 // Admin/Anbieter/Embed-Routes laufen ebenfalls durch dieses Root-Layout —
 // ihre eigenen Layouts rendern nur Inhalt ohne <html>/<body>.
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const annie = Annie_Use_Your_Telescope({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-annie",
+  display: "swap",
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -31,15 +32,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        {/* Preconnect: max 2-3 (Google warnt ab 4) — nur die kritischsten */}
-        <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="preconnect" href="https://media.traffics-switch.de" />
-        {/* DNS-Prefetch: guenstiger als preconnect, fuer sekundaere Domains */}
+        {/* Preconnect: max 2 eigene (next/font fuegt automatisch fonts.googleapis + gstatic hinzu) */}
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://media.traffics-switch.de" />
         <link rel="dns-prefetch" href="https://api.specials.de" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="dns-prefetch" href="https://b2b.specials.de" />
-        <link rel="dns-prefetch" href="https://flagcdn.com" />
       </head>
       <body
         className={`${inter.variable} ${annie.variable} antialiased text-gray-900`}
