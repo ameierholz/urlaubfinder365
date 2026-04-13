@@ -59,8 +59,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Täglich um Mitternacht neu generieren (86400 Sek = 24 h)
-export const revalidate = 86400;
+// Stündlich revalidieren — Vercel CDN serviert gecachte Version sofort (TTFB ~50ms),
+// Regeneration passiert im Hintergrund (stale-while-revalidate).
+export const revalidate = 3600;
 
 // ─── Täglicher Top-Deal-Fetch (bestes Angebot pro Region) ───────────────────
 const API_BASE = "https://api.specials.de/package/teaser.json";
@@ -83,9 +84,9 @@ async function fetchTopDeal(regionIds: number[]): Promise<TravelOffer | null> {
   });
   try {
     const res = await fetch(`${API_BASE}?${params}`, {
-      next: { revalidate: 86400 },
+      next: { revalidate: 3600 },
       headers: { Accept: "application/json" },
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return null;
     const text = await res.text();
@@ -127,9 +128,9 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
   });
   try {
     const res = await fetch(`${API_BASE}?${params}`, {
-      next: { revalidate: 86400 },
+      next: { revalidate: 3600 },
       headers: { Accept: "application/json" },
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(3000),
     });
     if (!res.ok) return null;
     const text = await res.text();
@@ -159,10 +160,7 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
 
 // ─── Statische Daten ─────────────────────────────────────────────────────────
 
-const HERO_BG =
-  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70";
-const HERO_BG_MOBILE =
-  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=480&q=60";
+// Hero-Bild wird via next/image <Image priority> ausgeliefert (automatisches Preload + AVIF/WebP)
 
 // Günstigsten Preis pro Person aus einem Deal-Objekt extrahieren
 function minPrice(deal: TravelOffer | null, fallback: string): string {
@@ -427,23 +425,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="relative text-white flex flex-col -mt-20"
         style={{ overflowX: "clip", overflowY: "visible" }}
       >
-        {/* Hero-Bild: Mobile 480px, Desktop 800px — Preload via link tag im head */}
-        <link rel="preload" as="image" href={HERO_BG_MOBILE} media="(max-width: 639px)" />
-        <link rel="preload" as="image" href={HERO_BG} media="(min-width: 640px)" />
-        <picture>
-          <source srcSet={HERO_BG_MOBILE} media="(max-width: 639px)" />
-          <source srcSet={HERO_BG} media="(min-width: 640px)" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={HERO_BG}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
-            // @ts-ignore
-            fetchPriority="high"
-            decoding="async"
-          />
-        </picture>
+        {/* Hero-Bild: next/image mit priority → automatischer Preload im <head> */}
+        <Image
+          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=70"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_40%]"
+        />
         {/* ── Cinematic Overlays ── */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
