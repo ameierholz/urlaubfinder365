@@ -14,13 +14,13 @@ interface Props {
   deals: (TravelOffer | null)[];
 }
 
-// Immer 12–18 Monate ab heute
+// Ab 6 Monate in der Zukunft (Frühbucher-Zeitraum)
 function getNextSummerRange() {
   const today = new Date();
   const msPerDay = 24 * 60 * 60 * 1000;
-  const fromDate = new Date(today.getTime() + 365 * msPerDay); // 12 Monate
-  const toDate   = new Date(today.getTime() + 548 * msPerDay); // 18 Monate
-  return { fromDays: 365, toDays: 548, fromDate, toDate };
+  const fromDate = new Date(today.getTime() + 180 * msPerDay); // 6 Monate
+  const toDate   = new Date(today.getTime() + 365 * msPerDay); // 12 Monate
+  return { fromDays: 180, toDays: 365, fromDate, toDate };
 }
 
 const LABELS: Record<string, { dest: string; flag: string }> = {
