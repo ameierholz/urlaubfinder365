@@ -8,34 +8,42 @@ import PriceChart from "@/components/destination/price-chart";
 import AutoScrollToWidget from "@/components/widgets/AutoScrollToWidget";
 import { buildB2bUrl } from "@/lib/search-params";
 import { setRequestLocale } from "next-intl/server";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 import { FlagImage } from "@/components/ui/flag-image";
 const YEAR = new Date().getFullYear();
 
-export const metadata: Metadata = {
-  title: `⚡ Last Minute Urlaub ${YEAR} – bis 60% günstiger buchen`,
-  description: `Last Minute Urlaub ${YEAR} günstig buchen ✓ Täglich neue Deals ✓ Bis zu 60% sparen ✓ Türkei, Mallorca, Ägypten & Griechenland – jetzt spontan verreisen!`,
-  keywords: ["Last Minute Urlaub", "Last Minute Reisen günstig", "Last Minute Türkei", "Last Minute Mallorca", "Last Minute Ägypten", "Kurzfristig Urlaub buchen", "Spontan verreisen", "Billige Last Minute Angebote", "Last Minute Pauschalreise"],
-  alternates: {
-    canonical: "https://www.urlaubfinder365.de/last-minute/",
-  },
-  openGraph: {
-    title: `⚡ Last Minute Urlaub ${YEAR} – günstige Angebote | Urlaubfinder365`,
-    description:
-      "Täglich neue Last-Minute Deals ✓ Bis zu 60% günstiger ✓ Türkei, Mallorca, Griechenland & mehr – jetzt spontan buchen!",
-    url: "https://www.urlaubfinder365.de/last-minute/",
-    type: "website",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
-        width: 1200,
-        height: 630,
-        alt: "Last-Minute Urlaub günstig buchen – Strandurlaub mit Traumhotels",
-      },
-    ],
-  },
-};
+const FALLBACK_TITLE = `⚡ Last Minute Urlaub ${YEAR} – bis 60% günstiger buchen`;
+const FALLBACK_DESC = `Last Minute Urlaub ${YEAR} günstig buchen ✓ Täglich neue Deals ✓ Bis zu 60% sparen ✓ Türkei, Mallorca, Ägypten & Griechenland – jetzt spontan verreisen!`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/last-minute");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    keywords: ["Last Minute Urlaub", "Last Minute Reisen günstig", "Last Minute Türkei", "Last Minute Mallorca", "Last Minute Ägypten", "Kurzfristig Urlaub buchen", "Spontan verreisen", "Billige Last Minute Angebote", "Last Minute Pauschalreise"],
+    alternates: {
+      canonical: "https://www.urlaubfinder365.de/last-minute/",
+    },
+    openGraph: {
+      title: seo?.og_title || `⚡ Last Minute Urlaub ${YEAR} – günstige Angebote | Urlaubfinder365`,
+      description: seo?.og_description || "Täglich neue Last-Minute Deals ✓ Bis zu 60% günstiger ✓ Türkei, Mallorca, Griechenland & mehr – jetzt spontan buchen!",
+      url: "https://www.urlaubfinder365.de/last-minute/",
+      type: "website",
+      images: [
+        {
+          url: seo?.og_image || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
+          width: 1200,
+          height: 630,
+          alt: "Last-Minute Urlaub günstig buchen – Strandurlaub mit Traumhotels",
+        },
+      ],
+    },
+  };
+}
 
 // FAQ data for rendering (JSON-LD FAQPage removed – restricted by Google since Aug 2023)
 const faqData = [
@@ -98,6 +106,7 @@ export default async function ({ params, searchParams }: {
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/last-minute");
   const sp = (await searchParams) ?? {};
   const hasSearchParams = !!(sp.regionId || sp.destination || sp.adults);
   const ibeUrl = buildB2bUrl(
@@ -137,6 +146,29 @@ export default async function ({ params, searchParams }: {
             </p>
           </div>
         </div>
+
+        {/* SEO Intro */}
+        {seo?.seo_intro && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+            <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+              {seo.seo_intro}
+            </p>
+          </div>
+        )}
+
+        {/* SEO Middle */}
+        {seo?.seo_middle && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+            {seo.seo_h2_middle && (
+              <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+              {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+                <p key={i}>{block}</p>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Inhaltsverzeichnis */}
         <div className="bg-orange-50 border-b border-orange-100">
@@ -475,6 +507,21 @@ export default async function ({ params, searchParams }: {
             </div>
           </div>
         </div>
+        {/* SEO Bottom */}
+        {seo?.seo_bottom && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+            <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+              {seo.seo_h2_bottom && (
+                <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+              )}
+              <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+                {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

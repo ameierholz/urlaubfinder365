@@ -6,24 +6,33 @@ import PriceComparisonTable from "@/components/preisentwicklung/PriceComparisonT
 import SeasonCalendar from "@/components/preisentwicklung/SeasonCalendar";
 import RightSidebar from "@/components/layout/RightSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 export const revalidate = 3600;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
-export const metadata: Metadata = {
-  title: "Preisentwicklung Urlaub — Historische Preisverläufe & Prognose | Urlaubfinder365",
-  description:
-    "Verfolge die Preisentwicklung für über 250 Urlaubsziele. Historische Preisverläufe, Trendprognosen und Jahresvergleiche für Pauschalreisen, All Inclusive & Last Minute.",
-  alternates: { canonical: `${BASE_URL}/preisentwicklung/` },
-  openGraph: {
-    title: "Preisentwicklung & Preisverlauf für Urlaubsziele | Urlaubfinder365",
-    description: "Historische Reisepreise, Trends und Prognosen für über 250 Urlaubsziele.",
-    url: `${BASE_URL}/preisentwicklung/`,
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = "Preisentwicklung Urlaub — Historische Preisverläufe & Prognose | Urlaubfinder365";
+const FALLBACK_DESC = "Verfolge die Preisentwicklung für über 250 Urlaubsziele. Historische Preisverläufe, Trendprognosen und Jahresvergleiche für Pauschalreisen, All Inclusive & Last Minute.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/preisentwicklung");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${BASE_URL}/preisentwicklung/` },
+    openGraph: {
+      title: seo?.og_title || "Preisentwicklung & Preisverlauf für Urlaubsziele | Urlaubfinder365",
+      description: seo?.og_description || "Historische Reisepreise, Trends und Prognosen für über 250 Urlaubsziele.",
+      url: `${BASE_URL}/preisentwicklung/`,
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -80,6 +89,7 @@ export default async function PreisentwicklungPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/preisentwicklung");
 
   return (
     <>
@@ -137,6 +147,29 @@ export default async function PreisentwicklungPage({
           </div>
         </div>
       </section> {/* end hero */}
+
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Main content + Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -223,6 +256,21 @@ export default async function PreisentwicklungPage({
           </aside>
         </div>
       </div>
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

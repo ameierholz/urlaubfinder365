@@ -3,19 +3,28 @@ import RightSidebar from "@/components/layout/RightSidebar";
 import { Globe, ShieldCheck, Clock, Info } from "lucide-react";
 import VisumChecker from "@/components/visum/VisumChecker";
 import { setRequestLocale } from "next-intl/server";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
-export const metadata: Metadata = {
-  title: "Visum-Checker – Einreisebestimmungen für deutsche Reisepässe",
-  description:
-    "Kostenloser Visum-Checker: Einreisebestimmungen, Visumpflicht & Kosten für 50+ Urlaubsziele weltweit – für deutsche Staatsangehörige. Jetzt prüfen!",
-  alternates: { canonical: "https://www.urlaubfinder365.de/visum-checker/" },
-  openGraph: {
-    title: "Visum-Checker – Einreisebestimmungen für deutsche Reisepässe",
-    description: "Sofort prüfen: Brauchst du ein Visum? Kosten, Bearbeitungszeit & Links für 50+ Länder.",
-    url: "https://www.urlaubfinder365.de/visum-checker/",
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = "Visum-Checker – Einreisebestimmungen für deutsche Reisepässe";
+const FALLBACK_DESC = "Kostenloser Visum-Checker: Einreisebestimmungen, Visumpflicht & Kosten für 50+ Urlaubsziele weltweit – für deutsche Staatsangehörige. Jetzt prüfen!";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/visum-checker");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    alternates: { canonical: "https://www.urlaubfinder365.de/visum-checker/" },
+    openGraph: {
+      title: seo?.og_title || title,
+      description: seo?.og_description || "Sofort prüfen: Brauchst du ein Visum? Kosten, Bearbeitungszeit & Links für 50+ Länder.",
+      url: "https://www.urlaubfinder365.de/visum-checker/",
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 const STATS = [
   { icon: Globe,       zahl: "50+",     text: "Urlaubsziele" },
@@ -27,6 +36,7 @@ const STATS = [
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/visum-checker");
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
@@ -64,6 +74,29 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </div>
         </div>
       </section>
+
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Checker + Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -119,6 +152,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </aside>
         </div>
       </div>
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

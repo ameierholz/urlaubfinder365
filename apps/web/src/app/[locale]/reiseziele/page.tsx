@@ -4,31 +4,42 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { SEASON_GUIDES } from "@/lib/season-guide-data";
 import { getAlternateUrls } from "@/i18n/routing";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 const BASE_URL = "https://www.urlaubfinder365.de";
 
-export const metadata: Metadata = {
-  title: `Beste Reiseziele nach Monat ${YEAR} – Saisonale Empfehlungen`,
-  description: `Finde die besten Reiseziele für jeden Monat ${YEAR} ✓ Wetter ✓ Preise ✓ Tipps für Januar bis Dezember ✓ Optimale Reisezeit für dein Urlaubsziel.`,
-  alternates: {
-    canonical: `${BASE_URL}/reiseziele/`,
-    languages: getAlternateUrls("/reiseziele/"),
-  },
-  openGraph: {
-    title: `Beste Reiseziele nach Monat ${YEAR} – Saisonale Empfehlungen`,
-    description: `Finde die besten Reiseziele für jeden Monat ${YEAR} ✓ Wetter ✓ Preise ✓ Tipps für Januar bis Dezember.`,
-    url: `${BASE_URL}/reiseziele/`,
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = `Beste Reiseziele nach Monat ${YEAR} – Saisonale Empfehlungen`;
+const FALLBACK_DESC = `Finde die besten Reiseziele für jeden Monat ${YEAR} ✓ Wetter ✓ Preise ✓ Tipps für Januar bis Dezember ✓ Optimale Reisezeit für dein Urlaubsziel.`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/reiseziele");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/reiseziele/`,
+      languages: getAlternateUrls("/reiseziele/"),
+    },
+    openGraph: {
+      title: seo?.og_title || title,
+      description: seo?.og_description || description,
+      url: `${BASE_URL}/reiseziele/`,
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 export const revalidate = 86400;
 
 export default async function ReisezieleIndexPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/reiseziele");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -73,6 +84,29 @@ export default async function ReisezieleIndexPage({ params }: { params: Promise<
           </p>
         </div>
       </div>
+
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* MONTHS GRID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -125,6 +159,21 @@ export default async function ReisezieleIndexPage({ params }: { params: Promise<
           bieten das ganze Jahr über mildes Klima mit 20-25 °C – ideal für Winter-Sonnenhungrige und Sommer-Entflüchter.
         </p>
       </div>
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

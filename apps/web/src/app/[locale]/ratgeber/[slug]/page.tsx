@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server";
 import { RATGEBER_ARTICLES, getRatgeberArticle } from "@/lib/ratgeber-data";
 import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -22,17 +23,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getRatgeberArticle(slug);
   if (!article) return {};
+  const seo = await fetchPageSeoMeta(`/ratgeber/${slug}`);
   const canonical = `${BASE_URL}/ratgeber/${article.slug}/`;
   return {
-    title: article.seoTitle,
-    description: article.seoDescription,
+    title: seo?.meta_title || article.seoTitle,
+    description: seo?.meta_description || article.seoDescription,
     alternates: { canonical, languages: getAlternateUrls(`/ratgeber/${article.slug}/`) },
     openGraph: {
-      title: article.seoTitle,
-      description: article.seoDescription,
+      title: seo?.og_title || article.seoTitle,
+      description: seo?.og_description || article.seoDescription,
       url: canonical,
       type: "article",
-      images: [{ url: article.heroImage, width: 1920, height: 1080, alt: article.title }],
+      images: [{ url: seo?.og_image || article.heroImage, width: 1920, height: 1080, alt: article.title }],
       publishedTime: article.updatedAt,
       modifiedTime: article.updatedAt,
     },
@@ -46,6 +48,7 @@ export default async function RatgeberArticlePage({ params }: Props) {
   setRequestLocale(locale);
   const article = getRatgeberArticle(slug);
   if (!article) notFound();
+  const seo = await fetchPageSeoMeta(`/ratgeber/${slug}`);
 
   const related = article.relatedSlugs
     .map(getRatgeberArticle)
@@ -128,6 +131,29 @@ export default async function RatgeberArticlePage({ params }: Props) {
         </div>
       </div>
 
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ARTICLE */}
       <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-xs text-gray-400 mb-6 pb-6 border-b border-gray-100">
@@ -168,6 +194,22 @@ export default async function RatgeberArticlePage({ params }: Props) {
                 <p className="text-sm text-gray-500 line-clamp-2">{r.lead}</p>
               </Link>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
           </div>
         </div>
       )}

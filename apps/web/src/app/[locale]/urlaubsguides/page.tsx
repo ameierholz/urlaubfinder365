@@ -4,22 +4,32 @@ import Link from "next/link";
 import { BookOpen, Clock } from "lucide-react";
 import { destinations, destImg } from "@/lib/destinations";
 import { setRequestLocale } from "next-intl/server";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 const YEAR = new Date().getFullYear();
 
-export const metadata: Metadata = {
-  title: `📖 Urlaubsguides ${YEAR} – kostenlose Urlaubsführer & Tipps`,
-  description: `Kostenlose Urlaubsguides ${YEAR}: Sehenswürdigkeiten, Geheimtipps, Klima & Einreise für Antalya, Mallorca, Kreta, Hurghada & Barcelona.`,
-  keywords: ["Urlaubsführer kostenlos", "Urlaubsguide", "Urlaubstipps", "Urlaubsführer Antalya", "Urlaubsführer Mallorca", "Urlaubsführer Kreta", "Urlaubsführer Hurghada", "Urlaubsführer Barcelona"],
-  alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsguides/" },
-  openGraph: {
-    title: `📖 Urlaubsguides ${YEAR} – kostenlose Urlaubsführer | Urlaubfinder365`,
-    description: `Kostenlose Urlaubsguides ${YEAR}: Sehenswürdigkeiten, Geheimtipps, Klima & Einreise für Antalya, Mallorca, Kreta, Hurghada & Barcelona.`,
-    url: "https://www.urlaubfinder365.de/urlaubsguides/",
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = `📖 Urlaubsguides ${YEAR} – kostenlose Urlaubsführer & Tipps`;
+const FALLBACK_DESC = `Kostenlose Urlaubsguides ${YEAR}: Sehenswürdigkeiten, Geheimtipps, Klima & Einreise für Antalya, Mallorca, Kreta, Hurghada & Barcelona.`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/urlaubsguides");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    keywords: ["Urlaubsführer kostenlos", "Urlaubsguide", "Urlaubstipps", "Urlaubsführer Antalya", "Urlaubsführer Mallorca", "Urlaubsführer Kreta", "Urlaubsführer Hurghada", "Urlaubsführer Barcelona"],
+    alternates: { canonical: "https://www.urlaubfinder365.de/urlaubsguides/" },
+    openGraph: {
+      title: seo?.og_title || `📖 Urlaubsguides ${YEAR} – kostenlose Urlaubsführer | Urlaubfinder365`,
+      description: seo?.og_description || description,
+      url: "https://www.urlaubfinder365.de/urlaubsguides/",
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 const jsonLd = [
   {
@@ -42,11 +52,36 @@ const jsonLd = [
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/urlaubsguides");
   return (
     <>
       <JsonLd data={jsonLd} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/images/urlaubsguides_header.webp" alt="Urlaubsguides" className="w-full object-cover" style={{ maxHeight: "180px" }} loading="eager" />
+
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="xl:flex xl:gap-8 xl:items-start">
       <div className="flex-1 min-w-0">
@@ -114,6 +149,22 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       </aside>
       </div>{/* end xl:flex */}
     </div>
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

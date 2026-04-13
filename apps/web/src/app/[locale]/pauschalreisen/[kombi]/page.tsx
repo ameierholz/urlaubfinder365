@@ -11,6 +11,7 @@ import { getAlternateUrls } from "@/i18n/routing";
 import IbeTeaser from "@/components/ibe/IbeTeaser";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 import { FlagImage } from "@/components/ui/flag-image";
@@ -28,17 +29,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { kombi } = await params;
   const data = getPauschalKombi(kombi);
   if (!data) return {};
+  const seo = await fetchPageSeoMeta(`/pauschalreisen/${kombi}`);
   const canonical = `${BASE_URL}/pauschalreisen/${data.slug}/`;
   return {
-    title: data.seoTitle,
-    description: data.seoDescription,
+    title: seo?.meta_title || data.seoTitle,
+    description: seo?.meta_description || data.seoDescription,
     alternates: { canonical, languages: getAlternateUrls(`/pauschalreisen/${data.slug}/`) },
     openGraph: {
-      title: data.seoTitle,
-      description: data.seoDescription,
+      title: seo?.og_title || data.seoTitle,
+      description: seo?.og_description || data.seoDescription,
       url: canonical,
       type: "website",
-      images: [{ url: data.heroImage, width: 1920, height: 1080, alt: data.h1 }],
+      images: [{ url: seo?.og_image || data.heroImage, width: 1920, height: 1080, alt: data.h1 }],
     },
   };
 }
@@ -58,6 +60,7 @@ export default async function PauschalKombiPage({ params }: Props) {
   setRequestLocale(locale);
   const data = getPauschalKombi(kombi);
   if (!data) notFound();
+  const seo = await fetchPageSeoMeta(`/pauschalreisen/${kombi}`);
 
   const relatedDests = data.relatedDestinationSlugs
     .map(destExists)
@@ -193,6 +196,29 @@ export default async function PauschalKombiPage({ params }: Props) {
         </div>
       </div>
 
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* HIGHLIGHTS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
@@ -285,6 +311,22 @@ export default async function PauschalKombiPage({ params }: Props) {
           ))}
         </div>
       </div>
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CAROUSEL */}
       <DestinationCarousel title="Weitere Urlaubsziele entdecken" />

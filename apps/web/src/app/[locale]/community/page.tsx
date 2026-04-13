@@ -4,28 +4,38 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import RightSidebar from "@/components/layout/RightSidebar";
 import Link from "next/link";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
-export const metadata: Metadata = {
-  title: "🌍 Urlaubs-Community – Berichte, Gruppen & Tipps",
-  description: "Urlaubfinder365 Urlaubs-Community: Echte Urlaubsberichte lesen, Urlaubsgruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.",
-  keywords: ["Urlaubs-Community", "Urlaubsberichte", "Urlaubsgruppen", "Urlaubstipps", "Reiseforum", "Reisende vernetzen", "Urlaubserfahrungen", "Reise Austausch"],
-  alternates: { canonical: "https://www.urlaubfinder365.de/community/" },
-  openGraph: {
-    title: "🌍 Urlaubs-Community – Berichte & Tipps | Urlaubfinder365",
-    description: "Urlaubfinder365 Urlaubs-Community: Echte Urlaubsberichte lesen, Urlaubsgruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.",
-    url: "https://www.urlaubfinder365.de/community/",
-    type: "website",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&q=80&auto=format",
-        width: 1200,
-        height: 630,
-        alt: "Urlaubfinder365 Urlaubs-Community",
-      },
-    ],
-  },
-};
+
+const FALLBACK_TITLE = "🌍 Urlaubs-Community – Berichte, Gruppen & Tipps";
+const FALLBACK_DESC = "Urlaubfinder365 Urlaubs-Community: Echte Urlaubsberichte lesen, Urlaubsgruppen beitreten & Geheimtipps entdecken ✓ Kostenlos mitmachen.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/community");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    keywords: ["Urlaubs-Community", "Urlaubsberichte", "Urlaubsgruppen", "Urlaubstipps", "Reiseforum", "Reisende vernetzen", "Urlaubserfahrungen", "Reise Austausch"],
+    alternates: { canonical: "https://www.urlaubfinder365.de/community/" },
+    openGraph: {
+      title: seo?.og_title || "🌍 Urlaubs-Community – Berichte & Tipps | Urlaubfinder365",
+      description: seo?.og_description || description,
+      url: "https://www.urlaubfinder365.de/community/",
+      type: "website",
+      images: [
+        {
+          url: seo?.og_image || "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1200&h=630&q=80&auto=format",
+          width: 1200,
+          height: 630,
+          alt: "Urlaubfinder365 Urlaubs-Community",
+        },
+      ],
+    },
+  };
+}
 
 const jsonLd = [
   {
@@ -58,6 +68,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("communityPage");
+  const seo = await fetchPageSeoMeta("/community");
   return (
     <>
       <JsonLd data={jsonLd} />
@@ -94,6 +105,29 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="xl:flex xl:gap-8 xl:items-start">
           <div className="flex-1 min-w-0">
@@ -125,6 +159,22 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </aside>
         </div>
       </div>
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

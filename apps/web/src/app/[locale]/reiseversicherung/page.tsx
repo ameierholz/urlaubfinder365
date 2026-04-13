@@ -3,19 +3,28 @@ import RightSidebar from "@/components/layout/RightSidebar";
 import { ShieldCheck, Euro, Clock, Star, ExternalLink } from "lucide-react";
 import VersicherungVergleich from "@/components/versicherung/VersicherungVergleich";
 import { setRequestLocale } from "next-intl/server";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
-export const metadata: Metadata = {
-  title: "Reiseversicherung Vergleich 2025 – Günstig & sicher reisen",
-  description:
-    "Reiseversicherung vergleichen & online abschließen ✓ Auslandskranken, Rücktritt, Gepäck & Kombipolicen ✓ Ab 9,80 € / Jahr ✓ Testsieger & Empfehlungen.",
-  alternates: { canonical: "https://www.urlaubfinder365.de/reiseversicherung/" },
-  openGraph: {
-    title: "Reiseversicherung Vergleich 2025 – Günstig & sicher reisen",
-    description: "Alle Reiseversicherungen im Vergleich: Auslandskranken, Rücktritt, Gepäck & Kombi — jetzt günstig abschließen.",
-    url: "https://www.urlaubfinder365.de/reiseversicherung/",
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = "Reiseversicherung Vergleich 2025 – Günstig & sicher reisen";
+const FALLBACK_DESC = "Reiseversicherung vergleichen & online abschließen ✓ Auslandskranken, Rücktritt, Gepäck & Kombipolicen ✓ Ab 9,80 € / Jahr ✓ Testsieger & Empfehlungen.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/reiseversicherung");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    alternates: { canonical: "https://www.urlaubfinder365.de/reiseversicherung/" },
+    openGraph: {
+      title: seo?.og_title || title,
+      description: seo?.og_description || "Alle Reiseversicherungen im Vergleich: Auslandskranken, Rücktritt, Gepäck & Kombi — jetzt günstig abschließen.",
+      url: "https://www.urlaubfinder365.de/reiseversicherung/",
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 const STATS = [
   { icon: ShieldCheck, zahl: "5",         text: "Versicherungstypen" },
@@ -29,6 +38,7 @@ const ERV_URL = "https://www.travialinks.de/link/A-30412-0/A/erv";
 export default async function ({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/reiseversicherung");
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -85,6 +95,29 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Wichtigkeits-Banner */}
       <div className="bg-red-50 border-b border-red-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-3">
@@ -125,6 +158,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
           </aside>
         </div>
       </div>
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

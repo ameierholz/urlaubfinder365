@@ -9,6 +9,7 @@ import { CATALOG } from "@/data/catalog-regions";
 import { getAlternateUrls } from "@/i18n/routing";
 import ThemeFAQAccordion from "@/components/ui/ThemeFAQAccordion";
 import DestinationCarousel from "@/components/ui/DestinationCarousel";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
@@ -25,17 +26,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { month } = await params;
   const guide = getSeasonGuide(month);
   if (!guide) return {};
+  const seo = await fetchPageSeoMeta(`/reiseziele/${month}`);
   const canonical = `${BASE_URL}/reiseziele/${guide.slug}/`;
   return {
-    title: guide.seoTitle,
-    description: guide.seoDescription,
+    title: seo?.meta_title || guide.seoTitle,
+    description: seo?.meta_description || guide.seoDescription,
     alternates: { canonical, languages: getAlternateUrls(`/reiseziele/${guide.slug}/`) },
     openGraph: {
-      title: guide.seoTitle,
-      description: guide.seoDescription,
+      title: seo?.og_title || guide.seoTitle,
+      description: seo?.og_description || guide.seoDescription,
       url: canonical,
       type: "article",
-      images: [{ url: guide.heroImage, width: 1920, height: 1080, alt: guide.headline }],
+      images: [{ url: seo?.og_image || guide.heroImage, width: 1920, height: 1080, alt: guide.headline }],
     },
   };
 }
@@ -60,6 +62,7 @@ export default async function MonthGuidePage({ params }: Props) {
   setRequestLocale(locale);
   const guide = getSeasonGuide(month);
   if (!guide) notFound();
+  const seo = await fetchPageSeoMeta(`/reiseziele/${month}`);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -129,6 +132,29 @@ export default async function MonthGuidePage({ params }: Props) {
           </p>
         </div>
       </div>
+
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* WETTER-INTRO */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -238,6 +264,22 @@ export default async function MonthGuidePage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <DestinationCarousel title="Alle Urlaubsziele entdecken" />
     </div>
