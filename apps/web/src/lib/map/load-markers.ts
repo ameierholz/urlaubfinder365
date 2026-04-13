@@ -263,6 +263,30 @@ async function loadAnbieterMarkers(): Promise<AnbieterMarker[]> {
   return out;
 }
 
+// ─── Module-Level Cache (einmal laden, für alle Pages im gleichen Worker wiederverwendet) ──
+
+let _cachedMarkers: MapMarker[] | null = null;
+let _cachePromise: Promise<MapMarker[]> | null = null;
+
+async function getAllMarkersOnce(): Promise<MapMarker[]> {
+  if (_cachedMarkers) return _cachedMarkers;
+  if (_cachePromise) return _cachePromise;
+
+  _cachePromise = Promise.all([
+    loadDestinationMarkers(),
+    loadTipMarkers(),
+    loadReportMarkers(),
+    loadMediaMarkers(),
+    loadAnbieterMarkers(),
+  ]).then((results) => {
+    _cachedMarkers = results.flat();
+    _cachePromise = null;
+    return _cachedMarkers;
+  });
+
+  return _cachePromise;
+}
+
 // ─── Public API ─────────────────────────────────────────────────────────────
 
 export interface LoadMarkersOptions {
@@ -276,15 +300,11 @@ export interface LoadMarkersOptions {
 export async function loadAllMarkers(opts: LoadMarkersOptions = {}): Promise<MapMarker[]> {
   const layers = opts.layers ?? ["destination", "tip", "report", "media", "anbieter"];
 
-  const tasks: Promise<MapMarker[]>[] = [];
-  if (layers.includes("destination")) tasks.push(loadDestinationMarkers());
-  if (layers.includes("tip"))         tasks.push(loadTipMarkers());
-  if (layers.includes("report"))      tasks.push(loadReportMarkers());
-  if (layers.includes("media"))       tasks.push(loadMediaMarkers());
-  if (layers.includes("anbieter"))    tasks.push(loadAnbieterMarkers());
-
-  const results = await Promise.all(tasks);
-  let markers = results.flat();
+  // Gecachte Marker verwenden statt jedes Mal neu zu laden
+  const all = await getAllMarkersOnce();
+  let markers = layers.length < 5
+    ? all.filter((m) => layers.includes(m.kind as typeof layers[number]))
+    : [...all];
 
   // Optionaler Geo-Filter (Umkreis)
   if (opts.near) {
