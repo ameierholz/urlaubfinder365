@@ -4,24 +4,34 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 import { RATGEBER_ARTICLES } from "@/lib/ratgeber-data";
 import { getAlternateUrls } from "@/i18n/routing";
+import { fetchPageSeoMeta } from "@/lib/seo-meta";
 
 import JsonLd from "@/components/seo/JsonLd";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
-export const metadata: Metadata = {
-  title: "Reise-Ratgeber & Tipps – Antworten auf die wichtigsten Fragen",
-  description: "Alles, was du vor und während der Reise wissen musst: Wann buchen, All Inclusive oder nicht, Pauschalreise vs. Einzelbuchung, Versicherungen und vieles mehr.",
-  alternates: {
-    canonical: `${BASE_URL}/ratgeber/`,
-    languages: getAlternateUrls("/ratgeber/"),
-  },
-  openGraph: {
-    title: "Reise-Ratgeber & Tipps – Antworten auf die wichtigsten Fragen",
-    description: "Alles, was du vor und während der Reise wissen musst: Buchung, Versicherung, Verpflegung und Sicherheit.",
-    url: `${BASE_URL}/ratgeber/`,
-    type: "website",
-  },
-};
+const FALLBACK_TITLE = "Reise-Ratgeber & Tipps – Antworten auf die wichtigsten Fragen";
+const FALLBACK_DESC = "Alles, was du vor und während der Reise wissen musst: Wann buchen, All Inclusive oder nicht, Pauschalreise vs. Einzelbuchung, Versicherungen und vieles mehr.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await fetchPageSeoMeta("/ratgeber");
+  const title = seo?.meta_title || FALLBACK_TITLE;
+  const description = seo?.meta_description || FALLBACK_DESC;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/ratgeber/`,
+      languages: getAlternateUrls("/ratgeber/"),
+    },
+    openGraph: {
+      title: seo?.og_title || title,
+      description: seo?.og_description || description,
+      url: `${BASE_URL}/ratgeber/`,
+      type: "website",
+      ...(seo?.og_image ? { images: [{ url: seo.og_image }] } : {}),
+    },
+  };
+}
 
 export const revalidate = 86400;
 
@@ -40,6 +50,7 @@ const CATEGORY_META: Record<string, { emoji: string; color: string }> = {
 export default async function RatgeberIndexPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const seo = await fetchPageSeoMeta("/ratgeber");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -85,6 +96,29 @@ export default async function RatgeberIndexPage({ params }: { params: Promise<{ 
         </div>
       </div>
 
+      {/* SEO Intro */}
+      {seo?.seo_intro && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
+            {seo.seo_intro}
+          </p>
+        </div>
+      )}
+
+      {/* SEO Middle */}
+      {seo?.seo_middle && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+          {seo.seo_h2_middle && (
+            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
+          )}
+          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
+            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
+              <p key={i}>{block}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ARTICLES GRID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Alle Ratgeber-Artikel</h2>
@@ -127,6 +161,22 @@ export default async function RatgeberIndexPage({ params }: { params: Promise<{ 
           })}
         </div>
       </div>
+
+      {/* SEO Bottom */}
+      {seo?.seo_bottom && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
+            {seo.seo_h2_bottom && (
+              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
+            )}
+            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
+              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
