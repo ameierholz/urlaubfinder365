@@ -297,6 +297,11 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     },
     description:
       "Urlaubfinder365 vergleicht täglich tausende Urlaubsangebote führender Veranstalter – Pauschalreisen, All Inclusive und Last Minute günstig buchen.",
+    sameAs: [
+      "https://www.facebook.com/urlaubfinder365",
+      "https://www.instagram.com/urlaubfinder365/",
+      "https://www.tiktok.com/@urlaubfinder365",
+    ],
     areaServed: "DE",
     inLanguage: "de",
   };
