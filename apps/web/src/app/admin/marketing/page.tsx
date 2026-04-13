@@ -379,6 +379,88 @@ export default function MarketingCalendarPage() {
                 </button>
               </div>
 
+              {/* Was + Wo Info-Box */}
+              <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-4 space-y-2">
+                <p className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Was du veroeffentlichst</p>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-[10px] text-gray-500 mb-0.5">Typ</p>
+                    <p className="text-sm text-white font-bold">
+                      {p.post_type === "reel" ? "📹 Instagram Reel (Video)" :
+                       p.post_type === "video" ? "🎬 TikTok Video" :
+                       p.post_type === "karussell" ? "📸 Karussell (4-5 Bilder)" :
+                       p.post_type === "bild" ? "🖼️ Bild-Post" :
+                       p.post_type === "angebot" ? "💼 Google Angebot" :
+                       p.post_type === "neuigkeit" ? "📢 Google Neuigkeit" :
+                       p.post_type === "text" ? "💬 Text-Post (kein Bild)" :
+                       `📝 ${p.post_type}`}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-gray-500 mb-0.5">Plattform</p>
+                    <p className={`text-sm font-bold ${cfg.text}`}>{cfg.label}</p>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-700 pt-2 space-y-1.5">
+                  {(p.post_type === "reel" || p.post_type === "video") ? (
+                    <>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">🎬</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Im Video:</span> Kurze Text-Overlays (Headlines, Preise, Emojis). Max 5-8 Woerter pro Szene.</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">📝</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">In die Beschreibung:</span> Den Caption-Text unten kopieren + Hashtags.</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">🎵</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Musik:</span> In Canva unter "Audio" → trending Sound waehlen.</p>
+                      </div>
+                    </>
+                  ) : p.post_type === "karussell" ? (
+                    <>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">🖼️</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Auf den Bildern:</span> Je 1 Statement pro Slide (gross, zentriert). Letzter Slide: CTA + Logo.</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">📝</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">In die Beschreibung:</span> Den Caption-Text unten kopieren + Hashtags.</p>
+                      </div>
+                    </>
+                  ) : p.platform === "google" ? (
+                    <>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">🖼️</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Bild:</span> Reisefoto mit Preis-Badge (600x400).</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">📝</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Text:</span> Caption unten direkt ins Google-Formular einfuegen. Formell (Sie).</p>
+                      </div>
+                    </>
+                  ) : p.post_type === "text" ? (
+                    <div className="flex items-start gap-2">
+                      <span className="text-amber-400 text-sm shrink-0">📝</span>
+                      <p className="text-xs text-gray-300"><span className="text-white font-semibold">Nur Text:</span> Kein Bild noetig. Caption unten direkt als Post veroeffentlichen.</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">🖼️</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Auf dem Bild:</span> Reisefoto + dunkler Balken unten + Destination + Preis in weiss.</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-amber-400 text-sm shrink-0">📝</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">In die Beschreibung:</span> Den Caption-Text unten kopieren + Hashtags.</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
               {/* Caption */}
               {p.caption && (
                 <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
