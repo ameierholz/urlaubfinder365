@@ -40,7 +40,7 @@ function buildCsp(nonce: string, isEmbed = false): string {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self' https://accounts.google.com",
-    isEmbed ? "frame-ancestors *" : "frame-ancestors 'none'",
+    isEmbed ? "frame-ancestors *" : "frame-ancestors 'self' https://ads.google.com https://www.google.com https://googleads.g.doubleclick.net",
   ].join("; ");
 }
 
