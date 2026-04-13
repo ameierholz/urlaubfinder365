@@ -247,11 +247,7 @@ const nextConfig: NextConfig = {
       { source: "/reisenden-karte/", destination: "/weltkarte/", permanent: true },
       { source: "/reisenden-karte", destination: "/weltkarte/", permanent: true },
 
-      // Erlebnisse → Aktivitäten (Seite nie angelegt, Tiqets-Content ist in /aktivitaeten/)
-      { source: "/erlebnisse/", destination: "/aktivitaeten/", permanent: false },
-      { source: "/erlebnisse", destination: "/aktivitaeten/", permanent: false },
-      { source: "/:locale/erlebnisse/", destination: "/:locale/aktivitaeten/", permanent: false },
-      { source: "/:locale/erlebnisse", destination: "/:locale/aktivitaeten/", permanent: false },
+      // Erlebnisse-Redirect entfernt — /erlebnisse/ ist jetzt eine eigenständige Tiqets-Seite
 
       // WordPress-REST-API & JSON-Endpoints → Startseite
       { source: "/wp-json/:path*", destination: "/", permanent: true },
