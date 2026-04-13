@@ -20,6 +20,7 @@ const MARKTPLATZ_NAV = [
 
 const VERMARKTUNG_NAV = [
   { href: "/admin/vermarktung/",   icon: Euro,     label: "Revenue-Übersicht" },
+  { href: "/admin/marketing/",     icon: Megaphone,label: "Marketing-Kalender" },
   { href: "/admin/werbung/",       icon: Megaphone,label: "Werbeplatz-Buchungen" },
   { href: "/admin/werbeplaetze/",  icon: Code,     label: "Ad-Code-Slots" },
   { href: "/admin/sponsored-deals/",icon: Flame,   label: "Sponsored Deals" },
