@@ -122,6 +122,7 @@ export default async function Footer() {
               <Link href="/agb/"         className="block hover:text-gray-300">{tFooter("agb")}</Link>
               <Link href="/ueber-uns/"   className="block hover:text-gray-300">{tFooter("about")}</Link>
               <Link href="/presse/"      className="block hover:text-gray-300">{tFooter("press")}</Link>
+              <Link href="/partner/"     className="block hover:text-gray-300">{tFooter("partner")}</Link>
             </div>
           </div>
         </div>

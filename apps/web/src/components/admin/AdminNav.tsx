@@ -34,10 +34,13 @@ const SEO_NAV = [
 ];
 
 const COMMAND_CENTER = [
-  { href: "/admin/seo/dashboard/",   label: "🎯 Command Center" },
-  { href: "/admin/seo/links/",       label: "🔗 Link-Audit" },
-  { href: "/admin/seo/konkurrenz/",  label: "🏆 Konkurrenz" },
-  { href: "/admin/seo/performance/", label: "📊 Performance" },
+  { href: "/admin/seo/dashboard/",      label: "🎯 Command Center" },
+  { href: "/admin/seo/links/",          label: "🔗 Link-Audit" },
+  { href: "/admin/seo/konkurrenz/",     label: "🏆 Konkurrenz" },
+  { href: "/admin/seo/performance/",    label: "📊 Performance" },
+  { href: "/admin/seo/verzeichnisse/",  label: "📂 Verzeichnisse" },
+  { href: "/admin/seo/broken-links/",   label: "🔍 Broken-Link-Builder" },
+  { href: "/admin/seo/outreach/",       label: "📧 Outreach" },
 ];
 
 function NavGroup({

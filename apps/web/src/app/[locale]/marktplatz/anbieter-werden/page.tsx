@@ -4,9 +4,9 @@ import AnbieterFormular from "@/components/marktplatz/AnbieterFormular";
 import { setRequestLocale } from "next-intl/server";
 
 export const metadata: Metadata = {
-  title: "Anbieter werden – Touren & Aktivitäten listen | Urlaubfinder365 Marktplatz",
+  title: "Anbieter werden – Touren, Transfers & Aktivitäten listen | Urlaubfinder365 Marktplatz",
   description:
-    "Kostenlos als Anbieter registrieren: Liste deine Touren, Stadtführungen & Aktivitäten auf dem Urlaubfinder365 Marktplatz. Nur 15% Provision bei erfolgreicher Buchung.",
+    "Kostenlos als Anbieter registrieren: Liste deine Touren, Transfers, Stadtführungen & Aktivitäten auf dem Urlaubfinder365 Marktplatz. Nur 15% Provision bei erfolgreicher Buchung.",
   alternates: { canonical: "https://www.urlaubfinder365.de/marktplatz/anbieter-werden/" },
 };
 
@@ -52,7 +52,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             Mehr Buchungen.<br />Weniger Aufwand.
           </h1>
           <p className="text-lg text-white/80 max-w-xl mx-auto">
-            Kostenlos listen, nur bei Buchung zahlen. Erreiche tausende deutsche Urlauber mit deinen Touren & Aktivitäten.
+            Kostenlos listen, nur bei Buchung zahlen. Erreiche tausende deutsche Urlauber mit deinen Touren, Transfers & Aktivitäten.
           </p>
         </div>
       </section>
