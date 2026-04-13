@@ -258,26 +258,18 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  // Nur 4 kritische API-Calls Server-Side (Above-Fold Preise)
-  // Bulgarien/Zypern/Tunesien entfernt (nie angezeigt), Tier-3 + Frühbucher nutzen Fallback-Preise
-  const [turkeyDeal, spainDeal, greeceDeal, egyptDeal] = await Promise.all([
-    fetchTopDeal([149]),       // Türkei / Antalya → Hero
-    fetchTopDeal([133]),       // Spanien / Mallorca → Tier-2
-    fetchTopDeal([46]),        // Griechenland / Kreta → Tier-2
-    fetchTopDeal([560]),       // Ägypten / Hurghada → Tier-2
-  ]);
-
-  const topDeals = [turkeyDeal, spainDeal, greeceDeal, egyptDeal].filter((o): o is TravelOffer => o !== null);
-
-  // Frühbucher: Statische Fallback-Preise (kein API-Call mehr nötig)
+  // KEINE API-Calls beim Server-Rendering → TTFB ~50ms statt ~900ms
+  // Deal-Karten werden per Client-Fetch nachgeladen (HomeDealCard)
+  // Preise nutzen statische Fallbacks — werden bei ISR-Revalidierung aktualisiert
+  const topDeals: TravelOffer[] = [];
   const fruehbucherDeals: (TravelOffer | null)[] = [null, null, null, null];
 
-  // ── Destination-Kacheln ──────────────────────────────────────────────────
-  const destHero   = { ...REISEZIEL_HERO_S,   priceFrom: minPrice(turkeyDeal,  "ab 299 €") };
+  // ── Destination-Kacheln mit statischen Fallback-Preisen ──────────────────
+  const destHero   = { ...REISEZIEL_HERO_S,   priceFrom: "ab 299 €" };
   const destMittel = [
-    { ...REISEZIELE_MITTEL_S[0], priceFrom: minPrice(spainDeal,  "ab 349 €") },
-    { ...REISEZIELE_MITTEL_S[1], priceFrom: minPrice(greeceDeal, "ab 389 €") },
-    { ...REISEZIELE_MITTEL_S[2], priceFrom: minPrice(egyptDeal,  "ab 449 €") },
+    { ...REISEZIELE_MITTEL_S[0], priceFrom: "ab 349 €" },
+    { ...REISEZIELE_MITTEL_S[1], priceFrom: "ab 389 €" },
+    { ...REISEZIELE_MITTEL_S[2], priceFrom: "ab 449 €" },
   ];
   const destKlein  = [
     { ...REISEZIELE_KLEIN_S[0], priceFrom: REISEZIELE_KLEIN_S[0].fallback },

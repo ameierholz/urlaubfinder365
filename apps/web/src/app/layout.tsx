@@ -31,17 +31,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        {/* Performance: Preconnect/DNS-Prefetch zu kritischen Drittdomains */}
+        {/* Preconnect: max 2-3 (Google warnt ab 4) — nur die kritischsten */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://media.traffics-switch.de" />
-        <link rel="preconnect" href="https://api.specials.de" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://assets.specials.de" />
+        {/* DNS-Prefetch: guenstiger als preconnect, fuer sekundaere Domains */}
+        <link rel="dns-prefetch" href="https://api.specials.de" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="dns-prefetch" href="https://b2b.specials.de" />
         <link rel="dns-prefetch" href="https://flagcdn.com" />
-        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-        <link rel="dns-prefetch" href="https://widget.trustpilot.com" />
       </head>
       <body
         className={`${inter.variable} ${annie.variable} antialiased text-gray-900`}
