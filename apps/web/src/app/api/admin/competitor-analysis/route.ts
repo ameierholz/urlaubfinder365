@@ -38,9 +38,17 @@ interface OverviewResult {
 }
 
 function extractJson(text: string): string {
-  const start = text.indexOf("{");
-  const end   = text.lastIndexOf("}");
-  return (start !== -1 && end !== -1) ? text.slice(start, end + 1) : text;
+  // 1. Markdown-Codeblöcke entfernen
+  let cleaned = text.replace(/```(?:json)?\s*/gi, "").replace(/```/g, "").trim();
+  // 2. Erstes { bis letztes } extrahieren
+  const start = cleaned.indexOf("{");
+  const end   = cleaned.lastIndexOf("}");
+  if (start !== -1 && end !== -1 && end > start) {
+    cleaned = cleaned.slice(start, end + 1);
+  }
+  // 3. Trailing Commas vor } oder ] entfernen (häufiger KI-Fehler)
+  cleaned = cleaned.replace(/,\s*([}\]])/g, "$1");
+  return cleaned;
 }
 
 interface UrlResult {
@@ -118,11 +126,31 @@ Gib mindestens 6 Hauptkonkurrenten und 12 Top-Keywords zurück. Keywords sollen 
         return NextResponse.json({ error: "Unerwartete Antwort von Claude" }, { status: 500 });
       }
 
-      const result: OverviewResult = JSON.parse(extractJson(content.text.trim()));
-      return NextResponse.json({ mode: "overview", ...result });
+      const rawText = content.text.trim();
+      try {
+        const result: OverviewResult = JSON.parse(extractJson(rawText));
+        return NextResponse.json({ mode: "overview", ...result });
+      } catch {
+        // Retry mit expliziterem Prompt
+        const retry = await client.messages.create({
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 3000,
+          system: "Antworte NUR mit einem validen JSON-Objekt. Kein Text davor oder danach. Kein Markdown.",
+          messages: [
+            { role: "user", content: prompt },
+            { role: "assistant", content: "{" },
+          ],
+        });
+        const retryContent = retry.content[0];
+        if (retryContent.type !== "text") {
+          return NextResponse.json({ error: "Retry fehlgeschlagen" }, { status: 500 });
+        }
+        const retryResult: OverviewResult = JSON.parse("{" + extractJson(retryContent.text.trim()));
+        return NextResponse.json({ mode: "overview", ...retryResult });
+      }
     } catch (err) {
       if (err instanceof SyntaxError) {
-        return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden" }, { status: 500 });
+        return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden. Bitte erneut versuchen." }, { status: 500 });
       }
       return NextResponse.json({ error: String(err) }, { status: 500 });
     }
@@ -210,11 +238,31 @@ Gib exakt dieses JSON zurück:
       return NextResponse.json({ error: "Unerwartete Antwort von Claude" }, { status: 500 });
     }
 
-    const result: AnalysisResult = JSON.parse(extractJson(content.text.trim()));
-    return NextResponse.json(result);
+    const rawText = content.text.trim();
+    try {
+      const result: AnalysisResult = JSON.parse(extractJson(rawText));
+      return NextResponse.json(result);
+    } catch {
+      // Retry
+      const retry = await client.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 1500,
+        system: "Antworte NUR mit einem validen JSON-Objekt. Kein Text davor oder danach. Kein Markdown.",
+        messages: [
+          { role: "user", content: prompt },
+          { role: "assistant", content: "{" },
+        ],
+      });
+      const retryContent = retry.content[0];
+      if (retryContent.type !== "text") {
+        return NextResponse.json({ error: "Retry fehlgeschlagen" }, { status: 500 });
+      }
+      const result: AnalysisResult = JSON.parse("{" + extractJson(retryContent.text.trim()));
+      return NextResponse.json(result);
+    }
   } catch (err) {
     if (err instanceof SyntaxError) {
-      return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden" }, { status: 500 });
+      return NextResponse.json({ error: "Claude-Antwort konnte nicht als JSON geparst werden. Bitte erneut versuchen." }, { status: 500 });
     }
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
