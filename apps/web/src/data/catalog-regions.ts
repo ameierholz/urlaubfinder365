@@ -2101,7 +2101,7 @@ export const CATALOG: CatalogEntry[] = [
 
   // Malta
   {
-    slug: "malta-insel",
+    slug: "malta",
     name: "Malta",
     ibeRegionId: "100035",
     ibeBpRegion: "eu",
@@ -3218,8 +3218,8 @@ export const CATALOG: CatalogEntry[] = [
     parentSlug: "tuerkei",
   },
   {
-    slug: "antalya-stadt",
-    name: "Antalya Stadt",
+    slug: "antalya",
+    name: "Antalya",
     ibeRegionId: "149",
     ibeBpRegion: "turkey",
     country: "Türkei",

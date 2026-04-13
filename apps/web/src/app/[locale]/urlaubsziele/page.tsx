@@ -90,7 +90,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         "kalabrien", "kanaren", "katalonien", "kefalonia", "korfu", "korsika",
         "kos", "kroatien", "kreta",
         "la-gomera", "la-palma", "lanzarote", "lefkas", "ligurien", "lissabon", "london",
-        "madrid", "mallorca", "malta", "malta-insel", "marbella", "menorca", "mykonos",
+        "madrid", "mallorca", "malta", "marbella", "menorca", "mykonos",
         "navarra-la-rioja", "nord-portugal",
         "oesterreich",
         "paris", "porto", "porto-santo", "portugal", "provence", "pyrenäen",
@@ -111,7 +111,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       desc: t("continentAsienDesc"),
       top5: ["tuerkei", "dubai", "thailand", "malediven", "bali"],
       slugs: [
-        "abu-dhabi", "alanya", "antalya-stadt", "asien",
+        "abu-dhabi", "alanya", "antalya", "asien",
         "bali", "bangkok", "belek",
         "cesme",
         "dalyan", "dubai",
