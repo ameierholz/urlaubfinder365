@@ -25,13 +25,13 @@ export default async function Footer() {
             <TrustpilotWidget theme="dark" />
           </div>
 
-          {/* Urlaubsziele */}
+          {/* Urlaubsziele — Top 8 statt alle */}
           <div>
             <p className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">
               {tFooter("destinationsHeading")}
             </p>
             <ul className="space-y-2 text-sm">
-              {destinations.map((d) => (
+              {destinations.slice(0, 8).map((d) => (
                 <li key={d.slug}>
                   <Link href={`/urlaubsziele/${d.slug}/`} className="hover:text-white transition-colors">
                     {d.name}
@@ -39,8 +39,8 @@ export default async function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/guenstig-urlaub-buchen/" className="hover:text-white transition-colors">
-                  {tFooter("allOffers")}
+                <Link href="/urlaubsziele/" className="text-[#1db682] hover:text-white transition-colors font-semibold">
+                  Alle Urlaubsziele →
                 </Link>
               </li>
             </ul>
