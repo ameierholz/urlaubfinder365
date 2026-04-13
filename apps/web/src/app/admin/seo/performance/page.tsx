@@ -631,61 +631,51 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
     return (
       <>
         <tr className="hover:bg-gray-800/30 transition-colors">
-          <td className="px-4 py-2.5 text-white font-medium max-w-[180px] truncate">{item.keyword}</td>
-          <td className="px-4 py-2.5 text-right">
-            <span className={`font-mono ${item.position <= 10 ? "text-green-400" : item.position <= 20 ? "text-yellow-400" : "text-orange-400"}`}>
-              {fmtPos(item.position)}
-            </span>
-          </td>
-          <td className="px-4 py-2.5 text-right text-gray-500 font-mono">{fmtPos(item.prevPosition)}</td>
-          <td className="px-4 py-2.5 text-right">
-            <span className={`flex items-center justify-end gap-1 ${isWinner ? "text-green-400" : "text-red-400"} font-bold text-xs`}>
-              {isWinner ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
-              {isWinner ? "+" : ""}{fmtPos(item.change)}
-            </span>
-          </td>
-          <td className="px-4 py-2.5 text-right text-blue-400">{fmtNum(item.clicks)}</td>
-          <td className="px-4 py-2.5 text-right">
-            <div className="flex items-center justify-end gap-1">
-              {/* KI-Maßnahme generieren */}
+          {/* Keyword + Aktions-Icons */}
+          <td className="px-3 py-2.5">
+            <p className="text-white font-medium text-xs truncate max-w-[140px]">{item.keyword}</p>
+            <div className="flex items-center gap-1 mt-1">
               <button
                 onClick={() => isExpanded && hasSuggestion ? setExpandedRow(null) : generateSuggestion(item.keyword, item.position, item.change, type)}
                 disabled={isGenerating}
-                className={`p-1.5 rounded-lg transition-colors ${
+                className={`p-1 rounded transition-colors ${
                   isExpanded ? "bg-teal-900/50 text-teal-400" : "hover:bg-gray-700 text-gray-500 hover:text-teal-400"
                 }`}
-                title="KI-Maßnahmen generieren"
+                title="KI-Maßnahmen"
               >
-                {isGenerating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+                {isGenerating ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
               </button>
-
-              {/* Google suchen */}
-              <a
-                href={`https://www.google.de/search?q=${encodeURIComponent(item.keyword)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1.5 rounded-lg hover:bg-gray-700 text-gray-500 hover:text-white transition-colors"
-                title="Google Suche"
-              >
-                <Search className="w-3.5 h-3.5" />
+              <a href={`https://www.google.de/search?q=${encodeURIComponent(item.keyword)}`} target="_blank" rel="noopener noreferrer"
+                className="p-1 rounded hover:bg-gray-700 text-gray-500 hover:text-white transition-colors" title="Google">
+                <Search className="w-3 h-3" />
               </a>
-
-              {/* Konkurrenz-Analyse */}
-              <Link
-                href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
-                className="p-1.5 rounded-lg hover:bg-gray-700 text-gray-500 hover:text-amber-400 transition-colors"
-                title="Konkurrenz analysieren"
-              >
-                <Trophy className="w-3.5 h-3.5" />
+              <Link href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
+                className="p-1 rounded hover:bg-gray-700 text-gray-500 hover:text-amber-400 transition-colors" title="Konkurrenz">
+                <Trophy className="w-3 h-3" />
               </Link>
             </div>
+          </td>
+          {/* Position: jetzt → vorher */}
+          <td className="px-2 py-2.5 text-right">
+            <span className={`font-mono text-xs ${item.position <= 10 ? "text-green-400" : item.position <= 20 ? "text-yellow-400" : "text-orange-400"}`}>
+              {fmtPos(item.position)}
+            </span>
+            <span className="text-gray-600 text-[10px] mx-0.5">←</span>
+            <span className="text-gray-500 font-mono text-[10px]">{fmtPos(item.prevPosition)}</span>
+          </td>
+          {/* Diff */}
+          <td className="px-2 py-2.5 text-right">
+            <span className={`flex items-center justify-end gap-0.5 ${isWinner ? "text-green-400" : "text-red-400"} font-bold text-xs`}>
+              {isWinner ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
+              {isWinner ? "+" : ""}{fmtPos(item.change)}
+            </span>
           </td>
         </tr>
 
         {/* Expandierte Maßnahmen-Zeile */}
         {isExpanded && hasSuggestion && (
           <tr>
-            <td colSpan={6} className="px-4 py-0">
+            <td colSpan={3} className="px-3 py-0">
               <div className="bg-gray-800/50 rounded-xl p-4 mb-2 border border-gray-700/50">
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex items-center gap-2">
@@ -794,18 +784,15 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Pos.</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Aktion</th>
+                  <th className="text-left px-3 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Keyword</th>
+                  <th className="text-right px-2 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Position</th>
+                  <th className="text-right px-2 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Diff</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-800">
                 {winners.map((w) => <KwRow key={w.keyword} item={w} type="winner" />)}
                 {winners.length === 0 && (
-                  <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-500">Keine Gewinner</td></tr>
+                  <tr><td colSpan={3} className="px-3 py-8 text-center text-gray-500">Keine Gewinner</td></tr>
                 )}
               </tbody>
             </table>
@@ -825,18 +812,15 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Pos.</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Aktion</th>
+                  <th className="text-left px-3 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Keyword</th>
+                  <th className="text-right px-2 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Position</th>
+                  <th className="text-right px-2 py-3 text-[10px] text-gray-500 uppercase tracking-widest">Diff</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-800">
                 {losers.map((l) => <KwRow key={l.keyword} item={l} type="loser" />)}
                 {losers.length === 0 && (
-                  <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-500">Keine Verlierer</td></tr>
+                  <tr><td colSpan={3} className="px-3 py-8 text-center text-gray-500">Keine Verlierer</td></tr>
                 )}
               </tbody>
             </table>
