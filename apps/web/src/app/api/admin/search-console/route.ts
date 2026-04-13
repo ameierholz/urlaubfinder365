@@ -133,6 +133,106 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ trending });
       }
 
+      case "devices": {
+        const rows = await query(sc, siteUrl, {
+          startDate: fmt(startDate), endDate: fmt(endDate),
+          dimensions: ["device"], rowLimit: 10,
+        });
+
+        let totalClicks = 0;
+        let totalImpressions = 0;
+        for (const r of rows) {
+          totalClicks += r.clicks ?? 0;
+          totalImpressions += r.impressions ?? 0;
+        }
+
+        const devices = rows.map((r) => ({
+          device: r.keys?.[0] ?? "unknown",
+          clicks: r.clicks ?? 0,
+          impressions: r.impressions ?? 0,
+          ctr: r.ctr ?? 0,
+          position: Math.round((r.position ?? 0) * 10) / 10,
+          clickShare: totalClicks > 0 ? (r.clicks ?? 0) / totalClicks : 0,
+          impressionShare: totalImpressions > 0 ? (r.impressions ?? 0) / totalImpressions : 0,
+        }));
+
+        return NextResponse.json({ devices, totalClicks, totalImpressions });
+      }
+
+      case "countries": {
+        const rows = await query(sc, siteUrl, {
+          startDate: fmt(startDate), endDate: fmt(endDate),
+          dimensions: ["country"], rowLimit: 500,
+        });
+        rows.sort((a, b) => (b.clicks ?? 0) - (a.clicks ?? 0));
+
+        return NextResponse.json({
+          countries: rows.slice(0, 30).map((r) => ({
+            country: r.keys?.[0] ?? "unknown",
+            clicks: r.clicks ?? 0,
+            impressions: r.impressions ?? 0,
+            ctr: r.ctr ?? 0,
+            position: Math.round((r.position ?? 0) * 10) / 10,
+          })),
+        });
+      }
+
+      case "winners": {
+        const prevEnd = new Date(startDate);
+        const prevStart = new Date(startDate);
+        prevStart.setDate(prevStart.getDate() - days);
+
+        const [current, previous] = await Promise.all([
+          query(sc, siteUrl, { startDate: fmt(startDate), endDate: fmt(endDate), dimensions: ["query"], rowLimit: 500 }),
+          query(sc, siteUrl, { startDate: fmt(prevStart), endDate: fmt(prevEnd), dimensions: ["query"], rowLimit: 500 }),
+        ]);
+
+        const prevMap = new Map(previous.map((r) => [r.keys?.[0], r.position ?? 0]));
+
+        const compared = current
+          .filter((r) => prevMap.has(r.keys?.[0]))
+          .map((r) => {
+            const kw = r.keys?.[0] ?? "";
+            const prevPos = prevMap.get(kw) ?? 0;
+            const curPos = r.position ?? 0;
+            const change = prevPos - curPos; // positive = improved (lower position number)
+            return {
+              keyword: kw,
+              clicks: r.clicks ?? 0,
+              impressions: r.impressions ?? 0,
+              position: Math.round(curPos * 10) / 10,
+              prevPosition: Math.round(prevPos * 10) / 10,
+              change: Math.round(change * 10) / 10,
+            };
+          });
+
+        const winners = [...compared].sort((a, b) => b.change - a.change).slice(0, 15);
+        const losers = [...compared].sort((a, b) => a.change - b.change).slice(0, 15);
+
+        return NextResponse.json({ winners, losers });
+      }
+
+      case "opportunities": {
+        const rows = await query(sc, siteUrl, {
+          startDate: fmt(startDate), endDate: fmt(endDate),
+          dimensions: ["page"], rowLimit: 500,
+        });
+
+        const opportunities = rows
+          .filter((r) => (r.impressions ?? 0) > 100 && (r.ctr ?? 0) < 0.02)
+          .map((r) => ({
+            page: r.keys?.[0]?.replace("https://www.urlaubfinder365.de", "") ?? "",
+            clicks: r.clicks ?? 0,
+            impressions: r.impressions ?? 0,
+            ctr: r.ctr ?? 0,
+            position: Math.round((r.position ?? 0) * 10) / 10,
+            potentialClicks: Math.round((r.impressions ?? 0) * 0.05), // bei 5% CTR
+          }))
+          .sort((a, b) => b.impressions - a.impressions);
+
+        return NextResponse.json({ opportunities });
+      }
+
       default:
         return NextResponse.json({ error: "Unbekannter Typ" }, { status: 400 });
     }
