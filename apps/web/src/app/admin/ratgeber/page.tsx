@@ -22,9 +22,10 @@ export default function AdminRatgeberPage() {
 
   useEffect(() => {
     const sb = createSupabaseBrowser();
-    sb.from("ratgeber_seo_texts")
+    sb.from("ratgeber_seo_texts" as never)
       .select("slug, seo_title, seo_description, lead, sections, faqs, updated_at")
-      .then(({ data: raw }) => {
+      .then(({ data: raw, error }) => {
+        if (error) { console.error("[ratgeber] query error:", error); setLoading(false); return; }
         const map: Record<string, DbRow> = {};
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         for (const row of (raw ?? []) as any[]) map[row.slug as string] = row as DbRow;

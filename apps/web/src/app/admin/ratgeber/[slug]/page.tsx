@@ -25,18 +25,6 @@ function errorToText(err: unknown): string {
   return String(err);
 }
 
-function TextPreview({ text }: { text: string }) {
-  if (!text.trim()) return null;
-  return (
-    <div className="mt-2 p-3 bg-gray-950 border border-gray-800 rounded-lg space-y-2">
-      <p className="text-[10px] text-gray-600 uppercase tracking-wide font-semibold mb-2">Vorschau</p>
-      {text.split(/\n\n+/).filter(Boolean).map((p, i) => (
-        <p key={i} className="text-gray-400 text-xs leading-relaxed">{p}</p>
-      ))}
-    </div>
-  );
-}
-
 interface Section { heading: string; body: string }
 interface Faq { question: string; answer: string }
 interface AnalysisCheck { label: string; pass: boolean; detail: string }
@@ -76,13 +64,6 @@ export default function AdminRatgeberEditorPage() {
   const [category, setCategory] = useState("");
   const [readingTime, setReadingTime] = useState(6);
 
-  // SEO-Textblöcke
-  const [seoIntro, setSeoIntro] = useState("");
-  const [seoH2Middle, setSeoH2Middle] = useState("");
-  const [seoMiddle, setSeoMiddle] = useState("");
-  const [seoH2Bottom, setSeoH2Bottom] = useState("");
-  const [seoBottom, setSeoBottom] = useState("");
-
   // Sections + FAQs
   const [sections, setSections] = useState<Section[]>([]);
   const [faqs, setFaqs] = useState<Faq[]>([]);
@@ -90,15 +71,14 @@ export default function AdminRatgeberEditorPage() {
   const pagePath = `/ratgeber/${slug}`;
   const metaTitleLen = metaTitle.length;
   const metaDescLen = metaDesc.length;
-  const totalWords = [seoIntro, seoMiddle, seoBottom].join(" ").split(/\s+/).filter((w) => w.length > 1).length;
 
   /* ── Load ────────────────────────────────────────────────────────────────── */
   useEffect(() => {
     if (!article) return;
     const sb = createSupabaseBrowser();
-    sb.from("ratgeber_seo_texts")
+    sb.from("ratgeber_seo_texts" as never)
       .select("*")
-      .eq("slug", slug)
+      .eq("slug" as never, slug)
       .maybeSingle()
       .then(({ data: raw }) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,11 +95,6 @@ export default function AdminRatgeberEditorPage() {
           setHeroImage((data.hero_image as string) ?? "");
           setCategory((data.category as string) ?? article.category);
           setReadingTime(Number(data.reading_time_min) || article.readingTimeMin);
-          setSeoIntro((data.seo_intro as string) ?? "");
-          setSeoH2Middle((data.seo_h2_middle as string) ?? "");
-          setSeoMiddle((data.seo_middle as string) ?? "");
-          setSeoH2Bottom((data.seo_h2_bottom as string) ?? "");
-          setSeoBottom((data.seo_bottom as string) ?? "");
           setSections(Array.isArray(data.sections) ? data.sections as Section[] : []);
           setFaqs(Array.isArray(data.faqs) ? data.faqs as Faq[] : []);
         } else {
@@ -175,11 +150,6 @@ export default function AdminRatgeberEditorPage() {
       if (data.keywords) setKeywords(data.keywords);
       if (data.lead) setLead(data.lead);
       if (data.reading_time_min) setReadingTime(Number(data.reading_time_min));
-      if (data.seo_intro) setSeoIntro(data.seo_intro);
-      if (data.seo_h2_middle) setSeoH2Middle(data.seo_h2_middle);
-      if (data.seo_middle) setSeoMiddle(data.seo_middle);
-      if (data.seo_h2_bottom) setSeoH2Bottom(data.seo_h2_bottom);
-      if (data.seo_bottom) setSeoBottom(data.seo_bottom);
       if (Array.isArray(data.sections)) setSections(data.sections);
       if (Array.isArray(data.faqs)) setFaqs(data.faqs);
       setMessage({ type: "success", text: "KI-Inhalte generiert! Prüfen und speichern." });
@@ -205,9 +175,6 @@ export default function AdminRatgeberEditorPage() {
           og_title: ogTitle || null, og_description: ogDesc || null, og_image: ogImage || null,
           lead: lead || null, hero_image: heroImage || null, category: category || null,
           reading_time_min: readingTime,
-          seo_intro: seoIntro || null, seo_h2_middle: seoH2Middle || null,
-          seo_middle: seoMiddle || null, seo_h2_bottom: seoH2Bottom || null,
-          seo_bottom: seoBottom || null,
           sections, faqs,
         }),
       });
@@ -400,44 +367,6 @@ export default function AdminRatgeberEditorPage() {
         <div>
           <label className={labelClass}>OG Image URL</label>
           <input type="text" value={ogImage} onChange={(e) => setOgImage(e.target.value)} placeholder="https://… (1200×630 px empfohlen)" className={inputClass} />
-        </div>
-      </div>
-
-      {/* ── SEO-Textblöcke ──────────────────────────────────────────────── */}
-      <div className="border border-gray-700 rounded-xl p-5 space-y-5 bg-gray-800/30">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-            📝 SEO-Textblöcke
-          </h3>
-          <span className={`text-xs font-mono ${totalWords >= 850 ? "text-green-400" : totalWords >= 300 ? "text-yellow-400" : "text-gray-500"}`}>
-            {totalWords} Wörter (mind. 850 empfohlen)
-          </span>
-        </div>
-
-        <div>
-          <label className={labelClass}>SEO-Intro (nach Hero, max. 80 Wörter)</label>
-          <textarea value={seoIntro} onChange={(e) => setSeoIntro(e.target.value)} rows={3} placeholder="Emotionaler Einleitungstext direkt unter dem Hero-Bild..." className={inputClass + " resize-y"} />
-          <TextPreview text={seoIntro} />
-        </div>
-
-        <div className="border-t border-gray-800 pt-4">
-          <label className={labelClass}>H2-Überschrift (Mitte)</label>
-          <input type="text" value={seoH2Middle} onChange={(e) => setSeoH2Middle(e.target.value)} placeholder="z. B. Alles zum Thema..." className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass}>SEO-Text Mitte (150–200 Wörter)</label>
-          <textarea value={seoMiddle} onChange={(e) => setSeoMiddle(e.target.value)} rows={4} placeholder="Informationsblock in der Seitenmitte, vor dem Hauptinhalt..." className={inputClass + " resize-y"} />
-          <TextPreview text={seoMiddle} />
-        </div>
-
-        <div className="border-t border-gray-800 pt-4">
-          <label className={labelClass}>H2-Überschrift (Unten)</label>
-          <input type="text" value={seoH2Bottom} onChange={(e) => setSeoH2Bottom(e.target.value)} placeholder="z. B. Der große Ratgeber: Tipps & Hintergrundwissen" className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass}>SEO-Text Unten (500–600 Wörter — längster Block)</label>
-          <textarea value={seoBottom} onChange={(e) => setSeoBottom(e.target.value)} rows={10} placeholder="Ausführlicher Ratgeber-Text ganz unten auf der Seite. Dieser muss der längste Textblock sein.  Absätze mit Leerzeile trennen." className={inputClass + " resize-y"} />
-          <TextPreview text={seoBottom} />
         </div>
       </div>
 
