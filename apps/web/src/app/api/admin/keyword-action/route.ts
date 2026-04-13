@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
       .from("page_seo")
       .select("page_path, meta_title")
       .or(`focus_keyword.ilike.%${keyword}%,additional_keywords.cs.{${keyword}}`)
-      .limit(5);
+      .limit(5) as { data: { page_path: string; meta_title: string | null }[] | null };
     if (data) {
       dbPages = data.map((r) => ({ path: r.page_path, label: r.meta_title ?? r.page_path }));
     }
