@@ -67,6 +67,9 @@ export default function MarketingCalendarPage() {
   const [weekOffset, setWeekOffset] = useState(0);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [generating, setGenerating] = useState(false);
+  const [generatingWeek, setGeneratingWeek] = useState(false);
+  const [weekTheme, setWeekTheme] = useState("");
+  const [showWeekModal, setShowWeekModal] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
 
   const now = new Date();
@@ -140,6 +143,32 @@ export default function MarketingCalendarPage() {
     setTimeout(() => setCopied(null), 2000);
   }
 
+  async function handleGenerateWeek() {
+    setGeneratingWeek(true);
+    try {
+      const res = await fetch("/api/admin/generate-marketing-week", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ weekStartDate: weekStart, theme: weekTheme || undefined }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setShowWeekModal(false);
+      setWeekTheme("");
+      // Reload posts
+      const sb = createSupabaseBrowser();
+      const { data: fresh } = await sb.from("marketing_posts" as never)
+        .select("*").gte("post_date", weekStart).lte("post_date", weekEnd)
+        .order("post_date").order("post_time");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setPosts((fresh ?? []) as any[] as Post[]);
+    } catch (err) {
+      alert("Fehler: " + String(err));
+    } finally {
+      setGeneratingWeek(false);
+    }
+  }
+
   // Stats
   const total = posts.length;
   const geplant = posts.filter((p) => p.status === "geplant").length;
@@ -162,7 +191,47 @@ export default function MarketingCalendarPage() {
               <p className="text-sm text-gray-500">Posts planen, erstellen und tracken</p>
             </div>
           </div>
+          <button
+            onClick={() => setShowWeekModal(true)}
+            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition-colors"
+          >
+            <Sparkles className="w-4 h-4" />
+            Woche mit KI planen
+          </button>
         </div>
+
+        {/* Wochen-Generator Modal */}
+        {showWeekModal && (
+          <div className="mb-6 bg-purple-900/20 border border-purple-700 rounded-2xl p-5">
+            <h3 className="text-sm font-bold text-purple-300 mb-3">Ganze Woche mit KI planen</h3>
+            <p className="text-xs text-gray-400 mb-3">
+              Generiert 10 Posts (4x Instagram, 3x Facebook, 2x TikTok, 1x Google) fuer die angezeigte Woche.
+            </p>
+            <input
+              type="text"
+              value={weekTheme}
+              onChange={(e) => setWeekTheme(e.target.value)}
+              placeholder="Optionales Thema, z.B. Fruehbucher 2027, Sommerdeals, Kreuzfahrten..."
+              className="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 mb-3"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={handleGenerateWeek}
+                disabled={generatingWeek}
+                className="flex items-center gap-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold px-5 py-2 rounded-lg text-sm transition-colors"
+              >
+                <Sparkles className="w-4 h-4" />
+                {generatingWeek ? "Generiert 10 Posts..." : "Jetzt generieren"}
+              </button>
+              <button
+                onClick={() => setShowWeekModal(false)}
+                className="text-sm text-gray-400 hover:text-white px-3"
+              >
+                Abbrechen
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-4 gap-3 mb-6">
@@ -323,7 +392,7 @@ export default function MarketingCalendarPage() {
                       {copied === "caption" ? "Kopiert!" : "Kopieren"}
                     </button>
                   </div>
-                  <p className="text-sm text-gray-300 whitespace-pre-line leading-relaxed">{p.caption}</p>
+                  <p className="text-sm text-gray-300 whitespace-pre-line leading-relaxed">{p.caption?.replace(/\\n/g, "\n")}</p>
                 </div>
               )}
 
@@ -356,7 +425,7 @@ export default function MarketingCalendarPage() {
                     <p className="text-sm text-white font-semibold mb-1">Template: {p.canva_template}</p>
                   )}
                   {p.canva_hint && (
-                    <p className="text-xs text-gray-400 leading-relaxed">{p.canva_hint}</p>
+                    <p className="text-xs text-gray-400 leading-relaxed whitespace-pre-line">{p.canva_hint?.replace(/\\n/g, "\n")}</p>
                   )}
                 </div>
               )}

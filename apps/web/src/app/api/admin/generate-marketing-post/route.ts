@@ -22,18 +22,20 @@ ${price ? `- Preis: ${price}` : ""}
 Antworte AUSSCHLIESSLICH mit folgendem JSON:
 {
   "title": "Kurzer interner Titel (max 50 Zeichen)",
-  "caption": "Fertiger Post-Text. Direkte Ansprache, locker, mit Emojis sparsam. Keine Umlaute (ae statt ae, ue statt ue etc). Bei Instagram/TikTok: Link in Bio erwaehnen. Bei Facebook: direkten Link einbauen.",
+  "caption": "Fertiger Post-Text mit klarer Struktur:\\n\\nErste Zeile: Aufmerksamkeits-Hook (emotional, Frage oder Statement)\\n\\nZweite Zeile: Leerzeile\\n\\nDann: Kernbotschaft mit Emojis als Aufzaehlungszeichen, z.B.:\\n🏖️ Punkt 1\\n✈️ Punkt 2\\n💰 Punkt 3\\n\\nAbschluss: Call-to-Action mit 👉 oder Link in Bio\\n\\nWICHTIG: Verwende Emojis als visuelle Strukturelemente (🏖️ 💰 ✈️ ⭐ 🔥 👉 ☀️ 🌍 🤖 📊). Jeder Absatz durch Leerzeile getrennt. Keine Umlaute (ue/ae/oe/ss).",
   "hashtags": "8-12 relevante Hashtags mit # getrennt durch Leerzeichen",
-  "canva_template": "Welches Template: Deal Post / Karussell Slide / Story Reel Cover / Facebook Link / Google Business",
-  "canva_hint": "Kurze Anleitung fuer das Canva-Bild: Welches Foto, welcher Text drauf, welche Farben"
+  "canva_template": "Welches Template: Deal Post / Karussell Slide / Reel Video / Facebook Link / Google Business",
+  "canva_hint": "Detaillierte Schritt-fuer-Schritt Anleitung fuer Canva:\\n1. Welches Format (1080x1080 oder 1080x1920 oder 1200x675)\\n2. Welchen Suchbegriff fuer Foto/Video eingeben\\n3. Welcher Text als Overlay\\n4. Welche Farben (#1db682 gruen oder #6991d8 blau)\\n5. Bei Video: Welche Szenen (je 3-5 Sek) und welche Musik suchen"
 }
 
 WICHTIG:
 - Deutsch, locker, direkte Ansprache (du/ihr)
-- Keine Umlaute (ue statt ü, ae statt ä, oe statt ö, ss statt ß)
-- Kurz und knackig (max 150 Woerter)
+- Keine Umlaute (ue statt ue, ae statt ae, oe statt oe, ss statt ss)
+- Gut strukturiert mit Leerzeilen und Emojis
 - Call-to-Action am Ende
-- Bei Google Business: formeller (Sie statt du), keine Hashtags`;
+- Bei TikTok: NUR Video-Content, Canva-Hint muss Video-Anleitung sein
+- Bei Instagram Reel: Video-Anleitung in Canva-Hint
+- Bei Google Business: formeller (Sie statt du), keine Hashtags, keine Emojis`;
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
