@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map, Sparkles, Calendar, TrendingUp, ShieldAlert, Star, Compass } from "lucide-react";
+import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Sparkles, Calendar, TrendingUp, ShieldAlert, Star, Compass } from "lucide-react";
 import { TravelOffer } from "@/types";
 import HomeSuchbox from "@/components/search/HomeSuchbox";
 import HomeDealCard from "@/components/home/HomeDealCard";
@@ -12,14 +11,12 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
 import JsonLd from "@/components/seo/JsonLd";
 
-// Below-Fold: Lazy-Load für schnelleren Mobile-Start
+// Below-Fold: Lazy-Load
 const LifestyleSection = dynamic(() => import("@/components/home/LifestyleSection"));
 const FruehbucherCards = dynamic(() => import("@/components/home/FruehbucherCards"));
-const HomeCruiseSection = dynamic(() => import("@/components/home/HomeCruiseSection"));
 const NewsletterSignup = dynamic(() => import("@/components/ui/NewsletterSignup"));
 const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"));
 const FeaturedAngebotsCarousel = dynamic(() => import("@/components/home/FeaturedAngebotsCarousel"));
-const MagazinTeaser = dynamic(() => import("@/components/home/MagazinTeaser"));
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -261,37 +258,21 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  // Je 1 Top-Deal pro Land – täglich um Mitternacht frisch (ibeRegionIds)
-  const [
-    turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal,
-    croatDeal, portDeal, bulgariaDeal, cyprusDeal, tunesiaDeal,
-    fbTurkey, fbEgypt, fbGreece, fbSpain,
-  ] = await Promise.all([
-    fetchTopDeal([149]),       // Türkei / Antalya
-    fetchTopDeal([133]),       // Spanien / Mallorca
-    fetchTopDeal([46]),        // Griechenland / Kreta
-    fetchTopDeal([560]),       // Ägypten / Hurghada
-    fetchTopDeal([83, 84]),    // Italien / Sardinien + Sizilien
-    fetchTopDeal([122, 123]),  // Kroatien (Dalmatien + Istrien)
-    fetchTopDeal([92]),        // Portugal / Algarve
-    fetchTopDeal([150]),       // Bulgarien / Sonnenstrand
-    fetchTopDeal([113]),       // Zypern
-    fetchTopDeal([562]),       // Tunesien
-    // Frühbucher: All Inclusive, 4+ Sterne, max. 1.200 €/Person, täglich rotierend
-    fetchFruehbucherDeal([149]),  // Frühbucher Türkei
-    fetchFruehbucherDeal([560]),  // Frühbucher Ägypten
-    fetchFruehbucherDeal([46]),   // Frühbucher Griechenland
-    fetchFruehbucherDeal([133]),  // Frühbucher Spanien
+  // Nur 4 kritische API-Calls Server-Side (Above-Fold Preise)
+  // Bulgarien/Zypern/Tunesien entfernt (nie angezeigt), Tier-3 + Frühbucher nutzen Fallback-Preise
+  const [turkeyDeal, spainDeal, greeceDeal, egyptDeal] = await Promise.all([
+    fetchTopDeal([149]),       // Türkei / Antalya → Hero
+    fetchTopDeal([133]),       // Spanien / Mallorca → Tier-2
+    fetchTopDeal([46]),        // Griechenland / Kreta → Tier-2
+    fetchTopDeal([560]),       // Ägypten / Hurghada → Tier-2
   ]);
 
-  const topDeals = [
-    turkeyDeal, spainDeal, greeceDeal, egyptDeal, italyDeal,
-    croatDeal, portDeal, bulgariaDeal, cyprusDeal, tunesiaDeal,
-  ].filter((o): o is TravelOffer => o !== null);
+  const topDeals = [turkeyDeal, spainDeal, greeceDeal, egyptDeal].filter((o): o is TravelOffer => o !== null);
 
-  const fruehbucherDeals = [fbTurkey, fbEgypt, fbGreece, fbSpain];
+  // Frühbucher: Statische Fallback-Preise (kein API-Call mehr nötig)
+  const fruehbucherDeals: (TravelOffer | null)[] = [null, null, null, null];
 
-  // ── Destination-Kacheln mit echten API-Preisen ──────────────────────────
+  // ── Destination-Kacheln ──────────────────────────────────────────────────
   const destHero   = { ...REISEZIEL_HERO_S,   priceFrom: minPrice(turkeyDeal,  "ab 299 €") };
   const destMittel = [
     { ...REISEZIELE_MITTEL_S[0], priceFrom: minPrice(spainDeal,  "ab 349 €") },
@@ -299,9 +280,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     { ...REISEZIELE_MITTEL_S[2], priceFrom: minPrice(egyptDeal,  "ab 449 €") },
   ];
   const destKlein  = [
-    { ...REISEZIELE_KLEIN_S[0], priceFrom: minPrice(croatDeal,  REISEZIELE_KLEIN_S[0].fallback) },
-    { ...REISEZIELE_KLEIN_S[1], priceFrom: minPrice(italyDeal,  REISEZIELE_KLEIN_S[1].fallback) },
-    { ...REISEZIELE_KLEIN_S[2], priceFrom: minPrice(portDeal,   REISEZIELE_KLEIN_S[2].fallback) },
+    { ...REISEZIELE_KLEIN_S[0], priceFrom: REISEZIELE_KLEIN_S[0].fallback },
+    { ...REISEZIELE_KLEIN_S[1], priceFrom: REISEZIELE_KLEIN_S[1].fallback },
+    { ...REISEZIELE_KLEIN_S[2], priceFrom: REISEZIELE_KLEIN_S[2].fallback },
     { ...REISEZIELE_KLEIN_S[3], priceFrom: REISEZIELE_KLEIN_S[3].fallback },
     { ...REISEZIELE_KLEIN_S[4], priceFrom: REISEZIELE_KLEIN_S[4].fallback },
     { ...REISEZIELE_KLEIN_S[5], priceFrom: REISEZIELE_KLEIN_S[5].fallback },
@@ -703,10 +684,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          3c · KREUZFAHRTEN
-      ══════════════════════════════════════════════════════════ */}
-      <HomeCruiseSection />
+      {/* Kreuzfahrt-Sektion entfernt für Mobile Performance */}
 
       {/* ══════════════════════════════════════════════════════════
           3d · VERTRAUEN & VORTEILE (Trust-Banner)
@@ -1081,289 +1059,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          6b · COMMUNITY BANNER
-      ══════════════════════════════════════════════════════════ */}
-      <section className="bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-          <div
-            className="relative rounded-3xl overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #0f3d2e 0%, #1a6b4a 40%, #0d8b6e 70%, #1db682 100%)" }}
-          >
-            {/* Deko */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/5" />
-              <div className="absolute -bottom-16 left-1/4 w-72 h-72 rounded-full bg-white/5" />
-              <div className="absolute top-1/2 right-1/4 w-48 h-48 rounded-full bg-emerald-400/10" style={{ transform: "translateY(-50%)" }} />
-              {/* SVG Weltkarte dezent */}
-              <svg className="absolute right-0 top-0 h-full w-1/2 opacity-[0.04]" viewBox="0 0 800 600" fill="currentColor">
-                <circle cx="200" cy="200" r="4" /><circle cx="250" cy="180" r="3" /><circle cx="300" cy="190" r="5" />
-                <circle cx="350" cy="220" r="4" /><circle cx="400" cy="200" r="3" /><circle cx="450" cy="250" r="5" />
-                <circle cx="500" cy="230" r="4" /><circle cx="550" cy="280" r="3" /><circle cx="600" cy="260" r="4" />
-                <circle cx="300" cy="300" r="5" /><circle cx="350" cy="320" r="3" /><circle cx="400" cy="350" r="4" />
-                <circle cx="500" cy="350" r="5" /><circle cx="550" cy="380" r="3" /><circle cx="250" cy="350" r="4" />
-                <circle cx="650" cy="300" r="4" /><circle cx="700" cy="250" r="3" /><circle cx="150" cy="250" r="5" />
-              </svg>
-            </div>
-
-            <div className="relative px-6 sm:px-10 lg:px-12 py-8 lg:py-10">
-              <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
-
-                {/* LEFT – Text */}
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 mb-4">
-                    <Users className="w-3.5 h-3.5 text-emerald-300" />
-                    <span className="text-xs font-bold text-emerald-200 uppercase tracking-widest">{t("communityEyebrow")}</span>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-3">
-                    {t("communityTitle1")}<br />
-                    <span className="text-emerald-300">{t("communityTitle2")}</span>
-                  </h2>
-
-                  <p className="text-emerald-100/80 text-sm max-w-md leading-relaxed mb-6 mx-auto lg:mx-0">
-                    {t("communityDesc")}
-                  </p>
-
-                  <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                    <Link
-                      href="/community/"
-                      className="inline-flex items-center gap-2 bg-white text-emerald-800 font-black px-6 py-3 rounded-2xl transition-all shadow-lg shadow-emerald-900/30 hover:shadow-emerald-500/30 hover:-translate-y-0.5 duration-200 text-sm"
-                    >
-                      {t("communityCta1")} <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link
-                      href="/community/reiseberichte/"
-                      className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-6 py-3 rounded-2xl transition-all hover:-translate-y-0.5 duration-200 text-sm"
-                    >
-                      {t("communityCta2")}
-                    </Link>
-                  </div>
-                </div>
-
-                {/* RIGHT – Feature-Grid */}
-                <div className="grid grid-cols-4 lg:grid-cols-4 gap-2.5 shrink-0 w-full lg:max-w-md">
-                  {[
-                    { icon: Camera,         title: t("communityFeat1"), color: "bg-emerald-500" },
-                    { icon: Users,          title: t("communityFeat2"), color: "bg-teal-500" },
-                    { icon: MessageCircle,  title: t("communityFeat3"), color: "bg-cyan-500" },
-                    { icon: Globe,          title: t("communityFeat4"), color: "bg-blue-500" },
-                    { icon: Route,          title: t("communityFeat5"), color: "bg-violet-500" },
-                    { icon: Trophy,         title: t("communityFeat6"), color: "bg-amber-500" },
-                    { icon: Bell,           title: t("communityFeat7"), color: "bg-rose-500" },
-                    { icon: Map,            title: t("communityFeat8"), color: "bg-indigo-500" },
-                  ].map(({ icon: Icon, title, color }) => (
-                    <div
-                      key={title}
-                      className="bg-white/10 border border-white/15 rounded-xl p-2.5 text-center hover:bg-white/15 transition-colors"
-                    >
-                      <div className={`w-8 h-8 rounded-lg ${color} flex items-center justify-center mx-auto mb-1.5 shadow-md`}>
-                        <Icon className="w-4 h-4 text-white" />
-                      </div>
-                      <h3 className="text-xs font-bold text-white leading-tight">{title}</h3>
-                    </div>
-                  ))}
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          6c · EXTRAS BANNER – Alle Tools auf einen Blick
-      ══════════════════════════════════════════════════════════ */}
-      <section className="bg-white pb-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* Header */}
-          <div className="flex items-end justify-between gap-4 mb-6">
-            <div>
-              <p className="text-[#1db682] text-sm font-bold uppercase tracking-widest mb-1.5">{t("cockpitEyebrow")}</p>
-              <h2 className="text-2xl sm:text-3xl font-black text-gray-900">{t("cockpitTitle")}</h2>
-              <p className="text-gray-500 text-sm mt-1">{t("cockpitSubtitle")}</p>
-            </div>
-            <Link href="/extras/" className="hidden sm:inline text-sm font-semibold text-[#00838F] hover:underline whitespace-nowrap shrink-0">
-              {t("cockpitAllExtras")}
-            </Link>
-          </div>
-
-          {/* Featured: KI-Urlaubsplaner */}
-          <Link
-            href="/ki-reiseplaner/"
-            className="group flex items-center gap-4 sm:gap-6 rounded-2xl p-5 mb-4 transition-all hover:shadow-xl hover:-translate-y-0.5"
-            style={{ background: "linear-gradient(135deg, #2d1b69 0%, #7c3aed 60%, #8b5cf6 100%)" }}
-          >
-            <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
-              <Sparkles className="w-7 h-7 text-purple-200" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-white font-black text-lg">{t("cockpitAiLabel")}</span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/20 text-purple-100">KI</span>
-              </div>
-              <p className="text-purple-200/80 text-sm leading-snug">{t("cockpitAiDesc")}</p>
-            </div>
-            <span className="text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all text-xl shrink-0">→</span>
-          </Link>
-
-          {/* 8 Tools Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {([
-              { href: "/urlaubsguides/",           icon: BookOpen,    bg: "bg-blue-50",    iconColor: "text-blue-500",    labelKey: "cockpitTool1Label", descKey: "cockpitTool1Desc", badge: null },
-              { href: "/preisentwicklung/",        icon: TrendingUp,  bg: "bg-emerald-50", iconColor: "text-emerald-500", labelKey: "cockpitTool2Label", descKey: "cockpitTool2Desc", badge: t("cockpitBadgeNeu") },
-              { href: "/extras/urlaubskalender/",  icon: Calendar,    bg: "bg-pink-50",    iconColor: "text-pink-500",    labelKey: "cockpitTool3Label", descKey: "cockpitTool3Desc", badge: null },
-              { href: "/visum-checker/",           icon: ShieldCheck, bg: "bg-teal-50",    iconColor: "text-teal-500",    labelKey: "cockpitTool4Label", descKey: "cockpitTool4Desc", badge: null },
-              { href: "/reisewarnungen/",          icon: ShieldAlert, bg: "bg-red-50",     iconColor: "text-red-500",     labelKey: "cockpitTool5Label", descKey: "cockpitTool5Desc", badge: null },
-              { href: "/reiseversicherung/",       icon: Star,        bg: "bg-indigo-50",  iconColor: "text-indigo-500",  labelKey: "cockpitTool6Label", descKey: "cockpitTool6Desc", badge: null },
-              { href: "/erlebnisse/",              icon: Compass,     bg: "bg-orange-50",  iconColor: "text-orange-500",  labelKey: "cockpitTool7Label", descKey: "cockpitTool7Desc", badge: null },
-              { href: "/weltkarte/",               icon: Globe,       bg: "bg-cyan-50",    iconColor: "text-cyan-500",    labelKey: "cockpitTool8Label", descKey: "cockpitTool8Desc", badge: null },
-            ] as const).map(({ href, icon: Icon, bg, iconColor, labelKey, descKey, badge }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-start gap-3 bg-white border border-gray-100 hover:border-gray-200 hover:shadow-md rounded-xl p-4 transition-all hover:-translate-y-0.5"
-              >
-                <div className={`w-9 h-9 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
-                  <Icon className={`w-4 h-4 ${iconColor}`} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-1.5 mb-0.5">
-                    <span className="text-sm font-bold text-gray-800 truncate">{t(labelKey)}</span>
-                    {badge && (
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-600 shrink-0">{badge}</span>
-                    )}
-                  </div>
-                  <p className="text-xs text-gray-500 leading-snug">{t(descKey)}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile CTA */}
-          <div className="sm:hidden mt-4 text-center">
-            <Link href="/extras/" className="text-sm font-semibold text-[#00838F] hover:underline">
-              {t("cockpitAllExtrasMobile")}
-            </Link>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          9b · URLAUBSMAGAZIN – Neueste Artikel
-      ══════════════════════════════════════════════════════════ */}
-      <MagazinTeaser />
-
-      {/* ══════════════════════════════════════════════════════════
-          9c · DISCOVERY-HUB – Neue Bereiche prominent
-      ══════════════════════════════════════════════════════════ */}
-      <section className="bg-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2">
-              Mehr entdecken
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">
-              Plane deinen perfekten Urlaub
-            </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
-              Saisonale Reisetipps, ehrliche Ratgeber und Pauschalreisen nach Ländern – alles auf einer Seite.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5">
-            <Link
-              href="/reiseziele/"
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-emerald-400 hover:shadow-lg transition-all"
-            >
-              <div className="relative aspect-[5/3] overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=900&q=80&auto=format&fit=crop"
-                  alt="Beste Reiseziele nach Monat"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
-                <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <span className="inline-flex items-center gap-1.5 self-start bg-emerald-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
-                    <Calendar className="w-3 h-3" /> Saisonal
-                  </span>
-                  <h3 className="text-xl font-black text-white leading-tight mb-1">
-                    Reiseziele nach Monat
-                  </h3>
-                  <p className="text-white/80 text-xs">
-                    12 Saison-Guides · Wann ist wo am schönsten?
-                  </p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              href="/pauschalreisen/"
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-sky-400 hover:shadow-lg transition-all"
-            >
-              <div className="relative aspect-[5/3] overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80&auto=format&fit=crop"
-                  alt="Pauschalreisen nach Ländern"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
-                <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <span className="inline-flex items-center gap-1.5 self-start bg-sky-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
-                    ✈️ NEU
-                  </span>
-                  <h3 className="text-xl font-black text-white leading-tight mb-1">
-                    Pauschalreisen nach Land
-                  </h3>
-                  <p className="text-white/80 text-xs">
-                    Türkei, Ägypten, Mallorca · Filter nach Budget & Verpflegung
-                  </p>
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              href="/ratgeber/"
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 hover:border-amber-400 hover:shadow-lg transition-all"
-            >
-              <div className="relative aspect-[5/3] overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=900&q=80&auto=format&fit=crop"
-                  alt="Reise-Ratgeber"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
-                <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <span className="inline-flex items-center gap-1.5 self-start bg-amber-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 uppercase tracking-wider">
-                    <BookOpen className="w-3 h-3" /> 28 Artikel
-                  </span>
-                  <h3 className="text-xl font-black text-white leading-tight mb-1">
-                    Reise-Ratgeber
-                  </h3>
-                  <p className="text-white/80 text-xs">
-                    Buchung, Versicherung, All-Inclusive · ehrlich erklärt
-                  </p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Wave: Community/Guides Weiß → SEO Sand */}
-      <div className="relative h-10 overflow-hidden bg-white">
-        <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-full">
-          <path d="M0,40 L0,20 C360,0 1080,40 1440,15 L1440,40 Z" fill="rgba(238,206,161,0.3)" />
-        </svg>
-      </div>
+      {/* Community Banner, Extras, Magazin, Discovery Hub entfernt — Mobile Performance */}
 
       {/* ══════════════════════════════════════════════════════════
           7 · SEO-TEXTBLOCK (für Google sichtbarer Inhalt)
@@ -1415,45 +1111,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          10 · FINALER CTA
-      ══════════════════════════════════════════════════════════ */}
-      <section className="pt-6 pb-16" style={{ backgroundColor: "rgba(238,206,161,0.15)" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="relative rounded-3xl overflow-hidden text-white text-center py-14 px-8"
-            style={{ background: "linear-gradient(135deg, #0f2d4a 0%, #0d6e8c 60%, #1a9f8f 100%)" }}
-          >
-            {/* Deko-Elemente */}
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 translate-x-20 -translate-y-20" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/5 -translate-x-16 translate-y-16" />
-
-            <div className="relative z-10">
-              <span className="inline-block bg-sand-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-5 uppercase tracking-wider">
-                {t("ctaEyebrow")}
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black mb-3">{t("ctaTitle")}</h2>
-              <p className="text-blue-100 text-base sm:text-lg mb-8 max-w-lg mx-auto leading-relaxed">
-                {t("ctaDesc")}
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Link
-                  href="/register/"
-                  className="bg-sand-500 hover:bg-sand-600 text-white font-black px-8 py-4 rounded-2xl transition-all shadow-lg hover:shadow-sand-500/40 hover:-translate-y-0.5 duration-200 text-base"
-                >
-                  {t("ctaBtn1")}
-                </Link>
-                <Link
-                  href="/urlaubsziele/"
-                  className="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-8 py-4 rounded-2xl transition-all hover:-translate-y-0.5 duration-200 text-base"
-                >
-                  {t("ctaBtn2")}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Final CTA entfernt — dupliziert Newsletter */}
     </>
   );
 }
