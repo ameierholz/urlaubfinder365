@@ -406,16 +406,20 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="relative text-white flex flex-col -mt-20"
         style={{ overflowX: "clip", overflowY: "visible" }}
       >
-        {/* Hero-Bild: Direkt von Unsplash (schneller als Vercel Image Optimization bei Cold Cache) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/hero.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
-          fetchPriority="high"
-          decoding="async"
-        />
+        {/* Hero: Mobile 23 KiB (640px), Desktop 298 KiB (1920px) */}
+        <picture>
+          <source srcSet="/images/hero-mobile.webp" media="(max-width: 768px)" />
+          <source srcSet="/images/hero.webp" media="(min-width: 769px)" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero.webp"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         {/* ── Cinematic Overlays ── */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
