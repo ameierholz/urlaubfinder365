@@ -743,7 +743,7 @@ export default async function DestinationPage({ params }: Props) {
                     {seoTexts.seo_h2_middle ?? `${dest.name} – Der komplette Reiseführer`}
                   </h2>
                   <div className="leading-relaxed space-y-4">
-                    {seoTexts.seo_middle.split("\n\n").map((block, i) => {
+                    {seoTexts.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => {
                       const trimmed = block.trim();
                       const isHeading = trimmed.length < 80 && !trimmed.endsWith(".") && !trimmed.endsWith("!") && !trimmed.endsWith("?") && !trimmed.endsWith(",") && i > 0;
                       if (isHeading) return <h3 key={i} className="text-lg font-bold text-white mt-6 mb-2">{trimmed}</h3>;
@@ -999,7 +999,7 @@ export default async function DestinationPage({ params }: Props) {
               {seoTexts.seo_h2_bottom ?? `${dest.name} Urlaub günstig buchen`}
             </h2>
             <div className="text-white/80 leading-relaxed space-y-3">
-              {seoTexts.seo_bottom.split("\n\n").map((p, i) => (
+              {seoTexts.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>

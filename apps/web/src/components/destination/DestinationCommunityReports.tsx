@@ -12,7 +12,7 @@ export default function DestinationCommunityReports({
   destinationName,
   destinationSlug,
 }: Props) {
-  const hasReports = reports.length > 0;
+  if (reports.length === 0) return null;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-gray-100">
@@ -23,7 +23,7 @@ export default function DestinationCommunityReports({
         Echte Erfahrungen aus {destinationName}
       </h2>
 
-      {hasReports ? (
+      {reports.length > 0 ? (
         <>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {reports.map((r) => (
