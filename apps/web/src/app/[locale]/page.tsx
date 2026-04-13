@@ -406,14 +406,15 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="relative text-white flex flex-col -mt-20"
         style={{ overflowX: "clip", overflowY: "visible" }}
       >
-        {/* Hero-Bild: next/image mit priority → automatischer Preload im <head> */}
-        <Image
-          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=70"
+        {/* Hero-Bild: Direkt von Unsplash (schneller als Vercel Image Optimization bei Cold Cache) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=60"
           alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_40%]"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+          fetchPriority="high"
+          decoding="async"
         />
         {/* ── Cinematic Overlays ── */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
@@ -571,8 +572,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             </div>
 
             {topDeals.length > 0 ? (
-              <div className="space-y-5">
-                {/* Top 3 – groß & prominent (Carousel auf Mobil) */}
+              <div>
+                {/* Top 3 Deals (Carousel auf Mobil, Grid auf Desktop) */}
                 <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0">
                   {topDeals.slice(0, 3).map((offer, i) => (
                     <div key={offer.product_code} className="min-w-[80vw] snap-start sm:min-w-0">
@@ -580,16 +581,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                     </div>
                   ))}
                 </div>
-                {/* Rest – kompakter (Carousel auf Mobil) */}
-                {topDeals.length > 3 && (
-                  <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-5 sm:overflow-visible sm:snap-none sm:pb-0">
-                    {topDeals.slice(3).map((offer) => (
-                      <div key={offer.product_code} className="min-w-[45vw] snap-start sm:min-w-0">
-                        <HomeDealCard offer={offer} />
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
             ) : (
               <div className="text-center py-16 text-gray-400">

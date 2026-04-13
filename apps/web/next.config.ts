@@ -17,7 +17,10 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    // Vercel Pro: Image-Optimization aktiv — automatisches WebP/AVIF, Resize, Lazy-Load
+    // Unsplash liefert bereits optimierte Bilder (auto=format → WebP, w= → Resize).
+    // Vercel Image Optimization fügt bei Cold Cache ~1-2s Latenz hinzu → deaktiviert.
+    // Kann aktiviert werden sobald echter Traffic den Cache wärmt.
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "**.specials.de" },
       { protocol: "https", hostname: "media.traffics-switch.de" },
