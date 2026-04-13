@@ -78,13 +78,17 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const richSlugs    = destinations.map((d) => ({ destination: d.slug }));
-  const catalogSlugs = CATALOG.map((e) => ({ destination: e.slug }));
-  // Deduplicate (rich destinations take precedence, catalog may overlap)
+  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
+  // per ISR (revalidate=3600) generiert und gecacht.
+  // Das reduziert den Build von ~3.800 auf ~273 Destination-Seiten.
+  const richSlugs    = destinations.map((d) => ({ locale: "de", destination: d.slug }));
+  const catalogSlugs = CATALOG.map((e) => ({ locale: "de", destination: e.slug }));
   const seen = new Set(richSlugs.map((s) => s.destination));
   const uniqueCatalog = catalogSlugs.filter((s) => !seen.has(s.destination));
   return [...richSlugs, ...uniqueCatalog];
 }
+
+export const dynamicParams = true;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 

@@ -43,20 +43,19 @@ function getCityConfig(slug: string): CityConfig | undefined {
 }
 
 export async function generateStaticParams() {
-  const oldSlugs = destinations
-    .filter((d) => d.tiqetsCityId)
-    .map((d) => ({ city: d.slug }));
-
-  const seen = new Set(oldSlugs.map((s) => s.city));
-  for (const e of CATALOG) {
-    if (e.tiqetsCityId && !seen.has(e.slug)) {
-      oldSlugs.push({ city: e.slug });
-      seen.add(e.slug);
-    }
+  // Nur Deutsch statisch — Rest on-demand per ISR
+  const slugs: { locale: string; city: string }[] = [];
+  const seen = new Set<string>();
+  for (const d of destinations) {
+    if (d.tiqetsCityId && !seen.has(d.slug)) { slugs.push({ locale: "de", city: d.slug }); seen.add(d.slug); }
   }
-
-  return oldSlugs;
+  for (const e of CATALOG) {
+    if (e.tiqetsCityId && !seen.has(e.slug)) { slugs.push({ locale: "de", city: e.slug }); seen.add(e.slug); }
+  }
+  return slugs;
 }
+
+export const dynamicParams = true;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 

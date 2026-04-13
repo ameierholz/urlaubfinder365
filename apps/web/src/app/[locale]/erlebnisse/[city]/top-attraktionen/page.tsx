@@ -42,11 +42,14 @@ function getCityConfig(slug: string): CityConfig | undefined {
 }
 
 export async function generateStaticParams() {
+  // Nur Deutsch statisch — Rest on-demand per ISR
   const slugs = new Set<string>();
   destinations.filter((d) => d.tiqetsCityId).forEach((d) => slugs.add(d.slug));
   CATALOG.filter((e) => e.tiqetsCityId).forEach((e) => slugs.add(e.slug));
-  return Array.from(slugs).map((city) => ({ city }));
+  return Array.from(slugs).map((city) => ({ locale: "de", city }));
 }
+
+export const dynamicParams = true;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 const YEAR = new Date().getFullYear();

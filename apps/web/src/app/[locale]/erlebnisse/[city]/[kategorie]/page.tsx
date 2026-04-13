@@ -11,16 +11,19 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const params: { city: string; kategorie: string }[] = [];
+  // Nur Deutsch statisch — Rest on-demand per ISR
+  const params: { locale: string; city: string; kategorie: string }[] = [];
   for (const dest of destinations) {
     if (dest.tiqetsCityId && dest.tiqetsNiches) {
       for (const niche of dest.tiqetsNiches) {
-        params.push({ city: dest.slug, kategorie: niche.slug });
+        params.push({ locale: "de", city: dest.slug, kategorie: niche.slug });
       }
     }
   }
   return params;
 }
+
+export const dynamicParams = true;
 
 const BASE_URL = "https://www.urlaubfinder365.de";
 
