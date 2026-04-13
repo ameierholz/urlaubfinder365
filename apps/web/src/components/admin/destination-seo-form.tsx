@@ -349,10 +349,10 @@ export default function DestinationSeoForm({ slug, name, country, initial }: Pro
       {/* Wort-Counter */}
       <div className="flex items-center gap-3 text-xs">
         <span className="text-gray-500">Eigene SEO-Texte:</span>
-        <span className={`font-bold ${totalWords >= 300 ? "text-green-400" : totalWords >= 100 ? "text-yellow-400" : "text-gray-500"}`}>
+        <span className={`font-bold ${totalWords >= 1500 ? "text-green-400" : totalWords >= 800 ? "text-yellow-400" : "text-gray-500"}`}>
           {totalWords} Wörter
         </span>
-        {totalWords < 300 && <span className="text-gray-600">(mind. 300 empfohlen)</span>}
+        {totalWords < 1500 && <span className="text-gray-600">(mind. 1500 empfohlen)</span>}
       </div>
 
       {/* Intro */}

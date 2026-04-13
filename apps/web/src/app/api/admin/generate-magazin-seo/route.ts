@@ -26,13 +26,15 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON:
   "excerpt": "2-3 packende Sätze als Teaser. Max. 60 Wörter. Machen Lust den Artikel zu lesen.",
   "og_title": "Social-Media-Titel. Etwas lockerer/emotionaler als der Meta-Title. Max. 60 Zeichen.",
   "og_description": "Social-Media-Beschreibung. 1-2 Sätze die zum Teilen einladen. Max. 120 Zeichen.",
-  "content_outline": "Markdown-Gliederung mit 5-6 H2-Überschriften und je 2-3 Stichpunkten als Schreibvorlage. Format:\\n## Überschrift 1\\n- Punkt 1\\n- Punkt 2\\n\\n## Überschrift 2\\n- Punkt 1\\n- Punkt 2"
+  "content_outline": "Vollständiger Markdown-Artikel mit mindestens 1500 Wörtern. Format:\\n\\n## Überschrift 1 (mit Keyword)\\n\\n3-4 Absätze mit 200-300 Wörtern. Konkrete Fakten, Zahlen, Tipps.\\n\\n## Überschrift 2\\n\\n3-4 Absätze, 200-300 Wörter.\\n\\n## Überschrift 3\\n\\n3-4 Absätze, 200-300 Wörter.\\n\\n## Überschrift 4\\n\\nWeiterer Abschnitt.\\n\\n## Überschrift 5\\n\\nWeiterer Abschnitt.\\n\\n## Fazit\\n\\nZusammenfassung + Call-to-Action.\\n\\nDer LETZTE Abschnitt muss der LÄNGSTE sein (400-500 Wörter) – das ist entscheidend für SEO."
 }
 
 WICHTIG:
-- Deutsch, natürlicher Lesefluss
-- Echte Fakten, keine Platzhalter
-- Keywords natürlich einbauen
+- Deutsch, natürlicher Lesefluss, Du-Ansprache
+- content_outline = VOLLSTÄNDIGER Artikel, KEIN Outline — mindestens 1500 Wörter
+- Der letzte Abschnitt muss der längste sein (SEO-Haupttext)
+- Echte Fakten, Zahlen, Preise, Beispiele — keine Platzhalter
+- Keywords natürlich einbauen (kein Stuffing)
 - Focus-Keyword = das, was Nutzer am häufigsten googeln`;
 
   try {
@@ -45,7 +47,7 @@ WICHTIG:
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 3000,
+        max_tokens: 8000,
         messages: [{ role: "user", content: prompt }],
       }),
     });

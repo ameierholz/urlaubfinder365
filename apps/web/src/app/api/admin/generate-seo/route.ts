@@ -40,17 +40,17 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON (kein Markdown, keine Erklärung):
   "og_title": "Max. 60 Zeichen, emotionaler als meta_title.",
   "og_description": "Max. 200 Zeichen, Social-Media-optimiert, neugierig machend.",
   "og_image_suggestion": "Beschreibung des idealen OG-Bildes: Motiv, Stimmung, Format 1200×630.",
-  "seo_intro": "2-3 emotionale Sätze die Lust auf das Thema machen. Echte Vorteile, keine Floskeln. Max. 80 Wörter.",
+  "seo_intro": "3-4 emotionale Sätze die Lust auf das Thema machen. Echte Vorteile, keine Floskeln. 80-120 Wörter.",
   "seo_h2_middle": "Kurze H2 mit Keyword, passend zur Seitenmitte.",
-  "seo_middle": "2-3 Absätze (durch \\n\\n getrennt). Informativ, mit Keywords. 150-200 Wörter.",
+  "seo_middle": "3-5 Absätze (durch \\n\\n getrennt). Informativ, mit Keywords. 300-400 Wörter.",
   "seo_h2_bottom": "H2 mit Ratgeber-Charakter, z.B. 'Der große Ratgeber: Tipps & Hintergrundwissen'",
-  "seo_bottom": "5-7 Absätze (durch \\n\\n getrennt). Umfassender Ratgeber-Text zu diesem Thema: Was ist das?, Vorteile, Tipps, FAQ-Antworten, Vergleich, Call-to-Action. Insgesamt 500-600 Wörter. Mit Keywords, informativ, natürlicher Lesefluss. WICHTIG: Dies muss der längste Textblock sein."
+  "seo_bottom": "8-12 Absätze (durch \\n\\n getrennt). Umfassender Ratgeber-Text: Was ist das?, Vorteile, konkrete Tipps, Preise/Kosten, FAQ-Antworten, Vergleiche, Beispiele, Erfahrungswerte, Buchungstipps, Call-to-Action. 800-1000 Wörter. DIES IST DER LÄNGSTE UND WICHTIGSTE TEXTBLOCK."
 }
 
 WICHTIG:
 - Deutsch, natürlicher Lesefluss
-- seo_bottom MUSS der längste Text sein (500-600 Wörter)
-- Gesamtwortzahl seo_intro + seo_middle + seo_bottom: mindestens 850 Wörter
+- seo_bottom MUSS der mit Abstand längste Text sein (800-1000 Wörter)
+- Gesamtwortzahl seo_intro + seo_middle + seo_bottom: MINDESTENS 1500 Wörter
 - Keywords natürlich einbauen (kein Stuffing)
 - Echte Fakten und Tipps`;
 
@@ -64,7 +64,7 @@ WICHTIG:
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 4000,
+        max_tokens: 8000,
         messages: [{ role: "user", content: prompt }],
       }),
     });

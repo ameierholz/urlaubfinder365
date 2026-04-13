@@ -27,35 +27,30 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON:
   "keywords": "6-8 weitere Keywords kommagetrennt, nach Suchvolumen geordnet.",
   "lead": "2-3 packende Sätze als Einleitung. Max. 60 Wörter. Direkte Ansprache.",
   "reading_time_min": "Geschätzte Lesezeit in Minuten (5-10)",
-  "seo_intro": "2-3 emotionale Sätze direkt nach dem Hero-Bild. Max. 80 Wörter.",
-  "seo_h2_middle": "Kurze H2 mit Keyword für die Seitenmitte",
-  "seo_middle": "2-3 Absätze (durch \\n\\n getrennt). Kerninfos zum Thema. 150-200 Wörter.",
-  "seo_h2_bottom": "H2 mit Ratgeber-Charakter für den unteren Bereich",
-  "seo_bottom": "5-7 Absätze (durch \\n\\n getrennt). Ausführlicher Ratgeber-Text, 500-600 Wörter. MUSS der längste Textblock sein.",
   "sections": [
     {
       "heading": "Erste H2-Überschrift mit Keyword",
-      "body": "2-3 Absätze mit konkreten Fakten, Zahlen, Tipps. 150-200 Wörter. Durch \\n\\n getrennt."
+      "body": "3-4 Absätze mit konkreten Fakten, Zahlen, Tipps. 200-300 Wörter. Durch \\n\\n getrennt."
     },
     {
       "heading": "Zweite H2-Überschrift",
-      "body": "Weiterer Abschnitt mit praktischem Mehrwert. 150-200 Wörter."
+      "body": "Weiterer Abschnitt mit praktischem Mehrwert. 200-300 Wörter."
     },
     {
       "heading": "Dritte H2-Überschrift",
-      "body": "Vertiefung oder Vergleich. 150-200 Wörter."
+      "body": "Vertiefung oder Vergleich. 200-300 Wörter."
     },
     {
       "heading": "Vierte H2-Überschrift",
-      "body": "Tipps, Empfehlungen oder Fazit. 150-200 Wörter."
+      "body": "Tipps, Empfehlungen, Erfahrungswerte. 200-300 Wörter."
     },
     {
       "heading": "Fünfte H2-Überschrift",
-      "body": "Zusätzlicher Abschnitt. 100-150 Wörter."
+      "body": "Kosten, Budget, Preisvergleiche. 150-250 Wörter."
     },
     {
-      "heading": "Sechste H2-Überschrift (optional, bei komplexen Themen)",
-      "body": "Ergänzender Abschnitt. 100-150 Wörter."
+      "heading": "Sechste H2-Überschrift",
+      "body": "Fazit, Checkliste oder Zusammenfassung. 150-250 Wörter."
     }
   ],
   "faqs": [
@@ -68,12 +63,12 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON:
 
 WICHTIG:
 - Deutsch, natürlicher Lesefluss, Du-Ansprache
-- 5-6 Sections mit je 150-200 Wörtern = Gesamt mind. 800 Wörter
+- 6 Sections mit je 200-300 Wörtern = Gesamt MINDESTENS 1500 Wörter
 - 4 FAQs die echte Fragen beantworten (gut für Google Featured Snippets)
-- Konkrete Zahlen, Fakten, Preise wo möglich
-- Keine generischen Floskeln
-- Keywords natürlich einbauen
-- Jede Section hat einen klaren Mehrwert`;
+- Konkrete Zahlen, Fakten, Preise, Beispielrechnungen wo möglich
+- Keine generischen Floskeln — jeder Satz muss Mehrwert bieten
+- Keywords natürlich einbauen (kein Stuffing)
+- Jede Section hat einen klaren, einzigartigen Mehrwert`;
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -85,7 +80,7 @@ WICHTIG:
       },
       body: JSON.stringify({
         model: "claude-opus-4-6",
-        max_tokens: 6000,
+        max_tokens: 8000,
         messages: [{ role: "user", content: prompt }],
       }),
     });
