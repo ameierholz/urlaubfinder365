@@ -9,6 +9,10 @@ import { CATALOG } from "@/data/catalog-regions";
 
 interface SeoRow {
   slug: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  focus_keyword: string | null;
+  keywords: string | null;
   seo_intro: string | null;
   seo_middle: string | null;
   seo_bottom: string | null;
@@ -21,6 +25,10 @@ interface DestinationRow {
   hasSeo: boolean;
   wordCount: number;
   score: number | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  focus_keyword: string | null;
+  keywords: string | null;
 }
 
 interface BulkStatus {
@@ -86,7 +94,7 @@ export default function DestinationsAdminPage() {
     );
     const { data: seoData } = await supabase
       .from("destination_seo_texts")
-      .select("slug, seo_intro, seo_middle, seo_bottom");
+      .select("slug, meta_title, meta_description, focus_keyword, keywords, seo_intro, seo_middle, seo_bottom");
 
     const seoMap = new Map<string, SeoRow>(
       ((seoData ?? []) as SeoRow[]).map((r) => [r.slug, r])
@@ -99,7 +107,7 @@ export default function DestinationsAdminPage() {
         seen.add(d.slug);
         const seo = seoMap.get(d.slug);
         const { wordCount, score } = calcSeoScore(seo);
-        combined.push({ slug: d.slug, name: d.name, country: d.country, hasSeo: !!seo, wordCount, score: seo ? score : null });
+        combined.push({ slug: d.slug, name: d.name, country: d.country, hasSeo: !!seo, wordCount, score: seo ? score : null, meta_title: seo?.meta_title ?? null, meta_description: seo?.meta_description ?? null, focus_keyword: seo?.focus_keyword ?? null, keywords: seo?.keywords ?? null });
       }
     }
     for (const c of CATALOG) {
@@ -107,7 +115,7 @@ export default function DestinationsAdminPage() {
         seen.add(c.slug);
         const seo = seoMap.get(c.slug);
         const { wordCount, score } = calcSeoScore(seo);
-        combined.push({ slug: c.slug, name: c.name, country: c.country, hasSeo: !!seo, wordCount, score: seo ? score : null });
+        combined.push({ slug: c.slug, name: c.name, country: c.country, hasSeo: !!seo, wordCount, score: seo ? score : null, meta_title: seo?.meta_title ?? null, meta_description: seo?.meta_description ?? null, focus_keyword: seo?.focus_keyword ?? null, keywords: seo?.keywords ?? null });
       }
     }
     combined.sort((a, b) => a.name.localeCompare(b.name, "de"));
@@ -319,18 +327,19 @@ export default function DestinationsAdminPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Name</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Land</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pfad</th>
                   <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Wörter</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
                   <th className="px-4 py-3"></th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-5 py-10 text-center text-gray-500">
+                    <td colSpan={7} className="px-5 py-10 text-center text-gray-500">
                       Keine Reiseziele gefunden.
                     </td>
                   </tr>
@@ -338,34 +347,11 @@ export default function DestinationsAdminPage() {
                   filtered.map((row) => (
                     <tr key={row.slug} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
                       <td className="px-4 py-2.5">
-                        <span className="text-white font-semibold">{row.name}</span>
-                        <span className="text-gray-600 text-xs ml-2 font-mono">/{row.slug}</span>
+                        <p className="text-gray-300 text-xs font-medium truncate max-w-48">{row.name}</p>
+                        <p className="text-gray-600 text-[10px] font-mono">/urlaubsziele/{row.slug}/</p>
                       </td>
-                      <td className="px-4 py-2.5 text-gray-400 text-sm">{row.country}</td>
                       <td className="px-4 py-2.5"><ScoreBadge score={row.score} /></td>
-                      <td className="px-4 py-2.5 text-right">
-                        {row.hasSeo ? (
-                          <span className={`text-xs font-mono ${row.wordCount >= 1500 ? "text-green-400" : row.wordCount >= 500 ? "text-yellow-400" : "text-orange-400"}`}>
-                            {row.wordCount.toLocaleString("de-DE")}
-                          </span>
-                        ) : (
-                          <span className="text-gray-600 text-xs">—</span>
-                        )}
-                      </td>
                       <td className="px-4 py-2.5">
-                        {row.hasSeo ? (
-                          <span className="flex items-center gap-1.5 text-teal-400 text-xs font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-teal-400 inline-block" />
-                            Vorhanden
-                          </span>
-                        ) : (
-                          <span className="flex items-center gap-1.5 text-gray-500 text-xs font-semibold">
-                            <span className="w-2 h-2 rounded-full bg-gray-600 inline-block" />
-                            Fehlt
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-4 py-2.5 text-right">
                         <Link
                           href={`/admin/destinations/${row.slug}`}
                           className="text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors whitespace-nowrap"
@@ -373,6 +359,10 @@ export default function DestinationsAdminPage() {
                           Bearbeiten →
                         </Link>
                       </td>
+                      <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{row.meta_title || <span className="text-gray-600">—</span>}</td>
+                      <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{row.meta_description || <span className="text-gray-600">—</span>}</td>
+                      <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                      <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{row.keywords || <span className="text-gray-600">—</span>}</td>
                     </tr>
                   ))
                 )}

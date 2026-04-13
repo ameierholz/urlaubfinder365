@@ -125,7 +125,7 @@ export default function AdminRatgeberPage() {
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Kategorie</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
             </tr>
           </thead>
           <tbody>
@@ -148,7 +148,7 @@ export default function AdminRatgeberPage() {
                   <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{title || <span className="text-gray-600">—</span>}</td>
                   <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{desc || <span className="text-gray-600">—</span>}</td>
                   <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{kw || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500">{r.category}</td>
+                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{r.db?.keywords || <span className="text-gray-600">—</span>}</td>
                 </tr>
               );
             })}

@@ -119,7 +119,7 @@ export default async function AdminMagazinPage() {
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
             </tr>
           </thead>
           <tbody>
@@ -129,8 +129,8 @@ export default async function AdminMagazinPage() {
                 <tr key={a.id} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
                   <td className="px-4 py-2.5">
                     <p className="text-gray-300 text-xs font-medium truncate max-w-48">{a.title}</p>
-                    <p className="text-gray-600 text-[10px]">
-                      {a.magazin_categories?.name ?? "–"} · {a.published_at ? new Date(a.published_at).toLocaleDateString("de-DE") : "Entwurf"}
+                    <p className="text-gray-600 text-[10px] flex items-center gap-1.5">
+                      /magazin/{a.slug}/ · <span className={`inline-flex items-center px-1.5 py-0 rounded-full text-[9px] font-bold border ${st.cls}`}>{st.label}</span>
                     </p>
                   </td>
                   <td className="px-4 py-2.5"><ScoreBadge score={scores[i]} /></td>
@@ -142,14 +142,7 @@ export default async function AdminMagazinPage() {
                   <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{a.meta_title || <span className="text-gray-600">—</span>}</td>
                   <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{a.meta_description || <span className="text-gray-600">—</span>}</td>
                   <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{a.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${st.cls}`}>
-                        {st.label}
-                      </span>
-                      <ArtikelStatusButton articleId={a.id} currentStatus={a.status} />
-                    </div>
-                  </td>
+                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{a.keywords || <span className="text-gray-600">—</span>}</td>
                 </tr>
               );
             })}
