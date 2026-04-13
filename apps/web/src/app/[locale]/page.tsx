@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { ArrowRight, Flame, MapPin, ShieldCheck, RefreshCcw, BookOpen, HeartHandshake, Users, MessageCircle, Globe, Camera, Route, Trophy, Bell, Map, Sparkles, Calendar, TrendingUp, ShieldAlert, Star, Compass } from "lucide-react";
 import { TravelOffer } from "@/types";
 import HomeSuchbox from "@/components/search/HomeSuchbox";
 import HomeDealCard from "@/components/home/HomeDealCard";
 import QuickCategories from "@/components/home/QuickCategories";
-import LifestyleSection from "@/components/home/LifestyleSection";
-import FruehbucherCards from "@/components/home/FruehbucherCards";
-import HomeCruiseSection from "@/components/home/HomeCruiseSection";
-import NewsletterSignup from "@/components/ui/NewsletterSignup";
-import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
-import FeaturedAngebotsCarousel from "@/components/home/FeaturedAngebotsCarousel";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
-import MagazinTeaser from "@/components/home/MagazinTeaser";
 import JsonLd from "@/components/seo/JsonLd";
+
+// Below-Fold: Lazy-Load für schnelleren Mobile-Start
+const LifestyleSection = dynamic(() => import("@/components/home/LifestyleSection"));
+const FruehbucherCards = dynamic(() => import("@/components/home/FruehbucherCards"));
+const HomeCruiseSection = dynamic(() => import("@/components/home/HomeCruiseSection"));
+const NewsletterSignup = dynamic(() => import("@/components/ui/NewsletterSignup"));
+const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"));
+const FeaturedAngebotsCarousel = dynamic(() => import("@/components/home/FeaturedAngebotsCarousel"));
+const MagazinTeaser = dynamic(() => import("@/components/home/MagazinTeaser"));
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -156,7 +160,9 @@ async function fetchFruehbucherDeal(regionIds: number[]): Promise<TravelOffer | 
 // ─── Statische Daten ─────────────────────────────────────────────────────────
 
 const HERO_BG =
-  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70&auto=format";
+  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70";
+const HERO_BG_MOBILE =
+  "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=480&q=60";
 
 // Günstigsten Preis pro Person aus einem Deal-Objekt extrahieren
 function minPrice(deal: TravelOffer | null, fallback: string): string {
@@ -421,17 +427,23 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         className="relative text-white flex flex-col -mt-20"
         style={{ overflowX: "clip", overflowY: "visible" }}
       >
-        {/* Hero-Bild als <img> für besseres LCP + Preloading */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={HERO_BG}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
-          // @ts-ignore
-          fetchPriority="high"
-          decoding="async"
-        />
+        {/* Hero-Bild: Mobile 480px, Desktop 800px — Preload via link tag im head */}
+        <link rel="preload" as="image" href={HERO_BG_MOBILE} media="(max-width: 639px)" />
+        <link rel="preload" as="image" href={HERO_BG} media="(min-width: 640px)" />
+        <picture>
+          <source srcSet={HERO_BG_MOBILE} media="(max-width: 639px)" />
+          <source srcSet={HERO_BG} media="(min-width: 640px)" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={HERO_BG}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+            // @ts-ignore
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         {/* ── Cinematic Overlays ── */}
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/35 to-black/10 pointer-events-none" />
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
