@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronRight, TrendingUp, TrendingDown, Eye, MousePointerClick, Target, BarChart3, ArrowUp, ArrowDown, Monitor, Globe2, Trophy, Lightbulb, Smartphone, Tablet, Laptop } from "lucide-react";
+import {
+  ChevronRight, TrendingUp, TrendingDown, Eye, MousePointerClick, Target,
+  BarChart3, ArrowUp, ArrowDown, Monitor, Globe2, Trophy, Lightbulb,
+  Smartphone, Tablet, Laptop, Sparkles, ExternalLink, Search,
+  FileText, Loader2, Copy, Check, Zap, ShieldAlert,
+} from "lucide-react";
 
 interface DailyData { date: string; clicks: number; impressions: number; ctr: number; position: number }
 interface KeywordData { keyword: string; clicks: number; impressions: number; ctr: number; position: number }
@@ -26,7 +31,7 @@ export default function SeoPerformancePage() {
   const [trending, setTrending] = useState<TrendingData[]>([]);
   const [devices, setDevices] = useState<{ devices: DeviceData[]; totalClicks: number; totalImpressions: number } | null>(null);
   const [countries, setCountries] = useState<CountryData[]>([]);
-  const [winners, setWinners] = useState<{ winners: WinnerLoserData[]; losers: WinnerLoserData[] } | null>(null);
+  const [winners, setWinners] = useState<{ winners: WinnerLoserData[]; losers: WinnerLoserData[]; period?: { current: string; previous: string; days: number } } | null>(null);
   const [opportunities, setOpportunities] = useState<OpportunityData[]>([]);
 
   // Keyword-Positions-Verteilung laden (für Overview)
@@ -510,89 +515,7 @@ export default function SeoPerformancePage() {
 
       {/* Winners / Losers Tab */}
       {!loading && !error && tab === "winners" && winners && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Winners */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
-            <div className="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
-              <ArrowUp className="w-4 h-4 text-green-400" />
-              <p className="text-sm text-green-400 font-bold">Gewinner (stärkster Positions-Gewinn)</p>
-            </div>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Position</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-800">
-                {winners.winners.map((w) => (
-                  <tr key={w.keyword} className="hover:bg-gray-800/30">
-                    <td className="px-4 py-2.5 text-white font-medium max-w-50 truncate">{w.keyword}</td>
-                    <td className="px-4 py-2.5 text-right">
-                      <span className={`font-mono ${w.position <= 10 ? "text-green-400" : w.position <= 20 ? "text-yellow-400" : "text-orange-400"}`}>
-                        {fmtPos(w.position)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 text-right text-gray-500 font-mono">{fmtPos(w.prevPosition)}</td>
-                    <td className="px-4 py-2.5 text-right">
-                      <span className="flex items-center justify-end gap-1 text-green-400 font-bold text-xs">
-                        <ArrowUp className="w-3 h-3" /> +{fmtPos(w.change)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 text-right text-blue-400">{fmtNum(w.clicks)}</td>
-                  </tr>
-                ))}
-                {winners.winners.length === 0 && (
-                  <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-500">Keine Gewinner gefunden</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Losers */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
-            <div className="px-5 py-4 border-b border-gray-800 flex items-center gap-2">
-              <ArrowDown className="w-4 h-4 text-red-400" />
-              <p className="text-sm text-red-400 font-bold">Verlierer (stärkster Positions-Verlust)</p>
-            </div>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Position</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
-                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-800">
-                {winners.losers.map((l) => (
-                  <tr key={l.keyword} className="hover:bg-gray-800/30">
-                    <td className="px-4 py-2.5 text-white font-medium max-w-50 truncate">{l.keyword}</td>
-                    <td className="px-4 py-2.5 text-right">
-                      <span className={`font-mono ${l.position <= 10 ? "text-green-400" : l.position <= 20 ? "text-yellow-400" : "text-orange-400"}`}>
-                        {fmtPos(l.position)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 text-right text-gray-500 font-mono">{fmtPos(l.prevPosition)}</td>
-                    <td className="px-4 py-2.5 text-right">
-                      <span className="flex items-center justify-end gap-1 text-red-400 font-bold text-xs">
-                        <ArrowDown className="w-3 h-3" /> {fmtPos(l.change)}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2.5 text-right text-blue-400">{fmtNum(l.clicks)}</td>
-                  </tr>
-                ))}
-                {winners.losers.length === 0 && (
-                  <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-500">Keine Verlierer gefunden</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <WinnersLosersTab winners={winners.winners} losers={winners.losers} period={winners.period} />
       )}
 
       {/* Opportunities Tab */}
@@ -661,6 +584,265 @@ export default function SeoPerformancePage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── Gewinner/Verlierer mit Maßnahmen ────────────────────────────────────────
+
+function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserData[]; losers: WinnerLoserData[]; period?: { current: string; previous: string; days: number } }) {
+  const [generating, setGenerating] = useState<string | null>(null);
+  const [suggestions, setSuggestions] = useState<Record<string, string>>({});
+  const [copied, setCopied] = useState<string | null>(null);
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+
+  const fmtNum = (n: number) => n.toLocaleString("de-DE");
+  const fmtPos = (n: number) => n.toFixed(1);
+
+  const generateSuggestion = async (keyword: string, position: number, change: number, type: "winner" | "loser") => {
+    setGenerating(keyword);
+    try {
+      const res = await fetch("/api/admin/keyword-action", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keyword, position, change, type }),
+      });
+      const data = await res.json();
+      if (data.suggestion) {
+        setSuggestions((s) => ({ ...s, [keyword]: data.suggestion }));
+        setExpandedRow(keyword);
+      }
+    } catch { /* ignore */ }
+    setGenerating(null);
+  };
+
+  const copyText = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 1500);
+  };
+
+  const KwRow = ({ item, type }: { item: WinnerLoserData; type: "winner" | "loser" }) => {
+    const isWinner = type === "winner";
+    const isExpanded = expandedRow === item.keyword;
+    const hasSuggestion = !!suggestions[item.keyword];
+    const isGenerating = generating === item.keyword;
+
+    return (
+      <>
+        <tr className="hover:bg-gray-800/30 transition-colors">
+          <td className="px-4 py-2.5 text-white font-medium max-w-[180px] truncate">{item.keyword}</td>
+          <td className="px-4 py-2.5 text-right">
+            <span className={`font-mono ${item.position <= 10 ? "text-green-400" : item.position <= 20 ? "text-yellow-400" : "text-orange-400"}`}>
+              {fmtPos(item.position)}
+            </span>
+          </td>
+          <td className="px-4 py-2.5 text-right text-gray-500 font-mono">{fmtPos(item.prevPosition)}</td>
+          <td className="px-4 py-2.5 text-right">
+            <span className={`flex items-center justify-end gap-1 ${isWinner ? "text-green-400" : "text-red-400"} font-bold text-xs`}>
+              {isWinner ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
+              {isWinner ? "+" : ""}{fmtPos(item.change)}
+            </span>
+          </td>
+          <td className="px-4 py-2.5 text-right text-blue-400">{fmtNum(item.clicks)}</td>
+          <td className="px-4 py-2.5 text-right">
+            <div className="flex items-center justify-end gap-1">
+              {/* KI-Maßnahme generieren */}
+              <button
+                onClick={() => isExpanded && hasSuggestion ? setExpandedRow(null) : generateSuggestion(item.keyword, item.position, item.change, type)}
+                disabled={isGenerating}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  isExpanded ? "bg-teal-900/50 text-teal-400" : "hover:bg-gray-700 text-gray-500 hover:text-teal-400"
+                }`}
+                title="KI-Maßnahmen generieren"
+              >
+                {isGenerating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+              </button>
+
+              {/* Google suchen */}
+              <a
+                href={`https://www.google.de/search?q=${encodeURIComponent(item.keyword)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg hover:bg-gray-700 text-gray-500 hover:text-white transition-colors"
+                title="Google Suche"
+              >
+                <Search className="w-3.5 h-3.5" />
+              </a>
+
+              {/* Konkurrenz-Analyse */}
+              <Link
+                href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
+                className="p-1.5 rounded-lg hover:bg-gray-700 text-gray-500 hover:text-amber-400 transition-colors"
+                title="Konkurrenz analysieren"
+              >
+                <Trophy className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </td>
+        </tr>
+
+        {/* Expandierte Maßnahmen-Zeile */}
+        {isExpanded && hasSuggestion && (
+          <tr>
+            <td colSpan={6} className="px-4 py-0">
+              <div className="bg-gray-800/50 rounded-xl p-4 mb-2 border border-gray-700/50">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <Zap className={`w-4 h-4 ${isWinner ? "text-green-400" : "text-amber-400"}`} />
+                    <p className="text-xs font-bold text-white">
+                      {isWinner ? "Gewinner-Strategie" : "Rettungsmaßnahmen"} f&uuml;r &bdquo;{item.keyword}&ldquo;
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => copyText(suggestions[item.keyword], item.keyword)}
+                    className="p-1 rounded hover:bg-gray-700 transition-colors"
+                    title="Kopieren"
+                  >
+                    {copied === item.keyword ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-gray-500" />}
+                  </button>
+                </div>
+                <div className="text-xs text-gray-300 leading-relaxed whitespace-pre-line">
+                  {suggestions[item.keyword]}
+                </div>
+                <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-gray-700/50">
+                  {isWinner ? (
+                    <>
+                      <Link href={`/admin/seo/outreach/?keyword=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-green-900/30 hover:bg-green-900/50 text-green-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <ExternalLink className="w-3 h-3" /> Backlinks aufbauen
+                      </Link>
+                      <Link href={`/admin/seo/?q=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-teal-900/30 hover:bg-teal-900/50 text-teal-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <FileText className="w-3 h-3" /> Content ausbauen
+                      </Link>
+                      <a href={`https://www.google.de/search?q=site:urlaubfinder365.de+${encodeURIComponent(item.keyword)}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <Search className="w-3 h-3" /> Unsere Seiten f&uuml;r dieses KW
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <Link href={`/admin/seo/?q=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-amber-900/30 hover:bg-amber-900/50 text-amber-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <Sparkles className="w-3 h-3" /> SEO-Texte optimieren
+                      </Link>
+                      <Link href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-red-900/30 hover:bg-red-900/50 text-red-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <ShieldAlert className="w-3 h-3" /> Konkurrenz pr&uuml;fen
+                      </Link>
+                      <Link href={`/admin/seo/links/?q=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-purple-900/30 hover:bg-purple-900/50 text-purple-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <ExternalLink className="w-3 h-3" /> Interne Links pr&uuml;fen
+                      </Link>
+                      <Link href={`/admin/seo/outreach/?keyword=${encodeURIComponent(item.keyword)}`}
+                        className="flex items-center gap-1.5 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                        <ExternalLink className="w-3 h-3" /> Backlinks aufbauen
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            </td>
+          </tr>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Zeitraum-Info + Maßnahmen-Banner */}
+      {period && (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl px-5 py-3 flex flex-wrap items-center gap-4 text-xs">
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500">Aktuell:</span>
+            <span className="text-white font-semibold">{period.current}</span>
+            <span className="text-gray-600">({period.days} Tage)</span>
+          </div>
+          <span className="text-gray-700">vs.</span>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500">Vorher:</span>
+            <span className="text-white font-semibold">{period.previous}</span>
+            <span className="text-gray-600">({period.days} Tage)</span>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-teal-900/20 border border-teal-800/40 rounded-xl p-4 flex items-start gap-3">
+        <Sparkles className="w-5 h-5 text-teal-400 mt-0.5 shrink-0" />
+        <div>
+          <p className="text-sm text-teal-300 font-semibold">KI-gest&uuml;tzte Ma&szlig;nahmen</p>
+          <p className="text-xs text-teal-400/70 mt-1">
+            Klicke auf das &#10024;-Icon bei einem Keyword um konkrete Ma&szlig;nahmen zu generieren &mdash; f&uuml;r Gewinner (ausbauen, Backlinks) und Verlierer (retten, optimieren).
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Winners */}
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ArrowUp className="w-4 h-4 text-green-400" />
+              <p className="text-sm text-green-400 font-bold">Gewinner</p>
+            </div>
+            <span className="text-[10px] text-gray-500">{winners.length} Keywords</span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Pos.</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Aktion</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                {winners.map((w) => <KwRow key={w.keyword} item={w} type="winner" />)}
+                {winners.length === 0 && (
+                  <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-500">Keine Gewinner</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Losers */}
+        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-gray-800 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ArrowDown className="w-4 h-4 text-red-400" />
+              <p className="text-sm text-red-400 font-bold">Verlierer</p>
+            </div>
+            <span className="text-[10px] text-gray-500">{losers.length} Keywords</span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-800">
+                  <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Keyword</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Pos.</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Vorher</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Diff</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Klicks</th>
+                  <th className="text-right px-4 py-3 text-xs text-gray-500 uppercase tracking-widest">Aktion</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-800">
+                {losers.map((l) => <KwRow key={l.keyword} item={l} type="loser" />)}
+                {losers.length === 0 && (
+                  <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-500">Keine Verlierer</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

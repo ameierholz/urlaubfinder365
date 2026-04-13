@@ -209,7 +209,11 @@ export async function GET(req: NextRequest) {
         const winners = [...compared].sort((a, b) => b.change - a.change).slice(0, 15);
         const losers = [...compared].sort((a, b) => a.change - b.change).slice(0, 15);
 
-        return NextResponse.json({ winners, losers });
+        return NextResponse.json({
+          winners,
+          losers,
+          period: { current: `${fmt(startDate)} – ${fmt(endDate)}`, previous: `${fmt(prevStart)} – ${fmt(prevEnd)}`, days },
+        });
       }
 
       case "opportunities": {
