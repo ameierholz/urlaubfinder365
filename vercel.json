@@ -16,6 +16,18 @@
     {
       "path": "/api/cron/collect-prices?profile=ai",
       "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cron/collect-prices?profile=last_minute",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/daily-tasks",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/sync-travel-warnings",
+      "schedule": "0 7 * * *"
     }
   ],
   "headers": [

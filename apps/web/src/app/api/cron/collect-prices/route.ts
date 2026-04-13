@@ -1,12 +1,13 @@
 /**
- * Vercel Cron Job – ein Lauf pro Tag, sammelt Preise für ALLE Profile:
- *   03:00  /api/cron/collect-prices  → läuft pauschal, hotel, ai, last_minute
- *   parallel durch (Hobby-Limit: 60s maxDuration, daher Promise.all statt sequenziell).
- *   Hobby erlaubt insgesamt nur 2 Crons → ein konsolidierter Job für alle Profile.
+ * Vercel Cron Job – separate Läufe pro Profil (Pro-Plan: bis 40 Crons, 300s maxDuration):
+ *   03:00  ?profile=pauschal
+ *   04:00  ?profile=hotel
+ *   05:00  ?profile=ai
+ *   06:00  ?profile=last_minute
  *
  * Manueller Aufruf:
  *   GET /api/cron/collect-prices                  → alle Profile
- *   GET /api/cron/collect-prices?profile=pauschal → nur ein Profil (Debugging)
+ *   GET /api/cron/collect-prices?profile=pauschal → nur ein Profil
  *   Header: Authorization: Bearer <CRON_SECRET>
  */
 
@@ -16,9 +17,8 @@ import { upsertPriceTrendProfile, checkAndUpdateAlerts } from "@/lib/supabase-db
 import { sendPushToUsers } from "@/lib/web-push";
 import type { PriceSnapshot, PriceProfileId } from "@/types";
 
-// Vercel Hobby: 60 s. Profile laufen parallel um in dieses Limit zu passen.
-// Bei Wechsel auf Pro kann das auf 300 erhöht und Profile auf sequenziell umgestellt werden.
-export const maxDuration = 60;
+// Vercel Pro: 300s maxDuration, Profile laufen als separate Cron-Jobs
+export const maxDuration = 300;
 
 const AGENT_ID = process.env.NEXT_PUBLIC_TRAVEL_AGENT_ID || "993243";
 const BASE_URL = "https://api.specials.de/package/teaser.json";

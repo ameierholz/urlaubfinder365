@@ -12,7 +12,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 export const runtime    = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 const AA_API = "https://www.auswaertiges-amt.de/opendata/travelwarning";
 

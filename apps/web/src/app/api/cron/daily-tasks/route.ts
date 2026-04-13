@@ -25,7 +25,7 @@ import { GET as buchungAbschliessen } from "../buchung-abschliessen/route";
 import { GET as anbieterMonatsbericht } from "../anbieter-monatsbericht/route";
 
 export const runtime     = "nodejs";
-export const maxDuration = 60;
+export const maxDuration = 300;
 
 interface TaskResult {
   task:   string;
