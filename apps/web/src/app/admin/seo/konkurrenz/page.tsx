@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   BarChart2, ChevronRight, Search, Loader2, ExternalLink,
   Lightbulb, FileSearch, Target, TrendingUp, Zap, RefreshCw,
@@ -56,6 +57,7 @@ const POT_COLOR  = { hoch: "text-emerald-400", mittel: "text-yellow-400", niedri
 
 // ── Component ──────────────────────────────────────────────────────────────
 export default function KonkurrenzPage() {
+  const searchParams = useSearchParams();
   const [keyword, setKeyword]           = useState("");
   const [loading, setLoading]           = useState(false);
   const [overviewLoading, setOvLoad]    = useState(true);
@@ -70,10 +72,18 @@ export default function KonkurrenzPage() {
   const [urlLoading, setUrlLoading]     = useState(false);
   const [urlResult, setUrlResult]       = useState<UrlResult | null>(null);
   const [urlError, setUrlError]         = useState<string | null>(null);
+  const autoStarted = useRef(false);
 
-  // Auto-load overview on mount
+  // Auto-load overview + auto-start keyword from URL param
   useEffect(() => {
     loadOverview();
+    const q = searchParams.get("q");
+    if (q && !autoStarted.current) {
+      autoStarted.current = true;
+      setKeyword(q);
+      // Delay to let state settle, then analyze
+      setTimeout(() => analyzeKeyword(q), 300);
+    }
   }, []);
 
   async function loadOverview() {

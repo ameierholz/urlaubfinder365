@@ -593,6 +593,7 @@ export default function SeoPerformancePage() {
 function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserData[]; losers: WinnerLoserData[]; period?: { current: string; previous: string; days: number } }) {
   const [generating, setGenerating] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<Record<string, string>>({});
+  const [matchingPages, setMatchingPages] = useState<Record<string, { path: string; label: string }[]>>({});
   const [copied, setCopied] = useState<string | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
@@ -610,6 +611,7 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
       const data = await res.json();
       if (data.suggestion) {
         setSuggestions((s) => ({ ...s, [keyword]: data.suggestion }));
+        if (data.matchingPages) setMatchingPages((m) => ({ ...m, [keyword]: data.matchingPages }));
         setExpandedRow(keyword);
       }
     } catch { /* ignore */ }
@@ -633,7 +635,7 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
         <tr className="hover:bg-gray-800/30 transition-colors">
           {/* Keyword + Aktions-Icons */}
           <td className="px-3 py-2.5">
-            <p className="text-white font-medium text-xs truncate max-w-[140px]">{item.keyword}</p>
+            <p className="text-white font-medium text-xs wrap-break-word">{item.keyword}</p>
             <div className="flex items-center gap-1 mt-1">
               <button
                 onClick={() => isExpanded && hasSuggestion ? setExpandedRow(null) : generateSuggestion(item.keyword, item.position, item.change, type)}
@@ -695,43 +697,36 @@ function WinnersLosersTab({ winners, losers, period }: { winners: WinnerLoserDat
                 <div className="text-xs text-gray-300 leading-relaxed whitespace-pre-line">
                   {suggestions[item.keyword]}
                 </div>
-                <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-gray-700/50">
-                  {isWinner ? (
-                    <>
-                      <Link href={`/admin/seo/outreach/?keyword=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-green-900/30 hover:bg-green-900/50 text-green-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <ExternalLink className="w-3 h-3" /> Backlinks aufbauen
-                      </Link>
-                      <Link href={`/admin/seo/?q=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-teal-900/30 hover:bg-teal-900/50 text-teal-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <FileText className="w-3 h-3" /> Content ausbauen
-                      </Link>
-                      <a href={`https://www.google.de/search?q=site:urlaubfinder365.de+${encodeURIComponent(item.keyword)}`}
-                        target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <Search className="w-3 h-3" /> Unsere Seiten f&uuml;r dieses KW
-                      </a>
-                    </>
-                  ) : (
-                    <>
-                      <Link href={`/admin/seo/?q=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-amber-900/30 hover:bg-amber-900/50 text-amber-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <Sparkles className="w-3 h-3" /> SEO-Texte optimieren
-                      </Link>
-                      <Link href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-red-900/30 hover:bg-red-900/50 text-red-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <ShieldAlert className="w-3 h-3" /> Konkurrenz pr&uuml;fen
-                      </Link>
-                      <Link href={`/admin/seo/links/?q=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-purple-900/30 hover:bg-purple-900/50 text-purple-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <ExternalLink className="w-3 h-3" /> Interne Links pr&uuml;fen
-                      </Link>
-                      <Link href={`/admin/seo/outreach/?keyword=${encodeURIComponent(item.keyword)}`}
-                        className="flex items-center gap-1.5 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-                        <ExternalLink className="w-3 h-3" /> Backlinks aufbauen
-                      </Link>
-                    </>
-                  )}
+                {/* Passende Seiten */}
+                {(matchingPages[item.keyword] ?? []).length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-700/50">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Betroffene Seiten &mdash; direkt optimieren</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(matchingPages[item.keyword] ?? []).map((pg) => (
+                        <Link key={pg.path} href={`/admin/seo/?page=${encodeURIComponent(pg.path)}`}
+                          className="flex items-center gap-1 bg-gray-700/50 hover:bg-gray-700 text-gray-300 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-colors">
+                          <FileText className="w-3 h-3 text-teal-400" /> {pg.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Allgemeine Aktionen */}
+                <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-700/50">
+                  <Link href={`/admin/seo/konkurrenz/?q=${encodeURIComponent(item.keyword)}`}
+                    className="flex items-center gap-1.5 bg-amber-900/30 hover:bg-amber-900/50 text-amber-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                    <ShieldAlert className="w-3 h-3" /> Konkurrenz analysieren
+                  </Link>
+                  <Link href={`/admin/seo/outreach/?keyword=${encodeURIComponent(item.keyword)}`}
+                    className="flex items-center gap-1.5 bg-blue-900/30 hover:bg-blue-900/50 text-blue-400 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                    <ExternalLink className="w-3 h-3" /> Backlinks aufbauen
+                  </Link>
+                  <a href={`https://www.google.de/search?q=${encodeURIComponent(item.keyword)}`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 bg-gray-700/50 hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                    <Search className="w-3 h-3" /> Bei Google pr&uuml;fen
+                  </a>
                 </div>
               </div>
             </td>
