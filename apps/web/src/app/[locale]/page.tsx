@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     url: "https://www.urlaubfinder365.de/",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&h=630&q=80&auto=format",
+        url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&h=630&q=50&auto=format",
         width: 1200,
         height: 630,
         alt: "Infinity Pool mit Meerblick – Pauschalreisen günstig buchen bei Urlaubfinder365",
@@ -173,24 +173,24 @@ const REISEZIEL_HERO_S = {
   sub: "Antalya · Side · Alanya",
   slug: "tuerkei",
   flag: "tr",
-  img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80&auto=format",
+  img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=50&auto=format",
 };
 
 // Tier 2 – #2–4: Mittelgroße Kacheln (3 Spalten)
 const REISEZIELE_MITTEL_S = [
-  { name: "Spanien",     sub: "Mallorca · Teneriffa · Ibiza",     slug: "balearen",         flag: "es", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=75&auto=format" },
-  { name: "Griechenland",sub: "Kreta · Rhodos · Korfu",           slug: "griechische-inseln",flag: "gr", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=75&auto=format" },
-  { name: "Ägypten",     sub: "Hurghada · Marsa Alam",            slug: "aegypten",          flag: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=75&auto=format" },
+  { name: "Spanien",     sub: "Mallorca · Teneriffa · Ibiza",     slug: "balearen",         flag: "es", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=50&auto=format" },
+  { name: "Griechenland",sub: "Kreta · Rhodos · Korfu",           slug: "griechische-inseln",flag: "gr", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=50&auto=format" },
+  { name: "Ägypten",     sub: "Hurghada · Marsa Alam",            slug: "aegypten",          flag: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=50&auto=format" },
 ];
 
 // Tier 3 – #5–10: Kleinere Kacheln (6 Spalten) – Preis wird dynamisch ergänzt
 const REISEZIELE_KLEIN_S = [
-  { name: "Kroatien", sub: "Dubrovnik · Split · Istrien",    slug: "kroatien",       flag: "hr", img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=600&q=75&auto=format", fallback: "ab 379 €" },
-  { name: "Italien",  sub: "Sizilien · Sardinien · Amalfi",  slug: "italien",        flag: "it", img: "https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=75&auto=format", fallback: "ab 429 €" },
-  { name: "Portugal", sub: "Algarve · Madeira · Lissabon",   slug: "portugal",       flag: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=75&auto=format", fallback: "ab 399 €" },
-  { name: "Dubai",    sub: "Emirate · Wüste · Skyline",      slug: "dubai",          flag: "ae", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=75&auto=format", fallback: "ab 699 €" },
-  { name: "Malediven",sub: "Nord-Malé · Ari-Atoll",          slug: "indischer-ozean",flag: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=75&auto=format", fallback: "ab 1.299 €" },
-  { name: "Thailand", sub: "Phuket · Koh Samui · Bangkok",   slug: "thailand",       flag: "th", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=75&auto=format", fallback: "ab 899 €" },
+  { name: "Kroatien", sub: "Dubrovnik · Split · Istrien",    slug: "kroatien",       flag: "hr", img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=600&q=50&auto=format", fallback: "ab 379 €" },
+  { name: "Italien",  sub: "Sizilien · Sardinien · Amalfi",  slug: "italien",        flag: "it", img: "https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=600&q=50&auto=format", fallback: "ab 429 €" },
+  { name: "Portugal", sub: "Algarve · Madeira · Lissabon",   slug: "portugal",       flag: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=600&q=50&auto=format", fallback: "ab 399 €" },
+  { name: "Dubai",    sub: "Emirate · Wüste · Skyline",      slug: "dubai",          flag: "ae", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=50&auto=format", fallback: "ab 699 €" },
+  { name: "Malediven",sub: "Nord-Malé · Ari-Atoll",          slug: "indischer-ozean",flag: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=50&auto=format", fallback: "ab 1.299 €" },
+  { name: "Thailand", sub: "Phuket · Koh Samui · Bangkok",   slug: "thailand",       flag: "th", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=50&auto=format", fallback: "ab 899 €" },
 ];
 
 
@@ -200,7 +200,7 @@ const GUIDES = [
     dest: "Antalya",
     country: "Türkei",
     flag: "tr",
-    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=75&auto=format",
+    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=50&auto=format",
     teaser: "Strände, Ruinen & Top-Hotels an der türkischen Riviera",
   },
   {
@@ -208,7 +208,7 @@ const GUIDES = [
     dest: "Mallorca",
     country: "Spanien",
     flag: "es",
-    img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=75&auto=format",
+    img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=50&auto=format",
     teaser: "Traumstrände, Serra de Tramuntana & Palmas Altstadt",
   },
   {
@@ -216,7 +216,7 @@ const GUIDES = [
     dest: "Kreta",
     country: "Griechenland",
     flag: "gr",
-    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=75&auto=format",
+    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=50&auto=format",
     teaser: "Samaria-Schlucht, Knossos & griechische Gastfreundschaft",
   },
   {
@@ -224,7 +224,7 @@ const GUIDES = [
     dest: "Hurghada",
     country: "Ägypten",
     flag: "eg",
-    img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=75&auto=format",
+    img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=600&q=50&auto=format",
     teaser: "Rotes Meer, Tauchen & Wüstenabenteuer in Ägypten",
   },
   {
@@ -232,7 +232,7 @@ const GUIDES = [
     dest: "Barcelona",
     country: "Spanien",
     flag: "es",
-    img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=75&auto=format",
+    img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=50&auto=format",
     teaser: "Gaudí, Tapas, Strände & katalanisches Nachtleben",
   },
 ];
@@ -409,7 +409,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         {/* Hero-Bild: Direkt von Unsplash (schneller als Vercel Image Optimization bei Cold Cache) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=60"
+          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=40"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
@@ -845,7 +845,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="lg:col-span-3 relative rounded-3xl overflow-hidden">
               {/* Hintergrundbild */}
               <Image
-                src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=900&h=500&q=75&auto=format"
+                src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=900&h=500&q=50&auto=format"
                 alt="Aktivitäten & Erlebnisse weltweit"
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
