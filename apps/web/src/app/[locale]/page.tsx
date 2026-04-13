@@ -568,22 +568,26 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               </p>
             </div>
 
-            {topDeals.length > 0 ? (
-              <div>
-                {/* Top 3 Deals (Carousel auf Mobil, Grid auf Desktop) */}
-                <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0">
-                  {topDeals.slice(0, 3).map((offer) => (
-                    <div key={offer.product_code} className="min-w-[80vw] snap-start sm:min-w-0">
-                      <HomeDealCard offer={offer} featured />
+            {/* Deal-Karten: 3 Destination-Links als statische Kacheln */}
+            <div className="grid sm:grid-cols-3 gap-4">
+              {[
+                { name: t("countryTurkei"), price: "ab 399 €", href: "/urlaubsziele/antalya/", img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=70&auto=format", flag: "tr" },
+                { name: t("countrySpanien"), price: "ab 349 €", href: "/urlaubsziele/mallorca/", img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=600&q=70&auto=format", flag: "es" },
+                { name: t("countryGriechenland"), price: "ab 389 €", href: "/urlaubsziele/kreta/", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=70&auto=format", flag: "gr" },
+              ].map((d) => (
+                <Link key={d.flag} href={d.href} className="group relative rounded-2xl overflow-hidden aspect-[4/3]">
+                  <Image src={d.img} alt={d.name} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <img src={`https://flagcdn.com/20x15/${d.flag}.png`} alt="" width={20} height={15} className="rounded-sm" />
+                      <span className="text-white font-black text-lg">{d.name}</span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="text-center py-16 text-gray-400">
-                <p>{t("dealsLoading")}</p>
-              </div>
-            )}
+                    <span className="text-sand-300 text-sm font-bold">{d.price} p.P.</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
