@@ -33,6 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         {/* Performance: Preconnect/DNS-Prefetch zu kritischen Drittdomains */}
         <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://media.traffics-switch.de" />
         <link rel="preconnect" href="https://api.specials.de" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

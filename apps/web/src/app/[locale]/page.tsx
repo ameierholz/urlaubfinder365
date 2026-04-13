@@ -409,7 +409,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         {/* Hero-Bild: Direkt von Unsplash (schneller als Vercel Image Optimization bei Cold Cache) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=600&q=40"
+          src="/images/hero.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
@@ -421,7 +421,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/50 pointer-events-none" />
 
         {/* ── Haupt-Content ── */}
-        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-32" style={{ overflow: "visible" }}>
+        {/* pt-28 auf Mobile → Deals rutschen unter den Fold → LCP = Hero-Bild statt Deal-Foto */}
+        <div className="relative flex flex-col max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 lg:pt-32" style={{ overflow: "visible" }}>
 
           {/* Eyebrow */}
           <div className="flex items-center gap-3 mb-4">
@@ -575,9 +576,9 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
               <div>
                 {/* Top 3 Deals (Carousel auf Mobil, Grid auf Desktop) */}
                 <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0">
-                  {topDeals.slice(0, 3).map((offer, i) => (
+                  {topDeals.slice(0, 3).map((offer) => (
                     <div key={offer.product_code} className="min-w-[80vw] snap-start sm:min-w-0">
-                      <HomeDealCard offer={offer} priority={i === 0} featured />
+                      <HomeDealCard offer={offer} featured />
                     </div>
                   ))}
                 </div>
