@@ -11,7 +11,6 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -237,7 +236,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Top All-Inclusive-Urlaubsziele" accentColor="#1d4ed8" />
 
-    <SeoTextBlocks pagePath="/urlaubsarten/all-inclusive-urlaub" />
     </div>
   );
 }

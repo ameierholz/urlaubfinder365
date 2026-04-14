@@ -9,7 +9,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildB2bUrl } from "@/lib/search-params";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 // Nav items, Tipps & FAQs werden in der async-Funktion mit t() aufgebaut
@@ -632,7 +631,6 @@ export default async function ({ params, searchParams }: {
 
       </div>{/* ── Ende Zweispalten-Layout ── */}
 
-      <SeoTextBlocks pagePath="/mietwagen-reservieren" />
     </div>
   );
 }

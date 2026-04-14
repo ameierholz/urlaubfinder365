@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, Newspaper } from "lucide-react";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 export const metadata: Metadata = {
   title: "Urlaubsmagazin – Reisetipps, Spartipps & mehr | Urlaubfinder365",
   description:

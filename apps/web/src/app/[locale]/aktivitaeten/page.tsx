@@ -5,7 +5,6 @@ import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 export const metadata: Metadata = {
   title: "Aktivitäten, Touren & Erlebnisse buchen | Urlaubfinder365",
   description:
@@ -59,7 +58,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </Suspense>
       }
     />
-    <SeoTextBlocks pagePath="/aktivitaeten" />
     </>
   );
 }

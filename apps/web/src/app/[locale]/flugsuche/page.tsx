@@ -12,7 +12,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildFlugUrl } from "@/lib/search-params";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const BASE_URL = "https://www.urlaubfinder365.de";
 
 const YEAR = new Date().getFullYear();
@@ -601,7 +600,6 @@ export default async function ({ params, searchParams }: {
 
       </div>{/* ── Ende Zweispalten-Layout ── */}
 
-      <SeoTextBlocks pagePath="/flugsuche" />
     </div>
   );
 }

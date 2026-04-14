@@ -3,7 +3,6 @@ import KreuzfahrtenContent from "@/components/cruise/KreuzfahrtenContent";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { fetchPageSeoMeta } from "@/lib/seo-meta";
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 import JsonLd from "@/components/seo/JsonLd";
 export async function generateMetadata(): Promise<Metadata> {
@@ -79,7 +78,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       />
 
       {/* SEO Textblöcke (nach Hauptcontent, volle Breite) */}
-      <SeoTextBlocks pagePath="/kreuzfahrten" />
     </>
   );
 }

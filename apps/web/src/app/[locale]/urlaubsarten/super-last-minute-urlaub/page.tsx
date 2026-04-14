@@ -1,4 +1,3 @@
-import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { destinations } from "@/lib/destinations";
@@ -251,7 +250,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Jetzt sofort verfügbar – Top-Ziele" accentColor="#dc2626" />
 
-    <SeoTextBlocks pagePath="/urlaubsarten/super-last-minute-urlaub" />
     </div>
   );
 }
