@@ -324,47 +324,76 @@ export default function DestinationsAdminPage() {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-[13px] table-fixed">
               <thead>
                 <tr className="border-b border-gray-800">
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pfad</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
-                  <th className="px-4 py-3"></th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
+                  <th className="text-left px-3 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[160px]">Pfad</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[55px]">Score</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Title</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Description</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[110px]">Focus KW</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[50px]">KWs</th>
+                  <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[50px]">Wörter</th>
+                  <th className="w-[70px] px-2 py-2.5"></th>
                 </tr>
               </thead>
               <tbody>
                 {filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-5 py-10 text-center text-gray-500">
+                    <td colSpan={8} className="px-5 py-10 text-center text-gray-500">
                       Keine Reiseziele gefunden.
                     </td>
                   </tr>
                 ) : (
-                  filtered.map((row) => (
-                    <tr key={row.slug} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
-                      <td className="px-4 py-2.5">
-                        <p className="text-gray-300 text-xs font-medium truncate max-w-48">{row.name}</p>
-                        <p className="text-gray-600 text-[10px] font-mono">/urlaubsziele/{row.slug}/</p>
-                      </td>
-                      <td className="px-4 py-2.5"><ScoreBadge score={row.score} /></td>
-                      <td className="px-4 py-2.5">
-                        <Link
-                          href={`/admin/destinations/${row.slug}`}
-                          className="text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors whitespace-nowrap"
-                        >
-                          Bearbeiten →
-                        </Link>
-                      </td>
-                      <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{row.meta_title || <span className="text-gray-600">—</span>}</td>
-                      <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{row.meta_description || <span className="text-gray-600">—</span>}</td>
-                      <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                      <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{row.keywords || <span className="text-gray-600">—</span>}</td>
-                    </tr>
-                  ))
+                  filtered.map((row) => {
+                    const titleLen = row.meta_title?.length ?? 0;
+                    const descLen = row.meta_description?.length ?? 0;
+                    const titleOk = titleLen >= 30 && titleLen <= 60;
+                    const descOk = descLen >= 120 && descLen <= 160;
+                    const titleHasKw = row.focus_keyword && row.meta_title?.toLowerCase().includes(row.focus_keyword.toLowerCase());
+                    const descHasKw = row.focus_keyword && row.meta_description?.toLowerCase().includes(row.focus_keyword.toLowerCase());
+                    const kwCount = row.keywords ? row.keywords.split(",").length : 0;
+                    return (
+                      <tr key={row.slug} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
+                        <td className="px-3 py-2 font-mono text-gray-300 text-[11px] truncate" title={`/urlaubsziele/${row.slug}/`}>
+                          <span className="text-gray-400">{row.name}</span>
+                          <p className="text-gray-600 text-[10px]">/urlaubsziele/{row.slug}/</p>
+                        </td>
+                        <td className="px-2 py-2"><ScoreBadge score={row.score} /></td>
+                        <td className="px-2 py-2 text-[11px] text-gray-400">
+                          {row.meta_title ? (
+                            <div title={row.meta_title}>
+                              <span className="line-clamp-2">{row.meta_title}</span>
+                              <span className={`text-[10px] font-mono ${titleOk ? "text-green-500" : "text-red-400"}`}>{titleLen}Z</span>
+                              {row.focus_keyword && <span className={`text-[10px] ml-1 ${titleHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
+                            </div>
+                          ) : <span className="text-gray-600">—</span>}
+                        </td>
+                        <td className="px-2 py-2 text-[11px] text-gray-400">
+                          {row.meta_description ? (
+                            <div title={row.meta_description}>
+                              <span className="line-clamp-2">{row.meta_description}</span>
+                              <span className={`text-[10px] font-mono ${descOk ? "text-green-500" : "text-red-400"}`}>{descLen}Z</span>
+                              {row.focus_keyword && <span className={`text-[10px] ml-1 ${descHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
+                            </div>
+                          ) : <span className="text-gray-600">—</span>}
+                        </td>
+                        <td className="px-2 py-2 text-[11px] text-gray-400 truncate" title={row.focus_keyword || ""}>{row.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                        <td className="px-2 py-2 text-[11px] text-gray-500 text-center">{kwCount > 0 ? kwCount : <span className="text-gray-600">—</span>}</td>
+                        <td className="px-2 py-2 text-xs font-mono">
+                          <span className={row.wordCount >= 3000 ? "text-green-400" : row.wordCount >= 1500 ? "text-yellow-400" : row.wordCount > 0 ? "text-orange-400" : "text-gray-600"}>
+                            {row.wordCount > 0 ? row.wordCount.toLocaleString("de-DE") : "—"}
+                          </span>
+                        </td>
+                        <td className="px-2 py-2">
+                          <Link href={`/admin/destinations/${row.slug}`}
+                            className="text-teal-400 hover:text-teal-300 text-[11px] font-semibold transition-colors whitespace-nowrap">
+                            Bearbeiten
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>

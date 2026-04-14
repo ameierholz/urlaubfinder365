@@ -156,41 +156,19 @@ export default async function SeoAdminPage() {
         </div>
       </div>
 
-      {/* Quick-Links zu SEO-Tools */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        <Link href="/admin/seo/dashboard/" className="flex items-center gap-2 bg-teal-900/40 border border-teal-700 hover:border-teal-500 rounded-xl px-4 py-3 text-sm text-teal-300 hover:text-white transition-colors font-semibold">
-          🎯 Command Center
-        </Link>
-        <Link href="/admin/seo/indexing/" className="flex items-center gap-2 bg-emerald-900/40 border border-emerald-700 hover:border-emerald-500 rounded-xl px-4 py-3 text-sm text-emerald-300 hover:text-white transition-colors font-semibold">
-          🚀 Google Indexing
-        </Link>
-        <Link href="/admin/seo/links/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-teal-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
-          🔗 Link-Audit
-        </Link>
-        <Link href="/admin/seo/konkurrenz/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-purple-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
-          🏆 Konkurrenz-Analyse
-        </Link>
-        <Link href="/admin/seo/performance/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-blue-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
-          📊 Performance
-        </Link>
-        <Link href="/admin/seo/outreach/" className="flex items-center gap-2 bg-gray-900 border border-gray-800 hover:border-orange-600 rounded-xl px-4 py-3 text-sm text-gray-300 hover:text-white transition-colors">
-          📧 Outreach
-        </Link>
-      </div>
-
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+        <table className="w-full text-[13px] table-fixed">
           <thead>
             <tr className="border-b border-gray-800">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pfad</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Meta Title</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Meta Description</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Weitere Keywords</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Wörter</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Update</th>
-              <th className="px-4 py-3"></th>
+              <th className="text-left px-3 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[160px]">Pfad</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[55px]">Score</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Title</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Description</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[110px]">Focus KW</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[50px]">KWs</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[50px]">Wörter</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[60px]">Update</th>
+              <th className="w-[70px] px-2 py-2.5"></th>
             </tr>
           </thead>
           <tbody>
@@ -199,54 +177,44 @@ export default async function SeoAdminPage() {
               const score = calcScore(row);
               const wc = wordCount(row);
               const updated = row?.updated_at ? new Date(row.updated_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" }) : null;
+              const titleLen = row?.meta_title?.length ?? 0;
+              const descLen = row?.meta_description?.length ?? 0;
+              const titleOk = titleLen >= 30 && titleLen <= 60;
+              const descOk = descLen >= 120 && descLen <= 160;
+              const titleHasKw = row?.focus_keyword && row?.meta_title?.toLowerCase().includes(row.focus_keyword.toLowerCase());
+              const descHasKw = row?.focus_keyword && row?.meta_description?.toLowerCase().includes(row.focus_keyword.toLowerCase());
               return (
                 <tr key={path} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
-                  <td className="px-4 py-2.5 font-mono text-gray-300 text-xs whitespace-nowrap">{path}</td>
-                  <td className="px-4 py-2.5"><ScoreBadge score={score} /></td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400">
+                  <td className="px-3 py-2 font-mono text-gray-300 text-[11px] truncate" title={path}>{path}</td>
+                  <td className="px-2 py-2"><ScoreBadge score={score} /></td>
+                  <td className="px-2 py-2 text-[11px] text-gray-400">
                     {row?.meta_title ? (
-                      <div>
-                        <span>{row.meta_title}</span>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className={`text-[10px] font-mono ${row.meta_title.length >= 30 && row.meta_title.length <= 60 ? "text-green-500" : "text-red-400"}`}>
-                            {row.meta_title.length} Z.
-                          </span>
-                          {row.focus_keyword && (
-                            row.meta_title.toLowerCase().includes(row.focus_keyword.toLowerCase())
-                              ? <span className="text-[10px] text-green-500">KW</span>
-                              : <span className="text-[10px] text-red-400">KW</span>
-                          )}
-                        </div>
+                      <div title={row.meta_title}>
+                        <span className="line-clamp-2">{row.meta_title}</span>
+                        <span className={`text-[10px] font-mono ${titleOk ? "text-green-500" : "text-red-400"}`}>{titleLen}Z</span>
+                        {row.focus_keyword && <span className={`text-[10px] ml-1 ${titleHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
                       </div>
                     ) : <span className="text-gray-600">—</span>}
                   </td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-xs">
+                  <td className="px-2 py-2 text-[11px] text-gray-400">
                     {row?.meta_description ? (
-                      <div>
-                        <span>{row.meta_description}</span>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className={`text-[10px] font-mono ${row.meta_description.length >= 120 && row.meta_description.length <= 160 ? "text-green-500" : "text-red-400"}`}>
-                            {row.meta_description.length} Z.
-                          </span>
-                          {row.focus_keyword && (
-                            row.meta_description.toLowerCase().includes(row.focus_keyword.toLowerCase())
-                              ? <span className="text-[10px] text-green-500">KW</span>
-                              : <span className="text-[10px] text-red-400">KW</span>
-                          )}
-                        </div>
+                      <div title={row.meta_description}>
+                        <span className="line-clamp-2">{row.meta_description}</span>
+                        <span className={`text-[10px] font-mono ${descOk ? "text-green-500" : "text-red-400"}`}>{descLen}Z</span>
+                        {row.focus_keyword && <span className={`text-[10px] ml-1 ${descHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
                       </div>
                     ) : <span className="text-gray-600">—</span>}
                   </td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500">{row?.additional_keywords?.join(", ") || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5"><WordBadge count={wc} /></td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500 whitespace-nowrap">{updated || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5">
-                    <Link
-                      href={`/admin/seo/${encodeURIComponent(path)}`}
-                      className="text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors whitespace-nowrap"
-                    >
-                      Bearbeiten →
+                  <td className="px-2 py-2 text-[11px] text-gray-400 truncate" title={row?.focus_keyword || ""}>{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-2 py-2 text-[11px] text-gray-500 text-center" title={row?.additional_keywords?.join(", ") || ""}>
+                    {row?.additional_keywords?.length ? <span className="text-gray-400">{row.additional_keywords.length}</span> : <span className="text-gray-600">—</span>}
+                  </td>
+                  <td className="px-2 py-2"><WordBadge count={wc} /></td>
+                  <td className="px-2 py-2 text-[11px] text-gray-500">{updated || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-2 py-2">
+                    <Link href={`/admin/seo/${encodeURIComponent(path)}`}
+                      className="text-teal-400 hover:text-teal-300 text-[11px] font-semibold transition-colors whitespace-nowrap">
+                      Bearbeiten
                     </Link>
                   </td>
                 </tr>

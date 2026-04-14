@@ -109,47 +109,73 @@ export default async function AdminMagazinPage() {
       </div>
 
       {/* Table (same pattern as SEO Pages/Destinations/Ratgeber) */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+        <table className="w-full text-[13px] table-fixed">
           <thead>
             <tr className="border-b border-gray-800">
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Artikel</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
-              <th className="px-4 py-3" />
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
+              <th className="text-left px-3 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[160px]">Pfad</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[55px]">Score</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Title</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Meta Description</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[110px]">Focus KW</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[50px]">KWs</th>
+              <th className="text-left px-2 py-2.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide w-[60px]">Update</th>
+              <th className="w-[70px] px-2 py-2.5"></th>
             </tr>
           </thead>
           <tbody>
             {list.map((a, i) => {
               const st = STATUS[a.status] ?? STATUS.entwurf;
+              const titleLen = a.meta_title?.length ?? 0;
+              const descLen = a.meta_description?.length ?? 0;
+              const titleOk = titleLen >= 30 && titleLen <= 60;
+              const descOk = descLen >= 120 && descLen <= 160;
+              const titleHasKw = a.focus_keyword && a.meta_title?.toLowerCase().includes(a.focus_keyword.toLowerCase());
+              const descHasKw = a.focus_keyword && a.meta_description?.toLowerCase().includes(a.focus_keyword.toLowerCase());
+              const kwCount = a.keywords ? a.keywords.split(",").length : 0;
+              const updated = new Date(a.updated_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" });
               return (
                 <tr key={a.id} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
-                  <td className="px-4 py-2.5">
-                    <p className="text-gray-300 text-xs font-medium truncate max-w-48">{a.title}</p>
+                  <td className="px-3 py-2 text-[11px]">
+                    <span className="text-gray-300 line-clamp-1">{a.title}</span>
                     <p className="text-gray-600 text-[10px] flex items-center gap-1.5">
-                      /magazin/{a.slug}/ · <span className={`inline-flex items-center px-1.5 py-0 rounded-full text-[9px] font-bold border ${st.cls}`}>{st.label}</span>
+                      /magazin/{a.slug}/ <span className={`inline-flex items-center px-1.5 py-0 rounded-full text-[9px] font-bold border ${st.cls}`}>{st.label}</span>
                     </p>
                   </td>
-                  <td className="px-4 py-2.5"><ScoreBadge score={scores[i]} /></td>
-                  <td className="px-4 py-2.5">
-                    <Link href={`/admin/magazin/${a.id}/`} className="text-teal-400 hover:text-teal-300 text-xs font-semibold transition-colors whitespace-nowrap">
-                      Bearbeiten →
+                  <td className="px-2 py-2"><ScoreBadge score={scores[i]} /></td>
+                  <td className="px-2 py-2 text-[11px] text-gray-400">
+                    {a.meta_title ? (
+                      <div title={a.meta_title}>
+                        <span className="line-clamp-2">{a.meta_title}</span>
+                        <span className={`text-[10px] font-mono ${titleOk ? "text-green-500" : "text-red-400"}`}>{titleLen}Z</span>
+                        {a.focus_keyword && <span className={`text-[10px] ml-1 ${titleHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
+                      </div>
+                    ) : <span className="text-gray-600">—</span>}
+                  </td>
+                  <td className="px-2 py-2 text-[11px] text-gray-400">
+                    {a.meta_description ? (
+                      <div title={a.meta_description}>
+                        <span className="line-clamp-2">{a.meta_description}</span>
+                        <span className={`text-[10px] font-mono ${descOk ? "text-green-500" : "text-red-400"}`}>{descLen}Z</span>
+                        {a.focus_keyword && <span className={`text-[10px] ml-1 ${descHasKw ? "text-green-500" : "text-red-400"}`}>KW</span>}
+                      </div>
+                    ) : <span className="text-gray-600">—</span>}
+                  </td>
+                  <td className="px-2 py-2 text-[11px] text-gray-400 truncate" title={a.focus_keyword || ""}>{a.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-2 py-2 text-[11px] text-gray-500 text-center">{kwCount > 0 ? kwCount : <span className="text-gray-600">—</span>}</td>
+                  <td className="px-2 py-2 text-[11px] text-gray-500">{updated}</td>
+                  <td className="px-2 py-2">
+                    <Link href={`/admin/magazin/${a.id}/`} className="text-teal-400 hover:text-teal-300 text-[11px] font-semibold transition-colors whitespace-nowrap">
+                      Bearbeiten
                     </Link>
                   </td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{a.meta_title || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{a.meta_description || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{a.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{a.keywords || <span className="text-gray-600">—</span>}</td>
                 </tr>
               );
             })}
             {list.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-6 py-10 text-center text-gray-500 text-sm">
-                  Noch keine Artikel vorhanden. Erstelle deinen ersten Artikel!
+                <td colSpan={8} className="px-6 py-10 text-center text-gray-500 text-sm">
+                  Noch keine Artikel vorhanden.
                 </td>
               </tr>
             )}
