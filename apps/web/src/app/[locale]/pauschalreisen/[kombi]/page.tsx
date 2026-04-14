@@ -22,9 +22,7 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
-  // per ISR (revalidate=3600) generiert und gecacht.
-  return PAUSCHAL_KOMBIS.map((k) => ({ locale: "de", kombi: k.slug }));
+  return PAUSCHAL_KOMBIS.map((k) => ({ kombi: k.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

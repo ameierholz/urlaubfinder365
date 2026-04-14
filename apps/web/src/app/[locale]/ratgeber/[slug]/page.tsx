@@ -16,9 +16,7 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
-  // per ISR (revalidate=3600) generiert und gecacht.
-  return RATGEBER_ARTICLES.map((a) => ({ locale: "de", slug: a.slug }));
+  return RATGEBER_ARTICLES.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
