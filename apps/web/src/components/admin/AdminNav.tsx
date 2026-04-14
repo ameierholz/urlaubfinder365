@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Users, PackageSearch, CalendarCheck, Banknote, LogOut,
   ShieldCheck, Megaphone, MapPin, Newspaper, Flame, Code,
-  FileText, Globe, ChevronDown, TrendingUp, Euro,
+  FileText, Globe, ChevronDown, TrendingUp, Euro, UserCog,
 } from "lucide-react";
 import { createSupabaseBrowser } from "@/lib/supabase-browser";
 import { useRouter } from "next/navigation";
@@ -102,7 +102,8 @@ export default function AdminNav({ userEmail }: { userEmail: string }) {
 
   const isMarktplatz   = ["/admin/anbieter", "/admin/buchungen", "/admin/auszahlungen", "/admin/angebote"].some(p => path.startsWith(p));
   const isVermarktung  = ["/admin/vermarktung", "/admin/werbung", "/admin/werbeplaetze", "/admin/sponsored-deals"].some(p => path.startsWith(p));
-  const isSeo          = ["/admin/seo", "/admin/destinations", "/admin/magazin"].some(p => path.startsWith(p));
+  const isSeo          = ["/admin/seo", "/admin/destinations", "/admin/magazin", "/admin/ratgeber"].some(p => path.startsWith(p));
+  const isBenutzer     = path.startsWith("/admin/benutzer");
 
   const handleLogout = async () => {
     await createSupabaseBrowser().auth.signOut();
