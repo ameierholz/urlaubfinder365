@@ -149,6 +149,14 @@ export default function AdminNav({ userEmail }: { userEmail: string }) {
           defaultOpen={isVermarktung}
         />
 
+        {/* Benutzer */}
+        <Link href="/admin/benutzer/"
+          className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+            isBenutzer ? "bg-violet-600 text-white" : "text-gray-400 hover:bg-gray-800 hover:text-white"
+          }`}>
+          <UserCog className="w-4 h-4 shrink-0" /> Benutzer
+        </Link>
+
         {/* SEO */}
         <NavGroup
           icon={Globe}
