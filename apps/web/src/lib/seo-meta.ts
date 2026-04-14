@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { unstable_cache } from "next/cache";
 
 export interface PageSeoMeta {
   meta_title: string | null;
@@ -16,12 +15,11 @@ export interface PageSeoMeta {
   seo_bottom: string | null;
 }
 
-async function _fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | null> {
+export async function fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | null> {
   try {
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      { global: { fetch: (url, init) => fetch(url, { ...init, signal: AbortSignal.timeout(5000) }) } }
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
     const { data } = await supabase
       .from("page_seo_meta")
@@ -33,9 +31,3 @@ async function _fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | null> 
     return null;
   }
 }
-
-export const fetchPageSeoMeta = unstable_cache(
-  _fetchPageSeoMeta,
-  ["page-seo-meta"],
-  { revalidate: 1800 }
-);
