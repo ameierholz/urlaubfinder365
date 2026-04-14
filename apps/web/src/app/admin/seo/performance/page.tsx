@@ -35,7 +35,7 @@ export default function SeoPerformancePage() {
   const [opportunities, setOpportunities] = useState<OpportunityData[]>([]);
 
   // Keyword-Positions-Verteilung laden (für Overview)
-  const [posDistribution, setPosDistribution] = useState<{ page1: number; page2: number; page3: number; rest: number } | null>(null);
+  const [posDistribution, setPosDistribution] = useState<{ page1: number; page2: number; page3: number; rest: number; kwPage1: string[]; kwPage2: string[]; kwPage3: string[]; kwRest: string[] } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -66,13 +66,14 @@ export default function SeoPerformancePage() {
             if (data.error) return;
             const kws: KeywordData[] = data.keywords ?? [];
             let page1 = 0, page2 = 0, page3 = 0, rest = 0;
+            const kwPage1: string[] = [], kwPage2: string[] = [], kwPage3: string[] = [], kwRest: string[] = [];
             for (const kw of kws) {
-              if (kw.position <= 10) page1++;
-              else if (kw.position <= 20) page2++;
-              else if (kw.position <= 30) page3++;
-              else rest++;
+              if (kw.position <= 10) { page1++; kwPage1.push(kw.keyword); }
+              else if (kw.position <= 20) { page2++; kwPage2.push(kw.keyword); }
+              else if (kw.position <= 30) { page3++; kwPage3.push(kw.keyword); }
+              else { rest++; kwRest.push(kw.keyword); }
             }
-            setPosDistribution({ page1, page2, page3, rest });
+            setPosDistribution({ page1, page2, page3, rest, kwPage1, kwPage2, kwPage3, kwRest });
           })
       );
     }
@@ -166,6 +167,18 @@ export default function SeoPerformancePage() {
         </div>
       )}
 
+      {/* No data hint */}
+      {!loading && !error && tab === "overview" && !overview && (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
+          <p className="text-gray-400 text-sm mb-2">Noch keine Search-Console-Daten vorhanden.</p>
+          <p className="text-gray-500 text-xs max-w-lg mx-auto">
+            Die Seite ist noch zu neu oder Google hat noch nicht genug Daten gesammelt.
+            Daten erscheinen in der Regel 2-3 Tage nach der Indexierung.
+            Prüfe, ob die Google Search Console API korrekt verbunden ist (GOOGLE_SERVICE_ACCOUNT_KEY in Vercel).
+          </p>
+        </div>
+      )}
+
       {/* Overview Tab */}
       {!loading && !error && tab === "overview" && overview && (
         <div>
@@ -245,10 +258,10 @@ export default function SeoPerformancePage() {
               <h3 className="text-sm font-bold text-gray-300 mb-4">Positions-Verteilung (Top 50 Keywords)</h3>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
-                  { label: "Seite 1 (1-10)", count: posDistribution.page1, color: "bg-green-500", textColor: "text-green-400" },
-                  { label: "Seite 2 (11-20)", count: posDistribution.page2, color: "bg-yellow-500", textColor: "text-yellow-400" },
-                  { label: "Seite 3 (21-30)", count: posDistribution.page3, color: "bg-orange-500", textColor: "text-orange-400" },
-                  { label: "Seite 4+ (31+)", count: posDistribution.rest, color: "bg-red-500", textColor: "text-red-400" },
+                  { label: "Seite 1 (1-10)", count: posDistribution.page1, color: "bg-green-500", textColor: "text-green-400", kws: posDistribution.kwPage1 },
+                  { label: "Seite 2 (11-20)", count: posDistribution.page2, color: "bg-yellow-500", textColor: "text-yellow-400", kws: posDistribution.kwPage2 },
+                  { label: "Seite 3 (21-30)", count: posDistribution.page3, color: "bg-orange-500", textColor: "text-orange-400", kws: posDistribution.kwPage3 },
+                  { label: "Seite 4+ (31+)", count: posDistribution.rest, color: "bg-red-500", textColor: "text-red-400", kws: posDistribution.kwRest },
                 ].map((bucket) => {
                   const total = posDistribution.page1 + posDistribution.page2 + posDistribution.page3 + posDistribution.rest;
                   const pct = total > 0 ? (bucket.count / total) * 100 : 0;
@@ -260,6 +273,18 @@ export default function SeoPerformancePage() {
                         <div className={`h-full ${bucket.color} rounded-full transition-all`} style={{ width: `${pct}%` }} />
                       </div>
                       <p className="text-[10px] text-gray-600 mt-1">{pct.toFixed(0)}% der Keywords</p>
+                      {bucket.kws.length > 0 && (
+                        <div className="mt-2 pt-2 border-t border-gray-700">
+                          <div className="flex flex-wrap gap-1">
+                            {bucket.kws.slice(0, 8).map((kw) => (
+                              <span key={kw} className="text-[10px] bg-gray-700 text-gray-300 px-1.5 py-0.5 rounded">{kw}</span>
+                            ))}
+                            {bucket.kws.length > 8 && (
+                              <span className="text-[10px] text-gray-500">+{bucket.kws.length - 8} mehr</span>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
