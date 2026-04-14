@@ -24,8 +24,8 @@ Antworte AUSSCHLIESSLICH mit folgendem JSON:
   "title": "Kurzer interner Titel (max 50 Zeichen)",
   "caption": "Fertiger Post-Text mit klarer Struktur:\\n\\nErste Zeile: Aufmerksamkeits-Hook (emotional, Frage oder Statement)\\n\\nZweite Zeile: Leerzeile\\n\\nDann: Kernbotschaft mit Emojis als Aufzaehlungszeichen, z.B.:\\n🏖️ Punkt 1\\n✈️ Punkt 2\\n💰 Punkt 3\\n\\nAbschluss: Call-to-Action mit 👉 oder Link in Bio\\n\\nWICHTIG: Verwende Emojis als visuelle Strukturelemente (🏖️ 💰 ✈️ ⭐ 🔥 👉 ☀️ 🌍 🤖 📊). Jeder Absatz durch Leerzeile getrennt. Keine Umlaute (ue/ae/oe/ss).",
   "hashtags": "8-12 relevante Hashtags mit # getrennt durch Leerzeichen",
-  "canva_template": "Welches Template: Deal Post / Karussell Slide / Reel Video / Facebook Link / Google Business",
-  "canva_hint": "Detaillierte Schritt-fuer-Schritt Anleitung fuer Canva:\\n1. Welches Format (1080x1080 oder 1080x1920 oder 1200x675)\\n2. Welchen Suchbegriff fuer Foto/Video eingeben\\n3. Welcher Text als Overlay\\n4. Welche Farben (#1db682 gruen oder #6991d8 blau)\\n5. Bei Video: Welche Szenen (je 3-5 Sek) und welche Musik suchen"
+  "canva_template": "Welches Template: Bild-Post (1080x1080) / Karussell (1080x1080, 4-5 Slides) / Infografik (1080x1080) / Google Business",
+  "canva_hint": "Detaillierte Schritt-fuer-Schritt Anleitung fuer Canva:\\n1. Welches Format (1080x1080 oder 1200x675)\\n2. Welchen Suchbegriff fuer Foto eingeben\\n3. Welcher Text als Overlay\\n4. Welche Farben (#1db682 gruen oder #6991d8 blau)\\n5. Bei Karussell: Was kommt auf welchen Slide"
 }
 
 WICHTIG:
@@ -33,8 +33,9 @@ WICHTIG:
 - Keine Umlaute (ue statt ue, ae statt ae, oe statt oe, ss statt ss)
 - Gut strukturiert mit Leerzeilen und Emojis
 - Call-to-Action am Ende
-- Bei TikTok: NUR Video-Content, Canva-Hint muss Video-Anleitung sein
-- Bei Instagram Reel: Video-Anleitung in Canva-Hint
+- KEINE Reels, KEINE Videos, KEINE TikTok — nur Grafiken, Bilder und Karussells
+- Bei Infografik: Canva-Hint muss Grafik-Layout beschreiben (Hintergrund, Text-Anordnung, Icons)
+- Bei Karussell: Canva-Hint muss pro Slide beschreiben was drauf kommt
 - Bei Google Business: formeller (Sie statt du), keine Hashtags, keine Emojis`;
 
   try {

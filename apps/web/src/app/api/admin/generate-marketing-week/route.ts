@@ -6,16 +6,16 @@ export const runtime = "nodejs";
 export const maxDuration = 300;
 
 const WEEK_TEMPLATE = [
-  { day: 0, platform: "instagram", post_type: "reel",      time: "18:00" },
-  { day: 0, platform: "tiktok",    post_type: "video",     time: "19:00" },
-  { day: 1, platform: "facebook",  post_type: "bild",      time: "12:00" },
+  { day: 0, platform: "instagram", post_type: "karussell", time: "18:00" },
+  { day: 0, platform: "facebook",  post_type: "bild",      time: "19:00" },
+  { day: 1, platform: "instagram", post_type: "grafik",    time: "18:00" },
   { day: 2, platform: "google",    post_type: "angebot",   time: null    },
   { day: 2, platform: "instagram", post_type: "karussell", time: "18:00" },
   { day: 3, platform: "facebook",  post_type: "text",      time: "12:00" },
-  { day: 4, platform: "instagram", post_type: "reel",      time: "18:00" },
-  { day: 4, platform: "tiktok",    post_type: "video",     time: "19:00" },
-  { day: 5, platform: "facebook",  post_type: "bild",      time: "12:00" },
-  { day: 6, platform: "instagram", post_type: "reel",      time: "19:00" },
+  { day: 4, platform: "instagram", post_type: "grafik",    time: "18:00" },
+  { day: 4, platform: "facebook",  post_type: "bild",      time: "19:00" },
+  { day: 5, platform: "instagram", post_type: "karussell", time: "18:00" },
+  { day: 6, platform: "instagram", post_type: "grafik",    time: "19:00" },
 ] as const;
 
 export async function POST(req: NextRequest) {
@@ -41,16 +41,16 @@ export async function POST(req: NextRequest) {
 Erstelle 10 Social-Media-Posts fuer eine Woche zum Thema: "${theme || "Aktuelle Reisedeals und Tipps"}"
 
 Die 10 Posts verteilen sich so:
-1. Montag: Instagram Reel (Video 15-20 Sek)
-2. Montag: TikTok Video (15-20 Sek)
-3. Dienstag: Facebook Bild-Post
+1. Montag: Instagram Karussell (4-5 Slides, Swipe-Story mit Mehrwert)
+2. Montag: Facebook Bild-Post (Deal/Angebot)
+3. Dienstag: Instagram Infografik (Tipps, Fakten oder Vergleich als Grafik)
 4. Mittwoch: Google Business Angebot
-5. Mittwoch: Instagram Karussell (4-5 Slides)
-6. Donnerstag: Facebook Engagement-Post
-7. Freitag: Instagram Reel (Video 15-20 Sek)
-8. Freitag: TikTok Video (15-20 Sek)
-9. Samstag: Facebook Bild-Post
-10. Sonntag: Instagram Reel (Video)
+5. Mittwoch: Instagram Karussell (4-5 Slides, Reisetipps oder Top-Liste)
+6. Donnerstag: Facebook Engagement-Post (Frage/Umfrage)
+7. Freitag: Instagram Infografik (Zitat, Statistik oder Checkliste)
+8. Freitag: Facebook Bild-Post (Inspiration)
+9. Samstag: Instagram Karussell (4-5 Slides, Reiseziel-Vorstellung)
+10. Sonntag: Instagram Infografik (Sonntagsinspiration, Bucket-List)
 
 Antworte AUSSCHLIESSLICH mit folgendem JSON-Array:
 [
@@ -68,8 +68,10 @@ WICHTIG:
 - Deutsch, locker, du/ihr (Google: Sie)
 - Keine Umlaute
 - Echte Preise: Tuerkei ab 399€, Mallorca ab 349€, Griechenland ab 389€, Aegypten ab 449€, Kreuzfahrt ab 599€
-- TikTok + Instagram Reels: Canva-Hint MUSS Video-Anleitung mit Szenen sein
+- Instagram Infografiken: Canva-Hint MUSS Schritt-fuer-Schritt Grafik-Anleitung sein (Format, Hintergrund, Text-Layout, Farben)
+- Instagram Karussell: Canva-Hint MUSS pro Slide beschreiben was drauf kommt (Slide 1: Hook, Slide 2-4: Inhalt, Slide 5: CTA)
 - Google Business: Formell, keine Emojis, keine Hashtags
+- KEINE Reels, KEINE TikTok, KEINE Videos — nur Grafiken, Bilder und Karussells
 - Jeder Post einzigartig, kein Copy-Paste`;
 
   try {
@@ -121,9 +123,9 @@ WICHTIG:
         caption: post.caption,
         hashtags: tmpl.platform === "google" ? null : post.hashtags,
         link: post.link || null,
-        canva_template: tmpl.post_type === "reel" || tmpl.post_type === "video" ? "Reel Video" :
-                        tmpl.post_type === "karussell" ? "Karussell Slide" :
-                        tmpl.platform === "google" ? "Google Business" : "Deal Post",
+        canva_template: tmpl.post_type === "karussell" ? "Karussell (1080x1080, 4-5 Slides)" :
+                        tmpl.post_type === "grafik" ? "Infografik (1080x1080)" :
+                        tmpl.platform === "google" ? "Google Business" : "Bild-Post (1080x1080)",
         canva_hint: post.canva_hint,
         post_time: tmpl.time,
         status: "geplant",

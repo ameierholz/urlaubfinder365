@@ -205,7 +205,7 @@ export default function MarketingCalendarPage() {
           <div className="mb-6 bg-purple-900/20 border border-purple-700 rounded-2xl p-5">
             <h3 className="text-sm font-bold text-purple-300 mb-3">Ganze Woche mit KI planen</h3>
             <p className="text-xs text-gray-400 mb-3">
-              Generiert 10 Posts (4x Instagram, 3x Facebook, 2x TikTok, 1x Google) fuer die angezeigte Woche.
+              Generiert 10 Posts (6x Instagram, 3x Facebook, 1x Google) fuer die angezeigte Woche.
             </p>
             <input
               type="text"
@@ -387,13 +387,14 @@ export default function MarketingCalendarPage() {
                   <div>
                     <p className="text-[10px] text-gray-500 mb-0.5">Typ</p>
                     <p className="text-sm text-white font-bold">
-                      {p.post_type === "reel" ? "📹 Instagram Reel (Video)" :
-                       p.post_type === "video" ? "🎬 TikTok Video" :
-                       p.post_type === "karussell" ? "📸 Karussell (4-5 Bilder)" :
+                      {p.post_type === "grafik" ? "📊 Infografik" :
+                       p.post_type === "karussell" ? "📸 Karussell (4-5 Slides)" :
                        p.post_type === "bild" ? "🖼️ Bild-Post" :
                        p.post_type === "angebot" ? "💼 Google Angebot" :
                        p.post_type === "neuigkeit" ? "📢 Google Neuigkeit" :
-                       p.post_type === "text" ? "💬 Text-Post (kein Bild)" :
+                       p.post_type === "text" ? "💬 Text-Post (Engagement)" :
+                       p.post_type === "reel" ? "📹 Reel (Video)" :
+                       p.post_type === "video" ? "🎬 Video" :
                        `📝 ${p.post_type}`}
                     </p>
                   </div>
@@ -404,11 +405,11 @@ export default function MarketingCalendarPage() {
                 </div>
 
                 <div className="border-t border-gray-700 pt-2 space-y-1.5">
-                  {(p.post_type === "reel" || p.post_type === "video") ? (
+                  {(p.post_type === "grafik") ? (
                     <>
                       <div className="flex items-start gap-2">
-                        <span className="text-amber-400 text-sm shrink-0">🎬</span>
-                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Im Video:</span> Kurze Text-Overlays (Headlines, Preise, Emojis). Max 5-8 Woerter pro Szene.</p>
+                        <span className="text-amber-400 text-sm shrink-0">📊</span>
+                        <p className="text-xs text-gray-300"><span className="text-white font-semibold">Grafik:</span> Infografik, Statistik, Checkliste oder Zitat-Kachel. Format 1080x1080.</p>
                       </div>
                       <div className="flex items-start gap-2">
                         <span className="text-amber-400 text-sm shrink-0">📝</span>
@@ -504,17 +505,16 @@ export default function MarketingCalendarPage() {
                 <p className="text-xs font-bold text-gray-400 uppercase tracking-wide">Schritt-fuer-Schritt Anleitung</p>
 
                 {/* Plattform-spezifischer Workflow */}
-                {(p.platform === "tiktok" || p.post_type === "reel") ? (
+                {p.post_type === "grafik" ? (
                   <div className="space-y-2">
-                    <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Video erstellen in Canva</p>
+                    <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Infografik erstellen in Canva</p>
                     <ol className="text-xs text-gray-300 space-y-1.5 list-none">
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">1.</span> Canva oeffnen → "Video erstellen" → Format <span className="text-white font-semibold">1080x1920</span></li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">2.</span> Links "Videos" klicken → Stock-Video suchen (siehe Bild-Tipp unten)</li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">3.</span> Video auf Seite ziehen (5-15 Sekunden pro Szene)</li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">4.</span> Text-Overlay: "Text" → Ueberschrift → Caption-Text von oben einfuegen</li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">5.</span> Text animieren: Text anklicken → "Animieren" → "Einblenden"</li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">6.</span> Musik: Links "Audio" → Suche "travel" oder "summer" → Track hinzufuegen</li>
-                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">7.</span> Exportieren als <span className="text-white font-semibold">MP4</span> → Auf {p.platform === "tiktok" ? "TikTok" : "Instagram"} hochladen</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">1.</span> Canva oeffnen → "Instagram-Beitrag" → <span className="text-white font-semibold">1080x1080</span></li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">2.</span> Hintergrund: <span className="text-white font-semibold">#1db682</span> (gruen) oder <span className="text-white font-semibold">#0f2027</span> (dunkel)</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">3.</span> Ueberschrift oben gross + weiss, darunter Punkte/Icons mit Fakten</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">4.</span> Optional: Kleines Reisefoto als Akzent (rund zugeschnitten)</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">5.</span> Logo "urlaubfinder365" unten + Website-URL</li>
+                      <li className="flex gap-2"><span className="text-purple-400 font-bold shrink-0">6.</span> Export als <span className="text-white font-semibold">PNG</span> → Auf Instagram posten</li>
                     </ol>
                   </div>
                 ) : p.post_type === "karussell" ? (
