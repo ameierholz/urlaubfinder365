@@ -71,8 +71,8 @@ WICHTIG: seo_bottom MUSS 800-1000 Wörter haben. Deutsch, natürlich, echte Tipp
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
-        max_tokens: 4000,
+        model: "claude-opus-4-6",
+        max_tokens: 8000,
         messages: [{ role: "user", content: prompt }],
       }),
     });

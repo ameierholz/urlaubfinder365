@@ -18,7 +18,7 @@ export default async function SeoEditPage({ params }: Props) {
   );
   const { data } = await supabase
     .from("page_seo_meta")
-    .select("meta_title, meta_description, focus_keyword, additional_keywords, og_title, og_description, og_image")
+    .select("meta_title, meta_description, focus_keyword, additional_keywords, og_title, og_description, og_image, seo_intro, seo_h2_middle, seo_middle, seo_h2_bottom, seo_bottom")
     .eq("page_path", pagePath)
     .maybeSingle();
 
