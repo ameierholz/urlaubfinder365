@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import RightSidebar from "@/components/layout/RightSidebar";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -266,6 +267,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       </aside>
       </div>{/* end xl:flex */}
       </div>{/* end max-w-7xl */}
+
+      <SeoTextBlocks pagePath="/urlaubsarten" />
     </>
   );
 }

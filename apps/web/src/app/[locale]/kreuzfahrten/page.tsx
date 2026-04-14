@@ -3,6 +3,7 @@ import KreuzfahrtenContent from "@/components/cruise/KreuzfahrtenContent";
 import RightSidebar from "@/components/layout/RightSidebar";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { fetchPageSeoMeta } from "@/lib/seo-meta";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 import JsonLd from "@/components/seo/JsonLd";
 export async function generateMetadata(): Promise<Metadata> {
@@ -53,29 +54,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     <>
       <JsonLd data={jsonLd} />
 
-      {/* SEO Intro */}
-      {seo?.seo_intro && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-          <p className="text-gray-600 text-base leading-relaxed max-w-3xl">
-            {seo.seo_intro}
-          </p>
-        </div>
-      )}
-
-      {/* SEO Middle */}
-      {seo?.seo_middle && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-          {seo.seo_h2_middle && (
-            <h2 className="text-2xl font-extrabold text-gray-900 mb-3">{seo.seo_h2_middle}</h2>
-          )}
-          <div className="text-gray-600 text-sm leading-relaxed max-w-3xl space-y-3">
-            {seo.seo_middle.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((block, i) => (
-              <p key={i}>{block}</p>
-            ))}
-          </div>
-        </div>
-      )}
-
       <KreuzfahrtenContent
         sidebar={
           <RightSidebar
@@ -100,21 +78,8 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         }
       />
 
-      {/* SEO Bottom */}
-      {seo?.seo_bottom && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-          <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl">
-            {seo.seo_h2_bottom && (
-              <h2 className="text-xl font-extrabold text-gray-900 mb-4">{seo.seo_h2_bottom}</h2>
-            )}
-            <div className="text-gray-600 text-sm leading-relaxed space-y-3">
-              {seo.seo_bottom.replace(/\\n\\n/g, "\n\n").replace(/\\n/g, "\n").split("\n\n").map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* SEO Textblöcke (nach Hauptcontent, volle Breite) */}
+      <SeoTextBlocks pagePath="/kreuzfahrten" />
     </>
   );
 }

@@ -11,6 +11,7 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -144,25 +145,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         />
       </div>
 
-      {/* SEO-Textblock */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Was ist All-Inclusive Urlaub?</h2>
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Bei einem All-Inclusive Urlaub sind Mahlzeiten (Frühstück, Mittag, Abendessen), Getränke
-          (alkoholfrei und oft auch alkoholisch), Snacks und viele Freizeitangebote im Zimmerpreis
-          enthalten. Keine unerwarteten Ausgaben vor Ort – du zahlst einmal und genießt unbegrenzt.
-        </p>
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
-          Besonders beliebt ist All-Inclusive in der Türkei (Antalya, Side, Bodrum), Griechenland
-          (Kreta, Rhodos) und Ägypten (Hurghada, Sharm el-Sheikh). Große Resorts bieten oft mehrere
-          Restaurants, Wasserparks, Animation und Abendshows.
-        </p>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          Wir zeigen dir täglich aktualisierte AI-Angebote mit mindestens 3 Sternen und ≥50%
-          HolidayCheck-Empfehlung – damit du sicher buchen kannst.
-        </p>
-      </div>
-
       {/* FAQ */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Häufige Fragen zu All-Inclusive</h2>
@@ -255,6 +237,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Top All-Inclusive-Urlaubsziele" accentColor="#1d4ed8" />
 
+    <SeoTextBlocks pagePath="/urlaubsarten/all-inclusive-urlaub" />
     </div>
   );
 }

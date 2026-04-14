@@ -8,6 +8,7 @@ import {
   CheckCircle2, Zap, BarChart3, Shield,
 } from "lucide-react";
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("werbepartnerPage");
