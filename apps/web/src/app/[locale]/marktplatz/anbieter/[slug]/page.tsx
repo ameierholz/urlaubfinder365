@@ -15,8 +15,9 @@ interface Props {
 }
 
 export async function generateStaticParams() {
+  // Nur DE statisch — Rest per ISR on-demand (revalidate=3600)
   const slugs = [...new Set(AKTIVITAETEN.map((a) => a.anbieter.slug))];
-  return slugs.map((slug) => ({ slug }));
+  return slugs.map((slug) => ({ locale: "de", slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -78,14 +78,9 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
-  // per ISR (revalidate=3600) generiert und gecacht.
-  // Das reduziert den Build von ~3.800 auf ~273 Destination-Seiten.
-  const richSlugs    = destinations.map((d) => ({ locale: "de", destination: d.slug }));
-  const catalogSlugs = CATALOG.map((e) => ({ locale: "de", destination: e.slug }));
-  const seen = new Set(richSlugs.map((s) => s.destination));
-  const uniqueCatalog = catalogSlugs.filter((s) => !seen.has(s.destination));
-  return [...richSlugs, ...uniqueCatalog];
+  // Nur die 38 Rich-Destinations für DE statisch generieren.
+  // Catalog-Destinations (~235) + alle anderen Locales per ISR on-demand.
+  return destinations.map((d) => ({ locale: "de", destination: d.slug }));
 }
 
 export const dynamicParams = true;
