@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
-import { Globe } from "lucide-react";
-import BulkSeoButton from "@/components/admin/bulk-seo-button";
+import { Globe, Info } from "lucide-react";
 
 import { PAUSCHAL_KOMBIS } from "@/lib/pauschalreisen-kombi-data";
 import { SEASON_GUIDES } from "@/lib/season-guide-data";
@@ -24,11 +23,9 @@ const STATIC_PATHS = [
   "/reisewarnungen", "/visum-checker", "/preisentwicklung",
   "/reiseversicherung", "/ki-reiseplaner", "/community", "/feed",
   "/urlaubsguides", "/magazin",
-  // Neue Hub-Seiten (eigene Routes)
   "/pauschalreisen", "/ratgeber", "/reiseziele",
 ];
 
-// Dynamische Routes der neuen Bereiche
 const PAUSCHAL_PATHS = PAUSCHAL_KOMBIS.map((k) => `/pauschalreisen/${k.slug}`);
 const RATGEBER_PATHS = RATGEBER_ARTICLES.map((a) => `/ratgeber/${a.slug}`);
 const SEASON_PATHS   = SEASON_GUIDES.map((g) => `/reiseziele/${g.slug}`);
@@ -46,32 +43,39 @@ interface SeoRow {
   meta_description: string | null;
   focus_keyword: string | null;
   additional_keywords: string[] | null;
+  seo_intro: string | null;
+  seo_middle: string | null;
+  seo_bottom: string | null;
+  updated_at: string | null;
 }
 
 function calcScore(row: SeoRow | undefined): number {
   if (!row) return 0;
   let score = 0;
-  // Meta Title (30 Punkte)
   if (row.meta_title) {
     score += 10;
     if (row.meta_title.length >= 30 && row.meta_title.length <= 60) score += 15;
     else if (row.meta_title.length > 0) score += 5;
     if (row.focus_keyword && row.meta_title.toLowerCase().includes(row.focus_keyword.toLowerCase())) score += 5;
   }
-  // Meta Description (30 Punkte)
   if (row.meta_description) {
     score += 10;
     if (row.meta_description.length >= 120 && row.meta_description.length <= 160) score += 15;
     else if (row.meta_description.length >= 80) score += 8;
     if (row.focus_keyword && row.meta_description.toLowerCase().includes(row.focus_keyword.toLowerCase())) score += 5;
   }
-  // Focus Keyword (20 Punkte)
   if (row.focus_keyword) score += 20;
-  // Weitere Keywords (20 Punkte)
   if (row.additional_keywords && row.additional_keywords.length > 0) {
     score += Math.min(20, row.additional_keywords.length * 5);
   }
   return Math.min(100, score);
+}
+
+function wordCount(row: SeoRow | undefined): number {
+  if (!row) return 0;
+  const text = [row.seo_intro, row.seo_middle, row.seo_bottom].filter(Boolean).join(" ");
+  if (!text.trim()) return 0;
+  return text.trim().split(/\s+/).length;
 }
 
 function ScoreBadge({ score }: { score: number }) {
@@ -86,6 +90,11 @@ function ScoreBadge({ score }: { score: number }) {
   );
 }
 
+function WordBadge({ count }: { count: number }) {
+  const color = count >= 3000 ? "text-green-400" : count >= 1500 ? "text-yellow-400" : count > 0 ? "text-orange-400" : "text-gray-600";
+  return <span className={`text-xs font-mono ${color}`}>{count > 0 ? count.toLocaleString("de-DE") : "—"}</span>;
+}
+
 export default async function SeoAdminPage() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -94,7 +103,7 @@ export default async function SeoAdminPage() {
 
   const { data: allMeta } = await supabase
     .from("page_seo_meta")
-    .select("page_path, meta_title, meta_description, focus_keyword, additional_keywords");
+    .select("page_path, meta_title, meta_description, focus_keyword, additional_keywords, seo_intro, seo_middle, seo_bottom, updated_at");
 
   const metaMap = new Map<string, SeoRow>(
     ((allMeta ?? []) as SeoRow[]).map((r) => [r.page_path, r])
@@ -129,13 +138,23 @@ export default async function SeoAdminPage() {
           <p className="text-2xl font-black text-gray-500">{KNOWN_PATHS.length - metaMap.size}</p>
           <p className="text-xs text-gray-500 mt-1">Ohne SEO-Daten</p>
         </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 group relative">
           <p className={`text-2xl font-black ${avgScore >= 70 ? "text-green-400" : avgScore >= 40 ? "text-yellow-400" : "text-red-400"}`}>{avgScore}%</p>
-          <p className="text-xs text-gray-500 mt-1">Ø SEO-Score</p>
+          <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+            Ø SEO-Score
+            <Info className="w-3 h-3 text-gray-600" />
+          </p>
+          <div className="absolute bottom-full left-0 mb-2 w-72 bg-gray-800 border border-gray-700 rounded-xl p-4 text-xs text-gray-300 hidden group-hover:block z-50 shadow-xl">
+            <p className="font-bold text-white mb-2">SEO-Score Berechnung:</p>
+            <ul className="space-y-1">
+              <li><span className="text-teal-400 font-mono">30P</span> — Meta Title (vorhanden, Länge 30-60, Keyword enthalten)</li>
+              <li><span className="text-teal-400 font-mono">30P</span> — Meta Description (vorhanden, Länge 120-160, Keyword)</li>
+              <li><span className="text-teal-400 font-mono">20P</span> — Focus Keyword gesetzt</li>
+              <li><span className="text-teal-400 font-mono">20P</span> — Weitere Keywords (5P pro Keyword, max 20)</li>
+            </ul>
+          </div>
         </div>
       </div>
-
-      <BulkSeoButton missingCount={KNOWN_PATHS.length - metaMap.size} />
 
       {/* Quick-Links zu SEO-Tools */}
       <div className="flex flex-wrap gap-3 mb-6">
@@ -165,21 +184,63 @@ export default async function SeoAdminPage() {
             <tr className="border-b border-gray-800">
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pfad</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Score</th>
-              <th className="px-4 py-3"></th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-48">Meta Title</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide max-w-56">Meta Description</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Meta Title</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Meta Description</th>
               <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Focus Keyword</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Keywords</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Weitere Keywords</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Wörter</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Update</th>
+              <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody>
             {KNOWN_PATHS.map((path) => {
               const row = metaMap.get(path);
               const score = calcScore(row);
+              const wc = wordCount(row);
+              const updated = row?.updated_at ? new Date(row.updated_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "2-digit" }) : null;
               return (
                 <tr key={path} className="border-b border-gray-800/60 hover:bg-gray-800/30 transition-colors">
                   <td className="px-4 py-2.5 font-mono text-gray-300 text-xs whitespace-nowrap">{path}</td>
                   <td className="px-4 py-2.5"><ScoreBadge score={score} /></td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400">
+                    {row?.meta_title ? (
+                      <div>
+                        <span>{row.meta_title}</span>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[10px] font-mono ${row.meta_title.length >= 30 && row.meta_title.length <= 60 ? "text-green-500" : "text-red-400"}`}>
+                            {row.meta_title.length} Z.
+                          </span>
+                          {row.focus_keyword && (
+                            row.meta_title.toLowerCase().includes(row.focus_keyword.toLowerCase())
+                              ? <span className="text-[10px] text-green-500">KW</span>
+                              : <span className="text-[10px] text-red-400">KW</span>
+                          )}
+                        </div>
+                      </div>
+                    ) : <span className="text-gray-600">—</span>}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-xs">
+                    {row?.meta_description ? (
+                      <div>
+                        <span>{row.meta_description}</span>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`text-[10px] font-mono ${row.meta_description.length >= 120 && row.meta_description.length <= 160 ? "text-green-500" : "text-red-400"}`}>
+                            {row.meta_description.length} Z.
+                          </span>
+                          {row.focus_keyword && (
+                            row.meta_description.toLowerCase().includes(row.focus_keyword.toLowerCase())
+                              ? <span className="text-[10px] text-green-500">KW</span>
+                              : <span className="text-[10px] text-red-400">KW</span>
+                          )}
+                        </div>
+                      </div>
+                    ) : <span className="text-gray-600">—</span>}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-4 py-2.5 text-xs text-gray-500">{row?.additional_keywords?.join(", ") || <span className="text-gray-600">—</span>}</td>
+                  <td className="px-4 py-2.5"><WordBadge count={wc} /></td>
+                  <td className="px-4 py-2.5 text-xs text-gray-500 whitespace-nowrap">{updated || <span className="text-gray-600">—</span>}</td>
                   <td className="px-4 py-2.5">
                     <Link
                       href={`/admin/seo/${encodeURIComponent(path)}`}
@@ -188,10 +249,6 @@ export default async function SeoAdminPage() {
                       Bearbeiten →
                     </Link>
                   </td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-48 truncate">{row?.meta_title || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 max-w-56 truncate">{row?.meta_description || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-400 whitespace-nowrap">{row?.focus_keyword || <span className="text-gray-600">—</span>}</td>
-                  <td className="px-4 py-2.5 text-xs text-gray-500 max-w-32 truncate">{row?.additional_keywords?.join(", ") || <span className="text-gray-600">—</span>}</td>
                 </tr>
               );
             })}
