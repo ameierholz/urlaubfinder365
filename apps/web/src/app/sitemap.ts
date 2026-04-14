@@ -97,9 +97,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const richSlugs = new Set(destinations.map((d) => d.slug));
   const catalogPages = CATALOG.filter(
-    (e) => !richSlugs.has(e.slug) && e.type === "super"
+    (e) => !richSlugs.has(e.slug)
   ).flatMap((e) =>
-    localizedEntries(`/urlaubsziele/${e.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: 0.8 })
+    localizedEntries(`/urlaubsziele/${e.slug}/`, { lastModified: content, changeFrequency: "weekly", priority: e.type === "super" ? 0.8 : 0.7 })
   );
 
   const guidePages = destinations

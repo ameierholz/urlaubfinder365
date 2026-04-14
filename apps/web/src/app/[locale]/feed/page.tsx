@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import FeedClient from "./FeedClient";
 import { setRequestLocale } from "next-intl/server";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 export const metadata: Metadata = {
   title: "📸 Urlaubs-Feed – Inspiration aus der Community",
@@ -21,6 +22,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
   return (
     <>
       <FeedClient />
+      <SeoTextBlocks pagePath="/feed" />
     </>
   );
 }

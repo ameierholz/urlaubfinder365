@@ -4,6 +4,7 @@ import ReisewarnungenClient from "@/components/reisewarnungen/ReisewarnungenClie
 import RightSidebar from "@/components/layout/RightSidebar";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 export const revalidate = 3600;
 
 const BASE_URL = "https://www.urlaubfinder365.de";

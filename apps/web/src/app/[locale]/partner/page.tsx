@@ -7,6 +7,7 @@ import {
   Languages, ArrowRight, Star, BadgeCheck, Euro,
 } from "lucide-react";
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("partnerHubPage");

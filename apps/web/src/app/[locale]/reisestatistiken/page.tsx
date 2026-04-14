@@ -6,6 +6,7 @@ import {
   BarChart3, Globe, Sun, Star, ArrowRight,
 } from "lucide-react";
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 
 export const metadata: Metadata = {
   title: "Reisestatistiken 2026 – Daten & Trends zum Reiseverhalten der Deutschen | Urlaubfinder365",

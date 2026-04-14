@@ -66,7 +66,7 @@ export async function middleware(request: NextRequest) {
   let response: NextResponse;
 
   // Strip potential locale prefix to check base path
-  const basePath = pathname.replace(/^\/(en|tr|es|fr|it|pl|ru|ar|zh)\//, "/");
+  const basePath = pathname.replace(/^\/(en|tr|es|fr|it|pl|ru|ar)\//, "/");
 
   if (NEEDS_AUTH.test(basePath)) {
     // Supabase-Session für geschützte Routen refreshen

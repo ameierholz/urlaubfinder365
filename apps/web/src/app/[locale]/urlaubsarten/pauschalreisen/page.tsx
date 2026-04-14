@@ -11,6 +11,7 @@ import Image from "next/image";
 import { setRequestLocale } from "next-intl/server";
 
 import JsonLd from "@/components/seo/JsonLd";
+import { SeoTextBlocks } from "@/components/seo/seo-text-blocks";
 const YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
@@ -285,6 +286,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
       {/* Beliebte Urlaubsziele */}
       <DestinationCarousel title="Beliebte Pauschalreise-Ziele" accentColor="#0284c7" />
 
+    <SeoTextBlocks pagePath="/urlaubsarten/pauschalreisen" />
     </div>
   );
 }
