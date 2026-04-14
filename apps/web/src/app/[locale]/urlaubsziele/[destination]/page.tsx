@@ -78,14 +78,15 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
-  // per ISR (revalidate=3600) generiert und gecacht.
-  // Das reduziert den Build von ~3.800 auf ~273 Destination-Seiten.
-  const richSlugs    = destinations.map((d) => ({ locale: "de", destination: d.slug }));
-  const catalogSlugs = CATALOG.map((e) => ({ locale: "de", destination: e.slug }));
-  const seen = new Set(richSlugs.map((s) => s.destination));
-  const uniqueCatalog = catalogSlugs.filter((s) => !seen.has(s.destination));
-  return [...richSlugs, ...uniqueCatalog];
+  // Nur Top-20 Destinations statisch generieren (Build-Timeout-Schutz).
+  // Alle anderen werden on-demand per ISR (revalidate=3600) generiert.
+  const TOP_SLUGS = [
+    "antalya", "mallorca", "kreta", "hurghada", "side", "alanya",
+    "fuerteventura", "teneriffa", "gran-canaria", "lanzarote",
+    "rhodos", "korfu", "kos", "bodrum", "ibiza", "menorca",
+    "sharm-el-sheikh", "marsa-alam", "dubai", "tuerkische-riviera",
+  ];
+  return TOP_SLUGS.map((slug) => ({ locale: "de", destination: slug }));
 }
 
 export const dynamicParams = true;

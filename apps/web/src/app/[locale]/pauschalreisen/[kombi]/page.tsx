@@ -22,7 +22,9 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return PAUSCHAL_KOMBIS.map((k) => ({ kombi: k.slug }));
+  // Nur Top-6 Kombis statisch, Rest on-demand (Build-Timeout-Schutz)
+  const TOP = ["tuerkei", "mallorca", "griechenland", "aegypten", "kanaren", "tuerkei-all-inclusive"];
+  return TOP.map((slug) => ({ kombi: slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
