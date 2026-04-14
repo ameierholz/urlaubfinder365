@@ -19,7 +19,9 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return SEASON_GUIDES.map((g) => ({ month: g.slug }));
+  // Nur Deutsch statisch generieren — alle anderen Locales werden on-demand
+  // per ISR (revalidate=3600) generiert und gecacht.
+  return SEASON_GUIDES.map((g) => ({ locale: "de", month: g.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

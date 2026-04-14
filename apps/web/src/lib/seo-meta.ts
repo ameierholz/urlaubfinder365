@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 export interface PageSeoMeta {
@@ -15,7 +16,7 @@ export interface PageSeoMeta {
   seo_bottom: string | null;
 }
 
-export async function fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | null> {
+export const fetchPageSeoMeta = cache(async function fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | null> {
   try {
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,4 +31,4 @@ export async function fetchPageSeoMeta(pagePath: string): Promise<PageSeoMeta | 
   } catch {
     return null;
   }
-}
+});
