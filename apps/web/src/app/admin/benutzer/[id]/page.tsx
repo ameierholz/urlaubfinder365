@@ -86,7 +86,7 @@ export default function AdminBenutzerDetailPage() {
     await sb.from("users").update({
       role: selectedRole,
       notes: adminNotes || null,
-    }).eq("id", userId);
+    } as never).eq("id", userId);
     setSaving(false);
     if (user) setUser({ ...user, role: selectedRole, notes: adminNotes });
   };
