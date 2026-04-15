@@ -15,7 +15,7 @@ import JsonLd from "@/components/seo/JsonLd";
 const LifestyleSection = dynamic(() => import("@/components/home/LifestyleSection"));
 const FruehbucherCards = dynamic(() => import("@/components/home/FruehbucherCards"));
 const NewsletterSignup = dynamic(() => import("@/components/ui/NewsletterSignup"));
-const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"), { ssr: false });
+const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"));
 const FeaturedAngebotsCarousel = dynamic(() => import("@/components/home/FeaturedAngebotsCarousel"));
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
