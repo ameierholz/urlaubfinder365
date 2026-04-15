@@ -13,13 +13,18 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   if (!user) redirect("/auth/login?redirect=/admin/dashboard/");
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("users")
     .select("role")
     .eq("id", user.id)
-    .single() as { data: { role: string } | null; error: unknown };
+    .single() as { data: { role: string } | null; error: { message: string } | null };
+
+  if (profileError) {
+    console.error("[admin/layout] Role-Query fehlgeschlagen:", profileError.message, "User:", user.id);
+  }
 
   if (!profile || !["admin", "moderator", "support"].includes(profile.role)) {
+    console.error("[admin/layout] Zugriff verweigert — role:", profile?.role ?? "NULL", "User:", user.id, user.email);
     redirect("/");
   }
 
