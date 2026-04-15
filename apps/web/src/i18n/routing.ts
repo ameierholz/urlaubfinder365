@@ -8,6 +8,8 @@ export const routing = defineRouting({
   defaultLocale: "de",
   // DE hat kein Präfix → bestehende URLs bleiben erhalten
   localePrefix: "as-needed",
+  // Kein NEXT_LOCALE Cookie → erlaubt Vercel Edge-Caching (ISR)
+  localeDetection: false,
 });
 
 export const localeNames: Record<Locale, string> = {
