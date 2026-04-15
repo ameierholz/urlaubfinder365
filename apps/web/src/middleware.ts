@@ -75,10 +75,10 @@ export async function middleware(request: NextRequest) {
     response = NextResponse.next({ request, headers: i18nResponse.headers });
   }
 
-  // CSP nur für HTML-Seiten setzen (nicht für statische Assets / API)
-  if (!SKIP_CSP.test(pathname)) {
-    const isEmbed = pathname.startsWith("/embed/");
-    response.headers.set("Content-Security-Policy", buildCsp(isEmbed));
+  // CSP wird jetzt über next.config.ts headers() gesetzt (statisch, erlaubt Edge-Caching).
+  // Nur Embed-Seiten brauchen eine abweichende CSP (frame-ancestors *).
+  if (pathname.startsWith("/embed/")) {
+    response.headers.set("Content-Security-Policy", buildCsp(true));
   }
 
   return response;
