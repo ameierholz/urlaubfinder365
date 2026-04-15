@@ -16,7 +16,7 @@ const LifestyleSection = dynamic(() => import("@/components/home/LifestyleSectio
 const FruehbucherCards = dynamic(() => import("@/components/home/FruehbucherCards"));
 const NewsletterSignup = dynamic(() => import("@/components/ui/NewsletterSignup"));
 const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"));
-const FeaturedAngebotsCarousel = dynamic(() => import("@/components/home/FeaturedAngebotsCarousel"));
+
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -183,15 +183,7 @@ const REISEZIELE_MITTEL_S = [
   { name: "Ägypten",     sub: "Hurghada · Marsa Alam",            slug: "aegypten",          flag: "eg", img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=70&auto=format" },
 ];
 
-// Tier 3 – #5–10: Kleinere Kacheln (6 Spalten) – Preis wird dynamisch ergänzt
-const REISEZIELE_KLEIN_S = [
-  { name: "Kroatien", sub: "Dubrovnik · Split · Istrien",    slug: "kroatien",       flag: "hr", img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=800&q=70&auto=format", fallback: "ab 379 €" },
-  { name: "Italien",  sub: "Sizilien · Sardinien · Amalfi",  slug: "italien",        flag: "it", img: "https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=800&q=70&auto=format", fallback: "ab 429 €" },
-  { name: "Portugal", sub: "Algarve · Madeira · Lissabon",   slug: "portugal",       flag: "pt", img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=70&auto=format", fallback: "ab 399 €" },
-  { name: "Dubai",    sub: "Emirate · Wüste · Skyline",      slug: "dubai",          flag: "ae", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=70&auto=format", fallback: "ab 699 €" },
-  { name: "Malediven",sub: "Nord-Malé · Ari-Atoll",          slug: "indischer-ozean",flag: "mv", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=70&auto=format", fallback: "ab 1.299 €" },
-  { name: "Thailand", sub: "Phuket · Koh Samui · Bangkok",   slug: "thailand",       flag: "th", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=70&auto=format", fallback: "ab 899 €" },
-];
+
 
 
 const GUIDES = [
@@ -270,14 +262,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     { ...REISEZIELE_MITTEL_S[0], priceFrom: "ab 349 €" },
     { ...REISEZIELE_MITTEL_S[1], priceFrom: "ab 389 €" },
     { ...REISEZIELE_MITTEL_S[2], priceFrom: "ab 449 €" },
-  ];
-  const destKlein  = [
-    { ...REISEZIELE_KLEIN_S[0], priceFrom: REISEZIELE_KLEIN_S[0].fallback },
-    { ...REISEZIELE_KLEIN_S[1], priceFrom: REISEZIELE_KLEIN_S[1].fallback },
-    { ...REISEZIELE_KLEIN_S[2], priceFrom: REISEZIELE_KLEIN_S[2].fallback },
-    { ...REISEZIELE_KLEIN_S[3], priceFrom: REISEZIELE_KLEIN_S[3].fallback },
-    { ...REISEZIELE_KLEIN_S[4], priceFrom: REISEZIELE_KLEIN_S[4].fallback },
-    { ...REISEZIELE_KLEIN_S[5], priceFrom: REISEZIELE_KLEIN_S[5].fallback },
   ];
 
   // ─── Strukturierte Daten (JSON-LD) – 4 Schemas für maximale Google/Bing/KI-Sichtbarkeit ───
@@ -529,13 +513,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   ["tn", t("countryTunesien")],
                 ].map(([code, name]) => (
                   <div key={code} className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/15 rounded-full px-3 py-1.5 transition-colors">
-                    <img
-                      src={`https://flagcdn.com/20x15/${code}.png`}
-                      alt={name}
-                      width={20}
-                      height={15}
-                      className="rounded-sm"
-                    />
                     <span className="text-xs font-medium text-white/85">{name}</span>
                   </div>
                 ))}
@@ -585,7 +562,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <img src={`https://flagcdn.com/20x15/${d.flag}.png`} alt="" width={20} height={15} className="rounded-sm" />
                       <span className="text-white font-black text-lg">{d.name}</span>
                     </div>
                     <span className="text-sand-300 text-sm font-bold">{d.price} p.P.</span>
@@ -779,7 +755,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div className="absolute top-5 right-5 flex flex-col items-end gap-1.5">
               <span className="bg-sand-500 text-white text-xs font-black px-3 py-1 rounded-lg shadow-lg">{destHero.priceFrom}</span>
               <div className="flex items-center gap-1.5 bg-black/55 backdrop-blur-sm rounded-lg px-2.5 py-1">
-                <img src={`https://flagcdn.com/16x12/${destHero.flag}.png`} alt={destHero.name} className="rounded-sm" width={16} height={12} />
                 <span className="text-white text-xs font-bold">{destHero.name}</span>
               </div>
               <span className="text-white/60 text-[10px] font-black uppercase tracking-widest">#1</span>
@@ -804,9 +779,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <div className="absolute top-3 left-3 bg-black/55 backdrop-blur-sm text-white text-[10px] font-black px-2 py-0.5 rounded-full">#{i + 2}</div>
                 <div className="absolute top-3 right-3 bg-sand-500 text-white text-xs font-black px-2.5 py-1 rounded-lg shadow-md">{r.priceFrom}</div>
                 <div className="absolute bottom-0 p-4">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <img src={`https://flagcdn.com/16x12/${r.flag}.png`} alt={r.name} className="rounded-sm" width={16} height={12} />
-                  </div>
                   <h3 className="font-black text-xl text-white leading-tight" style={{ textShadow: "0 1px 6px rgba(0,0,0,.9)" }}>{r.name}</h3>
                   <p className="text-white/70 text-xs mt-0.5 truncate" style={{ textShadow: "0 1px 3px rgba(0,0,0,.8)" }}>{r.sub}</p>
                 </div>
@@ -814,28 +786,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             ))}
           </div>
 
-          {/* ── TIER 3: #5–10 – Kleinere Kacheln (6 Spalten) ── */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {destKlein.map((r, i) => (
-              <Link key={r.slug} href={`/urlaubsziele/${r.slug}/`}
-                className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                style={{ height: "clamp(140px, 13vw, 170px)" }}
-              >
-                <Image src={r.img} alt={`${r.name} Urlaub günstig buchen`} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:640px)50vw,(max-width:1024px)33vw,17vw" />
-                {/* Stärkerer Gradient für kleine Kacheln */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/40 to-black/5" />
-                <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-sm text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">#{i + 5}</div>
-                <div className="absolute top-2 right-2 bg-sand-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow-md">{r.priceFrom}</div>
-                <div className="absolute bottom-0 p-2.5">
-                  <div className="flex items-center gap-1 mb-0.5">
-                    <img src={`https://flagcdn.com/16x12/${r.flag}.png`} alt={r.name} className="rounded-sm" width={14} height={10} />
-                  </div>
-                  <h3 className="font-black text-sm text-white leading-tight truncate" style={{ textShadow: "0 1px 4px rgba(0,0,0,1)" }}>{r.name}</h3>
-                  <p className="text-white/75 text-[10px] mt-0.5 truncate" style={{ textShadow: "0 1px 3px rgba(0,0,0,.9)" }}>{r.sub}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
 
         </div>
       </section>
@@ -902,8 +852,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                 <ul className="space-y-0.5 mb-4">
                   {links.map((l) => (
                     <li key={l.slug}>
-                      <Link href={`/urlaubsziele/${l.slug}/`} className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#1db682] transition-colors py-0.5">
-                        <img src={`https://flagcdn.com/16x12/${l.flag}.png`} alt="" width={16} height={12} className="rounded-sm" />
+                      <Link href={`/urlaubsziele/${l.slug}/`} className="text-sm text-gray-600 hover:text-[#1db682] transition-colors py-0.5">
                         {l.name}
                       </Link>
                     </li>
@@ -916,73 +865,6 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <Link href="/urlaubsziele/" className="inline-flex items-center gap-2 text-sm font-semibold text-[#1db682] hover:text-[#18a070] transition-colors">
               Zu allen Urlaubsregionen <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          4b · AKTIVITÄTEN MARKTPLATZ BANNER
-      ══════════════════════════════════════════════════════════ */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 items-stretch min-h-[340px]">
-
-            {/* LEFT – Erlebnisse/Tiqets Teaser (3/5) */}
-            <div className="lg:col-span-3 relative rounded-3xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=600&h=400&q=50"
-                alt="Erlebnisse & Touren weltweit buchen"
-                fill
-                sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(0,131,143,0.90) 0%, rgba(0,79,90,0.85) 60%, rgba(29,182,130,0.80) 100%)" }} />
-
-              <div className="relative px-8 py-9 flex flex-col h-full">
-                <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1 mb-4 w-fit">
-                  <span className="text-xs font-bold text-white uppercase tracking-widest">Erlebnisse & Touren</span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-3">
-                  Unvergessliche Erlebnisse<br />an deinem Urlaubsziel
-                </h2>
-                <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6 max-w-md">
-                  Tickets für Sehenswürdigkeiten, Touren und Aktivitäten in über 40 Städten weltweit. Sofort buchbar, gratis stornierbar.
-                </p>
-
-                <div className="flex flex-wrap gap-3 mt-auto">
-                  <Link
-                    href="/erlebnisse/"
-                    className="inline-flex items-center gap-2 bg-white text-[#00838F] font-black px-6 py-3 rounded-2xl hover:bg-sand-50 transition-all shadow-lg hover:-translate-y-0.5 duration-200 text-sm"
-                  >
-                    Erlebnisse entdecken <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="/aktivitaeten/"
-                    className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-bold px-6 py-3 rounded-2xl hover:bg-white/25 transition-all hover:-translate-y-0.5 duration-200 text-sm"
-                  >
-                    Lokale Anbieter
-                  </Link>
-                </div>
-
-                <div className="flex gap-6 mt-6 pt-5 border-t border-white/20">
-                  {[
-                    ["40+", "Städte"],
-                    ["1000+", "Aktivitäten"],
-                    ["Gratis", "Stornierung"],
-                  ].map(([val, label]) => (
-                    <div key={label} className="text-center">
-                      <div className="text-xl font-black text-white">{val}</div>
-                      <div className="text-xs text-white/70">{label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT – Anbieter-Carousel (2/5) */}
-            <FeaturedAngebotsCarousel />
-
           </div>
         </div>
       </section>
@@ -1106,9 +988,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   sizes="(max-width:640px)50vw,(max-width:1024px)33vw,20vw"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
-                {/* Flagge oben links */}
-                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
-                  <img src={`https://flagcdn.com/16x12/${g.flag}.png`} alt={g.country} className="rounded-sm" width={16} height={12} />
+                <div className="absolute top-2.5 left-2.5 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
                   <span className="text-white text-[10px] font-bold">{g.country}</span>
                 </div>
                 {/* Text unten */}
