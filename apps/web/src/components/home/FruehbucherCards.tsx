@@ -155,8 +155,7 @@ function FruehbucherCard({
           />
         </button>
         {/* Destination */}
-        <div className="absolute bottom-2 left-3 flex items-center gap-1.5">
-          <img src={`https://flagcdn.com/16x12/${flag}.png`} alt={dest} className="rounded-sm" width={16} height={12} />
+        <div className="absolute bottom-2 left-3">
           <span className="text-white text-xs font-bold uppercase tracking-wide">{dest}</span>
         </div>
       </div>
@@ -232,10 +231,7 @@ export default function FruehbucherCards({ deals }: Props) {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="relative h-full min-h-[200px] flex flex-col justify-end p-4 text-white">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <img src={`https://flagcdn.com/16x12/${fb.flag}.png`} alt={fb.dest} className="rounded-sm" width={16} height={12} />
-                    <span className="text-xs text-sand-300 font-bold uppercase tracking-wide">{t("badge")}</span>
-                  </div>
+                  <span className="text-xs text-sand-300 font-bold uppercase tracking-wide mb-1">{t("badge")}</span>
                   <p className="font-black text-lg leading-tight">{fb.dest}</p>
                   <span className="mt-2 inline-block text-xs bg-sand-500 text-white font-bold px-3 py-1 rounded-full w-fit group-hover:bg-sand-400 transition-colors">
                     {t("checkOffer")}
