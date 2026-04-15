@@ -75,20 +75,6 @@ export async function middleware(request: NextRequest) {
     response = NextResponse.next({ request, headers: i18nResponse.headers });
   }
 
-  // NEXT_LOCALE Cookie entfernen — Set-Cookie verhindert Vercel Edge-Caching
-  // (Vercel setzt Cache-Control: private bei jeder Response mit Set-Cookie)
-  // Nur für öffentliche (nicht-auth) Routen, damit Supabase-Cookies erhalten bleiben
-  if (!NEEDS_AUTH.test(basePath)) {
-    const setCookies = response.headers.getSetCookie?.() ?? [];
-    response.headers.delete("set-cookie");
-    // Alle Cookies außer NEXT_LOCALE zurücksetzen
-    for (const cookie of setCookies) {
-      if (!cookie.startsWith("NEXT_LOCALE=")) {
-        response.headers.append("set-cookie", cookie);
-      }
-    }
-  }
-
   // CSP wird jetzt über next.config.ts headers() gesetzt (statisch, erlaubt Edge-Caching).
   // Nur Embed-Seiten brauchen eine abweichende CSP (frame-ancestors *).
   if (pathname.startsWith("/embed/")) {

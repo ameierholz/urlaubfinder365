@@ -11,14 +11,12 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import SponsoredDealBanner from "@/components/home/SponsoredDealBanner";
 import JsonLd from "@/components/seo/JsonLd";
 
-// Below-Fold: Lazy-Load — weniger eager Requests = schnellerer LCP
+// Below-Fold: Lazy-Load
 const LifestyleSection = dynamic(() => import("@/components/home/LifestyleSection"));
 const FruehbucherCards = dynamic(() => import("@/components/home/FruehbucherCards"));
 const NewsletterSignup = dynamic(() => import("@/components/ui/NewsletterSignup"));
 const TrustpilotWidget = dynamic(() => import("@/components/ui/TrustpilotWidget"));
-const RegionenLinks = dynamic(() => import("@/components/home/RegionenLinks"));
-const AktivitaetenBanner = dynamic(() => import("@/components/home/AktivitaetenBanner"));
-const GuidesSection = dynamic(() => import("@/components/home/GuidesSection"));
+const FeaturedAngebotsCarousel = dynamic(() => import("@/components/home/FeaturedAngebotsCarousel"));
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 const YEAR = new Date().getFullYear();
@@ -196,6 +194,48 @@ const REISEZIELE_KLEIN_S = [
 ];
 
 
+const GUIDES = [
+  {
+    slug: "reisefuehrer-antalya",
+    dest: "Antalya",
+    country: "Türkei",
+    flag: "tr",
+    img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=70&auto=format",
+    teaser: "Strände, Ruinen & Top-Hotels an der türkischen Riviera",
+  },
+  {
+    slug: "reisefuehrer-mallorca",
+    dest: "Mallorca",
+    country: "Spanien",
+    flag: "es",
+    img: "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=70&auto=format",
+    teaser: "Traumstrände, Serra de Tramuntana & Palmas Altstadt",
+  },
+  {
+    slug: "reisefuehrer-kreta",
+    dest: "Kreta",
+    country: "Griechenland",
+    flag: "gr",
+    img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=70&auto=format",
+    teaser: "Samaria-Schlucht, Knossos & griechische Gastfreundschaft",
+  },
+  {
+    slug: "reisefuehrer-hurghada",
+    dest: "Hurghada",
+    country: "Ägypten",
+    flag: "eg",
+    img: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=800&q=70&auto=format",
+    teaser: "Rotes Meer, Tauchen & Wüstenabenteuer in Ägypten",
+  },
+  {
+    slug: "reisefuehrer-barcelona",
+    dest: "Barcelona",
+    country: "Spanien",
+    flag: "es",
+    img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=70&auto=format",
+    teaser: "Gaudí, Tapas, Strände & katalanisches Nachtleben",
+  },
+];
 
 const SEO_LINK_HREFS = [
   { key: "seoLinkTuerkei",       href: "/urlaubsziele/tuerkei/" },
@@ -718,7 +758,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             className="group relative block rounded-3xl overflow-hidden mb-3 shadow-2xl"
             style={{ height: "clamp(260px, 38vw, 420px)" }}
           >
-            <Image src={destHero.img} alt={`${destHero.name} Urlaub günstig buchen`} fill loading="lazy" className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="100vw" />
+            <Image src={destHero.img} alt={`${destHero.name} Urlaub günstig buchen`} fill priority loading="eager" className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="100vw" />
             {/* Links-oben → rechts-unten: kräftiger Schatten */}
             <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/40 to-black/10" />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
@@ -800,11 +840,152 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* 4a · REGIONEN-LINKS (Lazy – 36 Flaggen-Bilder eingespart) */}
-      <RegionenLinks />
+      {/* ══════════════════════════════════════════════════════════
+          4a · REGIONEN-LINKS (Hub-and-Spoke SEO)
+      ══════════════════════════════════════════════════════════ */}
+      <section className="bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-xl font-black text-gray-900 mb-6">{t("regionTitle")}</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-1">
+            {[
+              { region: t("regionMittelmeer"), links: [
+                { flag: "tr", name: "Tuerkei", slug: "tuerkei" },
+                { flag: "gr", name: "Griechenland", slug: "griechenland" },
+                { flag: "es", name: "Spanien", slug: "spanien" },
+                { flag: "it", name: "Italien", slug: "italien" },
+                { flag: "hr", name: "Kroatien", slug: "kroatien" },
+                { flag: "cy", name: "Zypern", slug: "zypern" },
+              ]},
+              { region: t("regionAtlantik"), links: [
+                { flag: "pt", name: "Portugal", slug: "portugal" },
+                { flag: "es", name: "Fuerteventura", slug: "fuerteventura" },
+                { flag: "es", name: "Teneriffa", slug: "teneriffa" },
+                { flag: "es", name: "Gran Canaria", slug: "gran-canaria" },
+                { flag: "es", name: "Lanzarote", slug: "lanzarote" },
+                { flag: "es", name: "Mallorca", slug: "mallorca" },
+              ]},
+              { region: t("regionEuropa"), links: [
+                { flag: "de", name: "Deutschland", slug: "deutschland-nord" },
+                { flag: "at", name: "Oesterreich", slug: "oesterreich" },
+                { flag: "fr", name: "Frankreich", slug: "cote-dazur" },
+                { flag: "gb", name: "London", slug: "london" },
+                { flag: "bg", name: "Bulgarien", slug: "bulgarien" },
+                { flag: "mt", name: "Malta", slug: "malta" },
+              ]},
+              { region: t("regionAfrika"), links: [
+                { flag: "eg", name: "Aegypten", slug: "aegypten" },
+                { flag: "eg", name: "Hurghada", slug: "hurghada" },
+                { flag: "ma", name: "Marokko", slug: "marokko" },
+                { flag: "tn", name: "Tunesien", slug: "tunesien" },
+                { flag: "cv", name: "Kap Verde", slug: "kapverden" },
+                { flag: "za", name: "Suedafrika", slug: "afrika-sued" },
+              ]},
+              { region: t("regionAsien"), links: [
+                { flag: "ae", name: "Dubai", slug: "dubai" },
+                { flag: "th", name: "Thailand", slug: "thailand" },
+                { flag: "id", name: "Bali", slug: "bali" },
+                { flag: "mv", name: "Malediven", slug: "malediven" },
+                { flag: "lk", name: "Sri Lanka", slug: "sri-lanka" },
+                { flag: "om", name: "Oman", slug: "oman" },
+              ]},
+              { region: t("regionAmerika"), links: [
+                { flag: "us", name: "USA", slug: "usa-ostkueste" },
+                { flag: "mx", name: "Mexiko", slug: "mexiko" },
+                { flag: "do", name: "Dom. Republik", slug: "dominikanische-republik" },
+                { flag: "cu", name: "Kuba", slug: "kuba" },
+                { flag: "jm", name: "Jamaika", slug: "jamaika" },
+                { flag: "br", name: "Brasilien", slug: "brasilien" },
+              ]},
+            ].map(({ region, links }) => (
+              <div key={region}>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-100 pb-1">{region}</p>
+                <ul className="space-y-0.5 mb-4">
+                  {links.map((l) => (
+                    <li key={l.slug}>
+                      <Link href={`/urlaubsziele/${l.slug}/`} className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#1db682] transition-colors py-0.5">
+                        <img src={`https://flagcdn.com/16x12/${l.flag}.png`} alt="" width={16} height={12} className="rounded-sm" />
+                        {l.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Link href="/urlaubsziele/" className="inline-flex items-center gap-2 text-sm font-semibold text-[#1db682] hover:text-[#18a070] transition-colors">
+              Zu allen Urlaubsregionen <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      {/* 4b · AKTIVITÄTEN MARKTPLATZ (Lazy – großes Bild + Carousel eingespart) */}
-      <AktivitaetenBanner />
+      {/* ══════════════════════════════════════════════════════════
+          4b · AKTIVITÄTEN MARKTPLATZ BANNER
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-10 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 items-stretch min-h-[340px]">
+
+            {/* LEFT – Erlebnisse/Tiqets Teaser (3/5) */}
+            <div className="lg:col-span-3 relative rounded-3xl overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=600&h=400&q=50"
+                alt="Erlebnisse & Touren weltweit buchen"
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(0,131,143,0.90) 0%, rgba(0,79,90,0.85) 60%, rgba(29,182,130,0.80) 100%)" }} />
+
+              <div className="relative px-8 py-9 flex flex-col h-full">
+                <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full px-4 py-1 mb-4 w-fit">
+                  <span className="text-xs font-bold text-white uppercase tracking-widest">Erlebnisse & Touren</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight mb-3">
+                  Unvergessliche Erlebnisse<br />an deinem Urlaubsziel
+                </h2>
+                <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-6 max-w-md">
+                  Tickets für Sehenswürdigkeiten, Touren und Aktivitäten in über 40 Städten weltweit. Sofort buchbar, gratis stornierbar.
+                </p>
+
+                <div className="flex flex-wrap gap-3 mt-auto">
+                  <Link
+                    href="/erlebnisse/"
+                    className="inline-flex items-center gap-2 bg-white text-[#00838F] font-black px-6 py-3 rounded-2xl hover:bg-sand-50 transition-all shadow-lg hover:-translate-y-0.5 duration-200 text-sm"
+                  >
+                    Erlebnisse entdecken <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/aktivitaeten/"
+                    className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white font-bold px-6 py-3 rounded-2xl hover:bg-white/25 transition-all hover:-translate-y-0.5 duration-200 text-sm"
+                  >
+                    Lokale Anbieter
+                  </Link>
+                </div>
+
+                <div className="flex gap-6 mt-6 pt-5 border-t border-white/20">
+                  {[
+                    ["40+", "Städte"],
+                    ["1000+", "Aktivitäten"],
+                    ["Gratis", "Stornierung"],
+                  ].map(([val, label]) => (
+                    <div key={label} className="text-center">
+                      <div className="text-xl font-black text-white">{val}</div>
+                      <div className="text-xs text-white/70">{label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT – Anbieter-Carousel (2/5) */}
+            <FeaturedAngebotsCarousel />
+
+          </div>
+        </div>
+      </section>
 
       {/* ── Wave: White Section 4 → Deep-Violet Section 5 ── */}
       <div className="relative h-14 overflow-hidden bg-white">
@@ -881,8 +1062,75 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
         </div>
       </section>
 
-      {/* 6 · URLAUBSGUIDES (Lazy – 5 Bilder + 5 Flaggen eingespart) */}
-      <GuidesSection />
+      {/* ══════════════════════════════════════════════════════════
+          6 · URLAUBSGUIDES – Kompaktes Karussell
+      ══════════════════════════════════════════════════════════ */}
+      <section className="bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-14">
+
+          {/* Header-Zeile */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1">
+                <div className="h-8 w-1.5 rounded-full bg-sand-500" />
+                <div className="h-8 w-1.5 rounded-full bg-sky-500" />
+                <div className="h-8 w-1.5 rounded-full bg-violet-500" />
+              </div>
+              <div>
+                <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">{t("guidesEyebrow")}</span>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">{t("guidesTitle")}</h2>
+              </div>
+            </div>
+            <Link
+              href="/urlaubsguides/"
+              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-sand-500 text-white font-black px-5 py-2.5 rounded-2xl transition-all duration-200 text-sm shrink-0"
+            >
+              {t("guidesAllCta")} <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Guide-Kacheln als Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {GUIDES.map((g) => (
+              <Link
+                key={g.slug}
+                href={`/urlaubsguides/${g.slug}/`}
+                className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                style={{ height: "clamp(180px, 22vw, 220px)" }}
+              >
+                <Image
+                  src={g.img}
+                  alt={`Urlaubsguide ${g.dest}`}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width:640px)50vw,(max-width:1024px)33vw,20vw"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
+                {/* Flagge oben links */}
+                <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
+                  <img src={`https://flagcdn.com/16x12/${g.flag}.png`} alt={g.country} className="rounded-sm" width={16} height={12} />
+                  <span className="text-white text-[10px] font-bold">{g.country}</span>
+                </div>
+                {/* Text unten */}
+                <div className="absolute bottom-0 p-3">
+                  <h3 className="font-black text-lg text-white leading-tight" style={{ textShadow: "0 1px 6px rgba(0,0,0,.9)" }}>
+                    {g.dest}
+                  </h3>
+                  <p className="text-white/70 text-[11px] mt-0.5 line-clamp-2 leading-snug" style={{ textShadow: "0 1px 3px rgba(0,0,0,.8)" }}>
+                    {g.teaser}
+                  </p>
+                  <span className="mt-1.5 text-sand-400 font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">
+                    {t("guidesReadCta")} <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* Community Banner, Extras, Magazin, Discovery Hub entfernt — Mobile Performance */}
 
       {/* ══════════════════════════════════════════════════════════
           7 · SEO-TEXTBLOCK (für Google sichtbarer Inhalt)
