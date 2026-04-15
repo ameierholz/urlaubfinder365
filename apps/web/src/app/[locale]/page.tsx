@@ -758,7 +758,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             className="group relative block rounded-3xl overflow-hidden mb-3 shadow-2xl"
             style={{ height: "clamp(260px, 38vw, 420px)" }}
           >
-            <Image src={destHero.img} alt={`${destHero.name} Urlaub günstig buchen`} fill priority loading="eager" className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="100vw" />
+            <Image src={destHero.img} alt={`${destHero.name} Urlaub günstig buchen`} fill loading="lazy" className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="100vw" />
             {/* Links-oben → rechts-unten: kräftiger Schatten */}
             <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/40 to-black/10" />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
