@@ -23,6 +23,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://media.traffics-switch.de" />
         <link rel="dns-prefetch" href="https://api.specials.de" />
+        {/* Hero-Bild vorladen — LCP-Element auf Mobile */}
+        <link rel="preload" as="image" href="/images/hero-mobile.webp" media="(max-width: 768px)" />
       </head>
       <body
         className={`${inter.variable} ${annie.variable} antialiased text-gray-900`}
