@@ -10,19 +10,7 @@ html { scroll-behavior: smooth; }
 
 @theme inline {
   /* Markenfarben */
-  --color-brand-sand:       #EECEA1;
-  --color-brand-sand-70:    rgba(238, 206, 161, 0.44);  /* #EECEA170 */
   --color-brand-teal:       #6CC4BA;
-  --color-brand-teal-78:    rgba(108, 196, 186, 0.47);  /* #6CC4BA78 */
-  --color-brand-sand-50:    #fdf8ee;
-  --color-brand-sand-100:   #f8edcc;
-  --color-brand-sand-200:   #f0d5a0;
-  --color-brand-sand-300:   #e4bc74;
-  --color-brand-sand-400:   #d4a050;
-  --color-brand-sand-500:   #c49038;
-  --color-brand-sand-600:   #a87828;
-  --color-brand-sand-700:   #8a6020;
-  --color-brand-sand-900:   #4a3410;
 
   --color-sand-50:    #fdf8ee;
   --color-sand-100:   #f8edcc;
@@ -33,7 +21,6 @@ html { scroll-behavior: smooth; }
   --color-sand-600:   #a87828;
   --color-sand-700:   #8a6020;
   --color-sand-900:   #4a3410;
-  --color-brand-blue:       #2563eb;
 
   /* Custom Fonts */
   --font-heading: var(--font-annie);
@@ -56,13 +43,6 @@ h1, h2, h3, h4 {
   font-family: var(--font-annie), cursive;
 }
 
-/* Utility-Klassen für Markenfarben */
-.bg-brand-sand     { background-color: #EECEA1; }
-.bg-brand-sand-70  { background-color: rgba(238, 206, 161, 0.44); }
-.bg-brand-teal     { background-color: #6CC4BA; }
-.bg-brand-teal-78  { background-color: rgba(108, 196, 186, 0.47); }
-.text-brand-teal   { color: #6CC4BA; }
-.text-brand-sand   { color: #EECEA1; }
 
 /* Widget-interne Überschriften ausblenden (eigene H2-Sections werden verwendet) */
 .ibe-engine-instance .ibe-heading,
