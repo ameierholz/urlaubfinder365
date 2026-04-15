@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
 
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 import BuchungsTicket, { type TicketDaten } from "@/components/buchung/BuchungsTicket";
@@ -49,13 +48,11 @@ export default async function TicketPage({ params, searchParams }: Props) {
   const ticket = data as unknown as TicketDaten;
 
   const shouldPrint = print === "1";
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
     <>
       {shouldPrint && (
         <script
-          nonce={nonce}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: "window.addEventListener('load',function(){setTimeout(function(){window.print()},600)});" }}
         />

@@ -27,10 +27,13 @@ const SKIP_CSP = /^\/(api|_next\/static|_next\/image|favicon|apple-icon|icon|rob
  *  isEmbed=true → frame-ancestors *  (erlaubt Einbetten in beliebige fremde Seiten;
  *    nach CSP-L2 wird X-Frame-Options dann ignoriert).
  */
-function buildCsp(nonce: string, isEmbed = false): string {
+function buildCsp(isEmbed = false): string {
+  // Kein Per-Request-Nonce: unsafe-inline ist aktiv, Nonce bringt keinen
+  // Sicherheitsgewinn und verhindert Edge-Caching (TTFB 400ms → 20ms).
+  // Wenn unsafe-inline entfernt wird, Nonce hier wieder einbauen.
   return [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://*.specials.de https://api.specials.de https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
+    `script-src 'self' 'unsafe-inline' https://*.adup-tech.com https://vercel.live https://*.vercel.app https://va.vercel-scripts.com https://*.ypsilon.net https://*.specials.de https://api.specials.de https://widget.trustpilot.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.googletagservices.com https://cdn.googlesyndication.com https://fundingchoicesmessages.google.com`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://unpkg.com",
     "font-src 'self' https://fonts.gstatic.com https://ka-f.fontawesome.com https://cdnjs.cloudflare.com https://assets.specials.de data:",
     "img-src 'self' data: blob: https://images.unsplash.com https://*.specials.de https://media.traffics-switch.de https://flagcdn.com https://*.tiqets.com https://aws-tiqets-cdn.imgix.net https://*.supabase.co https://*.googleusercontent.com https://*.googleapis.com https://i.pravatar.cc https://*.ypsilon.net https://pics.avs.io https://*.trustpilot.com https://pagead2.googlesyndication.com https://tpc.googlesyndication.com https://*.openstreetmap.org https://unpkg.com",
@@ -56,13 +59,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // ── 2. Nonce generieren (per Request, kryptografisch sicher) ─────────────────
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
-
-  // ── 3. i18n routing für alle öffentlichen Routen ────────────────────────────
+  // ── 2. i18n routing für alle öffentlichen Routen ─────────────────────────────
   const i18nResponse = handleI18n(request);
 
-  // ── 4. Response mit Nonce + CSP vorbereiten ──────────────────────────────────
+  // ── 3. Response mit CSP vorbereiten ──────────────────────────────────────────
   let response: NextResponse;
 
   // Strip potential locale prefix to check base path
@@ -75,14 +75,10 @@ export async function middleware(request: NextRequest) {
     response = NextResponse.next({ request, headers: i18nResponse.headers });
   }
 
-  // Nonce als Request-Header setzen → Next.js nutzt ihn für eigene Inline-Scripts
-  // und layout.tsx liest ihn für JSON-LD <script>-Tags
-  response.headers.set("x-nonce", nonce);
-
   // CSP nur für HTML-Seiten setzen (nicht für statische Assets / API)
   if (!SKIP_CSP.test(pathname)) {
     const isEmbed = pathname.startsWith("/embed/");
-    response.headers.set("Content-Security-Policy", buildCsp(nonce, isEmbed));
+    response.headers.set("Content-Security-Policy", buildCsp(isEmbed));
   }
 
   return response;

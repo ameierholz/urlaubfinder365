@@ -1,27 +1,19 @@
-import { headers } from "next/headers";
-
 interface Props {
   /** Schema.org Objekt – wird zu JSON serialisiert */
   data: unknown;
 }
 
 /**
- * Server-Component für JSON-LD-Scripts mit CSP-Nonce.
- * Liest das `x-nonce` Header aus middleware.ts und setzt es als
- * `nonce` Attribut auf dem <script>-Tag, sodass strikte CSP
- * (ohne `unsafe-inline`) das Script erlaubt.
+ * Server-Component für JSON-LD-Scripts.
+ * unsafe-inline in CSP erlaubt Inline-Scripts.
  *
  * Nutzung:
  *   <JsonLd data={breadcrumbSchema} />
  */
-export default async function JsonLd({ data }: Props) {
-  const h = await headers();
-  const nonce = h.get("x-nonce") ?? undefined;
-
+export default function JsonLd({ data }: Props) {
   return (
     <script
       type="application/ld+json"
-      nonce={nonce}
       suppressHydrationWarning
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
