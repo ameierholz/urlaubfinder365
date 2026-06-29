@@ -16,7 +16,7 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
     <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 className="text-3xl font-black text-gray-900 mb-2">Datenschutzerklärung</h1>
       <p className="text-sm text-gray-500 mb-10">
-        Zuletzt aktualisiert: April 2026 (Marktplatz & Buchungsdaten ergänzt) · Gemäß DSGVO, BDSG und TTDSG
+        Zuletzt aktualisiert: Juni 2026 (Google Analytics 4 ergänzt) · Gemäß DSGVO, BDSG und TTDSG
       </p>
 
       <div className="space-y-10 text-gray-700 text-sm leading-relaxed">
@@ -172,19 +172,35 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
                   <td className="px-3 py-2">Bis zur manuellen Löschung</td>
                   <td className="px-3 py-2">Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</td>
                 </tr>
+                <tr>
+                  <td className="px-3 py-2 font-mono">_ga</td>
+                  <td className="px-3 py-2">Cookie (Google)</td>
+                  <td className="px-3 py-2">Google Analytics: Unterscheidung von Besuchern. Nur nach Einwilligung „Statistik & Analyse".</td>
+                  <td className="px-3 py-2">2 Jahre</td>
+                  <td className="px-3 py-2">Art. 6 Abs. 1 lit. a DSGVO, § 25 TTDSG</td>
+                </tr>
+                <tr className="bg-gray-50/50">
+                  <td className="px-3 py-2 font-mono">_ga_&lt;ID&gt;</td>
+                  <td className="px-3 py-2">Cookie (Google)</td>
+                  <td className="px-3 py-2">Google Analytics 4: Sitzungsstatus. Nur nach Einwilligung „Statistik & Analyse".</td>
+                  <td className="px-3 py-2">2 Jahre</td>
+                  <td className="px-3 py-2">Art. 6 Abs. 1 lit. a DSGVO, § 25 TTDSG</td>
+                </tr>
               </tbody>
             </table>
           </div>
           <p className="mb-2 font-semibold text-gray-800">Cookie-Kategorien:</p>
           <ul className="list-disc list-inside space-y-1 mb-3">
             <li><strong>Notwendig</strong> – technisch erforderlich für den Betrieb (immer aktiv, keine Einwilligung nötig)</li>
-            <li><strong>Statistik</strong> – anonymisierte Nutzungsanalyse via Vercel Analytics (kein Cookie, kein personenbezogenes Tracking; Art. 6 Abs. 1 lit. f DSGVO). Nur bei Einwilligung aktiv.</li>
+            <li><strong>Statistik & Analyse</strong> – Reichweiten- und Nutzungsmessung via Vercel Analytics sowie Google Analytics 4. Vercel Analytics arbeitet cookielos und ohne personenbezogenes Tracking; Google Analytics 4 setzt Cookies und überträgt Daten (gekürzte IP) an Google, auch in die USA. Wird ausschließlich nach deiner Einwilligung geladen (Art. 6 Abs. 1 lit. a DSGVO, § 25 TTDSG). Siehe Abschnitt 3.</li>
             <li><strong>Marketing</strong> – Werbe-Cookies von Google AdSense zur Anzeige personalisierter Werbung. Wird nur mit ausdrücklicher Einwilligung aktiviert.</li>
           </ul>
           <p>
-            Du kannst deine Einwilligung jederzeit widerrufen, indem du die Seite neu lädst und im erneut erscheinenden
-            Cookie-Banner „Nur notwendige" wählst, oder indem du den localStorage-Eintrag <code className="bg-gray-100 px-1 rounded text-xs">uf365-consent</code>{" "}
-            über die Browser-Entwicklertools (F12 → Anwendung → Lokaler Speicher) löschst.
+            Du kannst deine Einwilligung jederzeit widerrufen oder ändern, indem du den Link{" "}
+            <strong>„Cookie-Einstellungen"</strong> in der Fußzeile jeder Seite anklickst und dort deine Auswahl
+            anpasst (z.&thinsp;B. „Nur notwendige" wählst). Alternativ kannst du den localStorage-Eintrag{" "}
+            <code className="bg-gray-100 px-1 rounded text-xs">uf365-consent</code>{" "}
+            über die Browser-Entwicklertools (F12 → Anwendung → Lokaler Speicher) löschen.
           </p>
         </section>
 
@@ -209,6 +225,41 @@ export default async function ({ params }: { params: Promise<{ locale: string }>
             <div>
               <span className="font-semibold text-gray-800">Vercel Analytics & Speed Insights</span>
               <p>Anonymisierte Performance-Daten; kein personenbezogenes Tracking. Anbieter: Vercel Inc., San Francisco, USA.</p>
+            </div>
+            <div>
+              <span className="font-semibold text-gray-800">Google Analytics 4 (Reichweitenmessung)</span>
+              <p className="mb-2">
+                Wir nutzen <strong>Google Analytics 4</strong>, einen Webanalysedienst der
+                Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland
+                (Muttergesellschaft: Google LLC, USA). Google Analytics verwendet Cookies bzw.
+                vergleichbare Technologien, um die Nutzung unserer Website auszuwerten und uns
+                statistische Berichte zur Verfügung zu stellen (z.&thinsp;B. besuchte Seiten,
+                Verweildauer, ungefähre Herkunft, verwendetes Gerät).
+              </p>
+              <p className="mb-2">
+                <strong>Verarbeitete Daten:</strong> gekürzte IP-Adresse (IP-Anonymisierung aktiviert),
+                Cookie-Kennungen, Geräte- und Browser-Informationen, Seitenaufrufe und Interaktionen.
+                Wir haben die IP-Anonymisierung aktiviert, sodass deine IP-Adresse vor der weiteren
+                Verarbeitung gekürzt wird. Dabei werden Daten an Google übertragen, auch in die USA.
+              </p>
+              <p className="mb-2">
+                <strong>Rechtsgrundlage:</strong> Einwilligung gem. Art. 6 Abs. 1 lit. a DSGVO und
+                § 25 Abs. 1 TTDSG über unser Cookie-Banner (Kategorie „Statistik & Analyse").
+                Ohne deine Einwilligung wird Google Analytics nicht geladen. Du kannst die
+                Einwilligung jederzeit über den Link „Cookie-Einstellungen" in der Fußzeile widerrufen.
+                Die Übertragung in die USA erfolgt auf Basis der EU-Standardvertragsklauseln sowie
+                des EU-US Data Privacy Framework.
+              </p>
+              <p>
+                Weitere Informationen:{" "}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  policies.google.com/privacy
+                </a>{" "}
+                ·{" "}
+                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-sand-500 hover:underline">
+                  Browser-Add-on zur Deaktivierung
+                </a>.
+              </p>
             </div>
             <div>
               <span className="font-semibold text-gray-800">Supabase (Authentifizierung & Datenbank)</span>

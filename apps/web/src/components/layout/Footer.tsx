@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Sun, Mail } from "lucide-react";
 import { destinations } from "@/lib/destinations";
 import TrustpilotWidget from "@/components/ui/TrustpilotWidget";
+import CookieSettingsLink from "@/components/ui/CookieSettingsLink";
 
 export default async function Footer() {
   const tFooter = await getTranslations("footer");
@@ -119,6 +120,7 @@ export default async function Footer() {
             <div className="mt-6 space-y-1 text-xs text-gray-500">
               <Link href="/impressum/"   className="block hover:text-gray-300">{tFooter("imprint")}</Link>
               <Link href="/datenschutz/" className="block hover:text-gray-300">{tFooter("privacy")}</Link>
+              <CookieSettingsLink label={tFooter("cookies")} />
               <Link href="/agb/"         className="block hover:text-gray-300">{tFooter("agb")}</Link>
               <Link href="/ueber-uns/"   className="block hover:text-gray-300">{tFooter("about")}</Link>
               <Link href="/presse/"      className="block hover:text-gray-300">{tFooter("press")}</Link>

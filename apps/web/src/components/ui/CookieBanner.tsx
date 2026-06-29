@@ -13,6 +13,17 @@ interface CookieConsent {
 
 const STORAGE_KEY = "uf365-consent";
 const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+const OPEN_SETTINGS_EVENT = "uf365:open-consent";
+
+/**
+ * Öffnet die Cookie-Einstellungen erneut (z.B. aus dem Footer).
+ * Ermöglicht den jederzeitigen Widerruf der Einwilligung (Art. 7 III DSGVO).
+ */
+export function openCookieSettings() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(OPEN_SETTINGS_EVENT));
+  }
+}
 
 export default function CookieBanner() {
   const [status, setStatus] = useState<"loading" | "show" | "hidden">("loading");
@@ -21,21 +32,40 @@ export default function CookieBanner() {
   const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
+    let hasValidConsent = false;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored) as CookieConsent;
+        // Gespeicherte Auswahl in die Toggles übernehmen (für erneutes Öffnen)
+        setAnalytics(parsed.analytics);
+        setMarketing(parsed.marketing);
         if (Date.now() - parsed.timestamp < ONE_YEAR_MS) {
+          hasValidConsent = true;
           setStatus("hidden");
-          return;
         }
       }
     } catch {
       /* ignore */
     }
-    // Kleine Verzögerung damit der Banner nicht sofort aufpoppt
-    const t = setTimeout(() => setStatus("show"), 800);
-    return () => clearTimeout(t);
+
+    // Erlaubt das erneute Öffnen der Einstellungen (z.B. via Footer-Link),
+    // damit der Nutzer seine Einwilligung jederzeit widerrufen/ändern kann (Art. 7 III DSGVO).
+    const reopen = () => {
+      setStatus("show");
+      setShowSettings(true);
+    };
+    window.addEventListener(OPEN_SETTINGS_EVENT, reopen);
+
+    let t: ReturnType<typeof setTimeout> | undefined;
+    if (!hasValidConsent) {
+      // Kleine Verzögerung damit der Banner nicht sofort aufpoppt
+      t = setTimeout(() => setStatus("show"), 800);
+    }
+    return () => {
+      window.removeEventListener(OPEN_SETTINGS_EVENT, reopen);
+      if (t) clearTimeout(t);
+    };
   }, []);
 
   const save = (a: boolean, m: boolean) => {
@@ -110,7 +140,10 @@ export default function CookieBanner() {
               <div className="flex-1 min-w-0">
                 <p className="font-bold text-gray-900 text-sm">Statistik & Analyse</p>
                 <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">
-                  Helfen uns zu verstehen, wie Besucher die Website nutzen (z.&thinsp;B. Vercel Analytics). Alle Daten sind anonymisiert und werden nicht an Dritte weitergegeben.
+                  Helfen uns zu verstehen, wie Besucher die Website nutzen (z.&thinsp;B. Vercel Analytics und Google Analytics). Die IP-Adresse wird gekürzt; dabei werden Daten an Google (USA) übertragen. Details in der{" "}
+                  <Link href="/datenschutz/" className="text-[#00838F] hover:underline font-medium">
+                    Datenschutzerklärung
+                  </Link>.
                 </p>
               </div>
             </div>

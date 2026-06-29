@@ -20,11 +20,27 @@ export default function ConsentScripts() {
 
   return (
     <>
-      {/* Vercel Analytics + Speed Insights – nur bei Analytics-Consent */}
+      {/* Vercel Analytics + Speed Insights + Google Analytics 4 – nur bei Analytics-Consent */}
       {consent?.analytics && (
         <>
           <Analytics />
           <SpeedInsights />
+
+          {/* Google Analytics 4 (gtag.js) – lädt erst nach Analytics-Consent.
+              anonymize_ip für DSGVO-konforme IP-Kürzung. */}
+          <Script
+            id="ga4-src"
+            src="https://www.googletagmanager.com/gtag/js?id=G-M6MG5M1X31"
+            strategy="afterInteractive"
+          />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-M6MG5M1X31', { anonymize_ip: true });
+            `}
+          </Script>
         </>
       )}
 
